@@ -2,14 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>app-project</artifactId>
-		<groupId>org.visitor.app</groupId>
+		<artifactId>visitor-site</artifactId>
+		<groupId>org.visitor.site</groupId>
 		<version>5.0.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>app-admin</artifactId>
 	<packaging>war</packaging>
-	<name>NHorizon App Portal Admin Webapp</name>
-	<url>http://www.oupeng.com</url>
+	<name>Visitor Site App Portal Admin Webapp</name>
+	<url>http://maven.apache.org</url>
 	
 	<properties>
 		<application.port>9005</application.port>
