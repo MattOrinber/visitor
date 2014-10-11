@@ -6,7 +6,7 @@
 		<groupId>org.visitor.site</groupId>
 		<version>5.0.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>game-search</artifactId>
+	<artifactId>visitor-search</artifactId>
 	<packaging>war</packaging>
 	<name>Visitor Site App Portal Search Webapp</name>
 	<url>http://maven.apache.org</url>
@@ -85,7 +85,7 @@
                 <artifactId>maven-jetty-plugin</artifactId>
                 <version>6.1.21</version>
                 <configuration>
-                    <contextPath>/game-search</contextPath>
+                    <contextPath>/visitor-search</contextPath>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <webDefaultXml>webdefault.xml</webDefaultXml>
                     <reload>manual</reload>
@@ -149,6 +149,6 @@
                 </includes>
             </testResource>
         </testResources>
-		<finalName>game-search</finalName>
+		<finalName>visitor-search</finalName>
 	</build>
 </project>

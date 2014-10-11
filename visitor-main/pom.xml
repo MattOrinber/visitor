@@ -6,7 +6,7 @@
 		<groupId>org.visitor.site</groupId>
 		<version>5.0.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>app-admin</artifactId>
+	<artifactId>visitor-main</artifactId>
 	<packaging>war</packaging>
 	<name>Visitor Site App Portal Admin Webapp</name>
 	<url>http://maven.apache.org</url>
@@ -18,7 +18,7 @@
 	<dependencies>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>app-core</artifactId>
+            <artifactId>visitor-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency> 
         <dependency>
@@ -218,7 +218,7 @@
                 <artifactId>maven-jetty-plugin</artifactId>
                 <version>6.1.21</version>
                 <configuration>
-                    <contextPath>/app-admin</contextPath>
+                    <contextPath>/visitor-main</contextPath>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <webDefaultXml>webdefault.xml</webDefaultXml>
                     <reload>manual</reload>
@@ -273,6 +273,6 @@
                 </includes>
             </testResource>
         </testResources>
-		<finalName>app-admin</finalName>
+		<finalName>visitor-main</finalName>
 	</build>
 </project>
