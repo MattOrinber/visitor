@@ -25,7 +25,6 @@
         <module>visitor-core</module>
         <module>visitor-main</module>
         <module>visitor-search</module>
-		<module>visitor-api</module>
     </modules>
 
     <build>
