@@ -71,5 +71,16 @@
             </extension>
         </extensions>
     </build>
+    
+    <repositories>
+        <repository>
+            <id>repo2</id>
+            <url>http://repo2.maven.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>alibaba</id>
+            <url>http://code.alibabatech.com/mvn/releases/</url>
+        </repository>
+    </repositories>
 	
 </project>
