@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+ ! Template pack-backend:src/main/resources/localization/domain/domain.e.vm.xml
+-->
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for SearchKeyword</comment>
+
+	<entry key="searchKeyword">搜索关键词</entry>
+
+	<!-- Attributes -->
+	<entry key="searchKeyword_keywordId">关键词Id</entry>
+	<entry key="searchKeyword_name">名称</entry>
+	<entry key="searchKeyword_color">颜色</entry>
+	<entry key="searchKeyword_size">字体大小</entry>
+	
+	<entry key="searchKeyword_status">状态</entry>
+	<entry key="searchKeyword_site">站点</entry>
+	
+	<entry key="searchKeyword_createBy">创建者</entry>
+	<entry key="searchKeyword_createDate">创建时间</entry>
+	<entry key="searchKeyword_modBy">更新者</entry>
+	<entry key="searchKeyword_modDate">更新时间</entry>
+	
+	<entry key="searchKeyword_dis_css">前台展示</entry>
+	<entry key="searchKeyword_default_keyword">预置搜索词</entry>
+	
+	<entry key="searchKeyword_wordKind">结果类型</entry>
+	<entry key="searchKeyword_isHot">是否热词</entry>
+	<entry key="searchKeyword_idList">管理产品</entry>
+
+	<entry key="searchKeyword_prd">产品</entry>
+	<entry key="searchKeyword_fld">频道</entry>
+	<entry key="searchKeyword_adv">广告</entry>
+	
+	<entry key="searchKeyword_yes">是</entry>
+	<entry key="searchKeyword_no">否</entry>
+
+	<entry key="searchKeyword_idlist">搜索结果配置</entry>
+	<entry key="searchKeyword_ids">搜索结果ID</entry>
+
+	<entry key="searchKeyword_id_prd">选择产品</entry>
+	<entry key="searchKeyword_id_fld">选择频道</entry>
+	<entry key="searchKeyword_id_adv">选择广告</entry>
+	
+	<entry key="searchKeyword_check">选中</entry>
+	<entry key="searchKeyword_sort_order">序号</entry>
+	<entry key="searchKeyword_id">ID</entry>
+	<entry key="searchKeyword_op">操作</entry>
+
+
+	<entry key="searchKeyword_plat">平台</entry>
+	<entry key="searchKeyword_icon">图标</entry>
+	<entry key="searchKeyword_result">搜索结果项</entry>
+	<entry key="searchKeyword_no_result">本关键字目前还没有对应的搜索结果，或者是还未设置结果类型，或者是所设置的结果ID有误</entry>
+	
+	<entry key="searchKeyword_type">搜索词类型</entry>
+	<entry key="searchKeyword_type_downloadable">包体</entry>
+	<entry key="searchKeyword_type_pageGame">页游</entry>
+	<entry key="searchKeyword_specUrl">链接地址</entry>
+	
+</properties>

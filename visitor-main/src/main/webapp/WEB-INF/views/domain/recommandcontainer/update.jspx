@@ -1,0 +1,101 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="recommandContainer" />: <spring:message code="crud.functionalities.update" /></title>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/recommandcontainer/search" class="ajaxy button button-search"><spring:message code="recommandContainer" /></a>
+	<a href="${pageContext.request.contextPath}/domain/recommandcontainer/show/${recommandContainer.primaryKey}" class="ajaxy button button-show"><spring:message code="crud.show.button" /></a>
+	<span class="ui-state-highlight button button-edit"><spring:message code="crud.edit.button" /></span>
+	<a href="${pageContext.request.contextPath}/domain/recommandcontainer/delete/${recommandContainer.primaryKey}" class="modal button button-delete"><spring:message code="crud.delete.button" /></a>
+
+	<form:form action="${pageContext.request.contextPath}/domain/recommandcontainer/update/${recommandContainer.primaryKey}" modelAttribute="recommandContainer" method="POST">
+		<form:errors cssClass="error"/>
+		<form:hidden path="containerId"/>
+		<table class="edit">
+			<tbody>
+				<tr>
+					<th><spring:message code="recommandContainer_name" /> <em>*</em></th>
+					<td>
+						<form:input path="name" cssClass="required {maxlength: 200}" maxlength="200" size="100"/>
+						<form:errors path="name" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="recommandContainer_description" /></th>
+					<td>
+						<form:input path="description" cssClass="{maxlength: 255}" maxlength="255" size="100"/>
+						<form:errors path="description" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="recommandContainer_picIdOld" /></th>
+					<td>
+					<c:if test="${not empty recommandContainer.pic}">
+						<c:out value="${recommandContainer.pic.path}" />
+					</c:if>
+					<c:if test="${empty recommandContainer.pic}">
+						无
+					</c:if>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="recommandContainer_picId" /></th>
+					<td>
+						<spring:eval expression="recommandContainer.picId" javaScriptEscape="true" var="picValue" />
+						<input type="hidden" id="pic" name="picId" value="${picValue}" />
+						<input type="text" id="picLabel" value="${recommandContainer.pic.name}" size="80" />
+						<script>
+						$(function() {
+							$("#picLabel").autocomplete('destroy');
+							$("#picLabel").autocomplete({
+								source: "${pageContext.request.contextPath}/domain/picture/autocomplete/1",
+								select: function(event, ui) {
+									$("#pic").val(ui.item.id);
+									$("#picLabel").val(ui.item.label);
+								}
+							});
+						});
+						</script>
+						<form:errors path="pic" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="recommandContainer_status" /> <em>*</em></th>
+					<td>
+						<form:radiobutton path="status" value="0" /><spring:message code="recommandContainer_status_yes" />
+						<form:radiobutton path="status" value="1" /><spring:message code="recommandContainer_status_no" />
+						<form:errors path="status" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="recommandContainer_createBy" /></th>
+					<td><spring:eval expression="recommandContainer.createBy"/></td>
+				</tr>
+				<tr>
+					<th><spring:message code="recommandContainer_createDate" /></th>
+					<td><spring:eval expression="recommandContainer.createDate"/></td>
+				</tr>
+				<tr>
+					<th><spring:message code="recommandContainer_modBy" /></th>
+					<td><spring:eval expression="recommandContainer.modBy"/></td>
+				</tr>
+				<tr>
+					<th><spring:message code="recommandContainer_modDate" /></th>
+					<td><spring:eval expression="recommandContainer.modDate"/></td>
+				</tr>				
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<spring:message code="crud.save.button" var="btnMsg" />
+						<input type="submit" class="button button-save" value="${btnMsg}" />
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+</body>
+</html>

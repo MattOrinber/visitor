@@ -1,0 +1,26 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="recommandContainer" />: <spring:message code="crud.functionalities.delete" /></title>
+</head>
+<body>
+	<form:form action="${pageContext.request.contextPath}/domain/recommandcontainer/delete/${recommandContainer.primaryKey}" method="POST">
+		<c:if test="${candelete == 1}">
+			<p>
+				<spring:message code="entity_delete_confirm"/>
+				<br/>
+				<span class="alt"><c:out value="${recommandContainer}" /></span>
+			</p>
+			<spring:message code="crud.deletion.confirmation" var="btnMsg" />
+			<input type="submit" value="${btnMsg}" class="button button-delete"/>
+		</c:if>
+		<c:if test="${candelete == 0}">
+			<p>
+				本推荐已在页面中使用，或者是有产品与之绑定，无法删除，请先删除相关页面的引用及产品绑定关系后再执行删除操作。
+			</p>
+		</c:if>
+	</form:form>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+xmlns:spring="http://www.springframework.org/tags" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+<jsp:directive.page contentType="text/html;charset=UTF-8" />
+<jsp:output omit-xml-declaration="yes" />
+<div id="result">
+
+	<c:choose>
+		<c:when test="${foldersCount == 0}">
+			<spring:message code="crud.search.empty.result" />
+		</c:when>
+		<c:otherwise>
+			<table class="list">
+				<thead>
+					<tr>
+						<th style="width:6%"><util:sort-header model="folder" attribute="folderId" url="list"/></th>
+						<th><util:sort-header model="folder" attribute="name" url="list"/></th>
+						<th><util:sort-header model="folder" attribute="parentFolderId" url="list"/></th>
+						<th><util:sort-header model="folder" attribute="createBy" url="list"/></th>
+						<th><util:sort-header model="folder" attribute="status" url="list"/></th>
+						<th><util:sort-header model="folder" attribute="modDate" url="list"/></th>
+						<th> </th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${folders}" var="folder" varStatus="_st">
+						<tr>
+							<td>
+								<spring:eval expression="folder.folderId"/>
+							</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/domain/folder/show/${folder.primaryKey}" ><spring:eval expression="folder.name"/></a>
+							</td>
+							<td>
+								<c:if test="${folder.parentFolder != null}">
+									<a href="${pageContext.request.contextPath}/domain/folder/show/${folder.parentFolder.primaryKey}"><spring:eval expression="folder.parentFolder.name" /></a>
+								</c:if>
+							</td>
+							<td>
+								<spring:eval expression="folder.createBy"/>
+							</td>
+							<c:choose>
+								<c:when test="${folder.status == 1}">
+									<td><spring:message code="folder_status_no" /></td>
+								</c:when>
+								<c:otherwise>
+									<td><spring:message code="folder_status_yes" /></td>
+								</c:otherwise>
+							</c:choose>
+							<td><fmt:formatDate value="${folder.modDate}" type="date" pattern="yyyy-MM-dd"/></td>
+							<td>
+								<a href="${pageContext.request.contextPath}/domain/folder/show/${folder.primaryKey}" class="button button-show miniature"><spring:message code="crud.show.button"/></a>
+								<a href="${pageContext.request.contextPath}/domain/folder/update/${folder.primaryKey}" class="button button-edit miniature"><spring:message code="crud.edit.button"/></a>
+								<c:if test="${folder.nsRight - folder.nsLeft == 1 &amp;&amp; folder.folderType == 1}">
+									<a id="folder_${folder.folderId}" href="${pageContext.request.contextPath}/domain/folder/delete/${folder.primaryKey}" class="button button-delete modal miniature"><spring:message code="crud.delete.button"/></a>
+								</c:if>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th colspan="6">
+							<util:navigation totalSize="${foldersCount}" search="${folderSearchForm.sp}" url="list" totalPages="${totalPages}" render="${foldersCount > 0}" />
+						</th>
+						<th><spring:message code="search.total" arguments="${foldersCount}" /></th>
+					</tr>
+				</tfoot>
+			</table>
+		</c:otherwise>
+	</c:choose>
+</div>
+</jsp:root>

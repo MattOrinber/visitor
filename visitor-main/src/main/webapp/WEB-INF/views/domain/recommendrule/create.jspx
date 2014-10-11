@@ -1,0 +1,168 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="recommendRule" />: <spring:message code="crud.functionalities.create" /></title>
+	<script type="text/javascript">
+		$(function() {
+			old_value = 0;
+			
+			$("select[name$='Seq']").each(function() {
+				cur_value = $(this).val();
+				$(this).attr("id", cur_value + "_sel");
+			});
+			
+			$("select[name$='Seq']").click(function() {
+				old_value = $(this).val();
+			});
+			
+			$("select[name$='Seq']").change(function() {
+				new_value = $(this).val();
+				$("#" + new_value + "_sel").val(old_value);
+				$("#" + new_value + "_sel").attr("id", old_value + "_sel");
+				
+				$(this).attr("id", new_value + "_sel");
+			});
+		})
+	</script>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/recommendrule/search" class="ajaxy button button-search"><spring:message code="recommendRule" /></a>
+	<span class="ui-state-highlight button button-create"><spring:message code="crud.functionalities.create" /></span>
+	<form:form action="${pageContext.request.contextPath}/domain/recommendrule/create" modelAttribute="recommendRule" method="POST">
+		<form:errors cssClass="error"/>
+		<form:hidden path="ruleId" />
+		<form:hidden path="type" />
+		<table class="create">
+			<tbody>
+			<c:if test="${recommendRule.type == 1 || recommendRule.type == 0}">
+				<tr>
+					<th><spring:message code="recommendRule_folder_id" /> <em>*</em></th>
+					<td colspan="3">
+						<form:input path="folderId" cssClass="number required" />
+						<form:errors path="folderId" cssClass="error"/>
+					</td>
+				</tr>
+			</c:if>
+			<c:if test="${recommendRule.type == 2}">
+				<tr>
+					<th><spring:message code="recommendRule_product_id" /> <em>*</em></th>
+					<td colspan="3">
+						<input type="text" name="productIds" class="required {maxlength: 255}" maxlength="255" size="100" />
+						<form:errors path="productId" cssClass="error"/>
+					</td>
+				</tr>
+			</c:if>
+			</tbody>
+		</table>
+		<table class="create">
+			<tbody>
+			<thead>
+			<tr>
+				<th></th>
+				<th><spring:message code="recommendRule_dis_sort" /></th>
+				<th style="width:250px;"><spring:message code="recommendRule_dis_num" /></th>
+				<th><spring:message code="recommendRule_other_para" /></th>
+			</tr>
+			</thead>
+				<tr>
+					<th>
+						A:<spring:message code="recommendRule_behaviorId" />
+					</th>
+					<td>
+						<select name="behaviorSeq" style="width:50px;">
+							<option value="1" selected="selected"/>1
+							<option value="2" />2
+							<option value="3" />3
+							<option value="4" />4
+						</select>
+						<form:errors path="behaviorSeq" cssClass="error" />
+					</td>
+					<td>
+						<form:input path="behaviorNum" cssClass="required number" range="09" size="4"/>
+						<form:errors path="behaviorNum" cssClass="error" />
+					</td>
+					<td>
+						<select name="behaviorId">
+							<option value="1" selected="selected"/><spring:message code="recommendRule_behavior_1" />
+							<option value="2" /><spring:message code="recommendRule_behavior_2" />
+							<option value="3" /><spring:message code="recommendRule_behavior_3" />
+							<option value="4" /><spring:message code="recommendRule_behavior_4" />
+							<option value="5" /><spring:message code="recommendRule_behavior_5" />
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						B:<spring:message code="recommendRule_similar" />
+					</th>
+					<td>
+						<select name="similarSeq" style="width:50px;">
+							<option value="1" />1
+							<option value="2" selected="selected"/>2
+							<option value="3" />3
+							<option value="4" />4
+						</select>
+						<form:errors path="similarSeq" cssClass="error" />
+					</td>
+					<td colspan="2">
+						<form:input path="similarNum" cssClass="required number" range="09" size="4"/>
+						<form:errors path="similarNum" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						C:<spring:message code="recommendRule_storage" />
+					</th>
+					<td>
+						<select name="storageSeq" style="width:50px;">
+							<option value="1" />1
+							<option value="2" />2
+							<option value="3" selected="selected"/>3
+							<option value="4" />4
+						</select>
+						<form:errors path="storageSeq" cssClass="error" />
+					</td>
+					<td colspan="2">
+						<form:input path="storageNum" cssClass="required number" range="09" size="4"/>
+						<form:errors path="storageNum" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						D:<spring:message code="recommendRule_manual" />
+					</th>
+					<td>
+						<select name="manualSeq" style="width:50px;">
+							<option value="1" />1
+							<option value="2" />2
+							<option value="3" />3
+							<option value="4" selected="selected"/>4
+						</select>
+						<form:errors path="manualSeq" cssClass="error" />
+					</td>
+					<td>
+						<form:input path="manualNum" cssClass="required number" range="09" size="4"/>
+						<form:errors path="manualNum" cssClass="error" />
+					</td>
+					<td>
+						<form:input path="manualIds" cssClass="{maxlength: 150}" maxlength="150" size="50" />
+						<form:errors path="manualIds" cssClass="error" />
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4">
+						<spring:message code="crud.save.button" var="saveButton"/>
+						<input type="submit" class="button button-save" value="${saveButton}"/>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+</body>
+</html>

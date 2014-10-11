@@ -1,0 +1,381 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="recommendRuleAcross" />: <spring:message code="crud.functionalities.update" /></title>
+	<script type="text/javascript">
+		$(function() {
+			old_value = 0;
+			
+			$("select[name$='Seq']").each(function() {
+				cur_value = $(this).val();
+				$(this).attr("id", cur_value + "_sel");
+			});
+			
+			$("select[name$='Seq']").click(function() {
+				old_value = $(this).val();
+			});
+			
+			$("select[name$='Seq']").change(function() {
+				new_value = $(this).val();
+				$("#" + new_value + "_sel").val(old_value);
+				$("#" + new_value + "_sel").attr("id", old_value + "_sel");
+				
+				$(this).attr("id", new_value + "_sel");
+			});
+		})
+	</script>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/recommendruleacross/search" class="ajaxy button button-search"><spring:message code="recommendRuleAcross" /></a>
+	<form:form action="${pageContext.request.contextPath}/domain/recommendruleacross/update/${recommendRuleAcross.primaryKey}" modelAttribute="recommendRuleAcross" method="POST">
+		<form:errors cssClass="error"/>
+		<form:hidden path="ruleId" />
+		<form:hidden path="serviceId" />
+		<form:hidden path="serviceName" />
+		<form:hidden path="serviceSiteId" />
+		<form:hidden path="serviceSiteName" />
+		<form:hidden path="type" />
+		<form:hidden path="name" />
+		<form:hidden path="serviceFolderId" />
+		<form:hidden path="serviceProductId" />
+		<table class="create">
+			<tbody>
+				<tr>
+					<th><spring:message code="recommendRuleAcross_serviceName" /></th>
+					<td colspan="3">
+						${recommendRuleAcross.serviceName}
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="recommendRuleAcross_serviceSiteName" /></th>
+					<td colspan="3">
+						${recommendRuleAcross.serviceSiteName}
+					</td>
+				</tr>
+				<c:if test="${recommendRuleAcross.type == 1}">
+					<tr>
+						<th><spring:message code="recommendRuleAcross_serviceFolderName" /></th>
+						<td colspan="3">
+							${recommendRuleAcross.serviceFolderId}(${recommendRuleAcross.name})
+						</td>
+					</tr>
+				</c:if>
+				<c:if test="${recommendRule.type == 2}">
+					<tr>
+						<th><spring:message code="recommendRuleAcross_serviceProductId" /></th>
+						<td colspan="3">
+							${recommendRuleAcross.serviceProductId}(${recommendRuleAcross.name})
+						</td>
+					</tr>
+				</c:if>
+			</tbody>
+		</table>
+		<table class="create">
+			<tbody>
+			<thead>
+			<tr>
+				<th></th>
+				<th><spring:message code="recommendRuleAcross_dis_sort" /></th>
+				<th style="width:250px;"><spring:message code="recommendRuleAcross_dis_num" /></th>
+				<th><spring:message code="recommendRuleAcross_other_para" /></th>
+			</tr>
+			</thead>
+				<tr>
+					<th>
+						A:<spring:message code="recommendRuleAcross_behavior" />
+					</th>
+					<td>
+						<select name="behaviorSeq" style="width:50px;">
+							<c:choose>
+								<c:when test="${recommendRuleAcross.behaviorSeq == 1}">
+									<option value="1" selected="selected"/>1
+								</c:when>
+								<c:otherwise>
+									<option value="1"/>1
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.behaviorSeq == 2}">
+									<option value="2" selected="selected"/>2
+								</c:when>
+								<c:otherwise>
+									<option value="2"/>2
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.behaviorSeq == 3}">
+									<option value="3" selected="selected"/>3
+								</c:when>
+								<c:otherwise>
+									<option value="3"/>3
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.behaviorSeq == 4}">
+									<option value="4" selected="selected"/>4
+								</c:when>
+								<c:otherwise>
+									<option value="4"/>4
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.behaviorSeq == 5}">
+									<option value="5" selected="selected"/>5
+								</c:when>
+								<c:otherwise>
+									<option value="5"/>5
+								</c:otherwise>
+							</c:choose>
+						</select>
+						<form:errors path="behaviorSeq" cssClass="error" />
+					</td>
+					<td>
+						<form:input path="behaviorNum" cssClass="number required" range="09" size="5"/>
+						<form:errors path="behaviorNum" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						B:<spring:message code="recommendRuleAcross_storage" />
+					</th>
+					<td>
+						<select name="storageSeq" style="width:50px;">
+							<c:choose>
+								<c:when test="${recommendRuleAcross.storageSeq == 1}">
+									<option value="1" selected="selected"/>1
+								</c:when>
+								<c:otherwise>
+									<option value="1"/>1
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.storageSeq == 2}">
+									<option value="2" selected="selected"/>2
+								</c:when>
+								<c:otherwise>
+									<option value="2"/>2
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.storageSeq == 3}">
+									<option value="3" selected="selected"/>3
+								</c:when>
+								<c:otherwise>
+									<option value="3"/>3
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.storageSeq == 4}">
+									<option value="4" selected="selected"/>4
+								</c:when>
+								<c:otherwise>
+									<option value="4"/>4
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.storageSeq == 5}">
+									<option value="5" selected="selected"/>5
+								</c:when>
+								<c:otherwise>
+									<option value="5"/>5
+								</c:otherwise>
+							</c:choose>
+						</select>
+						<form:errors path="storageSeq" cssClass="error" />
+					</td>
+					<td colspan="2">
+						<form:input path="storageNum" cssClass="number required" range="09" size="5"/>
+						<form:errors path="storageNum" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						C:<spring:message code="recommendRuleAcross_manual" />
+					</th>
+					<td>
+						<select name="manualSeq" style="width:50px;">
+							<c:choose>
+								<c:when test="${recommendRuleAcross.manualSeq == 1}">
+									<option value="1" selected="selected"/>1
+								</c:when>
+								<c:otherwise>
+									<option value="1"/>1
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.manualSeq == 2}">
+									<option value="2" selected="selected"/>2
+								</c:when>
+								<c:otherwise>
+									<option value="2"/>2
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.manualSeq == 3}">
+									<option value="3" selected="selected"/>3
+								</c:when>
+								<c:otherwise>
+									<option value="3"/>3
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.manualSeq == 4}">
+									<option value="4" selected="selected"/>4
+								</c:when>
+								<c:otherwise>
+									<option value="4"/>4
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.manualSeq == 5}">
+									<option value="5" selected="selected"/>5
+								</c:when>
+								<c:otherwise>
+									<option value="5"/>5
+								</c:otherwise>
+							</c:choose>
+						</select>
+						<form:errors path="manualSeq" cssClass="error" />
+					</td>
+					<td>
+						<form:input path="manualNum" cssClass="number required" range="09" size="5"/>
+						<form:errors path="manualNum" cssClass="error" />
+					</td>
+					<td>
+						<form:input path="manualIds" cssClass="{maxlength: 150}" maxlength="150" size="100" />
+						<form:errors path="manualIds" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						D:<spring:message code="recommendRuleAcross_folder" />
+					</th>
+					<td>
+						<select name="folderSeq" style="width:50px;">
+							<c:choose>
+								<c:when test="${recommendRuleAcross.folderSeq == 1}">
+									<option value="1" selected="selected"/>1
+								</c:when>
+								<c:otherwise>
+									<option value="1"/>1
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.folderSeq == 2}">
+									<option value="2" selected="selected"/>2
+								</c:when>
+								<c:otherwise>
+									<option value="2"/>2
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.folderSeq == 3}">
+									<option value="3" selected="selected"/>3
+								</c:when>
+								<c:otherwise>
+									<option value="3"/>3
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.folderSeq == 4}">
+									<option value="4" selected="selected"/>4
+								</c:when>
+								<c:otherwise>
+									<option value="4"/>4
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.folderSeq == 5}">
+									<option value="5" selected="selected"/>5
+								</c:when>
+								<c:otherwise>
+									<option value="5"/>5
+								</c:otherwise>
+							</c:choose>
+						</select>
+						<form:errors path="folderSeq" cssClass="error" />
+					</td>
+					<td>
+						<form:input path="folderNum" cssClass="number required" range="09" size="5"/>
+						<form:errors path="folderNum" cssClass="error" />
+					</td>
+					<td>
+						<form:input path="folderId" cssClass="number" />
+						<form:errors path="folderId" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						E:<spring:message code="recommendRuleAcross_container" />
+					</th>
+					<td>
+						<select name="containerSeq" style="width:50px;">
+							<c:choose>
+								<c:when test="${recommendRuleAcross.containerSeq == 1}">
+									<option value="1" selected="selected"/>1
+								</c:when>
+								<c:otherwise>
+									<option value="1"/>1
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.containerSeq == 2}">
+									<option value="2" selected="selected"/>2
+								</c:when>
+								<c:otherwise>
+									<option value="2"/>2
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.containerSeq == 3}">
+									<option value="3" selected="selected"/>3
+								</c:when>
+								<c:otherwise>
+									<option value="3"/>3
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.containerSeq == 4}">
+									<option value="4" selected="selected"/>4
+								</c:when>
+								<c:otherwise>
+									<option value="4"/>4
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${recommendRuleAcross.containerSeq == 5}">
+									<option value="5" selected="selected"/>5
+								</c:when>
+								<c:otherwise>
+									<option value="5"/>5
+								</c:otherwise>
+							</c:choose>
+						</select>
+						<form:errors path="containerSeq" cssClass="error" />
+					</td>
+					<td>
+						<form:input path="containerNum" cssClass="number required" range="09" size="5"/>
+						<form:errors path="containerNum" cssClass="error" />
+					</td>
+					<td>
+						<form:input path="containerId" cssClass="number" />
+						<form:errors path="containerId" cssClass="error" />
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4">
+						<spring:message code="crud.save.button" var="saveButton"/>
+						<input type="submit" class="button button-save" value="${saveButton}"/>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+</body>
+</html>

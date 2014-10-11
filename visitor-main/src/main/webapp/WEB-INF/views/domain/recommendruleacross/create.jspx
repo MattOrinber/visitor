@@ -1,0 +1,285 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="recommendRuleAcross" />: <spring:message code="crud.functionalities.create" /></title>
+	<script type="text/javascript">
+		$(function() {
+			old_value = 0;
+			
+			$("select[name$='Seq']").each(function() {
+				cur_value = $(this).val();
+				$(this).attr("id", cur_value + "_sel");
+			});
+			
+			$("select[name$='Seq']").click(function() {
+				old_value = $(this).val();
+			});
+			
+			$("select[name$='Seq']").change(function() {
+				new_value = $(this).val();
+				$("#" + new_value + "_sel").val(old_value);
+				$("#" + new_value + "_sel").attr("id", old_value + "_sel");
+				
+				$(this).attr("id", new_value + "_sel");
+			});
+			
+			$("#serviceId").change(
+				function() {
+					var serviceId = $(this).val();
+					$("#serviceName").val($("#serviceId :selected").text());
+					$.ajax( {
+						type : "GET",
+						async : false,
+						url : "${pageContext.request.contextPath}/domain/recommendruleacross/siteList/" + serviceId,
+						success : function(ss) {
+							var arr = eval(ss);
+							cleanSelect(document.getElementById("serviceSiteId"));
+							freshSelect(document.getElementById("serviceSiteId"), arr);
+						}
+					})
+				})
+
+			$("#serviceSiteId").change(
+				function() {
+					var siteId = $(this).val();
+					$("#serviceSiteName").val($("#serviceSiteId :selected").text());
+					$.ajax( {
+						type : "GET",
+						async : false,
+						url : "${pageContext.request.contextPath}/domain/recommendruleacross/folderList/" + siteId,
+						success : function(ss) {
+							var arr = eval(ss);
+							cleanSelect(document.getElementById("serviceFolderId"));
+							freshSelect(document.getElementById("serviceFolderId"), arr);
+						}
+					})
+				})
+				
+			$("#serviceFolderId").change(function() {
+					$("#name").val($("#serviceFolderId :selected").text());
+				})
+			
+				
+				var serviceId = $("#serviceId_").val();
+				if (serviceId != '') {
+					$("#serviceId [value=" + serviceId + "]").attr('selected','selected');
+					$("#serviceId").change();
+					var serviceSiteId = $("#serviceSiteId_").val();
+					if (serviceSiteId != '') {
+						$("#serviceSiteId [value=" + serviceSiteId + "]").attr('selected','selected');
+						$("#serviceSiteId").change();
+						var serviceFolderId = $("#serviceFolderId_").val();
+						if (serviceFolderId != '') {
+							$("#serviceFolderId [value=" + serviceFolderId + "]").attr('selected','selected');
+							$("#serviceFolderId").change();
+						}
+					}
+				}
+		})
+		
+		function cleanSelect(selectObj) {
+			var count = selectObj.options.length;
+			for ( var i = count - 1; i &gt;= 0; i--) {
+				selectObj.options[i] = null;
+			}
+			selectObj.options.add(new Option("<spring:message code='button_select' />", ""));
+		}
+		function freshSelect(selectObj, arr) {
+			for ( var i = 0; i &lt; arr.length; i++) {
+				selectObj.options.add(new Option(arr[i].value, arr[i].key));
+			}
+		}
+	</script>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/recommendruleacross/search" class="ajaxy button button-search"><spring:message code="recommendRuleAcross" /></a>
+	<span class="ui-state-highlight button button-create"><spring:message code="crud.functionalities.create" /></span>
+	<form:form action="${pageContext.request.contextPath}/domain/recommendruleacross/create" modelAttribute="recommendRuleAcross" method="POST">
+		<form:errors cssClass="error"/>
+		<form:hidden path="ruleId" />
+		<form:hidden path="type" />
+		<form:hidden path="serviceName" />
+		<form:hidden path="serviceSiteName" />
+		<form:hidden path="name" />
+		
+		<input type="hidden" id="serviceId_" value="${recommendRuleAcross.serviceId}" />
+		<input type="hidden" id="serviceSiteId_" value="${recommendRuleAcross.serviceSiteId}" />
+		<input type="hidden" id="serviceFolderId_" value="${recommendRuleAcross.serviceFolderId}" />
+		
+		<table class="create">
+			<tbody>
+			<tr>
+				<th><spring:message code="recommendRuleAcross_serviceName" /> <em>*</em></th>
+				<td colspan="3">
+					<select id="serviceId" name="serviceId" style="width:100px;" class="required">
+						<option value="" /><spring:message code="button_select" />
+						<option value="1"/><spring:message code="recommendRuleAcross_service_1" />
+					</select>
+					<form:errors path="serviceId" cssClass="error"/>
+				</td>
+			</tr>
+			<tr>
+				<th><spring:message code="recommendRuleAcross_serviceSiteName" /> <em>*</em></th>
+				<td colspan="3">
+					<form:select path="serviceSiteId" cssClass="required">
+						<form:option value=""><spring:message code="button_select" /></form:option>
+					</form:select>
+					<form:errors path="serviceSiteId" cssClass="error"/>
+				</td>
+			</tr>
+			<c:if test="${recommendRuleAcross.type == 1 || recommendRuleAcross.type == 0}">
+				<tr>
+					<th><spring:message code="recommendRuleAcross_serviceFolderName" /> <em>*</em></th>
+					<td colspan="3">
+						<form:select path="serviceFolderId">
+							<form:option value=""><spring:message code="button_select" /></form:option>
+						</form:select>
+						<form:errors path="serviceFolderId" cssClass="error"/>
+					</td>
+				</tr>
+			</c:if>
+			<c:if test="${recommendRuleAcross.type == 2}">
+				<tr>
+					<th><spring:message code="recommendRuleAcross_serviceProductId" /> <em>*</em></th>
+					<td colspan="3">
+						<input type="text" name="productIds" class="required {maxlength: 255}" maxlength="255" size="100" />
+						<form:errors path="serviceProductId" cssClass="error"/>
+					</td>
+				</tr>
+			</c:if>
+			</tbody>
+		</table>
+		<table class="create">
+			<tbody>
+			<thead>
+			<tr>
+				<th></th>
+				<th style="width:30px;"><spring:message code="recommendRuleAcross_dis_sort" /></th>
+				<th style="width:200px;"><spring:message code="recommendRuleAcross_dis_num" /></th>
+				<th style="width:350px;"><spring:message code="recommendRuleAcross_other_para" /></th>
+			</tr>
+			</thead>
+				<tr>
+					<th>
+						A:<spring:message code="recommendRuleAcross_behavior" />
+					</th>
+					<td>
+						<select name="behaviorSeq">
+							<option value="1" selected="selected"/>1
+							<option value="2" />2
+							<option value="3" />3
+							<option value="4" />4
+							<option value="5" />5
+						</select>
+						<form:errors path="behaviorSeq" cssClass="error" />
+					</td>
+					<td colspan="2">
+						<form:input path="behaviorNum" cssClass="number required" range="09" size="4"/>
+						<form:errors path="behaviorNum" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						B:<spring:message code="recommendRuleAcross_storage" />
+					</th>
+					<td>
+						<select name="storageSeq">
+							<option value="1" />1
+							<option value="2" selected="selected"/>2
+							<option value="3" />3
+							<option value="4" />4
+							<option value="5" />5
+						</select>
+						<form:errors path="storageSeq" cssClass="error" />
+					</td>
+					<td colspan="2">
+						<form:input path="storageNum" cssClass="number required" range="09" size="4"/>
+						<form:errors path="storageNum" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						C:<spring:message code="recommendRuleAcross_manual" />
+					</th>
+					<td>
+						<select name="manualSeq">
+							<option value="1" />1
+							<option value="2" />2
+							<option value="3" selected="selected"/>3
+							<option value="4" />4
+							<option value="5" />5
+						</select>
+						<form:errors path="manualSeq" cssClass="error" />
+					</td>
+					<td>
+						<form:input path="manualNum" cssClass="number required" range="09" size="4"/>
+						<form:errors path="manualNum" cssClass="error" />
+					</td>
+					<td>
+						<form:input path="manualIds" cssClass="{maxlength: 150}" maxlength="150" size="80" />
+						<form:errors path="manualIds" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						D:<spring:message code="recommendRuleAcross_folder" />
+					</th>
+					<td>
+						<select name="folderSeq">
+							<option value="1" />1
+							<option value="2" />2
+							<option value="3" />3
+							<option value="4" selected="selected"/>4
+							<option value="5" />5
+						</select>
+						<form:errors path="folderSeq" cssClass="error" />
+					</td>
+					<td>
+						<form:input path="folderNum" cssClass="number required" range="09" size="4"/>
+						<form:errors path="folderNum" cssClass="error" />
+					</td>
+					<td>
+						<form:input path="folderId" cssClass="number" />
+						<form:errors path="folderId" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						E:<spring:message code="recommendRuleAcross_container" />
+					</th>
+					<td>
+						<select name="containerSeq">
+							<option value="1" />1
+							<option value="2" />2
+							<option value="3" />3
+							<option value="4" />4
+							<option value="5" selected="selected"/>5
+						</select>
+						<form:errors path="containerSeq" cssClass="error" />
+					</td>
+					<td>
+						<form:input path="containerNum" cssClass="number required" range="09" size="4"/>
+						<form:errors path="containerNum" cssClass="error" />
+					</td>
+					<td>
+						<form:input path="containerId" cssClass="number" />
+						<form:errors path="containerId" cssClass="error" />
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4">
+						<spring:message code="crud.save.button" var="saveButton"/>
+						<input type="submit" class="button button-save" value="${saveButton}"/>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+</body>
+</html>

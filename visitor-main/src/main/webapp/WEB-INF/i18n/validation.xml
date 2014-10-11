@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+ ! Template pack-backend:src/main/resources/localization/validation.p.vm.xml
+-->
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Default project specific constraints localization</comment>
+	<entry key="org.visitor.appportal.validation.CheckCase.message">should be {value}</entry>
+	<entry key="org.visitor.appportal.validation.FixedLength.message">should be {length} characters</entry>
+	<entry key="org.visitor.appportal.validation.JpaUnique.message">is already used</entry>
+</properties>

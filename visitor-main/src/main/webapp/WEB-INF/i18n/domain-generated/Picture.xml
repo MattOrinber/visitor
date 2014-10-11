@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+ ! Template pack-backend:src/main/resources/localization/domain/domain.e.vm.xml
+-->
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for Picture</comment>
+
+	<entry key="picture">图片</entry>
+
+	<!-- Attributes -->
+	<entry key="picture_pictureId">图片Id</entry>
+	<entry key="picture_name">名称</entry>
+	<entry key="picture_path">URL地址</entry>
+	<entry key="picture_type">类型</entry>
+	<entry key="picture_status">状态</entry>
+	<entry key="picture_description">描述</entry>
+	<entry key="picture_file">文件</entry>
+	
+	<entry key="picture_status_all">全部</entry>	
+	<entry key="picture_status_yes">可用</entry>
+	<entry key="picture_status_no">不可用</entry>
+	
+	<entry key="picture_type_all">全部</entry>
+	<entry key="picture_type_1">频道</entry>
+	<entry key="picture_type_2">广告</entry>
+	<entry key="picture_type_3">水印</entry>
+	<entry key="picture_type_9">其他</entry>
+	
+	<entry key="delete_folder_question">以下频道正在使用该图片,不可以直接删除</entry>
+	<entry key="delete_advertise_question">以下广告正在使用该图片,不可以直接删除</entry>
+	
+</properties>

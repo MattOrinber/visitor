@@ -1,0 +1,322 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" 
+xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<spring:theme code="themePackage" var="themePackage" />
+	<spring:theme code="scriptPackage" var="scriptPackage" />
+	
+	<spring:url value="/${themePackage}" var="themePackageUrl" />
+	<spring:url value="/${scriptPackage}" var="scriptPackageUrl" />
+	
+	<title><spring:message code="site" />: <spring:message code="crud.functionalities.show" /></title>
+	<link rel="stylesheet" href="${themePackageUrl}/plugins/tree/jquery.treeview.css" type="text/css" media="screen, projection" />
+	<script type="text/javascript" src="${scriptPackageUrl}/jquery-1.5.2/jquery.cookie.js"><c:out value=" " /></script>
+	<script type="text/javascript" src="${scriptPackageUrl}/jquery-ui-1.8.11/tree/jquery.treeview.js"><c:out value=" " /></script>
+	<script type="text/javascript">
+	
+		$(document).ready(function() {
+			setSiteValue();
+			setTree();
+			activeFolderInfo();
+		});
+		
+		function setTree() {
+			$("#folder_tree").treeview({
+				collapsed: true,
+				animated: "medium",
+				control:"#sidetreecontrol",
+				persist: "location"
+			});
+		}
+				
+		function setSiteValue() {
+			$("span[id^=tab_info_]").click(function() {
+				setSiteValueArea(this.id);
+				resetAreaTabs(this.id);
+			});
+			$("#tab_folder").click(function() {
+				$("#dis_site_info").hide();
+				$("#dis_folder_value").show();
+				
+				/*按钮变样式*/
+				resetAreaTabs("tab_folder");
+			});
+		}
+		
+		function setSiteValueArea(name) {
+			$("#dis_folder_value").hide();
+			$("#dis_site_info").hide().html($("#" + name + "_area").html()).fadeIn();
+		}
+		
+		function resetAreaTabs(name) {
+			$("span[id^=tab_]").removeClass();
+			$("span[id^=tab_]").addClass("ajaxy button button-show ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary");
+			$("#" + name).removeClass();
+			$("#" + name).addClass("ui-state-highlight button button-show ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary");
+		}
+		
+		function activeFolderInfo(){
+			$("span[node]").click(function(){
+				var folder = $("#folder_right");
+				folder.hide().load("${pageContext.request.contextPath}/domain/folder/show/" + $(this).attr("node") + " #folder_result" ,
+					function() {
+						setupPage();
+						$(this).fadeIn();
+				});
+			});
+		}
+		
+	</script>
+</head>
+<body>
+
+	<span class="ui-state-highlight button button-show"><spring:message code="crud.show.button" /></span>
+	<a href="${pageContext.request.contextPath}/domain/site/update/${site.primaryKey}" class="ajaxy button button-edit"><spring:message code="crud.edit.button" /></a>
+	<a href="${pageContext.request.contextPath}/domain/folder/create?siteId=${site.primaryKey}" class="ajaxy button button-create"><spring:message code="site_add_folder" /></a>
+	<a href="${pageContext.request.contextPath}/domain/productrank/show?siteId=${site.primaryKey}" class="ajaxy button button-search"><spring:message code="site_show_rank" /></a>
+
+	<table class="show">
+		<tbody>
+			<tr>
+				<th style="width:10%"><spring:message code="site_name" /></th>
+				<td style="width:40%"><spring:eval expression="site.name"/></td>
+				<th style="width:10%"><spring:message code="site_siteId" /></th>
+				<td style="width:40%"><spring:eval expression="site.siteId"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="site_status" /></th>
+				<c:if test="${site.status == 0}"><td><spring:message code="site_status_yes" /></td></c:if>
+				<c:if test="${site.status == 1}"><td><spring:message code="site_status_no" /></td></c:if>
+				<th><spring:message code="site_companyId" /></th>
+				<td><spring:eval expression="site.companyId"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="site_schemaName" /></th>
+				<td><spring:eval expression="site.schemaName"/></td>
+				<th><spring:message code="site_defaultPath" /></th>
+				<td><spring:eval expression="site.defaultPath"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="site_createBy" /></th>
+				<td><spring:eval expression="site.createBy"/></td>
+				<th><spring:message code="site_createDate" /></th>
+				<td><fmt:formatDate value="${site.createDate}" type="date" pattern="yyyy-MM-dd"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="site_modBy" /></th>
+				<td><spring:eval expression="site.modBy"/></td>
+				<th><spring:message code="site_modDate" /></th>
+				<td><fmt:formatDate value="${site.modDate}" type="date" pattern="yyyy-MM-dd"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="site_channels" /></th>
+				<td colspan="3" style="word-break:break-all"><spring:eval expression="site.channels"/></td>
+			</tr>
+		</tbody>
+		<tfoot>
+		<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_USER,ROLE_SUPER">
+			<tr>
+				<td colspan="4">
+					<a href="${pageContext.request.contextPath}/domain/init/redis/site/${site.primaryKey}"
+						class="modal button"><spring:message code="crud.redis.publish.button" />
+					</a>
+					<security:authorize ifAnyGranted="ROLE_SUPER">
+					<a href="${pageContext.request.contextPath}/domain/init/redis/site/product/list/${site.primaryKey}"
+						class="modal button"><spring:message code="crud.redis.products.list.button" />
+					</a>
+					</security:authorize>
+					<a href="${pageContext.request.contextPath}/domain/init/redis/site/folder/${site.primaryKey}"
+						class="modal button"><spring:message code="crud.redis.folders.button" />
+					</a>
+					<security:authorize ifAnyGranted="ROLE_SUPER">
+					<a href="${pageContext.request.contextPath}/domain/init/redis/site/product/${site.primaryKey}"
+						class="modal button"><spring:message code="crud.redis.products.button" />
+					</a>
+					</security:authorize>
+				</td>
+			</tr>
+		</security:authorize>
+		</tfoot>
+	</table>
+	<span id="tab_folder" class="ui-state-highlight button button-show"><spring:message code="site_folder" /></span>
+	<span id="tab_info_template" class="ajaxy button button-show"><spring:message code="site_template" /></span>
+	<span id="tab_info_platform" class="ajaxy button button-show"><spring:message code="site_platformId" /></span>
+	<span id="tab_info_resolution" class="ajaxy button button-show"><spring:message code="site_resolutionId" /></span>
+
+	<div id="dis_folder_value">
+		<table class="show">
+			<tbody>
+				<tr>
+					<td>
+						<div id="folder_left" style="float:left;width:170px;">
+							<ul id="folder_tree">
+							<c:forEach items="${folderNodes}" var="folderNode">
+								<c:set var="node" value="${folderNode}" scope="request"/>
+								<jsp:include page="/WEB-INF/views/domain/folder/treenode.jspx" />
+							</c:forEach>											
+							</ul>
+						</div>
+						<div id="folder_right" style="float:right;width:940px;">
+						
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div id="dis_site_info" style="display:none">&amp;nbsp;</div>
+	<!--模板-->
+	<div id="tab_info_template_area" style="display:none">
+		<table class="show">
+			<tbody>
+				<tr>
+					<th><spring:message code="site_template_title_type" /></th>
+					<th><spring:message code="site_template_title_name" /></th>
+					<th><spring:message code="site_template_title_publish" /></th>
+					<th><spring:message code="site_template_title_publishBy" /></th>
+					<th><spring:message code="site_template_title_publishDate" /></th>
+					<th><spring:message code="site_page_title_operate" /></th>
+				</tr>
+				<tr>
+					<td><spring:message code="site_template_index" /></td>
+					<c:choose>
+						<c:when test="${site.indexTemplate != null}">
+							<td><a href="${pageContext.request.contextPath}/domain/template/show/${site.indexTemplate.templateId}"><spring:eval expression="site.indexTemplate.name"/></a></td>
+							<c:if test="${site.indexTemplate.publishStatus==0}">
+								<td><spring:message code="template_publishStatus_true"/></td>
+							</c:if>
+							<c:if test="${site.indexTemplate.publishStatus==1}">
+								<td><spring:message code="template_publishStatus_false"/></td>
+							</c:if>
+							<td><spring:eval expression="site.indexTemplate.publishBy"/></td>
+							<td><fmt:formatDate value="${site.indexTemplate.publishDate}" type="date" pattern="yyyy-MM-dd"/></td>
+							<td>
+								<a href="${pageContext.request.contextPath}/domain/site/template/${site.primaryKey}/0/" class="button button-edit"/><spring:message code="site_value_edit"/>
+								<a href="${pageContext.request.contextPath}/domain/site/publishtemplate/${site.primaryKey}/0/" class="button button-show"><spring:message code="htmlPage_publish" /></a>
+							</td>
+						</c:when>
+						<c:otherwise>
+							<td colspan="4"><spring:message code="site_template_alert1" /></td>
+							<td><a href="${pageContext.request.contextPath}/domain/site/template/${site.primaryKey}/0/" class="button button-edit"/><spring:message code="site_value_edit"/></td>
+						</c:otherwise>
+					</c:choose>
+				</tr>
+				<tr>
+					<td><spring:message code="site_template_list" /></td>
+					<c:choose>
+						<c:when test="${site.listTemplate != null}">
+							<td><a href="${pageContext.request.contextPath}/domain/template/show/${site.listTemplate.templateId}"><spring:eval expression="site.listTemplate.name"/></a></td>
+							<c:if test="${site.listTemplate.publishStatus==0}">
+								<td><spring:message code="template_publishStatus_true"/></td>
+							</c:if>
+							<c:if test="${site.listTemplate.publishStatus==1}">
+								<td><spring:message code="template_publishStatus_false"/></td>
+							</c:if>
+							<td><spring:eval expression="site.listTemplate.publishBy"/></td>
+							<td><fmt:formatDate value="${site.listTemplate.publishDate}" type="date" pattern="yyyy-MM-dd"/></td>
+							<td>
+								<a href="${pageContext.request.contextPath}/domain/site/template/${site.primaryKey}/1/" class="button button-edit"/><spring:message code="site_value_edit"/>
+								<a href="${pageContext.request.contextPath}/domain/site/publishtemplate/${site.primaryKey}/1/" class="button button-show"><spring:message code="htmlPage_publish" /></a>
+							</td>
+						</c:when>
+						<c:otherwise>
+							<td colspan="4"><spring:message code="site_template_alert1" /></td>
+							<td><a href="${pageContext.request.contextPath}/domain/site/template/${site.primaryKey}/1/" class="button button-edit"/><spring:message code="site_value_edit"/></td>
+						</c:otherwise>
+					</c:choose>
+				</tr>
+				<tr>
+					<td><spring:message code="site_template_detail" /></td>
+					<c:choose>
+						<c:when test="${site.detailTemplate != null}">
+							<td><a href="${pageContext.request.contextPath}/domain/template/show/${site.detailTemplate.templateId}"><spring:eval expression="site.detailTemplate.name"/></a></td>
+							<c:if test="${site.detailTemplate.publishStatus==0}">
+								<td><spring:message code="template_publishStatus_true"/></td>
+							</c:if>
+							<c:if test="${site.detailTemplate.publishStatus==1}">
+								<td><spring:message code="template_publishStatus_false"/></td>
+							</c:if>
+							<td><spring:eval expression="site.detailTemplate.publishBy"/></td>
+							<td><fmt:formatDate value="${site.detailTemplate.publishDate}" type="date" pattern="yyyy-MM-dd"/></td>
+							<td>
+								<a href="${pageContext.request.contextPath}/domain/site/template/${site.primaryKey}/2/" class="button button-edit"/><spring:message code="site_value_edit"/>
+								<a href="${pageContext.request.contextPath}/domain/site/publishtemplate/${site.primaryKey}/2/" class="button button-show"><spring:message code="htmlPage_publish" /></a>
+							</td>
+						</c:when>
+						<c:otherwise>
+							<td colspan="4"><spring:message code="site_template_alert1" /></td>
+							<td><a href="${pageContext.request.contextPath}/domain/site/template/${site.primaryKey}/2/" class="button button-edit"/><spring:message code="site_value_edit"/></td>
+						</c:otherwise>
+					</c:choose>
+				</tr>
+				<tr>
+					<td><spring:message code="site_template_navi" /></td>
+					<c:choose>
+						<c:when test="${site.naviTemplate != null}">
+							<td><a href="${pageContext.request.contextPath}/domain/template/show/${site.naviTemplate.templateId}"><spring:eval expression="site.naviTemplate.name"/></a></td>
+							<c:if test="${site.naviTemplate.publishStatus==0}">
+								<td><spring:message code="template_publishStatus_true"/></td>
+							</c:if>
+							<c:if test="${site.naviTemplate.publishStatus==1}">
+								<td><spring:message code="template_publishStatus_false"/></td>
+							</c:if>
+							<td><spring:eval expression="site.naviTemplate.publishBy"/></td>
+							<td><fmt:formatDate value="${site.naviTemplate.publishDate}" type="date" pattern="yyyy-MM-dd"/></td>
+							<td>
+								<a href="${pageContext.request.contextPath}/domain/site/template/${site.primaryKey}/3/" class="button button-edit"/><spring:message code="site_value_edit"/>
+								<a href="${pageContext.request.contextPath}/domain/site/publishtemplate/${site.primaryKey}/3/" class="button button-show"><spring:message code="htmlPage_publish" /></a>
+							</td>
+						</c:when>
+						<c:otherwise>
+							<td colspan="4"><spring:message code="site_template_alert1" /></td>
+							<td><a href="${pageContext.request.contextPath}/domain/site/template/${site.primaryKey}/3/" class="button button-edit"/><spring:message code="site_value_edit"/></td>
+						</c:otherwise>
+					</c:choose>
+				</tr>
+			</tbody>
+		</table>
+	</div>	
+	<div id="tab_info_platform_area" style="display:none">
+		<table class="show">
+			<thead>
+				<th style="width:15%"><spring:message code="siteValue_platform_os" /></th>
+				<th style="width:25%"><spring:message code="siteValue_platform_plate" /></th>
+				<th><spring:message code="siteValue_platform_version" /></th>
+			</thead>
+			<tbody>
+				<c:forEach items="${platforms}" var="platform" varStatus="status">
+	    			<tr>
+	    				<td>${platform.parentCategory.parentCategory.name}</td>
+	    				<td>${platform.parentCategory.name}</td>
+	    				<td>${platform.name}</td>
+	    			</tr>
+	    		</c:forEach>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="3"><a href="${pageContext.request.contextPath}/domain/sitevalue/editSiteValue?siteValue.siteId=${site.primaryKey}&amp;siteValue.type=4" class="button button-edit"><spring:message code="site_value_edit"/></a></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	<div id="tab_info_resolution_area" style="display:none">
+		<table class="show">
+			<tbody>
+				<c:forEach items="${resolutions}" var="resolution" varStatus="status">
+	    			<tr><td>${resolution.name}</td></tr>
+	    		</c:forEach>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td><a href="${pageContext.request.contextPath}/domain/sitevalue/editSiteValue?siteValue.siteId=${site.primaryKey}&amp;siteValue.type=6" class="button button-edit"><spring:message code="site_value_edit"/></a></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+
+</body>
+</html>

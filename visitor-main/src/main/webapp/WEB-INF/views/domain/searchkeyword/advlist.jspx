@@ -1,0 +1,63 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+<jsp:directive.page contentType="text/html;charset=UTF-8" />
+<jsp:output omit-xml-declaration="yes" />
+	<div id="result">
+		<c:choose>
+			<c:when test="${advertiseCount == 0}">
+				<spring:message code="crud.search.empty.result" />
+			</c:when>
+			<c:otherwise>
+				<table class="list">
+					<thead>
+						<tr>
+							<th style="width:5%"><spring:message code="searchKeyword_check" /></th>
+							<th style="width:5%"><util:sort-header model="advertise" attribute="advertiseId" url="list" /></th>
+							<th style="width:10%"><util:sort-header model="advertise" attribute="name" url="list" /></th>
+							<th style="width:9%"><spring:message code="advertise_icon" /></th>
+							<th style="width:5%"><util:sort-header model="advertise" attribute="type" url="list" /></th>
+							<th style="width:5%"><util:sort-header model="advertise" attribute="status" url="list" /></th>
+							<th style="width:20%"><spring:message code="advertise_description" /></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${advertises}" var="advertise" varStatus="_st">
+							<tr>
+								<td><input type="checkbox" name="itemIds" value="${advertise.primaryKey}" /></td>
+								<td><spring:eval expression="advertise.advertiseId" /></td>
+								<td>
+									<a href="${pageContext.request.contextPath}/domain/advertise/show/${advertise.primaryKey}"><spring:eval expression="advertise.name" /></a>
+								</td>
+								<td><c:if test="${advertise.iconId!=null and advertise.iconId!=''}"><spring:eval expression="advertise.picture.path" /></c:if></td>
+								<td>
+									<c:if test="${advertise.type==0}"><spring:message code="advertise_typeUrl" /></c:if>
+									<c:if test="${advertise.type==1}"><spring:message code="advertise_typeFolder" /></c:if>
+									<c:if test="${advertise.type==2}"><spring:message code="advertise_typeProduct" /></c:if>
+								</td>
+								<td>
+									<c:if test="${advertise.status==0}"><spring:message code="Available" /></c:if>
+									<c:if test="${advertise.status==1}"><font color="red"><spring:message code="UnAvailable" /></font></c:if>
+								</td>
+								<td><spring:eval expression="advertise.description" /></td>
+						</tr>
+						</c:forEach>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th colspan="3">
+								<a onclick="changeCheckState(1)" class="button btnSpace"><spring:message code="button_select_all"/></a>
+								<a onclick="changeCheckState(0)" class="button btnSpace"><spring:message code="button_select_none"/></a>    
+								<a onclick="deleteCheck()" class="button button-create btnSpace"><spring:message code="button_addsel"/></a>							
+							</th>
+							<th colspan="3">
+								<util:navigation totalSize="${advertiseCount}" search="${advertiseSearchForm.sp}" url="advlist" totalPages="${totalPages}" render="${advertiseCount > 0}" />
+							</th>
+							<th><spring:message code="search.total" arguments="${advertiseCount}" /></th>
+						</tr>
+					</tfoot>
+				</table>
+			</c:otherwise>
+		</c:choose>
+	</div>
+</jsp:root>

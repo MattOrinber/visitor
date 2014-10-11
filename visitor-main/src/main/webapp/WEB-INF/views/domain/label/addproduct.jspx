@@ -1,0 +1,80 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core"  xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+
+<head>
+	<title><spring:message code="label" />: <spring:message code="crud.functionalities.create" /></title>
+	<script type="text/javascript">
+	$(function() {
+
+			$("#folderId").change(
+				function() {
+					var siteId = $("#siteId").val();
+					$.ajax( {
+						type : "GET",
+						url : "${pageContext.request.contextPath}/domain/pagecontainer/autopage/" + ${productContainer.containerId} + "/" + siteId + "/" + $(this).val(),
+						success : function(ss) {
+							var arr = eval(ss);
+							cleanSelect(document.getElementById("pageId"));
+							freshSelect(document.getElementById("pageId"),arr);
+						}
+					})
+				}
+			);
+
+	})
+	
+	function cleanSelect(selectObj) {
+		var count = selectObj.options.length;
+		for ( var i = count - 1; i &gt;= 0; i--) {
+			selectObj.options[i] = null;
+		}
+		selectObj.options.add(new Option("<spring:message code='button_select' />", ""));
+	}
+	function freshSelect(selectObj, arr) {
+		for ( var i = 0; i &lt; arr.length; i++) {
+			selectObj.options.add(new Option(arr[i].key, arr[i].value));
+		}
+	}
+</script>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/label/search" class="ajaxy button button-search"><spring:message code="label" /></a>
+	<a href="${pageContext.request.contextPath}/domain/label/show?lid=${label.labelId}" class="ajaxy button button-show"><spring:message code="crud.show.button" /></a>
+	<span class="ui-state-highlight button button-create"><spring:message code="recommandContainer_add" /></span>
+
+	<form:form action="${pageContext.request.contextPath}/domain/label/addProduct" modelAttribute="label" method="POST" >
+		<form:errors cssClass="error"/>
+		<form:hidden path="labelId"/>
+		<form:hidden path="siteId" />
+		<table class="create">
+			<tbody>
+				<tr>
+					<th><spring:message code="label_name" /> <em>*</em></th>
+					<td>
+						<input type="hidden" id="container" name="labelId" value="${label.labelId}" />
+						${label.name}
+						<form:errors path="name" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="productContainer_productId" /> <em>*</em></th>
+					<td>
+						<input type="text" id="productId" name="productIds" class="required {maxlength: 200}" maxlength="200"  size="80"/>
+                        <form:errors path="products" cssClass="error"/>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<spring:message code="crud.save.button" var="btnMsg" />
+						<input type="submit" class="button button-save" value="${btnMsg}"/>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+</body>
+</html>

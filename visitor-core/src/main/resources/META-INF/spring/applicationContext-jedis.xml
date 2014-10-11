@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-lazy-init="true"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd    http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<context:component-scan base-package="org.visitor.appportal" />
+	
+    <context:property-placeholder location="classpath*:META-INF/spring/*.properties"/>
+
+	<!-- Use Redis as key value store -->
+	<bean id="jedisConnectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:pool-config-ref="jedisPoolConfig"
+		p:use-pool="true" p:host-name="${redis.hostname}" p:port="${redis.port}" p:database="${redis.database}" p:timeout="9000" />
+	<bean id="jedisUserConnectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:timeout="9000" p:pool-config-ref="jedisPoolConfig"
+		p:use-pool="true" p:host-name="${redis_user.hostname}" p:port="${redis_user.port}" p:database="${redis_user.database}"/>
+	<bean id="jedisApuConnectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:timeout="9000" p:pool-config-ref="jedisPoolConfig"
+		p:use-pool="true" p:host-name="${redis_apu.hostname}" p:port="${redis_apu.port}" p:database="${redis_apu.database}"/>
+
+
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="testOnBorrow" value="true"/>
+		<property name="maxActive" value="${redis.maxActive}"/>
+		<property name="maxIdle" value="${redis.maxIdle}"/>
+		<property name="minIdle" value="${redis.minIdle}"/>
+		<property name="maxWait" value="${redis.maxWait}"/>
+		<property name="testOnReturn" value="${redis.testOnReturn}" />
+		<property name="testWhileIdle" value="${redis.testWhileIdle}" />
+		<property name="whenExhaustedAction" value="${redis.whenExhaustedAction}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${redis.timeBetweenEvictionRunsMillis}" />
+		<property name="numTestsPerEvictionRun" value="${redis.numTestsPerEvictionRun}" />
+		<property name="softMinEvictableIdleTimeMillis" value="${redis.softMinEvictableIdleTimeMillis}" />
+		<property name="minEvictableIdleTimeMillis" value="${redis.minEvictableIdleTimeMillis}" />
+	</bean>
+	
+	<!-- redis template definition -->
+	<bean id="stringRedisTemplate"
+		class="org.springframework.data.redis.core.StringRedisTemplate"
+		p:connection-factory-ref="jedisConnectionFactory" />
+
+	<!-- The user redis template -->
+	<bean id="userStringByteRedisTemplate"
+		class="org.visitor.appportal.redis.support.StringByteRedisTemplate"
+		p:connection-factory-ref="jedisUserConnectionFactory" />
+		
+	<!-- The apu redis template -->
+	<bean id="apuStringRedisTemplate"
+		class="org.springframework.data.redis.core.StringRedisTemplate"
+		p:connection-factory-ref="jedisApuConnectionFactory" />
+		
+	<bean id="compressStringRedisTemplate"
+		class="org.springframework.data.redis.core.StringRedisTemplate"
+		p:connection-factory-ref="jedisConnectionFactory" 
+		p:value-serializer-ref="compressStringRedisSerializer"
+		p:hash-value-serializer-ref="compressStringRedisSerializer" />
+	<bean id="compressStringRedisSerializer" class="org.visitor.appportal.redis.support.CompressStringRedisSerializer" />
+
+</beans>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Add your application specific properties in this file.</comment>
+	<entry key="dateformat_default">yyyy-MM-dd</entry>
+	
+	<entry key="batch.import.asc">ASC数据导入</entry>
+	<entry key="batch.import.asc.path">数据所在目录</entry>
+	<entry key="batch.import.asc.option">是否单品</entry>
+	<entry key="batch.import.asc.type">更新类型</entry>
+</properties>

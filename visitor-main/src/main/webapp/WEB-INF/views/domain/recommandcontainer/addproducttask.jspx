@@ -1,0 +1,181 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core"  xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="productContainer" />: <spring:message code="crud.functionalities.create" />
+	</title>	
+</head>
+<body>	
+	<a href="${pageContext.request.contextPath}/domain/recommandcontainer/search" class="ajaxy button button-search"><spring:message code="recommandContainer" /></a>
+	<a href="${pageContext.request.contextPath}/domain/recommandcontainer/show/${productContainerTask.containerId}" class="ajaxy button button-show"><spring:message code="crud.show.button" /></a>
+	<a href="${pageContext.request.contextPath}/domain/recommandcontainer/showproducttask/${productContainerTask.containerId}" class="ajaxy button button-create"><spring:message code="productContainerTask" /></a>
+	<span class="ui-state-highlight button button-create"><spring:message code="recommandContainer_add" /></span>
+		
+	<form:form action="${pageContext.request.contextPath}/domain/recommandcontainer/addproducttask" modelAttribute="productContainerTask" method="POST" onsubmit="return valid_check()">
+		<form:hidden path="containerId" />
+		<input type="hidden" id="leftDate" value="${leftDate }" />
+		<input type="hidden" id="rightDate" value="${rightDate }" />
+		<!-- 表单 -->
+		<table class="create">
+			<tbody>
+				<tr>
+				<td><form:errors cssClass="error" /></td>
+				</tr>
+				<!--产品类型-->
+				<tr>
+					<th>
+						<spring:message code="productContainerTask_type" />
+					</th>
+					<td>
+						<form:radiobutton path="type" value="1" checked="checked"/><spring:message code="productContainerTask_type_Product" />
+						<form:radiobutton path="type" value="2" /><spring:message code="productContainerTask_type_Folder" />
+						<form:radiobutton path="type" value="3" /><spring:message code="productContainerTask_type_Advertise" />
+						<form:errors path="type" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="productContainerTask_Id" />
+					</th>
+					<td>
+						<textarea id="product" name="productIds" cols="20" rows="5" style="height:100px;width:60%">${product}</textarea>
+						<form:errors path="productId" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="productContainerTask_displayDate" />
+					</th>
+					<td>
+						<input type="radio" id="add_type_1" name="add_type" value="1" checked="checked"/><spring:message code="productContainerTask_add_one" />
+						<input type="radio" id="add_type_2" name="add_type" value="2"/><spring:message code="productContainerTask_add_multiple" />
+						<input type="radio" id="add_type_3" name="add_type" value="3"/><spring:message code="productContainerTask_add_range" />
+					</td>
+				</tr>
+				
+				<tr>
+					<th><span id="tipinfo">选择日期</span></th>
+					<td>
+						<div id="divtype1">
+							<input id="singleDate" name="singleDate" class="datepicker" size="11"/>
+						</div>
+						<div id="divtype2" style="display:none">
+							<c:if test="${!empty dates}">
+								<c:forEach items="${dates}" var="date" varStatus="status">
+									<input type="checkbox" name="multipleDate" value="${date}" />
+									<fmt:parseDate value="${date}" type="date" var="date_date" pattern="yyyyMMdd"/>
+									<fmt:formatDate value="${date_date}" type="date" pattern="yyyy-MM-dd"/>
+									
+									<c:if test="${(status.index+1)%3==0 }">
+										<br/>
+									</c:if>
+								</c:forEach>
+							</c:if>
+						</div>
+						<div id="divtype3" style="display:none">
+							开始日期:
+							<input id="fromDate" name="fromDate" class="datepicker" size="11"/>
+							结束日期:
+							<input id="toDate" name="toDate" class="datepicker" size="11"/>
+							<spring:message code="productContainerTask_only_thirty_days" />
+						</div>
+						<br/><form:errors path="displayDate" cssClass="error"/><span style="color:red" id="errorInfo">&amp;nbsp;</span>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<spring:message code="crud.save.button" var="btnMsg" />
+						<input type="submit" class="button button-save" value="${btnMsg}" />
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+	
+	<!-- 简单特效处理 20130106-->
+	<script type="text/javascript">
+		$(document).ready(function(){
+				$("#add_type_1").click(function(){
+					$("#tipinfo").text("选择日期");
+					$("#divtype1").show();
+					$("#divtype2").hide();
+					$("#divtype3").hide();
+				});
+				$("#add_type_2").click(function(){
+					$("#tipinfo").text("选择多个日期");
+					$("#divtype2").show();
+					$("#divtype1").hide();
+					$("#divtype3").hide();
+				});
+				$("#add_type_3").click(function(){
+					$("#tipinfo").text("选择日期范围");
+					$("#divtype3").show();
+					$("#divtype2").hide();
+					$("#divtype1").hide();
+				});
+			}
+		);
+		
+		/**
+		 * 主要检查日期的有效性
+		**/
+		function valid_check(){
+			
+			$('[type="submit"]').attr('disabled', 'disabled');
+			//alert("here?");
+			var checked_val = $('[name="add_type"][checked=true]:radio').val();
+			var leftDate = $("#leftDate").val();
+			var rightDate = $("#rightDate").val();
+			
+			var return_val = true;
+			if(checked_val == "1"){
+				//single
+				var theDate = $("#singleDate").val();//.replace(/-/g,"-");
+				if(theDate == "" || theDate &gt; rightDate || theDate &lt; leftDate){
+					$("#errorInfo").text("所选日期必须在"+leftDate+"至"+rightDate+"之间！");
+					return_val = false;
+				}
+			}else if(checked_val == "2"){
+				var checked_count = 0;
+				$("[name='multipleDate']:checkbox").each(function () {
+					if (this.checked)
+					{
+						checked_count ++;
+					}
+				});
+				
+				if(checked_count &lt; 2){
+					$("#errorInfo").text("请至少选中两个日期！");
+					return_val = false;
+				}
+			}else {
+				var fromDate = $("#fromDate").val();
+				var toDate = $("#toDate").val();
+				
+				return_val = false;
+				if(fromDate == "" || toDate == "" || fromDate &gt; toDate || fromDate == toDate){
+					$("#errorInfo").text("起止日期不能为空，且开始日期必须小于结束日期！");
+				}else if((fromDate &gt; rightDate) || (fromDate &lt; leftDate)){
+					$("#errorInfo").text("开始日期必须在"+leftDate+"至"+rightDate+"之间！");
+				}else if(toDate &gt; rightDate || toDate &lt; leftDate){
+					$("#errorInfo").text("结束日期必须在"+leftDate+"至"+rightDate+"之间！");
+				}else{
+					return_val = true;
+				}
+			}
+			
+			if(return_val){
+				$("#errorInfo").text(" ");
+			}
+			if(!return_val){
+				$('[type="submit"]').removeAttr('disabled');
+			}
+			return return_val;
+		}
+	</script>
+	
+</body>
+</html>

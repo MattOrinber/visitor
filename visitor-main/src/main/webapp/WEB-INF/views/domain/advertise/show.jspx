@@ -1,0 +1,198 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="advertise" />: <spring:message code="crud.functionalities.show" /></title>
+</head>
+
+<body>
+	<!--广告管理图标-->
+	<a href="${pageContext.request.contextPath}/domain/advertise/search" class="ajaxy button button-search"><spring:message code="advertise" /></a>
+	<!--查看-->
+	<span class="ui-state-highlight button button-show"><spring:message code="crud.show.button" /></span>
+	<!--修改-->
+	<a href="${pageContext.request.contextPath}/domain/advertise/update/${advertise.primaryKey}" class="ajaxy button button-edit"><spring:message code="crud.edit.button" /></a>
+	<!--
+	<a href="${pageContext.request.contextPath}/domain/advertise/delete/${advertise.primaryKey}" class="modal button button-delete"><spring:message code="crud.delete.button" /></a>
+	-->
+	<table class="show">
+		<tbody>
+			<tr>
+				<th><spring:message code="advertise_picture" /></th>
+				<td colspan="3"><img src="${picDomain}${advertise.picture.path}"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="advertise_icon" /></th>
+				<td colspan="3">
+					<c:if test="${advertise.iconId!=null}" ><img src="${picDomain}${advertise.icon.path}"/></c:if>
+				</td>
+			</tr>
+			<tr>
+				<th><spring:message code="advertise_name" /></th>
+				<td style="width:35%"><spring:eval expression="advertise.name"/></td>
+				<th><spring:message code="advertise_createBy" /></th>
+				<td><spring:eval expression="advertise.createBy"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="advertise_type" /></th>
+				<td>
+					<c:choose>
+						<c:when test="${advertise.type == 0}">
+							<spring:message code="advertise_typeUrl" />
+						</c:when>
+						<c:when test="${advertise.type == 1}">
+							<spring:message code="advertise_typeFolder" />
+						</c:when>
+						<c:otherwise>
+							<spring:message code="advertise_typeProduct" />
+						</c:otherwise>
+					</c:choose>
+				</td>
+				<th><spring:message code="advertise_createDate" /></th>
+				<td>
+					<fmt:formatDate value="${advertise.createDate}" type="date" pattern="yyyy-MM-dd"/>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<c:choose>
+						<c:when test="${advertise.type == 0}">
+							<spring:message code="advertise_typeUrl" />
+						</c:when>
+						<c:when test="${advertise.type == 1}">
+							<spring:message code="advertise_typeFolder" />
+						</c:when>
+						<c:otherwise>
+							<spring:message code="advertise_typeProduct" />
+						</c:otherwise>
+					</c:choose>
+				</th>
+				<td>
+					<c:choose>
+						<c:when test="${advertise.type == 0}">
+							${advertise.url}
+						</c:when>
+						<c:when test="${advertise.type == 1}">
+							<a href="${pageContext.request.contextPath}/domain/folder/show/${advertise.folder.primaryKey}">${advertise.folder.name}</a>
+						</c:when>
+						<c:otherwise>
+							<a href="${pageContext.request.contextPath}/domain/productlist/show/${advertise.product.productId}">${advertise.product.name}</a>
+						</c:otherwise>
+					</c:choose>
+				</td>
+				<th><spring:message code="advertise_modBy" /></th>
+				<td><spring:eval expression="advertise.modBy"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="advertise_status" /></th>
+				<td>
+					<c:choose>
+						<c:when test="${advertise.status == 0}">
+							<spring:message code="Available" />
+						</c:when>
+						<c:otherwise>
+							<spring:message code="UnAvailable" />
+						</c:otherwise>
+					</c:choose>
+				</td>
+				<th><spring:message code="advertise_modDate" /></th>
+				<td>
+					<fmt:formatDate value="${advertise.modDate}" type="date" pattern="yyyy-MM-dd"/>
+				</td>
+			</tr>
+			<tr>
+				<th><spring:message code="advertise_description" /></th>
+				<td colspan="3"><spring:eval expression="advertise.description"/></td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="4">					
+					<a href="${pageContext.request.contextPath}/domain/init/redis/advertise/${advertise.advertiseId}"
+						class="modal button button-search"><spring:message code="crud.redis.publish.button" />
+					</a>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+	
+	<!-- 广告推荐 -->
+	<span id="tab_folder" class="ui-state-highlight button"><spring:message code="advertiseContainer" /></span>
+	<a
+		href="${pageContext.request.contextPath}/domain/productcontainer/create/${advertise.primaryKey}/3"
+		class="button button-create"><spring:message code="crud.functionalities.create" /> </a>
+	<table class="list">
+		<thead>
+			<tr>
+				<th>
+					<spring:message code="productContainer_site" />
+				</th>
+				<th>
+					<spring:message code="productContainer_folder" />
+				</th>
+				<th>
+					<spring:message code="productContainer_container" />
+				</th>
+				<th>
+					<spring:message code="productContainer_page" />
+				</th>
+				<th>
+					<spring:message code="productContainer_sortOrder" />
+				</th>
+				<th>
+					<spring:message code="productContainer_createBy" />
+				</th>
+				<th>
+					<spring:message code="productContainer_createDate" />
+				</th>
+				<th><c:out value=" " /></th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${recommandList}" var="recommand" varStatus="_st">
+				<tr>
+					<td>
+						<a
+							href="${pageContext.request.contextPath}/domain/site/show/${recommand.site.primaryKey}">
+							<c:out value="${recommand.site.name}" /> </a>
+					</td>
+					<td>
+						<a
+							href="${pageContext.request.contextPath}/domain/folder/show/${recommand.folder.primaryKey}">
+							<c:out value="${recommand.folder.name}" /> </a>
+					</td>
+					<td>
+						<a
+							href="${pageContext.request.contextPath}/domain/recommandcontainer/show/${recommand.container.primaryKey}">
+							<c:out value="${recommand.container.name}" /> </a>
+					</td>
+					<td>
+						<c:out value="${recommand.page.name}" />
+					</td>
+
+					<td>
+						<c:out value="${recommand.sortOrder}" />
+					</td>
+					<td>
+						<c:out value="${recommand.createBy}" />
+					</td>
+					<td>
+						<fmt:formatDate value="${recommand.createDate}" type="date" pattern="yyyy-MM-dd" />
+					</td>
+					<td>
+						<a
+							href="${pageContext.request.contextPath}/domain/productcontainer/update/${recommand.primaryKey}" class="button">
+							<spring:message code="crud.edit.button" /> </a>
+						<a  href="${pageContext.request.contextPath}/domain/productcontainer/delete/${recommand.primaryKey}"
+							class="modal button"><spring:message code="crud.delete.button" /> </a>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	
+</body>
+</html>

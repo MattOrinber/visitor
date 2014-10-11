@@ -1,0 +1,225 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core"  xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+
+<head>
+<title><spring:message code="productContainerTask" />: <spring:message code="productContainerTask_history" /></title>
+<script type="text/javascript">
+		function valid_check(){			
+			var return_val = true;
+			
+			var fromDate = $("#fromDate").val();
+			var toDate = $("#toDate").val();
+				
+			return_val = false;
+			if(fromDate == ""){
+				$("#errorInfo").text("开始日期不能为空");
+			} else if(toDate == "" ){
+				$("#errorInfo").text("结束日期不能为空");
+			} else if (fromDate &gt; toDate || fromDate == toDate) {
+				$("#errorInfo").text("开始日期必须小于结束日期！");
+			} else {
+				return_val = true;
+			}
+			
+			if(return_val){
+				$("#errorInfo").text(" ");
+			}
+			
+			return return_val;
+		}
+		function copydate_check(){			
+			var return_val = false;
+			
+			var disStrings = $("#disStrings").val();
+			var copydate = $("#copydate").val();
+			
+			copydate = copydate.replace('-','').replace('-','');
+			
+			if(disStrings == ""){
+				return_val = true;
+			} else if(copydate &lt;= disToday) {
+				$("#copyerrorInfo").text("不可以复制到已过日期！");
+				return_val = false;
+			} else if(disStrings.indexOf(copydate) >= 0){
+				$("#copyerrorInfo").text("该日期已存在定时产品！");
+				return_val = false;
+			} else {
+				return_val = true;
+			}
+			
+			if(return_val){
+				$("#copyerrorInfo").text(" ");
+			}
+			
+			return return_val;
+		}
+	</script>
+</head>
+<body>
+	<div id="result">
+		<a href="${pageContext.request.contextPath}/domain/recommandcontainer/search" class="ajaxy button button-search"><spring:message code="recommandContainer" /></a>
+		<a href="${pageContext.request.contextPath}/domain/recommandcontainer/show/${recommandContainer.primaryKey}" class="ajaxy button button-show"><spring:message code="crud.show.button" /></a>
+		<span class="ui-state-highlight button button-show">
+			<spring:message code="productContainerTask_history" />
+		</span>
+		<form:form action="${pageContext.request.contextPath}/domain/recommandcontainer/showproducttask/history/${recommandContainer.primaryKey}" modelAttribute="recommandContainer" method="POST" onsubmit="return valid_check()">
+		<table class="show">
+			<tbody>
+				<tr>
+					<th style="width:10%"><spring:message code="recommandContainer_name" /></th>
+					<td style="width:40%"><spring:eval expression="recommandContainer.name"/></td>
+					<th style="width:10%"><spring:message code="recommandContainer_containerId" /></th>
+					<td style="width:40%"><spring:eval expression="recommandContainer.containerId"/></td>
+				</tr>
+				<tr>
+					<th><spring:message code="recommandContainer_description" /></th>
+					<td><spring:eval expression="recommandContainer.description"/></td>
+					<th><spring:message code="recommandContainer_status" /></th>
+					<c:if test="${recommandContainer.status == 0}"><td><spring:message code="recommandContainer_status_yes" /></td></c:if>
+					<c:if test="${recommandContainer.status == 1}"><td><spring:message code="recommandContainer_status_no" /></td></c:if>
+				</tr>
+				<tr>
+					<th><spring:message code="productContainerTask_displayDate" /></th>
+					<td colspan="3">
+						<input id="fromDate" name="fromDate" class="datepicker" size="11" value="${fromDate}"/>&amp;nbsp;-
+						<input id="toDate" name="toDate" class="datepicker" size="11" value="${toDate}"/>&amp;nbsp;&amp;nbsp;
+						<spring:message code="crud.show.button" var="btnMsg" />
+						<input type="submit" class="button button-save" value="${btnMsg}" />&amp;nbsp;&amp;nbsp;
+						<span style="color:red" id="errorInfo">&amp;nbsp;</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</form:form>
+		<c:choose>
+			<c:when test="${!empty productContainerTaskMap}">
+				<table class="edit">
+					<thead>
+						<tr>
+						    <th style="width:5%">NO.</th>
+							<th style="width:10%"><spring:message code="productList_productId" /></th>
+							<th style="width:25%"><spring:message code="productList_name" /></th>
+							<th style="width:10%"><spring:message code="productContainerTask_type" /></th>
+							<th style="width:10%"><spring:message code="productContainerTask_status" /></th>
+							<th style="width:5%"><spring:message code="productContainerTask_productContainerId" /></th>
+							<th style="width:10%"><spring:message code="productContainer_modBy" /></th>
+							<th style="width:15%"><spring:message code="productContainer_modDate" /></th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- 关于天的循环 -->
+						<c:forEach items="${productContainerTaskMap}" var="map" varStatus="status">
+							<tr><!-- 以下为该天的数据 -->
+								<td colspan="9">
+									<table width="100%" id="tb${map.key}">
+										<tr style="height:1px">
+											<th style="width:5%"></th>
+											<th style="width:10%"></th>
+											<th style="width:25%"></th>
+											<th style="width:10%"></th>
+											<th style="width:10%"></th>
+											<th style="width:5%"></th>
+											<th style="width:10%"></th>
+											<th style="width:15%"></th>
+										</tr>
+										<tr>
+											<td colspan="8" style="text-align:center">
+												<fmt:parseDate value="${map.key}" type="date" var="date_date" pattern="yyyyMMdd"/>
+												<fmt:formatDate value="${date_date}" type="date" pattern="yyyy年MM月dd日"/>&amp;nbsp;&amp;nbsp;
+												<a href="${pageContext.request.contextPath}/domain/productcontainertask/copydate/${recommandContainer.primaryKey}/${map.key}/" class="button modal miniature"><spring:message code="productContainerTask_copydate"/></a>
+											</td>
+										</tr>
+										<c:set value="" var="idList" />
+										<c:forEach items="${map.value}" var="productContainerTask" varStatus="status">
+											<tr>
+												<c:if test="${productContainerTask.type==1}">
+													<td>
+														${status.index+1}
+													</td>
+													<td>
+														${productContainerTask.product.productId}
+														<c:choose>
+															<c:when test="${idList != ''}">
+														    	<c:set value="${idList},${productContainerTask.product.productId}" var="idList" />
+															</c:when>
+															<c:otherwise>
+															    <c:set value="${productContainerTask.product.productId}" var="idList" />
+															</c:otherwise>
+														</c:choose>
+													</td>
+													<td>
+														<a href="${pageContext.request.contextPath}/domain/productlist/show/${productContainerTask.product.productId}">${productContainerTask.product.name}</a>
+													</td>
+													<td>
+														<spring:message code="productContainerTask_type_Product" />
+													</td>
+													<td>
+														<c:if test="${productContainerTask.product.downStatus==0}"><spring:message code="productList_status_enable" /></c:if>
+														<c:if test="${productContainerTask.product.downStatus==1}"><font color="red"><spring:message code="productList_status_disable" /></font></c:if>
+													</td>
+												</c:if>
+												<c:if test="${productContainerTask.type==2}">
+													<td>
+														${status.index+1}
+													</td>
+													<td>
+														${productContainerTask.tfolder.folderId}
+													</td>
+													<td>
+														<a href="${pageContext.request.contextPath}/domain/folder/show/${productContainerTask.tfolder.folderId}">${productContainerTask.tfolder.name}</a>
+													</td>
+													<td>
+														<spring:message code="productContainerTask_type_Folder" />
+													</td>
+													<td>
+														<c:if test="${productContainerTask.tfolder.status==0}"><spring:message code="folder_status_yes" /></c:if>
+														<c:if test="${productContainerTask.tfolder.status==1}"><font color="red"><spring:message code="folder_status_no" /></font></c:if>
+													</td>
+												</c:if>
+												<c:if test="${productContainerTask.type==3}">
+													<td>
+														${status.index+1}
+													</td>
+													<td>
+														${productContainerTask.advertise.advertiseId}
+													</td>
+													<td>
+														<a href="${pageContext.request.contextPath}/domain/advertise/show/${productContainerTask.advertise.advertiseId}">${productContainerTask.advertise.name}</a>
+													</td>
+													<td>
+														<spring:message code="productContainerTask_type_Advertise" />
+													</td>
+													<td>
+														<c:if test="${productContainerTask.advertise.status==0}"><spring:message code="advertise_status_enable" /></c:if>
+														<c:if test="${productContainerTask.advertise.status==1}"><font color="red"><spring:message code="advertise_status_disable" /></font></c:if>
+													</td>
+												</c:if>
+												<td>
+													${productContainerTask.productContainerTaskId}
+												</td>
+												<td>
+													${productContainerTask.modBy}
+												</td>
+												<td>
+													<fmt:formatDate value="${productContainerTask.modDate}" type="date" pattern="yyyy-MM-dd"/>
+												</td>
+											</tr>
+										</c:forEach>
+										<tr><td colspan="9" style="word-break:break-all">ID排序（仅限于产品）：${idList}</td></tr>
+									</table><!-- 以上为该天数据 -->
+								</td>
+							</tr>
+						</c:forEach>
+						<!-- 天的循环 -->
+					</tbody>
+				</table>
+			</c:when>
+			<c:otherwise>
+				<table class="show"><tbody><tr><td><spring:message code="productContainerTask_none" /></td></tr></tbody></table>
+			</c:otherwise>
+		</c:choose>
+	</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="productPic" />: <spring:message code="crud.functionalities.create" />
+	</title>
+	<script type="text/javascript">
+		function validate(){
+			var screen = $("#screen").val();
+			
+			if(screen.length &lt; 1){
+				alert("截图不能为空");
+				return false;
+			}
+			
+			screen = screen.toLowerCase();
+			var reg = /^.*?\.(jpg|png|gif)$/; 
+
+			if(!reg.test(screen)){
+				alert("截图后缀名必须为jpg/png/gif");
+				return false;
+			}
+		}
+	</script>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/productlist/show/${productPicSearchForm.proId}"
+		class="ajaxy button button-search"><spring:message code="productList" />
+	</a>
+	<span class="ui-state-highlight button button-create"><spring:message code="crud.functionalities.create" />
+	</span>
+	<form:form
+		action="${pageContext.request.contextPath}/domain/productpic/createscr"
+		modelAttribute="productPicSearchForm" method="POST"
+		enctype="multipart/form-data" onsubmit="return validate()">
+		<form:errors cssClass="error" />
+		<form:hidden path="proId" />
+		<table class="create">
+			<tbody>
+				<tr>
+					<th>
+						<spring:message code="productList_printscreen" />
+					</th>
+					<td>
+						<!-- 添加截图 -->
+						<input type="file" name="screen" id="screen" />
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<spring:message code="crud.save.button" var="saveButton"/>
+						<input type="submit" class="button button-save"	value="${saveButton}" />
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+</body>
+</html>

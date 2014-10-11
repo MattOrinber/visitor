@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+ ! Template pack-backend:src/main/resources/localization/domain/domain.e.vm.xml
+-->
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for recommendRuleAcross</comment>
+
+	<entry key="recommendRuleAcross">交叉推荐</entry>
+
+	<!-- Attributes -->
+	<entry key="recommendRuleAcross_rule">规则</entry>
+	<entry key="recommendRuleAcross_ruleId">推荐规则ID</entry>
+	<entry key="recommendRuleAcross_serviceId">服务ID</entry>
+	<entry key="recommendRuleAcross_serviceSiteId">服务站点ID</entry>	
+	<entry key="recommendRuleAcross_serviceName">服务名称</entry>
+	<entry key="recommendRuleAcross_serviceSiteName">服务站点名称</entry>	
+	<entry key="recommendRuleAcross_serviceProductFolderId">频道ID/产品ID</entry>
+	<entry key="recommendRuleAcross_serviceFolderId">频道ID</entry>
+	<entry key="recommendRuleAcross_serviceFolderName">频道名称</entry>
+	<entry key="recommendRuleAcross_serviceProductId">产品ID</entry>
+	
+	<entry key="recommendRuleAcross_name">名称</entry>
+	<entry key="recommendRuleAcross_type">类型</entry>
+	<entry key="recommendRuleAcross_type_0">系统</entry>
+	<entry key="recommendRuleAcross_type_1">频道</entry>
+	<entry key="recommendRuleAcross_type_2">产品</entry>
+		
+	<entry key="recommendRuleAcross_behavior">用户行为</entry>
+	<entry key="recommendRuleAcross_storage">推荐库</entry>
+	<entry key="recommendRuleAcross_manual">固定产品</entry>
+	<entry key="recommendRuleAcross_folder">频道产品</entry>
+	<entry key="recommendRuleAcross_container">容器产品</entry>
+	<entry key="recommendRuleAcross_other_para">其他参数</entry>
+	
+	<entry key="recommendRuleAcross_dis_sort">推荐排序</entry>
+	<entry key="recommendRuleAcross_dis_num">显示个数</entry>
+	<entry key="recommendRuleAcross_folder_recommend">频道推荐</entry>
+	<entry key="recommendRuleAcross_product_recommend">产品推荐</entry>
+	
+	<entry key="recommendRuleAcross_service_1">看小说</entry>
+	
+	<entry key="recommendRuleAcross_preview">预览</entry>
+
+</properties>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+ ! Template pack-backend:src/main/resources/localization/domain/domain.e.vm.xml
+-->
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for RecommendRule</comment>
+
+	<entry key="recommendRule">智能推荐</entry>
+
+	<!-- Attributes -->
+	<entry key="recommendRule_rule">规则</entry>
+	<entry key="recommendRule_ruleId">推荐规则ID</entry>
+	<entry key="recommendRule_productFolderId">频道ID/产品ID</entry>
+	<entry key="recommendRule_folder_id">频道ID</entry>
+	<entry key="recommendRule_product_id">产品ID</entry>
+	<entry key="recommendRule_folder">频道</entry>
+	<entry key="recommendRule_product">产品</entry>
+	<entry key="recommendRule_name">名称</entry>
+	<entry key="recommendRule_type">类型</entry>
+	<entry key="recommendRule_type_0">系统</entry>
+	<entry key="recommendRule_type_1">频道</entry>
+	<entry key="recommendRule_type_2">产品</entry>
+	<entry key="recommendRule_behaviorId">下载推荐</entry>
+	<entry key="recommendRule_behavior_select">算法选择</entry>
+	<entry key="recommendRule_behavior_data">算法数据</entry>
+	<entry key="recommendRule_behavior_1">皮尔逊 30天</entry>
+	<entry key="recommendRule_behavior_2">皮尔逊 10天</entry>
+	<entry key="recommendRule_behavior_3">余弦 30天</entry>
+	<entry key="recommendRule_behavior_4">余弦 10天</entry>
+	<entry key="recommendRule_behavior_5">欧几里得 30天</entry>
+	<entry key="recommendRule_similar">相似产品</entry>
+	<entry key="recommendRule_storage">推荐库</entry>
+	<entry key="recommendRule_manual">固定产品</entry>
+	<entry key="recommendRule_other_para">其他参数</entry>
+	
+	<entry key="recommendRule_dis_sort">推荐排序</entry>
+	<entry key="recommendRule_dis_num">显示个数</entry>
+	<entry key="recommendRule_folder_recommend">频道推荐</entry>
+	<entry key="recommendRule_product_recommend">产品推荐</entry>
+	
+	<entry key="recommendRule_no_product">该站点推荐库没有推荐产品</entry>
+
+</properties>

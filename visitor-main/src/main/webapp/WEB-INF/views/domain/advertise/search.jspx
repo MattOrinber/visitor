@@ -1,0 +1,79 @@
+<html 
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" 
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+	xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	xmlns:security="http://www.springframework.org/security/tags" 
+	xmlns:spring="http://www.springframework.org/tags" 
+	xmlns:form="http://www.springframework.org/tags/form">
+
+	<jsp:output omit-xml-declaration="yes" />
+	<jsp:directive.page contentType="text/html; charset=UTF-8" />
+	<head>
+		<title><spring:message code="advertise" />: <spring:message code="crud.functionalities.example" />
+		</title>
+	</head>
+	<body>
+	<span class="ui-state-highlight button button-search"><spring:message code="advertise" /></span>
+	<a href="${pageContext.request.contextPath}/domain/advertise/create" class="button button-create">
+		<spring:message code="crud.functionalities.create" />
+	</a>
+	<form:form action="${pageContext.request.contextPath}/domain/advertise/list" modelAttribute="advertiseSearchForm" class="search">
+		<table class="show">
+			<tbody>
+				<tr>
+					<th>
+						<spring:message code="advertise_advertiseId" />
+					</th>
+					<td>
+						<form:input path="advertise.advertiseId" cssClass="number"/>
+						<form:errors path="advertise.advertiseId" cssClass="error" />
+					</td>
+					<th>
+						<spring:message code="advertise_name" />
+					</th>
+					<td>
+						<form:input path="advertise.name" />
+						<form:errors path="advertise.name" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="advertise_type" />
+					</th>
+					<td>
+						<form:select path="advertise.type">
+							<form:option value=""><spring:message code="ANY" /></form:option>
+							<form:option value="0"><spring:message code="advertise_typeUrl" /></form:option>
+							<form:option value="1"><spring:message code="advertise_typeFolder" /></form:option>
+							<form:option value="2"><spring:message code="advertise_typeProduct" /></form:option>
+						</form:select>
+						<form:errors path="advertise.type" cssClass="error" />
+					</td>
+					<th>
+						<spring:message code="advertise_status" />
+					</th>
+					<td>
+						<form:select path="advertise.status">
+							<form:option value="" select="select"><spring:message code="ANY" /></form:option>
+							<form:option value="0"><spring:message code="Available" /></form:option>
+							<form:option value="1"><spring:message code="UnAvailable" /></form:option>
+						</form:select>
+						<form:errors path="advertise.status" cssClass="error" />
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="5">
+						<spring:message code="crud.search.button" var="btnMessage"/>
+						<input type="submit" class="button button-search" value="${btnMessage}" />
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+	<jsp:include page="/domain/advertise/list" />
+
+</body>
+</html>

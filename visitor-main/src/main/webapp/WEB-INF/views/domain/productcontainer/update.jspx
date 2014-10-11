@@ -1,0 +1,183 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core"  xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="productContainer" />: <spring:message code="crud.functionalities.update" />
+	</title>
+</head>
+<body>
+	<c:if test="${productContainer != null}">
+	<c:if test="${productContainer.type==1}">
+		<a href="${pageContext.request.contextPath}/domain/productlist/show/${productContainer.productId}" class="ajaxy button button-search"><spring:message code="productList" /></a>
+	</c:if>
+	<c:if test="${productContainer.type==2}">
+		<a href="${pageContext.request.contextPath}/domain/folder/show/${productContainer.tfolderId}" class="ajaxy button button-search"><spring:message code="folder" /></a>
+	</c:if>
+	<c:if test="${productContainer.type==3}">
+		<a href="${pageContext.request.contextPath}/domain/advertise/show/${productContainer.advertiseId}" class="ajaxy button button-search"><spring:message code="advertise" /></a>
+	</c:if>
+	<a href="${pageContext.request.contextPath}/domain/recommandcontainer/show/${productContainer.containerId}" class="ajaxy button button-search"><spring:message code="recommandContainer" /></a>
+	<a href="${pageContext.request.contextPath}/domain/productcontainer/delete/${productContainer.primaryKey}" class="modal button button-delete"><fmt:message key="crud.delete.button" /></a>
+
+	<form:form
+		action="${pageContext.request.contextPath}/domain/productcontainer/update/${productContainer.primaryKey}"
+		modelAttribute="productContainer" method="POST">
+		<form:errors cssClass="error" />
+		<form:hidden path="productContainerId" />
+		<table class="edit">
+			<tbody>
+				
+							<!--根据类型不同而分别显示==>图书-->
+			<c:if test="${productContainer.type==1}">
+				<tr>
+					<th>
+						<spring:message code="productContainer_productList_productId" />
+					</th>
+					<td>
+						<spring:eval expression="productContainer.productId" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="productContainer_productList_name" />
+					</th>
+					<td>
+						<spring:eval expression="productContainer.product.name" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="productContainer_type" />
+					</th>
+					<td>
+						<spring:message code="productContainer_type_Book" />
+					</td>
+				</tr>
+			</c:if>
+			<!--根据类型不同而分别显示==>频道-->
+			<c:if test="${productContainer.type==2}">
+				<tr>
+					<th>
+						<spring:message code="folder_folderId" />
+					</th>
+					<td>
+						<spring:eval expression="productContainer.tfolderId" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="folder_name" />
+					</th>
+					<td>
+						<spring:eval expression="productContainer.tfolder.name" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="productContainer_type" />
+					</th>
+					<td>
+						<spring:message code="productContainer_type_Folder" />
+					</td>
+				</tr>
+			</c:if>
+			<c:if test="${productContainer.type==3}">
+				<tr>
+					<th>
+						<spring:message code="advertise_advertiseId" />
+					</th>
+					<td>
+						<spring:eval expression="productContainer.advertiseId" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="advertise_name" />
+					</th>
+					<td>
+						<spring:eval expression="productContainer.advertise.name" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="productContainer_type" />
+					</th>
+					<td>
+						<spring:message code="productContainer_type_Advertise" />
+					</td>
+				</tr>
+			</c:if>
+			<!--end -->
+				
+				<tr>
+					<th>
+						<spring:message code="productContainer_site" />
+					</th>
+					<td>
+						<!-- 站点 -->
+						<spring:eval expression="productContainer.site.name" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="productContainer_folder" />
+					</th>
+					<td>
+						<!-- 频道 -->
+						<spring:eval expression="productContainer.folder.name" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="productContainer_page" />
+					</th>
+					<td>
+						<!-- 页面 -->
+						<spring:eval expression="productContainer.page.name" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="productContainer_container" />
+					</th>
+					<td>
+						<!-- 容器 -->
+						<spring:eval expression="productContainer.container.name" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="productContainer_startDate" />
+					</th>
+					<td>
+						<form:input path="startDate" cssClass="datepicker" size="11" />
+						<form:errors path="startDate" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="productContainer_endDate" />
+					</th>
+					<td>
+						<form:input path="endDate" cssClass="datepicker" size="11" />
+						<form:errors path="endDate" cssClass="error" />
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<spring:message code="crud.save.button" var="btnMsg" />
+						<input type="submit" class="button button-save" value="${btnMsg}" />
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+	</c:if>
+	<c:if test="${productContainer == null}">
+		Sorry, the data you're looking for has been removed already!
+	</c:if>
+</body>
+</html>

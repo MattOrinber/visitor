@@ -1,0 +1,59 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core"  xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="picture" />: <spring:message code="crud.functionalities.create" /></title>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/picture/search" class="ajaxy button button-search"><spring:message code="picture" /></a>
+	<span class="ui-state-highlight button button-create"><spring:message code="crud.functionalities.create" /></span>
+	<form:form action="${pageContext.request.contextPath}/domain/picture/create" modelAttribute="picture" method="POST" enctype="multipart/form-data">
+		<form:errors cssClass="error"/>
+		<form:hidden path="pictureId"/>
+		<table class="create">
+			<tbody>
+				<tr>
+					<th><spring:message code="picture_name" /> <em>*</em></th>
+					<td>
+						<form:input path="name" cssClass="required {maxlength: 200}" maxlength="200" size="100"/>
+						<form:errors path="name" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="picture_type" /></th>
+					<td>
+						<form:radiobutton path="type" value="1" checked="checked"/><spring:message code="picture_type_1" />
+						<form:radiobutton path="type" value="2" /><spring:message code="picture_type_2" />
+						<form:radiobutton path="type" value="3" /><spring:message code="picture_type_3" />
+						<form:radiobutton path="type" value="9" /><spring:message code="picture_type_9" />
+						<form:errors path="type" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="picture_description" /></th>
+					<td>
+						<form:input path="description" cssClass="{maxlength: 200}" maxlength="200" size="100"/>
+						<form:errors path="description" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="picture_file" /></th>
+					<td>
+						<input type="file" name="picFile" />
+						<form:errors path="path" cssClass="error"/>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<spring:message code="crud.save.button" var="btnMsg" />
+						<input type="submit" class="button button-save" value="${btnMsg}"/>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+</body>
+</html>

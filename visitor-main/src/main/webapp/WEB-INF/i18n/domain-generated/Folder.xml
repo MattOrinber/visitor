@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for Folder</comment>
+
+	<entry key="folder">频道</entry>
+    <entry key="label">标签</entry>
+    <entry key="publish">发布</entry>
+	<!-- Attributes -->
+	<entry key="folder_site_nodes">结构树</entry>
+	<entry key="folder_folderId">频道 Id</entry>
+	<entry key="folder_siteId">站点</entry>
+	<entry key="folder_parentFolderId">上级频道</entry>
+	<entry key="folder_name">名称</entry>
+	<entry key="folder_aliasName">别名</entry>
+	<entry key="folder_path">路径</entry>
+	<entry key="folder_indexPageId">首页</entry>
+	<entry key="folder_listPageId">列表页</entry>
+	<entry key="folder_detailPageId">详情页</entry>
+	<entry key="folder_naviPageId">导航页</entry>
+	<entry key="folder_nsThread">Ns Thread</entry>
+	<entry key="folder_nsLeft">Ns Left</entry>
+	<entry key="folder_nsRight">Ns Right</entry>
+	<entry key="folder_status">使用状态</entry>
+	<entry key="folder_sortOrder">排序时间</entry>
+	<entry key="folder_createBy">创建人</entry>
+	<entry key="folder_createDate">创建日期</entry>
+	<entry key="folder_modDate">更新日期</entry>
+	<entry key="folder_modBy">更新人</entry>
+	<entry key="folder_description">描述</entry>
+	<entry key="folder_picId">图片</entry>
+	<entry key="folder_tag">标签</entry>
+	<entry key="folder_tagId">主标签</entry>
+	<entry key="folder_tags">副标签</entry>
+	<entry key="folder_miniLab">Mini标</entry>
+	<entry key="folder_miniLab_hot">hot</entry>
+	<entry key="folder_miniLab_new">new</entry>
+	<entry key="folder_miniLab_olm">olm</entry>
+	<entry key="folder_miniLab_4">4</entry>
+	<entry key="folder_miniLab_5">5</entry>
+	<entry key="folder_safeType">安全类型</entry>
+	<!-- x-to-one -->
+	<entry key="folder_detailPage">Detail Page</entry>
+	<entry key="folder_listPage">List Page</entry>
+	<entry key="folder_indexPage">Index Page</entry>
+	<entry key="folder_site">Site</entry>
+	<entry key="folder_parentFolder">Parent Folder</entry>
+	<entry key="folder_pic">Pic</entry>
+	
+	<!-- Booleans values -->
+	<entry key="folder_status_all">全部</entry>
+	<entry key="folder_status_yes">可用</entry>
+	<entry key="folder_status_no">不可用</entry>
+	
+	<!-- Page values -->
+	<entry key="folder_page_title_name">页面名称</entry>
+	<entry key="folder_page_title_type">页面类型</entry>
+	<entry key="folder_page_title_type_default">默认页</entry>
+	<entry key="folder_page_title_type_person">编辑页</entry>
+	<entry key="folder_page_title_publish">发布状态</entry>
+	<entry key="folder_page_title_publishBy">发布者</entry>
+	<entry key="folder_page_title_publishDate">发布日期</entry>
+	<entry key="folder_page_title_operate">页面操作</entry>
+	
+	<entry key="folder_page_no">该页面暂时还未编辑，使用站点默认页</entry>
+	
+	<entry key="folder_page_operate_pre">预览</entry>
+	<entry key="folder_page_operate_edit">编辑</entry>
+	<entry key="folder_page_operate_visual_edit">可视化编辑</entry>
+	
+	<entry key="folder_product_show">关联产品</entry>
+	<entry key="folder_product_more">查看更多</entry>
+	<entry key="folder_product_add">添加产品</entry>
+	<entry key="folder_product_none">该频道暂时还未添加任何产品</entry>
+	
+	<entry key="folder_add_child">创建子频道</entry>
+	<entry key="folder_child">子频道</entry>
+	
+	<entry key="folder_delete_question">该频道存在下列子频道,不可以直接删除</entry>
+
+    <entry key="folder_lable_id">标签id</entry>
+    <entry key="label_name">标签名称</entry>
+    <entry key="label_create_date">创建日期</entry>
+    <entry key="label_modify_date">修改日期</entry>
+    <entry key="label_create_by">创建人</entry>
+    <entry key="label_modify_by">修改人</entry>
+    <entry key="label_status">状态</entry>
+</properties>

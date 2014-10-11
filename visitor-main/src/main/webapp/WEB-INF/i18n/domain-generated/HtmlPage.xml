@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+ ! Template pack-backend:src/main/resources/localization/domain/domain.e.vm.xml
+-->
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for HtmlPage</comment>
+
+	<entry key="htmlPage">频道页面</entry>
+
+	<!-- Attributes -->
+	<entry key="htmlPage_pageId">Page Id</entry>
+	<entry key="htmlPage_name">Name</entry>
+	<entry key="htmlPage_path">Path</entry>
+	<entry key="htmlPage_templateId">模板ID</entry>
+	<entry key="htmlPage_folderId">Folder Id</entry>
+	<entry key="htmlPage_meta">Meta</entry>
+	<entry key="htmlPage_tempMeta">页面内容</entry>
+	<entry key="htmlPage_publish">发布</entry>
+	<entry key="htmlPage_preview">预览</entry>
+	<entry key="htmlPage_publishDate">Publish Date</entry>
+	<entry key="htmlPage_publishBy">Publish By</entry>
+	<entry key="htmlPage_ifDefaultPage">If Default Page</entry>
+	<entry key="htmlPage_siteId">Site Id</entry>
+	<entry key="htmlPage_pageType">Page Type</entry>
+	<entry key="htmlPage_createBy">Create By</entry>
+	<entry key="htmlPage_createDate">Create Date</entry>
+	<entry key="htmlPage_modDate">Mod Date</entry>
+	<entry key="htmlPage_modBy">Mod By</entry>
+	<entry key="htmlPage_description">Description</entry>
+
+	<!-- Booleans values -->
+	<entry key="htmlPage_ifDefaultPage_true">已发布</entry>
+	<entry key="htmlPage_ifDefaultPage_false">未发布</entry>
+
+	<!-- x-to-one -->
+	<entry key="htmlPage_folder">Folder</entry>
+	<entry key="htmlPage_template">使用模板</entry>
+	
+	<entry key="htmlPage_page_container">添加产品推荐</entry>
+	<entry key="htmlPage_page_container_none">该页面没有产品推荐</entry>
+</properties>

@@ -1,0 +1,44 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="role" />: <spring:message code="crud.functionalities.create" /></title>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/role/search" class="ajaxy button button-search"><spring:message code="account_role" /></a>
+	<span class="ui-state-highlight button button-create"><spring:message code="crud.functionalities.create" /></span>
+	<form:form action="${pageContext.request.contextPath}/domain/role/create" modelAttribute="role" method="POST">
+		<form:errors cssClass="error"/>
+		<form:hidden path="roleId"/>
+		<table class="create">
+			<tbody>
+				<tr>
+					<th><spring:message code="account_role_name" /> <em>*</em></th>
+					<td>
+						<form:input path="roleName" cssClass="required {maxlength: 200}" maxlength="200" size="100"/>
+						<form:errors path="roleName" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="account_role_des" /> <em>*</em></th>
+					<td>
+						<form:input path="roleDes" cssClass="required {maxlength: 200}" maxlength="200" size="100"/>
+						<form:errors path="roleDes" cssClass="error"/>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<spring:message code="crud.save.button" var="saveButton"/>
+						<input type="submit" class="button button-save" value="${saveButton}"/>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+</body>
+</html>

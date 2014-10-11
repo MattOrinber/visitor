@@ -1,0 +1,94 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="recommendRule" />: <spring:message code="crud.functionalities.show" /></title>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/recommendrule/search" class="ajaxy button button-search"><spring:message code="recommendRule" /></a>
+	<a href="${pageContext.request.contextPath}/domain/recommendrule/storage/publish" class="modal button button-search"><spring:message code="crud.redis.publish.button" /></a>
+	<a href="${pageContext.request.contextPath}/domain/recommendrule/storage/add" class="button button-create"><spring:message code="button_add" /><spring:message code="recommendRule_product" /></a>
+	<span class="ui-state-highlight button button-show"><spring:message code="recommendRule_storage" /></span>
+	<c:choose>
+		<c:when test="${empty productLists}">
+			<table class="show">
+				<thead>
+					<tr>
+						<td>
+							<spring:message code="recommendRule_no_product" />
+						</td>
+					</tr>
+				</thead>
+			</table>
+		</c:when>
+		<c:otherwise>
+		<form:form action="${pageContext.request.contextPath}/domain/recommendrule/storage/batchdelete/?siteId=${siteId}" modelAttribute="recommendRule" method="POST">
+			<table class="show">
+				<tbody>
+				<thead>
+						<tr>
+							<th style="width:2%"></th>
+							<th style="width:8%">
+								<spring:message code="productList_productId"/>
+							</th>
+							<th style="width:30%">
+								<spring:message code="productList_name"/>
+							</th>
+							<th>
+								<spring:message code="productList_categoryId"/>
+							</th>
+							<th>
+								<spring:message code="productList_createDate"/>
+							</th>
+							<th>
+								<spring:message code="productList_downStatus"/>
+							</th>
+							<th></th>
+						</tr>
+					</thead>
+					<c:forEach items="${productLists}" var="productList" varStatus="status">
+						<tr>
+							<td>
+								<input type="checkbox" name="products" value="${productList.productId}" />
+							</td>
+							<td>
+								${productList.productId}
+							</td>
+							<td>
+								${productList.name}
+							</td>
+							<td>
+								${productList.category.name}
+							</td>
+							<td>
+								<fmt:formatDate value="${productList.createDate}" type="date" pattern="yyyy-MM-dd"/>
+							</td>
+							<td>
+								<c:if test="${productList.downStatus==0}"><spring:message code="productList_status_enable" /></c:if>
+								<c:if test="${productList.downStatus==1}"><font color="red"><spring:message code="productList_status_disable" /></font></c:if>
+							</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/domain/recommendrule/storage/delete/?siteId=${siteId}&amp;productId=${productList.productId}"
+									class="button button-delete modal"><spring:message code="crud.delete.button" /></a>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+
+				<tfoot>
+					<tr>
+						<td colspan="7">
+							<spring:message code="crud.delete.select.button" var="deleteButton"/>
+							<input type="submit" class="button button-delete" value="${deleteButton}"/>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</form:form>
+		</c:otherwise>
+	</c:choose>
+</body>
+</html>

@@ -10,8 +10,8 @@
     <url>http://maven.apache.org</url>
 
     <scm>
-        <connection>scm:git:git@git.oupeng.com:as/app.git</connection>
-        <developerConnection>scm:git:git@git.oupeng.com:as/app.git</developerConnection>
+        <connection>scm:git:git@github.com:MattOrinber/visitor.git</connection>
+        <developerConnection>scm:git:git@github.com:MattOrinber/visitor.git</developerConnection>
     </scm>
 
     <properties>
@@ -22,13 +22,10 @@
     </properties>
 
     <modules>
-        <module>app-core</module>
-        <module>app-webapp</module>
-        <module>game-webapp</module>
-        <module>app-admin</module>
-        <module>app-search</module>
-        <module>game-search</module>
-        <module>ios-webapp</module>
+        <module>visitor-core</module>
+        <module>visitor-main</module>
+        <module>visitor-search</module>
+		<module>visitor-api</module>
     </modules>
 
     <build>
@@ -75,31 +72,5 @@
             </extension>
         </extensions>
     </build>
-
-    <repositories>
-        <repository>
-            <id>nh-maven-repository</id>
-            <url>http://mvn.nhorizon.cn/maven</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>repo2</id>
-            <url>http://repo2.maven.org/maven2/</url>
-        </repository>
-        <repository>
-            <id>alibaba</id>
-            <url>http://code.alibabatech.com/mvn/releases/</url>
-        </repository>
-    </repositories>
-
-    <distributionManagement>
-        <repository>
-            <id>nhorizon-maven-repository</id>
-            <url>scp://mvn.nhorizon.cn/var/www/nginx-default/maven</url>
-        </repository>
-        <snapshotRepository>
-            <id>nhorizon-maven-repository-snapshots</id>
-            <url>scp://mvn.nhorizon.cn/var/www/nginx-default/maven/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
+	
 </project>

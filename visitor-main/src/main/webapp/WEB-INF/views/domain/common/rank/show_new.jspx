@@ -1,0 +1,146 @@
+<html xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+
+<head>
+</head>
+<body>
+
+	<a href="${pageContext.request.contextPath}/domain/productrank/show?siteId=${rankSearchForm.siteId}" class="ajaxy button button-search">排行榜</a>
+	<span class="ui-state-highlight button button-show">最新榜</span>
+
+		<table class="show">
+			<tbody>
+			<form:form action="${pageContext.request.contextPath}/domain/productrank/new" modelAttribute="rankSearchForm" method="post">
+			<form:hidden path="siteId"/>
+				<tr>
+					<th style="width:12%">
+						<spring:message code="site_platformId" />
+					</th>
+					<td style="width:8%">
+						<form:select path="version">
+							<form:options items="${versions}" itemValue="categoryId" itemLabel="name" />
+						</form:select>
+						<form:errors path="version" cssClass="error" />
+					</td>
+					<th style="width:8%">
+						分辨率等级：
+					</th>
+					<td style="width:30%">
+						<form:select path="level">
+							<form:option value="1">153600以上</form:option>
+							<form:option value="2">76800以上</form:option>
+							<form:option value="3">其他</form:option>
+						</form:select>
+						<form:errors path="level" cssClass="error" />
+					</td>
+					<td>
+						<input type="submit" class="button button-search" value="查询" />
+					</td>
+					<th style="width:40%"></th>
+				</tr>
+			</form:form>
+			<form:form action="${pageContext.request.contextPath}/domain/productrank/new/update?siteId=${rankSearchForm.siteId}" modelAttribute="rankSearchForm" method="post">
+						<tr>
+							<th>
+								<spring:message code="productList_productId" />:
+							</th>
+							<td>
+								<form:input path="productId" cssClass="number required" maxlength="18" size="10" />
+							</td>
+							<th>
+								更新日期至：
+							</th>
+							<td>
+								<form:input path="publishDate" cssClass="datepicker" size="11" />&amp;nbsp;
+								<input type="text" name="time" class="number required" size="4" />&amp;nbsp;(时分格式：hhmm)
+							</td>
+							<th>
+								<input type="submit" class="button button-search" value="修改" />
+							</th>
+							<th></th>
+						</tr>
+			</form:form>
+			<form:form action="${pageContext.request.contextPath}/domain/productrank/new/reset?siteId=${rankSearchForm.siteId}" modelAttribute="rankSearchForm" method="post">
+						<tr>
+							<th>
+								<spring:message code="productList_productId" />:
+							</th>
+							<td>
+								<form:input path="productId" cssClass="number required" maxlength="18" size="10" />
+							</td>
+							<th>
+							</th>
+							<td>
+							</td>
+							<th>
+								<input type="submit" class="button button-search" value="重置" />
+							</th>
+							<th></th>
+						</tr>
+			</form:form>
+		</tbody>
+	</table>
+	<table class="list">
+		<thead>
+			<tr>
+				<th style="width:8%"><util:sort-header model="productList" attribute="productId" url="list" /></th>
+				<th><util:sort-header model="productList" attribute="name" url="list" /></th>
+				<th style="width:15%"><spring:message code="productList_folder" /></th>
+				<th>排行时间</th>
+				<th>真实时间</th>
+				<th><util:sort-header model="productState" attribute="dailyDl" url="list" /></th>
+				<th><util:sort-header model="productState" attribute="weekDl" url="list" /></th>
+				<th><util:sort-header model="productState" attribute="monthDl" url="list" /></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${productLists}" var="productList" varStatus="_st">
+				<tr>
+					<td>${productList.productId}</td>
+					<td><a href="${pageContext.request.contextPath}/domain/productlist/show/${productList.productId}"><spring:eval expression="productList.name"/></a></td>
+					<td>
+						<c:forEach items="${productList.folders}" var="folder" varStatus="status">
+							<c:if test="${status.index != 0}"><br/></c:if>
+								<a href="${pageContext.request.contextPath}/domain/folder/show/${folder.primaryKey}">${folder.name}</a>
+						</c:forEach>
+					</td>
+					<td><fmt:formatDate value="${productList.publishDate}" type="date" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+					<td>
+						<c:if test="${productList.publishDate != productList.createDate}">
+							<font color="red"><strong><fmt:formatDate value="${productList.createDate}" type="date" pattern="yyyy-MM-dd hh:mm:ss"/></strong></font>
+						</c:if>
+					</td>
+					<td>
+						${productList.productState.dailyDl}
+					</td>
+					<td>
+						${productList.productState.weekDl}
+					</td>
+					<td>
+						${productList.productState.monthDl}
+					</td>
+					<td>
+						<c:if test="${productList.publishDate != productList.createDate}">
+							<a href="${pageContext.request.contextPath}/domain/productrank/new/reset?siteId=${rankSearchForm.siteId}&amp;productId=${productList.productId}" class="button"><spring:message code="button_reset"/></a>
+						</c:if>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th colspan="2"></th>
+				<th colspan="2">
+					<util:navigation totalSize="${1000}" search="${rankSearchForm.sp}" url="show" totalPages="${10}" render="${1000 > 0}" />
+				</th>
+				<th><spring:message code="search.total" arguments="${1000}" /></th>
+			</tr>
+		</tfoot>
+	</table>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="searchKeyword" />: <spring:message code="searchKeyword_dis_css" /></title>
+	<script type="text/javascript">
+
+	$(document).ready(function() {
+		var cur_default;
+	
+		$("#sort").click(function(){
+			$( "#sort_area" ).show();
+			$( "#cover_body" ).css({width:$(document).width(),height:$(document).height()}).show();
+		});
+		
+		$("#sort_save").click(function(){
+		var searchKeywords = $("#sortable").sortable('toArray');
+			$.ajax( {
+				type : "GET",
+				url : "${pageContext.request.contextPath}/domain/searchkeyword/sort?siteId=${site.siteId}&amp;searchKeywords=" + searchKeywords,
+				success : function(ss) {
+					if(ss){
+						window.document.location.href="${pageContext.request.contextPath}/domain/searchkeyword/showfront?siteId=${site.siteId}";
+					}else{
+
+					}
+				}
+			})
+		});
+		
+		$("#sort_cancel").click(function(){
+			$( "#sort_area" ).hide();
+			$( "#cover_body" ).hide();
+		});
+		
+		$( "#sortable" ).sortable();
+		$( "#sortable" ).sortable('option', 'axis', 'y');
+		$( "#sortable" ).sortable('option', 'opacity', 0.5);
+		$( "#sortable" ).sortable('option', 'revert', true);
+		$( "#sortable" ).sortable('option', 'items', 'li');
+		
+		$("#edit_default_keyword").click(function(){
+		
+			cur_default = $("#default_keyword").val();
+		
+			$("#default_keyword").removeAttr("disabled").removeAttr("style");
+			
+			$(this).hide();
+			$("#publish_default_keyword").show();
+		});
+		
+		$("#publish_default_keyword").click(function(){
+			var default_ = $("#default_keyword").val();
+			var rtn = confirm("确认更换 " + default_ + " 为预置搜索词吗？");
+			if (rtn) {
+				$.post("${pageContext.request.contextPath}/domain/searchkeyword/defaultkeyword",
+						{ siteId: ${site.siteId}, defaultkeyword: default_ },
+						function(ss) {
+							alert("发布成功");
+					});
+			} else {
+				$("#default_keyword").val(cur_default);
+			}
+		
+			$("#default_keyword").attr("disabled","disabled");
+			$("#default_keyword").attr("style","background-color:#999999");
+		
+			$(this).hide();
+			$("#edit_default_keyword").show();
+		});
+		
+	});
+</script>
+<STYLE>
+	#sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
+	#sortable li { cursor: move; margin: 0 3px 3px 3px; padding : 0.1em 0.4em 0.6em 1.0em; font-size: 1.0em; height: 16px; border: 1px solid #AAAAAA; border-radius: 4px 4px 4px 4px;}
+</STYLE>
+</head>
+<body>
+	<c:choose>
+		<c:when test="${!empty sitesMap}">
+			<a href="${pageContext.request.contextPath}/domain/searchkeyword/search" class="button button-search"><spring:message code="searchKeyword" /></a>
+			<a href="${pageContext.request.contextPath}/domain/searchkeyword/create" class="button button-create"><spring:message code="crud.functionalities.create" /></a> 
+			<span class="ui-state-highlight button button-show"><spring:message code="searchKeyword_dis_css" /></span>
+	
+			<table class="show">
+				<thead>
+					<th>站点</th>
+					<th>预置搜索词</th>
+					<th></th>
+				</thead>
+				<tbody>
+					<c:forEach items="${sitesMap}" var="map" varStatus="_st">
+					<tr>
+						<td><a href="${pageContext.request.contextPath}/domain/site/show/${map.key.siteId}">${map.key.name}</a></td>
+						<td>${map.value}</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/domain/searchkeyword/showfront?siteId=${map.key.siteId}" class="button"><spring:message code="crud.functionalities.show" /></a>
+							&amp;nbsp;&amp;nbsp;
+							<a href="${pageContext.request.contextPath}/domain/init/redis/searchkeywords?siteId=${map.key.siteId}" class="modal button"><spring:message code="crud.redis.publish.button" /></a>
+						</td>
+					</tr>
+					</c:forEach>
+			</tbody>
+		</table>
+		</c:when>
+		<c:otherwise>
+			<h2><spring:message code="searchKeyword" />: ${site.name}<spring:message code="site" /></h2>
+			<table class="show">
+				<tbody>
+					<tr>
+						<th><spring:message code="searchKeyword_default_keyword" /></th>
+						<td>
+							<div>
+							<input id="default_keyword" type="text" name="defaultKeyword" value="${defaultkeyword}" disabled="true" style="background-color:#999999;" />
+							<spring:message code="crud.edit.button" var="editBtn" />
+							<input id="edit_default_keyword" type="button" class="button" value="${editBtn}"/>
+							<spring:message code="crud.redis.publish.button" var="publishBtn" />
+							<input id="publish_default_keyword" type="button" class="button" value="${publishBtn}" style="display:none;"/>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="list">
+				<thead>
+					<tr>
+						<th><spring:message code="searchKeyword_name"/></th>
+						<th><spring:message code="searchKeyword_type"/></th>
+						<th><spring:message code="searchKeyword_color"/></th>
+						<th><spring:message code="searchKeyword_size"/></th>
+						<th><spring:message code="searchKeyword_status"/></th>
+						<th><spring:message code="searchKeyword_createBy"/></th>
+						<th><spring:message code="searchKeyword_createDate"/></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${searchKeywords}" var="searchKeyword" varStatus="_st">
+						<tr>
+							<td><a href="${pageContext.request.contextPath}/domain/searchkeyword/show/${searchKeyword.primaryKey}"><spring:eval expression="searchKeyword.name"/></a></td>
+							<td>
+								<c:if test="${searchKeyword.type==0}"><spring:message code="searchKeyword_type_downloadable" /></c:if>
+								<c:if test="${searchKeyword.type==1}"><spring:message code="searchKeyword_type_pageGame" /></c:if>
+							</td>
+							<td><spring:eval expression="searchKeyword.color"/>
+							<spring:eval expression="searchKeyword.color" var="color" />
+							<span style="background-color:${color};padding: 0px 10px 0px 5px;"> </span></td>
+							<td><spring:eval expression="searchKeyword.size"/></td>
+						<c:if test="${searchKeyword.status == 0}">
+							<td><spring:message code="Available" /></td>
+						</c:if>
+						<c:if test="${searchKeyword.status == 1}">
+							<td><spring:message code="UnAvailable" /></td>
+						</c:if>
+							<td><spring:eval expression="searchKeyword.createBy"/></td>
+							<td><spring:eval expression="searchKeyword.createDate"/></td>
+							<td>
+								<a href="${pageContext.request.contextPath}/domain/searchkeyword/show/${searchKeyword.primaryKey}" class="button button-show miniature"><spring:message code="crud.show.button"/></a>
+								<a href="${pageContext.request.contextPath}/domain/searchkeyword/update/${searchKeyword.primaryKey}" class="button button-edit miniature"><spring:message code="crud.edit.button"/></a>
+								<a href="${pageContext.request.contextPath}/domain/searchkeyword/delete/${searchKeyword.primaryKey}" class="button button-delete modal miniature"><spring:message code="crud.delete.button"/></a>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="7">
+							<a id="sort" href="#" class="ajaxy button"><spring:message code="crud.sort.button" /></a>
+							<a href="${pageContext.request.contextPath}/domain/init/redis/searchkeywords?siteId=${site.siteId}" class="modal button"><spring:message code="crud.redis.publish.button" /></a>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		<div id="sort_area" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable ui-resizable" style="display: none; z-index: 1002; outline: 0px none; position: absolute; height: auto; width: 300px; top: 166px; left: 478px;">
+			<div class="ui-dialog-content" style="width: auto; min-height: 102.267px; height: auto;">
+				<div>
+					<ul id="sortable">
+						<c:forEach items="${searchKeywords}" var="searchKeyword" varStatus="_st">
+							<li id="${searchKeyword.primaryKey}" class="ui-state-default">${searchKeyword.name}</li>
+						</c:forEach>
+					</ul>
+				</div>
+				<div style="padding-left: 5.5em;">
+					<spring:message code="crud.save.button" var="saveBtn"/>
+					<input id="sort_save" type="button" class="button" value="${saveBtn}"/>
+					<spring:message code="crud.cancel.button" var="cancelBtn" />
+					<input id="sort_cancel" type="button" class="button" value="${cancelBtn}"/>
+				</div>
+			</div>
+		</div>
+		<div id="cover_body" class="ui-widget-overlay" style="display:none; z-index: 1001;"></div>
+
+		</c:otherwise>
+	</c:choose>
+</body>
+</html>

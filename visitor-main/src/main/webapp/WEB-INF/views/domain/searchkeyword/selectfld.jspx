@@ -1,0 +1,168 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="searchKeyword" />: <spring:message code="searchKeyword_idlist" /></title>
+	<script type="text/javascript">
+		function deleteCheck(){
+			var itemIds=document.getElementsByName("itemIds");
+			
+			var count=0;
+			var ids="";
+			for(var i=0;i &lt; itemIds.length;i++){
+				if(itemIds[i].checked){
+					count++;
+					ids= ids + itemIds[i].value + "_";
+				}
+			}
+			
+			if(count==0){
+				alert("请至少选择一条记录！");
+			}else{
+				$.ajax( {
+					type : "GET",
+					url : "${pageContext.request.contextPath}/domain/searchkeyword/appenditem/${searchKeyword.primaryKey}/" + ids,
+					success : function(data) {
+						if(data.error='0'){
+							/*refreash current page*/
+							window.document.location.href="${pageContext.request.contextPath}/domain/searchkeyword/idlist/${searchKeyword.primaryKey}";
+						}else{
+							alert(data.errinfo);
+						}
+					}
+				})
+			}
+		}
+		
+		function changeCheckState(check_style){
+			var itemIds=document.getElementsByName("itemIds");
+			
+			var count=0;
+			var ids="";
+			
+			var checked = true;
+			if(check_style=="1"){
+				checked = false;
+			}
+			
+			for(var i=0;i &lt; itemIds.length;i++){
+				if(itemIds[i].checked == checked){
+					itemIds[i].checked = !checked;
+				}
+			}	
+		}
+	</script>
+	<STYLE>
+		.btnSpace {
+			margin-right:10px;
+		}
+	</STYLE>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/searchkeyword/search" class="ajaxy button button-search"><spring:message code="searchKeyword" /></a>
+	<a href="${pageContext.request.contextPath}/domain/searchkeyword/show/${searchKeyword.primaryKey}" class="button button-show"><spring:message code="crud.show.button" /></a>
+	<a href="${pageContext.request.contextPath}/domain/searchkeyword/update/${searchKeyword.primaryKey}" class="ajaxy button button-edit"><spring:message code="crud.edit.button" /></a>
+	<a href="${pageContext.request.contextPath}/domain/searchkeyword/delete/${searchKeyword.primaryKey}" class="modal button button-delete"><spring:message code="crud.delete.button" /></a>
+	<span class="ui-state-highlight button button-show"><spring:message code="searchKeyword_idlist" /></span>
+	
+	<!--show form ,to edit the id list -->
+		<table class="show">
+			<tbody>
+				<tr>
+					<th><spring:message code="searchKeyword_name" /></th>
+					<td><spring:eval expression="searchKeyword.name"/></td>
+					<td><spring:message code="searchKeyword_wordKind"/></td>
+					<td>
+						<c:if test="${searchKeyword.wordKind == 1}">
+							<spring:message code="searchKeyword_prd" />
+						</c:if>
+						<c:if test="${searchKeyword.wordKind == 2}">
+							<spring:message code="searchKeyword_fld" />
+						</c:if>
+						<c:if test="${searchKeyword.wordKind == 3}">
+							<spring:message code="searchKeyword_adv" />
+						</c:if>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="searchKeyword_ids" /></th>
+					<td colspan="3">${searchKeyword.idList}</td>
+				</tr>
+			</tbody>
+		</table>
+
+	<!--search form-->	
+	<form:form action="${pageContext.request.contextPath}/domain/searchkeyword/fldlist" modelAttribute="folderSearchForm" class="search">
+		<table class="show">
+			<tbody>
+				<tr>
+					<th><spring:message code="folder_folderId" /></th>
+					<td>
+						<form:input path="folder.folderId" cssClass="number {maxlength: 20}" maxlength="20" size="40"/>
+						<form:errors path="folder.folderId" cssClass="error"/>
+					</td>
+					<th><spring:message code="folder_path" /></th>
+					<td>
+						<form:input path="folder.path" size="40"/>
+						<form:errors path="folder.path" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="folder_name" /></th>
+					<td>
+						<form:input path="folder.name" cssClass="{maxlength: 200}" maxlength="200" size="40"/>
+						<form:errors path="folder.name" cssClass="error"/>
+					</td>
+					<th><spring:message code="folder_aliasName" /></th>
+					<td>
+						<form:input path="folder.aliasName" cssClass="{maxlength: 200}" maxlength="200" size="40"/>
+						<form:errors path="folder.aliasName" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="folder_createBy" /></th>
+					<td>
+						<form:input path="folder.createBy" />
+						<form:errors path="folder.createBy" cssClass="error"/>
+					</td>
+					<th><spring:message code="folder_createDate" /></th>
+					<td>
+						<label for="createDateRange.fromDate"><spring:message code="search.date.from" /></label>
+						<form:input path="createDateRange.fromDate" cssClass="datepicker" size="15"/>
+						<label for="createDateRange.toDate"><spring:message code="search.date.to" /></label>
+						<form:input path="createDateRange.toDate" cssClass="datepicker" size="15"/>
+						<form:errors path="folder.createDate" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="folder_modBy" /></th>
+					<td>
+						<form:input path="folder.modBy"/>
+						<form:errors path="folder.modBy" cssClass="error"/>
+					</td>
+					<th><spring:message code="folder_modDate" /></th>
+					<td>
+						<label for="modDateRange.fromDate"><spring:message code="search.date.from" /></label>
+						<form:input path="modDateRange.fromDate" cssClass="datepicker" size="15"/>
+						<label for="modDateRange.toDate"><spring:message code="search.date.to" /></label>
+						<form:input path="modDateRange.toDate" cssClass="datepicker" size="15"/>
+						<form:errors path="folder.modDate" cssClass="error"/>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4">
+						<spring:message code="crud.search.button" var="btnMessage"/>
+						<input type="submit" class="button button-search" value="${btnMessage}" />
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+	<jsp:include page="/domain/searchkeyword/fldlist" />
+</body>
+</html>

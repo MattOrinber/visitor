@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd     http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+				
+	<!-- The controllers are autodetected POJOs labeled with the @Controller annotation. -->
+	<context:component-scan base-package="org.visitor.appportal">
+		<context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+	</context:component-scan>
+	
+	<!-- Turns on support for mapping requests to Spring MVC @Controller methods
+	     Also registers default Formatters and Validators for use across all @Controllers -->
+	<mvc:annotation-driven conversion-service="applicationConversionService"/>
+	
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources -->
+	<mvc:resources location="/, classpath:/META-INF/web-resources/" mapping="/resources/**"/>
+	
+	<!-- Allows for mapping the DispatcherServlet to "/" by forwarding static resource requests to the container's default Servlet -->
+	<mvc:default-servlet-handler/>
+	
+	<!-- register "global" interceptor beans to apply to all registered HandlerMappings -->
+	<mvc:interceptors>
+		<bean class="org.visitor.appportal.web.interceptor.AccountContextInterceptor" />
+		<bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor"/>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" p:paramName="lang"/>
+	</mvc:interceptors>
+	
+	<!-- selects a static view for rendering without the need for an explicit controller -->
+	<mvc:view-controller path="/login"/>
+	<mvc:view-controller path="/uncaughtException"/>
+	<mvc:view-controller path="/resourceNotFound"/>
+	<mvc:view-controller path="/dataAccessFailure"/>
+	<!-- Resolves localized messages*.properties and application.properties files in the application to	allow for internationalization. 
+		The messages*.properties files translate Roo generated messages which are part of the admin interface, the application.properties
+		resource bundle localizes all application specific messages such as entity names and menu items. -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource" 
+		p:useCodeAsDefaultMessage="true" p:defaultEncoding="UTF-8" p:fallbackToSystemLocale="false">
+		<property name="basenames">
+			<list>
+				<!-- main resources -->
+				<value>WEB-INF/i18n/application</value>
+				<value>WEB-INF/i18n/messages</value>
+				<value>WEB-INF/i18n/validation</value>
+				<value>WEB-INF/i18n/application</value>
+				<!-- generated domain resources -->
+				<value>WEB-INF/i18n/domain-generated/Account</value>
+				<value>WEB-INF/i18n/domain-generated/Category</value>
+				<value>WEB-INF/i18n/domain-generated/Folder</value>
+				<value>WEB-INF/i18n/domain-generated/HtmlPage</value>
+				<value>WEB-INF/i18n/domain-generated/HtmlPageBak</value>
+				<value>WEB-INF/i18n/domain-generated/MessageContent</value>
+				<value>WEB-INF/i18n/domain-generated/MessageReply</value>
+				<value>WEB-INF/i18n/domain-generated/ModelList</value>
+				<value>WEB-INF/i18n/domain-generated/PageContainer</value>
+				<value>WEB-INF/i18n/domain-generated/ProductContainer</value>
+				<value>WEB-INF/i18n/domain-generated/ProductFile</value>
+				<value>WEB-INF/i18n/domain-generated/ProductList</value>
+				<value>WEB-INF/i18n/domain-generated/ProductOperation</value>
+				<value>WEB-INF/i18n/domain-generated/ProductPic</value>
+				<value>WEB-INF/i18n/domain-generated/ProductSiteFolder</value>
+				<value>WEB-INF/i18n/domain-generated/ProductState</value>
+				<value>WEB-INF/i18n/domain-generated/RecommandContainer</value>
+				<value>WEB-INF/i18n/domain-generated/Site</value>
+				<value>WEB-INF/i18n/domain-generated/SiteValue</value>
+				<value>WEB-INF/i18n/domain-generated/Template</value>
+				<value>WEB-INF/i18n/domain-generated/TemplateBak</value>
+				<value>WEB-INF/i18n/domain-generated/Picture</value>
+				<value>WEB-INF/i18n/domain-generated/SearchKeyword</value>
+				<value>WEB-INF/i18n/domain-generated/Advertise</value>
+				<value>WEB-INF/i18n/domain-generated/RecommendRule</value>
+				<value>WEB-INF/i18n/domain-generated/RecommendRuleAcross</value>
+				<value>WEB-INF/i18n/domain-generated/ProductContainerTask</value>
+								
+				<value>WEB-INF/i18n/domain-generated/ProductDetail</value>
+
+				<!-- default spring security messages -->
+				<value>classpath:org/springframework/security/messages</value>
+				<!-- default bean validation messages -->
+				<value>classpath:validationMessages</value>
+			</list>
+		</property>	
+	</bean>
+	
+	<!-- store preferred language configuration in a cookie -->
+	<bean class="org.springframework.web.servlet.i18n.CookieLocaleResolver" id="localeResolver" p:defaultLocale="en" p:cookieName="locale"/>	
+	
+	<!-- resolves localized <theme_name>.properties files in the classpath to allow for theme support -->
+	<bean class="org.springframework.ui.context.support.ResourceBundleThemeSource" id="themeSource"/>
+	
+	<!-- store preferred theme configuration in a cookie -->
+	<bean class="org.springframework.web.servlet.theme.CookieThemeResolver" id="themeResolver" p:cookieName="theme" p:defaultThemeName="standard"/>
+
+	<!-- This bean resolves specific types of exceptions to corresponding logical - view names for error views. 
+	     The default behaviour of DispatcherServlet - is to propagate all exceptions to the servlet container: 
+	     this will happen - here with all other types of exceptions. -->
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" p:defaultErrorView="uncaughtException">
+		<property name="exceptionMappings">
+			<props>
+				<prop key=".DataAccessException">dataAccessFailure</prop>
+				<prop key=".NoSuchRequestHandlingMethodException">resourceNotFound</prop>
+				<prop key=".TypeMismatchException">resourceNotFound</prop>
+				<prop key=".MissingServletRequestParameterException">resourceNotFound</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- allows for integration of file upload functionality -->
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver"/>
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+	        <property name="prefix" value="/WEB-INF/views/"/>
+	        <property name="suffix" value=".jspx"/>
+	        <property name="order" value="3" />
+	</bean>
+	
+	<bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">	
+		<property name="order" value="1" />
+	</bean>
+	
+  	<bean id="genericConversionService" class="org.springframework.core.convert.support.GenericConversionService" />
+
+  	<bean id="applicationConversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+  		<property name="converters">
+    		<list>
+    			<bean class="org.visitor.appportal.repository.base.RepositoryDomainConverter">
+    				<constructor-arg ref="genericConversionService" />
+    			</bean>
+    		</list>
+  		</property>
+	</bean>	
+</beans>

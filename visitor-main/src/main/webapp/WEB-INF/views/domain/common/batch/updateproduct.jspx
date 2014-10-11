@@ -1,0 +1,94 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" xmlns:fn="http://java.sun.com/jsp/jstl/functions" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+<script type="text/javascript">
+	
+	$(document).ready(function() {
+		$("#text_productid").append("<textarea></textarea>").children("textarea").attr("style","width:100%")
+		$("#show_ids").toggle(
+			function(){
+				$("#products_area").slideDown("slow");
+			},
+			function(){
+				$("#products_area").slideUp("slow");
+			}
+		);
+	});
+	
+	function checkAll(){
+		if($("input[name='all']").attr("checked") == true){
+			$("input[name='products']").attr("checked","checked");
+		} else {
+			$("input[name='products']").removeAttr("checked");
+		}
+	}
+	
+</script>
+</head>
+<body>
+	<p>
+		数据库 更新完毕！<br/>
+		下一步，更新缓存数据中的产品信息！
+	</p>
+		<form:form action="${pageContext.request.contextPath}/domain/productbatch/redis/updateproducts" modelAttribute="productListSearchForm" method="POST">
+				<table class="list">
+					<thead>
+						<tr>
+							<th>
+								<input type="checkbox" name="all" checked="checked" onclick="checkAll();"/><spring:message code="ANY" /> ${productListsCount} 个产品
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<c:forEach items="${products}" var="productList" varStatus="_st">
+									<div id="${productList.productId}" style="float:left;width:20%;">
+											<input type="checkbox" name="products" value="${productList.productId}" checked="checked"/>
+											<spring:eval expression="productList.productId" />
+											【<a href="#" title="${productList.name}">
+												<c:choose>
+													<c:when test="${fn:length(productList.name) &gt; 13}">
+														${fn:substring(productList.name,0,12)}...
+													</c:when>
+													<c:otherwise>
+														${productList.name}
+													</c:otherwise>
+												</c:choose>
+											</a>
+											】
+									</div>
+									<c:if test="${(_st.index+1)%50 == 0}"><hr/></c:if>
+								</c:forEach>
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td>
+								<input type="submit" class="button button-search" value="更新缓存数据" />
+								<input id="show_ids" type="button" class="button button-search" value="复制产品ID" />
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+		</form:form>
+		<div id="products_area" style="display:none">
+			<table>
+				<tbody>
+					<tr>
+						<td>
+							<c:forEach items="${products}" var="productList" varStatus="_st">
+								${productList.productId},
+							</c:forEach>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+</body>
+</html>

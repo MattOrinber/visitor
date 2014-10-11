@@ -1,0 +1,111 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="messageContent" />: <spring:message code="crud.functionalities.update" /></title>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/messagecontent/search" class="ajaxy button button-search"><spring:message code="messageContent" /></a>
+	<a href="${pageContext.request.contextPath}/domain/messagecontent/show/${messageContent.primaryKey}" class="ajaxy button button-show"><spring:message code="crud.show.button" /></a>
+	<span class="ui-state-highlight button button-edit"><spring:message code="crud.edit.button" /></span>
+	<a href="${pageContext.request.contextPath}/domain/messagecontent/delete/${messageContent.primaryKey}" class="modal button button-delete"><spring:message code="crud.delete.button" /></a>
+
+	<form:form action="${pageContext.request.contextPath}/domain/messagecontent/update/${messageContent.primaryKey}" modelAttribute="messageContent" method="POST">
+		<form:errors cssClass="error"/>
+		<form:hidden path="messageId"/>
+		<table class="edit">
+			<tbody>
+				<tr>
+					<th><spring:message code="messageContent_qq" /></th>
+					<td>
+						<form:input path="qq" cssClass="{maxlength: 20}" maxlength="20" size="30"/>
+						<form:errors path="qq" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="messageContent_nickName" /></th>
+					<td>
+						<form:input path="nickName" cssClass="{maxlength: 120}" maxlength="120" size="100"/>
+						<form:errors path="nickName" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="messageContent_mobileName" /></th>
+					<td>
+						<form:input path="mobileName" cssClass="{maxlength: 200}" maxlength="200" size="100"/>
+						<form:errors path="mobileName" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="messageContent_mobileNumber" /></th>
+					<td>
+						<form:input path="mobileNumber" cssClass="{maxlength: 16}" maxlength="16" size="30"/>
+						<form:errors path="mobileNumber" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="messageContent_content" /> <em>*</em></th>
+					<td>
+						<form:input path="content" cssClass="required {maxlength: 255}" maxlength="255" size="100"/>
+						<form:errors path="content" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="messageContent_status" /> <em>*</em></th>
+					<td>
+						<c:choose>
+							<c:when test="${messageContent.status == 0}">
+								可用
+							</c:when>
+							<c:otherwise>
+								不可用
+							</c:otherwise>
+						</c:choose>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="messageContent_replyDate" /></th>
+					<td>
+						<c:out value="${messageContent.replyDate}" />
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="messageContent_replyBy" /></th>
+					<td>
+						<c:out value="${messageContent.replyBy}" />
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="messageContent_messageType" /> <em>*</em></th>
+					<td>
+						<c:choose>
+							<c:when test="${messageContent.messageType == 0}">
+								评论
+							</c:when>
+							<c:otherwise>
+								回复
+							</c:otherwise>
+						</c:choose>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="messageContent_createDate" /> <em>*</em></th>
+					<td><c:out value="${messageContent.createDate}" /></td>
+				</tr>
+
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<spring:message code="crud.save.button" var="saveButton"/>
+						<input type="submit" class="button button-save" value="${saveButton}" />
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+</body>
+</html>

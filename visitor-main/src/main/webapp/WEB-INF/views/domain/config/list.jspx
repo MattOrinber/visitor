@@ -1,0 +1,109 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:security="http://www.springframework.org/security/tags" xmlns:form="http://www.springframework.org/tags/form" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+
+<head>
+	<title><spring:message code="domain.systempreference" /></title>
+</head>
+<body>
+	<div class="span-11 border">
+		<spring:url value="/domain/config/create" var="form_url" />
+		<form name="f" action="${form_url}" method="POST">
+			<form:errors cssClass="error" />
+			<fieldset>
+				<p>
+					下载跳转的CP（[12,34]）
+					<br />
+					<input type="text" name="hk-externalurlcpid" style="width:150px" class="required" value="${attributeMap['hk-externalurlcpid']}"/>
+				</p>
+				<p>
+					每页显示产品数
+					<br />
+					<input type="text" name="hk-productdisplaypagesize" style="width:150px" class="number required" value="${attributeMap['hk-productdisplaypagesize']}"/>
+				</p>
+				<p>
+					<spring:message code="crud.save.button" var="btnMsg" />
+					<input type="submit" class="button button-login" value="${btnMsg}"/>
+				</p>
+
+			</fieldset>
+		</form>
+		<form name="f" action="${form_url}" method="POST">
+			<form:errors cssClass="error" />
+			<fieldset>
+				<legend>手机系统平台名称</legend>
+					<c:forEach items="${oss}" var="os">
+						<p>
+							${os.name}系统名称
+							<c:set var="key" value="hk-categorydisname:${os.categoryId}:categoryId" />： 
+							<input type="text" name="hk-categorydisname:${os.categoryId}:categoryId" style="width:150px" value="${attributeMap[key]}" />
+						</p>
+					</c:forEach>
+				<p>
+					<spring:message code="crud.save.button" var="btnMsg" />
+					<input type="submit" class="button button-login" value="${btnMsg}"/>
+				</p>
+			</fieldset>
+		</form>
+	</div>
+	<div class="span-12 last">
+		<form name="f" action="${form_url}" method="POST">
+			<form:errors cssClass="error" />
+			<fieldset>
+				<legend>站点相关设置参数</legend>
+				<c:forEach items="${sites}" var="site">
+				<p>
+					站点：<b>${site.name}</b> 排行显示数量（数字）：
+					<br />
+					<c:set var="key" value="hk-folderankmaxcount:${site.siteId}:siteid" />
+					<input type="text" name="hk-folderankmaxcount:${site.siteId}:siteid" style="width:150px" class="required number" value="${attributeMap[key]}" />
+				</p>
+				<p>
+					站点：<b>${site.name}</b> 产品置顶的阀值（数字）：
+					<br />
+					<c:set var="key" value="hk-folderproductmaxsortorder:${site.siteId}:siteid" />
+					<input type="text" name="hk-folderproductmaxsortorder:${site.siteId}:siteid" class="required number" style="width:150px" value="${attributeMap[key]}" />
+				</p>
+				<p>
+					站点：<b>${site.name}</b> 搜索结果最多显示页数（数字）：
+					<br />
+					<c:set var="key" value="hk-searchmaxshowpage:${site.siteId}:siteid" />
+					<input type="text" name="hk-searchmaxshowpage:${site.siteId}:siteid" class="required number" style="width:150px" value="${attributeMap[key]}" />
+				</p>
+				<p>
+					站点：<b>${site.name}</b> 搜索结果末页显示记录数（数字）：
+					<br />
+					<c:set var="key" value="hk-searchmaxshowiteminlastpage:${site.siteId}:siteid" />
+					<input type="text" name="hk-searchmaxshowiteminlastpage:${site.siteId}:siteid" class="required number" style="width:150px" value="${attributeMap[key]}" />
+				</p>
+				<p>
+					站点：<b>${site.name}</b> 是否通过搜索显示频道导航（true/false）：
+					<br />
+					<c:set var="key" value="hk-ifshowproductsbysearch:${site.siteId}:siteid" />
+					<input type="text" name="hk-ifshowproductsbysearch:${site.siteId}:siteid" class="required" style="width:150px" value="${attributeMap[key]}" />
+				</p>
+
+				<p>
+					站点：<b>${site.name}</b> 详情页是否显示评论（true/false）：
+					<br />
+					<c:set var="key" value="hk-ifshowproductcomment:${site.siteId}:siteid" />
+					<input type="text" name="hk-ifshowproductcomment:${site.siteId}:siteid" class="required" style="width:150px" value="${attributeMap[key]}" />
+				</p>
+				<p>
+					站点：<b>${site.name}</b> 详情页显示截图个数（数字）：
+					<br />
+					<c:set var="key" value="hk-showproductpiccount:${site.siteId}:siteid" />
+					<input type="text" name="hk-showproductpiccount:${site.siteId}:siteid" class="number required" style="width:150px" value="${attributeMap[key]}" />
+				</p>
+				<hr />
+				</c:forEach>
+				<p>
+					<spring:message code="crud.save.button" var="btnMsg" />
+					<input type="submit" class="button button-login" value="${btnMsg}"/>
+				</p>
+			</fieldset>
+		</form>
+	</div>
+</body>
+</html>

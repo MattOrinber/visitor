@@ -1,0 +1,1 @@
+:: Han-Latin;[[:any:]-[[:space:][\uFFFF]]] { [[:any:]-[:white_space:]] >;::Null;[[:NonspacingMark:][:Space:]]>;

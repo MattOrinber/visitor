@@ -1,0 +1,94 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+<jsp:directive.page contentType="text/html;charset=UTF-8" />
+<jsp:output omit-xml-declaration="yes" />
+	<div id="result">
+	<c:choose>
+		<c:when test="${searchKeywordsCount == 0}">
+			<spring:message code="crud.search.empty.result" />
+		</c:when>
+		<c:otherwise>
+			<table class="list">
+				<thead>
+					<tr>
+						<th style="width:5%"><spring:message code="searchKeyword_check" /></th>
+						<th style="width:5%"><spring:message code="searchKeyword_id" /></th>
+						<th style="width:10%"><spring:message code="searchKeyword_name" /></th>
+						<th style="width:5%"><spring:message code="searchKeyword_site" /></th>
+						<th style="width:8%"><spring:message code="searchKeyword_wordKind" /></th>
+						<th style="width:8%"><spring:message code="searchKeyword_isHot" /></th>
+						<th style="width:8%"><spring:message code="searchKeyword_type" /></th>
+						<th style="width:8%"><spring:message code="searchKeyword_color" /></th>
+						<th style="width:8%"><spring:message code="searchKeyword_size" /></th>
+						<th style="width:10%"><spring:message code="searchKeyword_result" /></th>
+						<th style="width:10%"><spring:message code="searchKeyword_status" /></th>
+						<th style="width:10%"><spring:message code="searchKeyword_op" /></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${searchKeywords}" var="searchKeyword" varStatus="_st">
+						<tr>
+							<td><input type="checkbox" name="itemIds" value="${searchKeyword.keywordId}" /></td>
+							<td>${searchKeyword.primaryKey}</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/domain/searchkeyword/show/${searchKeyword.primaryKey}">
+									<spring:eval expression="searchKeyword.name"/>
+								</a>
+							</td>
+							<td>${searchKeyword.site.name}</td>
+							<td>
+								<c:if test="${searchKeyword.wordKind==1}"><spring:message code="searchKeyword_prd" /></c:if>
+								<c:if test="${searchKeyword.wordKind==2}"><spring:message code="searchKeyword_fld" /></c:if>
+								<c:if test="${searchKeyword.wordKind==3}"><spring:message code="searchKeyword_adv" /></c:if>
+							</td>
+							<td>
+								<c:if test="${searchKeyword.isHot==1}"><spring:message code="searchKeyword_yes" /></c:if>
+								<c:if test="${searchKeyword.isHot==0}"><spring:message code="searchKeyword_no" /></c:if>
+							</td>
+							<td>
+								<c:if test="${searchKeyword.type==0}"><spring:message code="searchKeyword_type_downloadable" /></c:if>
+								<c:if test="${searchKeyword.type==1}"><spring:message code="searchKeyword_type_pageGame" /></c:if>
+							</td>
+							<td>
+								<spring:eval expression="searchKeyword.color"/><spring:eval expression="searchKeyword.color" var="color"/>
+								<span style="background-color:${color};padding: 0px 10px 0px 5px;"></span>
+							</td>
+							<td><spring:eval expression="searchKeyword.size"/></td>
+							<td>
+								<c:if test="${searchKeyword.idList!=null}">
+									<a href="${pageContext.request.contextPath}/domain/searchkeyword/idlist/${searchKeyword.primaryKey}">
+										<spring:message code="searchKeyword_idlist" />
+									</a>
+								</c:if>
+							</td>
+							<td>
+								<c:if test="${searchKeyword.status == 0}"><spring:message code="Available" /></c:if>
+								<c:if test="${searchKeyword.status == 1}"><spring:message code="UnAvailable" /></c:if>
+							</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/domain/searchkeyword/update/${searchKeyword.primaryKey}" class="button button-edit miniature"><spring:message code="crud.edit.button"/></a>
+								<a href="${pageContext.request.contextPath}/domain/searchkeyword/delete/${searchKeyword.primaryKey}" class="button button-delete modal miniature"><spring:message code="crud.delete.button"/></a>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th colspan="5">
+							<a onclick="changeCheckState(1)" class="button btnSpace"><spring:message code="button_select_all"/></a>
+							<a onclick="changeCheckState(0)" class="button btnSpace"><spring:message code="button_select_none"/></a>    
+							<a onclick="deleteCheck()" class="button button-delete btnSpace"><spring:message code="button_deletesel"/></a>			
+						</th>
+						<th colspan="5">
+							<util:navigation totalSize="${searchKeywordsCount}"
+								search="${searchKeywordSearchForm.sp}" url="list" totalPages="${totalPages}" render="${searchKeywordsCount > 0}" />
+						</th>
+						<th><spring:message code="search.total" arguments="${searchKeywordsCount}" /></th>
+					</tr>
+				</tfoot>
+			</table>
+		</c:otherwise>
+	</c:choose>
+	</div>
+</jsp:root>

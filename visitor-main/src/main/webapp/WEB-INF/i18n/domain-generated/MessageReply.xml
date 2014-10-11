@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+ ! Template pack-backend:src/main/resources/localization/domain/domain.e.vm.xml
+-->
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for MessageReply</comment>
+
+	<entry key="messageReply">Message Reply</entry>
+
+	<!-- Attributes -->
+	<entry key="messageReply_replyId">Reply Id</entry>
+	<entry key="messageReply_messageId">Message Id</entry>
+	<entry key="messageReply_num">Num</entry>
+	<entry key="messageReply_createDate">Create Date</entry>
+	<entry key="messageReply_createBy">Create By</entry>
+	<entry key="messageReply_status">Status</entry>
+	<entry key="messageReply_content">Content</entry>
+
+	<!-- x-to-one -->
+	<entry key="messageReply_message">Message</entry>
+</properties>

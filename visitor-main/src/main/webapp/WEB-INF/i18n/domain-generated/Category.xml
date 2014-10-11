@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for Category</comment>
+
+	<entry key="category">字典管理</entry>
+
+	<!-- Attributes -->
+	<entry key="category_categoryId">分类 Id</entry>
+	<entry key="category_parent">上级分类</entry>
+	<entry key="category_parentCategoryId">上级分类ID</entry>
+	<entry key="category_name">名称</entry>
+	<entry key="category_description">描述</entry>
+	<entry key="category_enName">英文名称</entry>
+	<entry key="category_status">状态</entry>
+	<entry key="category_createBy">创建人</entry>
+	<entry key="category_createDate">创建日期</entry>
+	<entry key="category_modBy">更新人</entry>
+	<entry key="category_modDate">更新日期</entry>
+	<entry key="category_sortOrder">排序</entry>
+	<!-- x-to-one -->
+	<entry key="category_parentCategory">父分类</entry>
+	<entry key="category_dic_category">产品分类</entry>
+	<entry key="category_dic_oversion">OPERA版本</entry>
+	<entry key="category_dic_platform">手机平台</entry>
+	<entry key="category_dic_brand">手机品牌</entry>
+	<entry key="category_dic_resolution">分辨率</entry>
+	<entry key="category_dic_billing">计费方式</entry>
+	<entry key="category_dic_cooperation">合作方式</entry>
+	<entry key="category_dic_operation">入库方式</entry>
+	<entry key="category_dic_tag">标签</entry>
+	<entry key="category_dic_operator">CP</entry>
+	<entry key="category_dic_importby">引进人</entry>
+	<entry key="category_dic_productsource">产品来源</entry>
+	<entry key="category_dic_merchant">广告主CP</entry>
+	
+	<!-- operation -->
+	<entry key="category_child_category">子类</entry>
+	<entry key="category_same_level_category">同级分类</entry>
+	
+	<!-- note -->
+	<entry key="category_note">注:手机品牌的英文名不能为空</entry>
+	
+	<entry key="category_delete_question">该字典内容存在下列子内容,不可以直接删除</entry>
+	<entry key="category_name_exist">名称：{0}已经存在</entry>
+	
+</properties>

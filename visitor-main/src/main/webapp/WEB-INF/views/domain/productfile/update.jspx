@@ -1,0 +1,211 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="productFile" />: <spring:message code="crud.functionalities.update" /></title>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/productlist/show/${productFile.product.primaryKey}" class="ajaxy button button-search"><spring:message code="productList" /></a>
+	<a href="${pageContext.request.contextPath}/domain/productfile/show/${productFile.primaryKey}" class="ajaxy button button-show"><spring:message code="crud.show.button" /></a>
+	<span class="ui-state-highlight button button-edit"><spring:message code="crud.edit.button" /></span>
+	<a href="${pageContext.request.contextPath}/domain/productfile/delete/${productFile.primaryKey}" class="modal button button-delete"><spring:message code="crud.delete.button" /></a>
+
+	<form:form action="${pageContext.request.contextPath}/domain/productfile/update/${productFile.primaryKey}" modelAttribute="productFile" method="POST">
+		<form:errors cssClass="error"/>
+		<form:hidden path="fileId"/>
+		<table class="edit">
+			<tbody>
+				<tr>
+					<th><spring:message code="productFile_fileName" /></th>
+					<td style="width:40%"><spring:eval expression="productFile.fileName"/></td>
+					<th><spring:message code="productFile_product" /></th>
+					<td style="width:40%">
+						<a href="${pageContext.request.contextPath}/domain/productlist/show/${productFile.product.primaryKey}"><spring:eval expression="productFile.product.name" /></a>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="productFile_filePath" /></th>
+					<td><spring:eval expression="productFile.filePath"/></td>
+					<th><spring:message code="productFile_fileUrl" /></th>
+					<td>
+						<form:input path="fileUrl" cssClass="{maxlength: 255}" maxlength="255" size="50"/>
+						<form:errors path="fileUrl" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="productFile_fileDisName" /></th>
+					<td><form:input path="fileDisName" cssClass="{maxlength: 255}" maxlength="255" size="50"/></td>
+					<th><spring:message code="productFile_ifDefaultFile" /></th>
+					<td>
+						<form:radiobutton path="ifDefaultFile" value="1" checked="checked"/><spring:message code="FALSE" />
+						<form:radiobutton path="ifDefaultFile" value="0"/><spring:message code="TRUE" />
+						<form:errors path="ifDefaultFile" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="productFile_fileSize" /></th>
+					<td><spring:eval expression="productFile.fileSize"/></td>
+					<th><spring:message code="productFile_fileSuffix" /></th>
+					<td><spring:eval expression="productFile.fileSuffix"/></td>
+				</tr>
+				<tr>
+					<th><spring:message code="productFile_status" /></th>
+					<td>
+						<form:radiobutton path="status" value="0"/><spring:message code="Available" />
+						<form:radiobutton path="status" value="1"/><spring:message code="UnAvailable" />
+						<form:errors path="status" cssClass="error"/>
+					</td>
+					<th><spring:message code="productFile_dlCount" /></th>
+					<td>
+						<form:input path="dlCount" cssClass="number required"/>
+						<form:errors path="dlCount" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="productFile_os" /></th>
+					<td>
+						<input type="hidden" id="os" name="osId" value="${productFile.osId}" />
+						<input type="text" id="osLabel" value="${productFile.os.name}" size="30" />
+								<script>
+									$(function() {
+										$("#osLabel").autocomplete('destroy');
+										$("#osLabel").autocomplete({
+											source: "${pageContext.request.contextPath}/domain/category/childcategory?categoryId=3",
+											select: function(event, ui) {
+												$("#os").val(ui.item.id);
+												$("#osLabel").val(ui.item.label);
+												setPlatform(ui.item.id);
+											}
+										});
+										$("#osLabel").blur(function(){
+											if($(this).val().trim() == ''){
+												$("#os").val('');
+											}
+										});
+									});
+								</script>
+ 						<form:errors path="osId" cssClass="error"/>
+					</td>
+					<th><spring:message code="productFile_platform" /></th>
+					<td>
+						<input type="hidden" id="platform" name="platformId" value="${productFile.platformId}" />
+						<input type="text" id="platformLabel" value="${productFile.platform.name}" size="30" />
+								<script>
+								function setPlatform(osId) {
+									$("#platformLabel").autocomplete('destroy');
+									$("#platformLabel").autocomplete({
+										source: "${pageContext.request.contextPath}/domain/category/childcategory?categoryId=" + osId,
+										select: function(event, ui) {
+											$("#platform").val(ui.item.id);
+											$("#platformLabel").val(ui.item.label);
+											setPlatformVersion(ui.item.id);
+										}
+									});
+									$("#platformLabel").blur(function(){
+										if($(this).val().trim() == ''){
+											$("#platform").val('');
+										}
+									});
+								}
+								</script>
+ 						<form:errors path="platformId" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="productFile_platformVersion" /></th>
+					<td>
+						<select name="versionOperator">
+							<option value=" " />
+							<c:if test="${productFile.versionOperator == '0'}">
+								<option value="0" selected="selected" /><spring:message code="productFile_platformVersion_operator_ge" />
+							</c:if>
+							<c:if test="${productFile.versionOperator != '0'}">
+								<option value="0" /><spring:message code="productFile_platformVersion_operator_ge" />
+							</c:if>
+							<c:if test="${productFile.versionOperator == '1'}">
+								<option value="1" selected="selected" /><spring:message code="productFile_platformVersion_operator_eq" />
+							</c:if>
+							<c:if test="${productFile.versionOperator != '1'}">
+								<option value="1" /><spring:message code="productFile_platformVersion_operator_eq" />
+							</c:if>
+							<c:if test="${productFile.versionOperator == '2'}">
+								<option value="2" selected="selected" /><spring:message code="productFile_platformVersion_operator_le" />
+							</c:if>
+							<c:if test="${productFile.versionOperator != '2'}">
+								<option value="2" /><spring:message code="productFile_platformVersion_operator_le" />
+							</c:if>
+						</select>
+						<input type="hidden" id="platformVersion" name="platformVersionId" value="${productFile.platformVersionId}" />
+						<input type="text" id="platformVersionLabel" value="${productFile.platformVersion.name}" size="18" />
+						<script>
+						function setPlatformVersion(platformId) {
+							$("#platformVersionLabel").autocomplete('destroy');
+							$("#platformVersionLabel").autocomplete({
+								source: "${pageContext.request.contextPath}/domain/category/childcategory?categoryId=" + platformId,
+								select: function(event, ui) {
+									$("#platformVersion").val(ui.item.id);
+									$("#platformVersionLabel").val(ui.item.label);
+								}
+							});
+							$("#platformVersionLabel").blur(function(){
+								if($(this).val().trim() == ''){
+									$("#platformVersion").val('');
+								}
+							});
+						}
+						</script>
+ 						<form:errors path="platformVersionId" cssClass="error"/>
+					</td>
+					<th><spring:message code="productFile_resolution" /></th>
+					<td>
+						<input type="hidden" id="resolution" name="resolutionId" value="${productFile.resolutionId}" />
+						<input type="text" id="resolutionLabel" value="${productFile.resolution.name}" size="30" />
+						<script>
+						$(function() {
+							$("#resolutionLabel").autocomplete('destroy');
+							$("#resolutionLabel").autocomplete({
+								source: "${pageContext.request.contextPath}/domain/category/childcategory?categoryId=5",
+								select: function(event, ui) {
+									$("#resolution").val(ui.item.id);
+									$("#resolutionLabel").val(ui.item.label);
+								}
+							});
+							$("#resolutionLabel").blur(function(){
+								if($(this).val().trim() == ''){
+									$("#resolution").val('');
+								}
+							});
+						});
+						</script>
+ 						<form:errors path="resolutionId" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="productFile_safeType" /></th>
+					<td>
+						<form:select path="safeType" items="${safeTypeList}" itemValue="value" itemLabel="name" disabled="true"/>
+						<form:errors path="safeType" cssClass="error" />
+					</td>
+					<th><spring:message code="productFile_autoScan" /></th>
+					<td>
+						<form:radiobutton path="autoScan" value="0" disabled="true"/><spring:message code="OPEN" />
+						<form:radiobutton path="autoScan" value="1" disabled="true"/><spring:message code="CLOSE" />
+						<form:errors path="autoScan" cssClass="error"/>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4">
+						<spring:message code="crud.save.button" var="saveButton"/>
+						<input type="submit" class="button button-save" value="${saveButton}" />
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+</body>
+</html>

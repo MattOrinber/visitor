@@ -1,0 +1,27 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core"  xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="productContainer" />: <spring:message code="crud.functionalities.delete" /></title>
+</head>
+<body>
+	<form:form action="${pageContext.request.contextPath}/domain/productcontainertask/copydate/${containerid}/${date}/" method="POST" onsubmit="return copydate_check()">
+		<c:if test="${containerid != null &amp;&amp; date != null}">
+		<input id="disStrings" type="hidden" name="disStrings" value="${disStrings}"/>
+		<input id="disToday" type="hidden" name="disToday" value="${disToday}"/>
+		<span style="color:red" id="copyerrorInfo">&amp;nbsp;</span>
+		<p>
+			<spring:message code="productContainerTask_displayDate" />:<input id="copydate" name="copydate" class="datepicker" size="11" />
+		</p>
+		<spring:message code="button_copy" var="btnMsg" />
+		<input type="submit" value="${btnMsg}" class="button button-delete"/>
+		</c:if>
+		<c:if test="${containerid == null || date == null}">
+			<p>
+				Sorry, the data you're looking for has been deleted, please refresh the current page!
+			</p>
+		</c:if>
+	</form:form>
+</body>
+</html>

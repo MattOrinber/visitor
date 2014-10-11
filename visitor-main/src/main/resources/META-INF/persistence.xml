@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="persistenceUnit" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+            <!-- value="create" to build a new database on each run; value="update" to modify an existing database; value="create-drop" means the same as "create" but also drops tables when Hibernate closes; value="validate" makes no changes to the database -->
+            <property name="hibernate.hbm2ddl.auto" value="none"/>
+            <property name="hibernate.connection.charSet" value="UTF-8"/>
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+            <!--<property name="hibernate.show_sql" value="true" />-->
+            <!--<property name="hibernate.format_sql" value="true" />-->
+        </properties>
+        
+		<mapping-file>META-INF/orm.xml</mapping-file>
+		<class>org.visitor.appportal.domain.Category</class>
+		<class>org.visitor.appportal.domain.Folder</class>
+		<class>org.visitor.appportal.domain.HtmlPage</class>
+		<class>org.visitor.appportal.domain.HtmlPageBak</class>
+		<class>org.visitor.appportal.domain.MessageContent</class>
+		<class>org.visitor.appportal.domain.MessageReply</class>
+		<class>org.visitor.appportal.domain.ModelList</class>
+		<class>org.visitor.appportal.domain.PageContainer</class>
+		<class>org.visitor.appportal.domain.ProductContainer</class>
+		<class>org.visitor.appportal.domain.ProductFile</class>
+		<class>org.visitor.appportal.domain.ProductList</class>
+		<class>org.visitor.appportal.domain.ProductOperation</class>
+		<class>org.visitor.appportal.domain.ProductPic</class>
+		<class>org.visitor.appportal.domain.ProductSiteFolder</class>
+		<class>org.visitor.appportal.domain.ProductState</class>
+		<class>org.visitor.appportal.domain.RecommandContainer</class>
+		<class>org.visitor.appportal.domain.Site</class>
+		<class>org.visitor.appportal.domain.SiteValue</class>
+		<class>org.visitor.appportal.domain.Template</class>
+		<class>org.visitor.appportal.domain.TemplateBak</class>
+		<class>org.visitor.appportal.domain.Picture</class>
+		<class>org.visitor.appportal.domain.SearchKeyword</class>
+		
+		<class>org.visitor.appportal.domain.Account</class>
+		<class>org.visitor.appportal.domain.Role</class>
+		<class>org.visitor.appportal.domain.AccountRole</class>
+
+		<class>org.visitor.appportal.domain.Advertise</class>
+		<class>org.visitor.appportal.domain.RecommendRule</class>
+		<class>org.visitor.appportal.domain.ProductSiteRecommend</class>
+		<class>org.visitor.appportal.domain.RecommendRuleAcross</class>
+		<class>org.visitor.appportal.domain.ProductAcrossRecommend</class>
+		<class>org.visitor.appportal.domain.ProductContainerTask</class>
+		<class>org.visitor.appportal.domain.ProductDetail</class>
+        <class>org.visitor.appportal.domain.Label</class>
+		<exclude-unlisted-classes />        
+    </persistence-unit>
+</persistence>

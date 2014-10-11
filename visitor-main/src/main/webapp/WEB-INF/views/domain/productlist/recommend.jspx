@@ -1,0 +1,51 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />	
+<head>
+
+<title><spring:message code="productList" />: <spring:message code="crud.functionalities.show" /></title>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/productlist/search" class="ajaxy button button-search"><spring:message code="productList" /></a>
+	<a href="${pageContext.request.contextPath}/domain/productlist/show/${productList.primaryKey}" class="ajaxy button button-show"><spring:message code="crud.show.button" /></a>
+	<a href="${pageContext.request.contextPath}/domain/productlist/update/${productList.primaryKey}" class="ajaxy button button-edit"><spring:message code="crud.edit.button" /></a>
+	<span class="ui-state-highlight button button-show"><spring:message code="productList_preview_recommend" /> </span>
+	<table class="show">
+		<tbody>
+			<tr>
+				<td>
+					${productList.productId}
+				</td>
+				<td>
+					${productList.name}
+				</td>
+			</tr>
+		</tbody>
+	</table>
+			<c:forEach items="${recommendProducts}" var="recommendProduct" varStatus="_st">
+			<table class="show">
+				<tbody>
+				<tr>
+					<th colspan="2">
+						${recommendProduct.name}
+					</th>
+				</tr>
+				<c:forEach items="${recommendProduct.productLists}" var="productlist" varStatus="_st">
+					<tr>
+						<td style="width:5%">
+							${productlist.productId}
+						</td>
+						<td>
+							${productlist.name}
+						</td>
+					</tr>
+				</c:forEach>
+				</tbody>
+			</table>
+			</c:forEach>
+
+</body>
+</html>
