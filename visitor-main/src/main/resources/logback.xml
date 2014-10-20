@@ -8,9 +8,9 @@
 
 	<appender name="file"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>/nh/logs/app-admin/errlog/webapp.out</file>
+		<file>/nh/logs/visitor-admin/errlog/webapp.out</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<FileNamePattern>/nh/logs/app-admin/errlog/webapp.out-%d{yyyyMMdd}</FileNamePattern>
+			<FileNamePattern>/nh/logs/visitor-admin/errlog/webapp.out-%d{yyyyMMdd}</FileNamePattern>
 			<maxHistory>3</maxHistory>
 		</rollingPolicy>
 		<encoder>
