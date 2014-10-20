@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>visitor-site</artifactId>
 		<groupId>org.visitor.site</groupId>
-		<version>5.0.0-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>visitor-main</artifactId>
 	<packaging>war</packaging>
