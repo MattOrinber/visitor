@@ -1,0 +1,1316 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core"  xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+
+<head>
+<script type="text/javascript">
+	$(document).ready(function() {
+		setTabValue();
+		$("#show_site").click();
+	});
+	
+	function setTabValue() {
+		$("span[id^=show_]").click(function() {
+			setTabValueArea(this.id);
+			resetAreaTabs(this.id);
+		});
+	}
+	
+	function setTabValueArea(name) {
+		$("#dis_show_area").hide().html($("#" + name + "_area").html()).fadeIn();
+		initRedis();
+		$("#result").html('');
+	}
+
+	function resetAreaTabs(name) {
+		$("span[id^=show_]").removeClass();
+		$("span[id^=show_]").addClass("ajaxy button button-show ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary");
+		$("#" + name).removeClass();
+		$("#" + name).addClass("ui-state-highlight button button-show ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary");
+		setupPage();
+	}
+	function initRedis() {
+		$("input[type='button']").click(function(){
+		
+			var nm = $(this).attr("id");
+			var type = $("#"+ nm +"_t").val();
+			var hash = $("#"+ nm +"_h").html();
+			var keypara = $("#"+ nm +"_hk").html();
+			var para = $("#"+ nm +"_p").val();//产品ID的参数
+			
+			if (keypara != null &amp;&amp; keypara != '') {
+				for (var i=1; i &lt; 10;i++) {
+					var pa = $("#"+ nm +"_p" + i).val();
+					if (pa != null &amp;&amp; pa != '') {
+						keypara = keypara.replace("{" + i + "}",pa);
+					} else {
+						break;
+					}
+				}
+			} else if(para != null &amp;&amp; para != ''){
+				keypara = para;
+			}
+			
+			if (type == 'kstr') {
+				ajaxValue(keypara);
+			} else if (type == 'kmap') {
+				if (hash != null &amp;&amp; hash != '') {
+					ajaxList(hash);
+				} else {
+					ajaxList(keypara);
+				}
+				
+			} else if (type == 'hks') {
+				if (keypara != null &amp;&amp; keypara != '') {
+					ajaxString(hash, keypara);
+				} else {
+					alert('请输入参数');
+				}
+			} else if (type == 'hksc') {
+				if (keypara != null &amp;&amp; keypara != '') {
+					ajaxCompressString(hash, keypara);
+				} else {
+					alert('请输入参数');
+				}
+			} else if (type == 'kset') {
+				var page = $("#"+ nm +"_page").val();
+				var size = $("#"+ nm +"_size").val();
+				
+				ajaxSet(keypara , page , size);
+			} else if (type == 'hsize') {
+				ajaxCount(hash);
+			} else if (type == 'hkzst') {//显示图书章节的ZSET
+				if (keypara != null &amp;&amp; keypara != '') {
+					var chapterId=$("#chapter_2_p").val();
+					if(chapterId==""){
+						alert('请输入参数');
+					}else{
+						ajaxZSet(keypara,chapterId);
+					}
+				} else {
+					alert('请输入参数');
+				}
+			} 
+			
+			$("#keyvalue").html(hash + " " + keypara);
+		})
+	}
+	
+function ajaxList(key){
+	$.ajax({
+		type : "GET",
+		url : "${pageContext.request.contextPath}/domain/redis/ajax/list?key=" + key,
+		success : function(ss) {
+			htmlList(ss);
+		}
+	})
+}
+	
+function ajaxCompressString(key, para){
+	$.ajax({
+		type : "GET",
+		dataType : "text",
+		url : "${pageContext.request.contextPath}/domain/redis/ajax/compressstring?key=" + key + "&amp;para=" + para,
+		success : function(ss) {
+			htmlString(ss);
+		}
+	})
+}
+	
+function ajaxString(key, para){
+	$.ajax({
+		type : "GET",
+		url : "${pageContext.request.contextPath}/domain/redis/ajax/string?key=" + key + "&amp;para=" + para,
+		success : function(ss) {
+			htmlString(ss);
+		}
+	})
+}
+
+function ajaxValue(key){
+	$.ajax({
+		type : "GET",
+		url : "${pageContext.request.contextPath}/domain/redis/ajax/value?key=" + key,
+		success : function(ss) {
+			htmlString(ss);
+		}
+	})
+}
+	
+function ajaxSet(key, page, size){
+	if (page == null || page == '') {
+		page = 1;
+		size = 50;
+	}
+	$.ajax({
+		type : "GET",
+		url : "${pageContext.request.contextPath}/domain/redis/ajax/set?key=" + key + "&amp;page=" + page + "&amp;size=" + size,
+		success : function(ss) {
+			htmlString(ss);
+		}
+	})
+}
+
+function ajaxCount(key){
+	$.ajax({
+		type : "GET",
+		url : "${pageContext.request.contextPath}/domain/redis/ajax/count?key=" + key,
+		success : function(ss) {
+			htmlString(ss);
+		}
+	})
+}
+
+/*本方法用于获取章节列表*/
+function ajaxZSet(key,chapid){
+	//alert("ok"+key);
+	$.ajax({
+		type : "GET",
+		url : "${pageContext.request.contextPath}/domain/redis/ajax/zset?key=" + key + "&amp;chapid=" + chapid,
+		success : function(ss) {
+			//alert("ok?"+ss);
+			htmlString(ss);
+		}
+	})
+}
+		
+function htmlString(str){
+	$("#result").html('');
+	if (str != null &amp;&amp; str != '') {
+		$("#result").append("<textarea></textarea>").children("textarea").attr("style","width:100%").html(str);
+	}
+}
+
+function htmlList(str){
+	$("#result").html('');
+	$("#result").append("<textarea></textarea>").children("textarea").attr("style","width:100%");
+	if (str != null &amp;&amp; str.length &gt; 0) {
+		for (var i = 0; i &lt; str.length; i++) {
+			$("#result").children("textarea").append(str[i]);
+		}
+	}
+}
+</script>
+</head>
+<body>
+	<span id="show_site" class="ui-state-highlight button button-show">站点</span>
+	<span id="show_folder" class="ajaxy button button-show">频道</span>
+	<span id="show_product" class="ajaxy button button-show">产品</span>
+	<span id="show_advertise" class="ajaxy button button-show">广告</span>
+	<span id="show_htmlpage" class="ajaxy button button-show">页面</span>
+	<span id="show_category" class="ajaxy button button-show">字典</span>
+	<span id="show_system" class="ajaxy button button-show">系统</span>
+	<span id="show_user" class="ajaxy button button-show">用户</span>
+	
+	<div id="dis_show_area">
+		<table>
+			<thead>
+			</thead>
+		</table>
+	</div>
+
+		<table class="show">
+			<tbody>
+				<tr>
+					<td>
+						<div id="keyvalue"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div id="result"></div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+			<div id="show_site_area" style="display:none">
+				<table>
+					<thead>
+						<tr>
+							<th style="width:8%">
+								名称
+							</th>
+							<th style="width:8%">
+								Hash
+							</th>
+							<th style="width:30%">
+								Hash Key
+							</th>
+							<th style="width:30%">
+								参数
+							</th>
+							<th>
+								类型
+							</th>
+							<th>
+								操作
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>
+								所有站点信息
+							</th>
+							<td>
+								<span id="site_0_h">h-site</span>
+							</td>
+							<td>
+								<span id="site_0_hk"></span>
+							</td>
+							<td>
+								<span id="site_0_p"></span>
+							</td>
+							<td>
+								List
+							</td>
+							<td>
+								<input id="site_0_t" type="hidden" value="kmap"/>
+								<input id="site_0" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								站点信息
+							</th>
+							<td>
+								<span id="site_1_h">h-site</span>
+							</td>
+							<td>
+								<span id="site_1_hk"></span>
+							</td>
+							<td>
+								站点Id:<input id="site_1_p" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="site_1_t" type="hidden" value="hksc"/>
+								<input id="site_1" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								站点搜索词
+							</th>
+							<td>
+								<span id="site_2_h"></span>
+							</td>
+							<td>
+								<span id="site_2_hk">h-searchkeyword:{1}:siteid</span>
+							</td>
+							<td>
+								站点Id:<input id="site_2_p1" type="text" value="" size="5"/>
+							</td>
+							<td>
+								List
+							</td>
+							<td>
+								<input id="site_2_t" type="hidden" value="kmap"/>
+								<input id="site_2" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="show_folder_area" style="display:none">
+				<table>
+					<thead>
+						<tr>
+							<th style="width:8%">
+								名称
+							</th>
+							<th style="width:8%">
+								Hash
+							</th>
+							<th style="width:30%">
+								Hash Key
+							</th>
+							<th style="width:30%">
+								参数
+							</th>
+							<th>
+								类型
+							</th>
+							<th>
+								操作
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>
+								所有频道信息
+							</th>
+							<td>
+								<span id="folder_0_h">h-folder</span>
+							</td>
+							<td>
+								<span id="folder_0_hk"></span>
+							</td>
+							<td>
+								<span id="folder_0_p"></span>
+							</td>
+							<td>
+								List
+							</td>
+							<td>
+								<input id="folder_0_t" type="hidden" value="kmap"/>
+								<input id="folder_0" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								频道信息
+							</th>
+							<td>
+								<span id="folder_1_h">h-folder</span>
+							</td>
+							<td>
+								<span id="folder_1_hk"></span>
+							</td>
+							<td>
+								频道Id:<input id="folder_1_p" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="folder_1_t" type="hidden" value="hksc"/>
+								<input id="folder_1" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								频道产品列表
+							</th>
+							<td>
+								<span id="folder_2_h"></span>
+							</td>
+							<td>
+								<span id="folder_2_hk">z-pageableproduct:{1}:siteid:{2}:folderid</span>
+							</td>
+							<td>
+								站点Id:<input id="folder_2_p1" type="text" value="" size="5"/>
+								频道Id:<input id="folder_2_p2" type="text" value="" size="5"/>
+								页码:<input id="folder_2_page" type="text" value="" size="5"/>
+								页大小:<input id="folder_2_size" type="text" value="" size="5"/>
+							</td>
+							<td>
+								Set
+							</td>
+							<td>
+								<input id="folder_2_t" type="hidden" value="kset"/>
+								<input id="folder_2" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								频道面包屑
+							</th>
+							<td>
+								<span id="folder_3_h">h-folderancestor</span>
+							</td>
+							<td>
+								<span id="folder_3_hk"></span>
+							</td>
+							<td>
+								频道Id:<input id="folder_3_p" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="folder_3_t" type="hidden" value="hks"/>
+								<input id="folder_3" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								频道子频道
+							</th>
+							<td>
+								<span id="folder_4_h"></span>
+							</td>
+							<td>
+								<span id="folder_4_hk">z-folderchildren:{1}:folderid:{2}:siteid</span>
+							</td>
+							<td>					
+								频道Id:<input id="folder_4_p1" type="text" value="" size="5"/>
+								站点Id:<input id="folder_4_p2" type="text" value="" size="5"/>
+							</td>
+							<td>
+								Set
+							</td>
+							<td>
+								<input id="folder_4_t" type="hidden" value="kset"/>
+								<input id="folder_4" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						
+						<tr>
+							<th>
+								频道子频道
+							</th>
+							<td>
+								<span id="folder_5_h">h-folderpath</span>
+							</td>
+							<td>
+								<span id="folder_5_hk">hk-path:{1}:siteid:{2}:path</span>
+							</td>
+							<td>					
+								站点Id:<input id="folder_5_p1" type="text" value="" size="5"/>
+								路径:<input id="folder_5_p2" type="text" value="" size="5"/>
+							</td>
+							<td>
+								Set
+							</td>
+							<td>
+								<input id="folder_5_t" type="hidden" value="hks"/>
+								<input id="folder_5" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								频道排行列表
+							</th>
+							<td>
+								<span id="folder_6_h"></span>
+							</td>
+							<td>
+								<span id="folder_6_hk">z-folderrank:{1}:siteid:{2}:folderid:{3}:rank:{4}:version:{5}:level</span>
+							</td>
+							<td>
+								站点Id:<input id="folder_6_p1" type="text" value="" size="5"/>
+								频道Id:<input id="folder_6_p2" type="text" value="" size="5"/>
+								排行类型:<input id="folder_6_p3" type="text" value="" size="5"/><br/>
+								版本Id:<input id="folder_6_p4" type="text" value="" size="5"/>
+								级别:<input id="folder_6_p5" type="text" value="" size="5"/><br/>
+							</td>
+							<td>
+								Set
+							</td>
+							<td>
+								<input id="folder_6_t" type="hidden" value="kset"/>
+								<input id="folder_6" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								标签下频道
+							</th>
+							<td>
+								<span id="folder_7_h">h-tagfolder</span>
+							</td>
+							<td>
+								<span id="folder_7_hk"></span>
+							</td>
+							<td>
+								标签Id:<input id="folder_7_p" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="folder_7_t" type="hidden" value="hks"/>
+								<input id="folder_7" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="show_product_area" style="display:none">
+				<table class="show">
+					<thead>
+						<tr>
+							<th style="width:8%">
+								名称
+							</th>
+							<th style="width:8%">
+								Hash
+							</th>
+							<th style="width:30%">
+								Hash Key
+							</th>
+							<th style="width:30%">
+								参数
+							</th>
+							<th>
+								类型
+							</th>
+							<th>
+								操作
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>
+								产品信息
+							</th>
+							<td>
+								<span id="product_1_h">h-product</span>
+							</td>
+							<td>
+								<span id="product_1_hk"></span>
+							</td>
+							<td>
+								产品Id:<input id="product_1_p" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="product_1_t" type="hidden" value="hksc"/>
+								<input id="product_1" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								图书章节
+							</th>
+							<td>
+								<span id="product_2_h">h-productfile</span>
+							</td>
+							<td>
+								<span id="product_2_hk"></span>
+							</td>
+							<td>
+								产品Id:<input id="product_2_p" type="text" value="" size="10"/>
+								章节Id:<input id="chapter_2_p" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="product_2_t" type="hidden" value="hkzst"/>
+								<input id="product_2" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								产品下载数
+							</th>
+							<td>
+								<span id="product_3_h"></span>
+							</td>
+							<td>
+								<span id="product_3_hk">productstate:{1}:td</span>
+							</td>
+							<td>
+								产品Id:<input id="product_3_p1" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="product_3_t" type="hidden" value="kstr"/>
+								<input id="product_3" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								产品pv数
+							</th>
+							<td>
+								<span id="product_4_h"></span>
+							</td>
+							<td>
+								<span id="product_4_hk">productstate:{1}:tpv</span>
+							</td>
+							<td>
+								产品Id:<input id="product_4_p1" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="product_4_t" type="hidden" value="kstr"/>
+								<input id="product_4" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								产品图片
+							</th>
+							<td>
+								<span id="product_5_h">h-productpic</span>
+							</td>
+							<td>
+								<span id="product_5_hk"></span>
+							</td>
+							<td>
+								产品Id:<input id="product_5_p" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="product_5_t" type="hidden" value="hksc"/>
+								<input id="product_5" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								产品评论
+							</th>
+							<td>
+								<span id="product_6_h">h-comment</span>
+							</td>
+							<td>
+								<span id="product_6_hk"></span>
+							</td>
+							<td>
+								产品Id:<input id="product_6_p" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="product_6_t" type="hidden" value="hksc"/>
+								<input id="product_6" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<!--这里加入广告redis模块-->
+			<div id="show_advertise_area" style="display:none">
+				<table>
+					<thead>
+						<tr>
+							<th style="width:8%">
+								名称
+							</th>
+							<th style="width:8%">
+								Hash
+							</th>
+							<th style="width:30%">
+								Hash Key
+							</th>
+							<th style="width:30%">
+								参数
+							</th>
+							<th>
+								类型
+							</th>
+							<th>
+								操作
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>
+								广告信息
+							</th>
+							<td>
+								<span id="advertise_0_h">h-advertise</span>
+							</td>
+							<td>
+								<span id="advertise_0_hk"></span>
+							</td>
+							<td>
+								广告Id:<input id="advertise_0_p" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="advertise_0_t" type="hidden" value="hksc"/>
+								<input id="advertise_0" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!--end-->
+
+
+
+
+
+			<div id="show_htmlpage_area" style="display:none">
+				<table>
+					<thead>
+						<tr>
+							<th style="width:8%">
+								名称
+							</th>
+							<th style="width:8%">
+								Hash
+							</th>
+							<th style="width:30%">
+								Hash Key
+							</th>
+							<th style="width:30%">
+								参数
+							</th>
+							<th>
+								类型
+							</th>
+							<th>
+								操作
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>
+								所有页面信息
+							</th>
+							<td>
+								<span id="htmlpage_0_h">h-htmlpage</span>
+							</td>
+							<td>
+								<span id="htmlpage_0_hk"></span>
+							</td>
+							<td>
+								<span id="htmlpage_0_p"></span>
+							</td>
+							<td>
+								List
+							</td>
+							<td>
+								<input id="htmlpage_0_t" type="hidden" value="kmap"/>
+								<input id="htmlpage_0" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								页面信息
+							</th>
+							<td>
+								<span id="htmlpage_1_h">h-htmlpage</span>
+							</td>
+							<td>
+								<span id="htmlpage_1_hk"></span>
+							</td>
+							<td>
+								页面Id:<input id="htmlpage_1_p" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="htmlpage_1_t" type="hidden" value="hksc"/>
+								<input id="htmlpage_1" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								页面内容
+							</th>
+							<td>
+								<span id="htmlpage_2_h">h-htmlpagecontent</span>
+							</td>
+							<td>
+								<span id="htmlpage_2_hk"></span>
+							</td>
+							<td>
+								页面Id:<input id="htmlpage_2_p" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="htmlpage_2_t" type="hidden" value="hksc"/>
+								<input id="htmlpage_2" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								所有模板内容
+							</th>
+							<td>
+								<span id="htmlpage_3_h">h-templatecontent</span>
+							</td>
+							<td>
+								<span id="htmlpage_3_hk"></span>
+							</td>
+							<td>
+								<span id="htmlpage_3_p"></span>
+							</td>
+							<td>
+								List
+							</td>
+							<td>
+								<input id="htmlpage_3_t" type="hidden" value="kmap"/>
+								<input id="htmlpage_3" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								模板内容
+							</th>
+							<td>
+								<span id="htmlpage_4_h">h-templatecontent</span>
+							</td>
+							<td>
+								<span id="htmlpage_4_hk"></span>
+							</td>
+							<td>
+								模板Id:<input id="htmlpage_4_p" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="htmlpage_4_t" type="hidden" value="hksc"/>
+								<input id="htmlpage_4" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								页面推荐产品
+							</th>
+							<td>
+								<span id="htmlpage_5_h"></span>
+							</td>
+							<td>
+								<span id="htmlpage_5_hk">z-recommand:{1}:siteid:{2}:folderid:{3}:pageid:{4}:containerid</span>
+							</td>
+							<td>
+								站点Id:<input id="htmlpage_5_p1" type="text" value="" size="10"/>
+								频道Id:<input id="htmlpage_5_p2" type="text" value="" size="10"/><br/>
+								页面Id:<input id="htmlpage_5_p3" type="text" value="" size="10"/>
+								容器Id:<input id="htmlpage_5_p4" type="text" value="" size="10"/>
+							</td>
+							<td>
+								Set
+							</td>
+							<td>
+								<input id="htmlpage_5_t" type="hidden" value="kset"/>
+								<input id="htmlpage_5" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						
+					</tbody>
+				</table>
+			</div>
+			<div id="show_category_area" style="display:none">
+				<table>
+					<thead>
+						<tr>
+							<th style="width:12%">
+								名称
+							</th>
+							<th style="width:8%">
+								Hash
+							</th>
+							<th style="width:30%">
+								Hash Key
+							</th>
+							<th style="width:30%">
+								参数
+							</th>
+							<th>
+								类型
+							</th>
+							<th>
+								操作
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>
+								所有字典信息
+							</th>
+							<td>
+								<span id="category_0_h">h-categoryid</span>
+							</td>
+							<td>
+								<span id="category_0_hk"></span>
+							</td>
+							<td>
+								<span id="category_0_p"></span>
+							</td>
+							<td>
+								List
+							</td>
+							<td>
+								<input id="category_0_t" type="hidden" value="kmap"/>
+								<input id="category_0" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								字典信息
+							</th>
+							<td>
+								<span id="category_1_h">h-categoryid</span>
+							</td>
+							<td>
+								<span id="category_1_hk"></span>
+							</td>
+							<td>
+								字典Id:<input id="category_1_p" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="category_1_t" type="hidden" value="hksc"/>
+								<input id="category_1" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								子字典信息
+							</th>
+							<td>
+								<span id="category_2_h">h-categorychildren</span>
+							</td>
+							<td>
+								<span id="category_2_hk"></span>
+							</td>
+							<td>
+								字典Id:<input id="category_2_p" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="category_2_t" type="hidden" value="hksc"/>
+								<input id="category_2" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								分辨率信息
+							</th>
+							<td>
+								<span id="category_3_h">h-categoryresolution</span>
+							</td>
+							<td>
+								<span id="category_3_hk"></span>
+							</td>
+							<td>
+								分辨率名称:<input id="category_3_p" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="category_3_t" type="hidden" value="hksc"/>
+								<input id="category_3" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								平台信息
+							</th>
+							<td>
+								<span id="category_4_h">h-categoryplatform</span>
+							</td>
+							<td>
+								<span id="category_4_hk"></span>
+							</td>
+							<td>
+								平台名称:<input id="category_4_p" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="category_4_t" type="hidden" value="hksc"/>
+								<input id="category_4" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								平台版本信息
+							</th>
+							<td>
+								<span id="category_5_h">h-categoryplatformversion</span>
+							</td>
+							<td>
+								<span id="category_5_hk">hk-categoryplatformversion:{1}:platformname:{2}:versionname</span>
+							</td>
+							<td>
+								平台名称:<input id="category_5_p1" type="text" value="" size="10"/>
+								版本名称:<input id="category_5_p2" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="category_5_t" type="hidden" value="hks"/>
+								<input id="category_5" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								频道标签
+							</th>
+							<td>
+								<span id="category_6_h">h-categorytag</span>
+							</td>
+							<td>
+								<span id="category_6_hk"></span>
+							</td>
+							<td>
+								标签名称:<input id="category_6_p" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="category_6_t" type="hidden" value="hksc"/>
+								<input id="category_6" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="show_system_area" style="display:none">
+				<table>
+					<thead>
+						<tr>
+							<th style="width:12%">
+								名称
+							</th>
+							<th style="width:8%">
+								Hash
+							</th>
+							<th style="width:30%">
+								Hash Key
+							</th>
+							<th style="width:30%">
+								参数
+							</th>
+							<th>
+								类型
+							</th>
+							<th>
+								操作
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>
+								频道产品阀值
+							</th>
+							<td>
+								<span id="system_0_h">h-systempreference</span>
+							</td>
+							<td>
+								<span id="system_0_hk">hk-folderproductmaxsortorder</span>
+							</td>
+							<td>
+								<span id="system_0_p"></span>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="system_0_t" type="hidden" value="hks"/>
+								<input id="system_0" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								产品显示个数
+							</th>
+							<td>
+								<span id="system_1_h">h-systempreference</span>
+							</td>
+							<td>
+								<span id="system_1_hk">hk-productdisplaypagesize</span>
+							</td>
+							<td>
+								<span id="system_1_p"></span>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="system_1_t" type="hidden" value="hks"/>
+								<input id="system_1" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								搜索最大显示数
+							</th>
+							<td>
+								<span id="system_2_h">h-systempreference</span>
+							</td>
+							<td>
+								<span id="system_2_hk">hk-searchmaxshowpage:{1}:siteid</span>
+							</td>
+							<td>
+								站点Id:<input id="system_2_p1" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="system_2_t" type="hidden" value="hks"/>
+								<input id="system_2" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								是否显示评论
+							</th>
+							<td>
+								<span id="system_3_h">h-systempreference</span>
+							</td>
+							<td>
+								<span id="system_3_hk">hk-ifshowproductcomment:{1}:siteid</span>
+							</td>
+							<td>
+								站点Id:<input id="system_3_p1" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="system_3_t" type="hidden" value="hks"/>
+								<input id="system_3" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								是否搜索显示列表
+							</th>
+							<td>
+								<span id="system_4_h">h-systempreference</span>
+							</td>
+							<td>
+								<span id="system_4_hk">hk-ifshowproductsbysearch:{1}:siteid</span>
+							</td>
+							<td>
+								站点Id:<input id="system_4_p1" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="system_4_t" type="hidden" value="hks"/>
+								<input id="system_4" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								频道排行显示产品数
+							</th>
+							<td>
+								<span id="system_5_h">h-systempreference</span>
+							</td>
+							<td>
+								<span id="system_5_hk">hk-folderankmaxcount:{1}:siteid</span>
+							</td>
+							<td>
+								站点Id:<input id="system_5_p1" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="system_5_t" type="hidden" value="hks"/>
+								<input id="system_5" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								站点默认搜索词
+							</th>
+							<td>
+								<span id="system_6_h">h-systempreference</span>
+							</td>
+							<td>
+								<span id="system_6_hk">hk-defaultsearchkeyword:{1}:siteid</span>
+							</td>
+							<td>
+								站点Id:<input id="system_6_p1" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="system_6_t" type="hidden" value="hks"/>
+								<input id="system_6" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="show_user_area" style="display:none">
+				<table>
+					<thead>
+						<tr>
+							<th style="width:12%">
+								名称
+							</th>
+							<th style="width:8%">
+								Hash
+							</th>
+							<th style="width:30%">
+								Hash Key
+							</th>
+							<th style="width:30%">
+								参数
+							</th>
+							<th>
+								类型
+							</th>
+							<th>
+								操作
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>
+								在线用户数
+							</th>
+							<td>
+								<span id="user_0_h">h-onlineuser</span>
+							</td>
+							<td>
+								<span id="user_0_hk"></span>
+							</td>
+							<td>
+								<span id="user_0_p"></span>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="user_0_t" type="hidden" value="hsize"/>
+								<input id="user_0" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								用户信息
+							</th>
+							<td>
+								<span id="user_1_h">h-userpreference</span>
+							</td>
+							<td>
+								<span id="user_1_hk"></span>
+							</td>
+							<td>
+								用户ID：<input id="user_1_p" type="text" value="" size="10"/>
+							</td>
+							<td>
+								String
+							</td>
+							<td>
+								<input id="user_1_t" type="hidden" value="hksc"/>
+								<input id="user_1" type="button" class="button" value="查看"/>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+</body>
+</html>

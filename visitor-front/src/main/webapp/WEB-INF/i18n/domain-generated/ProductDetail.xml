@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for ProductList</comment>
+
+	<entry key="productList">产品管理</entry>
+	
+	<entry key="productList_detail">产品专题详情</entry>
+	<entry key="productList_detail_create">创建</entry>
+
+</properties>

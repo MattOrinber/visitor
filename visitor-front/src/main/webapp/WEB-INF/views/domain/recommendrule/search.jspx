@@ -1,0 +1,57 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="recommendRule" />: <spring:message code="crud.functionalities.example" /></title>
+</head>
+<body>
+	<span class="ui-state-highlight button button-search"><spring:message code="recommendRule" /></span>
+	<a href="${pageContext.request.contextPath}/domain/recommendrule/create/?type=1" class="ajaxy button button-create"><spring:message code="crud.functionalities.create" /><spring:message code="recommendRule_folder_recommend" /></a>
+	<a href="${pageContext.request.contextPath}/domain/recommendrule/create/?type=2" class="ajaxy button button-create"><spring:message code="crud.functionalities.create" /><spring:message code="recommendRule_product_recommend" /></a>
+	<a href="${pageContext.request.contextPath}/domain/recommendrule/storage" class="ajaxy button button-search"><spring:message code="recommendRule_storage" /></a>
+	<form:form action="${pageContext.request.contextPath}/domain/recommendrule/list" modelAttribute="recommendRuleSearchForm" class="search">
+		<table class="show">
+			<tbody>
+				<tr>
+					<th><spring:message code="recommendRule_ruleId" /></th>
+					<td>
+						<form:input path="recommendRule.ruleId" cssClass="number"/>
+						<form:errors path="recommendRule.ruleId" cssClass="error"/>
+					</td>
+					<th><spring:message code="recommendRule_type" /></th>
+					<td>
+						<form:radiobutton path="recommendRule.Type" value="" checked="checked"/><spring:message code="ANY" />
+						<form:radiobutton path="recommendRule.Type" value="1"/><spring:message code="recommendRule_type_1" />
+						<form:radiobutton path="recommendRule.Type" value="2" /><spring:message code="recommendRule_type_2" />
+						<form:errors path="recommendRule.Type" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="recommendRule_folder_id" /></th>
+					<td>
+						<form:input path="recommendRule.folderId" cssClass="number"/>
+						<form:errors path="recommendRule.folderId" cssClass="error"/>
+					</td>
+					<th><spring:message code="recommendRule_product_id" /></th>
+					<td>
+						<form:input path="recommendRule.productId" cssClass="number"/>
+						<form:errors path="recommendRule.productId" cssClass="error"/>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="6">
+						<spring:message code="crud.search.button" var="searchButton"/>
+						<input type="submit" class="button button-search" value="${searchButton}"/>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+	<jsp:include page="/domain/recommendrule/list" />
+</body>
+</html>

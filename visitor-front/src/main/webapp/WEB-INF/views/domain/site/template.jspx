@@ -1,0 +1,135 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="site" />: <spring:message code="crud.functionalities.update" /></title>
+</head>
+<body>
+	<span class="ui-state-highlight button button-edit"><spring:message code="site_template" /><spring:message code="site_value_edit" /></span>
+
+	<form:form action="${pageContext.request.contextPath}/domain/site/template/${site.primaryKey}/${type}/" modelAttribute="site" method="POST">
+		<form:errors cssClass="error"/>
+		<form:hidden path="siteId"/>
+		<table class="edit">
+			<tbody>
+				<tr>
+					<th><spring:message code="site_name" /> <em>*</em></th>
+					<td>
+						<spring:eval expression="site.name"/>
+					</td>
+				</tr>
+				<c:if test="${type == 0}">
+					<tr>
+						<th><spring:message code="site_template_index" /> <em>*</em></th>
+						<td>
+							<spring:eval expression="site.indexTemplateId" javaScriptEscape="true" var="indexT" />
+							<input type="hidden" id="indexTemplate" name="indexTemplateId" value="${indexT}" />
+							<spring:eval expression="site.indexTemplate.name" javaScriptEscape="true" var="indexTL" />
+							<input type="text" id="indexTemplateLabel" value="${indexTL}" size="100" />
+							<script>
+							$(function() {
+								$("#indexTemplate").autocomplete('destroy');
+								$("#indexTemplateLabel").autocomplete({
+									source: "${pageContext.request.contextPath}/domain/template/autocomplete",
+									select: function(event, ui) {
+										$("#indexTemplate").val(ui.item.id);
+										$("#indexTemplateLabel").val(ui.item.label);
+									}
+								});
+							});
+							</script>
+							<form:errors path="indexTemplate" cssClass="error"/>
+						</td>
+					</tr>
+				</c:if>
+				
+				<c:if test="${type == 1}">
+				<tr>
+					<th><spring:message code="site_template_list" /> <em>*</em></th>
+					<td>
+						<spring:eval expression="site.listTemplateId" javaScriptEscape="true" var="listT" />
+						<input type="hidden" id="listTemplate" name="listTemplateId" value="${listT}" />
+						<spring:eval expression="site.listTemplate.name" javaScriptEscape="true" var="listTL" />
+						<input type="text" id="listTemplateLabel" value="${listTL}" size="100" />
+						<script>
+						$(function() {
+							$("#listTemplate").autocomplete('destroy');
+							$("#listTemplateLabel").autocomplete({
+								source: "${pageContext.request.contextPath}/domain/template/autocomplete",
+								select: function(event, ui) {
+									$("#listTemplate").val(ui.item.id);
+									$("#listTemplateLabel").val(ui.item.label);
+								}
+							});
+						});
+						</script>
+						<form:errors path="listTemplate" cssClass="error"/>
+					</td>
+				</tr>
+				</c:if>
+				
+				<c:if test="${type == 2}">
+				<tr>
+					<th><spring:message code="site_template_detail" /> <em>*</em></th>
+					<td>
+						<spring:eval expression="site.detailTemplateId" javaScriptEscape="true" var="detailT" />
+						<input type="hidden" id="detailTemplate" name="detailTemplateId" value="${detailT}" />
+						<spring:eval expression="site.detailTemplate.name" javaScriptEscape="true" var="detailTL" />
+						<input type="text" id="detailTemplateLabel" value="${detailTL}" size="100" />
+						<script>
+						$(function() {
+							$("#detailTemplate").autocomplete('destroy');
+							$("#detailTemplateLabel").autocomplete({
+								source: "${pageContext.request.contextPath}/domain/template/autocomplete",
+								select: function(event, ui) {
+									$("#detailTemplate").val(ui.item.id);
+									$("#detailTemplateLabel").val(ui.item.label);
+								}
+							});
+						});
+						</script>
+						<form:errors path="detailTemplate" cssClass="error"/>
+					</td>
+				</tr>
+				</c:if>
+				
+				<c:if test="${type == 3}">
+				<tr>
+					<th><spring:message code="site_template_navi" /> <em>*</em></th>
+					<td>
+						<spring:eval expression="site.naviTemplateId" javaScriptEscape="true" var="naviT" />
+						<input type="hidden" id="naviTemplate" name="naviTemplateId" value="${naviT}" />
+						<spring:eval expression="site.naviTemplate.name" javaScriptEscape="true" var="naviTL" />
+						<input type="text" id="naviTemplateLabel" value="${naviTL}" size="100" />
+						<script>
+						$(function() {
+							$("#naviTemplate").autocomplete('destroy');
+							$("#naviTemplateLabel").autocomplete({
+								source: "${pageContext.request.contextPath}/domain/template/autocomplete",
+								select: function(event, ui) {
+									$("#naviTemplate").val(ui.item.id);
+									$("#naviTemplateLabel").val(ui.item.label);
+								}
+							});
+						});
+						</script>
+						<form:errors path="naviTemplate" cssClass="error"/>
+					</td>
+				</tr>
+				</c:if>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<spring:message code="crud.save.button" var="saveButton"/>
+						<input type="submit" class="button button-save" value="${saveButton}" />
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+</body>
+</html>

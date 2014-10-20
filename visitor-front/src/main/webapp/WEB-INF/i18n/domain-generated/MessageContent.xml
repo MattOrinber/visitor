@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for MessageContent</comment>
+
+	<entry key="messageContent">评论</entry>
+
+	<!-- Attributes -->
+	<entry key="messageContent_messageId">Message Id</entry>
+	<entry key="messageContent_qq">QQ</entry>
+	<entry key="messageContent_nickName">昵称</entry>
+	<entry key="messageContent_mobileName">机型名称</entry>
+	<entry key="messageContent_mobileNumber">手机号</entry>
+	<entry key="messageContent_content">评论内容</entry>
+	<entry key="messageContent_createDate">评论时间</entry>
+	
+	<entry key="messageContent_status">状态</entry>
+	<entry key="messageContent_status_yes">可用</entry>
+	<entry key="messageContent_status_no">不可用</entry>
+	
+	<entry key="messageContent_replyDate">回复时间</entry>
+	<entry key="messageContent_replyBy">回复人</entry>
+	<entry key="messageContent_messageType">消息类型</entry>
+	<entry key="recommandContainer_picId">图片</entry>
+</properties>

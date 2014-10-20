@@ -1,0 +1,90 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="productSiteFolder" /></title>
+	
+	<spring:theme code="themePackage" var="themePackage" />
+	<spring:theme code="scriptPackage" var="scriptPackage" />
+	
+	<spring:url value="/${themePackage}" var="themePackageUrl" />
+	<spring:url value="/${scriptPackage}" var="scriptPackageUrl" />
+	
+	<link rel="stylesheet" href="${themePackageUrl}/plugins/tree/jquery.treeview.css" type="text/css" media="screen, projection" />
+	<script type="text/javascript" src="${scriptPackageUrl}/jquery-1.5.2/jquery.cookie.js"><c:out value=" " /></script>
+	<script type="text/javascript" src="${scriptPackageUrl}/jquery-ui-1.8.11/tree/jquery.treeview.js"><c:out value=" " /></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		setTree();
+		activeFolderInfo();
+	});
+
+	function setTree() {
+		$("#folder_tree").treeview( {
+			collapsed : true,
+			animated : "medium",
+			control : "#sidetreecontrol",
+			persist : "location"
+		});
+	}
+
+	function activeFolderInfo() {
+		$("span[node]").click(
+						function() {
+							var folder = $("#folder_right");
+							folder.load("${pageContext.request.contextPath}/domain/folder/show/"
+											+ $(this).attr("node")
+											+ " #folder_result");
+						});
+	}
+	function bind(folderId, event) {
+		event.preventDefault();
+		event.stopPropagation();
+		$.ajax( {
+			type : "GET",
+			url : "${pageContext.request.contextPath}/domain/productsitefolder/bind?pid=${pid}&amp;folderId="+folderId,
+			success : function(ss) {
+				var result = eval(ss);
+				if(result.flag){
+					//document.location.href="${pageContext.request.contextPath}/domain/productlist/show/${pid}";
+					window.opener.document.location.href="${pageContext.request.contextPath}/domain/productlist/show/${pid}";
+					window.close();
+					alert();
+				}else{
+					alert(result.err);
+				}
+			}
+		})
+	}
+</script>
+</head>
+<body>
+	<table class="show">
+		<tbody>
+			<tr>
+				<td>
+					<div id="folder_left" style="float: left;">
+						<ul id="folder_tree">
+							<c:forEach items="${siteTree}" var="siteNode">
+									<li>
+										<span>${siteNode.site.name }</span>
+										<c:if test="${siteNode.folderNodes!=null}">
+											<ul>
+												<c:forEach items="${siteNode.folderNodes}" var="folderNode">
+													${folderNode.nodeHtml }
+												</c:forEach>
+											</ul>
+										</c:if>
+									</li>
+							</c:forEach>
+						</ul>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

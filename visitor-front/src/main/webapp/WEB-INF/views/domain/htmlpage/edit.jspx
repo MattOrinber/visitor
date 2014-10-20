@@ -1,0 +1,129 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="htmlPage" />: <spring:message code="crud.functionalities.update" /></title>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/folder/show/${htmlPage.folderId}" class="ajaxy button button-show"><spring:message code="crud.show.button" /></a>
+	<span class="ui-state-highlight button button-edit"><spring:message code="crud.edit.CMS" /></span>
+	<form:form action="${pageContext.request.contextPath}/domain/htmlpage/edit/${htmlPage.pageId}" modelAttribute="htmlPage" method="POST">
+		<form:errors cssClass="error"/>
+		<form:hidden path="pageId"/>
+		<table class="edit">
+			<tbody>
+				<tr><h2>${message}</h2></tr>
+				<tr>
+					<th>当前编辑页面：</th>
+					<td>${folder.name} -- ${pageTypeName}</td>
+				</tr>
+
+				<tr>
+					<th><spring:message code="htmlPage_tempMeta" /></th>
+					<td>
+						<form:textarea path="tempMeta" cssClass="{maxlength: 65535}"/>
+						<form:errors path="tempMeta" cssClass="error"/>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<spring:message code="crud.save.button" var="btnMsg"/>
+						<input type="submit" class="button button-save" value="${btnMsg}" />
+						<c:if test="${htmlPage.pageId != null &amp;&amp; htmlPage.pageId != 0}">
+							<a href="${pageContext.request.contextPath}/domain/htmlpage/publish/${htmlPage.primaryKey}" class="button button-save"><spring:message code="htmlPage_publish"/></a>
+						</c:if>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+
+	<c:if test="${htmlPage.pageId != null &amp;&amp; htmlPage.pageId != 0}">
+		<!-- page Container -->
+		<c:if test="${!empty pageContainers}">
+			<span class="ui-state-highlight button button-show"><spring:message code="recommandContainer" /></span>
+			<table class="edit">
+				<thead>
+					<tr>
+						<th style="width:10%"><spring:message code="recommandContainer_containerId" /></th>
+						<th style="width:15%"><spring:message code="recommandContainer_name" /></th>
+						<th style="width:30%"><spring:message code="recommandContainer_modDate" /></th>
+						<th style="width:10%"><spring:message code="recommandContainer_modBy" /></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${pageContainers}" var="pageContainer" varStatus="status">
+						<tr>
+							<td>
+								<a href="${pageContext.request.contextPath}/domain/recommandcontainer/show/${pageContainer.container.containerId}">${pageContainer.container.containerId}</a>
+							</td>
+							<td>
+								${pageContainer.container.name}
+							</td>
+							<td>
+								${pageContainer.container.modDate}
+							</td>
+							<td>
+								${pageContainer.container.modBy}
+							</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/domain/recommandcontainer/show/${pageContainer.container.containerId}" class="button button-show"><spring:message code="crud.show.button"/></a>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:if>
+		<!-- template ID -->
+		<c:if test="${!empty htmlPage.fragements}">
+			<span class="ui-state-highlight button button-show"><spring:message code="template_type_1" /></span>
+			<table class="edit">
+				<thead>
+					<tr>
+						<th style="width:10%"><spring:message code="template_templateId" /></th>
+						<th style="width:15%"><spring:message code="template_name" /></th>
+						<th style="width:10%"><spring:message code="template_publishStatus" /></th>
+						<th style="width:10%"><spring:message code="template_publishBy" /></th>
+						<th style="width:30%"><spring:message code="template_publishDate" /></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${htmlPage.fragements}" var="fragement" varStatus="status">
+						<tr>
+							<td>
+								<a href="${pageContext.request.contextPath}/domain/template/show/${fragement.templateId}">${fragement.templateId}</a>
+							</td>
+							<td>
+								${fragement.name}
+							</td>
+							<td>
+								<c:if test="${fragement.publishStatus == 0}">
+									<font color="red"><spring:message code="template_publishStatus_false" /></font>
+								</c:if>
+								<c:if test="${fragement.publishStatus == 1}">
+									<spring:message code="template_publishStatus_true" />
+								</c:if>
+							</td>
+							<td>
+								${fragement.publishBy}
+							</td>
+							<td>
+								${fragement.publishDate}
+							</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/domain/template/show/${fragement.templateId}" class="button button-show"><spring:message code="crud.show.button"/></a>
+								<a href="${pageContext.request.contextPath}/domain/template/edit/${fragement.templateId}" class="button button-edit"><spring:message code="crud.edit.CMS"/></a>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:if>
+	</c:if>
+</body>
+</html>

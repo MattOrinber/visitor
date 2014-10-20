@@ -1,0 +1,157 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="productFile" />: <spring:message code="crud.functionalities.show" /></title>
+</head>
+<body>
+
+	<a href="${pageContext.request.contextPath}/domain/productfile/search" class="ajaxy button button-search"><spring:message code="productFile" /></a>
+	<a href="${pageContext.request.contextPath}/domain/productlist/show/${productFile.product.primaryKey}" class="ajaxy button button-search"><spring:message code="productList" /></a>
+	<span class="ui-state-highlight button button-show"><spring:message code="crud.show.button" /></span>
+	<a href="${pageContext.request.contextPath}/domain/productfile/update/${productFile.primaryKey}" class="ajaxy button button-edit"><spring:message code="crud.edit.button" /></a>
+	<a href="${pageContext.request.contextPath}/domain/productfile/delete/${productFile.primaryKey}" class="modal button button-delete"><spring:message code="crud.delete.button" /></a>
+
+	<table class="show">
+		<tbody>
+			<tr>
+				<th><spring:message code="productFile_fileName" /></th>
+				<td style="width:40%"><spring:eval expression="productFile.fileName"/></td>
+				<th><spring:message code="productFile_product" /></th>
+				<td style="width:40%">
+					<a href="${pageContext.request.contextPath}/domain/productlist/show/${productFile.product.primaryKey}"><spring:eval expression="productFile.product.name" /></a>
+				</td>
+			</tr>
+			<tr>
+				<th><spring:message code="productFile_filePath" /></th>
+				<td><spring:eval expression="productFile.filePath"/></td>
+				<th><spring:message code="productFile_fileUrl" /></th>
+				<td><spring:eval expression="productFile.fileUrl"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="productFile_fileDisName" /></th>
+				<td><spring:eval expression="productFile.fileDisName"/></td>
+				<th><spring:message code="productFile_ifDefaultFile" /></th>
+				<td>
+				<c:choose>
+					<c:when test="${productFile.ifDefaultFile == 1}">
+						<spring:message code="FALSE" />
+					</c:when>
+					<c:otherwise>
+						<spring:message code="TRUE" />
+					</c:otherwise>
+				</c:choose>
+				</td>
+			</tr>
+			<tr>
+				<th><spring:message code="productFile_fileSize" /></th>
+				<td><spring:eval expression="productFile.fileSize"/></td>
+				<th><spring:message code="productFile_fileSuffix" /></th>
+				<td><spring:eval expression="productFile.fileSuffix"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="productFile_status" /></th>
+				<td>
+				<c:choose>
+					<c:when test="${productFile.status == 0}">
+						<spring:message code="Available" />
+					</c:when>
+					<c:otherwise>
+						<spring:message code="UnAvailable" />
+					</c:otherwise>
+				</c:choose>
+				</td>
+				<th><spring:message code="productFile_dlCount" /></th>
+				<td><spring:eval expression="productFile.dlCount"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="productFile_createBy" /></th>
+				<td><spring:eval expression="productFile.createBy"/></td>
+				<th><spring:message code="productFile_createDate" /></th>
+				<td><spring:eval expression="productFile.createDate"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="productFile_modBy" /></th>
+				<td><spring:eval expression="productFile.modBy"/></td>
+				<th><spring:message code="productFile_modDate" /></th>
+				<td><spring:eval expression="productFile.modDate"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="productFile_jarMd5" /></th>
+				<td><spring:eval expression="productFile.jarMd5"/></td>
+				<th><spring:message code="productFile_jadMd5" /></th>
+				<td><spring:eval expression="productFile.jadMd5"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="productFile_os" /></th>
+				<td>
+					<c:if test="${productFile.os != null}">
+						<spring:eval expression="productFile.os.name" />
+					</c:if>
+				</td>
+				<th><spring:message code="productFile_resolution" /></th>
+				<td>
+					<c:if test="${productFile.resolution != null}">
+						<spring:eval expression="productFile.resolution.name" />
+					</c:if>
+				</td>
+			</tr>
+			<tr>
+				<th><spring:message code="productFile_platform" /></th>
+				<td>
+					<c:if test="${productFile.platform != null}">
+						<spring:eval expression="productFile.platform.name" />
+					</c:if>
+				</td>
+				<th><spring:message code="productFile_platformVersion" /></th>
+				<td>
+					<c:if test="${productFile.platformVersion != null}">
+						<c:choose>
+							<c:when test="${productFile.versionOperator == '0'}">
+								<spring:message code="productFile_platformVersion_operator_ge" />
+							</c:when>
+							<c:when test="${productFile.versionOperator == '2'}">
+								<spring:message code="productFile_platformVersion_operator_le" />
+							</c:when>
+							<c:otherwise>
+								<spring:message code="productFile_platformVersion_operator_eq" />
+							</c:otherwise>
+						</c:choose>
+						<spring:eval expression="productFile.platformVersion.name" />
+					</c:if>
+				</td>
+			</tr>
+			<tr>
+				<th><spring:message code="productFile_packageName" /></th>
+				<td><spring:eval expression="productFile.packageName"/></td>
+				<th><spring:message code="productFile_identity" /></th>
+				<td><spring:eval expression="productFile.identity"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="productFile_versionCode" /></th>
+				<td><spring:eval expression="productFile.versionCode"/></td>
+				<th><spring:message code="productFile_versionName" /></th>
+				<td><spring:eval expression="productFile.versionName"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="productFile_safeType" /></th>
+				<td>
+					<c:if test="${productFile.safeType == 0}"><spring:message code="productFile_safeType_unkown" /></c:if>
+					<c:if test="${productFile.safeType == 1}"><font color="green"><spring:message code="productFile_safeType_safe" /></font></c:if>
+					<c:if test="${productFile.safeType == 2}"><font color="orange"><spring:message code="productFile_safeType_lowrisk" /></font></c:if>
+					<c:if test="${productFile.safeType == 3}"><font color="orange"><spring:message code="productFile_safeType_midrisk" /></font></c:if>
+					<c:if test="${productFile.safeType == 4}"><font color="red"><spring:message code="productFile_safeType_virus" /></font></c:if>
+				</td>
+				<th><spring:message code="productFile_autoScan" /></th>
+				<td>
+					<c:if test="${productFile.autoScan == 0}"><spring:message code="OPEN" /></c:if>
+					<c:if test="${productFile.autoScan == 1}"><spring:message code="CLOSE" /></c:if>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

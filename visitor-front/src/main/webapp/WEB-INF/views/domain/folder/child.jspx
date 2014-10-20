@@ -1,0 +1,130 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+<title><spring:message code="folder" />: <spring:message code="crud.functionalities.list" /></title>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		$("#sort").click(function(){
+			$( "#sort_area" ).show();
+			$( "#cover_body" ).css({width:$(document).width(),height:$(document).height()}).show();
+		});
+		
+		$("#sort_save").click(function(){
+		var foldeIdrs = $("#sortable").sortable('toArray');
+			$.ajax( {
+				type : "GET",
+				url : "${pageContext.request.contextPath}/domain/folder/sort?folder=${folder.folderId}&amp;folders=" + foldeIdrs,
+				success : function(ss) {
+					if(ss){
+						window.document.location.href="${pageContext.request.contextPath}/domain/folder/child/${folder.folderId}";
+					}else{
+
+					}
+				}
+			})
+		});
+		
+		$("#sort_cancel").click(function(){
+			$( "#sort_area" ).hide();
+			$( "#cover_body" ).hide();
+		});
+		
+		$( "#sortable" ).sortable();
+		$( "#sortable" ).sortable('option', 'axis', 'y');
+		$( "#sortable" ).sortable('option', 'opacity', 0.5);
+		$( "#sortable" ).sortable('option', 'revert', true);
+		$( "#sortable" ).sortable('option', 'items', 'li');
+		
+	});
+</script>
+<STYLE>
+	#sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
+	#sortable li { cursor: move; margin: 0 3px 3px 3px; padding : 0.1em 0.4em 0.6em 1.0em; font-size: 1.3em; height: 16px; border: 1px solid #AAAAAA; border-radius: 4px 4px 4px 4px;}
+</STYLE>
+</head>
+<body>
+	<div id="result">
+		<a href="${pageContext.request.contextPath}/domain/folder/search" class="ajaxy button button-search"><spring:message code="folder" /></a>
+		<a href="${pageContext.request.contextPath}/domain/folder/show/${folder.primaryKey}" class="ajaxy button button-show"><spring:message code="crud.show.button" /></a>
+		<span class="ui-state-highlight button button-show"><spring:message code="folder_child" /></span>
+		<a href="${pageContext.request.contextPath}/domain/folder/create?parentFolderId=${folder.primaryKey}" class="ajaxy button button-create"><spring:message code="crud.functionalities.create" /></a>
+			<table class="list">
+				<tbody>
+					<c:forEach items="${folders}" var="folder" varStatus="_st">
+						<tr>
+							<td>
+								<spring:eval expression="folder.folderId"/>
+							</td>
+							<td>
+								<c:if test="${folder.pic != null}">
+									<a href="${pageContext.request.contextPath}/domain/picture/show/${folder.pic.primaryKey}"><img src="${picDomain}${folder.pic.path}" height="36" width="36" /></a>
+								</c:if>
+							</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/domain/folder/show/${folder.primaryKey}" ><spring:eval expression="folder.name"/></a>
+							</td>
+							<td>
+								<c:if test="${folder.site != null}">
+									<a href="${pageContext.request.contextPath}/domain/site/show/${folder.site.primaryKey}"><spring:eval expression="folder.site.name" /></a>
+								</c:if>
+							</td>
+							<td>
+								<c:if test="${folder.parentFolder != null}">
+									<a href="${pageContext.request.contextPath}/domain/folder/show/${folder.parentFolder.primaryKey}"><spring:eval expression="folder.parentFolder.name" /></a>
+								</c:if>
+							</td>
+							<c:choose>
+								<c:when test="${folder.status == 1}">
+									<td><spring:message code="folder_status_no" /></td>
+								</c:when>
+								<c:otherwise>
+									<td><spring:message code="folder_status_yes" /></td>
+								</c:otherwise>
+							</c:choose>
+							<td>
+								<a href="${pageContext.request.contextPath}/domain/folder/show/${folder.primaryKey}" class="button button-show miniature"><spring:message code="crud.show.button"/></a>
+								<a href="${pageContext.request.contextPath}/domain/folder/update/${folder.primaryKey}" class="button button-edit miniature"><spring:message code="crud.edit.button"/></a>
+								<c:if test="${folder.nsRight - folder.nsLeft == 1 &amp;&amp; folder.folderType == 1}">
+									<a id="folder_${folder.folderId}" href="${pageContext.request.contextPath}/domain/folder/delete/${folder.primaryKey}" class="button button-delete modal miniature"><spring:message code="crud.delete.button"/></a>
+								</c:if>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>		
+				<tfoot>
+					<tr>
+						<td colspan="7">
+						<c:if test="${!empty folders}">
+							<a id="sort" href="#" class="ajaxy button"><spring:message code="crud.sort.button" /></a>
+						</c:if>
+							<a id="sort" href="${pageContext.request.contextPath}/domain/folder/show/${folder.primaryKey}" class="ajaxy button"><spring:message code="return" /></a>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+	</div>
+	<div id="sort_area" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable ui-resizable" style="display: none; z-index: 1002; outline: 0px none; position: absolute; height: auto; width: 300px; top: 166px; left: 478px;">
+		<div class="ui-dialog-content" style="width: auto; min-height: 102.267px; height: auto;">
+			<div>
+				<ul id="sortable">
+					<c:forEach items="${folders}" var="folder" varStatus="_st">
+					<li id="${folder.folderId}" class="ui-state-default">${folder.name}</li>
+					</c:forEach>
+				</ul>
+			</div>
+			<div style="padding-left: 5.5em;">
+				<spring:message code="crud.save.button" var="buttonValue"/>
+				<input id="sort_save" type="button" class="button" value="${buttonValue}"/>
+				<spring:message code="crud.cancel.button" var="cancelValue"/>
+				<input id="sort_cancel" type="button" class="button" value="${cancelValue}"/>
+			</div>
+		</div>
+	</div>
+<div id="cover_body" class="ui-widget-overlay" style="display:none; z-index: 1001;"></div>
+</body>
+</html>

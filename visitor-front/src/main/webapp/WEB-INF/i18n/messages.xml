@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>default application resource</comment>
+	<entry key="application_name">App Portal</entry>
+	<!-- Layout -->
+	<entry key="layout.logout">退出</entry>
+	<entry key="layout.login">登录</entry>
+	
+	<!-- Error -->
+	<entry key="error.title">错误</entry>
+	<entry key="error.access.denied">You do not have enough privilege to access this resource.</entry>
+
+	<!-- CRUD -->
+	<entry key="crud.redis.publish.button">发布</entry>
+	<entry key="crud.redis.folders.button">发布全部频道</entry>
+	<entry key="crud.redis.products.button">发布全部产品</entry>
+	<entry key="crud.redis.products.list.button">发布产品列表</entry>
+	<entry key="crud.redis.products.search.button">发布产品至搜索</entry>
+	<entry key="crud.deletion.confirmation">是, 确认</entry>
+	<entry key="crud.edit.button">编辑</entry>
+	<entry key="crud.editparam.button">修改参数</entry>
+	<entry key="crud.addnew.button">添加</entry>
+	<entry key="crud.edit.CMS">CMS编辑</entry>
+	<entry key="crud.create.button">创建新</entry>
+	<entry key="crud.delete.button">删除</entry>
+	<entry key="crud.delete.select.button">删除选中</entry>
+	<entry key="crud.show.button">查看</entry>
+	<entry key="crud.download.button">下载</entry>
+	<entry key="crud.save.button">保存</entry>
+	<entry key="crud.bind.button">绑定</entry>
+	<entry key="crud.list.button">查看全部</entry>
+	<entry key="crud.search.button">查询</entry>
+	<entry key="crud.clear.button">清空</entry>
+	<entry key="crud.close.button">关闭</entry>
+	<entry key="crud.cancel.button">取消</entry>
+	<entry key="crud.sort.button">排序</entry>
+	<entry key="crud.redis.publish.allcontainer.button">发布全部推荐</entry>
+	<entry key="crud.search.empty.result">没有找到相应结果</entry>
+	<entry key="crud.functionalities.delete">删除</entry>
+	<entry key="crud.functionalities.list">搜索结果</entry>
+	<entry key="crud.functionalities.show">查看</entry>
+	<entry key="crud.functionalities.create">创建</entry>
+	<entry key="crud.functionalities.update">更新</entry>	
+	<entry key="crud.functionalities.search">搜索</entry>
+	<entry key="crud.functionalities.example">查询</entry>
+	<!-- Navigation -->
+	<entry key="navigation.next">下一页</entry>
+	<entry key="navigation.previous">上一页</entry>
+	<entry key="navigation.first">首页</entry>
+	<entry key="navigation.last">尾页</entry>
+
+	<!-- Search -->
+	<!-- see http://download.oracle.com/javase/6/docs/api/java/text/ChoiceFormat.html -->
+	<entry key="search.total">{0, choice, 0#No result|1#One result|1&lt;{0} results}</entry>
+	<entry key="search.date.from">从</entry>
+	<entry key="search.date.to">到</entry>
+
+	<!-- Misc -->
+	<entry key="ROLE_ADMIN">Administrator</entry>
+	<entry key="ROLE_USER">User</entry>
+
+	<entry key="TRUE">是</entry>
+	<entry key="FALSE">否</entry>
+	
+	<entry key="OPEN">开</entry>
+	<entry key="CLOSE">关</entry>
+	
+	<entry key="Available">可用</entry>
+	<entry key="UnAvailable">不可用</entry>
+	
+	<entry key="ANY">全部</entry>
+	<entry key="NULL">无</entry>
+	<entry key="return">返回</entry>
+
+	<!-- Login -->
+	<entry key="login.username">用户名</entry>
+	<entry key="login.password">密码</entry>
+	<entry key="login.rememberme">记住密码.</entry>
+	<entry key="login.unsuccessful">用户名或密码错误</entry>
+	<entry key="login.submit">登录</entry>
+
+	<!-- Exception caught -->
+	<entry key="exception.caught.title">An error occured!</entry>
+	<entry key="exception.caught.description">Hopefully we caught it and we will analyze it.</entry>
+	<entry key="exception.caught.spring.mvc"><![CDATA[This page is displayed when an exception is caught by the Spring MVC <strong>exceptionResolver<strong>.]]></entry>
+
+
+
+	<entry key="global_menu_new">创建{0}</entry>
+	<entry key="global_menu_list">显示{0}</entry>
+	<entry key="global_language_switch">切换到{0}</entry>
+	<entry key="global_language">语言</entry>
+	<entry key="global_sponsored">Sponsored by SpringSource</entry>
+	<entry key="global_theme">Theme</entry>
+	<entry key="global_theme_alt">alt</entry>
+	<entry key="global_theme_standard">standard</entry>
+	<entry key="global_generic">{0}</entry>
+	
+	<entry key="entity_enable_confirm">确实要上架吗？</entry>
+	<entry key="entity_disable_confirm">确实要下架吗？</entry>
+	<entry key="welcome_titlepane">欢迎{0}</entry>
+	<entry key="welcome_h3">欢迎{0}</entry>
+	
+	<entry key="entity_list_all">显示所有{0}</entry>
+	<entry key="entity_show">显示{0}</entry>
+	<entry key="entity_find">搜索{0}</entry>
+	<entry key="entity_create">创建{0}</entry>
+	<entry key="entity_update">更新{0}</entry>
+	<entry key="entity_delete">删除{0}</entry>
+	<entry key="entity_delete_confirm">确定要删除这个条目吗？</entry>
+	<entry key="entity_not_found">共找到{0}</entry>
+	<entry key="entity_not_found_single">按照此ID：{0}没有查到任何记录。</entry>
+	
+	<entry key="button_home">Home</entry>
+	<entry key="button_add">添加</entry>
+	<entry key="button_save">保存</entry>
+	<entry key="button_update">更新</entry>
+	<entry key="button_find">搜索</entry>
+	<entry key="button_cancel">取消</entry>
+	<entry key="button_proceed">下一步</entry>
+	<entry key="button_submit">提交</entry>
+	<entry key="button_copy">复制</entry>
+	<entry key="button_reset">重置</entry>
+	<entry key="button_end">完成</entry>
+	<entry key="button_select">选择</entry>
+	<entry key="button_showmessage">显示消息</entry>
+	<entry key="button_showstacktrace">显示堆栈</entry>
+	<entry key="button_showcookie">显示Cookie</entry>
+	
+	<entry key="field_simple_validation">输入：{0} {1}</entry>
+	<entry key="field_invalid_email">请输入电子邮件地址</entry>
+	<entry key="field_invalid_number">Number with \\'-\\' or \\'.\\' allowed</entry>
+	<entry key="field_invalid_integer">只允许输入整数</entry>
+	<entry key="field_invalid">请输入合法的{0}</entry>
+	<entry key="field_required">必填</entry>
+	
+	
+	<entry key="exception_message">异常消息</entry>
+	<entry key="exception_stacktrace">异常堆栈</entry>
+	<entry key="exception_cookie">Cookies</entry>
+	<entry key="exception_details">Details</entry>
+	
+	<entry key="error_dataaccessfailure_title">数据访问错误。</entry>
+	<entry key="error_dataaccessfailure_problemdescription">Sorry, a problem occurred while accessing the database.</entry>
+	
+	<entry key="error_resourcenotfound_title">Requested Resource Not Found</entry>
+	<entry key="error_resourcenotfound_problemdescription">Sorry, we did not find the resource you were looking for.</entry>
+	
+	<entry key="security_login_title">Spring Security Login</entry>
+	<entry key="security_login_message">You have tried to access a protected area of this application. By default you can login as "admin", with a password of "admin".</entry>
+	<entry key="security_login_form_name">用户名</entry>
+	<entry key="security_login_form_name_message">请输入用户名</entry>
+	<entry key="security_login_form_password">密码</entry>
+	<entry key="security_login_form_password_message">请输入密码</entry>
+	<entry key="security_login_unsuccessful">登陆失败，请重试，失败原因：</entry>
+	<entry key="security_logout">登出</entry>
+	
+	<!-- Homepage -->
+	<entry key="homepage.title">App Portal 后台</entry>
+	<entry key="homepage.congratulations.title">欢迎使用 App Portal 后台管理系统!</entry>
+	<entry key="homepage.congratulations"><![CDATA[
+		你正在使用的应用<span class="alt"> App Portal Back</span> 是欧朋浏览器应用商店的后台管理系统!
+        <br />
+                     系统为了满足应用商店管理人员，对应用服务的运营需要而进行搭建。
+		<br />
+		关于APP Portal更多情况及项目进展，可以登录 <a href="http://redmine.nhorizon.cn/projects/app">redmine</a> 了解详细信息。
+	]]></entry>
+	<entry key="homepage.recommendations.title">这里可以做什么 ?</entry>
+	<entry key="homepage.recommendations"><![CDATA[
+		<ul>
+			<li>
+				登录查看应用商店的运营平台和产品库平台的数据信息
+			</li>
+			<li>
+				管理维护站点、频道、产品等相关内容
+			</li>
+			<li>
+				编辑运营广告位、特色页面等商务合作信息
+			</li>
+			<li>
+				合作厂商数据导入及缓存操作等
+			</li>
+		</ul>
+	]]></entry>
+	<entry key="homepage.your.entities.title">Your entities</entry>
+	<entry key="homepage.what.next.title">什么是应用商店 ?</entry>
+	<entry key="homepage.what.next"><![CDATA[
+		<ul>
+			<li>
+				App Portal意在搭建一个基于Opera浏览器的"应用门户"，通过好的前端展现以及高质量的应用下载为浏览器用户提供全面，便捷的应用发现，下载体验。
+			</li>
+			<li>
+				想了解更多，可以登录 <a href="http://apps.oupeng.com/" target="apps">apps.oupeng.com</a> ，体验我们的服务。
+			</li>
+		</ul>
+	]]></entry>
+	<entry key="homepage.support.title">支持</entry>
+	<entry key="homepage.support"><![CDATA[
+		<ul>
+			<li>
+				如果出现问题，或有改进建议, 请发送邮件至 <a href="mailto:jianbinq@oupeng.com"><br/>
+				jianbinq@oupeng.com</a> <a href="mailto:jianc@oupeng.com">jianc@oupeng.com</a>通知我们。
+			</li>
+			<li>
+				我们会不断进行改进，以提供更优质的服务。
+			</li>
+		</ul>
+	]]></entry>
+    <entry key="homepage.springfuse.footer"><![CDATA[
+        Application '<span class="alt">appportal</span>': generated by Nhorzion, a app service.</p>        
+    ]]></entry>
+    <entry key="homepage.notice">公告</entry>
+    <entry key="homepage.notice.create">今日新增</entry>
+    <entry key="homepage.notice.update">今日更新</entry>
+    
+    
+        <!-- 新增的页面文字 -->
+    <entry key="button_deletesel">删除选中</entry>
+    <entry key="button_select_all">全选</entry>
+    <entry key="button_select_none">取消全选</entry>
+    <entry key="button_checked">选中</entry>
+    <entry key="button_addsel">添加所选</entry>
+    <entry key="option_select">==请选择==</entry>
+    <entry key="login.select.site">选择站点</entry>
+    
+    <entry key="layout.changepwd">修改密码</entry>
+    
+</properties>

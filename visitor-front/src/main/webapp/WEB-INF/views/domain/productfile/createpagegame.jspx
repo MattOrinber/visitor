@@ -1,0 +1,82 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="productFile" />: <spring:message code="crud.functionalities.create" /></title>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/productlist/show/${productList.productId}" class="ajaxy button button-search"><spring:message code="productList" /></a>
+	<span class="ui-state-highlight button button-create"><spring:message code="crud.functionalities.create" /></span>
+	<form:form action="${pageContext.request.contextPath}/domain/productfile/createpagegame" modelAttribute="productFileSearchForm" method="POST" enctype="multipart/form-data" onsubmit="return validate()" cssClass="create">
+		<form:errors cssClass="error"/>
+		<input type="hidden" name="pid" value="${productList.productId}" />
+		<input type="hidden" name="productFile.osId" value="284" />
+		<input type="hidden" name="productFile.platformId" value="287" />
+		<input type="hidden" name="productFile.versionOperator" value="0" />
+		<input type="hidden" name="productFile.platformVersionId" value="288" />
+		<input type="hidden" name="productFile.resolutionId" value="318" />
+		<input type="hidden" name="productFile.ifDefaultFile" value="0" />
+		<table class="create">
+			<tbody>
+				<tr>
+					<th><spring:message code="productFile_product" /> </th>
+					<td>
+						<spring:eval expression="productList.name" javaScriptEscape="true"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="productFile_SoupengName" /></th>
+					<td>
+						<form:input path="productFile.fileName" cssClass="required {maxlength: 200}" />
+						<form:errors path="productFile.fileName" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="productFile_PageGameUrl" /></th>
+					<td>
+						<form:input path="productFile.fileUrl" cssClass="required {maxlength: 200}" size="100"/>
+						<form:errors path="productFile.fileUrl" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="productFile_SoupengDisName" /></th>
+					<td>
+						<form:input path="productFile.fileDisName" cssClass="{maxlength: 100}" maxlength="100" size="100"/>
+						<form:errors path="productFile.fileDisName" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="productFile_status" /></th>
+					<td>
+					<c:choose>
+						<c:when test="${available}">
+							<form:radiobutton path="productFile.status" value="0" checked="checked"/><spring:message code="Available" />
+							<form:radiobutton path="productFile.status" value="1"/><spring:message code="UnAvailable" />
+							<form:errors path="productFile.status" cssClass="error"/>
+						</c:when>
+						<c:otherwise>
+							<form:radiobutton path="productFile.status" value="0" disabled="true" /><spring:message code="Available" />
+							<form:radiobutton path="productFile.status" value="1" checked="checked" disabled="true" /><spring:message code="UnAvailable" />
+							<input type="hidden" name="productFile.status" value="1" />
+							<form:errors path="productFile.status" cssClass="error"/>
+							<font color="red"><spring:message code="productFile_status_onlyone" /></font>
+						</c:otherwise>
+					</c:choose>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<spring:message code="crud.save.button" var="saveButton"/>
+						<input type="submit" class="button button-save" value="${saveButton}"/>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+</body>
+</html>

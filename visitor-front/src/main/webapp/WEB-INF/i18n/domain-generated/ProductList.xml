@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for ProductList</comment>
+
+	<entry key="productList">产品管理</entry>
+
+	<!-- Attributes -->
+	<entry key="productList_productId">产品ID</entry>
+	<entry key="productList_name">产品名称</entry>
+	<entry key="productList_billingType">计费类型</entry>
+	<entry key="productList_billingTypeId">计费类型</entry>
+	<entry key="productList_price">价格</entry>
+	<entry key="productList_description">产品简介</entry>
+	<entry key="productList_tagLine">推广语</entry>
+	<entry key="productList_publishDate">Publish Date</entry>
+	<entry key="productList_publishBy">Publish By</entry>
+	<entry key="productList_categoryId">产品分类</entry>
+	<entry key="productList_category">产品分类</entry>
+	<entry key="productList_label">标签</entry>
+	<entry key="productList_productVersion">产品版本</entry>
+	<entry key="productList_modDate">修改日期</entry>
+	<entry key="productList_modBy">修改人</entry>
+	<entry key="productList_createBy">创建人</entry>
+	<entry key="productList_createDate">创建时间</entry>
+	<entry key="productList_downStatus">状态</entry>
+	<entry key="productList_downReason">下架原因</entry>
+	<entry key="productList_importBy">引进人</entry>
+	<entry key="productList_operationModel">入库方式</entry>
+	<entry key="productList_cooperationModel">合作方式</entry>
+	<entry key="productList_developer">开发商</entry>
+	<entry key="productList_operator">CP</entry>
+	<entry key="productList_merchant">广告主CP</entry>
+    <entry key="productList_miniLab">产品标记</entry>
+	<entry key="productList_productSource">产品来源</entry>
+	<entry key="productList_productSourceId">合作商产品ID</entry>
+	<entry key="productList_productSourceName">合作商名称</entry>
+	<entry key="productList_languageType">语言种类</entry>
+	<entry key="productList_starLevel">星级</entry>
+	<entry key="productList_cover">封面</entry>
+	<entry key="productList_icon">图标</entry>
+	<entry key="productList_printscreen">截图</entry>
+	<entry key="productList_miniLab">Mini标</entry>
+	<entry key="productList_miniLab_hot">hot</entry>
+	<entry key="productList_miniLab_new">new</entry>
+	<entry key="productList_miniLab_olm">olm</entry>
+	<entry key="productList_miniLab_4">4</entry>
+	<entry key="productList_miniLab_5">5</entry>
+	
+	<entry key="productList_safeType">安全类型</entry>
+	<entry key="productList_safeType_unknow">未知</entry>
+	<entry key="productList_safeType_safe">安全</entry>
+	<entry key="productList_safeType_unsafe">风险</entry>
+	<entry key="productList_status_all">全部</entry>
+	<entry key="productList_status_enable">上架</entry>
+	<entry key="productList_status_disable">下架</entry>
+	<entry key="productList_recommend_storage">推荐库产品</entry>
+	<entry key="productList_files">产品资源文件</entry>
+	<entry key="productList_productPic">产品图片</entry>
+	
+	<entry key="productList_folder">频道</entry>
+	<entry key="productList_site">站点</entry>
+	<entry key="productList_site_bind_state">绑定状态</entry>
+	<entry key="productList_site_bind">绑定</entry>
+	<entry key="productList_site_unbind">未绑定</entry>
+	
+	<entry key="productList_preview_recommend">推荐预览</entry>
+	
+	<entry key="productList_alert_unsafe">风险产品不可以直接上架</entry>
+	<entry key="productList_manual_description">专题描述</entry>
+	
+	<entry key="productList_productType">产品类型</entry>
+	<entry key="productList_productType_all">全部</entry>
+	<entry key="productList_productType_downloadable">包体</entry>
+	<entry key="productList_productType_pageGame">页游</entry>
+    <entry key="productList_git">礼包</entry>
+    <entry key="productList_new">新品</entry>
+    <entry key="productList_firstissue">首发</entry>
+    <entry key="productList_hot">热门</entry>
+    <entry key="productList_classics">精品</entry>
+    <entry key="productList_recommend">推荐</entry>
+    <entry key="productList_addLabel">添加标签</entry>
+</properties>

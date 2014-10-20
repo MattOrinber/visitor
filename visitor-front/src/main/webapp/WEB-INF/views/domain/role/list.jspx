@@ -1,0 +1,45 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+<jsp:directive.page contentType="text/html;charset=UTF-8" />
+<jsp:output omit-xml-declaration="yes" />
+	<div id="result">
+	<c:choose>
+		<c:when test="${rolesCount == 0}">
+			<spring:message code="crud.search.empty.result" />
+		</c:when>
+		<c:otherwise>
+			<table class="list">
+				<thead>
+					<tr>
+						<th><spring:message code="account_role_name" /></th>
+						<th><spring:message code="account_role_des" /></th>
+						<th>&amp;nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${roles}" var="role" varStatus="_st">
+						<tr>
+							<td><spring:eval expression="role.roleName"/></td>
+							<td><spring:eval expression="role.roleDes"/></td>
+							<td>
+								<a href="${pageContext.request.contextPath}/domain/role/show/${role.primaryKey}" class="button button-show miniature"><spring:message code="crud.show.button"/></a>
+								<a href="${pageContext.request.contextPath}/domain/role/update/${role.primaryKey}" class="button button-edit miniature"><spring:message code="crud.edit.button"/></a>
+								<a href="${pageContext.request.contextPath}/domain/role/delete/${role.primaryKey}" class="button button-delete modal miniature"><spring:message code="crud.delete.button"/></a>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th colspan="2">
+							<util:navigation totalSize="${rolesCount}" search="${roleSearchForm.sp}" url="list" totalPages="${totalPages}" render="${rolesCount > 0}" />
+						</th>
+						<th><spring:message code="search.total" arguments="${rolesCount}" /></th>
+					</tr>
+				</tfoot>
+			</table>
+		</c:otherwise>
+	</c:choose>
+	</div>
+</jsp:root>

@@ -1,0 +1,81 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" xmlns:fn="http://java.sun.com/jsp/jstl/functions" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+<script type="text/javascript">
+	
+	function checkAll(){
+		if($("input[name='all']").attr("checked") == true){
+			$("input[name='folders']").attr("checked","checked");
+		} else {
+			$("input[name='folders']").removeAttr("checked");
+		}
+	}
+	
+</script>
+</head>
+<body>
+	<p>
+		下一步，更新缓存数据中的频道产品列表！<br/>
+	</p>
+		<form:form action="${pageContext.request.contextPath}/domain/productbatch/redis/updatelist" modelAttribute="productListSearchForm" method="POST">
+				<table class="list">
+					<thead>
+						<tr>
+							<th>
+								<input type="checkbox" name="all" onclick="checkAll();"/><spring:message code="ANY" />
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<c:forEach items="${folders}" var="folder" varStatus="_st">
+									<div id="${productList.productId}" style="float:left;width:30%;">
+											<input type="checkbox" name="folders" value="${folder.folderId}" />
+											<spring:eval expression="folder.folderId" />【${folder.name}】
+									</div>
+								</c:forEach>
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td>
+								<input type="submit" class="button button-search" value="更新以上频道的产品列表" />
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+		</form:form>
+<span class="ui-state-highlight button">产品频道绑定成功</span>
+				<table class="list">
+					<tbody>
+						<tr>
+							<td>
+								<c:forEach items="${product_su}" var="productList" varStatus="_st">
+									<div id="${productList.productId}" style="float:left;width:20%;">
+											<spring:eval expression="productList.productId" />
+											【<a href="#" title="${productList.name}">
+												<c:choose>
+													<c:when test="${fn:length(productList.name) &gt; 13}">
+														${fn:substring(productList.name,0,12)}...
+													</c:when>
+													<c:otherwise>
+														${productList.name}
+													</c:otherwise>
+												</c:choose>
+											</a>
+											】
+									</div>
+									<c:if test="${(_st.index+1)%50 == 0}"><hr/></c:if>
+								</c:forEach>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+</body>
+</html>

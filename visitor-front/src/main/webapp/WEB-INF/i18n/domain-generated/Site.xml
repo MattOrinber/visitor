@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+ ! Template pack-backend:src/main/resources/localization/domain/domain.e.vm.xml
+-->
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for Site</comment>
+
+	<entry key="site">站点</entry>
+
+	<!-- Attributes -->
+	<entry key="site_siteId">站点Id</entry>
+	<entry key="site_name">名称</entry>
+	<entry key="site_schemaName">域名</entry>
+	<entry key="site_modelId">机型</entry>
+	<entry key="site_platformId">手机平台版本</entry>
+	<entry key="site_status">状态</entry>
+	<entry key="site_template">模板</entry>
+	<entry key="site_operaVersion">Opera 版本</entry>
+	<entry key="site_versionId">Version Id</entry>
+	<entry key="site_companyId">公司渠道</entry>
+	<entry key="site_resolutionId">分辨率</entry>
+	<entry key="site_brandId">手机品牌</entry>
+	<entry key="site_defaultPath">默认路径</entry>
+	<entry key="site_createBy">创建人</entry>
+	<entry key="site_createDate">创建日期</entry>
+	<entry key="site_modBy">修改人</entry>
+	<entry key="site_modDate">修改日期</entry>
+	<entry key="site_folder">站点频道</entry>
+	<entry key="site_channels">发布渠道</entry>
+	
+	<!-- Booleans values -->
+	<entry key="site_status_all">全部</entry>
+	<entry key="site_status_yes">可用</entry>
+	<entry key="site_status_no">不可用</entry>
+	
+	<!-- button -->
+	<entry key="site_value_edit">修改</entry>
+	<entry key="site_add_folder">创建频道</entry>
+	<entry key="site_show_rank">查看产品排行</entry>
+	
+	<!-- folder -->
+	<entry key="site_page_title_type">页面类型</entry>
+	<entry key="site_page_title_publish">发布状态</entry>
+	<entry key="site_page_title_publishBy">发布者</entry>
+	<entry key="site_page_title_publishDate">发布日期</entry>
+	<entry key="site_page_title_operate">操作</entry>
+	
+	<entry key="site_page_index">首页</entry>
+	<entry key="site_page_list">产品列表页</entry>
+	<entry key="site_page_detail">详情页</entry>
+	<entry key="site_page_guide">频道列表页</entry>
+	
+	<!-- template -->
+	<entry key="site_template_title_type">模板类型</entry>
+	<entry key="site_template_title_name">名称</entry>
+	<entry key="site_template_title_publish">发布状态</entry>
+	<entry key="site_template_title_publishBy">发布者</entry>
+	<entry key="site_template_title_publishDate">发布日期</entry>
+	
+	<entry key="site_template_index">首页</entry>
+	<entry key="site_template_list">产品列表页</entry>
+	<entry key="site_template_detail">详情页</entry>
+	<entry key="site_template_navi">频道列表页</entry>
+	
+	<entry key="site_template_alert1">无绑定模板</entry>
+	
+	<entry key="site_page_operate_pre">预览</entry>
+	<entry key="site_page_operate_edit">编辑</entry>
+	
+</properties>

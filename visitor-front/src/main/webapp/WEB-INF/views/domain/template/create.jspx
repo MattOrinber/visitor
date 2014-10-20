@@ -1,0 +1,51 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core"  xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="template" />: <spring:message code="crud.functionalities.create" /></title>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/template/search" class="ajaxy button button-search"><spring:message code="template" /></a>
+	<span class="ui-state-highlight button button-create"><spring:message code="crud.functionalities.create" /></span>
+	<form:form action="${pageContext.request.contextPath}/domain/template/create" modelAttribute="template" method="POST">
+		<form:errors cssClass="error"/>
+		<form:hidden path="templateId"/>
+		<table class="create">
+			<tbody>
+				<tr>
+					<th><spring:message code="template_type" /> <em>*</em></th>
+					<td>
+						<c:forEach items="${templateTypes}" var="typeEnum">
+							<form:radiobutton path="type" value="${typeEnum.value}" /><spring:message code="${typeEnum.displayName}" />
+						</c:forEach>
+						<form:errors path="type" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="template_name" /> <em>*</em></th>
+					<td>
+						<form:input path="name" cssClass="required {maxlength: 200}" maxlength="200" size="50"/>
+						<form:errors path="name" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="template_description" /></th>
+					<td>
+						<form:input path="description" cssClass="{maxlength: 255}" maxlength="255" size="100"/>
+						<form:errors path="description" cssClass="error"/>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<spring:message code="crud.save.button" var="btnMsg" />
+						<input type="submit" class="button button-save" value="${btnMsg}"/>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+</body>
+</html>

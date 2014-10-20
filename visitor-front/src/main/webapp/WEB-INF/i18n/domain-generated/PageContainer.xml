@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+ ! Template pack-backend:src/main/resources/localization/domain/domain.e.vm.xml
+-->
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for PageContainer</comment>
+
+	<entry key="pageContainer">Page Container</entry>
+
+	<!-- Attributes -->
+	<entry key="pageContainer_pageId">Page Id</entry>
+	<entry key="pageContainer_containerId">Container Id</entry>
+	<entry key="pageContainer_folderId">Folder Id</entry>
+	<entry key="pageContainer_siteId">Site Id</entry>
+	<entry key="pageContainer_createBy">Create By</entry>
+	<entry key="pageContainer_createDate">Create Date</entry>
+	<entry key="pageContainer_modDate">Mod Date</entry>
+	<entry key="pageContainer_modBy">Mod By</entry>
+
+	<!-- x-to-one -->
+	<entry key="pageContainer_container">Container</entry>
+	<entry key="pageContainer_page">Page</entry>
+</properties>

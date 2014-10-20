@@ -1,0 +1,232 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core"  xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+
+<head>
+<title><spring:message code="folder" />: <spring:message code="crud.functionalities.list" /></title>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#sort").click(function(){
+			$( "#sort_area" ).show();
+			$( "#cover_body" ).css({width:$(document).width(),height:$(document).height()}).show();
+		});
+		$("#showType").click(function(){
+			$( "#show_type_area" ).show();
+			$( "#cover_body" ).css({width:$(document).width(),height:$(document).height()}).show();
+		});
+		
+		$("#sort_save").click(function(){
+			var productIdrs = $("#sortable").sortable('toArray');
+			
+			$.ajax( {
+				type : "GET",
+				url : "${pageContext.request.contextPath}/domain/recommandcontainer/sort?productContainers=" + productIdrs,
+				success : function(ss) {
+					if(ss){
+						window.document.location.href="${pageContext.request.contextPath}/domain/recommandcontainer/showproduct/${recommandContainer.primaryKey}?pageId=${containerPagesProducts.pageContainer.page.primaryKey}";
+					}else{
+						
+					}
+				}
+			})
+		});
+		
+		$("#show_type_save").click(function(){
+			
+			$.ajax( {
+				type : "GET",
+				url : "${pageContext.request.contextPath}/domain/pagecontainer/changetype/${containerPagesProducts.pageContainer.primaryKey}?showType=" + $('[name="show_type"][checked=true]:radio').val(),
+				success : function(ss) {
+					if(ss){
+						window.document.location.href="${pageContext.request.contextPath}/domain/recommandcontainer/showproduct/${recommandContainer.primaryKey}?pageId=${containerPagesProducts.pageContainer.page.primaryKey}";
+					}else{
+						
+					}
+				}
+			})
+		});
+		
+		$("#sort_cancel").click(function(){
+			$( "#sort_area" ).hide();
+			$( "#cover_body" ).hide();
+		});
+		$("#show_type_cancel").click(function(){
+			$( "#show_type_area" ).hide();
+			$( "#cover_body" ).hide();
+		});
+		
+		$( "#sortable" ).sortable();
+		$( "#sortable" ).sortable('option', 'axis', 'y');
+		$( "#sortable" ).sortable('option', 'opacity', 0.5);
+		$( "#sortable" ).sortable('option', 'revert', true);
+		$( "#sortable" ).sortable('option', 'items', 'li');
+		
+	});
+</script>
+<STYLE>
+	#sortable { list-style-type: decimal; margin:0px 0px 0px 13px; padding: 0; width: 100%; }
+	#sortable li { cursor: move; margin: 0 1px 1px 12px; padding : 0.1em 0.4em 0.5em 1.0em; font-size: 1.0em; height: 16px; border: 1px solid #AAAAAA; border-radius: 4px 4px 4px 4px;}
+</STYLE>
+</head>
+<body>
+	<c:set value="${containerPagesProducts.pageContainer.page.primaryKey}" var="thePageId" />
+	
+	<div id="result">
+		<a href="${pageContext.request.contextPath}/domain/recommandcontainer/search" class="ajaxy button button-search"><spring:message code="recommandContainer" /></a>
+		<span class="ui-state-highlight button button-show"><spring:message code="crud.show.button" /></span>
+		<a href="${pageContext.request.contextPath}/domain/recommandcontainer/addproduct?containerId=${recommandContainer.primaryKey}&amp;pageId=${thePageId}" class="ajaxy button button-create"><spring:message code="recommandContainer_add" /></a>
+		<a href="${pageContext.request.contextPath}/domain/recommandcontainer/replaceproduct/${recommandContainer.primaryKey}?pageId=${thePageId}" class="ajaxy button button-show"><spring:message code="recommandContainer_show_replace_prd" /></a>
+		<a href="${pageContext.request.contextPath}/domain/recommandcontainer/showcurrproduct/${recommandContainer.primaryKey}?pageId=${thePageId}" class="ajaxy button button-show"><spring:message code="recommandContainer_show_currDate_prd" /></a>
+		<table class="edit">
+			<thead>
+				<tr>
+					<td><spring:message code="productContainer_siteId" />：
+						<a href="${pageContext.request.contextPath}/domain/site/show/${containerPagesProducts.site.primaryKey}">${containerPagesProducts.site.name}</a>
+					</td>
+					<td colspan="2"><spring:message code="productContainer_folderId" />：
+					<c:forEach items="${containerPagesProducts.folders}" var="folder" varStatus="status">
+					<a href="${pageContext.request.contextPath}/domain/folder/show/${folder.primaryKey}">&amp;nbsp;${folder.name}</a>
+					</c:forEach>
+					</td>
+					<td colspan="2"><spring:message code="productContainer_pageId" />：
+						<a href="${pageContext.request.contextPath}/domain/htmlpage/edit/${thePageId}">${containerPagesProducts.pageContainer.page.name}</a>
+					</td>
+					<td colspan="2"><spring:message code="productContainer_show_type" />：
+						<c:choose>
+							<c:when test="${containerPagesProducts.pageContainer.showType==0 }">
+								<spring:message code="productContainerTask_manual" />
+							</c:when>
+							<c:otherwise>
+								<spring:message code="productContainerTask_auto" />
+							</c:otherwise>
+						</c:choose>
+					</td>
+				</tr>
+				<tr>
+					<th style="width:12%"><spring:message code="productList_productId" /></th>
+					<th style="width:20%"><spring:message code="productList_name" /></th>
+					<th><spring:message code="productContainer_type" /></th>
+					<th style="width:8%"><spring:message code="productContainer_click" /></th>
+					<th><spring:message code="productContainer_modBy" /></th>
+					<th><spring:message code="productContainer_modDate" /></th>
+					<th style="width:8%"><spring:message code="productContainer_operation" /></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${containerPagesProducts.productContainers}" var="productContainer" varStatus="status">
+					<tr>
+								<c:if test="${productContainer.type==1}">
+									<td>
+										${productContainer.product.productId}
+									</td>
+									<td>
+										<a href="${pageContext.request.contextPath}/domain/productlist/show/${productContainer.product.productId}">${productContainer.product.name}</a>
+									</td>
+									<td>
+										<spring:message code="productContainerTask_type_Product" />
+									</td>								
+								</c:if>
+								<!--这里表示产品类型为频道，要注意，不是folder，而是tfolder-->
+								<c:if test="${productContainer.type==2}">
+									<td>
+										${productContainer.tfolder.folderId}
+									</td>
+									<td>
+										<a href="${pageContext.request.contextPath}/domain/folder/show/${productContainer.tfolder.folderId}">${productContainer.tfolder.name}</a>
+									</td>
+									<td>
+										<spring:message code="productContainerTask_type_Folder" />
+									</td>								
+								</c:if>
+								<c:if test="${productContainer.type==3}">
+									<td>
+										${productContainer.advertise.advertiseId}
+									</td>
+									<td>
+										<a href="${pageContext.request.contextPath}/domain/advertise/show/${productContainer.advertise.advertiseId}">${productContainer.advertise.name}</a>
+									</td>
+									<td>
+										<spring:message code="productContainerTask_type_Advertise" />
+									</td>								
+								</c:if>	
+						<td>
+							${productContainer.click}
+						</td>
+						<td>
+							${productContainer.modBy}
+						</td>
+						<td>
+							<fmt:formatDate value="${productContainer.modDate}" type="date" pattern="yyyy-MM-dd"/>
+						</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/domain/productcontainer/delete/${productContainer.primaryKey}" class="button button-delete modal miniature"><spring:message code="crud.delete.button"/></a>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="8">
+							<a id="showType" href="#" class="ajaxy button"><spring:message code="show_setting.button" /></a>
+							<a id="sort" href="#" class="ajaxy button"><spring:message code="crud.sort.button" /></a>
+							<a href="${pageContext.request.contextPath}/domain/recommandcontainer/show/${recommandContainer.primaryKey}" class="ajaxy button"><spring:message code="return" /></a>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+	</div>
+	<div id="show_type_area" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable ui-resizable" style="display: none; z-index: 1002; outline: 0px none; position: absolute; height: auto; width: 360px; top: 120px; left: 478px;">
+		<div class="ui-dialog-content" style="width: auto; min-height: 102.267px; height: auto;">
+			<div>
+				<spring:message code="productContainer_show_type" />：<c:choose>
+					<c:when test="${containerPagesProducts.pageContainer.showType==0 }">
+						<input type="radio" name="show_type" value="0" checked="checked"/><spring:message code="productContainerTask_manual" />
+						<input type="radio" name="show_type" value="1" /><spring:message code="productContainerTask_auto" />
+					</c:when>
+					<c:otherwise>
+						<input type="radio" name="show_type" value="0" /><spring:message code="productContainerTask_manual" />
+						<input type="radio" name="show_type" value="1" checked="checked"/><spring:message code="productContainerTask_auto" />
+					</c:otherwise>
+				</c:choose>
+			</div>
+			<br/>
+			<div style="padding-left: 5.5em;">
+				<spring:message code="crud.save.button" var="saveButton"/>
+				<input id="show_type_save" type="button" class="button" value="${saveButton}"/>
+				<spring:message code="crud.cancel.button" var="sortButton"/>
+				<input id="show_type_cancel" type="button" class="button" value="${sortButton}"/>
+			</div>
+		</div>
+	</div>
+
+	<div id="sort_area" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable ui-resizable" style="display: none; z-index: 1002; outline: 0px none; position: absolute; height: auto; width: 300px; top: 120px; left: 478px;">
+		<div class="ui-dialog-content" style="width: auto; min-height: 102.267px; height: auto;">
+			<div>
+				<ol id="sortable">
+					<c:forEach items="${containerPagesProducts.productContainers}" var="productContainer" varStatus="status">
+						<li id="${productContainer.productContainerId}" class="ui-state-default">
+								<c:if test="${productContainer.type==1}">
+									${productContainer.product.name}
+								</c:if>
+								<c:if test="${productContainer.type==2}">
+									${productContainer.tfolder.name}
+								</c:if>
+								<c:if test="${productContainer.type==3}">
+									${productContainer.advertise.name}
+								</c:if>	
+						</li>
+					</c:forEach>
+				</ol>
+			</div>
+			<div style="padding-left: 5.5em;">
+				<spring:message code="crud.save.button" var="saveButton"/>
+				<input id="sort_save" type="button" class="button" value="${saveButton}"/>
+				<spring:message code="crud.cancel.button" var="sortButton"/>
+				<input id="sort_cancel" type="button" class="button" value="${sortButton}"/>
+			</div>
+		</div>
+	</div>
+<div id="cover_body" class="ui-widget-overlay" style="display:none; z-index: 1001;"></div>
+</body>
+</html>

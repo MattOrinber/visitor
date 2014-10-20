@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+ ! Template pack-backend:src/main/resources/localization/domain/domain.e.vm.xml
+-->
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for ProductOperation</comment>
+
+	<entry key="productOperation">产品日志</entry>
+
+	<!-- Attributes -->
+	<entry key="productOperation_operationId">Operation Id</entry>
+	<entry key="productOperation_productId">Product Id</entry>
+	<entry key="productOperation_type">Type</entry>
+	<entry key="productOperation_content">Content</entry>
+	<entry key="productOperation_createBy">Create By</entry>
+	<entry key="productOperation_createDate">Create Date</entry>
+</properties>

@@ -1,0 +1,118 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="batch.import.asc" />: <spring:message code="crud.functionalities.list" /></title>
+</head>
+<body>
+	<h2><spring:message code="batch.import.asc" />: <spring:message code="crud.functionalities.create" /></h2>
+	<form:form action="${pageContext.request.contextPath}/domain/batch/create" method="POST" id="createForm">
+		<form:errors cssClass="error"/>
+		<table class="create">
+			<tbody>
+				<tr>
+					<th><spring:message code="batch.import.asc.path" /> <em>*</em></th>
+					<td>
+						<input type="text" name="path" class="{maxlength: 200}" />
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="batch.import.asc.option" /> </th>
+					<td>
+						<input type="checkbox" name="single" value="single" />是
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<spring:message code="crud.save.button" var="btnMsg" />
+						<input type="submit" value="${btnMsg}"/>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+
+	<h2><spring:message code="batch.import.asc" />: <spring:message code="crud.functionalities.update" /></h2>
+	<form:form action="${pageContext.request.contextPath}/domain/batch/update" method="POST">
+		<form:errors cssClass="error"/>
+		<table class="create">
+			<tbody>
+				<tr>
+					<th><spring:message code="batch.import.asc.path" /> <em>*</em></th>
+					<td>
+						<input type="text" name="path" class="{maxlength: 200}" />
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="batch.import.asc.option" /> </th>
+					<td>
+						<input type="checkbox" name="single" value="single" />是
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="batch.import.asc.type" /> </th>
+					<td>
+						<select name="type">
+							<option value="All" selected="true">全部</option>
+							<option value="product">产品信息</option>
+							<option value="file">产品文件</option>
+							<option value="comment">产品评论</option>
+							<option value="pics">产品截图</option>
+							<option value="folder">绑定频道</option>
+						</select>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<spring:message code="crud.save.button" var="btnMsg" />
+						<input type="submit" value="${btnMsg}"/>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+
+	<h2><spring:message code="batch.import.asc" />: <spring:message code="crud.functionalities.update" />多个产品</h2>
+	<form:form action="${pageContext.request.contextPath}/domain/batch/updateProducts" method="POST">
+		<form:errors cssClass="error"/>
+		<table class="create">
+			<tbody>
+				<tr>
+					<th><spring:message code="batch.import.asc.path" /> <em>*</em></th>
+					<td>
+						<textarea name="path" rows="15" cols="25"><c:out value="   " /></textarea>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="batch.import.asc.type" /> </th>
+					<td>
+						<select name="type">
+							<option value="All" selected="true">全部</option>
+							<option value="product">产品信息</option>
+							<option value="file">产品文件</option>
+							<option value="comment">产品评论</option>
+							<option value="pics">产品截图</option>
+							<option value="folder">绑定频道</option>
+						</select>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<spring:message code="crud.save.button" var="btnMsg" />
+						<input type="submit" value="${btnMsg}"/>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+</body>
+</html>

@@ -1,0 +1,71 @@
+.main_menu {
+	background-color: #697A8A;
+	border-color: #FFFFFF;
+	border-style: solid none;
+	border-width: 2px 0;
+	display: block;
+	height: 30px;
+	z-index: 100;
+}
+.main_menu ul {
+	list-style: none outside none;
+}
+.main_menu ul li {
+	display: block;
+	float: left;
+	position: relative;
+	text-align: center;
+	width: 110px;
+}
+.main_menu ul li a {
+	border-right: 1px solid #CCCCCC;
+	color: #FFFFFF;
+	display: block;
+	height: 30px;
+	line-height: 30px;
+	text-decoration: none;
+	width: 100%;
+}
+.main_menu ul li a.active {
+	background-color: #3F5167;
+	background-image: url("active.gif");
+	background-position: 50% 100%;
+	background-repeat: no-repeat;
+}
+.main_menu ul li a:hover {
+	background-color: #94A5B7;
+}
+.main_menu ul li ul {
+	background-color: #697A8A;
+	display: none;
+	left: 1px;
+	position: absolute;
+	top: 30px;
+	z-index: 140;
+}
+.main_menu ul li:hover ul {
+	display: block;
+	z-index: 200;
+}
+.main_menu ul li ul li {
+	border-bottom: 1px solid #C2C5C8;
+	clear: left;
+	display: block;
+	float: none;
+	padding-right: 7px;
+	text-align: left;
+	text-indent: 7px;
+	white-space: pre;
+	width: auto !important;
+}
+.main_menu ul li ul li a {
+	border-right: medium none;
+	display: block;
+	white-space: pre;
+	width: 100%;
+	z-index: 300;
+}
+.main_menu ul li ul li:hover, .main_menu ul li ul li a:hover {
+	background-color: #C2C5C8;
+	color: #FFFFFF;
+}

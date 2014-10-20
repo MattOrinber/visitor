@@ -1,0 +1,94 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" xmlns:fn="http://java.sun.com/jsp/jstl/functions" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="account" />: <spring:message code="layout.changepwd" /></title>
+
+	<script type="text/javascript">
+		
+		/*请求修改密码*/
+		function checkReptPwd(){
+			var oldObj = $('#oldpwd');
+			var pwdObj = $('#newpwd');
+			var anotherObj = $('#newpwd_r');
+			
+			if($.trim(oldObj.val())==''){
+				showErrInfo("请输入原密码！",oldObj);
+				return false;				
+			}else if(!/^(.){6,20}$/.test(oldObj.val())){
+				showErrInfo("原密码长度应为6－20位！",oldObj);
+				return false;
+			}else if($.trim(pwdObj.val())==''){
+				showErrInfo("请输入新密码！",pwdObj);
+				return false;				
+			}else if(!/^(.){6,20}$/.test(pwdObj.val())){
+				showErrInfo("新密码长度为6-20位！",pwdObj);
+				return false;
+			}else if($.trim(anotherObj.val())==''){
+				showErrInfo("请再次输入新密码！",anotherObj);
+				return false;
+			}else if(pwdObj.val()!=anotherObj.val()){
+				showErrInfo("两次输入的密码不一致！",pwdObj);
+				return false;
+			}else {
+				$("#validError").hide();
+				return true;
+			}
+		}
+		
+		/*显示错误信息*/
+		function showErrInfo(theErrorInfo,obj){
+			$("#validError").text(theErrorInfo);
+			$("#validError").show();
+			
+			obj.focus();
+		}
+	
+	</script>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/account/show/${account.primaryKey}" class="ajaxy button button-show"><spring:message code="crud.show.button" /></a>
+	<span class="ui-state-highlight button"><spring:message code="layout.changepwd" /></span>
+	<form:form action="${pageContext.request.contextPath}/domain/account/changepwd" method="POST" onsubmit="return checkReptPwd()">
+		<input type="hidden" value="${accountId}" name="accountId" />
+		<table class="edit">
+			<tbody>
+				<tr>
+					<td colspan="2">
+						<span id="validError" style="color:red;">&amp;nbsp;${errInfo}</span>
+					</td>
+				</tr>				
+				<tr>
+					<th><spring:message code="account_oldpwd" /> <em>*</em></th>
+					<td>
+						<input type="password" id="oldpwd" name="oldpwd" cssClass="required {maxlength: 200}" maxlength="200" size="30"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="account_newpwd" /><em>*</em></th>
+					<td>
+						<input type="password"  id="newpwd" name="newpwd" cssClass="required {maxlength: 200}" maxlength="200" size="30"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="account_newpwd_repeat" /> <em>*</em></th>
+					<td>
+						<input type="password"  id="newpwd_r" name="newpwd_r" cssClass="required {maxlength: 200}" maxlength="200" size="30"/>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<spring:message code="crud.save.button" var="buttonValue" />
+						<input type="submit" class="button button-save" value="${buttonValue}"/>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+ ! Template pack-backend:src/main/resources/localization/domain/domain.e.vm.xml
+-->
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for ProductState</comment>
+
+	<entry key="productState">产品数据</entry>
+
+	<!-- Attributes -->
+	<entry key="productState_productId">产品ID</entry>
+	<entry key="productState_totalPv">总PV</entry>
+	<entry key="productState_totalUv">总UV</entry>
+	<entry key="productState_totalDl">总下载</entry>
+	<entry key="productState_weekPv">周PV</entry>
+	<entry key="productState_weekUv">周UV</entry>
+	<entry key="productState_weekDl">周下载</entry>
+	<entry key="productState_monthPv">月PV</entry>
+	<entry key="productState_monthUv">月UV</entry>
+	<entry key="productState_monthDl">月下载</entry>
+	<entry key="productState_dailyPv">日PV</entry>
+	<entry key="productState_dailyUv">日UV</entry>
+	<entry key="productState_dailyDl">日下载</entry>
+
+	<!-- x-to-one -->
+	<entry key="productState_product">产品</entry>
+</properties>

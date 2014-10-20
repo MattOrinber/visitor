@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+ ! Template pack-backend:src/main/resources/localization/domain/domain.e.vm.xml
+-->
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for RecommandContainer</comment>
+
+	<entry key="recommandContainer">产品推荐</entry>
+
+	<!-- Attributes -->
+	<entry key="recommandContainer_containerId">推荐Id</entry>
+	<entry key="recommandContainer_name">名称</entry>
+	<entry key="recommandContainer_description">描述</entry>
+	<entry key="recommandContainer_createBy">创建人</entry>
+	<entry key="recommandContainer_createDate">创建日期</entry>
+	<entry key="recommandContainer_modBy">更新人</entry>
+	<entry key="recommandContainer_modDate">更新日期</entry>
+	<entry key="recommandContainer_status">状态</entry>
+	
+	<entry key="recommandContainer_product">推荐产品</entry>
+	<entry key="recommandContainer_add">添加产品</entry>
+	
+	<entry key="recommandContainer_status_all">全部</entry>
+	<entry key="recommandContainer_status_yes">可用</entry>
+	<entry key="recommandContainer_status_no">不可用</entry>
+	
+	<entry key="recommandContainer_product_none">该推荐内暂时还未添加任何产品</entry>
+	<entry key="recommandContainer_picIdOld">图片</entry>
+	
+</properties>

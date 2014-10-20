@@ -1,0 +1,31 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="template" />: <spring:message code="crud.functionalities.delete" /></title>
+</head>
+<body>
+	<form:form action="${pageContext.request.contextPath}/domain/template/delete/${template.primaryKey}" method="POST">
+		<c:choose>
+			<c:when test="${!empty htmlPages}">
+				<p>
+					<spring:message code="template_delete_question"/><br/>
+					<c:forEach items="${htmlPages}" var="htmlPage" varStatus="status">
+						<span class="alt"><spring:eval expression="htmlPage.folder.site.name" /><c:out value=" " /><spring:eval expression="htmlPage.folder.name" /></span><br/>
+					</c:forEach>
+				</p>
+			</c:when>
+			<c:otherwise>
+				<p>
+					<spring:message code="entity_delete_confirm"/>
+					<br/>
+					<span class="alt"><spring:eval expression="template.name" /></span>
+				</p>
+				<spring:message code="crud.deletion.confirmation" var="btnMsg" />
+				<input type="submit" value="${btnMsg}" class="button button-delete" />
+			</c:otherwise>
+		</c:choose>
+	</form:form>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="account" />: <spring:message code="crud.functionalities.example" /></title>
+</head>
+<body>
+	<span class="ui-state-highlight button button-search"><spring:message code="crud.functionalities.search" /></span> 
+	<security:authorize ifAnyGranted="ROLE_SUPER"><a href="${pageContext.request.contextPath}/domain/account/create" class="button button-create"><spring:message code="crud.functionalities.create" /></a></security:authorize> 
+
+	<form:form action="${pageContext.request.contextPath}/domain/account/list" modelAttribute="accountSearchForm" class="search">
+		<table class="show">
+			<tbody>
+				<tr>
+					<th><spring:message code="account_username" /></th>
+					<td>
+						<form:input path="account.username" cssClass="{maxlength: 200}" size="30" />
+						<form:errors path="account.username" cssClass="error"/>
+					</td>
+					<th><spring:message code="account_nickname" /></th>
+					<td>
+						<form:input path="account.nickname" cssClass="{maxlength: 200}" size="30" />
+						<form:errors path="account.nickname" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="account_email" /></th>
+					<td>
+						<form:input path="account.email" cssClass="email" size="30" />
+						<form:errors path="account.email" cssClass="error"/>
+					</td>
+					<th><spring:message code="account_type" /></th>
+					<td>
+						<form:radiobutton path="account.type" value="" checked="checked"/><spring:message code="ANY" />
+						<form:radiobutton path="account.type" value="0"/><spring:message code="account_type_person" />
+						<form:radiobutton path="account.type" value="1" /><spring:message code="account_type_company" />
+						<form:errors path="account.type" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="account_status" /></th>
+					<td colspan="3">
+						<form:radiobutton path="account.status" value="" checked="checked"/><spring:message code="ANY" />
+						<form:radiobutton path="account.status" value="0"/><spring:message code="account_status_true" />
+						<form:radiobutton path="account.status" value="1" /><spring:message code="account_status_false" />
+						<form:errors path="account.status" cssClass="error"/>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4">
+						<spring:message code="crud.search.button" var="buttonValue" />
+						<input type="submit" class="button button-search" value="${buttonValue}"/>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+	<jsp:include page="/domain/account/list" />
+</body>
+</html>

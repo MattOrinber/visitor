@@ -1,0 +1,472 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" xmlns:fn="http://java.sun.com/jsp/jstl/functions" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<script type="text/javascript">
+	
+	$(document).ready(function() {
+		init();
+	});
+		
+	function init(){
+		$("span[id^=show_]").click(function() {
+			$("div[id^=show_]").hide();
+			$("#" + this.id + "_area").fadeIn()
+			$("span[id^=show_]").removeClass();
+			$("span[id^=show_]").addClass("ajaxy button button-show ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary");
+			$("#" + this.id).removeClass();
+			$("#" + this.id).addClass("ui-state-highlight button button-show ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary");
+		});
+		$("#show_search").click();
+		$("#text_productid").append("<textarea></textarea>").children("textarea").attr("style","width:100%").attr("name","productids").html("${productids}");
+			$(function() {
+		$("#folder_bind_site_id")
+				.change(
+						function() {
+							var siteId = $(this).val();
+							$
+									.ajax( {
+										type : "GET",
+										url : "${pageContext.request.contextPath}/domain/folder/folderList/" + siteId,
+										success : function(ss) {
+											var arr = eval(ss);
+											cleanSelect(document.getElementById("folder_id"));
+											freshSelect(document.getElementById("folder_id"), arr);
+										}
+									})
+						})
+		})
+	}
+	
+	function checkAll(){
+		if($("input[name='all']").attr("checked") == true){
+			$("input[name='products']").attr("checked","checked");
+		} else {
+			$("input[name='products']").removeAttr("checked");
+		}
+	}
+	
+	function upProducts(){
+		var form = $("form").last();
+		form.attr("action","${pageContext.request.contextPath}/domain/productbatch/upproducts");
+		var rtn = confirm("确认将选中产品全部上架吗？");
+		if (rtn) {
+			form.submit();
+		}
+	}
+	
+	function downProducts(){
+		var form = $("form").last();
+		form.attr("action","${pageContext.request.contextPath}/domain/productbatch/downproducts");
+		var reason = $("#down_reason").val();
+		if (reason != null &amp;&amp; reason != '') {
+			var rtn = confirm("确认将选中产品全部下架吗？\r\n\r\n下架原因：" + reason);
+			if (rtn) {
+				$("input[name='downReason']").val(reason);
+				form.submit();
+			}
+		} else {
+			alert("请输入下架原因！");
+		}
+	}
+	
+	function bindCategory(){
+		var form = $("form").last();
+		form.attr("action","${pageContext.request.contextPath}/domain/productbatch/bindcategory");
+		var cate_n = $("#categorys_bind option:selected").html();
+		if (cate_n != null &amp;&amp; cate_n != '') {
+			var rtn = confirm("确认将选中产品分类修改为\r\n\r\n" + cate_n + " 吗？");
+			if (rtn) {
+				$("input[name='categoryId']").val($("#categorys_bind").val());
+				form.submit();
+			}
+		} else {
+			alert("请选择分类！");
+		}
+	}
+	
+	function bindFolder(){
+		var form = $("form").last();
+		form.attr("action","${pageContext.request.contextPath}/domain/productbatch/bindfolder?type=save");
+		var folder_id = $("#folder_id").val();
+		var folder_n = $("#folder_id option:selected").html();
+		if (folder_id != null &amp;&amp; folder_id != '') {
+			var rtn = confirm("确认将选中产品绑定至\r\n\r\n" + folder_id + " " + folder_n + " 频道吗？");
+			if (rtn) {
+				$("input[name='folderId']").val(folder_id);
+				form.submit();
+			}
+		} else {
+			alert("请选择频道！");
+		}
+	}
+	
+	function checkBindFolder(){
+		var form = $("form").last();
+		form.attr("action","${pageContext.request.contextPath}/domain/productbatch/bindfolder");
+		form.attr("target","_blank");
+		var folder_id = $("#folder_id").val();
+		var folder_n = $("#folder_id option:selected").html();
+		if (folder_id != null &amp;&amp; folder_id != '') {
+			var rtn = confirm("确认将选中产品绑定至\r\n\r\n" + folder_id + " " + folder_n + " 频道吗？");
+			if (rtn) {
+				$("input[name='folderId']").val(folder_id);
+				form.submit();
+			}
+		} else {
+			alert("请选择频道！");
+		}
+	}
+	
+	function cleanSelect(selectObj) {
+		var count = selectObj.options.length;
+		for ( var i = count - 1; i &gt;= 0; i--) {
+			selectObj.options[i] = null;
+		}
+	}
+	function freshSelect(selectObj, arr) {
+		for ( var i = 0; i &lt; arr.length; i++) {
+			selectObj.options.add(new Option(arr[i].key, arr[i].value));
+		}
+	}
+	
+	function insertToRecommend(){
+		var form = $("form").last();
+		form.attr("action","${pageContext.request.contextPath}/domain/productbatch/insertrecommend");
+		var rtn = confirm("确认将选中产品加入推荐库吗？");
+		if (rtn) {
+			form.submit();
+		}
+	}
+	
+	function removeFromRecommend(){
+		var form = $("form").last();
+		form.attr("action","${pageContext.request.contextPath}/domain/productbatch/removerecommend");
+		var rtn = confirm("确认将选中产品从推荐库中移除吗？");
+		if (rtn) {
+			form.submit();
+		}
+	}
+		
+	</script>
+</head>
+<body>
+	<span id="show_search" class="ui-state-highlight button button-show">产品搜索</span>
+	<span id="show_productid" class="ajaxy button button-show">产品ID</span>
+	<span id="show_operator" class="ajaxy button button-show">产品操作</span>
+	<div id="show_search_area">
+	<form:form action="${pageContext.request.contextPath}/domain/productbatch/products" modelAttribute="productListSearchForm" class="search">
+		<table class="show">
+			<tbody>
+				<tr>
+					<th>
+						<spring:message code="productList_productId" />
+					</th>
+					<td>
+						<form:input path="productList.productId" cssClass="number"/>
+						<form:errors path="productList.productId" cssClass="error" />
+					</td>
+					<th>
+						<spring:message code="productList_name" />
+					</th>
+					<td>
+						<form:input path="productList.name" />
+						<form:errors path="productList.name" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="productList_createBy" />
+					</th>
+					<td>
+						<form:select path="productList.createBy">
+							<form:option value=""><spring:message code="ANY" /></form:option>
+							<form:options items="${createByList}" />
+						</form:select>
+						<form:errors path="productList.createBy" cssClass="error" />
+					</td>
+					<th>
+						<spring:message code="productList_createDate" />
+					</th>
+					<td>
+						<label for="createDateRange.fromDate">
+							<spring:message code="search.date.from" />
+						</label>
+						<form:input path="createDateRange.fromDate" cssClass="datepicker" />
+						<label for="createDateRange.toDate">
+							<spring:message code="search.date.to" />
+						</label>
+						<form:input path="createDateRange.toDate" cssClass="datepicker" />
+						<form:errors path="productList.createDate" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="productList_productSource" />
+					</th>
+					<td>
+						<form:select path="productList.sourceId">
+							<form:option value="" ><spring:message code="ANY" /></form:option>
+							<form:options items="${productSourceList}" itemValue="categoryId" itemLabel="name" />
+						</form:select>
+					</td>
+					<th>
+						<spring:message code="productList_downStatus" />
+					</th>
+					<td>
+						<form:select path="productList.downStatus">
+							<form:option value="" select="select"><spring:message code="ANY" /></form:option>
+							<form:option value="0"><spring:message code="productList_status_enable" /></form:option>
+							<form:option value="1"><spring:message code="productList_status_disable" /></form:option>
+						</form:select>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="productList_importBy" />
+					</th>
+					<td>
+						<form:select path="productList.importBy">
+							<form:option value=""><spring:message code="ANY" /></form:option>
+							<form:options items="${importByList}" itemValue="categoryId" itemLabel="name" />
+						</form:select>
+						<form:errors path="productList.importBy" cssClass="error" />
+					</td>
+					<th>
+						<spring:message code="productList_downReason" />
+					</th>
+					<td>
+						<form:input path="productList.downReason" />
+						<form:errors path="productList.downReason" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="productList_cooperationModel" />
+					</th>
+					<td>
+						<form:select path="productList.cooperationModelId">
+							<form:option value=""><spring:message code="ANY" /></form:option>
+							<form:options items="${cooperationList}" itemValue="categoryId" itemLabel="name" />
+						</form:select>
+						<form:errors path="productList.cooperationModelId" cssClass="error" />
+					</td>
+					<th>
+						<spring:message code="productList_operationModel" />
+					</th>
+					<td>
+						<form:select path="productList.operationModelId">
+							<form:option value=""><spring:message code="ANY" /></form:option>
+							<form:options items="${operationList}" itemValue="categoryId" itemLabel="name" />
+						</form:select>
+						<form:errors path="productList.operationModelId" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<spring:message code="productList_category" />
+					</th>
+					<td>
+						<form:select path="productList.categoryId">
+							<form:option value="" ><spring:message code="ANY" /></form:option>
+							<form:options items="${productCategoryList}" itemValue="value" itemLabel="label" />
+						</form:select>
+						<form:errors path="productList.categoryId" cssClass="error" />
+					</td>
+					<th>
+						<spring:message code="productList_operator" />
+					</th>
+					<td>
+						<form:select path="productList.operatorId">
+							<form:option value=""><spring:message code="ANY" /></form:option>
+							<form:options items="${operatorList}" itemValue="categoryId" itemLabel="name" />
+						</form:select>
+						<form:errors path="productList.operatorId" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="productList_recommend_storage" /></th>
+					<td colspan="3">
+						<form:radiobutton path="productList.recommendStorage" value="" checked="checked"/><spring:message code="ANY" />
+						<form:radiobutton path="productList.recommendStorage" value="1" /><spring:message code="TRUE" />
+						<form:radiobutton path="productList.recommendStorage" value="0"/><spring:message code="FALSE" />
+						<form:errors path="productList.recommendStorage" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th>页码：</th>
+					<td>
+						<form:input path="sp.pageNumber" cssClass="number" min="1"/>
+					</td>
+					<th>页大小：</th>
+					<td>
+						<form:input path="sp.pageSize" cssClass="number" min="0" value="1000"/>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4">
+						<spring:message code="crud.search.button" var="buttonSearchValue"/>
+						<input type="submit" class="button button-search" value="${buttonSearchValue}" />
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+	</div>
+	<div id="show_productid_area" style="display:none">
+	<form:form action="${pageContext.request.contextPath}/domain/productbatch/products" modelAttribute="productListSearchForm" method="POST">
+		<table>
+			<tbody>
+				<div id="text_productid"></div>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4">
+						<spring:message code="crud.search.button" var="buttonSearchValue"/>
+						<input type="submit" class="button button-search" value="${buttonSearchValue}" />
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+	</div>
+	<div id="show_operator_area" style="display:none">
+		<table>
+			<tbody>
+				<tr>
+					<th>
+						批量上架：
+					</th>
+					<td style="width:40%">
+						
+					</td>
+					<td>
+						<input type="button" class="button button-search" value="开始" onclick="upProducts();"/>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						批量下架：
+					</th>
+					<td>
+						<input id="down_reason" type="text" size="25" value="" /> (请输入下架原因)
+					</td>
+					<td>
+						<input id="down_p" type="button" class="button button-search" value="开始" onclick="downProducts();"/>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						修改分类：
+					</th>
+					<td>
+						<select id="categorys_bind" name="categoryId_bind">
+							<option value=""></option>
+							<c:forEach items="${productCategoryList}" var="category" varStatus="_st">
+								<option value="${category.value}" >${category.label}</option>
+							</c:forEach>
+						</select>
+					</td>
+					<td>
+						<input id="bind_c" type="button" class="button button-search" value="开始" onclick="bindCategory();"/>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						绑定频道：
+					</th>
+					<td>
+						站点:
+						<select id="folder_bind_site_id" name="folder_bind_site_id">
+							<c:forEach items="${sites}" var="site" varStatus="_st">
+								<option value="${site.siteId}" >${site.name}</option>
+							</c:forEach>
+						</select>
+						频道:
+						<select id="folder_id" name="folder_id">
+							<option value=""></option>
+							<c:forEach items="${folders}" var="folder" varStatus="_st">
+								<option value="${folder.value}" >${folder.label}</option>
+							</c:forEach>
+						</select>
+					</td>
+					<td>
+						<input id="bind_f_check" type="button" class="button button-search" value="验证" onclick="checkBindFolder();"/>
+						<input id="bind_f" type="button" class="button button-search" value="绑定" onclick="bindFolder();"/>（注：绑定后无法恢复，请验证没有问题后，进行绑定操作）
+					</td>
+				</tr>
+				<tr>
+					<th>
+						推荐库：
+					</th>
+					<td>
+						<input id="bind_c" type="button" class="button button-search" value="批量添加" onclick="insertToRecommend();"/>
+					</td>
+					<td>
+						<input id="bind_c" type="button" class="button button-search" value="批量移除" onclick="removeFromRecommend();"/>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div id="result">
+		<c:choose>
+			<c:when test="${productListsCount == 0}">
+				<spring:message code="crud.search.empty.result" />
+			</c:when>
+			<c:otherwise>
+			<form:form action="${pageContext.request.contextPath}/domain/productbatch/redis/updateproducts" modelAttribute="productListSearchForm" method="POST">
+				<table class="list">
+					<thead>
+						<tr>
+							<th>
+								<input type="checkbox" name="all" onclick="checkAll();"/><spring:message code="ANY" /> ${productListsCount} 个产品
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<input name="downReason" type="hidden" value="" />
+								<input name="categoryId" type="hidden" value="" />
+								<input name="folderId" type="hidden" value="" />
+								<c:forEach items="${productLists}" var="productList" varStatus="_st">
+									<div id="${productList.productId}" style="float:left;width:20%;">
+											<input type="checkbox" name="products" value="${productList.productId}" />
+											<spring:eval expression="productList.productId" />
+											【<a href="${pageContext.request.contextPath}/domain/productlist/show/${productList.productId}" title="${productList.name}">
+												<c:choose>
+													<c:when test="${fn:length(productList.name) &gt; 13}">
+														${fn:substring(productList.name,0,12)}...
+													</c:when>
+													<c:otherwise>
+														${productList.name}
+													</c:otherwise>
+												</c:choose>
+											</a>
+											】
+									</div>
+									<c:if test="${(_st.index+1)%50 == 0}"><hr/></c:if>
+								</c:forEach>
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td>
+								<input type="submit" class="button button-search" value="更新缓存数据" />
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</form:form>
+			</c:otherwise>
+		</c:choose>
+	</div>
+</body>
+</html>

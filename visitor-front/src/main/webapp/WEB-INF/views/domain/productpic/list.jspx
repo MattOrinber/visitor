@@ -1,0 +1,85 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+<jsp:directive.page contentType="text/html;charset=UTF-8" />
+<jsp:output omit-xml-declaration="yes" />
+	<div id="result">
+	<c:choose>
+		<c:when test="${productPicsCount == 0}">
+			<spring:message code="crud.search.empty.result" />
+		</c:when>
+		<c:otherwise>
+			<table class="list">
+				<thead>
+					<tr>
+						<th style="width:18px"><spring:message code="productPic_pic" /></th>
+						<th><util:sort-header model="productPic" attribute="product" url="list"/></th>
+						<th><util:sort-header model="productPic" attribute="picPath" url="list"/></th>
+						<th style="width:35px"><util:sort-header model="productPic" attribute="picSize" url="list"/></th>
+						<th style="width:8px"><util:sort-header model="productPic" attribute="picStyle" url="list"/></th>
+						<th style="width:18px"><util:sort-header model="productPic" attribute="picPixels" url="list"/></th>
+						<th><util:sort-header model="productPic" attribute="picType" url="list"/></th>
+						<th><util:sort-header model="productPic" attribute="createDate" url="list"/></th>
+						<th style="width:138px"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${productPics}" var="productPic" varStatus="_st">
+						<tr>
+							<td>
+								<img alt="缩略图" src="${picDomain }${productPic.picPath}" width="50" height="50" />
+							</td>
+							<td>
+								<c:if test="${productPic.product != null}">
+									<a href="${pageContext.request.contextPath}/domain/productlist/show/${productPic.product.primaryKey}"><c:out value="${productPic.product.name}" /></a>
+								</c:if>
+							</td>
+							<td><c:out value="${productPic.picPath}"/></td>
+							<td><c:out value="${productPic.picSize}"/></td>
+							<td><c:out value="${productPic.picStyle}"/></td>
+							<td><c:out value="${productPic.picPixels}"/></td>
+							<td>
+								<!-- 0-封面图；1-图标；2-截图 -->
+								<c:choose>
+									<c:when test="${productPic.picType == 0}">
+										封面图
+									</c:when>
+									<c:when test="${productPic.picType == 1}">
+										图标
+									</c:when>
+									<c:when test="${productPic.picType == 2}">
+										截图
+									</c:when>
+								</c:choose>
+							</td>
+							<td><c:out value="${productPic.createDate}"/></td>
+							<td>
+								<c:if test="${productPic.picType == 0||productPic.picType == 1}">
+									<a href="${pageContext.request.contextPath}/domain/productpic/replace?ppId=${productPic.productPicId}" class="button"><spring:message code="productPic_replace" /> </a>
+								</c:if>
+								<c:if test="${productPic.picType != 1}">
+									<a href="#" onclick="viewPic('${picDomain }${productPic.picPath}',event)" class="button"><spring:message code="productPic_view" /> </a>
+								</c:if>
+								<c:if test="${productPic.picType == 2}">
+									<a href="${pageContext.request.contextPath}/domain/productpic/delete/${productPic.primaryKey}" class="button"><spring:message code="crud.delete.button" /> </a>
+								</c:if>
+								<c:if test="${productPic.picType == 2}">
+									<a href="${pageContext.request.contextPath}/domain/productpic/tocover/${productPic.primaryKey}" class="button"><spring:message code="productPic_tocover" /> </a>
+								</c:if>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th colspan="6">
+								<util:navigation totalSize="${productPicsCount}" search="${productPicSearchForm.sp}" url="list" totalPages="${totalPages}" render="${productPicsCount > 0}" />
+						</th>
+						<th><spring:message code="search.total" arguments="${productPicsCount}" /></th>
+					</tr>
+				</tfoot>
+			</table>
+		</c:otherwise>
+	</c:choose>
+	</div>
+</jsp:root>

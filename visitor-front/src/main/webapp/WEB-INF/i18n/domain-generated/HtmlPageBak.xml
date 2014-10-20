@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+ ! Template pack-backend:src/main/resources/localization/domain/domain.e.vm.xml
+-->
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for HtmlPageBak</comment>
+
+	<entry key="htmlPageBak">Html Page Bak</entry>
+
+	<!-- Attributes -->
+	<entry key="htmlPageBak_pageBakId">Page Bak Id</entry>
+	<entry key="htmlPageBak_pageId">Page Id</entry>
+	<entry key="htmlPageBak_name">Name</entry>
+	<entry key="htmlPageBak_path">Path</entry>
+	<entry key="htmlPageBak_templateId">Template Id</entry>
+	<entry key="htmlPageBak_folderId">Folder Id</entry>
+	<entry key="htmlPageBak_meta">Meta</entry>
+	<entry key="htmlPageBak_tempMeta">Temp Meta</entry>
+	<entry key="htmlPageBak_publishDate">Publish Date</entry>
+	<entry key="htmlPageBak_publishBy">Publish By</entry>
+	<entry key="htmlPageBak_ifDefaultPage">If Default Page</entry>
+	<entry key="htmlPageBak_siteId">Site Id</entry>
+	<entry key="htmlPageBak_pageType">Page Type</entry>
+	<entry key="htmlPageBak_createBy">Create By</entry>
+	<entry key="htmlPageBak_createDate">Create Date</entry>
+	<entry key="htmlPageBak_modDate">Mod Date</entry>
+	<entry key="htmlPageBak_modBy">Mod By</entry>
+	<entry key="htmlPageBak_description">Description</entry>
+
+	<!-- Booleans values -->
+	<entry key="htmlPageBak_ifDefaultPage_true">Yes</entry>
+	<entry key="htmlPageBak_ifDefaultPage_false">No</entry>
+</properties>

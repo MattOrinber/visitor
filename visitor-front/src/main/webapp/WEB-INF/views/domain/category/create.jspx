@@ -1,0 +1,74 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="category" />: <spring:message code="crud.functionalities.create" /></title>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/category/showtree/${category.parentCategoryId}" class="ajaxy button button-search">返回</a>
+	<span class="ui-state-highlight button button-create"><spring:message code="crud.functionalities.create" /></span>
+	<div id="create">
+	<input type="hidden" id="thread" name="thread" value="${nsThread}" />
+	<form:form action="${pageContext.request.contextPath}/domain/category/create" modelAttribute="category" method="POST" onsubmit="return validate()">
+		<form:errors cssClass="error"/>
+		<form:hidden path="categoryId"/>
+		<spring:eval expression="category.parentCategoryId" javaScriptEscape="true" var="parentCategoryValue"/>
+		<input type="hidden" id="parentCategory" name="parentCategoryId" value="${parentCategoryValue}" />
+		<input type="hidden" id="status" name="status" value="0" />
+		<table class="create">
+			<tbody>
+				<tr>
+					<th><spring:message code="category_parent" /></th>
+					<td>
+						${category.parentCategory.name }
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="category_name" /> <em>*</em></th>
+					<td>
+						<form:input path="name" cssClass="required {maxlength: 200}" maxlength="200" size="80"/>
+						<form:errors path="name" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="category_enName" /></th>
+					<td>
+						<form:input path="enName" cssClass="{maxlength: 200}" maxlength="200" size="80"/>
+						<form:errors path="enName" cssClass="error"/>
+						<br/>
+						<spring:message code="category_note" />
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="category_description" /></th>
+					<td>
+						<form:input path="description" cssClass="{maxlength: 255}" maxlength="255" size="80"/>
+						<form:errors path="description" cssClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<th><spring:message code="category_sortOrder" /><em>*</em></th>
+					<td>
+						<form:input path="sortOrder" cssClass="number required {maxlength: 2}" maxlength="2" size="80"/>
+						<form:errors path="sortOrder" cssClass="error"/>
+					</td>
+				</tr>
+				
+			
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<spring:message code="crud.save.button" var="buttonValue" />
+						<input type="submit" class="button button-save" value="${buttonValue}"/>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form:form>
+</div>
+</body>
+</html>

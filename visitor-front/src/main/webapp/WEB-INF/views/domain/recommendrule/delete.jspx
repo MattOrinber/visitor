@@ -1,0 +1,28 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="recommendRule" />: <spring:message code="crud.functionalities.delete" /></title>
+</head>
+<body>
+	<form:form action="${pageContext.request.contextPath}/domain/recommendrule/delete/${recommendRule.primaryKey}" method="POST">
+		<p>
+			<spring:message code="entity_delete_confirm"/>
+			<br/>
+			<span class="alt">
+			<c:if test="${recommendRule.type == 1 || recommendRule.type == 0}">
+			${recommendRule.primaryKey}<spring:message code="recommendRule_folder" />:${recommendRule.folder.name}
+			</c:if>
+			<c:if test="${recommendRule.type == 2}">
+			${recommendRule.primaryKey}<spring:message code="recommendRule_product" />:${recommendRule.product.name}
+			</c:if>
+			</span>
+		</p>
+		<spring:message code="crud.deletion.confirmation" var="buttonValue" />
+		<input type="submit" class="button button-delete" value="${buttonValue}"/>
+	</form:form>
+</body>
+</html>

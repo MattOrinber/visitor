@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+ ! Template pack-backend:src/main/resources/localization/domain/domain.e.vm.xml
+-->
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for TemplateBak</comment>
+
+	<entry key="templateBak">Template Bak</entry>
+
+	<!-- Attributes -->
+	<entry key="templateBak_templateBakId">Template Bak Id</entry>
+	<entry key="templateBak_templateId">Template Id</entry>
+	<entry key="templateBak_type">Type</entry>
+	<entry key="templateBak_name">Name</entry>
+	<entry key="templateBak_meta">Meta</entry>
+	<entry key="templateBak_tempMeta">Temp Meta</entry>
+	<entry key="templateBak_createBy">Create By</entry>
+	<entry key="templateBak_createDate">Create Date</entry>
+	<entry key="templateBak_modDate">Mod Date</entry>
+	<entry key="templateBak_modBy">Mod By</entry>
+	<entry key="templateBak_publishDate">Publish Date</entry>
+	<entry key="templateBak_publishBy">Publish By</entry>
+	<entry key="templateBak_description">Description</entry>
+</properties>

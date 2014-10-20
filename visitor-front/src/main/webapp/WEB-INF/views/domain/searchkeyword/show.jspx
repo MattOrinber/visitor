@@ -1,0 +1,108 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="searchKeyword" />: <spring:message code="crud.functionalities.show" /></title>
+</head>
+<body>
+
+	<a href="${pageContext.request.contextPath}/domain/searchkeyword/search" class="ajaxy button button-search"><spring:message code="searchKeyword" /></a>
+	<span class="ui-state-highlight button button-show"><spring:message code="crud.show.button" /></span>
+	<a href="${pageContext.request.contextPath}/domain/searchkeyword/update/${searchKeyword.primaryKey}" class="ajaxy button button-edit"><spring:message code="crud.edit.button" /></a>
+	<a href="${pageContext.request.contextPath}/domain/searchkeyword/delete/${searchKeyword.primaryKey}" class="modal button button-delete"><spring:message code="crud.delete.button" /></a>
+	<a href="${pageContext.request.contextPath}/domain/searchkeyword/showfront" class="button button-show"><spring:message code="searchKeyword_dis_css" /></a>
+	<!--manage id list -->
+	<a href="${pageContext.request.contextPath}/domain/searchkeyword/idlist/${searchKeyword.primaryKey}" class="button button-show"><spring:message code="searchKeyword_idlist" /></a>
+	<a href="${pageContext.request.contextPath}/domain/init/redis/searchkeyword?siteId=${searchKeyword.siteId}&amp;keywordId=${searchKeyword.primaryKey}" class="modal button"><spring:message code="crud.redis.publish.button" /></a>
+
+	<table class="show">
+		<tbody>
+			<tr>
+				<th><spring:message code="searchKeyword_dis_css" /></th>
+				<td>
+				<spring:eval expression="searchKeyword.color" var="color" />
+				<spring:eval expression="searchKeyword.size" var="size" />
+				<font color="${color}" size="${size}"><spring:eval expression="searchKeyword.name"/></font></td>
+			</tr>
+			<tr>
+				<th><spring:message code="searchKeyword_name" /></th>
+				<td><spring:eval expression="searchKeyword.name"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="searchKeyword_color" /></th>
+				<td><spring:eval expression="searchKeyword.color"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="searchKeyword_size" /></th>
+				<td><spring:eval expression="searchKeyword.size"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="searchKeyword_site" /></th>
+				<td>${searchKeyword.site.name}</td>
+			</tr>
+			<tr>
+				<th><spring:message code="searchKeyword_status" /></th>
+				<c:if test="${searchKeyword.status == 0}">
+					<td><spring:message code="Available" /></td>
+				</c:if>
+				<c:if test="${searchKeyword.status == 1}">
+					<td><spring:message code="UnAvailable" /></td>
+				</c:if>
+			</tr>
+			<tr>
+				<th><spring:message code="searchKeyword_wordKind" /></th>
+				<c:if test="${searchKeyword.wordKind == 1}">
+					<td><spring:message code="searchKeyword_prd" /></td>
+				</c:if>
+				<c:if test="${searchKeyword.wordKind == 2}">
+					<td><spring:message code="searchKeyword_fld" /></td>
+				</c:if>
+				<c:if test="${searchKeyword.wordKind == 3}">
+					<td><spring:message code="searchKeyword_adv" /></td>
+				</c:if>
+			</tr>
+			<tr>
+				<th><spring:message code="searchKeyword_isHot" /></th>
+				<c:if test="${searchKeyword.isHot == 1}">
+					<td><spring:message code="searchKeyword_yes" /></td>
+				</c:if>
+				<c:if test="${searchKeyword.isHot == 0}">
+					<td><spring:message code="searchKeyword_no" /></td>
+				</c:if>
+			</tr>
+			<tr>
+				<th><spring:message code="searchKeyword_type" /></th>
+				<c:if test="${searchKeyword.type == 0}">
+					<td><spring:message code="searchKeyword_type_downloadable" /></td>
+				</c:if>
+				<c:if test="${searchKeyword.type == 1}">
+					<td><spring:message code="searchKeyword_type_pageGame" /></td>
+				</c:if>
+			</tr>
+			<tr>
+				<th><spring:message code="searchKeyword_specUrl" /></th>
+				<td><spring:eval expression="searchKeyword.specUrl"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="searchKeyword_createBy" /></th>
+				<td><spring:eval expression="searchKeyword.createBy"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="searchKeyword_createDate" /></th>
+				<td><spring:eval expression="searchKeyword.createDate"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="searchKeyword_modBy" /></th>
+				<td><spring:eval expression="searchKeyword.modBy"/></td>
+			</tr>
+			<tr>
+				<th><spring:message code="searchKeyword_modDate" /></th>
+				<td><spring:eval expression="searchKeyword.modDate"/></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

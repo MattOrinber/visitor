@@ -1,0 +1,136 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+<head>
+	<title><spring:message code="recommendRule" />: <spring:message code="crud.functionalities.show" /></title>
+</head>
+<body>
+	<a href="${pageContext.request.contextPath}/domain/recommendrule/search" class="ajaxy button button-search"><spring:message code="recommendRule" /></a>
+	<span class="ui-state-highlight button button-show"><spring:message code="crud.show.button" /></span>
+	<a href="${pageContext.request.contextPath}/domain/recommendrule/update/${recommendRule.primaryKey}" class="ajaxy button button-edit"><spring:message code="crud.edit.button" /></a>
+		<c:if test="${recommendRule.type == 0 &amp;&amp; recommendRule.folder.folderType == 1}">
+			<a href="${pageContext.request.contextPath}/domain/init/redis/folder/recommend/${recommendRule.folderId}"
+				class="modal button button-search"><spring:message code="crud.redis.publish.button" /><spring:message code="recommendRule_rule" /></a>
+		</c:if>
+		<c:if test="${recommendRule.type == 0 &amp;&amp; recommendRule.folder.folderType == 0}">
+			<a href="${pageContext.request.contextPath}/domain/init/redis/site/product/recommend/${recommendRule.folder.siteId}/false"
+				class="modal button button-search"><spring:message code="crud.redis.publish.button" /><spring:message code="recommendRule_rule" /></a>
+			<a href="${pageContext.request.contextPath}/domain/init/redis/site/product/recommend/${recommendRule.folder.siteId}/true"
+				class="modal button button-search"><spring:message code="crud.redis.publish.button" /><spring:message code="recommendRule_behavior_data" /></a>
+		</c:if>
+		<c:if test="${recommendRule.type == 1}">
+			<a href="${pageContext.request.contextPath}/domain/init/redis/folder/product/recommend/${recommendRule.folderId}/false"
+				class="modal button button-search"><spring:message code="crud.redis.publish.button" /><spring:message code="recommendRule_rule" /></a>
+			<a href="${pageContext.request.contextPath}/domain/init/redis/folder/product/recommend/${recommendRule.folderId}/true"
+				class="modal button button-search"><spring:message code="crud.redis.publish.button" /><spring:message code="recommendRule_behavior_data" /></a>
+		</c:if>
+		<c:if test="${recommendRule.type == 2}">
+			<a href="${pageContext.request.contextPath}/domain/init/redis/product/recommend/${recommendRule.siteId}/${recommendRule.productId}/true"
+				class="modal button button-search"><spring:message code="crud.redis.publish.button" /></a>
+			<a href="${pageContext.request.contextPath}/domain/productlist/preview/recommend/${recommendRule.productId}"
+				class="button button-show" target="_blank"><spring:message code="productList_preview_recommend" /></a>
+		</c:if>
+		
+		<table class="show">
+			<tbody>
+			<c:if test="${recommendRule.type == 1 || recommendRule.type == 0}">
+				<tr>
+					<th><spring:message code="recommendRule_folder_id" /></th>
+					<td>
+						<c:out value="${recommendRule.folderId}" />
+					</td>
+					<th>
+						<spring:message code="folder_name" />
+					</th>
+					<td><a href="${pageContext.request.contextPath}/domain/folder/show/${recommendRule.folder.folderId}" title="${recommendRule.folder.name}" target="_blank"><c:out value="${recommendRule.folder.name}" /></a></td>
+				</tr>
+			</c:if>
+			<c:if test="${recommendRule.type == 2}">
+				<tr>
+					<th><spring:message code="recommendRule_product_id" /></th>
+					<td>
+						<c:out value="${recommendRule.productId}" />
+					</td>
+					<th>
+						<spring:message code="productList_name" />
+					</th>
+					<td>
+						<a href="${pageContext.request.contextPath}/domain/productlist/show/${recommendRule.product.productId}" title="${recommendRule.product.name}" target="_blank"><c:out value="${recommendRule.product.name}" /></a>
+					</td>
+				</tr>
+			</c:if>
+			</tbody>
+		</table>
+		<table class="show">
+			<tbody>
+			<thead>
+			<tr>
+				<th></th>
+				<th><spring:message code="recommendRule_dis_sort" /></th>
+				<th><spring:message code="recommendRule_dis_num" /></th>
+				<th><spring:message code="recommendRule_other_para" /></th>
+			</tr>
+			</thead>
+				<tr>
+					<th>
+						A:<spring:message code="recommendRule_behaviorId" />
+					</th>
+					<td>
+						<c:out value="${recommendRule.behaviorSeq}" />
+					</td>
+					<td>
+						<c:out value="${recommendRule.behaviorNum}" />
+					</td>
+					<td>
+						<c:if test="${recommendRule.behaviorId == 1}"><spring:message code="recommendRule_behavior_1" /></c:if>
+						<c:if test="${recommendRule.behaviorId == 2}"><spring:message code="recommendRule_behavior_2" /></c:if>
+						<c:if test="${recommendRule.behaviorId == 3}"><spring:message code="recommendRule_behavior_3" /></c:if>
+						<c:if test="${recommendRule.behaviorId == 4}"><spring:message code="recommendRule_behavior_4" /></c:if>
+						<c:if test="${recommendRule.behaviorId == 5}"><spring:message code="recommendRule_behavior_5" /></c:if>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						B:<spring:message code="recommendRule_similar" />
+					</th>
+					<td>
+						<c:out value="${recommendRule.similarSeq}" />
+					</td>
+					<td colspan="2">
+						<c:out value="${recommendRule.similarNum}" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						C:<spring:message code="recommendRule_storage" />
+					</th>
+					<td>
+						<c:out value="${recommendRule.storageSeq}" />
+					</td>
+					<td colspan="2">
+						<c:out value="${recommendRule.storageNum}" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						D:<spring:message code="recommendRule_manual" />
+					</th>
+					<td>
+						<c:out value="${recommendRule.manualSeq}" />
+					</td>
+					<td>
+						<c:out value="${recommendRule.manualNum}" />
+					</td>
+					<td>
+						<c:forEach items="${productLists}" var="productList" varStatus="_st">
+							<div style="float:left;width:100%;">${productList.productId}【<a href="${pageContext.request.contextPath}/domain/productlist/show/${productList.productId}" title="${productList.name}" target="_blank">${productList.name}</a>】</div>
+						</c:forEach>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+</body>
+</html>

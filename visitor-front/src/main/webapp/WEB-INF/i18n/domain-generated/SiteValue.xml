@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+ ! Template pack-backend:src/main/resources/localization/domain/domain.e.vm.xml
+-->
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Domain resources for SiteValue</comment>
+
+	<entry key="siteValue">Site Value</entry>
+
+	<!-- Attributes -->
+	<entry key="siteValue_siteValueId">Site Value Id</entry>
+	<entry key="siteValue_siteId">Site Id</entry>
+	<entry key="siteValue_value">Value</entry>
+	<entry key="siteValue_type">Type</entry>
+	
+	<entry key="siteValue_opera">Opera版本</entry>
+	<entry key="siteValue_model">机型</entry>
+	<entry key="siteValue_platform">平台</entry>
+	<entry key="siteValue_platform_os">操作系统</entry>
+	<entry key="siteValue_platform_plate">应用平台</entry>
+	<entry key="siteValue_platform_version">版本</entry>
+	<entry key="siteValue_brand">品牌</entry>
+	<entry key="siteValue_resolution">分辨率</entry>
+</properties>
