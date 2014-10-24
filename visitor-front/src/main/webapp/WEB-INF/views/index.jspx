@@ -4,69 +4,10 @@
 <jsp:directive.page contentType="text/html; charset=UTF-8" />
 
 <head>
-	<title><spring:message code="homepage.congratulations.title" /></title>
+    <title>Dayfetch Index</title>
 </head>
 <body>
-	<div class="span-24 last">
-		<h2>
-			<security:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN"><a href="${pageContext.request.contextPath}/domain/account/show/${accountContext.account.accountId}">${accountContext.account.nickname}</a>！</security:authorize><spring:message code="homepage.congratulations.title" />
-		</h2>
-	</div>
-	<div class="span-11 border">
-		<p>
-			<spring:message code="homepage.congratulations" htmlEscape="false" />
-		</p>
-		<h2>
-			<spring:message code="homepage.recommendations.title" htmlEscape="false" />
-		</h2>
-		<p>
-			<spring:message code="homepage.recommendations" htmlEscape="false" />
-		</p>
-	</div>
-	<div class="span-12 last">
-		<security:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
-		<h2><spring:message code="homepage.notice" htmlEscape="false" /></h2>
-		<p>
-			<ul>
-				<li><spring:message code="homepage.notice.create" htmlEscape="false" /><span>
-				<c:if test="${createdCount != 0}">
-				<a href="${pageContext.request.contextPath}/export/product/dailynotice/1">${createdCount}</a>
-				</c:if>
-				<c:if test="${createdCount == 0}">
-				无
-				</c:if>
-				</span></li>
-				<li><spring:message code="homepage.notice.update" htmlEscape="false" />
-				<span>
-				<c:if test="${updatedCount != 0}">
-				<a href="${pageContext.request.contextPath}/export/product/dailynotice/2">${updatedCount}</a>
-				</c:if>
-				<c:if test="${updatedCount == 0}">
-				无
-				</c:if>
-				</span>
-				</li>
-			</ul>
-		</p>
-		</security:authorize>
-	</div>
-	<hr />
-	<div class="span-11 border">
-		<h2>
-			<spring:message code="homepage.what.next.title" htmlEscape="false" />
-		</h2>
-		<p>
-			<spring:message code="homepage.what.next" htmlEscape="false" />
-		</p>
-	</div>
-	<div class="span-12 last">
-		<h2>
-			<spring:message code="homepage.support.title" htmlEscape="false" />
-		</h2>
-		<p>
-			<spring:message code="homepage.support" htmlEscape="false" />
-		</p>
-	</div>
-	<hr />
+    Hello, ${username}, ${helloString}
 </body>
+
 </html>
