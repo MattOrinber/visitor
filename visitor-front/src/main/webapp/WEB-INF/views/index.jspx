@@ -5,9 +5,40 @@
 
 <head>
     <title>Dayfetch Index</title>
+    
+    <style>
+		*{margin:0;padding:0;font-family:"microsoft yahei";font-size:13px;}
+		form{margin-left:20px;margin-top:20px;}
+		form span{display:inline-block;width:65px;height:30px;}
+		form input{width:160px;height:24px;border:1px solid #999;}
+		form input.button{width:80px;height:30px;border-radius:5px;}
+		form input.button:hover{font-weight:bold;}
+		a{margin-left:20px;margin-top:10px;display:block;}
+	</style>
 </head>
 <body>
-    Hello, ${username}, ${helloString}
+    Hello, ${username}, ${helloString} <br />
+    <br />
+    
+    <form id="boxInfo">
+	    <span>Email</span><input type="text" id="merchantId" name="merchantId" value="m1223344555656"/><br />
+		<span>Password</span><input type="text" id="gameId" name="gameId" value="g43121212"/><br />
+	    <span>FirstName</span><input type="text" id="username" name="userName" value="duoduo123"/><br />
+		<span>LastName</span><input type="text" id="password" name="passWord" value="duoduo123"/><br />
+		<span>Gender</span><input type="text" id="newpass" name="newPass" value="MattOrinber"/><br />
+		<span>Birthdate</span><input type="text" id="phoneNumberInput" name="phoneNumber" value="13245678734"></input><br />
+		<span>PhoneNumber</span><input type="text" id="emailAddress" name="emailaddress" value="wum_132@126.com"></input><br />
+		
+		<input class="button" type="button" value="Gen" onclick="generateVisitor();"/><br />
+	    <input class="button" type="button" value="Register" onclick="registerVisitor();"/><br />
+	    <input class="button" type="button" value="Login" onclick="loginVisitor();"/><br />
+	    <input class="button" type="button" value="BindEmail" onclick="bindEmailVisitor();"/><br />
+	    <input class="button" type="button" value="UpdatePassword" onclick="updatePasswordVisitor();"/><br />
+	    <input class="button" type="button" value="RetrievePassword" onclick="retrievePasswordVisitor();"/><br />
+	    <input class="button" type="button" value="GetToken" onclick="getTokenVisitor();"/><br />
+	    <input class="button" type="button" value="VerifyToken" onclick="verifyVisitor();"/><br />
+	    <input class="button" type="button" value="RefreshToken" onclick="refreshTokenVisitor();"/><br />
+	</form>
 </body>
 
 </html>

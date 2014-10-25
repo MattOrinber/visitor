@@ -67,10 +67,10 @@
     </context:component-scan>
     
     <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
-        <property name="driverClassName" value="${database.driverClassName}"/>
-        <property name="url" value="${database.url}"/>
-        <property name="username" value="${database.username}"/>
-        <property name="password" value="${database.password}"/>
+        <property name="driverClassName" value="${database.visitor.driverClassName}"/>
+        <property name="url" value="${database.visitor.url}"/>
+        <property name="username" value="${database.visitor.username}"/>
+        <property name="password" value="${database.visitor.password}"/>
         <property name="testOnBorrow" value="true"/>
         <property name="testOnReturn" value="true"/>
         <property name="testWhileIdle" value="true"/>
@@ -81,10 +81,10 @@
     </bean>
     
     <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSourceRead">
-        <property name="driverClassName" value="${database.read.driverClassName}"/>
-        <property name="url" value="${database.read.url}"/>
-        <property name="username" value="${database.read.username}"/>
-        <property name="password" value="${database.read.password}"/>
+        <property name="driverClassName" value="${database.visitor.driverClassName}"/>
+        <property name="url" value="${database.visitor.url}"/>
+        <property name="username" value="${database.visitor.username}"/>
+        <property name="password" value="${database.visitor.password}"/>
         <property name="testOnBorrow" value="true"/>
         <property name="testOnReturn" value="true"/>
         <property name="testWhileIdle" value="true"/>
