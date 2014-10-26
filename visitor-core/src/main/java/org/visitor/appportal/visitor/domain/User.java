@@ -2,6 +2,7 @@ package org.visitor.appportal.visitor.domain;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -14,11 +15,16 @@ import javax.persistence.Temporal;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.visitor.appportal.domain.Copyable;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable, Copyable<User> {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//raw attributes
 	private Long userId;
 	private String userEmail;
@@ -220,5 +226,65 @@ public class User {
 	}
 	public void setUserLastLoginTime(Date userLastLoginTime) {
 		this.userLastLoginTime = userLastLoginTime;
+	}
+	
+	@Override
+	public User copy() {
+		// TODO Auto-generated method stub
+		User userT = new User();
+		copyTo(userT);
+		return userT;
+	}
+	
+	
+	@Override
+	public void copyTo(User t) {
+		// TODO Auto-generated method stub
+		t.setUserId(this.getUserId());
+		t.setUserEmail(this.getUserEmail());
+		t.setUserFacebookId(this.getUserFacebookId());
+		t.setUserAddress(this.getUserAddress());
+		t.setUserBirthdate(this.getUserBirthdate());
+		t.setUserDescription(this.getUserDescription());
+		t.setUserEmergency(this.getUserEmergency());
+		t.setUserFirstName(this.getUserFirstName());
+		t.setUserGender(this.getUserGender());
+		t.setUserLanguage(this.getUserLanguage());
+		t.setUserLastLoginTime(this.getUserLastLoginTime());
+		t.setUserLastName(this.getUserLastName());
+		t.setUserPassword(this.getUserPassword());
+		t.setUserPhonenum(this.getUserPhonenum());
+		t.setUserPhotourl(this.getUserPhotourl());
+		t.setUserRegisterDate(this.getUserRegisterDate());
+		t.setUserSchool(this.getUserSchool());
+		t.setUserTimeZone(this.getUserTimeZone());
+		t.setUserType(this.getUserType());
+		t.setUserWork(this.getUserWork());
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder result = new StringBuilder();
+		result.append("user.userId=[").append(this.getUserId()).append("],");
+		result.append("user.userEmail=[").append(this.getUserEmail()).append("],");
+		result.append("user.userFacebookId=[").append(this.getUserFacebookId()).append("],");
+		result.append("user.userAddress=[").append(this.getUserAddress()).append("],");
+		result.append("user.userBirthdate=[").append(this.getUserBirthdate()).append("],");
+		result.append("user.userDescription=[").append(this.getUserDescription()).append("],");
+		result.append("user.userEmergency=[").append(this.getUserEmergency()).append("],");
+		result.append("user.userFirstName=[").append(this.getUserFirstName()).append("],");
+		result.append("user.userGender=[").append(this.getUserGender()).append("],");
+		result.append("user.userLanguage=[").append(this.getUserLanguage()).append("],");
+		result.append("user.userLastLoginTime=[").append(this.getUserLastLoginTime()).append("],");
+		result.append("user.userLastName=[").append(this.getUserLastName()).append("],");
+		result.append("user.userPassword=[").append(this.getUserPassword()).append("],");
+		result.append("user.userPhonenum=[").append(this.getUserPhonenum()).append("],");
+		result.append("user.userPhotourl=[").append(this.getUserPhotourl()).append("],");
+		result.append("user.userRegisterDate=[").append(this.getUserRegisterDate()).append("],");
+		result.append("user.userSchool=[").append(this.getUserSchool()).append("],");
+		result.append("user.userTimeZone=[").append(this.getUserTimeZone()).append("],");
+		result.append("user.userType=[").append(this.getUserType()).append("],");
+		result.append("user.userWork=[").append(this.getUserWork()).append("],");
+		return result.toString();
 	}
 }
