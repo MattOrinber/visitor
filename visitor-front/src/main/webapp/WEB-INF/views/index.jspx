@@ -25,7 +25,7 @@
 		<span>Password</span><input type="text" id="passwordStr" name="passwordStr" value="123456"/><br />
 		
 		<input class="button" type="button" value="Gen" onclick="generateVisitor();"/><br />
-	    <input class="button" type="button" value="Register" onclick="registerVisitor();"/><br />
+	    <input class="button" type="button" value="Register" onclick="registerVisitor('${pageContext.request.contextPath}');"/><br />
 	    <input class="button" type="button" value="Login" onclick="loginVisitor();"/><br />
 	    <input class="button" type="button" value="BindEmail" onclick="bindEmailVisitor();"/><br />
 	    <input class="button" type="button" value="UpdatePassword" onclick="updatePasswordVisitor();"/><br />

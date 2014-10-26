@@ -2,14 +2,15 @@ function generateVisitor()
 {
 }
 
-function registerVisitor()
+function registerVisitor(pathOri)
 {
 	var emailStr = $("#emailStr").val();
 	var passwordStr = $("#passwordStr").val();
     
     var passwordMd5 = $.md5(passwordStr);
     
-    var urlStrStr = '/registerUser/'+emailStr+'/'+passwordMd5;
+    var urlStrStr = pathOri + '/registerUser/register/'+emailStr+'/'+passwordMd5;
+    //var jsonStr = '{"aa":"bb"}';
     
     $.ajax({ 
         type : 'POST',  
@@ -17,7 +18,7 @@ function registerVisitor()
         url : urlStrStr,  
         processData : false,  
         dataType : 'json',  
-        data : jsonStr,  
+        //data : jsonStr,  
         success : function(data) {  
         	var dataRes = "register result: " + data.result + "; resultDesc: " + data.resultDesc;
             alert(dataRes);

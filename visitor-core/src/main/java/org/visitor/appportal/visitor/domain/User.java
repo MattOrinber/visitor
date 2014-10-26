@@ -46,6 +46,7 @@ public class User implements Serializable, Copyable<User> {
 	private String userPhotourl;
 	private Date userRegisterDate;
 	private Date userLastLoginTime;
+	private Integer userStatus;
 	
 	@Column(name = "user_id", nullable = false, unique = true, precision = 20)
 	@GeneratedValue
@@ -286,5 +287,13 @@ public class User implements Serializable, Copyable<User> {
 		result.append("user.userType=[").append(this.getUserType()).append("],");
 		result.append("user.userWork=[").append(this.getUserWork()).append("],");
 		return result.toString();
+	}
+	
+	@Column(name = "user_status", nullable = false, precision = 2)
+	public Integer getUserStatus() {
+		return userStatus;
+	}
+	public void setUserStatus(Integer userStatus) {
+		this.userStatus = userStatus;
 	}
 }

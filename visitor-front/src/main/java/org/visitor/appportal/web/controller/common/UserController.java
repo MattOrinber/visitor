@@ -41,6 +41,8 @@ public class UserController {
 			User user = new User();
 			user.setUserEmail(mailStrParam);
 			user.setUserPassword(passwordStrParam);
+			user.setUserType(0);
+			user.setUserStatus(0);
 			
 			visitorUserService.saveUser(user);
 			
@@ -56,7 +58,7 @@ public class UserController {
 		resultJson.setResultDesc(resultDesc);
 		
 		try {
-			String resultJsonStr = URLEncoder.encode(this.getObjectMapper().writeValueAsString(resultJson), "utf-8");
+			String resultJsonStr = this.getObjectMapper().writeValueAsString(resultJson);
 			PrintWriter out = response.getWriter();
 			out.print(resultJsonStr);
 			out.flush();
