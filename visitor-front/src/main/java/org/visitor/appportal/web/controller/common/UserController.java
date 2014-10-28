@@ -1,7 +1,6 @@
 package org.visitor.appportal.web.controller.common;
 
 import java.io.PrintWriter;
-import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -32,7 +31,7 @@ public class UserController {
 	
 	@RequestMapping("register/{emailStr}/{passMd5}")
     public void folder(@PathVariable("emailStr") String mailStrParam, 
-    		@PathVariable("emailStr") String passwordStrParam,
+    		@PathVariable("passMd5") String passwordStrParam,
     		HttpServletResponse response) {
 		long count = visitorUserService.checkUserCount(mailStrParam);
 		Integer result = 0;

@@ -19,14 +19,20 @@
 	</appender>
 
 	<logger name="org.hibernate.SQL" additivity="true">
-		<level value="debug" />
+		<level value="info" />
 		<appender-ref ref="file" />
+		<appender-ref ref="stdout" />
 	</logger>
-	<logger name="org.springframework.web.servlet" level="warn" />
+	<logger name="org.springframework.web.servlet">
+	    <level value="info" />
+	    <appender-ref ref="file" />
+		<appender-ref ref="stdout" />
+	</logger>
 
 	<logger name="org.apache.solr.client.solrj.impl" level="error" />
 
 	<root level="INFO">
 		<appender-ref ref="file" />
+		<appender-ref ref="stdout" />
 	</root>
 </configuration>

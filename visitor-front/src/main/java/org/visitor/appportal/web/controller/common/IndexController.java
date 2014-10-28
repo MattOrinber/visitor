@@ -36,6 +36,6 @@ public class IndexController {
 	
 	@RequestMapping({"login"})
 	public String login(HttpServletRequest request, Model model) {
-		return "index";
+		return "login";
 	}
 }
