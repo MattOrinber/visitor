@@ -21,8 +21,9 @@
     <br />
     
     <form id="boxInfo">
-	    <span>Email</span><input type="text" id="emailStr" name="emailStr" value="wum_132@163.com"/><br />
-		<span>Password</span><input type="text" id="passwordStr" name="passwordStr" value="123456"/><br />
+        
+	    <span>Email</span><input id="emailStr" name="emailStr" value="wum_132@163.com" type="email" required="true"/><br />
+		<span>Password</span><input id="passwordStr" name="passwordStr" value="123456" type="password" minlength="6" required="true"/><br />
 		
 		<input class="button" type="button" value="Gen" onclick="generateVisitor();"/><br />
 	    <input class="button" type="button" value="Register" onclick="registerVisitor('${pageContext.request.contextPath}');"/><br />
