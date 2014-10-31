@@ -277,6 +277,7 @@ public class User implements Serializable, Copyable<User> {
 		return result.toString();
 	}
 	
+	// -1未激活，0已激活，1已冻结
 	@Column(name = "user_status", nullable = false, precision = 2)
 	public Integer getUserStatus() {
 		return userStatus;

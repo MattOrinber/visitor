@@ -1,11 +1,8 @@
 // input form validator
-function generateVisitor()
-{
-}
 
 function registerVisitor(pathOri)
 {
-	var form = $("#boxInfo");
+	var form = $("#registerBasicInfo");
 	form.validate();
 	var ifValidateForm = form.valid();
 	if (ifValidateForm) {
@@ -27,7 +24,7 @@ function registerVisitor(pathOri)
 	        success : function(data) {  
 	        	var dataRes = "register result: " + data.result + "; resultDesc: " + data.resultDesc;
 	            alert(dataRes);
-	            var boxVar = $("#boxInfo");
+	            var boxVar = $("#registerBasicInfo");
 	            boxVar.append("<p>"+dataRes+"</p>");
 	        },  
 	        error : function() {  
@@ -37,30 +34,6 @@ function registerVisitor(pathOri)
 	}
 }
 
-function loginVisitor()
-{
-}
-
-function bindEmailVisitor()
-{
-}
-
-function updatePasswordVisitor()
-{
-}
-
-function retrievePasswordVisitor()
-{
-}
-
-function getTokenVisitor()
-{
-}
-
-function verifyVisitor()
-{
-}
-
-function refreshTokenVisitor()
-{
+function saveVisitorMoreInfo() {
+	;
 }

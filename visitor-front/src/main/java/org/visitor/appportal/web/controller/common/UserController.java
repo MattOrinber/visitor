@@ -1,5 +1,7 @@
 package org.visitor.appportal.web.controller.common;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -33,7 +35,10 @@ public class UserController extends BasicController{
 			user.setUserEmail(mailStrParam);
 			user.setUserPassword(passwordStrParam);
 			user.setUserType(0);
-			user.setUserStatus(0);
+			user.setUserStatus(-1);
+			
+			Date registerDate = new Date();
+			user.setUserRegisterDate(registerDate);
 			
 			visitorUserService.saveUser(user);
 			
