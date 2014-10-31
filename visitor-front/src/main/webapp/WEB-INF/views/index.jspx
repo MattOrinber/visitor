@@ -20,20 +20,24 @@
     Hello, ${username}, ${helloString} <br />
     <br />
     
-    <form id="boxInfo">
+    <form id="registerBasicInfo">
         
 	    <span>Email</span><input id="emailStr" name="emailStr" value="wum_132@163.com" type="email" required="true"/><br />
 		<span>Password</span><input id="passwordStr" name="passwordStr" value="123456" type="password" minlength="6" required="true"/><br />
 		
-		<input class="button" type="button" value="Gen" onclick="generateVisitor();"/><br />
 	    <input class="button" type="button" value="Register" onclick="registerVisitor('${pageContext.request.contextPath}');"/><br />
-	    <input class="button" type="button" value="Login" onclick="loginVisitor();"/><br />
-	    <input class="button" type="button" value="BindEmail" onclick="bindEmailVisitor();"/><br />
-	    <input class="button" type="button" value="UpdatePassword" onclick="updatePasswordVisitor();"/><br />
-	    <input class="button" type="button" value="RetrievePassword" onclick="retrievePasswordVisitor();"/><br />
-	    <input class="button" type="button" value="GetToken" onclick="getTokenVisitor();"/><br />
-	    <input class="button" type="button" value="VerifyToken" onclick="verifyVisitor();"/><br />
-	    <input class="button" type="button" value="RefreshToken" onclick="refreshTokenVisitor();"/><br />
+	    
+	</form>
+	
+	<hr />
+	
+	<form id="registerBasicInfo">
+        
+	    <span>Email</span><input id="emailStr" name="emailStr" value="wum_132@163.com" type="email" required="true"/><br />
+		<span>Password</span><input id="passwordStr" name="passwordStr" value="123456" type="password" minlength="6" required="true"/><br />
+		
+	    <input class="button" type="button" value="Register" onclick="registerVisitor('${pageContext.request.contextPath}');"/><br />
+	    
 	</form>
 </body>
 

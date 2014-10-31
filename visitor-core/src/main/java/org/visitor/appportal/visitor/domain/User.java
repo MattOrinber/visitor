@@ -42,7 +42,6 @@ public class User implements Serializable, Copyable<User> {
 	private Integer userTimeZone;
 	private String userLanguage;
 	private String userEmergency;
-	private String userDescription;
 	private String userPhotourl;
 	private Date userRegisterDate;
 	private Date userLastLoginTime;
@@ -191,15 +190,6 @@ public class User implements Serializable, Copyable<User> {
 		this.userEmergency = userEmergency;
 	}
 	
-	@Length(max = 1024)
-	@Column(name = "user_description")
-	public String getUserDescription() {
-		return userDescription;
-	}
-	public void setUserDescription(String userDescription) {
-		this.userDescription = userDescription;
-	}
-	
 	@Length(max = 256)
 	@Column(name = "user_photourl")
 	public String getUserPhotourl() {
@@ -211,7 +201,7 @@ public class User implements Serializable, Copyable<User> {
 	
 	@Column(name = "user_registerdate", nullable = true, length = 19)
 	@Temporal(TIMESTAMP)
-	@DateTimeFormat(iso = ISO.DATE)
+	@DateTimeFormat(iso = ISO.DATE_TIME)
 	public Date getUserRegisterDate() {
 		return userRegisterDate;
 	}
@@ -221,7 +211,7 @@ public class User implements Serializable, Copyable<User> {
 	
 	@Column(name = "user_lastlogintime", nullable = true, length = 19)
 	@Temporal(TIMESTAMP)
-	@DateTimeFormat(iso = ISO.DATE)
+	@DateTimeFormat(iso = ISO.DATE_TIME)
 	public Date getUserLastLoginTime() {
 		return userLastLoginTime;
 	}
@@ -246,7 +236,6 @@ public class User implements Serializable, Copyable<User> {
 		t.setUserFacebookId(this.getUserFacebookId());
 		t.setUserAddress(this.getUserAddress());
 		t.setUserBirthdate(this.getUserBirthdate());
-		t.setUserDescription(this.getUserDescription());
 		t.setUserEmergency(this.getUserEmergency());
 		t.setUserFirstName(this.getUserFirstName());
 		t.setUserGender(this.getUserGender());
@@ -271,7 +260,6 @@ public class User implements Serializable, Copyable<User> {
 		result.append("user.userFacebookId=[").append(this.getUserFacebookId()).append("],");
 		result.append("user.userAddress=[").append(this.getUserAddress()).append("],");
 		result.append("user.userBirthdate=[").append(this.getUserBirthdate()).append("],");
-		result.append("user.userDescription=[").append(this.getUserDescription()).append("],");
 		result.append("user.userEmergency=[").append(this.getUserEmergency()).append("],");
 		result.append("user.userFirstName=[").append(this.getUserFirstName()).append("],");
 		result.append("user.userGender=[").append(this.getUserGender()).append("],");

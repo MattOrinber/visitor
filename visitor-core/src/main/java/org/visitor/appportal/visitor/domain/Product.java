@@ -20,10 +20,7 @@ public class Product {
 	private Integer productAvailabletype;
 	private Integer productBaseprice;
 	private Integer productCurrency;
-	private String productExtrapriceset;
 	private String productOverviewtitle;
-	private String productOverviewdetail;
-	private String productMoredetail;
 	private String productPhotopaths;
 	private String productAmenities;
 	private Integer productRoomnum;
@@ -97,15 +94,6 @@ public class Product {
 		this.productCurrency = productCurrency;
 	}
 	
-	@Length(max = 1023)
-	@Column(name = "product_extrapriceset")
-	public String getProductExtrapriceset() {
-		return productExtrapriceset;
-	}
-	public void setProductExtrapriceset(String productExtrapriceset) {
-		this.productExtrapriceset = productExtrapriceset;
-	}
-	
 	@Length(max = 127)
 	@Column(name = "product_overview_title")
 	public String getProductOverviewtitle() {
@@ -113,24 +101,6 @@ public class Product {
 	}
 	public void setProductOverviewtitle(String productOverviewtitle) {
 		this.productOverviewtitle = productOverviewtitle;
-	}
-	
-	@Length(max = 511)
-	@Column(name = "product_overview_detail")
-	public String getProductOverviewdetail() {
-		return productOverviewdetail;
-	}
-	public void setProductOverviewdetail(String productOverviewdetail) {
-		this.productOverviewdetail = productOverviewdetail;
-	}
-	
-	@Length(max = 1023)
-	@Column(name = "product_more_details")
-	public String getProductMoredetail() {
-		return productMoredetail;
-	}
-	public void setProductMoredetail(String productMoredetail) {
-		this.productMoredetail = productMoredetail;
 	}
 	
 	@Length(max = 511)
