@@ -26,6 +26,7 @@
 		<span>Password</span><input id="passwordStr" name="passwordStr" value="123456" type="password" minlength="6" required="true"/><br />
 		
 	    <input class="button" type="button" value="Register" onclick="registerVisitor('${pageContext.request.contextPath}');"/><br />
+	    <input class="button" type="button" value="Login" onclick="loginVisitor('${pageContext.request.contextPath}');"/><br />
 	    
 	</form>
 	
@@ -236,67 +237,67 @@
 		<span>Spoken Language</span>
 		<div id="languageSpokenSelect">
           <label>
-            <input type="checkbox" value="4096" data-value="Bahasa Indonesia">
+            <input type="checkbox" value="4096" data-value="Bahasa Indonesia" />
             Bahasa Indonesia
           </label>
           <label>
-            <input type="checkbox" value="4194304" data-value="Bahasa Malaysia">
+            <input type="checkbox" value="4194304" data-value="Bahasa Malaysia" />
             Bahasa Malaysia
           </label>
           <label>
-            <input type="checkbox" value="32768" data-value="Bengali">
+            <input type="checkbox" value="32768" data-value="Bengali" />
             Bengali
           </label>
           <label>
-            <input type="checkbox" value="16777216" data-value="Dansk">
+            <input type="checkbox" value="16777216" data-value="Dansk" />
             Dansk
           </label>
           <label>
-            <input type="checkbox" value="4" data-value="Deutsch">
+            <input type="checkbox" value="4" data-value="Deutsch" />
             Deutsch
           </label>
           <label>
-            <input type="checkbox" value="1" data-value="English">
+            <input type="checkbox" value="1" data-value="English" />
             English
           </label>
           <label>
-            <input type="checkbox" value="64" data-value="Español">
+            <input type="checkbox" value="64" data-value="Español" />
             Español
           </label>
           <label>
-            <input type="checkbox" value="2" data-value="Français">
+            <input type="checkbox" value="2" data-value="Français" />
             Français
           </label>
           <label>
-            <input type="checkbox" value="512" data-value="Hindi">
+            <input type="checkbox" value="512" data-value="Hindi" />
             Hindi
           </label>
           <label>
-            <input type="checkbox" value="16" data-value="Italiano">
+            <input type="checkbox" value="16" data-value="Italiano" />
             Italiano
           </label>
           <label>
-            <input type="checkbox" value="536870912" data-value="Magyar">
+            <input type="checkbox" value="536870912" data-value="Magyar" />
             Magyar
           </label>
           <label>
-            <input type="checkbox" value="8192" data-value="Nederlands">
+            <input type="checkbox" value="8192" data-value="Nederlands" />
             Nederlands
           </label>
           <label>
-            <input type="checkbox" value="67108864" data-value="Norsk">
+            <input type="checkbox" value="67108864" data-value="Norsk" />
             Norsk
           </label>
           <label>
-            <input type="checkbox" value="2097152" data-value="Polski">
+            <input type="checkbox" value="2097152" data-value="Polski" />
             Polski
           </label>
           <label>
-            <input type="checkbox" value="1024" data-value="Português">
+            <input type="checkbox" value="1024" data-value="Português" />
             Português
           </label>
           <label>
-            <input type="checkbox" value="131072" data-value="Punjabi">
+            <input type="checkbox" value="131072" data-value="Punjabi" />
             Punjabi
           </label>
         </div> <br />

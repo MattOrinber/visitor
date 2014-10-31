@@ -22,6 +22,9 @@
 	<bean id="jedisApuConnectionFactory"
 		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:timeout="9000" p:pool-config-ref="jedisPoolConfig"
 		p:use-pool="true" p:host-name="${redis_apu.hostname}" p:port="${redis_apu.port}" p:database="${redis_apu.database}"/>
+	<bean id="jedisVisitorConnectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:timeout="9000" p:pool-config-ref="jedisPoolConfig"
+		p:use-pool="true" p:host-name="${redis_visitor.hostname}" p:port="${redis_visitor.port}" p:database="${redis_visitor.database}"/>
 
 
 	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
@@ -56,7 +59,15 @@
 		
 	<bean id="compressStringRedisTemplate"
 		class="org.springframework.data.redis.core.StringRedisTemplate"
-		p:connection-factory-ref="jedisConnectionFactory" 
+		p:connection-factory-ref="jedisVisitorConnectionFactory" 
+		p:value-serializer-ref="compressStringRedisSerializer"
+		p:hash-value-serializer-ref="compressStringRedisSerializer" />
+	
+	<bean id="stringRedisVisitorTemplate" class="org.springframework.data.redis.core.StringRedisTemplate"
+		p:connection-factory-ref="jedisConnectionFactory" />
+	<bean id="compressStringRedisVisitorTemplate"
+		class="org.springframework.data.redis.core.StringRedisTemplate"
+		p:connection-factory-ref="jedisVisitorConnectionFactory" 
 		p:value-serializer-ref="compressStringRedisSerializer"
 		p:hash-value-serializer-ref="compressStringRedisSerializer" />
 	<bean id="compressStringRedisSerializer" class="org.visitor.appportal.redis.support.CompressStringRedisSerializer" />

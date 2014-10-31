@@ -24,7 +24,7 @@ public class UserController extends BasicController{
 	private VisitorUserService visitorUserService;
 	
 	@RequestMapping("register/{emailStr}/{passMd5}")
-    public void folder(@PathVariable("emailStr") String mailStrParam, 
+    public void register(@PathVariable("emailStr") String mailStrParam, 
     		@PathVariable("passMd5") String passwordStrParam,
     		HttpServletResponse response) {
 		long count = visitorUserService.checkUserCount(mailStrParam);
@@ -41,6 +41,47 @@ public class UserController extends BasicController{
 			user.setUserRegisterDate(registerDate);
 			
 			visitorUserService.saveUser(user);
+			
+			//send email
+			
+			//save redis
+			
+			result = 0;
+			resultDesc = RegisterInfo.REGISTER_SUCCESS;
+		} else {
+			result = 1;
+			resultDesc = RegisterInfo.REGISTER_EMAIL_EXISTS;
+		}
+		
+		ResultJson resultJson = new ResultJson();
+		resultJson.setResult(result);
+		resultJson.setResultDesc(resultDesc);
+		
+		sendJSONResponse(resultJson, response);
+	}
+	
+	@RequestMapping("register/{emailStr}/{passMd5}")
+    public void login(@PathVariable("emailStr") String mailStrParam, 
+    		@PathVariable("passMd5") String passwordStrParam,
+    		HttpServletResponse response) {
+		long count = visitorUserService.checkUserCount(mailStrParam);
+		Integer result = 0;
+		String resultDesc = "";
+		if (count == 0) {
+			User user = new User();
+			user.setUserEmail(mailStrParam);
+			user.setUserPassword(passwordStrParam);
+			user.setUserType(0);
+			user.setUserStatus(-1);
+			
+			Date registerDate = new Date();
+			user.setUserRegisterDate(registerDate);
+			
+			visitorUserService.saveUser(user);
+			
+			//send email
+			
+			//save redis
 			
 			result = 0;
 			resultDesc = RegisterInfo.REGISTER_SUCCESS;
