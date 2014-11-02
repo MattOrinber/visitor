@@ -11,8 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.visitor.appportal.service.newsite.VisitorUserService;
+import org.visitor.appportal.service.newsite.mongo.UserMongoService;
+import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.visitor.beans.RegisterInfo;
 import org.visitor.appportal.visitor.beans.ResultJson;
+import org.visitor.appportal.visitor.beans.mongo.UserMongoBean;
 import org.visitor.appportal.visitor.domain.User;
 
 @Controller
@@ -22,6 +25,10 @@ public class UserController extends BasicController{
 	
 	@Autowired
 	private VisitorUserService visitorUserService;
+	@Autowired
+	private UserMongoService userMongoService;
+	@Autowired
+	private UserRedisService userRedisService;
 	
 	@RequestMapping("register/{emailStr}/{passMd5}")
     public void register(@PathVariable("emailStr") String mailStrParam, 
@@ -45,6 +52,13 @@ public class UserController extends BasicController{
 			//send email
 			
 			//save redis
+			userRedisService.saveUserPassword(user);
+			//save mongo
+			UserMongoBean userMongoBean = new UserMongoBean();
+			userMongoBean.setUser_email(user.getUserEmail());
+			userMongoBean.setUser_description("I am superman!");
+			userMongoBean.setLast_login_forward_ip("192.168.1.1");
+			userMongoService.saveUserDetail(userMongoBean);
 			
 			result = 0;
 			resultDesc = RegisterInfo.REGISTER_SUCCESS;
