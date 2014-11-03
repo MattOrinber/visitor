@@ -101,6 +101,7 @@ public class MongoTemplate {
 				DBCollection coll = db.getCollection(moTemp.getFetchCollection());
 				
 				BasicMongoBean basicMongoBean = (BasicMongoBean)moTemp.getSaveObject();
+				basicMongoBean.convertToBSONObject();
 				
 				coll.insert(basicMongoBean);
 			}
