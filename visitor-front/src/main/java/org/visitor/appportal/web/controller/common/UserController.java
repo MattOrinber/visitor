@@ -92,6 +92,11 @@ public class UserController extends BasicController{
 			if (StringUtils.equals(user.getUserPassword(), passwordStrParam)) {
 				result = 0;
 				resultDesc = RegisterInfo.LOGIN_SUCCESS;
+				
+				Date loginDate = new Date();
+				user.setUserLastLoginTime(loginDate);
+				
+				visitorUserService.saveUser(user);
 			} else {
 				result = -2;
 				resultDesc = RegisterInfo.LOGIN_FAILED_PASSWORD_NOT_RIGHT;
