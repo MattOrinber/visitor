@@ -133,4 +133,6 @@
 		<constructor-arg type="int" index="1" value="${game.solrj.queueSize}" />
 		<constructor-arg type="int" index="2" value="${game.solrj.threadCount}" />
 	</bean>	
+	
+	<bean class="com.mongodb.MongoClient"/>
 </beans>

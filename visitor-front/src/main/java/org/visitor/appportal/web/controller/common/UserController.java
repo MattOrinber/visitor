@@ -74,7 +74,7 @@ public class UserController extends BasicController{
 		sendJSONResponse(resultJson, response);
 	}
 	
-	@RequestMapping("register/{emailStr}/{passMd5}")
+	@RequestMapping("login/{emailStr}/{passMd5}")
     public void login(@PathVariable("emailStr") String mailStrParam, 
     		@PathVariable("passMd5") String passwordStrParam,
     		HttpServletResponse response) {
