@@ -1,16 +1,14 @@
 package org.visitor.appportal.service.newsite.mongo;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 import org.visitor.appportal.visitor.beans.mongo.UserMongoBean;
+import org.visitor.appportal.web.mongo.MongoTemplate;
 
 @Service("userMongoService")
 public class UserMongoService {
-	@Autowired
-	private MongoTemplate anotherMongoTemplate;
+	private MongoTemplate anotherMongoTemplate = MongoTemplate.getInstance();
 	
 	public void saveUserDetail(UserMongoBean userMongoBean) {
-		anotherMongoTemplate.insert(userMongoBean);
+		anotherMongoTemplate.insert(userMongoBean, 0);
 	}
 }

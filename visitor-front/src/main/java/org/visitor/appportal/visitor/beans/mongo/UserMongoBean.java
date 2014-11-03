@@ -1,6 +1,12 @@
 package org.visitor.appportal.visitor.beans.mongo;
 
-public class UserMongoBean {
+import org.apache.commons.lang.StringUtils;
+
+public class UserMongoBean extends BasicMongoBean {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1194598867125154413L;
 	private String user_email;
 	private String last_login_forward_ip;
 	private String user_description;
@@ -21,5 +27,18 @@ public class UserMongoBean {
 	}
 	public void setUser_description(String user_description) {
 		this.user_description = user_description;
+	}
+	
+	@Override
+	public void convertToBSONObject() {
+		if (StringUtils.isNotEmpty(user_email)) {
+			this.put("user_email", user_email);
+		}
+		if (StringUtils.isNotEmpty(last_login_forward_ip)) {
+			this.put("last_login_forward_ip", last_login_forward_ip);
+		}
+		if (StringUtils.isNotEmpty(user_description)) {
+			this.put("user_description", user_description);
+		}
 	}
 }
