@@ -34,7 +34,7 @@ function registerVisitor(pathOri)
 	}
 }
 
-function loginVisitor() {
+function loginVisitor(pathOri) {
 	var form = $("#registerBasicInfo");
 	form.validate();
 	var ifValidateForm = form.valid();

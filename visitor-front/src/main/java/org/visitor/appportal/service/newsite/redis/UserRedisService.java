@@ -21,4 +21,10 @@ public class UserRedisService {
 		String valueT = objectMapperWrapperForVisitor.convert2String(user);
 		compressStringRedisVisitorTemplate.opsForHash().put(keyT, user.getUserEmail(), valueT);
 	}
+	
+	public User getUserPassword(String keyT) {
+		String keyFirst = RedisKeysForVisitor.getVisitorSiteUserPasswordFirstKey();
+		String result = (String)compressStringRedisVisitorTemplate.opsForHash().get(keyFirst, keyT);
+		return objectMapperWrapperForVisitor.convertToUser(result);
+	}
 }

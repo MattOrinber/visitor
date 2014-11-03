@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,30 +79,23 @@ public class UserController extends BasicController{
     public void login(@PathVariable("emailStr") String mailStrParam, 
     		@PathVariable("passMd5") String passwordStrParam,
     		HttpServletResponse response) {
-		long count = visitorUserService.checkUserCount(mailStrParam);
+		
 		Integer result = 0;
 		String resultDesc = "";
-		if (count == 0) {
-			User user = new User();
-			user.setUserEmail(mailStrParam);
-			user.setUserPassword(passwordStrParam);
-			user.setUserType(0);
-			user.setUserStatus(-1);
-			
-			Date registerDate = new Date();
-			user.setUserRegisterDate(registerDate);
-			
-			visitorUserService.saveUser(user);
-			
-			//send email
-			
-			//save redis
-			
+		
+		User user = userRedisService.getUserPassword(mailStrParam);
+		
+		if (user == null) {
 			result = 0;
-			resultDesc = RegisterInfo.REGISTER_SUCCESS;
+			resultDesc = RegisterInfo.LOGIN_FAILED_USER_NOTEXISTED;
 		} else {
-			result = 1;
-			resultDesc = RegisterInfo.REGISTER_EMAIL_EXISTS;
+			if (StringUtils.equals(user.getUserPassword(), passwordStrParam)) {
+				result = 0;
+				resultDesc = RegisterInfo.LOGIN_SUCCESS;
+			} else {
+				result = -2;
+				resultDesc = RegisterInfo.LOGIN_FAILED_PASSWORD_NOT_RIGHT;
+			}
 		}
 		
 		ResultJson resultJson = new ResultJson();
