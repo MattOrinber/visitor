@@ -21,6 +21,8 @@ public class PublishController extends BasicController {
 		resultJson.setResult(result);
 		resultJson.setResultDesc(resultDesc);
 		
+		log.info("call time zone publish");
+		
 		sendJSONResponse(resultJson, response);
 	}
 	
@@ -31,6 +33,8 @@ public class PublishController extends BasicController {
 		ResultJson resultJson = new ResultJson();
 		resultJson.setResult(result);
 		resultJson.setResultDesc(resultDesc);
+		
+		log.info("call language zone publish");
 		
 		sendJSONResponse(resultJson, response);
 	}

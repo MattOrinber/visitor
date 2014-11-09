@@ -31,7 +31,7 @@
 
 	<logger name="org.apache.solr.client.solrj.impl" level="error" />
 	
-	<logger name="classLogger">
+	<logger name="classLogger" additivity="false">
 		<level value="info" />
 	    <appender-ref ref="file"/>
 	    <appender-ref ref="stdout" />
