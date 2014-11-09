@@ -64,7 +64,7 @@
 		p:hash-value-serializer-ref="compressStringRedisSerializer" />
 	
 	<bean id="stringRedisVisitorTemplate" class="org.springframework.data.redis.core.StringRedisTemplate"
-		p:connection-factory-ref="jedisConnectionFactory" />
+		p:connection-factory-ref="jedisVisitorConnectionFactory" />
 	<bean id="compressStringRedisVisitorTemplate"
 		class="org.springframework.data.redis.core.StringRedisTemplate"
 		p:connection-factory-ref="jedisVisitorConnectionFactory" 

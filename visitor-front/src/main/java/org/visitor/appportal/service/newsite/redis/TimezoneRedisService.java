@@ -1,6 +1,8 @@
 package org.visitor.appportal.service.newsite.redis;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -34,5 +36,29 @@ public class TimezoneRedisService {
 		String intValueTotal = (String) stringRedisVisitorTemplate.opsForHash().get(keyOne, city);
 		String intValueString = intValueTotal.split(RedisKeysForVisitor.getVisitorRedisSplit())[1];
 		return intValueString;
+	}
+	
+	public List<TimeZone> getAllTimezones() {
+		String keyOne = RedisKeysForVisitor.getVisitorTimeZoneKey();
+		Map<Object, Object> mapAll = stringRedisVisitorTemplate.opsForHash().entries(keyOne);
+		
+		List<TimeZone> listRes = new ArrayList<TimeZone>();
+		
+		for (Object objT : mapAll.keySet()) {
+			String valueT = (String) mapAll.get(objT);
+			String cityT = (String)objT;
+			String[] bundles = valueT.split(RedisKeysForVisitor.getVisitorRedisSplit());
+			
+			Integer idT = Integer.valueOf(bundles[0]);
+			String nameT = bundles[1];
+			
+			TimeZone tzT = new TimeZone();
+			tzT.setTimeZoneId(idT);
+			tzT.setTimeZoneCity(cityT);
+			tzT.setTimeZoneName(nameT);
+			listRes.add(tzT);
+		}
+		
+		return listRes;
 	}
 }

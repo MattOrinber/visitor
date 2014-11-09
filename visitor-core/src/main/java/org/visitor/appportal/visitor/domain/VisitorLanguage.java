@@ -16,7 +16,7 @@ public class VisitorLanguage {
 	private Long languageSerial;
 	private String languageName;
 	
-	@Column(name = "timezone_id", nullable = false, unique = true, precision = 20)
+	@Column(name = "language_id", nullable = false, unique = true, precision = 20)
 	@GeneratedValue
 	@Id
 	public Integer getLanguageId() {
