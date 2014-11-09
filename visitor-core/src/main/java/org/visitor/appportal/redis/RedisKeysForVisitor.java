@@ -49,4 +49,13 @@ public class RedisKeysForVisitor {
     public static String getVisitorProductInfoKey() {
     	return "visitor-site-productinfokey";
     }
+    
+    
+    public static String getVisitorTimeZoneKey() {
+    	return "visitor-site-timezone";
+    }
+    
+    public static String getVisitorLanguageKey() {
+    	return "visitor-site-language";
+    }
 }
