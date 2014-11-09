@@ -42,7 +42,7 @@ public class UserController extends BasicController{
 			User user = new User();
 			user.setUserEmail(mailStrParam);
 			user.setUserPassword(passwordStrParam);
-			user.setUserType(0);
+			user.setUserType(0); //0--admin, 1----normal user
 			user.setUserStatus(0);
 			
 			Date registerDate = new Date();

@@ -38,4 +38,9 @@ public class IndexController extends BasicController {
 	public String login(HttpServletRequest request, Model model) {
 		return "login";
 	}
+	
+	@RequestMapping({"publish"})
+	public String publish(HttpServletRequest request, Model model) {
+		return "publish";
+	}
 }

@@ -30,6 +30,12 @@
 	</logger>
 
 	<logger name="org.apache.solr.client.solrj.impl" level="error" />
+	
+	<logger name="classLogger">
+		<level value="info" />
+	    <appender-ref ref="file"/>
+	    <appender-ref ref="stdout" />
+	</logger>
 
 	<root level="INFO">
 		<appender-ref ref="file" />
