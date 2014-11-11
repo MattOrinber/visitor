@@ -3,6 +3,8 @@
  */
 package org.visitor.appportal.web.controller.common;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -13,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
 import org.visitor.appportal.service.newsite.redis.VisitorLanguageRedisService;
+import org.visitor.appportal.visitor.domain.TimeZone;
+import org.visitor.appportal.visitor.domain.VisitorLanguage;
 
 /**
  * @author mengw
@@ -40,7 +44,11 @@ public class IndexController extends BasicController {
 		model.addAttribute("username", "visitor");
 		model.addAttribute("helloString", "you are welcome!");
 		
+		List<TimeZone> listTZ = timezoneRedisService.getAllTimezones();
+		List<VisitorLanguage> listVL = visitorLanguageRedisService.getAllLanguages();
 		
+		model.addAttribute("timezones", listTZ);
+		model.addAttribute("visitorlanguages", listVL);
 		
 		return "index";
 	}
