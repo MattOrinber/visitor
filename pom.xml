@@ -87,6 +87,11 @@
             <id>alibaba</id>
             <url>http://code.alibabatech.com/mvn/releases/</url>
         </repository>
+        <repository>
+			<id>paho-mqtt-client</id>
+			<name>Paho MQTT Client</name>
+			<url>https://repo.eclipse.org/content/repositories/paho-releases/</url>
+		</repository>
     </repositories>
 	
 </project>

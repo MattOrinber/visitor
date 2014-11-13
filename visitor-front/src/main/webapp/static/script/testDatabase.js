@@ -1,5 +1,9 @@
 // input form validator
 
+$(document).ready(function(){
+	CKEDITOR.replace( 'editorUserDetail' );
+});
+
 function registerVisitor(pathOri)
 {
 	var form = $("#registerBasicInfo");

@@ -19,8 +19,11 @@
 		<!-- http://jquery.org/ -->
 		<script type="text/javascript" src="${scriptPackageUrl}/jquery-1.5.2/jquery.min.js"><c:out value=" " /></script>
 		<script type="text/javascript" src="${scriptPackageUrl}/jquery.md5.js"><c:out value=" " /></script>
+		
+		<script src="${scriptPackageUrl}/ckeditor.js"></script>
 		<script type="text/javascript" src="${scriptPackageUrl}/testDatabase.js"><c:out value=" " /></script>
 		<script type="text/javascript" src="${scriptPackageUrl}/testPublish.js"><c:out value=" " /></script>
+		<script type="text/javascript" src="${scriptPackageUrl}/stomp.js"><c:out value=" " /></script>
 		
 		<!-- http://jqueryui.com/ -->
 		<link type="text/css" href="${scriptPackageUrl}/jquery-ui-1.8.11/themes/base/jquery.ui.all.css" rel="stylesheet" media="all" />

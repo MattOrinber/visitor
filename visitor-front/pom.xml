@@ -212,6 +212,19 @@
 			<artifactId>mongo-java-driver</artifactId>
 			<version>2.10.1</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.eclipse.paho</groupId>
+			<artifactId>mqtt-client</artifactId>
+			<version>0.4.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.codehaus.stomp</groupId>
+		    <artifactId>stompconnect</artifactId>
+		    <version>1.0</version>
+		</dependency>
+		
 	</dependencies>
 	<build>
 		<plugins>

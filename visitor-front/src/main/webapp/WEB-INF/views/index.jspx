@@ -77,9 +77,12 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
         <span>Phone</span><input id="emerPhoneStr" name="emerPhoneStr" value="13810926825" type="text" minlength="1" required="true"/><br />
         <span>Email</span><input id="emerEmailStr" name="emerEmailStr" value="wum_132@126.com" type="email" required="true"/><br />
         <span>Relationship</span><input id="emerRelationshipStr" name="emerRelationshipStr" value="wife" type="text" minlength="1" required="true"/><br />
-		
-	    <input class="button" type="button" value="Save" onclick="saveVisitorMoreInfo('${pageContext.request.contextPath}');"/><br />
-	    
+        
+		<![CDATA[
+		<span>Detail</span><br />
+		<textarea id="editorUserDetail" name="editorUserDetail" rows="10" cols="80"></textarea>
+        ]]>
+        <input class="button" type="button" value="Save" onclick="saveVisitorMoreInfo('${pageContext.request.contextPath}');"/><br />
 	</form>
 </body>
 </jsp:root>

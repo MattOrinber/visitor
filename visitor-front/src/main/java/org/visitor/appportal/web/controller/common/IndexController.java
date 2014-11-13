@@ -62,4 +62,10 @@ public class IndexController extends BasicController {
 	public String publish(HttpServletRequest request, Model model) {
 		return "publish";
 	}
+	
+	@RequestMapping({"websocket"})
+	public String websocket(HttpServletRequest request, Model model) {
+		return "websocket";
+		
+	}
 }
