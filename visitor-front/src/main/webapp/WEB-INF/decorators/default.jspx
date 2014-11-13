@@ -20,7 +20,7 @@
 		<script type="text/javascript" src="${scriptPackageUrl}/jquery-1.5.2/jquery.min.js"><c:out value=" " /></script>
 		<script type="text/javascript" src="${scriptPackageUrl}/jquery.md5.js"><c:out value=" " /></script>
 		
-		<script src="${scriptPackageUrl}/ckeditor.js"></script>
+		<script type="text/javascript" src="${scriptPackageUrl}/ckeditor.js"><c:out value=" " /></script>
 		<script type="text/javascript" src="${scriptPackageUrl}/testDatabase.js"><c:out value=" " /></script>
 		<script type="text/javascript" src="${scriptPackageUrl}/testPublish.js"><c:out value=" " /></script>
 		<script type="text/javascript" src="${scriptPackageUrl}/stomp.js"><c:out value=" " /></script>
