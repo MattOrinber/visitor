@@ -3,13 +3,10 @@ xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:fmt="http://java.sun.com/jsp
 xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
 <jsp:directive.page contentType="text/html;charset=UTF-8" />
 <jsp:output omit-xml-declaration="yes" />
-
-<script>
-var url = "ws://172.18.100.66:61623";
-var client = Stomp.client(url);
-
-
-
-</script>
+<![CDATA[
+<span>Detail</span><br />
+<textarea id="editorUserDetail" name="editorUserDetail" rows="10" cols="80"></textarea>
+]]>
+<input class="button" type="button" value="Save" onclick="sendContent();"/><br />
 
 </jsp:root>

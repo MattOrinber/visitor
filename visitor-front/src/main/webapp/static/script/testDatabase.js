@@ -1,7 +1,32 @@
 // input form validator
 
+//websocket part
+var url = "ws://172.18.100.66:61623/mybroker";
+function connectToWS() {
+	var ws_client = Stomp.client( url, "v11.stomp" );
+	ws_client.connect("", "", function(){
+		var destination = "/topic/test";
+		ws_client.subscribe(destination, 
+				function( message ) {
+					alert( message );
+				}, 
+				{ priority: 9 } );
+		ws_client.send(destination, {priority: 9}, "you are welcome!");
+	});
+}
+
+function sendContent() {
+	var ws_client = Stomp.client( url, "v11.stomp" );
+	ws_client.connect("", "", function(){
+		var destination = "/topic/test";
+		ws_client.send(destination, {priority: 9}, "Not you!");
+	});
+}
+
 $(document).ready(function(){
 	CKEDITOR.replace( 'editorUserDetail' );
+	
+	connectToWS();
 });
 
 function registerVisitor(pathOri)
