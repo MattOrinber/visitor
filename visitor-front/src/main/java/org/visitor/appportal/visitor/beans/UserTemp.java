@@ -2,10 +2,11 @@ package org.visitor.appportal.visitor.beans;
 
 public class UserTemp {
 	private String emailStr;
-	private String passwordMd5;
+	private String passwordStr;
 	private String firstNameStr;
 	private String lastNameStr;
 	private String genderStr;
+	private String phoneNumberStr;
 	private String birthDateStr;
 	private String emailRevStr;
 	private String addressStr;
@@ -24,12 +25,6 @@ public class UserTemp {
 	}
 	public void setEmailStr(String emailStr) {
 		this.emailStr = emailStr;
-	}
-	public String getPasswordMd5() {
-		return passwordMd5;
-	}
-	public void setPasswordMd5(String passwordMd5) {
-		this.passwordMd5 = passwordMd5;
 	}
 	public String getFirstNameStr() {
 		return firstNameStr;
@@ -126,5 +121,17 @@ public class UserTemp {
 	}
 	public void setEditorUserDetail(String editorUserDetail) {
 		this.editorUserDetail = editorUserDetail;
+	}
+	public String getPasswordStr() {
+		return passwordStr;
+	}
+	public void setPasswordStr(String passwordStr) {
+		this.passwordStr = passwordStr;
+	}
+	public String getPhoneNumberStr() {
+		return phoneNumberStr;
+	}
+	public void setPhoneNumberStr(String phoneNumberStr) {
+		this.phoneNumberStr = phoneNumberStr;
 	}
 }

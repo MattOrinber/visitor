@@ -45,7 +45,7 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 		        <option value="Female">Female</option>
 		        <option value="Other">Other</option>
 		</select>
-		
+		<span>Phone</span><input id="phoneNumberStr" name="phoneNumberStr" value="13911701040" type="string" minlength="2" required="true"/><br />
 		<span>Birth date</span><input id="birthDateStr" name="birthDateStr" value="2010-01-05" type="string" minlength="2" required="true"/><br />
 		
 		<span>Email Address</span><input id="emailRevStr" name="emailRevStr" value="wum_132@163.com" type="email" required="true"/><br />

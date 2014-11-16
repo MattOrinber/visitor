@@ -1,5 +1,7 @@
 package org.visitor.appportal.web.controller.common;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,12 +16,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.visitor.appportal.service.newsite.VisitorUserService;
 import org.visitor.appportal.service.newsite.mongo.UserMongoService;
+import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.visitor.beans.RegisterInfo;
 import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.beans.UserTemp;
 import org.visitor.appportal.visitor.beans.mongo.UserMongoBean;
 import org.visitor.appportal.visitor.domain.User;
+import org.visitor.appportal.web.utils.WebInfo;
 
 @Controller
 @RequestMapping("/registerUser/")
@@ -32,6 +36,8 @@ public class UserController extends BasicController{
 	private UserMongoService userMongoService;
 	@Autowired
 	private UserRedisService userRedisService;
+	@Autowired
+	private TimezoneRedisService timezoneRedisService;
 	
 	@RequestMapping("register/{emailStr}/{passMd5}")
     public void register(@PathVariable("emailStr") String mailStrParam, 
@@ -56,19 +62,13 @@ public class UserController extends BasicController{
 			
 			//save redis
 			userRedisService.saveUserPassword(user);
-			//save mongo
-			UserMongoBean userMongoBean = new UserMongoBean();
-			userMongoBean.setUser_email(user.getUserEmail());
-			userMongoBean.setUser_description("I am superman!");
-			userMongoBean.setLast_login_forward_ip("192.168.1.1");
-			userMongoService.saveUserDetail(userMongoBean);
 			
 			result = 0;
 			resultDesc = RegisterInfo.REGISTER_SUCCESS;
 			
 			logTheRegisterTime(mailStrParam);
 		} else {
-			result = 1;
+			result = -1;
 			resultDesc = RegisterInfo.REGISTER_EMAIL_EXISTS;
 		}
 		
@@ -91,7 +91,7 @@ public class UserController extends BasicController{
 			User userT = visitorUserService.getUserFromEmailAndPassword(mailStrParam, passwordStrParam);
 			
 			if (userT == null) {
-				result = 0;
+				result = -3;
 				resultDesc = RegisterInfo.LOGIN_FAILED_USER_NOTEXISTED;
 			} else {
 				result = 0;
@@ -126,16 +126,81 @@ public class UserController extends BasicController{
 	}
 	
 	@RequestMapping("postDetail")
-	public void postUserDetail(HttpServletRequest request, HttpServletResponse response) {
+	public void postUserDetail(HttpServletRequest request, HttpServletResponse response) throws ParseException {
 		UserTemp ut = super.getUserJson(request);
 		
 		logTheJsonResult(ut);
 		
+		//update mysql
+		String mailStrParam = ut.getEmailStr();
+		String passwordStrParam = ut.getPasswordStr();
+		
 		Integer result = 0;
 		String resultDesc = "";
+		Boolean canUpdate = false;
+		User user = userRedisService.getUserPassword(mailStrParam);
 		
-		result = 0;
-		resultDesc = RegisterInfo.UPDATE_SUCCESS;
+		if (user == null) {
+			//get from database
+			user = visitorUserService.getUserFromEmailAndPassword(mailStrParam, passwordStrParam);
+			
+			if (user == null) {
+				result = -3;
+				resultDesc = RegisterInfo.LOGIN_FAILED_USER_NOTEXISTED;
+			} else {
+				canUpdate = true;
+				userRedisService.saveUserPassword(user);
+			}
+			
+		} else {
+			if (StringUtils.equals(user.getUserPassword(), passwordStrParam)) {
+				canUpdate = true;
+			} else {
+				result = -2;
+				resultDesc = RegisterInfo.LOGIN_FAILED_PASSWORD_NOT_RIGHT;
+			}
+		}
+		
+		if (canUpdate) {
+			
+			//update mysql
+			user.setUserAddress(ut.getAddressStr());
+			String birthDateT = ut.getBirthDateStr();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");  
+			Date dateT = sdf.parse(birthDateT);
+			user.setUserBirthdate(dateT);
+			
+			user.setUserFirstName(ut.getFirstNameStr());
+			user.setUserLastName(ut.getLastNameStr());
+			user.setUserGender(getGenderInteger(ut.getGenderStr()));
+			user.setUserLanguage(ut.getLanguageSpokenSelect());
+			user.setUserPhonenum(ut.getPhoneNumberStr()); //phone number not here
+			user.setUserSchool(ut.getSchoolStr());
+			user.setUserWork(ut.getWorkStr());
+			String userEmergencyStr = ut.getEmerNameStr() + WebInfo.SPLIT 
+					+ ut.getEmerEmailStr() + WebInfo.SPLIT
+					+ ut.getEmerPhoneStr() + WebInfo.SPLIT
+					+ ut.getEmerRelationshipStr();
+			user.setUserEmergency(userEmergencyStr);
+			
+			Integer userTimeZoneInt = timezoneRedisService.getTimeZoneId(ut.getTimeZoneStr());
+			
+			user.setUserTimeZone(userTimeZoneInt);
+			
+			//mysql
+			visitorUserService.saveUser(user);
+			//redis
+			userRedisService.saveUserPassword(user);
+			//save mongo
+			UserMongoBean userMongoBean = new UserMongoBean();
+			userMongoBean.setUser_email(user.getUserEmail());
+			userMongoBean.setUser_description(ut.getDescriptionStr());
+			userMongoBean.setLast_login_forward_ip("192.168.1.1");
+			userMongoService.saveUserDetail(userMongoBean);
+			
+			result = 0;
+			resultDesc = RegisterInfo.UPDATE_SUCCESS;
+		}
 		
 		setResultToClient(response, result, resultDesc);
 	}
@@ -158,5 +223,17 @@ public class UserController extends BasicController{
 		if (log.isInfoEnabled()) {
 			log.info("<user register>: >" + emailStr + "<");
 		}
+	}
+	
+	private Integer getGenderInteger(String genderStr) {
+		Integer result = -1;
+		if (StringUtils.equalsIgnoreCase(genderStr, "Male")) {
+			result = 0;
+		} else if(StringUtils.equalsIgnoreCase(genderStr, "Female")) {
+			result = 1;
+		} else if (StringUtils.equalsIgnoreCase(genderStr, "Other")) {
+			result = 2;
+		}
+		return result;
 	}
 }

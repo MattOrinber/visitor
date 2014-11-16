@@ -3,6 +3,7 @@
 //websocket part
 //var url = "ws://172.18.100.66:61623/mybroker";
 var url = "ws://192.168.1.106:61623/mybroker";
+var __SPLIT__ = "---";
 
 function connectToWS() {
 	var ws_client = Stomp.client( url, "v11.stomp" );
@@ -121,6 +122,7 @@ function saveVisitorMoreInfo(pathOri) {
 		var firstNameStr = $("#firstNameStr").val();
 		var lastNameStr = $("#lastNameStr").val();
 		var genderStr = $("#gender").val();
+		var phoneNumberStr = $("#phoneNumberStr").val();
 		var birthDateStr = $("#birthDateStr").val();
 		var emailRevStr = $("#emailRevStr").val();
 		var addressStr = $("#addressStr").val();
@@ -137,7 +139,7 @@ function saveVisitorMoreInfo(pathOri) {
 				if (indexLSS == 0) {
 					languageSpokenSelect = languageSpokenSelect + valueT;
 				} else {
-					languageSpokenSelect = languageSpokenSelect + ";" + valueT;
+					languageSpokenSelect = languageSpokenSelect + __SPLIT__ + valueT;
 				}
 				
 				indexLSS ++;
@@ -147,7 +149,7 @@ function saveVisitorMoreInfo(pathOri) {
 		var emerNameStr = $("#emerNameStr").val();
 		var emerPhoneStr = $("#emerPhoneStr").val();
 		var emerEmailStr = $("#emerEmailStr").val();
-		var emerRelationshipStr = $("emerRelationshipStr").val();
+		var emerRelationshipStr = $("#emerRelationshipStr").val();
 		
 		//var editorUserDetail = $("#editorUserDetail").html();
 		var editor = CKEDITOR.instances.editorUserDetail;
@@ -161,6 +163,7 @@ function saveVisitorMoreInfo(pathOri) {
 		user.firstNameStr = firstNameStr;
 		user.lastNameStr = lastNameStr;
 		user.genderStr = genderStr;
+		user.phoneNumberStr = phoneNumberStr;
 		user.birthDateStr = birthDateStr;
 		user.emailRevStr = emailRevStr;
 		user.addressStr = addressStr;
