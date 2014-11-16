@@ -67,7 +67,7 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 		<div id="languageSpokenSelect">
 		    <c:forEach items="${visitorlanguages}" var="visitorlanguage" varStatus="status">
 		        <c:if test="${status.index != 0}"><br/></c:if>
-		    	<label><input type="checkbox" value="${visitorlanguage.languageSerial}" data-value="${visitorlanguage.languageName}" />${visitorlanguage.languageName}</label>
+		    	<label><input type="checkbox" name="languageSpokenSelectList" value="${visitorlanguage.languageSerial}" data-value="${visitorlanguage.languageName}" />${visitorlanguage.languageName}</label>
 		    </c:forEach>
         </div> <br />
         <hr />

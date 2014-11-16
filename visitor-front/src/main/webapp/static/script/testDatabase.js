@@ -34,8 +34,7 @@ $(document).ready(function(){
 			element: 'font',
 			attributes: { 'size': '#(size)' }
 		}
-	}
-);
+	});
 	
 	connectToWS();
 });
@@ -129,14 +128,33 @@ function saveVisitorMoreInfo(pathOri) {
 		var schoolStr = $("#schoolStr").val();
 		var workStr = $("#workStr").val();
 		var timeZoneStr = $("#timeZoneStr").val();
-		var languageSpokenSelect = $("#languageSpokenSelect").val();
+		var languageSpokenSelect = "";
+		
+		var indexLSS = 0;
+		$("input[name='languageSpokenSelectList']").each(function(){
+			if ($(this).attr('checked')==true) {
+				var valueT = $(this).val();
+				if (indexLSS == 0) {
+					languageSpokenSelect = languageSpokenSelect + valueT;
+				} else {
+					languageSpokenSelect = languageSpokenSelect + ";" + valueT;
+				}
+				
+				indexLSS ++;
+			}
+		});
 		
 		var emerNameStr = $("#emerNameStr").val();
 		var emerPhoneStr = $("#emerPhoneStr").val();
 		var emerEmailStr = $("#emerEmailStr").val();
 		var emerRelationshipStr = $("emerRelationshipStr").val();
 		
-		var editorUserDetail = $("#editorUserDetail").html();
+		//var editorUserDetail = $("#editorUserDetail").html();
+		var editor = CKEDITOR.instances.editorUserDetail;
+
+		// Get editor contents
+		// http://docs.ckeditor.com/#!/api/CKEDITOR.editor-method-getData
+		var editorUserDetail = editor.getData();
 		
 		user.emailStr = emailStr;
 		user.passwordStr = passwordMd5;
