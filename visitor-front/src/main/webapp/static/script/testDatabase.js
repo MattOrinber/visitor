@@ -1,7 +1,9 @@
 // input form validator
 
 //websocket part
-var url = "ws://172.18.100.66:61623/mybroker";
+//var url = "ws://172.18.100.66:61623/mybroker";
+var url = "ws://192.168.1.106:61623/mybroker";
+
 function connectToWS() {
 	var ws_client = Stomp.client( url, "v11.stomp" );
 	ws_client.connect("", "", function(){
@@ -24,7 +26,16 @@ function sendContent() {
 }
 
 $(document).ready(function(){
-	CKEDITOR.replace( 'editorUserDetail' );
+	CKEDITOR.replace( 'editorUserDetail', {
+		coreStyles_bold: { element: 'b' },
+		coreStyles_italic: { element: 'i' },
+
+		fontSize_style: {
+			element: 'font',
+			attributes: { 'size': '#(size)' }
+		}
+	}
+);
 	
 	connectToWS();
 });
@@ -96,6 +107,77 @@ function loginVisitor(pathOri) {
 	}
 }
 
-function saveVisitorMoreInfo() {
-	;
+function saveVisitorMoreInfo(pathOri) {
+	var form = $("#registerMoreInfo");
+	form.validate();
+	var idValidateForm = form.valid();
+	if (idValidateForm) {
+		var user = {};
+		
+		var emailStr = $("#emailStr").val();
+		var passwordStr = $("#passwordStr").val();
+	    
+	    var passwordMd5 = $.md5(passwordStr);
+		
+		var firstNameStr = $("#firstNameStr").val();
+		var lastNameStr = $("#lastNameStr").val();
+		var genderStr = $("#gender").val();
+		var birthDateStr = $("#birthDateStr").val();
+		var emailRevStr = $("#emailRevStr").val();
+		var addressStr = $("#addressStr").val();
+		var descriptionStr = $("#descriptionStr").val();
+		var schoolStr = $("#schoolStr").val();
+		var workStr = $("#workStr").val();
+		var timeZoneStr = $("#timeZoneStr").val();
+		var languageSpokenSelect = $("#languageSpokenSelect").val();
+		
+		var emerNameStr = $("#emerNameStr").val();
+		var emerPhoneStr = $("#emerPhoneStr").val();
+		var emerEmailStr = $("#emerEmailStr").val();
+		var emerRelationshipStr = $("emerRelationshipStr").val();
+		
+		var editorUserDetail = $("#editorUserDetail").html();
+		
+		user.emailStr = emailStr;
+		user.passwordStr = passwordMd5;
+		user.firstNameStr = firstNameStr;
+		user.lastNameStr = lastNameStr;
+		user.genderStr = genderStr;
+		user.birthDateStr = birthDateStr;
+		user.emailRevStr = emailRevStr;
+		user.addressStr = addressStr;
+		user.descriptionStr = descriptionStr;
+		user.schoolStr = schoolStr;
+		user.workStr = workStr;
+		user.timeZoneStr = timeZoneStr;
+		user.languageSpokenSelect = languageSpokenSelect;
+		user.emerNameStr = emerNameStr;
+		user.emerPhoneStr = emerPhoneStr;
+		user.emerEmailStr = emerEmailStr;
+		user.emerRelationshipStr = emerRelationshipStr;
+		user.editorUserDetail = editorUserDetail;
+		
+		
+		var urlStrStr = pathOri + '/registerUser/postDetail';
+		var jsonStr = $.toJSON(user);
+		alert(jsonStr);
+		
+		$.ajax({ 
+	        type : 'POST',  
+	        contentType : 'application/json',  
+	        url : urlStrStr,  
+	        processData : false,  
+	        dataType : 'json',  
+	        data : jsonStr,  
+	        success : function(data) {  
+	        	var dataRes = "detail post result: " + data.result + "; resultDesc: " + data.resultDesc;
+	            alert(dataRes);
+	            var boxVar = $("#registerMoreInfo");
+	            boxVar.append("<p>"+dataRes+"</p>");
+	        },  
+	        error : function() {  
+	            alert('Err...');  
+	        }  
+	    }); 
+	}
 }

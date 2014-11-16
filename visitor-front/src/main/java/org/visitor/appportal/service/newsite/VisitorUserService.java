@@ -33,4 +33,10 @@ public class VisitorUserService {
 		long userCount = visitorUserRepository.findUserCountByFacebookId(faceBookIdStr);
 		return userCount;
 	}
+	
+	@Transactional
+	public User getUserFromEmailAndPassword(String emailStr, String passwordStr) {
+		User user = visitorUserRepository.findUserByEmailAndPassword(emailStr, passwordStr);
+		return user;
+	}
 }

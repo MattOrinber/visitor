@@ -9,6 +9,9 @@ public interface VisitorUserRepository extends BaseRepository<User, Long> {
 	@Query("select u from User u where userEmail = ?1 and userStatus = 0 ")
 	User findUserByEmail(String userEmail);
 	
+	@Query("select u from User u where userEmail = ?1 and userPassword = ?2 and userStatus = 0 ")
+	User findUserByEmailAndPassword(String userEmail, String userPassword);
+	
 	@Query("select count(u.userId) from User u where userEmail = ?1 and userStatus = 0")
 	long findUserCountByEmail(String userEmail);
 	

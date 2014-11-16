@@ -35,8 +35,8 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 	
 	<form id="registerMoreInfo">
         
-	    <span>First Name</span><input id="firstNameStr" name="firstNameStr" value="meng" type="text"  minlength="1" required="true"/><br />
-		<span>Last Name</span><input id="lastNameStr" name="lastNameStr" value="wu" type="text" minlength="1" required="true"/><br />
+	    <span>First Name</span><input id="firstNameStr" name="firstNameStr" value="meng" type="string"  minlength="2" required="true"/><br />
+		<span>Last Name</span><input id="lastNameStr" name="lastNameStr" value="wu" type="string" minlength="2" required="true"/><br />
 		
 		<span>I Am </span>
 		<select id="gender" name="genderStr">
@@ -46,14 +46,14 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 		        <option value="Other">Other</option>
 		</select>
 		
-		<span>Birth date</span><input id="brthDateStr" name="birthDateStr" value="2010-01-05" type="text" minlength="1" required="true"/><br />
+		<span>Birth date</span><input id="birthDateStr" name="birthDateStr" value="2010-01-05" type="string" minlength="2" required="true"/><br />
 		
 		<span>Email Address</span><input id="emailRevStr" name="emailRevStr" value="wum_132@163.com" type="email" required="true"/><br />
 		
-		<span>Where you live</span><input id="addressStr" name="addressStr" value="Beijing" type="text" minlength="1" required="true"/><br />
-		<span>Describe Yourself</span><input id="descriptionStr" name="descriptionStr" value="Beijing" type="text" minlength="1" required="true"/><br />
-		<span>School</span><input id="schoolStr" name="schoolStr" value="Stanford" type="text" minlength="1" required="true"/><br />
-		<span>Work</span><input id="workStr" name="workStr" value="Computer Guy" type="text" minlength="1" required="true"/><br />
+		<span>Where you live</span><input id="addressStr" name="addressStr" value="Beijing" type="string" minlength="2" required="true"/><br />
+		<span>Describe Yourself</span><input id="descriptionStr" name="descriptionStr" value="Beijing" type="string" minlength="2" required="true"/><br />
+		<span>School</span><input id="schoolStr" name="schoolStr" value="Stanford" type="string" minlength="2" required="true"/><br />
+		<span>Work</span><input id="workStr" name="workStr" value="Computer Guy" type="string" minlength="2" required="true"/><br />
 		
 		<span>timezone</span>
 		<select id="timeZoneStr" name="timeZoneStr">
@@ -73,10 +73,10 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
         <hr />
         
         <span>Emergency Contact</span> <br/>
-        <span>Name</span><input id="emerNameStr" name="emerNameStr" value="duoduo" type="text" minlength="1" required="true"/><br />
-        <span>Phone</span><input id="emerPhoneStr" name="emerPhoneStr" value="13810926825" type="text" minlength="1" required="true"/><br />
+        <span>Name</span><input id="emerNameStr" name="emerNameStr" value="duoduo" type="string" minlength="2" required="true"/><br />
+        <span>Phone</span><input id="emerPhoneStr" name="emerPhoneStr" value="13810926825" type="string" minlength="2" required="true"/><br />
         <span>Email</span><input id="emerEmailStr" name="emerEmailStr" value="wum_132@126.com" type="email" required="true"/><br />
-        <span>Relationship</span><input id="emerRelationshipStr" name="emerRelationshipStr" value="wife" type="text" minlength="1" required="true"/><br />
+        <span>Relationship</span><input id="emerRelationshipStr" name="emerRelationshipStr" value="wife" type="string" minlength="2" required="true"/><br />
         
 		<![CDATA[
 		<span>Detail</span><br />

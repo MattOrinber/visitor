@@ -2,6 +2,7 @@ package org.visitor.appportal.web.controller.common;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
@@ -16,6 +17,7 @@ import org.visitor.appportal.service.newsite.mongo.UserMongoService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.visitor.beans.RegisterInfo;
 import org.visitor.appportal.visitor.beans.ResultJson;
+import org.visitor.appportal.visitor.beans.UserTemp;
 import org.visitor.appportal.visitor.beans.mongo.UserMongoBean;
 import org.visitor.appportal.visitor.domain.User;
 
@@ -63,16 +65,14 @@ public class UserController extends BasicController{
 			
 			result = 0;
 			resultDesc = RegisterInfo.REGISTER_SUCCESS;
+			
+			logTheRegisterTime(mailStrParam);
 		} else {
 			result = 1;
 			resultDesc = RegisterInfo.REGISTER_EMAIL_EXISTS;
 		}
 		
-		ResultJson resultJson = new ResultJson();
-		resultJson.setResult(result);
-		resultJson.setResultDesc(resultDesc);
-		
-		sendJSONResponse(resultJson, response);
+		setResultToClient(response, result, resultDesc);
 	}
 	
 	@RequestMapping("login/{emailStr}/{passMd5}")
@@ -86,8 +86,26 @@ public class UserController extends BasicController{
 		User user = userRedisService.getUserPassword(mailStrParam);
 		
 		if (user == null) {
-			result = 0;
-			resultDesc = RegisterInfo.LOGIN_FAILED_USER_NOTEXISTED;
+			
+			//get from database
+			User userT = visitorUserService.getUserFromEmailAndPassword(mailStrParam, passwordStrParam);
+			
+			if (userT == null) {
+				result = 0;
+				resultDesc = RegisterInfo.LOGIN_FAILED_USER_NOTEXISTED;
+			} else {
+				result = 0;
+				resultDesc = RegisterInfo.LOGIN_SUCCESS;
+				Date loginDate = new Date();
+				userT.setUserLastLoginTime(loginDate);
+				
+				//save to database and redis
+				visitorUserService.saveUser(userT);
+				userRedisService.saveUserPassword(userT);
+				
+				logTheLogintime(mailStrParam);
+			}
+			
 		} else {
 			if (StringUtils.equals(user.getUserPassword(), passwordStrParam)) {
 				result = 0;
@@ -97,16 +115,48 @@ public class UserController extends BasicController{
 				user.setUserLastLoginTime(loginDate);
 				
 				visitorUserService.saveUser(user);
+				logTheLogintime(mailStrParam);
 			} else {
 				result = -2;
 				resultDesc = RegisterInfo.LOGIN_FAILED_PASSWORD_NOT_RIGHT;
 			}
 		}
 		
+		setResultToClient(response, result, resultDesc);
+	}
+	
+	@RequestMapping("postDetail")
+	public void postUserDetail(HttpServletRequest request, HttpServletResponse response) {
+		UserTemp ut = super.getUserJson(request);
+		
+		logTheJsonResult(ut);
+		
+		Integer result = 0;
+		String resultDesc = "";
+		
+		result = 0;
+		resultDesc = RegisterInfo.UPDATE_SUCCESS;
+		
+		setResultToClient(response, result, resultDesc);
+	}
+	
+	private void setResultToClient(HttpServletResponse response, Integer result, String resultDesc) {
 		ResultJson resultJson = new ResultJson();
 		resultJson.setResult(result);
 		resultJson.setResultDesc(resultDesc);
 		
 		sendJSONResponse(resultJson, response);
+	}
+	
+	private void logTheLogintime(String emailStr) {
+		if (log.isInfoEnabled()) {
+			log.info("<user login>: >" + emailStr + "<");
+		}
+	}
+	
+	private void logTheRegisterTime(String emailStr) {
+		if (log.isInfoEnabled()) {
+			log.info("<user register>: >" + emailStr + "<");
+		}
 	}
 }
