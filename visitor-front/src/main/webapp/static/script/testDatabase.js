@@ -1,7 +1,7 @@
 // input form validator
 
-//websocket part
-//var url = "ws://172.18.100.66:61623/mybroker";
+// websocket part
+// var url = "ws://172.18.100.66:61623/mybroker";
 var url = "ws://192.168.1.106:61623/mybroker";
 var __SPLIT__ = "---";
 
@@ -37,8 +37,22 @@ $(document).ready(function(){
 		}
 	});
 	
+	// product
+	CKEDITOR.replace( 'productOverviewDetailStr', {
+		coreStyles_bold: { element: 'b' },
+		coreStyles_italic: { element: 'i' },
+
+		fontSize_style: {
+			element: 'font',
+			attributes: { 'size': '#(size)' }
+		}
+	});
+	
 	connectToWS();
 });
+
+
+//--------------------------------------user part-----------------------
 
 function registerVisitor(pathOri)
 {
@@ -201,4 +215,55 @@ function saveVisitorMoreInfo(pathOri) {
 	        }  
 	    }); 
 	}
+}
+
+
+
+
+//---------------------------------product part---------------------------------
+
+function createProduct(pathOri)
+{
+	var form = $("#productBasicInfo");
+	form.validate();
+	var ifValidateForm = form.valid();
+	if (ifValidateForm) {
+		var product = {};
+		var productHomeTypeStr = $("#productHomeTypeStr").val();
+		var productRoomTypeStr = $("#productRoomTypeStr").val();
+		var productAccomodatesStr = $("#productAccomodatesStr").val();
+		var productCityStr = $("#productCityStr").val();
+		
+		product.productHomeTypeStr = productHomeTypeStr;
+		product.productRoomTypeStr = productRoomTypeStr;
+		product.productAccomodatesStr = productAccomodatesStr;
+		product.productCityStr = productCityStr;
+	    
+	    var urlStrStr = pathOri + '/product/create';
+	    var jsonStr = $.toJSON(user);
+		alert(jsonStr);
+	    
+	    $.ajax({ 
+	        type : 'POST',  
+	        contentType : 'application/json',  
+	        url : urlStrStr,  
+	        processData : false,  
+	        dataType : 'json',  
+	        data : jsonStr,  
+	        success : function(data) {  
+	        	var dataRes = "create product result: " + data.result + "; resultDesc: " + data.resultDesc;
+	            alert(dataRes);
+	            var boxVar = $("#productBasicInfo");
+	            boxVar.append("<p>"+dataRes+"</p>");
+	        },  
+	        error : function() {  
+	            alert('Err...');  
+	        }  
+	    }); 
+	}
+}
+
+function saveProductDetails(pathOri)
+{
+	;
 }

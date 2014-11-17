@@ -45,7 +45,7 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 		        <option value="Female">Female</option>
 		        <option value="Other">Other</option>
 		</select>
-		<span>Phone</span><input id="phoneNumberStr" name="phoneNumberStr" value="13911701040" type="string" minlength="2" required="true"/><br />
+		<span>Self Phone</span><input id="phoneNumberStr" name="phoneNumberStr" value="13911701040" type="string" minlength="2" required="true"/><br />
 		<span>Birth date</span><input id="birthDateStr" name="birthDateStr" value="2010-01-05" type="string" minlength="2" required="true"/><br />
 		
 		<span>Email Address</span><input id="emailRevStr" name="emailRevStr" value="wum_132@163.com" type="email" required="true"/><br />
@@ -84,5 +84,96 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
         ]]>
         <input class="button" type="button" value="Save" onclick="saveVisitorMoreInfo('${pageContext.request.contextPath}');"/><br />
 	</form>
+	
+	<hr />
+	
+	<!-- start from here -->
+	
+	<form id="productBasicInfo">
+        
+	    <span>Home Type</span><input id="productHomeTypeStr" name="productHomeTypeStr" value="0" type="string" minlength="1" required="true"/><br />
+		<span>Room Type</span><input id="productRoomTypeStr" name="productRoomTypeStr" value="0" type="string" minlength="1" required="true"/><br />
+		<span>Accomodates</span><input id="productAccomodatesStr" name="productAccomodatesStr" value="5" type="string" minlength="1" required="true"/><br />
+		<span>City</span><input id="productCityStr" name="productCityStr" value="Rome" type="string" minlength="2" required="true"/><br />
+		
+	    <input class="button" type="button" value="Create" onclick="createProduct('${pageContext.request.contextPath}');"/><br />
+	    
+	</form>
+	
+	<hr />
+	
+	<form id="productMoreInfo">
+	
+		<span>Available Type</span>
+		<select id="productAvailableType" name="productAvailableType">
+	        <option value="0" selected="selected">Always</option>
+	        <option value="1">Sometimes</option>
+	        <option value="2">One Time</option>
+		</select>
+		
+		<span>Currency</span>
+		<select id="productCurrency" name="productCurrency">
+	        <option value="0" selected="selected">CNY</option>
+	        <option value="1">USD</option>
+	        <option value="2">CAD</option>
+		</select>
+        
+	    <span>Base Price</span><input id="productBasepriceStr" name="productBasepriceStr" value="250" type="string" minlength="1" required="true"/><br />
+		<span>Overview</span><input id="productOverviewTitleStr" name="productOverviewTitleStr" value="Awesome Place!" type="string" minlength="6" required="true"/><br />
+		<![CDATA[
+		<span>Overview Detail</span><br />
+		<textarea id="productOverviewDetailStr" name="productOverviewDetailStr" rows="10" cols="80"></textarea>
+        ]]>
+		
+		<span>Amenities</span><br />
+		<div id="productAmenitiesStr">
+		    <label><input type="checkbox" name="productAmenitiesList" value="0" data-value="Essentials" />Essentials</label>
+		    <label><input type="checkbox" name="productAmenitiesList" value="1" data-value="TV" />TV</label>
+		    <label><input type="checkbox" name="productAmenitiesList" value="2" data-value="Cable TV" />Cable TV</label>
+        </div> <br />
+        <hr />
+        
+        <span>Bedrooms</span>
+		<select id="productBedroomNum" name="productBedroomNum">
+	        <option value="1" selected="selected">1</option>
+	        <option value="2">2</option>
+	        <option value="3">3</option>
+		</select>
+		
+		<!-- how to do validate on this -->
+		<span>Beds</span>  
+		<select id="productBedsNum" name="productBedsNum">
+	        <option value="1" selected="selected">1</option>
+	        <option value="2">2</option>
+	        <option value="3">3</option>
+		</select>
+		
+		<span>Bathrooms</span>
+		<select id="productBathroomNum" name="productBathroomNum">
+	        <option value="1" selected="selected">1</option>
+	        <option value="2">2</option>
+	        <option value="3">3</option>
+		</select>
+        
+        <!-- product address related  -->
+		
+		<span>Country</span><input id="productCountryStr" name="productCountryStr" value="China" type="string" minlength="2" required="true"/><br />
+		<span>State</span><input id="productStateStr" name="productStateStr" value="Beijing" type="string" minlength="2" required="true"/><br />
+		
+		<span>City</span><input id="productCityStr" name="productCityStr" value="Beijing" type="string" minlength="2" required="true"/><br />
+		<span>Zipcode</span><input id="productZipcodeStr" name="productZipcodeStr" value="100102" type="string" minlength="2" required="true"/><br />
+		<span>Street Address</span><input id="productStreetAddressStr" name="productStreetAddressStr" value="6 Futong East Street" type="string" minlength="6" required="true"/><br />
+		<span>Address detail</span><input id="productAddressDetailStr" name="productAddressDetailStr" value="Tower B" type="string" minlength="2" required="true"/><br />
+		
+		<!-- add image add utility -->
+		
+		
+		
+        <input class="button" type="button" value="SaveDetail" onclick="saveProductDetails('${pageContext.request.contextPath}');"/><br />
+	</form>
+	
+	<!-- book product  and use paypal to pay-->
+	
+	
 </body>
 </jsp:root>
