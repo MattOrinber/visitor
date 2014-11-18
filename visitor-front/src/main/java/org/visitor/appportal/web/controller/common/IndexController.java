@@ -68,4 +68,14 @@ public class IndexController extends BasicController {
 		return "websocket";
 		
 	}
+	
+	@RequestMapping({"userPicUpload"})
+	public String userPicUpload(HttpServletRequest request, Model model) {
+		return "userPicUpload";
+	}
+	
+	@RequestMapping({"productPicUpload"})
+	public String productPicUpload(HttpServletRequest request, Model model) {
+		return "productPicUpload";
+	}
 }

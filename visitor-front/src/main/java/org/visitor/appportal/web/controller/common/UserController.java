@@ -1,5 +1,6 @@
 package org.visitor.appportal.web.controller.common;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.visitor.appportal.service.newsite.S3Service;
+import org.visitor.appportal.service.newsite.SystemPreference;
 import org.visitor.appportal.service.newsite.VisitorUserService;
 import org.visitor.appportal.service.newsite.mongo.UserMongoService;
 import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
@@ -24,6 +29,8 @@ import org.visitor.appportal.visitor.beans.UserTemp;
 import org.visitor.appportal.visitor.beans.mongo.UserMongoBean;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.web.utils.WebInfo;
+
+import com.amazonaws.services.s3.model.ObjectMetadata;
 
 @Controller
 @RequestMapping("/registerUser/")
@@ -38,6 +45,10 @@ public class UserController extends BasicController{
 	private UserRedisService userRedisService;
 	@Autowired
 	private TimezoneRedisService timezoneRedisService;
+	@Autowired
+	private S3Service s3Service;
+	@Autowired
+	private SystemPreference systemPreference;
 	
 	@RequestMapping("register/{emailStr}/{passMd5}")
     public void register(@PathVariable("emailStr") String mailStrParam, 
@@ -46,6 +57,7 @@ public class UserController extends BasicController{
 		long count = visitorUserService.checkUserCount(mailStrParam);
 		Integer result = 0;
 		String resultDesc = "";
+		ResultJson rj = new ResultJson();
 		if (count == 0) {
 			User user = new User();
 			user.setUserEmail(mailStrParam);
@@ -72,7 +84,10 @@ public class UserController extends BasicController{
 			resultDesc = RegisterInfo.REGISTER_EMAIL_EXISTS;
 		}
 		
-		setResultToClient(response, result, resultDesc);
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		setResultToClient(response, rj);
 	}
 	
 	@RequestMapping("login/{emailStr}/{passMd5}")
@@ -80,8 +95,136 @@ public class UserController extends BasicController{
     		@PathVariable("passMd5") String passwordStrParam,
     		HttpServletResponse response) {
 		
+		ResultJson rj = checkIfTheUserLegal(mailStrParam, passwordStrParam);
+		
+		setResultToClient(response, rj);
+	}
+	
+	@RequestMapping("postDetail")
+	public void postUserDetail(HttpServletRequest request, HttpServletResponse response) throws ParseException {
+		UserTemp ut = super.getUserJson(request);
+		
+		logTheJsonResult(ut);
+		
+		//update mysql
+		String mailStrParam = ut.getEmailStr();
+		String passwordStrParam = ut.getPasswordStr();
 		Integer result = 0;
 		String resultDesc = "";
+		
+		ResultJson rj = checkIfTheUserLegal(mailStrParam, passwordStrParam);
+		
+		if (rj.getResult().intValue() >= 0) {
+			User user = userRedisService.getUserPassword(mailStrParam);
+			
+			//update mysql
+			user.setUserAddress(ut.getAddressStr());
+			String birthDateT = ut.getBirthDateStr();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");  
+			Date dateT = sdf.parse(birthDateT);
+			user.setUserBirthdate(dateT);
+			
+			user.setUserFirstName(ut.getFirstNameStr());
+			user.setUserLastName(ut.getLastNameStr());
+			user.setUserGender(getGenderInteger(ut.getGenderStr()));
+			user.setUserLanguage(ut.getLanguageSpokenSelect());
+			user.setUserPhonenum(ut.getPhoneNumberStr()); //phone number not here
+			user.setUserSchool(ut.getSchoolStr());
+			user.setUserWork(ut.getWorkStr());
+			String userEmergencyStr = ut.getEmerNameStr() + WebInfo.SPLIT 
+					+ ut.getEmerEmailStr() + WebInfo.SPLIT
+					+ ut.getEmerPhoneStr() + WebInfo.SPLIT
+					+ ut.getEmerRelationshipStr();
+			user.setUserEmergency(userEmergencyStr);
+			
+			Integer userTimeZoneInt = timezoneRedisService.getTimeZoneId(ut.getTimeZoneStr());
+			
+			user.setUserTimeZone(userTimeZoneInt);
+			
+			//mysql
+			visitorUserService.saveUser(user);
+			//redis
+			userRedisService.saveUserPassword(user);
+			//save mongo
+			UserMongoBean userMongoBean = new UserMongoBean();
+			userMongoBean.setUser_email(user.getUserEmail());
+			userMongoBean.setUser_description(ut.getDescriptionStr());
+			userMongoBean.setLast_login_forward_ip("192.168.1.1");
+			userMongoService.saveUserDetail(userMongoBean);
+			
+			result = 0;
+			resultDesc = RegisterInfo.UPDATE_SUCCESS;
+			
+			rj.setResult(result);
+			rj.setResultDesc(resultDesc);
+		}
+		
+		setResultToClient(response, rj);
+	}
+	
+	@RequestMapping("usericon/create")
+	public void userIconCreate(HttpServletRequest request, 
+			HttpServletResponse response,
+			@RequestParam("fileUserIcon") MultipartFile uploadFile, 
+			@RequestParam("emailStr") String userEmailStr,
+			@RequestParam("passwordStr") String userPasswordStr) {
+		
+		Integer result = 0;
+		String resultDesc = "";
+		ResultJson resultJ = new ResultJson();
+		
+		if (uploadFile != null && !uploadFile.isEmpty()) {
+			if (StringUtils.isNotEmpty(userEmailStr) && StringUtils.isNotEmpty(userPasswordStr)) {
+				ResultJson rj = checkIfTheUserLegal(userEmailStr, userPasswordStr);
+				
+				if (rj.getResult().intValue() >=0 ) {
+					
+					// do actual file upload
+					User user = userRedisService.getUserPassword(userEmailStr);
+					ObjectMetadata meta = new ObjectMetadata();
+					meta.setContentLength(uploadFile.getSize());
+					meta.setContentType(uploadFile.getContentType());
+					try {
+						s3Service.createNewFile("/user/icon"+user.getUserId()+"/"+uploadFile.getOriginalFilename(), uploadFile.getInputStream(), systemPreference.getAwsImgDomain(), meta);
+						
+						result = 0;
+						resultDesc = RegisterInfo.USER_ICON_SET_SUCCESS;
+						resultJ.setResult(result);
+						resultJ.setResultDesc(resultDesc);
+						
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else {
+					resultJ.setResult(rj.getResult());
+					resultJ.setResultDesc(rj.getResultDesc());
+				}
+			} else {
+				result = -5;
+				resultDesc = RegisterInfo.USER_PARAM_ILLEGAL;
+				
+				resultJ.setResult(result);
+				resultJ.setResultDesc(resultDesc);
+			}
+		} else {
+			result = -4;
+			resultDesc = RegisterInfo.USER_ICON_DATA_NULL;
+			
+			resultJ.setResult(result);
+			resultJ.setResultDesc(resultDesc);
+		}
+		
+		setResultToClient(response, resultJ);
+	}
+	
+	private ResultJson checkIfTheUserLegal(String mailStrParam, String passwordStrParam) {
+		Integer result = 0;
+		String resultDesc = "";
+		ResultJson resultJson = new ResultJson();
 		
 		User user = userRedisService.getUserPassword(mailStrParam);
 		
@@ -122,94 +265,12 @@ public class UserController extends BasicController{
 			}
 		}
 		
-		setResultToClient(response, result, resultDesc);
-	}
-	
-	@RequestMapping("postDetail")
-	public void postUserDetail(HttpServletRequest request, HttpServletResponse response) throws ParseException {
-		UserTemp ut = super.getUserJson(request);
-		
-		logTheJsonResult(ut);
-		
-		//update mysql
-		String mailStrParam = ut.getEmailStr();
-		String passwordStrParam = ut.getPasswordStr();
-		
-		Integer result = 0;
-		String resultDesc = "";
-		Boolean canUpdate = false;
-		User user = userRedisService.getUserPassword(mailStrParam);
-		
-		if (user == null) {
-			//get from database
-			user = visitorUserService.getUserFromEmailAndPassword(mailStrParam, passwordStrParam);
-			
-			if (user == null) {
-				result = -3;
-				resultDesc = RegisterInfo.LOGIN_FAILED_USER_NOTEXISTED;
-			} else {
-				canUpdate = true;
-				userRedisService.saveUserPassword(user);
-			}
-			
-		} else {
-			if (StringUtils.equals(user.getUserPassword(), passwordStrParam)) {
-				canUpdate = true;
-			} else {
-				result = -2;
-				resultDesc = RegisterInfo.LOGIN_FAILED_PASSWORD_NOT_RIGHT;
-			}
-		}
-		
-		if (canUpdate) {
-			
-			//update mysql
-			user.setUserAddress(ut.getAddressStr());
-			String birthDateT = ut.getBirthDateStr();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");  
-			Date dateT = sdf.parse(birthDateT);
-			user.setUserBirthdate(dateT);
-			
-			user.setUserFirstName(ut.getFirstNameStr());
-			user.setUserLastName(ut.getLastNameStr());
-			user.setUserGender(getGenderInteger(ut.getGenderStr()));
-			user.setUserLanguage(ut.getLanguageSpokenSelect());
-			user.setUserPhonenum(ut.getPhoneNumberStr()); //phone number not here
-			user.setUserSchool(ut.getSchoolStr());
-			user.setUserWork(ut.getWorkStr());
-			String userEmergencyStr = ut.getEmerNameStr() + WebInfo.SPLIT 
-					+ ut.getEmerEmailStr() + WebInfo.SPLIT
-					+ ut.getEmerPhoneStr() + WebInfo.SPLIT
-					+ ut.getEmerRelationshipStr();
-			user.setUserEmergency(userEmergencyStr);
-			
-			Integer userTimeZoneInt = timezoneRedisService.getTimeZoneId(ut.getTimeZoneStr());
-			
-			user.setUserTimeZone(userTimeZoneInt);
-			
-			//mysql
-			visitorUserService.saveUser(user);
-			//redis
-			userRedisService.saveUserPassword(user);
-			//save mongo
-			UserMongoBean userMongoBean = new UserMongoBean();
-			userMongoBean.setUser_email(user.getUserEmail());
-			userMongoBean.setUser_description(ut.getDescriptionStr());
-			userMongoBean.setLast_login_forward_ip("192.168.1.1");
-			userMongoService.saveUserDetail(userMongoBean);
-			
-			result = 0;
-			resultDesc = RegisterInfo.UPDATE_SUCCESS;
-		}
-		
-		setResultToClient(response, result, resultDesc);
-	}
-	
-	private void setResultToClient(HttpServletResponse response, Integer result, String resultDesc) {
-		ResultJson resultJson = new ResultJson();
 		resultJson.setResult(result);
 		resultJson.setResultDesc(resultDesc);
-		
+		return resultJson;
+	}
+	
+	private void setResultToClient(HttpServletResponse response, ResultJson resultJson) {
 		sendJSONResponse(resultJson, response);
 	}
 	

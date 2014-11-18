@@ -46,6 +46,14 @@ public class SystemPreference {
 	//按照合作方式进行排序
 	private Map<Long, Integer> gameCoorperationMap;
 	private Map<Long, Integer> androidCoorperationMap;
+	
+	private String accessKey;
+	private String secretKey;
+	private String imgBucketName;
+	private String fileBucketName;
+	private String merchantBucketName;
+	private String awsFileDomain;
+	private String awsImgDomain;
 
 	/**
 	 * 
@@ -370,6 +378,80 @@ public class SystemPreference {
 
 	public Map<Long, Integer> getSymbianCooperationModelSortOrder() {
 		return this.getAndroidCooperationModelSortOrder();
+	}
+	
+	/**
+	 * @param aws.accessKey
+	 */
+	@Value("#{systemProperties['aws.accessKey']}")
+	public void setAccessKey(String accessKey) {
+	    this.accessKey = accessKey;
+	}
+
+	public String getAccessKey() {
+	    return accessKey;
+	}
+	/**
+	 * @param aws.accessKey
+	 */
+	@Value("#{systemProperties['aws.secretKey']}")
+	public void setSecretKey(String secretKey) {
+	    this.secretKey = secretKey;
+	}
+
+	public String getSecretKey() {
+	    return secretKey;
+	}
+	/**
+	 * @param aws.bucketName
+	 */
+	@Value("#{systemProperties['aws.imgBucketName']}")
+	public void setImgBucketName(String imgBucketName) {
+	    this.imgBucketName = imgBucketName;
+	}
+
+	public String getImgBucketName() {
+	    return imgBucketName;
+	}
+	/**
+	 * @param aws.bucketName
+	 */
+	@Value("#{systemProperties['aws.fileBucketName']}")
+	public void setFileBucketName(String fileBucketName) {
+	    this.fileBucketName = fileBucketName;
+	}
+
+	public String getFileBucketName() {
+	    return fileBucketName;
+	}
+	/**
+	 * @param aws.bucketName
+	 */
+	@Value("#{systemProperties['aws.merchantBucketName']}")
+	public void setMerchantBucketName(String merchantBucketName) {
+	    this.merchantBucketName = merchantBucketName;
+	}
+
+	public String getMerchantBucketName() {
+	    return merchantBucketName;
+	}
+	
+
+	public String getAwsFileDomain() {
+		return awsFileDomain;
+	}
+
+	@Value("#{systemProperties['aws.fileDomain']}")
+	public void setAwsFileDomain(String awsFileDomain) {
+		this.awsFileDomain = awsFileDomain;
+	}
+	public String getAwsImgDomain() {
+		return awsImgDomain;
+	}
+
+	@Value("#{systemProperties['aws.imgDomain']}")
+	public void setAwsImgDomain(String awsImgDomain) {
+		this.awsImgDomain = awsImgDomain;
 	}
 	
 }
