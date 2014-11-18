@@ -54,6 +54,9 @@ public class SystemPreference {
 	private String merchantBucketName;
 	private String awsFileDomain;
 	private String awsImgDomain;
+	
+	private String paypalClientID;
+	private String paypalClientSecret;
 
 	/**
 	 * 
@@ -452,6 +455,22 @@ public class SystemPreference {
 	@Value("#{systemProperties['aws.imgDomain']}")
 	public void setAwsImgDomain(String awsImgDomain) {
 		this.awsImgDomain = awsImgDomain;
+	}
+
+	public String getPaypalClientID() {
+		return paypalClientID;
+	}
+	@Value("#{systemProperties['paypalClientID']}")
+	public void setPaypalClientID(String paypalClientID) {
+		this.paypalClientID = paypalClientID;
+	}
+
+	public String getPaypalClientSecret() {
+		return paypalClientSecret;
+	}
+	@Value("#{systemProperties['paypalClientSecret']}")
+	public void setPaypalClientSecret(String paypalClientSecret) {
+		this.paypalClientSecret = paypalClientSecret;
 	}
 	
 }

@@ -16,6 +16,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.DeserializationConfig.Feature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.visitor.appportal.visitor.beans.PayTemp;
 import org.visitor.appportal.visitor.beans.UserTemp;
 import org.visitor.appportal.web.mailutils.SendMailUtils;
 import org.visitor.appportal.web.mailutils.UserMailException;
@@ -54,6 +55,39 @@ public class BasicController {
 			
 			UserTemp userT = JSON.parseObject(originStr, UserTemp.class);
 			return userT;
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public PayTemp getPayJson(HttpServletRequest request) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		InputStream in;
+		try {
+			in = request.getInputStream();
+			byte[] buf = new byte[1024];
+			for (;;) {
+				int len = in.read(buf);
+				if (len == -1) {
+					break;
+				}
+
+				if (len > 0) {
+					baos.write(buf, 0, len);
+				}
+			}
+			if (baos.size() <= 0)
+			{
+				return null;
+			}
+			byte[] bytes = baos.toByteArray();
+			String originStr = new String(bytes);
+			
+			PayTemp payT = JSON.parseObject(originStr, PayTemp.class);
+			return payT;
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
