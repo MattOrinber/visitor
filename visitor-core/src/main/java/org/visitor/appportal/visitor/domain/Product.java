@@ -1,12 +1,20 @@
 package org.visitor.appportal.visitor.domain;
 
+import static javax.persistence.TemporalType.TIMESTAMP;
+
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 @Table(name = "product")
@@ -35,6 +43,11 @@ public class Product {
 	private Integer productCheckoutafter;
 	private Integer productCancellationpolicy;
 	private String productAvailkey;
+	private Integer productStatus;
+	private Date productCreateDate;
+	private String productCity;
+	private Date productUpdateDate;
+	private Long productPublishUserId;
 	
 	@Column(name = "product_id", nullable = false, unique = true, precision = 20)
 	@GeneratedValue
@@ -216,5 +229,53 @@ public class Product {
 	}
 	public void setProductAvailkey(String productAvailkey) {
 		this.productAvailkey = productAvailkey;
+	}
+	
+	@NotNull
+	@Column(name = "product_status", nullable = false, precision = 2)
+	public Integer getProductStatus() {
+		return productStatus;
+	}
+	public void setProductStatus(Integer productStatus) {
+		this.productStatus = productStatus;
+	}
+	
+	@Column(name = "product_create_date", nullable = true, length = 19)
+	@Temporal(TIMESTAMP)
+	@DateTimeFormat(iso = ISO.DATE)
+	public Date getProductCreateDate() {
+		return productCreateDate;
+	}
+	public void setProductCreateDate(Date productCreateDate) {
+		this.productCreateDate = productCreateDate;
+	}
+	
+	@Length(max = 31)
+	@NotNull
+	@Column(name = "product_city")
+	public String getProductCity() {
+		return productCity;
+	}
+	public void setProductCity(String productCity) {
+		this.productCity = productCity;
+	}
+	
+	@Column(name = "product_update_date", nullable = true, length = 19)
+	@Temporal(TIMESTAMP)
+	@DateTimeFormat(iso = ISO.DATE)
+	public Date getProductUpdateDate() {
+		return productUpdateDate;
+	}
+	public void setProductUpdateDate(Date productUpdateDate) {
+		this.productUpdateDate = productUpdateDate;
+	}
+	
+	@NotNull
+	@Column(name = "product_publish_user_id", nullable = false, precision = 20)
+	public Long getProductPublishUserId() {
+		return productPublishUserId;
+	}
+	public void setProductPublishUserId(Long productPublishUserId) {
+		this.productPublishUserId = productPublishUserId;
 	}
 }

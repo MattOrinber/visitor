@@ -24,6 +24,7 @@ public class RelationProductOrder {
 	private Long rPuUserProductId;
 	private Long rPuUserId;
 	private Integer rPuStatus;
+	private Integer rPuTotalAmount;
 	private String rPuBookdatelistKey;
 	private Date rPuBookdate;
 	private Date rPuLastbookupdatedate;
@@ -92,5 +93,14 @@ public class RelationProductOrder {
 	}
 	public void setrPuLastbookupdatedate(Date rPuLastbookupdatedate) {
 		this.rPuLastbookupdatedate = rPuLastbookupdatedate;
+	}
+	
+	@NotNull
+	@Column(name = "r_pu_totalamount", nullable = false, precision = 10)
+	public Integer getrPuTotalAmount() {
+		return rPuTotalAmount;
+	}
+	public void setrPuTotalAmount(Integer rPuTotalAmount) {
+		this.rPuTotalAmount = rPuTotalAmount;
 	}
 }

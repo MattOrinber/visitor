@@ -1,15 +1,11 @@
 // input form validator
 
-var emailPublishStr = "wum_132@163.com";
-var passwordPublishStr = "e10adc3949ba59abbe56e057f20f883e";
-
-var splitStr = "---";
-
 function publishTimeZone(pathOri)
 {
-    var passwordMd5 = $.md5(emailPublishStr + splitStr + passwordPublishStr);
-    
-    var urlStrStr = pathOri + '/publishinfo/timezone?userEmail='+emailPublishStr+'&userPassword='+passwordMd5;
+	var userLoginEmailStr = $("#userLoginEmailStr").html();
+	var userLoginTokenStr = $("#userLoginTokenStr").html();
+	
+    var urlStrStr = pathOri + '/publishinfo/timezone?userLoginEmail='+userLoginEmailStr+'&userLoginToken='+userLoginTokenStr;
     var jsonStr = '{"aa":"bb"}';
     
     $.ajax({ 
@@ -33,9 +29,10 @@ function publishTimeZone(pathOri)
 
 function publishLanuage(pathOri) 
 {
-    var passwordMd5 = $.md5(emailPublishStr + splitStr + passwordPublishStr);
+	var userLoginEmailStr = $("#userLoginEmailStr").html();
+	var userLoginTokenStr = $("#userLoginTokenStr").html();
     
-    var urlStrStr = pathOri + '/publishinfo/language?userEmail='+emailPublishStr+'&userPassword='+passwordMd5;
+    var urlStrStr = pathOri + '/publishinfo/language?userLoginEmail='+userLoginEmailStr+'&userLoginToken='+userLoginTokenStr;
     var jsonStr = '{"aa":"bb"}';
     
     $.ajax({ 

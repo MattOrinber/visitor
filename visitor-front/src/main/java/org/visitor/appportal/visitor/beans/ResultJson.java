@@ -3,6 +3,8 @@ package org.visitor.appportal.visitor.beans;
 public class ResultJson {
 	private Integer result;
 	private String resultDesc;
+	private String token;
+	private String userEmail;
 	public Integer getResult() {
 		return result;
 	}
@@ -14,5 +16,17 @@ public class ResultJson {
 	}
 	public void setResultDesc(String resultDesc) {
 		this.resultDesc = resultDesc;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	public String getUserEmail() {
+		return userEmail;
+	}
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 }

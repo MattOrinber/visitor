@@ -26,9 +26,19 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 	    <span>Email</span><input id="emailStr" name="emailStr" value="wum_132@163.com" type="email" required="true"/><br />
 		<span>Password</span><input id="passwordStr" name="passwordStr" value="123456" type="password" minlength="6" required="true"/><br />
 		
+		<div id="userLoginTokenStr" style="display:none;"></div>
+		<div id="userLoginEmailStr" style="display:none;"></div>
+		
 	    <input class="button" type="button" value="Register" onclick="registerVisitor('${pageContext.request.contextPath}');"/><br />
 	    <input class="button" type="button" value="Login" onclick="loginVisitor('${pageContext.request.contextPath}');"/><br />
 	    
+	</form>
+	
+	<hr />
+	
+	<form id="publishBasicInfo">
+	    <input class="button" type="button" value="发布时区" onclick="publishTimeZone('${pageContext.request.contextPath}');"/><br />
+	    <input class="button" type="button" value="发布语言" onclick="publishLanuage('${pageContext.request.contextPath}');"/><br />
 	</form>
 	
 	<hr />

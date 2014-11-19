@@ -113,6 +113,10 @@ function loginVisitor(pathOri) {
 	            alert(dataRes);
 	            var boxVar = $("#registerBasicInfo");
 	            boxVar.append("<p>"+dataRes+"</p>");
+	            var tokenBoxVar = $("#userLoginTokenStr");
+	            var emailBoxVar = $("#userLoginEmailStr");
+	            tokenBoxVar.html(data.token);
+	            emailBoxVar.html(data.userEmail);
 	        },  
 	        error : function() {  
 	            alert('Err...');  
@@ -228,6 +232,10 @@ function createProduct(pathOri)
 	form.validate();
 	var ifValidateForm = form.valid();
 	if (ifValidateForm) {
+		
+		var userLoginEmailStr = $("#userLoginEmailStr").html();
+		var userLoginTokenStr = $("#userLoginTokenStr").html();
+		
 		var product = {};
 		var productHomeTypeStr = $("#productHomeTypeStr").val();
 		var productRoomTypeStr = $("#productRoomTypeStr").val();
@@ -239,7 +247,7 @@ function createProduct(pathOri)
 		product.productAccomodatesStr = productAccomodatesStr;
 		product.productCityStr = productCityStr;
 	    
-	    var urlStrStr = pathOri + '/product/create';
+	    var urlStrStr = pathOri + '/product/create?userLoginEmail='+userLoginEmailStr+'&userLoginToken='+userLoginTokenStr;
 	    var jsonStr = $.toJSON(user);
 		alert(jsonStr);
 	    

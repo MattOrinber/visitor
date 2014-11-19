@@ -77,4 +77,10 @@ public final class EncryptionUtil {
 		}
 	}
 	
+	public static String getToken(String emailStr, String passwordMd5Str) {
+		String md5Ori = emailStr + WebInfo.SPLIT + passwordMd5Str;
+		String md5Final = getMD5(md5Ori);
+		return md5Final;
+	}
+	
 }

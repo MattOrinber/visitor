@@ -12,8 +12,8 @@ import org.codehaus.jackson.map.DeserializationConfig.Feature;
 public class WebInfo {
 	public static final String SPLIT = "---";
 	
-	public static final String UserEmailStr = "userEmail";
-	public static final String UserPasswordStr = "userPassword";
+	public static final String UserEmailStr = "userLoginEmail";
+	public static final String UserPasswordStr = "userLoginToken";
 	
 	private static ObjectMapper objectMapper;
 	

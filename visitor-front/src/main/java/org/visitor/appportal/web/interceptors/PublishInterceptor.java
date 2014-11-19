@@ -30,8 +30,7 @@ public class PublishInterceptor implements HandlerInterceptor {
 		
 		if (StringUtils.isNotEmpty(userEmailT) && StringUtils.isNotEmpty(userPasswordT)) {
 			User userT = userRedisService.getUserPassword(userEmailT);
-			String md5Ori = userT.getUserEmail() + WebInfo.SPLIT + userT.getUserPassword();
-			String md5Final = EncryptionUtil.getMD5(md5Ori);
+			String md5Final = EncryptionUtil.getToken(userT.getUserEmail(), userT.getUserPassword());
 			
 			if (StringUtils.equals(userPasswordT, md5Final)) {
 				if (log.isInfoEnabled()) {
