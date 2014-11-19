@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.visitor.appportal.service.newsite.VisitorProductService;
 import org.visitor.appportal.visitor.beans.ProductTemp;
 import org.visitor.appportal.visitor.domain.Product;
+import org.visitor.appportal.web.utils.WebInfo;
 
 @Controller
 @RequestMapping("/product/")
@@ -43,6 +44,9 @@ public class ProductController extends BasicController {
 		
 		product.setProductCreateDate(newDate);
 		product.setProductUpdateDate(newDate);
+		
+		Long userIdTemp = (Long) request.getAttribute(WebInfo.UserID);
+		product.setProductPublishUserId(userIdTemp);
 		
 		visitorProductService.saveProduct(product);
 	}

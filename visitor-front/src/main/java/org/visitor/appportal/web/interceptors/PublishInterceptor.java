@@ -36,6 +36,7 @@ public class PublishInterceptor implements HandlerInterceptor {
 				if (log.isInfoEnabled()) {
 					log.info("authorization passed for user: >"+userEmailT+"<");
 				}
+				request.setAttribute(WebInfo.UserID, userT.getUserId());
 				return true;
 			}
 		}

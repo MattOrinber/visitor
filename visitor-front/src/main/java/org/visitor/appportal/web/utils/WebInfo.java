@@ -15,6 +15,8 @@ public class WebInfo {
 	public static final String UserEmailStr = "userLoginEmail";
 	public static final String UserPasswordStr = "userLoginToken";
 	
+	public static final String UserID = "userLoginId";
+	
 	private static ObjectMapper objectMapper;
 	
 	public static ObjectMapper getObjectMapperInstance() {
