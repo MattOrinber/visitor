@@ -10,6 +10,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.visitor.appportal.web.utils.WebInfo;
 
 /**
  * @author mengw
@@ -386,9 +387,14 @@ public class SystemPreference {
 	/**
 	 * @param aws.accessKey
 	 */
-	@Value("#{systemProperties['aws.accessKey']}")
+	@Value("#{systemProperties['thisCan.acsKey']}")
 	public void setAccessKey(String accessKey) {
-	    this.accessKey = accessKey;
+		String[] arr = accessKey.split(WebInfo.SPLIT);
+		String result = "";
+		for (String arrItem : arr) {
+			result += arrItem;
+		}
+	    this.accessKey = result;
 	}
 
 	public String getAccessKey() {
@@ -397,9 +403,14 @@ public class SystemPreference {
 	/**
 	 * @param aws.accessKey
 	 */
-	@Value("#{systemProperties['aws.secretKey']}")
+	@Value("#{systemProperties['thisCan.secKey']}")
 	public void setSecretKey(String secretKey) {
-	    this.secretKey = secretKey;
+		String[] arr = secretKey.split(WebInfo.SPLIT);
+		String result = "";
+		for (String arrItem : arr) {
+			result += arrItem;
+		}
+	    this.secretKey = result;
 	}
 
 	public String getSecretKey() {

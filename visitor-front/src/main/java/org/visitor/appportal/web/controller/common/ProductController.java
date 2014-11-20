@@ -48,6 +48,9 @@ public class ProductController extends BasicController {
 		Long userIdTemp = (Long) request.getAttribute(WebInfo.UserID);
 		product.setProductPublishUserId(userIdTemp);
 		
+		// redis need to store z-set
+		;
+		
 		visitorProductService.saveProduct(product);
 	}
 }
