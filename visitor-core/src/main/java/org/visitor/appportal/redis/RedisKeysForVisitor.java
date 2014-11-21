@@ -7,6 +7,10 @@ public class RedisKeysForVisitor {
 	public static String getVisitorRedisSplit() {
     	return "--#%%#--";
     }
+	
+	public static String getVisitorRedisWeakSplit() {
+		return "---";
+	}
     
     // redis info for login use
     // the key should be email
@@ -48,6 +52,10 @@ public class RedisKeysForVisitor {
     // the value should be product output whole String
     public static String getVisitorProductInfoKey() {
     	return "visitor-site-productinfokey";
+    }
+    
+    public static String getVisitorUserProductInfoKey() {
+    	return "visitor-site-user-productinfokey";
     }
     
     

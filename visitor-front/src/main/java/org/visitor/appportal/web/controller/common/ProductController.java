@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.visitor.appportal.service.newsite.VisitorProductService;
+import org.visitor.appportal.service.newsite.redis.ProductRedisService;
 import org.visitor.appportal.visitor.beans.ProductTemp;
 import org.visitor.appportal.visitor.domain.Product;
+import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.web.utils.WebInfo;
 
 @Controller
@@ -22,14 +24,16 @@ public class ProductController extends BasicController {
 	
 	@Autowired
 	private VisitorProductService visitorProductService;
+	@Autowired
+	private ProductRedisService productRedisService;
 	
 	@RequestMapping("create")
 	public void createProduct(HttpServletRequest request, 
 			HttpServletResponse response) {
 		ProductTemp pt = super.getProductTempJson(request);
 		
-		Integer homeType = Integer.valueOf(pt.getProductHomeTypeStr());
-		Integer roomType = Integer.valueOf(pt.getProductRoomTypeStr());
+		String homeType = pt.getProductHomeTypeStr();
+		String roomType = pt.getProductRoomTypeStr();
 		Integer accomodates = Integer.valueOf(pt.getProductAccomodatesStr());
 		String city = pt.getProductCityStr();
 		
@@ -45,12 +49,10 @@ public class ProductController extends BasicController {
 		product.setProductCreateDate(newDate);
 		product.setProductUpdateDate(newDate);
 		
-		Long userIdTemp = (Long) request.getAttribute(WebInfo.UserID);
-		product.setProductPublishUserId(userIdTemp);
-		
-		// redis need to store z-set
-		;
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		product.setProductPublishUserId(userTemp.getUserId());
 		
 		visitorProductService.saveProduct(product);
+		productRedisService.saveUserProductToRedis(userTemp, product);
 	}
 }

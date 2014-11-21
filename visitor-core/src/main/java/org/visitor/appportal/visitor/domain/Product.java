@@ -22,8 +22,8 @@ public class Product {
 	
 	//raw attributes
 	private Long productId;
-	private Integer productHometype;
-	private Integer productRoomType;
+	private String productHometype;
+	private String productRoomType;
 	private Integer productAccomodates;
 	private Integer productAvailabletype;
 	private Integer productBaseprice;
@@ -59,19 +59,21 @@ public class Product {
 		this.productId = productId;
 	}
 	
-	@Column(name = "product_hometype", nullable = false, precision = 2)
-	public Integer getProductHometype() {
+	@Length(max = 127)
+	@Column(name = "product_hometype", nullable = false)
+	public String getProductHometype() {
 		return productHometype;
 	}
-	public void setProductHometype(Integer productHometype) {
+	public void setProductHometype(String productHometype) {
 		this.productHometype = productHometype;
 	}
 	
-	@Column(name = "product_roomtype", nullable = false, precision = 2)
-	public Integer getProductRoomType() {
+	@Length(max = 127)
+	@Column(name = "product_roomtype", nullable = false)
+	public String getProductRoomType() {
 		return productRoomType;
 	}
-	public void setProductRoomType(Integer productRoomType) {
+	public void setProductRoomType(String productRoomType) {
 		this.productRoomType = productRoomType;
 	}
 	

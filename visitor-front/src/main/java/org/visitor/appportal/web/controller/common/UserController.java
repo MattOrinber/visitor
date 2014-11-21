@@ -127,7 +127,7 @@ public class UserController extends BasicController{
 			//update mysql
 			user.setUserAddress(ut.getAddressStr());
 			String birthDateT = ut.getBirthDateStr();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");  
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
 			Date dateT = sdf.parse(birthDateT);
 			user.setUserBirthdate(dateT);
 			

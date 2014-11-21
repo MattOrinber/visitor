@@ -23,6 +23,7 @@
 		<class>org.visitor.appportal.visitor.domain.RelationUserProduct</class>
 		<class>org.visitor.appportal.visitor.domain.VisitorLanguage</class>
 		<class>org.visitor.appportal.visitor.domain.TimeZone</class>
+		<class>org.visitor.appportal.visitor.domain.FloopyThing</class>
 		<exclude-unlisted-classes />        
     </persistence-unit>
 </persistence>
