@@ -99,7 +99,8 @@ public class UserController extends BasicController{
 		ResultJson rj = checkIfTheUserLegal(mailStrParam, passwordStrParam);
 		
 		if (rj.getResult() >= 0) {
-			String tokenStr = EncryptionUtil.getToken(mailStrParam, passwordStrParam);
+			String tokenStr = EncryptionUtil.getToken(mailStrParam, passwordStrParam, rj.getUserLoginTime());
+			userRedisService.saveUserToken(mailStrParam, tokenStr);
 			rj.setToken(tokenStr);
 			rj.setUserEmail(mailStrParam);
 		}
@@ -252,6 +253,7 @@ public class UserController extends BasicController{
 				//save to database and redis
 				visitorUserService.saveUser(userT);
 				userRedisService.saveUserPassword(userT);
+				resultJson.setUserLoginTime(loginDate);
 				
 				logTheLogintime(mailStrParam);
 			}
@@ -265,6 +267,7 @@ public class UserController extends BasicController{
 				user.setUserLastLoginTime(loginDate);
 				
 				visitorUserService.saveUser(user);
+				resultJson.setUserLoginTime(loginDate);
 				logTheLogintime(mailStrParam);
 			} else {
 				result = -2;

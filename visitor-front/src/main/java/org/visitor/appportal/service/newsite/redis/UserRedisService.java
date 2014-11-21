@@ -1,5 +1,7 @@
 package org.visitor.appportal.service.newsite.redis;
 
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -26,5 +28,16 @@ public class UserRedisService {
 		String keyFirst = RedisKeysForVisitor.getVisitorSiteUserPasswordFirstKey();
 		String result = (String)compressStringRedisVisitorTemplate.opsForHash().get(keyFirst, keyT);
 		return objectMapperWrapperForVisitor.convertToUser(result);
+	}
+	
+	public void saveUserToken(String userEmail, String userToken) {
+		String keyT = RedisKeysForVisitor.getVisitorUserTokenKey() + userEmail;
+		stringRedisVisitorTemplate.opsForValue().set(keyT, userToken, 2, TimeUnit.HOURS);
+	}
+	
+	public String getUserToken(String userEmail) {
+		String keyT = RedisKeysForVisitor.getVisitorUserTokenKey() + userEmail;
+		String result = stringRedisVisitorTemplate.opsForValue().get(keyT);
+		return result;
 	}
 }

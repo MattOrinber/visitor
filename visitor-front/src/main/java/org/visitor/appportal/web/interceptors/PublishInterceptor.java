@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.domain.User;
-import org.visitor.appportal.web.utils.EncryptionUtil;
 import org.visitor.appportal.web.utils.WebInfo;
 
 public class PublishInterceptor implements HandlerInterceptor {
@@ -30,7 +29,7 @@ public class PublishInterceptor implements HandlerInterceptor {
 		
 		if (StringUtils.isNotEmpty(userEmailT) && StringUtils.isNotEmpty(userPasswordT)) {
 			User userT = userRedisService.getUserPassword(userEmailT);
-			String md5Final = EncryptionUtil.getToken(userT.getUserEmail(), userT.getUserPassword());
+			String md5Final = userRedisService.getUserToken(userEmailT);
 			
 			if (StringUtils.equals(userPasswordT, md5Final)) {
 				if (log.isInfoEnabled()) {

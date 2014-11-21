@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.visitor.appportal.redis.FloopyUtils;
+import org.visitor.appportal.service.newsite.redis.FloopyThingRedisService;
 import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
 import org.visitor.appportal.service.newsite.redis.VisitorLanguageRedisService;
 import org.visitor.appportal.visitor.domain.TimeZone;
@@ -31,6 +33,8 @@ public class IndexController extends BasicController {
 	private TimezoneRedisService timezoneRedisService;
 	@Autowired
 	private VisitorLanguageRedisService visitorLanguageRedisService;
+	@Autowired
+	private FloopyThingRedisService floopyThingRedisService;
 	
 	/**
 	 * 
@@ -47,8 +51,16 @@ public class IndexController extends BasicController {
 		List<TimeZone> listTZ = timezoneRedisService.getAllTimezones();
 		List<VisitorLanguage> listVL = visitorLanguageRedisService.getAllLanguages();
 		
+		List<String> homeTypeList = floopyThingRedisService.getFloopyValueList(FloopyUtils.HOME_TYPE_KEY);
+		List<String> roomTypeList = floopyThingRedisService.getFloopyValueList(FloopyUtils.ROOM_TYPE_KEY);
+		List<String> accomodatesList = floopyThingRedisService.getFloopyValueList(FloopyUtils.ACCOMODATES);
+		
 		model.addAttribute("timezones", listTZ);
 		model.addAttribute("visitorlanguages", listVL);
+		
+		model.addAttribute("homeTypeList", homeTypeList);
+		model.addAttribute("roomTypeList", roomTypeList);
+		model.addAttribute("accomodatesList", accomodatesList);
 		
 		return "index";
 	}

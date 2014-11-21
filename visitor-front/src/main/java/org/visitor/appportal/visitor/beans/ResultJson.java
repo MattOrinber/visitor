@@ -1,10 +1,15 @@
 package org.visitor.appportal.visitor.beans;
 
+import java.util.Date;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 public class ResultJson {
 	private Integer result;
 	private String resultDesc;
 	private String token;
 	private String userEmail;
+	private Date userLoginTime;
 	public Integer getResult() {
 		return result;
 	}
@@ -28,5 +33,12 @@ public class ResultJson {
 	}
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
+	}
+	@JsonIgnore
+	public Date getUserLoginTime() {
+		return userLoginTime;
+	}
+	public void setUserLoginTime(Date userLoginTime) {
+		this.userLoginTime = userLoginTime;
 	}
 }

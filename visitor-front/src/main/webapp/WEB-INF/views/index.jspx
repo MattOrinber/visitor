@@ -39,6 +39,8 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 	<form id="publishBasicInfo">
 	    <input class="button" type="button" value="发布时区" onclick="publishTimeZone('${pageContext.request.contextPath}');"/><br />
 	    <input class="button" type="button" value="发布语言" onclick="publishLanuage('${pageContext.request.contextPath}');"/><br />
+	    
+	    <input class="button" type="button" value="FloopyValue" onclick="publishFloopyValues('${pageContext.request.contextPath}');"/><br />
 	</form>
 	
 	<hr />
@@ -101,9 +103,42 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 	
 	<form id="productBasicInfo">
         
-	    <span>Home Type</span><input id="productHomeTypeStr" name="productHomeTypeStr" value="0" type="string" minlength="1" required="true"/><br />
-		<span>Room Type</span><input id="productRoomTypeStr" name="productRoomTypeStr" value="0" type="string" minlength="1" required="true"/><br />
-		<span>Accomodates</span><input id="productAccomodatesStr" name="productAccomodatesStr" value="5" type="string" minlength="1" required="true"/><br />
+	    <span>Home Type</span>
+	    <select id="productHomeTypeStr" name="productHomeTypeStr">
+			<c:forEach items="${homeTypeList}" var="homeType" varStatus="status">
+				<c:if test="${status.index == 0}">
+				    <option value="${homeType}" selected="selected">${homeType}</option>
+				</c:if>
+				<c:if test="${status.index != 0}">
+				    <option value="${homeType}">${homeType}</option>
+				</c:if>
+			</c:forEach>
+		</select> <br />
+	    
+		<span>Room Type</span>
+		<select id="productRoomTypeStr" name="productRoomTypeStr">
+			<c:forEach items="${roomTypeList}" var="roomType" varStatus="status">
+				<c:if test="${status.index == 0}">
+				    <option value="${roomType}" selected="selected">${roomType}</option>
+				</c:if>
+				<c:if test="${status.index != 0}">
+				    <option value="${roomType}">${roomType}</option>
+				</c:if>
+			</c:forEach>
+		</select> <br />
+		
+		<span>Accomodates</span>
+		<select id="productAccomodatesStr" name="productAccomodatesStr">
+			<c:forEach items="${accomodatesList}" var="accomodate" varStatus="status">
+				<c:if test="${status.index == 0}">
+				    <option value="${accomodate}" selected="selected">${accomodate}</option>
+				</c:if>
+				<c:if test="${status.index != 0}">
+				    <option value="${accomodate}">${accomodate}</option>
+				</c:if>
+			</c:forEach>
+		</select> <br />
+		
 		<span>City</span><input id="productCityStr" name="productCityStr" value="Rome" type="string" minlength="2" required="true"/><br />
 		
 	    <input class="button" type="button" value="Create" onclick="createProduct('${pageContext.request.contextPath}');"/><br />

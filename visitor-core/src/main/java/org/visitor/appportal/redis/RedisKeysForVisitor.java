@@ -66,4 +66,8 @@ public class RedisKeysForVisitor {
     public static String getVisitorLanguageKey() {
     	return "visitor-site-language";
     }
+    
+    public static String getVisitorUserTokenKey() {
+    	return "visitor-site-user-token-";
+    }
 }
