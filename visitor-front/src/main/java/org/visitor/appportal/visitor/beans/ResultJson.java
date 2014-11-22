@@ -10,6 +10,8 @@ public class ResultJson {
 	private String token;
 	private String userEmail;
 	private Date userLoginTime;
+	
+	private Long productId;
 	public Integer getResult() {
 		return result;
 	}
@@ -40,5 +42,11 @@ public class ResultJson {
 	}
 	public void setUserLoginTime(Date userLoginTime) {
 		this.userLoginTime = userLoginTime;
+	}
+	public Long getProductId() {
+		return productId;
+	}
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 }

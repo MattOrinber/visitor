@@ -54,8 +54,8 @@ public class RedisKeysForVisitor {
     	return "visitor-site-productinfokey";
     }
     
-    public static String getVisitorUserProductInfoKey() {
-    	return "visitor-site-user-productinfokey";
+    public static String getVisitorUserProductInfoKey(String userId) {
+    	return "visitor-site-user-productinfokey" + getVisitorRedisWeakSplit() + userId;
     }
     
     

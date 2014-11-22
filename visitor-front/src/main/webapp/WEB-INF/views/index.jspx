@@ -141,6 +141,8 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 		
 		<span>City</span><input id="productCityStr" name="productCityStr" value="Rome" type="string" minlength="2" required="true"/><br />
 		
+		<div id="productIdStr" style="display:none;"></div>
+		
 	    <input class="button" type="button" value="Create" onclick="createProduct('${pageContext.request.contextPath}');"/><br />
 	    
 	</form>

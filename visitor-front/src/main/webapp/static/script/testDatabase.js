@@ -263,6 +263,9 @@ function createProduct(pathOri)
 	            alert(dataRes);
 	            var boxVar = $("#productBasicInfo");
 	            boxVar.append("<p>"+dataRes+"</p>");
+	            
+	            var pidDivVar = $("#productIdStr");
+	            pidDivVar.html(data.productId);
 	        },  
 	        error : function() {  
 	            alert('Err...');  

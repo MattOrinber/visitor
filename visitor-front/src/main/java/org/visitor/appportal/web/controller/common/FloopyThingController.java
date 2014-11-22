@@ -12,9 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.visitor.appportal.service.newsite.VisitorFloopyThingService;
 import org.visitor.appportal.service.newsite.redis.FloopyThingRedisService;
-import org.visitor.appportal.visitor.beans.FloopyInfo;
 import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.domain.FloopyThing;
+import org.visitor.appportal.web.utils.FloopyInfo;
 
 @Controller
 @RequestMapping("/floopy/")

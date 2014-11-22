@@ -23,12 +23,12 @@ import org.visitor.appportal.service.newsite.VisitorUserService;
 import org.visitor.appportal.service.newsite.mongo.UserMongoService;
 import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
-import org.visitor.appportal.visitor.beans.RegisterInfo;
 import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.beans.UserTemp;
 import org.visitor.appportal.visitor.beans.mongo.UserMongoBean;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.web.utils.EncryptionUtil;
+import org.visitor.appportal.web.utils.RegisterInfo;
 import org.visitor.appportal.web.utils.WebInfo;
 
 import com.amazonaws.services.s3.model.ObjectMetadata;

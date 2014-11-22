@@ -1,4 +1,4 @@
-package org.visitor.appportal.visitor.beans;
+package org.visitor.appportal.web.utils;
 
 public class RegisterInfo {
 	public static final String REGISTER_SUCCESS = "register success";

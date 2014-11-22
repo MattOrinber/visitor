@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.visitor.appportal.service.newsite.VisitorProductService;
 import org.visitor.appportal.service.newsite.redis.ProductRedisService;
 import org.visitor.appportal.visitor.beans.ProductTemp;
+import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.User;
+import org.visitor.appportal.web.utils.ProductInfo;
 import org.visitor.appportal.web.utils.WebInfo;
 
 @Controller
@@ -49,10 +51,20 @@ public class ProductController extends BasicController {
 		product.setProductCreateDate(newDate);
 		product.setProductUpdateDate(newDate);
 		
+		product.setProductStatus(ProductInfo.EDIT_STATUS);
+		
 		User userTemp = (User) request.getAttribute(WebInfo.UserID);
 		product.setProductPublishUserId(userTemp.getUserId());
 		
 		visitorProductService.saveProduct(product);
 		productRedisService.saveUserProductToRedis(userTemp, product);
+		
+		ResultJson rj = new ResultJson();
+		
+		rj.setResult(0);
+		rj.setResultDesc(ProductInfo.PRODUCT_CREATE_SUCCESS);
+		rj.setProductId(product.getProductId());
+		
+		super.sendJSONResponse(rj, response);
 	}
 }

@@ -1,4 +1,4 @@
-package org.visitor.appportal.visitor.beans;
+package org.visitor.appportal.web.utils;
 
 public class FloopyInfo {
 	public static final String PUBLISH_SUCCESS = "publish success!";
