@@ -250,7 +250,7 @@ function createProduct(pathOri)
 		product.productCityStr = productCityStr;
 	    
 	    var urlStrStr = pathOri + '/product/create?userLoginEmail='+userLoginEmailStr+'&userLoginToken='+userLoginTokenStr;
-	    var jsonStr = $.toJSON(user);
+	    var jsonStr = $.toJSON(product);
 		alert(jsonStr);
 	    
 	    $.ajax({ 

@@ -33,7 +33,9 @@ public class ProductRedisService {
 		String keyT = RedisKeysForVisitor.getVisitorUserProductInfoKey(user.getUserId().toString());
 		String hashKey = product.getProductId().toString();
 		
-		compressStringRedisVisitorTemplate.opsForHash().put(keyT, hashKey, product);
+		String valueT = objectMapperWrapperForVisitor.convert2String(user);
+		
+		compressStringRedisVisitorTemplate.opsForHash().put(keyT, hashKey, valueT);
 	}
 	
 	public List<Product> getUserProducts(User user) {
@@ -43,8 +45,9 @@ public class ProductRedisService {
 		
 		if (null != entries) {
 			for(Object entry : entries.entrySet()) {
-				Product valueStr = (Product)entries.get(entry);
-				result.add(valueStr);
+				String valueStr = (String)entries.get(entry);
+				Product productT = objectMapperWrapperForVisitor.convertToProduct(valueStr);
+				result.add(productT);
 			}
 		}
 		

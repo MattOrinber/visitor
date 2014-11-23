@@ -9,6 +9,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.DeserializationConfig.Feature;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.springframework.stereotype.Component;
+import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.User;
 
 import com.alibaba.fastjson.JSON;
@@ -53,5 +54,12 @@ public class ObjectMapperWrapperForVisitor {
 			return null;
 		}
 		return JSON.parseObject(key, User.class);
+	}
+	
+	public Product convertToProduct(String key) {
+		if (StringUtils.isEmpty(key)) {
+			return null;
+		}
+		return JSON.parseObject(key, Product.class);
 	}
 }
