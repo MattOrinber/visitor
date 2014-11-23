@@ -36,7 +36,7 @@ public class ProductController extends BasicController {
 		
 		String homeType = pt.getProductHomeTypeStr();
 		String roomType = pt.getProductRoomTypeStr();
-		Integer accomodates = Integer.valueOf(pt.getProductAccomodatesStr());
+		String accomodates = pt.getProductAccomodatesStr();
 		String city = pt.getProductCityStr();
 		
 		Product product = new Product();

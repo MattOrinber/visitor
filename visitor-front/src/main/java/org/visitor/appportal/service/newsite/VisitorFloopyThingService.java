@@ -34,7 +34,7 @@ public class VisitorFloopyThingService {
 	
 	@Transactional
 	public List<FloopyThing> getTotalList() {
-		List<FloopyThing> result = (List<FloopyThing>) visitorFloopyThingsRepository.findAll();
+		List<FloopyThing> result = (List<FloopyThing>) visitorFloopyThingsRepository.getFloopyThingListAvailable();
 		return result;
 	}
 }

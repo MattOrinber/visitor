@@ -160,10 +160,15 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 		
 		<span>Currency</span>
 		<select id="productCurrency" name="productCurrency">
-	        <option value="0" selected="selected">CNY</option>
-	        <option value="1">USD</option>
-	        <option value="2">CAD</option>
-		</select>
+			<c:forEach items="${currencyList}" var="currencyT" varStatus="status">
+				<c:if test="${status.index == 0}">
+				    <option value="${currencyT}" selected="selected">${currencyT}</option>
+				</c:if>
+				<c:if test="${status.index != 0}">
+				    <option value="${currencyT}">${currencyT}</option>
+				</c:if>
+			</c:forEach>
+		</select> <br />
         
 	    <span>Base Price</span><input id="productBasepriceStr" name="productBasepriceStr" value="250" type="string" minlength="1" required="true"/><br />
 		<span>Overview</span><input id="productOverviewTitleStr" name="productOverviewTitleStr" value="Awesome Place!" type="string" minlength="6" required="true"/><br />
@@ -172,35 +177,157 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 		<textarea id="productOverviewDetailStr" name="productOverviewDetailStr" rows="10" cols="80"></textarea>
         ]]>
 		
-		<span>Amenities</span><br />
-		<div id="productAmenitiesStr">
-		    <label><input type="checkbox" name="productAmenitiesList" value="0" data-value="Essentials" />Essentials</label>
-		    <label><input type="checkbox" name="productAmenitiesList" value="1" data-value="TV" />TV</label>
-		    <label><input type="checkbox" name="productAmenitiesList" value="2" data-value="Cable TV" />Cable TV</label>
+		<span>Amenities Most Common</span><br />
+		<div id="productAmenitiesMostCommonStr">
+		    <c:forEach items="${amenitiesMostCommon}" var="amenityMostCommon" varStatus="status">
+		        <c:if test="${status.index != 0}"><br/></c:if>
+		        <c:if test="${status.index == 0}">
+		    		<label><input type="checkbox" name="amenitiesMostCommonList" value="${amenityMostCommon}" data-value="${amenityMostCommon}" checked="checked"/>${amenityMostCommon}</label>
+		    	</c:if>
+		    	 <c:if test="${status.index != 0}">
+		    		<label><input type="checkbox" name="amenitiesMostCommonList" value="${amenityMostCommon}" data-value="${amenityMostCommon}" />${amenityMostCommon}</label>
+		    	</c:if>
+		    </c:forEach>
         </div> <br />
+        
+        <span>Amenities Extras</span><br />
+		<div id="productAmenitiesExtrasStr">
+		    <c:forEach items="${amenitiesExtras}" var="amenityExtras" varStatus="status">
+		        <c:if test="${status.index != 0}"><br/></c:if>
+		        <c:if test="${status.index == 0}">
+		    		<label><input type="checkbox" name="amenitiesExtrasList" value="${amenityExtras}" data-value="${amenityExtras}" checked="checked"/>${amenityExtras}</label>
+		    	</c:if>
+		    	 <c:if test="${status.index != 0}">
+		    		<label><input type="checkbox" name="amenitiesExtrasList" value="${amenityExtras}" data-value="${amenityExtras}" />${amenityExtras}</label>
+		    	</c:if>
+		    </c:forEach>
+        </div> <br />
+        
+        <span>Amenities Special Features</span><br />
+		<div id="productAmenitiesSpecialFeaturesStr">
+		    <c:forEach items="${amenitiesSpecialFeatures}" var="amenitySpecialFeatures" varStatus="status">
+		        <c:if test="${status.index != 0}"><br/></c:if>
+		        <c:if test="${status.index == 0}">
+		    		<label><input type="checkbox" name="amenitiesSpecialFeaturesList" value="${amenitySpecialFeatures}" data-value="${amenitySpecialFeatures}" checked="checked"/>${amenitySpecialFeatures}</label>
+		    	</c:if>
+		    	 <c:if test="${status.index != 0}">
+		    		<label><input type="checkbox" name="amenitiesSpecialFeaturesList" value="${amenitySpecialFeatures}" data-value="${amenitySpecialFeatures}" />${amenitySpecialFeatures}</label>
+		    	</c:if>
+		    </c:forEach>
+        </div> <br />
+        
+        <span>Amenities Home Safety</span><br />
+		<div id="productAmenitiesHomeSafetyStr">
+		    <c:forEach items="${amenitiesHomeSafty}" var="amenityHomeSafety" varStatus="status">
+		        <c:if test="${status.index != 0}"><br/></c:if>
+		        <c:if test="${status.index == 0}">
+		    		<label><input type="checkbox" name="amenitiesHomeSafetyList" value="${amenityHomeSafety}" data-value="${amenityHomeSafety}" checked="checked"/>${amenityHomeSafety}</label>
+		    	</c:if>
+		    	 <c:if test="${status.index != 0}">
+		    		<label><input type="checkbox" name="amenitiesHomeSafetyList" value="${amenityHomeSafety}" data-value="${amenityHomeSafety}" />${amenityHomeSafety}</label>
+		    	</c:if>
+		    </c:forEach>
+        </div> <br />
+        
         <hr />
         
         <span>Bedrooms</span>
-		<select id="productBedroomNum" name="productBedroomNum">
-	        <option value="1" selected="selected">1</option>
-	        <option value="2">2</option>
-	        <option value="3">3</option>
-		</select>
+        <select id="productBedroomNum" name="productBedroomNum">
+			<c:forEach items="${bedroomNumberList}" var="bedroomNumber" varStatus="status">
+				<c:if test="${status.index == 0}">
+				    <option value="${bedroomNumber}" selected="selected">${bedroomNumber}</option>
+				</c:if>
+				<c:if test="${status.index != 0}">
+				    <option value="${bedroomNumber}">${bedroomNumber}</option>
+				</c:if>
+			</c:forEach>
+		</select> <br />
 		
 		<!-- how to do validate on this -->
-		<span>Beds</span>  
+		<span>Beds</span>
 		<select id="productBedsNum" name="productBedsNum">
-	        <option value="1" selected="selected">1</option>
-	        <option value="2">2</option>
-	        <option value="3">3</option>
-		</select>
+			<c:forEach items="${bedsNumberList}" var="bedsNumber" varStatus="status">
+				<c:if test="${status.index == 0}">
+				    <option value="${bedsNumber}" selected="selected">${bedsNumber}</option>
+				</c:if>
+				<c:if test="${status.index != 0}">
+				    <option value="${bedsNumber}">${bedsNumber}</option>
+				</c:if>
+			</c:forEach>
+		</select> <br />
 		
 		<span>Bathrooms</span>
 		<select id="productBathroomNum" name="productBathroomNum">
-	        <option value="1" selected="selected">1</option>
-	        <option value="2">2</option>
-	        <option value="3">3</option>
-		</select>
+			<c:forEach items="${bathroomNumberList}" var="bathroomNumber" varStatus="status">
+				<c:if test="${status.index == 0}">
+				    <option value="${bathroomNumber}" selected="selected">${bathroomNumber}</option>
+				</c:if>
+				<c:if test="${status.index != 0}">
+				    <option value="${bathroomNumber}">${bathroomNumber}</option>
+				</c:if>
+			</c:forEach>
+		</select> <br />
+		
+		<!-- product price per week; price per month-->
+		<span>Price per week</span><input id="productPricePerWeekStr" name="productPricePerWeekStr" value="250" type="string" minlength="1" required="true"/><br />
+		<span>Price per month</span><input id="productPricePerMonthStr" name="productPricePerMonthStr" value="250" type="string" minlength="1" required="true"/><br />
+		
+		<span>Min Stay</span><input id="minStayStr" name="minStayStr" value="1" type="number" min="1" required="true"/><br />
+		<span>Max Stay</span><input id="maxStayStr" name="maxStayStr" value="5" type="number" min="1" required="true"/><br />
+		
+		<span>Check in after</span>
+		<select id="productCheckinAfterStr" name="productCheckinAfterStr">
+			<c:forEach items="${checkinAfterList}" var="checkinAfterItem" varStatus="status">
+				<c:if test="${status.index == 0}">
+				    <option value="${checkinAfterItem}" selected="selected">${checkinAfterItem}</option>
+				</c:if>
+				<c:if test="${status.index != 0}">
+				    <option value="${checkinAfterItem}">${checkinAfterItem}</option>
+				</c:if>
+			</c:forEach>
+		</select> <br />
+		
+		<span>Check out before</span>
+		<select id="productCheckoutBeforeStr" name="productCheckoutBeforeStr">
+			<c:forEach items="${checkoutBeforeList}" var="checkoutBeforeItem" varStatus="status">
+				<c:if test="${status.index == 0}">
+				    <option value="${checkoutBeforeItem}" selected="selected">${checkoutBeforeItem}</option>
+				</c:if>
+				<c:if test="${status.index != 0}">
+				    <option value="${checkoutBeforeItem}">${checkoutBeforeItem}</option>
+				</c:if>
+			</c:forEach>
+		</select> <br />
+		
+		<span>Cancellation Policy</span>
+		<select id="productCancellationPolicyStr" name="productCancellationPolicyStr">
+			<c:forEach items="${cancellationPolicyList}" var="cancellationPolicyItem" varStatus="status">
+				<c:if test="${status.index == 0}">
+				    <option value="${cancellationPolicyItem}" selected="selected">${cancellationPolicyItem}</option>
+				</c:if>
+				<c:if test="${status.index != 0}">
+				    <option value="${cancellationPolicyItem}">${cancellationPolicyItem}</option>
+				</c:if>
+			</c:forEach>
+		</select> <br />
+		
+		<!-- Mongo part -->
+		<span>Price multiple options</span><br />
+		<span>Key:</span><input id="additionalPriceKeyStr" name="additionalPriceKeyStr" value="" type="string" minlength="6" />
+		<span>value:</span><input id="additionalPriceValue" name="additionalPriceValue" value="" type="number" min="1" />
+		<input class="button" type="button" value="Add" onclick="addProductPriceMultipleOptions('${pageContext.request.contextPath}');"/><br />
+		<div id="priceMultipleOptions"></div><br />
+		
+		<span>The Space</span><input id="productExtraInfoSpaceStr" name="productExtraInfoSpaceStr" value="Large" type="string" minlength="2" required="true"/><br />
+		<span>Guest Access</span><input id="productExtraInfoGuestAccessStr" name="productExtraInfoGuestAccessStr" value="Garage" type="string" minlength="2" required="true"/><br />
+		<span>Interaction with guest</span><input id="productExtraInfoGuestInteractionStr" name="productExtraInfoGuestInteractionStr" value="Often" type="string" minlength="2" required="true"/><br />
+		<span>Neighborhood</span><input id="productExtraInfoNeighborhoodStr" name="productExtraInfoNeighborhoodStr" value="7-11" type="string" minlength="2" required="true"/><br />
+		<span>Transit</span><input id="productExtraInfoTransitStr" name="productExtraInfoTransitStr" value="BUS line 1234" type="string" minlength="2" required="true"/><br />
+		
+		<span>Other Note</span><input id="productExtraInfoOtherNoteStr" name="productExtraInfoOtherNoteStr" value="Children playing piano after 10:00 pm" type="string" minlength="2" required="true"/><br />
+		<span>House Rules</span><input id="productExtraInfoHouseRuleStr" name="productExtraInfoHouseRuleStr" value="Quiet" type="string" minlength="2" required="true"/><br />
+		<span>House Manual</span><input id="productExtraInfoHouseManualStr" name="productExtraInfoHouseManualStr" value="wifi pwd:89765432" type="string" minlength="2" required="true"/><br />
+		<span>Directions</span><input id="productExtraInfoDirectionStr" name="productExtraInfoDirectionStr" value="Bus line 12345 from train station to end" type="string" minlength="2" required="true"/><br />
         
         <!-- product address related  -->
 		

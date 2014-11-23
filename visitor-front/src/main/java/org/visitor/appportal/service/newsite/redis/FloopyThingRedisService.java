@@ -28,10 +28,14 @@ public class FloopyThingRedisService {
 			Integer count = 0;
 			String valueTotal = ftTemp.getFloopyValue();
 			String[] arr = valueTotal.split(RedisKeysForVisitor.getVisitorRedisWeakSplit());
-			for (String str : arr) {
-				String keyH = String.valueOf(count.intValue());
-				stringRedisVisitorTemplate.opsForHash().put(key, keyH, str);
-				count ++;
+			if (arr.length > 1) {
+				for (String str : arr) {
+					String keyH = String.valueOf(count.intValue());
+					stringRedisVisitorTemplate.opsForHash().put(key, keyH, str);
+					count ++;
+				}
+			} else {
+				stringRedisVisitorTemplate.opsForValue().set(key, ftTemp.getFloopyValue());
 			}
 			
 		} else {
@@ -52,5 +56,28 @@ public class FloopyThingRedisService {
 		}
 		
 		return result;
+	}
+	
+	public String getFloopyValueSingle(String key) {
+		String keyT = FloopyUtils.FLOOPY_PREFIX + key;
+		String result = stringRedisVisitorTemplate.opsForValue().get(keyT);
+		return result;
+	}
+	
+	public List<String> getFloopySingularGeneratedList(Integer singularValue) {
+		List<String> accomodatesList = new ArrayList<String>();
+		
+		if (singularValue.intValue() > 0) {
+			Integer countAccomodates = 1;
+			
+			while (countAccomodates.intValue() < singularValue.intValue()) {
+				accomodatesList.add(String.valueOf(countAccomodates.intValue()));
+				countAccomodates ++;
+			}
+			
+			accomodatesList.add(String.valueOf(countAccomodates.intValue())+"+");
+		}
+		
+		return accomodatesList;
 	}
 }

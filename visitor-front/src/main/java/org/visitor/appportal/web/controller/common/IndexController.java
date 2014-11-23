@@ -53,7 +53,26 @@ public class IndexController extends BasicController {
 		
 		List<String> homeTypeList = floopyThingRedisService.getFloopyValueList(FloopyUtils.HOME_TYPE_KEY);
 		List<String> roomTypeList = floopyThingRedisService.getFloopyValueList(FloopyUtils.ROOM_TYPE_KEY);
-		List<String> accomodatesList = floopyThingRedisService.getFloopyValueList(FloopyUtils.ACCOMODATES);
+		String singularAccomodates = floopyThingRedisService.getFloopyValueSingle(FloopyUtils.ACCOMODATES);
+		Integer singularAccomodatesInt = Integer.valueOf(singularAccomodates);
+		List<String> accomodatesList = floopyThingRedisService.getFloopySingularGeneratedList(singularAccomodatesInt);
+		
+		List<String> currencyList = floopyThingRedisService.getFloopyValueList(FloopyUtils.CURRENCY_KEY);
+		
+		List<String> amenitiesMostCommon = floopyThingRedisService.getFloopyValueList(FloopyUtils.AMENITIES_MOST_COMMON);
+		List<String> amenitiesExtras = floopyThingRedisService.getFloopyValueList(FloopyUtils.AMENITIES_EXTRAS);
+		List<String> amenitiesSpecialFeatures = floopyThingRedisService.getFloopyValueList(FloopyUtils.AMENITIES_SPECIAL_FEATURES);
+		List<String> amenitiesHomeSafty = floopyThingRedisService.getFloopyValueList(FloopyUtils.AMENITIES_HOME_SAFETY);
+		
+		List<String> bedroomNumberList = floopyThingRedisService.getFloopyValueList(FloopyUtils.BEDROOM_NUMBER);
+		String bedsNumberListStr = floopyThingRedisService.getFloopyValueSingle(FloopyUtils.BED_NUMBER);
+		Integer bedsNumberListSize = Integer.valueOf(bedsNumberListStr);
+		List<String> bedsNumberList = floopyThingRedisService.getFloopySingularGeneratedList(bedsNumberListSize);
+		List<String> bathroomNumberList = floopyThingRedisService.getFloopyValueList(FloopyUtils.BATHROOM_NUMBER);
+		
+		List<String> checkinAfterList = floopyThingRedisService.getFloopyValueList(FloopyUtils.TERM_CHECKIN_AFTER);
+		List<String> checkoutBeforeList = floopyThingRedisService.getFloopyValueList(FloopyUtils.TERM_CHECKOUT_BEFORE);
+		List<String> cancellationPolicyList = floopyThingRedisService.getFloopyValueList(FloopyUtils.TERM_CANCELLATION_POLICY);
 		
 		model.addAttribute("timezones", listTZ);
 		model.addAttribute("visitorlanguages", listVL);
@@ -61,6 +80,20 @@ public class IndexController extends BasicController {
 		model.addAttribute("homeTypeList", homeTypeList);
 		model.addAttribute("roomTypeList", roomTypeList);
 		model.addAttribute("accomodatesList", accomodatesList);
+		model.addAttribute("currencyList", currencyList);
+		
+		model.addAttribute("amenitiesMostCommon", amenitiesMostCommon);
+		model.addAttribute("amenitiesExtras", amenitiesExtras);
+		model.addAttribute("amenitiesSpecialFeatures", amenitiesSpecialFeatures);
+		model.addAttribute("amenitiesHomeSafty", amenitiesHomeSafty);
+		
+		model.addAttribute("bedroomNumberList", bedroomNumberList);
+		model.addAttribute("bedsNumberList", bedsNumberList);
+		model.addAttribute("bathroomNumberList", bathroomNumberList);
+		
+		model.addAttribute("checkinAfterList", checkinAfterList);
+		model.addAttribute("checkoutBeforeList", checkoutBeforeList);
+		model.addAttribute("cancellationPolicyList", cancellationPolicyList);
 		
 		return "index";
 	}

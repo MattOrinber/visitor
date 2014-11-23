@@ -24,24 +24,24 @@ public class Product {
 	private Long productId;
 	private String productHometype;
 	private String productRoomType;
-	private Integer productAccomodates;
+	private String productAccomodates;
 	private Integer productAvailabletype;
 	private Integer productBaseprice;
-	private Integer productCurrency;
+	private String productCurrency;
 	private String productOverviewtitle;
 	private String productPhotopaths;
 	private String productAmenities;
-	private Integer productRoomnum;
-	private Integer productBedsnum;
-	private Integer productBathroomnum;
+	private String productRoomnum;
+	private String productBedsnum;
+	private String productBathroomnum;
 	private Long productAddressid;
 	private Integer productPriceperweek;
 	private Integer productPricepermonth;
 	private Integer productTermminstay;
 	private Integer productTermmaxstay;
-	private Integer productCheckinafter;
-	private Integer productCheckoutafter;
-	private Integer productCancellationpolicy;
+	private String productCheckinafter;
+	private String productCheckoutafter;
+	private String productCancellationpolicy;
 	private String productAvailkey;
 	private Integer productStatus;
 	private Date productCreateDate;
@@ -59,7 +59,7 @@ public class Product {
 		this.productId = productId;
 	}
 	
-	@Length(max = 127)
+	@Length(max = 31)
 	@Column(name = "product_hometype", nullable = false)
 	public String getProductHometype() {
 		return productHometype;
@@ -68,7 +68,7 @@ public class Product {
 		this.productHometype = productHometype;
 	}
 	
-	@Length(max = 127)
+	@Length(max = 31)
 	@Column(name = "product_roomtype", nullable = false)
 	public String getProductRoomType() {
 		return productRoomType;
@@ -77,11 +77,12 @@ public class Product {
 		this.productRoomType = productRoomType;
 	}
 	
-	@Column(name = "product_accomodates", nullable = false, precision = 2)
-	public Integer getProductAccomodates() {
+	@Length(max = 7)
+	@Column(name = "product_accomodates", nullable = false)
+	public String getProductAccomodates() {
 		return productAccomodates;
 	}
-	public void setProductAccomodates(Integer productAccomodates) {
+	public void setProductAccomodates(String productAccomodates) {
 		this.productAccomodates = productAccomodates;
 	}
 	
@@ -93,7 +94,7 @@ public class Product {
 		this.productAvailabletype = productAvailabletype;
 	}
 	
-	@Column(name = "product_baseprice", precision = 6)
+	@Column(name = "product_baseprice", precision = 10)
 	public Integer getProductBaseprice() {
 		return productBaseprice;
 	}
@@ -101,11 +102,12 @@ public class Product {
 		this.productBaseprice = productBaseprice;
 	}
 	
-	@Column(name = "product_currency", precision = 4)
-	public Integer getProductCurrency() {
+	@Length(max = 7)
+	@Column(name = "product_currency")
+	public String getProductCurrency() {
 		return productCurrency;
 	}
-	public void setProductCurrency(Integer productCurrency) {
+	public void setProductCurrency(String productCurrency) {
 		this.productCurrency = productCurrency;
 	}
 	
@@ -136,27 +138,30 @@ public class Product {
 		this.productAmenities = productAmenities;
 	}
 	
-	@Column(name = "product_roomnum", precision = 2)
-	public Integer getProductRoomnum() {
+	@Length(max = 7)
+	@Column(name = "product_roomnum", nullable = false)
+	public String getProductRoomnum() {
 		return productRoomnum;
 	}
-	public void setProductRoomnum(Integer productRoomnum) {
+	public void setProductRoomnum(String productRoomnum) {
 		this.productRoomnum = productRoomnum;
 	}
 	
-	@Column(name = "product_bedsnum", precision = 2)
-	public Integer getProductBedsnum() {
+	@Length(max = 7)
+	@Column(name = "product_bedsnum", nullable = false)
+	public String getProductBedsnum() {
 		return productBedsnum;
 	}
-	public void setProductBedsnum(Integer productBedsnum) {
+	public void setProductBedsnum(String productBedsnum) {
 		this.productBedsnum = productBedsnum;
 	}
 	
-	@Column(name = "product_bathroomnum", precision = 2)
-	public Integer getProductBathroomnum() {
+	@Length(max = 7)
+	@Column(name = "product_bathroomnum", nullable = false)
+	public String getProductBathroomnum() {
 		return productBathroomnum;
 	}
-	public void setProductBathroomnum(Integer productBathroomnum) {
+	public void setProductBathroomnum(String productBathroomnum) {
 		this.productBathroomnum = productBathroomnum;
 	}
 	
@@ -200,27 +205,30 @@ public class Product {
 		this.productTermmaxstay = productTermmaxstay;
 	}
 	
-	@Column(name = "product_checkinafter", precision = 2)
-	public Integer getProductCheckinafter() {
+	@Length(max = 31)
+	@Column(name = "product_checkinafter", nullable = false)
+	public String getProductCheckinafter() {
 		return productCheckinafter;
 	}
-	public void setProductCheckinafter(Integer productCheckinafter) {
+	public void setProductCheckinafter(String productCheckinafter) {
 		this.productCheckinafter = productCheckinafter;
 	}
 	
-	@Column(name = "product_checkoutafter", precision = 2)
-	public Integer getProductCheckoutafter() {
+	@Length(max = 31)
+	@Column(name = "product_checkoutafter", nullable = false)
+	public String getProductCheckoutafter() {
 		return productCheckoutafter;
 	}
-	public void setProductCheckoutafter(Integer productCheckoutafter) {
+	public void setProductCheckoutafter(String productCheckoutafter) {
 		this.productCheckoutafter = productCheckoutafter;
 	}
 	
-	@Column(name = "product_cancelationpolicy", precision = 2)
-	public Integer getProductCancellationpolicy() {
+	@Length(max = 127)
+	@Column(name = "product_cancelationpolicy", nullable = false)
+	public String getProductCancellationpolicy() {
 		return productCancellationpolicy;
 	}
-	public void setProductCancellationpolicy(Integer productCancellationpolicy) {
+	public void setProductCancellationpolicy(String productCancellationpolicy) {
 		this.productCancellationpolicy = productCancellationpolicy;
 	}
 	
