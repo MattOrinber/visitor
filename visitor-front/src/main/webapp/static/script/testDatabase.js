@@ -48,6 +48,8 @@ $(document).ready(function(){
 		}
 	});
 	
+	$("#productDatepicker").datepicker();
+	
 	connectToWS();
 });
 

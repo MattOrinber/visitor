@@ -49,7 +49,7 @@ public class FloopyThingRedisService {
 		String keyT = FloopyUtils.FLOOPY_PREFIX + key;
 		Map<Object, Object> entries = stringRedisVisitorTemplate.opsForHash().entries(keyT);
 		if (null != entries) {
-			for(Object entry : entries.entrySet()) {
+			for(Object entry : entries.keySet()) {
 				String valueStr = (String)entries.get(entry);
 				result.add(valueStr);
 			}

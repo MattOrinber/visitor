@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +55,11 @@ public class IndexController extends BasicController {
 		List<String> homeTypeList = floopyThingRedisService.getFloopyValueList(FloopyUtils.HOME_TYPE_KEY);
 		List<String> roomTypeList = floopyThingRedisService.getFloopyValueList(FloopyUtils.ROOM_TYPE_KEY);
 		String singularAccomodates = floopyThingRedisService.getFloopyValueSingle(FloopyUtils.ACCOMODATES);
-		Integer singularAccomodatesInt = Integer.valueOf(singularAccomodates);
-		List<String> accomodatesList = floopyThingRedisService.getFloopySingularGeneratedList(singularAccomodatesInt);
+		if (StringUtils.isNotEmpty(singularAccomodates)) {
+			Integer singularAccomodatesInt = Integer.valueOf(singularAccomodates);
+			List<String> accomodatesList = floopyThingRedisService.getFloopySingularGeneratedList(singularAccomodatesInt);
+			model.addAttribute("accomodatesList", accomodatesList);
+		}
 		
 		List<String> currencyList = floopyThingRedisService.getFloopyValueList(FloopyUtils.CURRENCY_KEY);
 		
@@ -66,8 +70,13 @@ public class IndexController extends BasicController {
 		
 		List<String> bedroomNumberList = floopyThingRedisService.getFloopyValueList(FloopyUtils.BEDROOM_NUMBER);
 		String bedsNumberListStr = floopyThingRedisService.getFloopyValueSingle(FloopyUtils.BED_NUMBER);
-		Integer bedsNumberListSize = Integer.valueOf(bedsNumberListStr);
-		List<String> bedsNumberList = floopyThingRedisService.getFloopySingularGeneratedList(bedsNumberListSize);
+		
+		if (StringUtils.isNotEmpty(bedsNumberListStr)) {
+			Integer bedsNumberListSize = Integer.valueOf(bedsNumberListStr);
+			List<String> bedsNumberList = floopyThingRedisService.getFloopySingularGeneratedList(bedsNumberListSize);
+			model.addAttribute("bedsNumberList", bedsNumberList);
+		}
+		
 		List<String> bathroomNumberList = floopyThingRedisService.getFloopyValueList(FloopyUtils.BATHROOM_NUMBER);
 		
 		List<String> checkinAfterList = floopyThingRedisService.getFloopyValueList(FloopyUtils.TERM_CHECKIN_AFTER);
@@ -79,7 +88,6 @@ public class IndexController extends BasicController {
 		
 		model.addAttribute("homeTypeList", homeTypeList);
 		model.addAttribute("roomTypeList", roomTypeList);
-		model.addAttribute("accomodatesList", accomodatesList);
 		model.addAttribute("currencyList", currencyList);
 		
 		model.addAttribute("amenitiesMostCommon", amenitiesMostCommon);
@@ -88,7 +96,6 @@ public class IndexController extends BasicController {
 		model.addAttribute("amenitiesHomeSafty", amenitiesHomeSafty);
 		
 		model.addAttribute("bedroomNumberList", bedroomNumberList);
-		model.addAttribute("bedsNumberList", bedsNumberList);
 		model.addAttribute("bathroomNumberList", bathroomNumberList);
 		
 		model.addAttribute("checkinAfterList", checkinAfterList);

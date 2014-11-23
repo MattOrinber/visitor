@@ -15,11 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.visitor.appportal.service.newsite.SystemPreference;
 import org.visitor.appportal.visitor.beans.PayTemp;
+import org.visitor.appportal.web.utils.MixAndMatchUtils;
 
 import com.paypal.api.payments.Address;
 import com.paypal.api.payments.Amount;
@@ -41,9 +40,6 @@ import com.paypal.core.rest.PayPalResource;
 @RequestMapping("/pay/")
 public class PayController extends BasicController {
 	protected static final Logger log = LoggerFactory.getLogger(PayController.class);
-	
-	@Autowired
-	private SystemPreference systemPreference;
 	
 	Map<String, String> map = new HashMap<String, String>();
 	
@@ -327,8 +323,8 @@ public class PayController extends BasicController {
 		// Retrieve the access token from
 		// OAuthTokenCredential by passing in
 		// ClientID and ClientSecret
-		String clientID = systemPreference.getPaypalClientID();
-		String clientSecret = systemPreference.getPaypalClientSecret();
+		String clientID = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.paypalClientID);
+		String clientSecret = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.paypalClientSecret);
 
 		return new OAuthTokenCredential(clientID, clientSecret)
 				.getAccessToken();

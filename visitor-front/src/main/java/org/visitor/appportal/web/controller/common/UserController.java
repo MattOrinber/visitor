@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.visitor.appportal.service.newsite.S3Service;
-import org.visitor.appportal.service.newsite.SystemPreference;
 import org.visitor.appportal.service.newsite.VisitorUserService;
 import org.visitor.appportal.service.newsite.mongo.UserMongoService;
 import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
@@ -28,6 +27,7 @@ import org.visitor.appportal.visitor.beans.UserTemp;
 import org.visitor.appportal.visitor.beans.mongo.UserMongoBean;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.web.utils.EncryptionUtil;
+import org.visitor.appportal.web.utils.MixAndMatchUtils;
 import org.visitor.appportal.web.utils.RegisterInfo;
 import org.visitor.appportal.web.utils.WebInfo;
 
@@ -48,8 +48,6 @@ public class UserController extends BasicController{
 	private TimezoneRedisService timezoneRedisService;
 	@Autowired
 	private S3Service s3Service;
-	@Autowired
-	private SystemPreference systemPreference;
 	
 	@RequestMapping("register/{emailStr}/{passMd5}")
     public void register(@PathVariable("emailStr") String mailStrParam, 
@@ -193,7 +191,7 @@ public class UserController extends BasicController{
 					meta.setContentLength(uploadFile.getSize());
 					meta.setContentType(uploadFile.getContentType());
 					try {
-						s3Service.createNewFile("/user/icon"+user.getUserId()+"/"+uploadFile.getOriginalFilename(), uploadFile.getInputStream(), systemPreference.getAwsImgDomain(), meta);
+						s3Service.createNewFile("/user/icon"+user.getUserId()+"/"+uploadFile.getOriginalFilename(), uploadFile.getInputStream(), MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgDomain), meta);
 						
 						result = 0;
 						resultDesc = RegisterInfo.USER_ICON_SET_SUCCESS;

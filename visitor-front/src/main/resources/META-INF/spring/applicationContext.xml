@@ -62,6 +62,8 @@
         The most commonly used annotation is @Autowired, which instructs Spring to
         dependency inject an object into your class.
     -->
+     <util:properties id="systemProperties" location="classpath:visitor.properties"/>
+     
     <context:component-scan base-package="org.visitor.appportal">
         <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     </context:component-scan>
@@ -119,8 +121,6 @@
     </bean>
 	
 	<bean id="md5PasswordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
-
-    <util:properties id="systemProperties" location="classpath:system.properties"/>
 
 	<!-- String solrServerUrl, int queueSize, int threadCount -->
 	<bean id="appUpdateSolrServer" class="org.apache.solr.client.solrj.impl.ConcurrentUpdateSolrServer">

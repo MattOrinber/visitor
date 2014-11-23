@@ -3,8 +3,8 @@ package org.visitor.appportal.service.newsite;
 import java.io.File;
 import java.io.InputStream;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.visitor.appportal.web.utils.MixAndMatchUtils;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -25,9 +25,6 @@ import com.amazonaws.services.securitytoken.model.GetSessionTokenResult;
 
 @Service("s3Service")
 public class S3Service {
-
-	@Autowired
-	private SystemPreference systemPreference;
 
 	public void createNewFile(String key, InputStream input, String bucketName, ObjectMetadata meta) throws Exception {
 		AmazonS3Client s3 = initS3();
@@ -54,15 +51,15 @@ public class S3Service {
 
 	public InputStream getFile(String bucketName, String url) {
 		AmazonS3Client s3 = initS3();
-		S3Object object = s3.getObject(systemPreference.getMerchantBucketName(), url);
+		S3Object object = s3.getObject(MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgDomain), url);
 		InputStream fis = object.getObjectContent();
 		return fis;
 	}
 
 	private AmazonS3Client initS3() {
 		AWSCredentials credentials = new BasicAWSCredentials(
-				systemPreference.getAccessKey(),
-				systemPreference.getSecretKey());
+				MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.accessKey),
+				MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.secretKey));
 		AWSSecurityTokenServiceClient stsClient = new AWSSecurityTokenServiceClient(
 				credentials); // // Manually start a session.
 

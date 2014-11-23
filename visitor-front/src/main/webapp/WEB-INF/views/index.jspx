@@ -26,12 +26,8 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 	    <span>Email</span><input id="emailStr" name="emailStr" value="wum_132@163.com" type="email" required="true"/><br />
 		<span>Password</span><input id="passwordStr" name="passwordStr" value="123456" type="password" minlength="6" required="true"/><br />
 		
-		<div id="userLoginTokenStr" style="display:none;"></div>
-		<div id="userLoginEmailStr" style="display:none;"></div>
-		
 	    <input class="button" type="button" value="Register" onclick="registerVisitor('${pageContext.request.contextPath}');"/><br />
 	    <input class="button" type="button" value="Login" onclick="loginVisitor('${pageContext.request.contextPath}');"/><br />
-	    
 	</form>
 	
 	<hr />
@@ -140,8 +136,6 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 		</select> <br />
 		
 		<span>City</span><input id="productCityStr" name="productCityStr" value="Rome" type="string" minlength="2" required="true"/><br />
-		
-		<div id="productIdStr" style="display:none;"></div>
 		
 	    <input class="button" type="button" value="Create" onclick="createProduct('${pageContext.request.contextPath}');"/><br />
 	    
@@ -342,12 +336,26 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 		<!-- add image add utility -->
 		
 		
-		
         <input class="button" type="button" value="SaveDetail" onclick="saveProductDetails('${pageContext.request.contextPath}');"/><br />
+        <br/>
+        
+        <hr />
+        
+        <!-- product available and unavailable dates picker -->
+        <span>Product Datepicker</span> <br />
+        <div id="productDatepicker"></div>
+        
+        
 	</form>
 	
 	<!-- book product  and use paypal to pay-->
 	
-	
+	<!-- style="display:none" -->
+	<![CDATA[
+	<hr />
+	<div id="userLoginTokenStr" ></div> <br />
+	<div id="userLoginEmailStr" ></div> <br />
+	<div id="productIdStr" ></div> <br />
+	]]>
 </body>
 </jsp:root>

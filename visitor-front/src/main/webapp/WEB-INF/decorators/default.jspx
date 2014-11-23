@@ -30,6 +30,8 @@
 		<script type="text/javascript" src="${scriptPackageUrl}//jquery-bbq-1.3/jquery.ba-bbq.min.js"><c:out value=" " /></script>
 		<script type="text/javascript" src="${scriptPackageUrl}//jquery-bbq-1.3/jquery-tabs-history.js"><c:out value=" " /></script>
 		
+		<!--<script type="text/javascript" src="${scriptPackageUrl}/jquery-ui-1.8.11/ui/jquery.ui.datepicker.js"><c:out value=" " /></script>-->
+		
 		<!-- custom js library -->
 		<script type="text/javascript" src="${scriptPackageUrl}/ckedit/ckeditor.js"><c:out value=" " /></script>
 		<script type="text/javascript" src="${scriptPackageUrl}/stomp.js"><c:out value=" " /></script>
