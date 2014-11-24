@@ -40,7 +40,7 @@ public class Product {
 	private Integer productTermminstay;
 	private Integer productTermmaxstay;
 	private String productCheckinafter;
-	private String productCheckoutafter;
+	private String productCheckoutbefore;
 	private String productCancellationpolicy;
 	private String productAvailkey;
 	private Integer productStatus;
@@ -215,12 +215,12 @@ public class Product {
 	}
 	
 	@Length(max = 31)
-	@Column(name = "product_checkoutafter", nullable = false)
-	public String getProductCheckoutafter() {
-		return productCheckoutafter;
+	@Column(name = "product_checkoutbefore", nullable = false)
+	public String getproductCheckoutbefore() {
+		return productCheckoutbefore;
 	}
-	public void setProductCheckoutafter(String productCheckoutafter) {
-		this.productCheckoutafter = productCheckoutafter;
+	public void setproductCheckoutbefore(String productCheckoutbefore) {
+		this.productCheckoutbefore = productCheckoutbefore;
 	}
 	
 	@Length(max = 127)

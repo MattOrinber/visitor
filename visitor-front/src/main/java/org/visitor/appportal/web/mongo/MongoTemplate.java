@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.visitor.appportal.visitor.beans.mongo.BasicMongoBean;
+import org.visitor.appportal.visitor.beans.mongo.ProductMongoBean;
 import org.visitor.appportal.visitor.beans.mongo.UserMongoBean;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
 
@@ -30,6 +31,7 @@ public class MongoTemplate {
 	private static final String visitor_db = "visitor_db";
 	private static final String user_collection = "user_collection";
 	private static final String product_collection = "product_collection";
+	private static final String other_collection = "other_collection";
 	
 	public static MongoTemplate getInstance() {
 		if (instance == null) {
@@ -76,19 +78,23 @@ public class MongoTemplate {
 	}
 	
 	public void insert(Object obj, int type) {
+		MongoOperation moTemp = new MongoOperation();
+		moTemp.setOperationType(type);
+		moTemp.setSaveObject(obj);
+		moTemp.setFetchDB(visitor_db);
 		if (obj.getClass() == UserMongoBean.class) {
-			MongoOperation moTemp = new MongoOperation();
-			moTemp.setOperationType(type);
-			moTemp.setSaveObject(obj);
-			moTemp.setFetchDB(visitor_db);
 			moTemp.setFetchCollection(user_collection);
-			
-			try {
-				mongoExecutionQueue.put(moTemp);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		} else if (obj.getClass() == ProductMongoBean.class){
+			moTemp.setFetchCollection(product_collection);
+		} else {
+			moTemp.setFetchCollection(other_collection);
+		}
+		
+		try {
+			mongoExecutionQueue.put(moTemp);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

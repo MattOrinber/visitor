@@ -157,7 +157,7 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 	        <option value="0" selected="selected">Always</option>
 	        <option value="1">Sometimes</option>
 	        <option value="2">One Time</option>
-		</select>
+		</select> <br />
 		
 		<span>Currency</span>
 		<select id="productCurrency" name="productCurrency">
@@ -313,12 +313,6 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 		</select> <br />
 		
 		<!-- Mongo part -->
-		<span>Price multiple options</span><br />
-		<span>Key:</span><input id="additionalPriceKeyStr" name="additionalPriceKeyStr" value="" type="string" minlength="6" />
-		<span>value:</span><input id="additionalPriceValue" name="additionalPriceValue" value="" type="number" min="1" />
-		<input class="button" type="button" value="Add" onclick="addProductPriceMultipleOptions('${pageContext.request.contextPath}');"/><br />
-		<div id="priceMultipleOptions"></div><br />
-		
 		<span>The Space</span><input id="productExtraInfoSpaceStr" name="productExtraInfoSpaceStr" value="Large" type="string" minlength="2" required="true"/><br />
 		<span>Guest Access</span><input id="productExtraInfoGuestAccessStr" name="productExtraInfoGuestAccessStr" value="Garage" type="string" minlength="2" required="true"/><br />
 		<span>Interaction with guest</span><input id="productExtraInfoGuestInteractionStr" name="productExtraInfoGuestInteractionStr" value="Often" type="string" minlength="2" required="true"/><br />
@@ -330,8 +324,13 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 		<span>House Manual</span><input id="productExtraInfoHouseManualStr" name="productExtraInfoHouseManualStr" value="wifi pwd:89765432" type="string" minlength="2" required="true"/><br />
 		<span>Directions</span><input id="productExtraInfoDirectionStr" name="productExtraInfoDirectionStr" value="Bus line 12345 from train station to end" type="string" minlength="2" required="true"/><br />
         
-        <!-- product address related  -->
-		
+        <input class="button" type="button" value="SaveDetail" onclick="saveProductDetails('${pageContext.request.contextPath}');"/><br />
+	</form>
+	
+	<hr />
+	
+	<form id="productAddressInfo">
+		<!-- product address related  -->
 		<span>Country</span><input id="productCountryStr" name="productCountryStr" value="China" type="string" minlength="2" required="true"/><br />
 		<span>State</span><input id="productStateStr" name="productStateStr" value="Beijing" type="string" minlength="2" required="true"/><br />
 		
@@ -340,19 +339,32 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 		<span>Street Address</span><input id="productStreetAddressStr" name="productStreetAddressStr" value="6 Futong East Street" type="string" minlength="6" required="true"/><br />
 		<span>Address detail</span><input id="productAddressDetailStr" name="productAddressDetailStr" value="Tower B" type="string" minlength="2" required="true"/><br />
 		
-		<!-- add image add utility -->
-		
-		
-        <input class="button" type="button" value="SaveDetail" onclick="saveProductDetails('${pageContext.request.contextPath}');"/><br />
-        <br/>
-        
-        <hr />
-        
-        <!-- product available and unavailable dates picker -->
+		<input class="button" type="button" value="SaveAddress" onclick="saveProductAddressDetails('${pageContext.request.contextPath}');"/><br />
+	</form>
+	
+	<hr />
+	
+	<form id="productPriceMultipleOptionInfo">
+	    <span>Price multiple options</span><br />
+		<span>Key</span><input id="additionalPriceKeyStr" name="additionalPriceKeyStr" value="" type="string" minlength="6" />
+		<span>value</span><input id="additionalPriceValue" name="additionalPriceValue" value="" type="number" min="1" />
+		<input class="button" type="button" value="Add" onclick="addProductPriceMultipleOptions('${pageContext.request.contextPath}');"/><br />
+		<div id="priceMultipleOptions"></div><br />
+	</form>
+	
+	<hr />
+	
+	<form id="productImageUpload">
+	    <!-- add image add utility -->
+	    
+	</form>
+	
+	<hr />
+	
+	<form id="productAvailableInfoSet">
+	    <!-- product available and unavailable dates picker -->
         <span>Product Datepicker</span> <br />
         <div id="productDatepicker"></div>
-        
-        
 	</form>
 	
 	<!-- book product  and use paypal to pay-->

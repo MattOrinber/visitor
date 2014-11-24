@@ -1,5 +1,4 @@
 // input form validator
-
 // websocket part
 var url = "ws://172.18.100.66:61623/mybroker";
 // var url = "ws://192.168.1.106:61623/mybroker";
@@ -278,10 +277,255 @@ function createProduct(pathOri)
 
 function saveProductDetails(pathOri)
 {
-	;
+	var form = $("#productMoreInfo");
+	form.validate();
+	var ifValidateForm = form.valid();
+	if (ifValidateForm) {
+		
+		var userLoginEmailStr = $("#userLoginEmailStr").html();
+		var userLoginTokenStr = $("#userLoginTokenStr").html();
+		
+		var productDetail = {};
+		var productIdStr = $("#productIdStr").val();
+		var productAvailableTypeStr = $("#productAvailableType").val();
+		var productCurrencyStr = $("#productCurrency").val();
+		var productBasepriceStr = $("#productBasepriceStr").val();
+		var productOverviewTitleStr = $("#productOverviewTitleStr").val();
+		
+		var editor = CKEDITOR.instances.productOverviewDetailStr;
+		var productOverviewDetailStr = editor.getData();
+		
+		var amenitiesMostCommonSelected = "";
+		var indexLSS = 0;
+		$("input[name='amenitiesMostCommonList']").each(function(){
+			if ($(this).attr('checked')==true) {
+				var valueT = $(this).val();
+				if (indexLSS == 0) {
+					amenitiesMostCommonSelected = amenitiesMostCommonSelected + valueT;
+				} else {
+					amenitiesMostCommonSelected = amenitiesMostCommonSelected + __SPLIT__ + valueT;
+				}
+				
+				indexLSS ++;
+			}
+		});
+		
+		var amenitiesExtrasSelected = "";
+		indexLSS = 0;
+		$("input[name='amenitiesExtrasList']").each(function(){
+			if ($(this).attr('checked')==true) {
+				var valueT = $(this).val();
+				if (indexLSS == 0) {
+					amenitiesExtrasSelected = amenitiesExtrasSelected + valueT;
+				} else {
+					amenitiesExtrasSelected = amenitiesExtrasSelected + __SPLIT__ + valueT;
+				}
+				
+				indexLSS ++;
+			}
+		});
+		
+		var amenitiesSpecialFeaturesSelected = "";
+		indexLSS = 0;
+		$("input[name='amenitiesSpecialFeaturesList']").each(function(){
+			if ($(this).attr('checked')==true) {
+				var valueT = $(this).val();
+				if (indexLSS == 0) {
+					amenitiesSpecialFeaturesSelected = amenitiesSpecialFeaturesSelected + valueT;
+				} else {
+					amenitiesSpecialFeaturesSelected = amenitiesSpecialFeaturesSelected + __SPLIT__ + valueT;
+				}
+				
+				indexLSS ++;
+			}
+		});
+		
+		var amenitiesHomeSafetySelected = "";
+		indexLSS = 0;
+		$("input[name='amenitiesHomeSafetyList']").each(function(){
+			if ($(this).attr('checked')==true) {
+				var valueT = $(this).val();
+				if (indexLSS == 0) {
+					amenitiesHomeSafetySelected = amenitiesHomeSafetySelected + valueT;
+				} else {
+					amenitiesHomeSafetySelected = amenitiesHomeSafetySelected + __SPLIT__ + valueT;
+				}
+				
+				indexLSS ++;
+			}
+		});
+		
+		var productBedroomNumStr = $("#productBedroomNum").val();
+		var productBedsNumStr = $("#productBedsNum").val();
+		var productBathroomNumStr = $("#productBathroomNum").val();
+		var productPricePerWeekStr = $("#productPricePerWeekStr").val();
+		var productPricePerMonthStr = $("#productPricePerMonthStr").val();
+		var minStayStr = $("#minStayStr").val();
+		var maxStayStr = $("#maxStayStr").val();
+		var productCheckinAfterStr = $("#productCheckinAfterStr").val();
+		var productCheckoutBeforeStr = $("#productCheckoutBeforeStr").val();
+		var productCancellationPolicyStr = $("#productCancellationPolicyStr").val();
+		
+		var productExtraInfoSpaceStr = $("#productExtraInfoSpaceStr").val();
+		var productExtraInfoGuestAccessStr = $("#productExtraInfoGuestAccessStr").val();
+		var productExtraInfoGuestInteractionStr = $("#productExtraInfoGuestInteractionStr").val();
+		var productExtraInfoNeighborhoodStr = $("#productExtraInfoNeighborhoodStr").val();
+		var productExtraInfoTransitStr = $("#productExtraInfoTransitStr").val();
+		var productExtraInfoOtherNoteStr = $("#productExtraInfoOtherNoteStr").val();
+		var productExtraInfoHouseRuleStr = $("#productExtraInfoHouseRuleStr").val();
+		var productExtraInfoHouseManualStr = $("#productExtraInfoHouseManualStr").val();
+		var productExtraInfoDirectionStr = $("#productExtraInfoDirectionStr").val();
+		
+		productDetail.productIdStr = productIdStr;
+		productDetail.productAvailableTypeStr = productAvailableTypeStr;
+		productDetail.productCurrencyStr = productCurrencyStr;
+		productDetail.productBasepriceStr = productBasepriceStr;
+		productDetail.productOverviewTitleStr = productOverviewTitleStr;
+		productDetail.productOverviewDetailStr = productOverviewDetailStr;
+		productDetail.amenitiesMostCommonSelected = amenitiesMostCommonSelected;
+		productDetail.amenitiesExtrasSelected = amenitiesExtrasSelected;
+		productDetail.amenitiesSpecialFeaturesSelected = amenitiesSpecialFeaturesSelected;
+		productDetail.amenitiesHomeSafetySelected = amenitiesHomeSafetySelected;
+		productDetail.productBedroomNumStr = productBedroomNumStr;
+		productDetail.productBedsNumStr = productBedsNumStr;
+		productDetail.productBathroomNumStr = productBathroomNumStr;
+		productDetail.productPricePerWeekStr = productPricePerWeekStr;
+		productDetail.productPricePerMonthStr = productPricePerMonthStr;
+		productDetail.minStayStr = minStayStr;
+		productDetail.maxStayStr = maxStayStr;
+		productDetail.productCheckinAfterStr = productCheckinAfterStr;
+		productDetail.productCheckoutBeforeStr = productCheckoutBeforeStr;
+		productDetail.productCancellationPolicyStr = productCancellationPolicyStr;
+		
+		productDetail.productExtraInfoSpaceStr = productExtraInfoSpaceStr;
+		productDetail.productExtraInfoGuestAccessStr = productExtraInfoGuestAccessStr;
+		productDetail.productExtraInfoGuestInteractionStr = productExtraInfoGuestInteractionStr;
+		productDetail.productExtraInfoNeighborhoodStr = productExtraInfoNeighborhoodStr;
+		productDetail.productExtraInfoTransitStr = productExtraInfoTransitStr;
+		productDetail.productExtraInfoOtherNoteStr = productExtraInfoOtherNoteStr;
+		productDetail.productExtraInfoHouseRuleStr = productExtraInfoHouseRuleStr;
+		productDetail.productExtraInfoHouseManualStr = productExtraInfoHouseManualStr;
+		productDetail.productExtraInfoDirectionStr = productExtraInfoDirectionStr;
+	    
+	    var urlStrStr = pathOri + '/product/savedetail?userLoginEmail='+userLoginEmailStr+'&userLoginToken='+userLoginTokenStr;
+	    var jsonStr = $.toJSON(productDetail);
+		alert(jsonStr);
+	    
+	    $.ajax({ 
+	        type : 'POST',  
+	        contentType : 'application/json',  
+	        url : urlStrStr,  
+	        processData : false,  
+	        dataType : 'json',  
+	        data : jsonStr,  
+	        success : function(data) {  
+	        	var dataRes = "save product detail result: " + data.result + "; resultDesc: " + data.resultDesc;
+	            alert(dataRes);
+	            var boxVar = $("#productMoreInfo");
+	            boxVar.append("<p>"+dataRes+"</p>");
+	        },  
+	        error : function() {  
+	            alert('Err...');  
+	        }  
+	    }); 
+	}
+}
+
+function saveProductAddressDetails(pathOri)
+{
+	var form = $("#productAddressInfo");
+	form.validate();
+	var ifValidateForm = form.valid();
+	if (ifValidateForm) {
+		
+		var userLoginEmailStr = $("#userLoginEmailStr").html();
+		var userLoginTokenStr = $("#userLoginTokenStr").html();
+		
+		var productAddress = {};
+		var productIdStr = $("#productIdStr").val();
+		var productCountryStr = $("#productCountryStr").val();
+		var productStateStr = $("#productStateStr").val();
+		var productCityStr = $("#productCityStr").val();
+		var productZipcodeStr = $("#productZipcodeStr").val();
+		var productStreetAddressStr = $("#productStreetAddressStr").val();
+		var productAddressDetailStr = $("#productAddressDetailStr").val();
+		
+		productAddress.productIdStr = productIdStr;
+		productAddress.productCountryStr = productCountryStr;
+		productAddress.productStateStr = productStateStr;
+		productAddress.productCityStr = productCityStr;
+		productAddress.productZipcodeStr = productZipcodeStr;
+		productAddress.productStreetAddressStr = productStreetAddressStr;
+		productAddress.productAddressDetailStr = productAddressDetailStr;
+	    
+	    var urlStrStr = pathOri + '/product/updateAddress?userLoginEmail='+userLoginEmailStr+'&userLoginToken='+userLoginTokenStr;
+	    var jsonStr = $.toJSON(productAddress);
+		alert(jsonStr);
+	    
+	    $.ajax({ 
+	        type : 'POST',  
+	        contentType : 'application/json',  
+	        url : urlStrStr,  
+	        processData : false,  
+	        dataType : 'json',  
+	        data : jsonStr,  
+	        success : function(data) {  
+	        	var dataRes = "update product address result: " + data.result + "; resultDesc: " + data.resultDesc;
+	            alert(dataRes);
+	            var boxVar = $("#productAddressInfo");
+	            boxVar.append("<p>"+dataRes+"</p>");
+	        },  
+	        error : function() {  
+	            alert('Err...');  
+	        }  
+	    }); 
+	}
 }
 
 function addProductPriceMultipleOptions(pathOri)
 {
-	;
+	var form = $("#productPriceMultipleOptionInfo");
+	form.validate();
+	var ifValidateForm = form.valid();
+	if (ifValidateForm) {
+		
+		var userLoginEmailStr = $("#userLoginEmailStr").html();
+		var userLoginTokenStr = $("#userLoginTokenStr").html();
+		
+		var productPriceMulti = {};
+		var productIdStr = $("#productIdStr").val();
+		var additionalPriceKeyStr = $("#additionalPriceKeyStr").val();
+		var additionalPriceValue = $("#additionalPriceValue").val();
+		
+		productPriceMulti.productIdStr = productIdStr;
+		productPriceMulti.additionalPriceKeyStr = additionalPriceKeyStr;
+		productPriceMulti.additionalPriceValue = additionalPriceValue;
+	    
+	    var urlStrStr = pathOri + '/product/multiprice?userLoginEmail='+userLoginEmailStr+'&userLoginToken='+userLoginTokenStr;
+	    var jsonStr = $.toJSON(productPriceMulti);
+		alert(jsonStr);
+	    
+	    $.ajax({ 
+	        type : 'POST',  
+	        contentType : 'application/json',  
+	        url : urlStrStr,  
+	        processData : false,  
+	        dataType : 'json',  
+	        data : jsonStr,  
+	        success : function(data) {  
+	        	var dataRes = "update product price multi option result: " + data.result + "; resultDesc: " + data.resultDesc;
+	            alert(dataRes);
+	            var boxVar = $("#productPriceMultipleOptionInfo");
+	            boxVar.append("<p>"+dataRes+"</p>");
+	            
+	            var divVar = $("#priceMultipleOptions");
+	            divVar.append("<p>"+additionalPriceKeyStr+":"+additionalPriceValue+"</p>");
+	        },  
+	        error : function() {  
+	            alert('Err...');  
+	        }  
+	    }); 
+	}
 }
+
+

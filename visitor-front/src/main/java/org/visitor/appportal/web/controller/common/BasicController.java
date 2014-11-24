@@ -18,6 +18,9 @@ import org.codehaus.jackson.map.DeserializationConfig.Feature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.visitor.appportal.visitor.beans.PayTemp;
+import org.visitor.appportal.visitor.beans.ProductAddressTemp;
+import org.visitor.appportal.visitor.beans.ProductDetailTemp;
+import org.visitor.appportal.visitor.beans.ProductPriceMultiTemp;
 import org.visitor.appportal.visitor.beans.ProductTemp;
 import org.visitor.appportal.visitor.beans.UserTemp;
 import org.visitor.appportal.web.mailutils.SendMailUtils;
@@ -91,6 +94,39 @@ public class BasicController {
 		if (StringUtils.isNotEmpty(originStr)) {
 			ProductTemp productT = JSON.parseObject(originStr, ProductTemp.class);
 			return productT;
+		}
+		
+		return null;
+	}
+	
+	public ProductDetailTemp getProductDetailTempJson(HttpServletRequest request) {
+		String originStr = getJsonStr(request);
+		
+		if (StringUtils.isNotEmpty(originStr)) {
+			ProductDetailTemp productDT = JSON.parseObject(originStr, ProductDetailTemp.class);
+			return productDT;
+		}
+		
+		return null;
+	}
+	
+	public ProductAddressTemp getProductAddressTempJson(HttpServletRequest request) {
+		String originStr = getJsonStr(request);
+		
+		if (StringUtils.isNotEmpty(originStr)) {
+			ProductAddressTemp productAT = JSON.parseObject(originStr, ProductAddressTemp.class);
+			return productAT;
+		}
+		
+		return null;
+	}
+	
+	public ProductPriceMultiTemp getProductPriceMultiTempJson(HttpServletRequest request) {
+		String originStr = getJsonStr(request);
+		
+		if (StringUtils.isNotEmpty(originStr)) {
+			ProductPriceMultiTemp productPMT = JSON.parseObject(originStr, ProductPriceMultiTemp.class);
+			return productPMT;
 		}
 		
 		return null;

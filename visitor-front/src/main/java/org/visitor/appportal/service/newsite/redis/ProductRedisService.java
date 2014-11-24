@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,17 @@ public class ProductRedisService {
 		String valueT = objectMapperWrapperForVisitor.convert2String(user);
 		
 		compressStringRedisVisitorTemplate.opsForHash().put(keyT, hashKey, valueT);
+	}
+	
+	public Product getUserProductFromRedis(User user, String productIdStr) {
+		String keyT = RedisKeysForVisitor.getVisitorUserProductInfoKey(user.getUserId().toString());
+		String hashKey = productIdStr;
+		String valueT = (String) compressStringRedisVisitorTemplate.opsForHash().get(keyT, hashKey);
+		if (StringUtils.isEmpty(valueT)) {
+			return null;
+		}
+		Product productT = objectMapperWrapperForVisitor.convertToProduct(valueT);
+		return productT;
 	}
 	
 	public List<Product> getUserProducts(User user) {
