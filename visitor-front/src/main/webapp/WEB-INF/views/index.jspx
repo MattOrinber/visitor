@@ -20,6 +20,13 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 <body>
     Hello, ${username}, ${helloString} <br />
     <br />
+    <!-- style="display:none" -->
+	<![CDATA[
+	<hr />
+	<div id="userLoginTokenStr" style="display:none;"></div>
+	<div id="userLoginEmailStr" style="display:none;"></div>
+	<div id="productIdStr" style="display:none;"></div>
+	]]>
     
     <form id="registerBasicInfo">
         
@@ -349,13 +356,5 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 	</form>
 	
 	<!-- book product  and use paypal to pay-->
-	
-	<!-- style="display:none" -->
-	<![CDATA[
-	<hr />
-	<div id="userLoginTokenStr" ></div> <br />
-	<div id="userLoginEmailStr" ></div> <br />
-	<div id="productIdStr" ></div> <br />
-	]]>
 </body>
 </jsp:root>
