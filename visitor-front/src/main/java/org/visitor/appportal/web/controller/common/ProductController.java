@@ -11,12 +11,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.visitor.appportal.service.newsite.VisitorProductAddressService;
 import org.visitor.appportal.service.newsite.VisitorProductService;
+import org.visitor.appportal.service.newsite.mongo.ProductMongoService;
 import org.visitor.appportal.service.newsite.redis.ProductRedisService;
+import org.visitor.appportal.visitor.beans.ProductAddressTemp;
 import org.visitor.appportal.visitor.beans.ProductDetailTemp;
+import org.visitor.appportal.visitor.beans.ProductPriceMultiTemp;
 import org.visitor.appportal.visitor.beans.ProductTemp;
 import org.visitor.appportal.visitor.beans.ResultJson;
+import org.visitor.appportal.visitor.beans.mongo.ProductMongoBean;
+import org.visitor.appportal.visitor.beans.mongo.ProductPriceSetMongoBean;
 import org.visitor.appportal.visitor.domain.Product;
+import org.visitor.appportal.visitor.domain.ProductAddress;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.web.utils.ProductInfo;
 import org.visitor.appportal.web.utils.WebInfo;
@@ -30,6 +37,10 @@ public class ProductController extends BasicController {
 	private VisitorProductService visitorProductService;
 	@Autowired
 	private ProductRedisService productRedisService;
+	@Autowired
+	private ProductMongoService productMongoService;
+	@Autowired
+	private VisitorProductAddressService visitorProductAddressService;
 	
 	@RequestMapping("create")
 	public void createProduct(HttpServletRequest request, 
@@ -148,7 +159,95 @@ public class ProductController extends BasicController {
 			productRedisService.saveProductToRedis(product); //online
 			
 			//mongo part;
-			;
+			ProductMongoBean pmBean = new ProductMongoBean();
+			pmBean.setProduct_id(pdt.getProductIdStr());
+			pmBean.setOwner_email(userTemp.getUserEmail());
+			pmBean.setProduct_overview_detail(pdt.getProductOverviewDetailStr());
+			pmBean.setProductExtraInfoDirectionStr(pdt.getProductExtraInfoDirectionStr());
+			pmBean.setProductExtraInfoGuestAccessStr(pdt.getProductExtraInfoGuestAccessStr());
+			pmBean.setProductExtraInfoGuestInteractionStr(pdt.getProductExtraInfoGuestInteractionStr());
+			pmBean.setProductExtraInfoHouseManualStr(pdt.getProductExtraInfoHouseManualStr());
+			pmBean.setProductExtraInfoHouseRuleStr(pdt.getProductExtraInfoHouseRuleStr());
+			pmBean.setProductExtraInfoNeighborhoodStr(pdt.getProductExtraInfoNeighborhoodStr());
+			pmBean.setProductExtraInfoOtherNoteStr(pdt.getProductExtraInfoOtherNoteStr());
+			pmBean.setProductExtraInfoSpaceStr(pdt.getProductExtraInfoSpaceStr());
+			pmBean.setProductExtraInfoTransitStr(pdt.getProductExtraInfoTransitStr());
+			productMongoService.saveProductDetail(pmBean);
+			//need to save to redis
+		}
+		
+		ResultJson rj = new ResultJson();
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		super.sendJSONResponse(rj, response);
+	}
+	
+	@RequestMapping("updateAddress")
+	public void productUpdateAddress(HttpServletRequest request, 
+			HttpServletResponse response) {
+		ProductAddressTemp pdt = super.getProductAddressTempJson(request);
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		
+		Product product = productRedisService.getUserProductFromRedis(userTemp, pdt.getProductIdStr());
+		
+		Integer result = 0;
+		String resultDesc = ProductInfo.PRODUCT_ADDRESS_SAVE_SUCCESS;
+		
+		if (product == null) {
+			result = -1;
+			resultDesc = ProductInfo.PRODUCT_NOTFOUND_FORUPDATE;
+		} else {
+			// do store and to redis to mongo stuff
+			
+			ProductAddress productAddress = new ProductAddress();
+			
+			productAddress.setPaProductid(product.getProductId());
+			productAddress.setPaCountry(pdt.getProductCountryStr());
+			productAddress.setPaCity(pdt.getProductCityStr());
+			productAddress.setPaState(pdt.getProductStateStr());
+			productAddress.setPaStreetaddress(pdt.getProductStreetAddressStr());
+			productAddress.setPaZipcode(pdt.getProductZipcodeStr());
+			productAddress.setPaDetail(pdt.getProductAddressDetailStr());
+			
+			visitorProductAddressService.saveProductAddress(productAddress);
+			
+			product.setProductAddressid(productAddress.getPaId());
+			visitorProductService.saveProduct(product);
+			productRedisService.saveUserProductToRedis(userTemp, product);
+			productRedisService.saveProductToRedis(product); //online
+			productRedisService.saveProductAddressToRedis(productAddress);
+		}
+		
+		ResultJson rj = new ResultJson();
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		super.sendJSONResponse(rj, response);
+	}
+	
+	@RequestMapping("multiprice")
+	public void productMultiPriceSet(HttpServletRequest request, 
+			HttpServletResponse response) {
+		ProductPriceMultiTemp pdt = super.getProductPriceMultiTempJson(request);
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		
+		Product product = productRedisService.getUserProductFromRedis(userTemp, pdt.getProductIdStr());
+		
+		Integer result = 0;
+		String resultDesc = ProductInfo.PRODUCT_EXTRA_PRICE_SET_SAVE_SUCCESS;
+		
+		if (product == null) {
+			result = -1;
+			resultDesc = ProductInfo.PRODUCT_NOTFOUND_FORUPDATE;
+		} else {
+			// do store and to redis to mongo stuff
+			ProductPriceSetMongoBean ppmbT = new ProductPriceSetMongoBean();
+			ppmbT.setProductIdStr(pdt.getProductIdStr());
+			ppmbT.setKeyStr(pdt.getAdditionalPriceKeyStr());
+			ppmbT.setValueStr(pdt.getAdditionalPriceValue());
+			productMongoService.saveProductExtraPriceSet(ppmbT);
+			//need to save to redis
 		}
 		
 		ResultJson rj = new ResultJson();

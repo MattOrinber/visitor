@@ -21,5 +21,7 @@ public class ProductInfo {
 	public static final String PRODUCT_CREATE_SUCCESS = "product ceated successfully";
 	
 	public static final String PRODUCT_DETAIL_UPDATE_SUCCESS = "product detail update success";//0
+	public static final String PRODUCT_ADDRESS_SAVE_SUCCESS = "product address save success";// 0
+	public static final String PRODUCT_EXTRA_PRICE_SET_SAVE_SUCCESS = "product extra price set save success";//0
 	public static final String PRODUCT_NOTFOUND_FORUPDATE = "product not found in redis for update";//-1
 }

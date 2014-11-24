@@ -15,7 +15,7 @@ public class ProductAddress {
 	//raw attributes
 	private Long paId;
 	private Long paProductid;
-	private Integer paCountry;
+	private String paCountry;
 	private String paState;
 	private String paCity;
 	private String paZipcode;
@@ -41,11 +41,12 @@ public class ProductAddress {
 		this.paProductid = paProductid;
 	}
 	
-	@Column(name = "pa_country", precision = 4)
-	public Integer getPaCountry() {
+	@Length(max = 63)
+	@Column(name = "pa_country")
+	public String getPaCountry() {
 		return paCountry;
 	}
-	public void setPaCountry(Integer paCountry) {
+	public void setPaCountry(String paCountry) {
 		this.paCountry = paCountry;
 	}
 	

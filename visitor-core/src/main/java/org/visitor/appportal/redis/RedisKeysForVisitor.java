@@ -58,6 +58,10 @@ public class RedisKeysForVisitor {
     	return "visitor-site-user-productinfokey" + getVisitorRedisWeakSplit() + userId;
     }
     
+    public static String getVisitorProductAddressInfoKey() {
+    	return "visitor-site-product-address";
+    }
+    
     
     public static String getVisitorTimeZoneKey() {
     	return "visitor-site-timezone";

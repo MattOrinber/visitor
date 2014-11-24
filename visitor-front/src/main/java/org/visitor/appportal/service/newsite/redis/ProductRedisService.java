@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.visitor.appportal.redis.ObjectMapperWrapperForVisitor;
 import org.visitor.appportal.redis.RedisKeysForVisitor;
 import org.visitor.appportal.visitor.domain.Product;
+import org.visitor.appportal.visitor.domain.ProductAddress;
 import org.visitor.appportal.visitor.domain.User;
 
 @Service("productRedisService")
@@ -64,5 +65,21 @@ public class ProductRedisService {
 		}
 		
 		return result;
+	}
+	
+	public void saveProductAddressToRedis(ProductAddress pa) {
+		String key = RedisKeysForVisitor.getVisitorProductAddressInfoKey();
+		String keyT = pa.getPaProductid().toString();
+		String valueT = objectMapperWrapperForVisitor.convert2String(pa);
+		compressStringRedisVisitorTemplate.opsForHash().put(key, keyT, valueT);
+	}
+	
+	public ProductAddress getProductAddressFromRedis(Long pid) {
+		String key = RedisKeysForVisitor.getVisitorProductAddressInfoKey();
+		String keyT = pid.toString();
+		String valueT = (String) compressStringRedisVisitorTemplate.opsForHash().get(key, keyT);
+		
+		ProductAddress pa = objectMapperWrapperForVisitor.convertToProductAddress(valueT);
+		return pa;
 	}
 }
