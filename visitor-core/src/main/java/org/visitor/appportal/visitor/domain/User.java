@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -46,6 +47,7 @@ public class User implements Serializable, Copyable<User> {
 	private Date userRegisterDate;
 	private Date userLastLoginTime;
 	private Integer userStatus;
+	private String userDetail;
 	
 	@Column(name = "user_id", nullable = false, unique = true, precision = 20)
 	@GeneratedValue
@@ -284,5 +286,14 @@ public class User implements Serializable, Copyable<User> {
 	}
 	public void setUserStatus(Integer userStatus) {
 		this.userStatus = userStatus;
+	}
+	
+	@Lob
+	@Column(name = "user_detail",columnDefinition="MEDIUMTEXT")
+	public String getUserDetail() {
+		return userDetail;
+	}
+	public void setUserDetail(String userDetail) {
+		this.userDetail = userDetail;
 	}
 }

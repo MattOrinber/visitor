@@ -15,7 +15,6 @@ import org.visitor.appportal.service.newsite.VisitorProductAddressService;
 import org.visitor.appportal.service.newsite.VisitorProductDetailInfoService;
 import org.visitor.appportal.service.newsite.VisitorProductMultiPriceService;
 import org.visitor.appportal.service.newsite.VisitorProductService;
-import org.visitor.appportal.service.newsite.mongo.ProductMongoService;
 import org.visitor.appportal.service.newsite.redis.ProductRedisService;
 import org.visitor.appportal.visitor.beans.ProductAddressTemp;
 import org.visitor.appportal.visitor.beans.ProductDetailTemp;
@@ -39,8 +38,6 @@ public class ProductController extends BasicController {
 	private VisitorProductService visitorProductService;
 	@Autowired
 	private ProductRedisService productRedisService;
-	@Autowired
-	private ProductMongoService productMongoService;
 	@Autowired
 	private VisitorProductAddressService visitorProductAddressService;
 	@Autowired

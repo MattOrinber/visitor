@@ -19,12 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.visitor.appportal.service.newsite.S3Service;
 import org.visitor.appportal.service.newsite.VisitorUserService;
-import org.visitor.appportal.service.newsite.mongo.UserMongoService;
 import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.beans.UserTemp;
-import org.visitor.appportal.visitor.beans.mongo.UserMongoBean;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.web.utils.EncryptionUtil;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
@@ -40,8 +38,6 @@ public class UserController extends BasicController{
 	
 	@Autowired
 	private VisitorUserService visitorUserService;
-	@Autowired
-	private UserMongoService userMongoService;
 	@Autowired
 	private UserRedisService userRedisService;
 	@Autowired
@@ -147,16 +143,12 @@ public class UserController extends BasicController{
 			
 			user.setUserTimeZone(userTimeZoneInt);
 			
+			user.setUserDetail(ut.getDescriptionStr());
+			
 			//mysql
 			visitorUserService.saveUser(user);
 			//redis
 			userRedisService.saveUserPassword(user);
-			//save mongo
-			UserMongoBean userMongoBean = new UserMongoBean();
-			userMongoBean.setUser_email(user.getUserEmail());
-			userMongoBean.setUser_description(ut.getDescriptionStr());
-			userMongoBean.setLast_login_forward_ip("192.168.1.1");
-			userMongoService.saveUserDetail(userMongoBean);
 			
 			result = 0;
 			resultDesc = RegisterInfo.UPDATE_SUCCESS;
