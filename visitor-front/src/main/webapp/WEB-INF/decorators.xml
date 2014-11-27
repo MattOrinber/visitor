@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <decorators defaultdir="/WEB-INF/decorators">
-    <excludes>
+    <!--<excludes>
         <pattern>/visitor/*</pattern>
     </excludes>
-    <decorator name="default" page="default.jspx">
+     <decorator name="default" page="default.jspx">
         <pattern>/index1</pattern>
+    </decorator> 
+    <decorator name="default" page="one.jspx">
+        <pattern>/*</pattern>
     </decorator>
-    <decorator name="none" page="none.jspx">
-        <pattern>/index</pattern>
-    </decorator>
-    <decorator name="printable" page="none.jsp"/>
+    <decorator name="printable" page="none.jsp"/>-->
 </decorators>
