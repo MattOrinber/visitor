@@ -24,6 +24,8 @@
 		<class>org.visitor.appportal.visitor.domain.VisitorLanguage</class>
 		<class>org.visitor.appportal.visitor.domain.TimeZone</class>
 		<class>org.visitor.appportal.visitor.domain.FloopyThing</class>
+		<class>org.visitor.appportal.visitor.domain.ProductMultiPrice</class>
+		<class>org.visitor.appportal.visitor.domain.ProductDetailInfo</class>
 		<exclude-unlisted-classes />        
     </persistence-unit>
 </persistence>

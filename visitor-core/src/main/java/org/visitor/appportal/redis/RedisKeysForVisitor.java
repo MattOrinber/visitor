@@ -62,6 +62,13 @@ public class RedisKeysForVisitor {
     	return "visitor-site-product-address";
     }
     
+    public static String getVisitorProductMultipriceInfoKey(Long pid) {
+    	return "visitor-site-product-multiprice-" + String.valueOf(pid.longValue());
+    }
+    
+    public static String getVisitorProductDetailInfoKey() {
+    	return "visitor-site-product-detail-info";
+    }
     
     public static String getVisitorTimeZoneKey() {
     	return "visitor-site-timezone";

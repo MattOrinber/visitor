@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.visitor.appportal.service.newsite.VisitorProductAddressService;
+import org.visitor.appportal.service.newsite.VisitorProductDetailInfoService;
+import org.visitor.appportal.service.newsite.VisitorProductMultiPriceService;
 import org.visitor.appportal.service.newsite.VisitorProductService;
 import org.visitor.appportal.service.newsite.mongo.ProductMongoService;
 import org.visitor.appportal.service.newsite.redis.ProductRedisService;
@@ -20,10 +22,10 @@ import org.visitor.appportal.visitor.beans.ProductDetailTemp;
 import org.visitor.appportal.visitor.beans.ProductPriceMultiTemp;
 import org.visitor.appportal.visitor.beans.ProductTemp;
 import org.visitor.appportal.visitor.beans.ResultJson;
-import org.visitor.appportal.visitor.beans.mongo.ProductMongoBean;
-import org.visitor.appportal.visitor.beans.mongo.ProductPriceSetMongoBean;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductAddress;
+import org.visitor.appportal.visitor.domain.ProductDetailInfo;
+import org.visitor.appportal.visitor.domain.ProductMultiPrice;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.web.utils.ProductInfo;
 import org.visitor.appportal.web.utils.WebInfo;
@@ -41,6 +43,10 @@ public class ProductController extends BasicController {
 	private ProductMongoService productMongoService;
 	@Autowired
 	private VisitorProductAddressService visitorProductAddressService;
+	@Autowired
+	private VisitorProductDetailInfoService visitorProductDetailInfoService;
+	@Autowired
+	private VisitorProductMultiPriceService visitorProductMultiPriceService;
 	
 	@RequestMapping("create")
 	public void createProduct(HttpServletRequest request, 
@@ -158,21 +164,24 @@ public class ProductController extends BasicController {
 			productRedisService.saveUserProductToRedis(userTemp, product);
 			productRedisService.saveProductToRedis(product); //online
 			
-			//mongo part;
-			ProductMongoBean pmBean = new ProductMongoBean();
-			pmBean.setProduct_id(pdt.getProductIdStr());
-			pmBean.setOwner_email(userTemp.getUserEmail());
-			pmBean.setProduct_overview_detail(pdt.getProductOverviewDetailStr());
-			pmBean.setProductExtraInfoDirectionStr(pdt.getProductExtraInfoDirectionStr());
-			pmBean.setProductExtraInfoGuestAccessStr(pdt.getProductExtraInfoGuestAccessStr());
-			pmBean.setProductExtraInfoGuestInteractionStr(pdt.getProductExtraInfoGuestInteractionStr());
-			pmBean.setProductExtraInfoHouseManualStr(pdt.getProductExtraInfoHouseManualStr());
-			pmBean.setProductExtraInfoHouseRuleStr(pdt.getProductExtraInfoHouseRuleStr());
-			pmBean.setProductExtraInfoNeighborhoodStr(pdt.getProductExtraInfoNeighborhoodStr());
-			pmBean.setProductExtraInfoOtherNoteStr(pdt.getProductExtraInfoOtherNoteStr());
-			pmBean.setProductExtraInfoSpaceStr(pdt.getProductExtraInfoSpaceStr());
-			pmBean.setProductExtraInfoTransitStr(pdt.getProductExtraInfoTransitStr());
-			productMongoService.saveProductDetail(pmBean);
+			//details part;
+			ProductDetailInfo pdiBean = new ProductDetailInfo();
+			
+			pdiBean.setPriProductId(product.getProductId());
+			pdiBean.setPdiOwnerEmail(userTemp.getUserEmail());
+			pdiBean.setPdiProductOverviewDetail(pdt.getProductOverviewDetailStr());
+			pdiBean.setPdiProductExtraDirection(pdt.getProductExtraInfoDirectionStr());
+			pdiBean.setPdiProductExtraGuestAccess(pdt.getProductExtraInfoGuestAccessStr());
+			pdiBean.setPdiProductExtraGuestInteraction(pdt.getProductExtraInfoGuestInteractionStr());
+			pdiBean.setPdiProductExtraHouseManual(pdt.getProductExtraInfoHouseManualStr());
+			pdiBean.setPdiProductExtraHouseRule(pdt.getProductExtraInfoHouseRuleStr());
+			pdiBean.setPdiProductExtraNeighborhood(pdt.getProductExtraInfoNeighborhoodStr());
+			pdiBean.setPdiProductExtraOtherNote(pdt.getProductExtraInfoOtherNoteStr());
+			pdiBean.setPdiProductExtraSpace(pdt.getProductExtraInfoSpaceStr());
+			pdiBean.setPdiProductExtraTransit(pdt.getProductExtraInfoTransitStr());
+			
+			visitorProductDetailInfoService.saveProductDetailInfo(pdiBean);
+			productRedisService.saveProductDetailInfoToRedis(pdiBean);
 			//need to save to redis
 		}
 		
@@ -242,11 +251,21 @@ public class ProductController extends BasicController {
 			resultDesc = ProductInfo.PRODUCT_NOTFOUND_FORUPDATE;
 		} else {
 			// do store and to redis to mongo stuff
-			ProductPriceSetMongoBean ppmbT = new ProductPriceSetMongoBean();
-			ppmbT.setProductIdStr(pdt.getProductIdStr());
-			ppmbT.setKeyStr(pdt.getAdditionalPriceKeyStr());
-			ppmbT.setValueStr(pdt.getAdditionalPriceValue());
-			productMongoService.saveProductExtraPriceSet(ppmbT);
+			if (!productRedisService.ifContainsPriceKeySet(product.getProductId(), pdt.getAdditionalPriceKeyStr())) {
+				ProductMultiPrice pmpT = new ProductMultiPrice();
+				
+				pmpT.setPmpProductId(product.getProductId());
+				pmpT.setPmpProductPriceKey(pdt.getAdditionalPriceKeyStr());
+				pmpT.setPmpProductPriceValue(Integer.valueOf(pdt.getAdditionalPriceValue()));
+				pmpT.setPmpStatus(0);
+				
+				visitorProductMultiPriceService.saveProductMultiPrice(pmpT);
+			} else {
+				ProductMultiPrice pmp = productRedisService.getProductMultiPriceSetByProductIdAndKey(product.getProductId(), pdt.getAdditionalPriceKeyStr());
+				pmp.setPmpProductPriceValue(Integer.valueOf(pdt.getAdditionalPriceValue()));
+				visitorProductMultiPriceService.saveProductMultiPrice(pmp);
+				productRedisService.saveProductMultiPriceToRedis(pmp);
+			}
 			//need to save to redis
 		}
 		

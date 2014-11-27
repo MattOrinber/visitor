@@ -12,6 +12,8 @@ import org.visitor.appportal.redis.ObjectMapperWrapperForVisitor;
 import org.visitor.appportal.redis.RedisKeysForVisitor;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductAddress;
+import org.visitor.appportal.visitor.domain.ProductDetailInfo;
+import org.visitor.appportal.visitor.domain.ProductMultiPrice;
 import org.visitor.appportal.visitor.domain.User;
 
 @Service("productRedisService")
@@ -81,5 +83,66 @@ public class ProductRedisService {
 		
 		ProductAddress pa = objectMapperWrapperForVisitor.convertToProductAddress(valueT);
 		return pa;
+	}
+	
+	//detail info part
+	public void saveProductDetailInfoToRedis(ProductDetailInfo pdi) {
+		String key = RedisKeysForVisitor.getVisitorProductDetailInfoKey();
+		String keyT = String.valueOf(pdi.getPriProductId().longValue());
+		String valueT = objectMapperWrapperForVisitor.convert2String(pdi);
+		compressStringRedisVisitorTemplate.opsForHash().put(key, keyT, valueT);
+	}
+	
+	public ProductDetailInfo getProductDetailInfoUsingProductId(Long pid) {
+		String key = RedisKeysForVisitor.getVisitorProductDetailInfoKey();
+		String keyT = String.valueOf(pid.longValue());
+		
+		String valueT = (String) compressStringRedisVisitorTemplate.opsForHash().get(key, keyT);
+		ProductDetailInfo pdi = objectMapperWrapperForVisitor.convertToProductDetailInfo(valueT);
+		return pdi;
+	}
+	
+	//multi price set part
+	public void saveProductMultiPriceToRedis(ProductMultiPrice pmp) {
+		String key = RedisKeysForVisitor.getVisitorProductMultipriceInfoKey(pmp.getPmpProductId());
+		String keyT = pmp.getPmpProductPriceKey();
+		String valueT = objectMapperWrapperForVisitor.convert2String(pmp);
+		compressStringRedisVisitorTemplate.opsForHash().put(key, keyT, valueT);
+	}
+	
+	public ProductMultiPrice getProductMultiPriceSetByProductIdAndKey(Long pid, String keyStr) {
+		String key = RedisKeysForVisitor.getVisitorProductMultipriceInfoKey(pid);
+		String keyT = keyStr;
+		String valueT = (String)compressStringRedisVisitorTemplate.opsForHash().get(key, keyT);
+		
+		ProductMultiPrice pmp = objectMapperWrapperForVisitor.convertToProductMultiPrice(valueT);
+		return pmp;
+	}
+	
+	public List<ProductMultiPrice> getAllMultiPricesSetsForProduct(Long pid) {
+		List<ProductMultiPrice> list= new ArrayList<ProductMultiPrice>();
+		String key = RedisKeysForVisitor.getVisitorProductMultipriceInfoKey(pid);
+		
+		Map<Object, Object> objMap = compressStringRedisVisitorTemplate.opsForHash().entries(key);
+		for (Object obj: objMap.keySet()) {
+			String valueT = (String) objMap.get(obj);
+			
+			ProductMultiPrice pmp = objectMapperWrapperForVisitor.convertToProductMultiPrice(valueT);
+			list.add(pmp);
+		}
+		
+		return list;
+	}
+	
+	public Boolean ifContainsPriceKeySet(Long pid, String keyStr) {
+		String key = RedisKeysForVisitor.getVisitorProductMultipriceInfoKey(pid);
+		String keyT = keyStr;
+		return compressStringRedisVisitorTemplate.opsForHash().hasKey(key, keyT);
+	}
+	
+	public void removePriceKey(Long pid, String keyStr) {
+		String key = RedisKeysForVisitor.getVisitorProductMultipriceInfoKey(pid);
+		String keyT = keyStr;
+		compressStringRedisVisitorTemplate.opsForHash().delete(key, keyT);
 	}
 }
