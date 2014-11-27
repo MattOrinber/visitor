@@ -25,7 +25,7 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 	<hr />
 	<div id="userLoginTokenStr" style="display:none;"></div>
 	<div id="userLoginEmailStr" style="display:none;"></div>
-	<div id="productIdStr" style="display:none;"></div>
+	<div id="productIdStr" style="display:none;">11</div>
 	]]>
     
     <form id="registerBasicInfo">
@@ -273,8 +273,8 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 		<span>Price per week</span><input id="productPricePerWeekStr" name="productPricePerWeekStr" value="250" type="string" minlength="1" required="true"/><br />
 		<span>Price per month</span><input id="productPricePerMonthStr" name="productPricePerMonthStr" value="250" type="string" minlength="1" required="true"/><br />
 		
-		<span>Min Stay</span><input id="minStayStr" name="minStayStr" value="1" type="number" min="1" required="true"/><br />
-		<span>Max Stay</span><input id="maxStayStr" name="maxStayStr" value="5" type="number" min="1" required="true"/><br />
+		<span>Min Stay</span><input id="minStayStr" name="minStayStr" value="1" type="digits" min="1" required="true"/><br />
+		<span>Max Stay</span><input id="maxStayStr" name="maxStayStr" value="5" type="digits" min="1" required="true"/><br />
 		
 		<span>Check in after</span>
 		<select id="productCheckinAfterStr" name="productCheckinAfterStr">
@@ -346,8 +346,8 @@ xmlns:form="http://www.springframework.org/tags/form" xmlns:page="urn:jsptagdir:
 	
 	<form id="productPriceMultipleOptionInfo">
 	    <span>Price multiple options</span><br />
-		<span>Key</span><input id="additionalPriceKeyStr" name="additionalPriceKeyStr" value="" type="string" minlength="6" />
-		<span>value</span><input id="additionalPriceValue" name="additionalPriceValue" value="" type="number" min="1" />
+		<span>Key</span><input id="additionalPriceKeyStr" name="additionalPriceKeyStr" value="" type="string" minlength="6" required="true"/>
+		<span>value</span><input id="additionalPriceValue" name="additionalPriceValue" value="" type="digits" min="1" required="true"/>
 		<input class="button" type="button" value="Add" onclick="addProductPriceMultipleOptions('${pageContext.request.contextPath}');"/><br />
 		<div id="priceMultipleOptions"></div><br />
 	</form>

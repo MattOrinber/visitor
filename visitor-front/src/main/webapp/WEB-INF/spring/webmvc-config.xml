@@ -19,7 +19,7 @@
 	<mvc:interceptors>
 	    <mvc:interceptor>
 	        <mvc:mapping path="/publishinfo/*"/>
-	        <mvc:mapping path="/product/create"/>
+	        <mvc:mapping path="/product/*"/>
 	        <bean class="org.visitor.appportal.web.interceptors.PublishInterceptor" />
 	    </mvc:interceptor>
 	</mvc:interceptors>

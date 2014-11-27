@@ -37,7 +37,7 @@ public class ProductRedisService {
 		String keyT = RedisKeysForVisitor.getVisitorUserProductInfoKey(user.getUserId().toString());
 		String hashKey = product.getProductId().toString();
 		
-		String valueT = objectMapperWrapperForVisitor.convert2String(user);
+		String valueT = objectMapperWrapperForVisitor.convert2String(product);
 		
 		compressStringRedisVisitorTemplate.opsForHash().put(keyT, hashKey, valueT);
 	}

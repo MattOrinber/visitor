@@ -158,6 +158,9 @@ public class ProductController extends BasicController {
 			product.setproductCheckoutbefore(pdt.getProductCheckoutBeforeStr());
 			product.setProductCancellationpolicy(pdt.getProductCancellationPolicyStr());
 			
+			Date upDate = new Date();
+			product.setProductUpdateDate(upDate);
+			
 			product.setProductStatus(ProductInfo.ONLINE_STATUS);
 			
 			visitorProductService.saveProduct(product);
@@ -260,6 +263,7 @@ public class ProductController extends BasicController {
 				pmpT.setPmpStatus(0);
 				
 				visitorProductMultiPriceService.saveProductMultiPrice(pmpT);
+				productRedisService.saveProductMultiPriceToRedis(pmpT);
 			} else {
 				ProductMultiPrice pmp = productRedisService.getProductMultiPriceSetByProductIdAndKey(product.getProductId(), pdt.getAdditionalPriceKeyStr());
 				pmp.setPmpProductPriceValue(Integer.valueOf(pdt.getAdditionalPriceValue()));

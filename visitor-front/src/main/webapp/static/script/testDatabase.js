@@ -286,7 +286,7 @@ function saveProductDetails(pathOri)
 		var userLoginTokenStr = $("#userLoginTokenStr").html();
 		
 		var productDetail = {};
-		var productIdStr = $("#productIdStr").val();
+		var productIdStr = $("#productIdStr").html();
 		var productAvailableTypeStr = $("#productAvailableType").val();
 		var productCurrencyStr = $("#productCurrency").val();
 		var productBasepriceStr = $("#productBasepriceStr").val();
@@ -442,7 +442,7 @@ function saveProductAddressDetails(pathOri)
 		var userLoginTokenStr = $("#userLoginTokenStr").html();
 		
 		var productAddress = {};
-		var productIdStr = $("#productIdStr").val();
+		var productIdStr = $("#productIdStr").html();
 		var productCountryStr = $("#productCountryStr").val();
 		var productStateStr = $("#productStateStr").val();
 		var productCityStr = $("#productCityStr").val();
@@ -493,7 +493,7 @@ function addProductPriceMultipleOptions(pathOri)
 		var userLoginTokenStr = $("#userLoginTokenStr").html();
 		
 		var productPriceMulti = {};
-		var productIdStr = $("#productIdStr").val();
+		var productIdStr = $("#productIdStr").html();
 		var additionalPriceKeyStr = $("#additionalPriceKeyStr").val();
 		var additionalPriceValue = $("#additionalPriceValue").val();
 		
