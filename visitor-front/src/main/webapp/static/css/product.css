@@ -1,0 +1,165 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{margin:0;padding:0;font-family:Arial,sans-serif;color:#565a5c;}
+a{text-decoration:none;}
+img{border:none;}
+li{list-style:none;}
+body{background:#f7f7f7;}
+
+.header{width:100%;height:55px;background:#fff;border-bottom:1px solid #c4c4c4;}
+.header .head{min-width:1080px;height:55px;margin:0 auto;}
+.header .head .logo{width:80px;height:50px;float:left;margin-left:20px;margin-top:10px;}
+.header .head .select{width:200px;height:20px;float:left;margin-top:22px;}
+.header .head .select select{border:1px solid #c4c4c4;width:120px;outline:none;}
+.header .head .loginbar{width:300px;height:50px;float:right;margin-top:15px;margin-right:20px;}
+.header .head .loginbar a{font-size:13px;color:#666;margin-left:25px;}
+.header .head .loginbar a.list{border:1px solid #007a87;border-bottom-color: #004f58;background-color: #007a87;display:inline-block;width:130px;height:28px;border-radius:3px;line-height:28px;text-align:center;font-weight:bold;color:#fff;}
+.header .head .loginbar a.list:hover{background-color:#12acbc;border:1px solid #12acbc;border-bottom-color: #004f58;}
+
+.banner{width:100%;height:520px;background:url(../img/12e158cf_original.jpg) no-repeat center center;cursor:pointer;}
+
+.hostinfo{width:100%;height:164px;background:#fff;border-bottom:1px solid #c4c4c4;position:relative;}
+.hostinfo .menu{width:100%;height:40px;background:#565a5c;position:absolute;left:0;top:-40px;display:none;}
+.hostinfo .menu .inner{width:1020px;height:40px;margin:0 auto;}
+.hostinfo .menu .inner a{display:block;height:37px;float:left;color:#ccc;line-height:40px;margin-right:20px;font-size:14px;}
+.hostinfo .menu .inner a:hover{color:#fff;}
+.hostinfo .menu .inner a.choosed{color:#fff;border-bottom:3px solid #ccc; }
+.hostinfo .menu.fixedSubNav{display:block;position:fixed;top:0;left:0;z-index:1000}
+
+.hostinfo .main{width:1020px;height:164px;margin:0 auto;position:relative;}
+.hostinfo .main .host{width:680px;height:164px;float:left;}
+.hostinfo .main .host .photo{width:150px;height:164px;float:left;}
+.hostinfo .main .host .photo .img{width:90px;height:90px;margin-top:15px;margin-bottom:5px;border-radius:50%;border: 2px solid #fff;background:url(../img/original2.jpg) no-repeat center center;}
+.hostinfo .main .host .photo p{width:90px;text-align:center;font-size:14px;color:#82888a;}
+.hostinfo .main .host .info{width:500px;height:148px;float:left;padding-top:15px;}
+.hostinfo .main .host .info h3{font-size:22px;margin-bottom:10px;}
+.hostinfo .main .host .info p{font-size:14px;color:#82888a;}
+.hostinfo .main .host .info p span{padding-left:10px;padding-right:10px;padding-top:2px;}
+.hostinfo .main .host .info p span img{width:14px;height:14px;margin-left:2px;}
+.hostinfo .main .host .info .pic-t{width:450px;margin-top:10px;}
+.hostinfo .main .host .info .pic-t span{width:120px;height:50px;font-size:13px;display:block;float:left;line-height:120px;background:url(../img/clock.png) no-repeat left bottom;}
+.hostinfo .main .host .info .pic-t span.people{background:url(../img/gnome_system_users.png) no-repeat 5px bottom;}
+.hostinfo .main .host .info .pic-t span.language{background:url(../img/gnome_mime_application_x_applix_word.png) no-repeat 20px bottom;}
+
+.hostinfo .scrollbox{width:100%;height:310px;position:relative;margin-top:-164px;}
+.hostinfo .scrollbox.fixedbook{position:fixed;top:0;left:0;z-index:1000;margin-top:40px;z-index:2000;}
+.hostinfo .scrollbox .rightbox{width:1020px;height:310px;margin:0 auto;position:relative;}
+.hostinfo .scrollbox .rightbox .book{width:300px;height:310px;position:absolute;right:0;top:-40px;}
+.hostinfo .scrollbox.fixedbook .rightbox .book{background:#fff;border:1px solid #d4d4d4;border-top:none;}
+.hostinfo .scrollbox .rightbox .book .price{width:260px;height:40px;background:rgba(0,0,0,0.6);color:#fff;font-size:25px;line-height:40px;padding-left:20px;padding-right:20px;pointer-events: none}
+.hostinfo .scrollbox .rightbox .book .price span{font-size:14px;color:#fff;float:right;}
+.hostinfo .scrollbox .rightbox .book .date{width:260px;padding-left:20px;padding-right:20px;margin-top:20px;font-size:16px;}
+.hostinfo .scrollbox .rightbox .book .date span{display:block;width:260px;height:40px;background:#d5d5d5;border-radius:3px;margin-top:10px;text-align:center;line-height:40px;font-size:15px;cursor:pointer;color:#666;}
+.hostinfo .scrollbox .rightbox .book .booking{width:260px;padding-left:20px;padding-right:20px;margin-top:20px;}
+.hostinfo .scrollbox .rightbox .book .booking a{display:block;border-radius:3px;width:260px;height:40px;background:#ff5a5f;color:#fff;line-height:40px;text-align:center;border:1px solid #ff7e82;
+border-bottom:1px solid #fa0008;font-size:18px;}
+.hostinfo .scrollbox .rightbox .book .booking a:hover{background:#ff7e82;}
+.hostinfo .scrollbox .rightbox .book a.save{display:block;width:260px;margin:0 auto;margin-bottom:15px;height:40px;background:#d5d5d5;border-radius:3px;margin-top:25px;text-align:center;line-height:40px;font-size:15px;cursor:pointer;font-weight:bold;}
+.hostinfo .scrollbox .rightbox .book a.share{margin-left:20px;font-size:14px;padding-bottom:10px;}
+
+.aboutlist{width:1020px;margin:0 auto;}
+.aboutlist .listing{width:680px;}
+.aboutlist .listing h4{font-size:20px;margin-top:20px;margin-bottom:20px;}
+.aboutlist .listing p{font-size:14px;line-height:22px;margin-bottom:20px;}
+.aboutlist .listing a.contact{font-size:15px;color:#FF0000;font-weight:bold;margin-bottom:20px;}
+.aboutlist .listing .roomimg{margin-top:20px;margin-bottom:30px;}
+.aboutlist .listing table{border:none;border-top:1px solid #c4c4c4;}
+.aboutlist .listing table tr{display:inline-table;width:100%;padding-top:10px;padding-bottom:10px;border:none;border-bottom:1px solid #c4c4c4;}
+.aboutlist .listing table tr td{vertical-align:top;font-size:14px;line-height:20px;}
+.aboutlist .listing table tr td.title{width:140px;}
+.aboutlist .listing table tr td.middle{width:280px;}
+
+.reviews{width:100%;min-height:200px;background:#fff;border-top:1px solid #c4c4c4;border-bottom:1px solid #c4c4c4;}
+.reviews .details{width:1020px;margin:0 auto;}
+.reviews .title{font-size:20px;margin-top:20px;margin-bottom:20px;}
+.reviews .title span{padding-left:10px;padding-right:10px;padding-top:2px;}
+.reviews .title span img{width:14px;height:14px;margin-left:2px;}
+.reviews .details .list{width:650px;margin-left:30px;overflow:hidden;}
+.reviews .details .list dl{float:left;width:120px;padding-left:30px;padding-top:10px;}
+.reviews .details .list dl dd{display:block;width:65px;height:65px;border-radius: 50%;border: 2px solid #fff;background:url(../img/original.jpg) no-repeat center center;}
+.reviews .details .list dl dt{font-size:14px;color:#999;margin-top:10px;}
+.reviews .details .list div.text{margin-left:150px;font-size:13.5px;line-height:20px;}
+.reviews .details .list div.text span{display:block;width:200px;height:30px;margin-top:15px;color:#999999;}
+.reviews .details .list .response{width:600px;float:right;border:none;}
+.reviews .details .list .response dl{width:100px;padding-left:0;padding-left:50px;}
+.reviews .details .list .response dl dd{width:50px;height:50px;}
+.reviews .details .list .response div.text p{font-weight:bold;margin-bottom:10px;}
+.reviews .details .line{width:500px;margin-left:180px;height:1px;background:#c4c4c4;margin-top:20px;margin-bottom:20px;}
+
+.page{width:400px;height:65px;margin-left:230px;margin-top:20px;}
+.page a{font-size:13px;float: left;padding: 5px 10px;margin-left: 10px;text-decoration: none;border: 1px solid #c4c4c4;border-radius: 2pbackground-color: #fff;}
+.page a.selected{background:#e3e3e3;}
+
+.abouthost{width:100%;background:#fff;border-bottom:1px solid #c4c4c4;}
+.abouthost .presentation{width:1020px;min-height:250px;margin:0 auto;overflow:hidden;}
+.abouthost .presentation h3{font-size:20px;padding-top:20px;margin-bottom:20px;}
+.abouthost .presentation .picture{width:150px;float:left;height:200px;}
+.abouthost .presentation .picture span{display:block;width:90px;height:90px;border-radius:50%;border: 2px solid #fff;background:url(../img/original2.jpg) no-repeat center center;}
+.abouthost .presentation .description{width:630px;float:left;text-align:left;}
+.abouthost .presentation .description p{font-size:13.5px; line-height:22px;}
+.abouthost .presentation .description a.view{font-size:13.5px;color:#ff5a5f;font-weight:bold;display:block;margin-top:15px;margin-bottom:15px;}
+.abouthost .presentation .description a.contact{font-size:14px;display:block;width:110px;height:25px;background:#ff5a5f;color:#fff;line-height:25px;text-align:center;border:1px solid #ff7e82;
+border-bottom:1px solid #fa0008;color: #fff;margin-top:10px;margin-bottom:20px;border-radius:2px;}
+.abouthost .presentation .description a.contact:hover{background:#ff7e82;border-radius:2px;}
+
+.content{width:1020px;overflow:hidden;margin:0 auto;margin-top:20px;}
+.content .title p{font-size:20px;font-weight:bold;}
+.content .apartment{width:320px;height:290px;margin:10px;overflow:hidden;float:Left;position:relative;}
+.content .apartment .photo{width:60px;height:60px;border-radius: 50%;border: 2px solid #fff;overflow:hidden;background:url(../img/original.jpg) no-repeat center center;position:absolute;right:15px;bottom:35px;}
+.content .apartment .price{width:80px;height:40px;background:rgba(0,0,0,0.8);position:absolute;left:0px;top:160px;font-size:28px;color:#fff;line-height:40px;}
+.content .apartment .price span{display:block;width:16px;height:16px;float:left;margin-left:6px;margin-top:10px;font-size:16px;color:#fff;line-height:10px;}
+.content .apartment .word p.product-title{font-size:16px;margin-top:12px;}
+.content .apartment .word p.duration{font-size:14px;color:#979797;margin-top:5px;}
+.content .img{width:320px;height:227px;overflow:hidden;}
+
+
+
+.footer{width:100%;height:55px;background:#eee8df;}
+.footer .policy{width:1000px;margin:0 auto;line-height:55px;}
+.footer .policy a{font-size:13px;color:#4d3636;margin:auto 10px;}
+.footer .policy span{font-size:13px;color:#4d3636;float:right;}
+.footer .policy select{width:80px;height:18px;background:#eee8df;margin-right:10px;border:1px solid #999;}
+.footer .policy select option{font-size:13px;}
+
+.backtotop a{display:block;width:100%;height:50px;background:url(../img/totop.png) no-repeat center 7px #d9ccb9;cursor:pointer;}
+.backtotop a:hover{background:url(../img/totop.png) no-repeat center bottom #674702;}
+
+
+
+.wrapwrapbox{width:100%;height:100%;position:fixed;left:0;top:0;background:rgba(0,0,0,0.75);z-index:9998;display:none;}
+.wrapbox .signupbox{position:fixed;left:50%;top:0;z-index:9999;width:315px;height:260px;background:#fff;border-radius:3px;margin-left:-150px;margin-top:220px;padding-top:20px;display:none;}
+.wrapbox .signupbox a.facebook,.wrapbox .signupbox a.email{border:1px solid #d52b2a;border-bottom:1px solid #8a1c1b;background:#d52b2a;border-radius:3px;color: #fff;display:block;width:260px;height:40px;text-align:center;line-height:40px;margin:0 auto;margin-bottom:20px;}
+.wrapbox .signupbox a.facebook:hover,.wrapbox .signupbox a.email:hover{background:#df4c4b;}
+.wrapbox .signupbox span.terms{display:block;width:260px;margin:0 auto;font-size:12px;color:#666;margin-top:10px;line-height:20px;height:80px;border-bottom:1px solid #d2d2d2;}
+.wrapbox .signupbox span.terms a{color:#df4c4b;}
+.wrapbox .signupbox span.terms a:hover{text-decoration:underline;}
+.wrapbox .signupbox span.loginbutton{display:block;width:260px;margin:0 auto;margin-top:20px;font-size:14px;}
+.wrapbox .signupbox span.loginbutton a{color:#df4c4b;}
+.wrapbox .signupbox span.loginbutton a:hover{text-decoration:underline;}
+.wrapbox .signupbox span.or{margin-left:150px;margin-bottom:5px;}
+.wrapbox .signupbox span.username{display:block;width:260px;height:35px;margin:0 auto;margin-bottom:15px;border:1px solid #d4d4d4; border-radius:2px;background:url(../img/email.png) no-repeat 230px center;}
+.wrapbox .signupbox span.password{background:url(../img/lock.png) no-repeat 230px center;}
+.wrapbox .signupbox span.username input{width:220px;height:32px;border:none;outline:none;padding-left:5px;}
+.wrapbox .signupbox span.checkbox{width:150px;height:25px;margin-left:28px;font-size:13px;}
+.wrapbox .signupbox span.checkbox input{width:14px;height:14px;background:#fff;margin-right:3px}
+.wrapbox .signupbox span.forget{float:right;margin-right:28px;}
+.wrapbox .signupbox span.forget a{font-size:14px;color:#df4c4b;}
+.wrapbox .signupbox span.forget a:hover{text-decoration:underline;}
+.wrapbox .signupbox a.login{margin-top:20px;background:#e76261;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

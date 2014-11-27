@@ -5,7 +5,10 @@
         <pattern>/visitor/*</pattern>
     </excludes>
     <decorator name="default" page="default.jspx">
-        <pattern>/*</pattern>
+        <pattern>/index1</pattern>
+    </decorator>
+    <decorator name="none" page="none.jspx">
+        <pattern>/index</pattern>
     </decorator>
     <decorator name="printable" page="none.jsp"/>
 </decorators>
