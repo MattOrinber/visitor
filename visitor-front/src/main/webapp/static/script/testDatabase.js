@@ -1,7 +1,7 @@
 // input form validator
 // websocket part
-var url = "ws://172.18.100.66:61623/mybroker";
-// var url = "ws://192.168.1.106:61623/mybroker";
+// var url = "ws://172.18.100.66:61623/mybroker";
+var url = "ws://192.168.1.106:61623/mybroker";
 var __SPLIT__ = "---";
 
 function connectToWS() {

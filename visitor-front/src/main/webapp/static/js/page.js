@@ -1,7 +1,51 @@
+function doImage() {
+	var aImg = $('#focus ul li');
+	var iSize = aImg.size();
+	var index = 0;
+	//var t;
+	$('#btnLeft').click(function(){
+		index--;
+		if ( index < 0 ) {
+			index = iSize - 1;
+		}
+		change(index);
+	});
+	$('#btnRight').click(function(){
+		index++;
+		if(index > (iSize-1) ) {
+			index = 0;
+		}
+		change(index);
+	});
+	
+	function change(index){
+		//aPage.removeClass('active');
+		//aPage.eq(index).addClass('active');
+		aImg.stop();
+		aImg.eq(index).siblings().animate({
+			opacity:0
+		}, 1000);
+		
+		aImg.eq(index).animate({
+			opacity:1
+		},1000);
+	}
+	function autoshow() {
+		index=index+1;
+		if(index <= (iSize-1)){
+			change(index);
+		}else{
+			index=0;
+			change(index);
+		}
+	}
+	int=setInterval(autoshow, 4000);
+}
+
 $(document).ready(function(){
 	$("#signbtn").click(function(){
 		$('.wrapwrapbox').show();
-		("#signup").show();
+		$("#signup").show();
 	});
 	
 	$("#logbtn").click(function(){
@@ -61,52 +105,12 @@ $(document).ready(function(){
 		$(".howtowork").hide();
 	});
 	
-	$(window).scroll(function(){
-		var targetTop = $(this).scrollTop();
-		if (targetTop >= 520){
-			$(".howtowork").hide();
-		}
-	});
-	
-	var aImg = $('#focus ul li');
-	var iSize = aImg.size();
-	var index = 0;
-	//var t;
-	$('#btnLeft').click(function(){
-		index--;
-		if ( index < 0 ) {
-			index = iSize - 1;
-		}
-		change(index);
-	});
-	$('#btnRight').click(function(){
-		index++;
-		if(index > (iSize-1) ) {
-			index = 0;
-		}
-		change(index);
-	});
-	
-	function change(index){
-		//aPage.removeClass('active');
-		//aPage.eq(index).addClass('active');
-		aImg.stop();
-		aImg.eq(index).siblings().animate({
-			opacity:0
-		}, 1000);
-		
-		aImg.eq(index).animate({
-			opacity:1
-		},1000);
+	doImage();
+});
+
+$(window).scroll(function(){
+	var targetTop = $(this).scrollTop();
+	if (targetTop >= 520){
+		$(".howtowork").hide();
 	}
-	function autoshow() {
-		index=index+1;
-		if(index <= (iSize-1)){
-			change(index);
-		}else{
-			index=0;
-			change(index);
-		}
-	}
-	int=setInterval(autoshow, 4000);
 });
