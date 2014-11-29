@@ -28,8 +28,6 @@
 	    <appender-ref ref="file" />
 		<appender-ref ref="stdout" />
 	</logger>
-
-	<logger name="org.apache.solr.client.solrj.impl" level="error" />
 	
 	<logger name="classLogger" additivity="false">
 		<level value="info" />

@@ -121,18 +121,6 @@
     </bean>
 	
 	<bean id="md5PasswordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
-
-	<!-- String solrServerUrl, int queueSize, int threadCount -->
-	<bean id="appUpdateSolrServer" class="org.apache.solr.client.solrj.impl.ConcurrentUpdateSolrServer">
-		<constructor-arg type="java.lang.String" index="0" value="${app.solrj.url}" />
-		<constructor-arg type="int" index="1" value="${app.solrj.queueSize}" />
-		<constructor-arg type="int" index="2" value="${app.solrj.threadCount}" />
-	</bean>
-	<bean id="gameUpdateSolrServer" class="org.apache.solr.client.solrj.impl.ConcurrentUpdateSolrServer">
-		<constructor-arg type="java.lang.String" index="0" value="${game.solrj.url}" />
-		<constructor-arg type="int" index="1" value="${game.solrj.queueSize}" />
-		<constructor-arg type="int" index="2" value="${game.solrj.threadCount}" />
-	</bean>	
 	
 	<bean class="com.mongodb.MongoClient"/>
 </beans>

@@ -2,194 +2,52 @@
 
 <jsp:directive.page contentType="text/html;charset=UTF-8" />
 <jsp:output omit-xml-declaration="yes" />
+
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>DayFetch</title>
-	<link href="${pageContext.request.contextPath}/static/css/main.css" rel="stylesheet" type="text/css" />
-	<script src="${pageContext.request.contextPath}/static/js/jquery-1.7.1.min.js" type="text/javascript"><c:out value=" " /></script>
-	<script src="${pageContext.request.contextPath}/static/js/mark.js" type="text/javascript"><c:out value=" " /></script>
+    <title>Dayfetch admin</title>
+    
+    <!-- custom js library -->
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery-1.5.2/jquery.min.js"><c:out value=" " /></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery.md5.js"><c:out value=" " /></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery-validation-1.8.0/jquery.validate.js"><c:out value=" " /></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery.json-2.4.js"><c:out value="" /></script>
+	
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/testPublish.js"><c:out value=" " /></script>
+    
+    <style>
+		*{margin:0;padding:0;font-family:"microsoft yahei";font-size:13px;}
+		form{margin-left:20px;margin-top:20px;}
+		form span{display:inline-block;width:65px;height:30px;}
+		form input{width:160px;height:24px;border:1px solid #999;}
+		form input.button{width:80px;height:30px;border-radius:5px;}
+		form input.button:hover{font-weight:bold;}
+		a{margin-left:20px;margin-top:10px;display:block;}
+	</style>
 </head>
 <body>
-
-<!--sign up login-->
-<![CDATA[
-<div class="wrapwrapbox"></div>
-
-<div class="wrapbox" >
-	<div class="signupbox" id="signup">
-    	<a href="javascript:void(0);" class="facebook">Sign up with Facebook</a>
-        <a href="javascript:void(0);" class="email">Sign up with Email</a>
-        <span class="terms">By signing up, I agree to DayFetch's <a href="">Terms of Service</a>, <a href="">Privacy Policy</a>, <a href="">Guest Refund Policy</a>, and <a href="">Host Guarantee Terms</a>.</span>
-    	<span class="loginbutton">Already an Airbnb member? <a href="javascript:void(0);" id="signupTologin">Log in</a></span>
-    </div>
-</div>
-
-<div class="wrapbox">
-	<div class="signupbox" style="height:320px;"  id="login">
-    	<a href="javascript:void(0);" class="facebook">Log in with Facebook</a>
-        <span class="or">or</span>
-        <span class="username"><input type="text" value="Email Address"/></span>
-        <span class="username password"><input type="text" value="Password"/></span>
-        <span class="checkbox"><input type="checkbox" />Remember me</span>
-        <span class="forget"><a href="">Forgot password?</a></span>
-        <a href="javascript:void(0);" class="facebook login">Log  in</a>
-        <span class="loginbutton">Don't have an account? <a href="javascript:void(0);" id="loginTosignup">Sign up</a></span>
-    </div>
-</div>
-
-	<div class="howtowork">
-    	<span id="hideit" style="position:absolute;right:20px;top:20px;cursor:pointer;"><img src="${pageContext.request.contextPath}/static/img/close1.png" /></span>
-    	<div class="works">
-        	<span><p>Discover Amazing Places</p>
-Find hosts with extra rooms, entire homes, and unique accommodations like castles <br />and igloos.</span>
-			<span style="margin-left:60px;"><p>Book a Stay</p>
-Connect with hosts, confirm travel dates, and pay — all through DayFetch's trusted <br />services.</span>
-			<span style="margin-left:80px;"><p>Travel</p>
-Feel at home, anywhere you go in the world. Learn more about how to travel on <br />DayFetch.</span>
-        </div>
-        <p class="learnmore"><a href="#">Learn more</a> about hosting on DayFetch and show your guests they're right where they belong</p>
-    </div>
-
+    <!-- style="display:none" -->
+	<![CDATA[
+	<hr />
+	<div id="userLoginTokenStr" style="display:none;"></div>
+	<div id="userLoginEmailStr" style="display:none;"></div>
+	]]>
     
-    <div class="banner">
-    	<div class="bannerimg" id="focus">
-        	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);"><a href=""><img src="${pageContext.request.contextPath}/static/img/hero1.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${pageContext.request.contextPath}/static/img/hero2.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${pageContext.request.contextPath}/static/img/hero3.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${pageContext.request.contextPath}/static/img/hero4.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${pageContext.request.contextPath}/static/img/hero5.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${pageContext.request.contextPath}/static/img/hero6.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${pageContext.request.contextPath}/static/img/hero7.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${pageContext.request.contextPath}/static/img/hero8.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${pageContext.request.contextPath}/static/img/hero9.jpg" width="100%"/></a></li>
-            </ul>
-        	
-        </div>
-        <div class="logo">
-        	<a href="index.html"><img src="${pageContext.request.contextPath}/static/img/logo-white.png" width="35"/></a>
-        </div>
-        <div class="loginbar">
-        	<a href="javascript:void(0);" id="signbtn">Sign Up</a>
-            <a href="javascript:void(0);" id="logbtn">Log In</a>
-            <a href="" class="list">List Your Activities</a>
-        </div>
-        <div class="tagline">
-        	<p class="title">Book Amazing Activities, Tours, and more</p>
-            <a href="javascript:void(0)" class="button" id="howtowork">How It Works</a>
-        </div>
-        <div class="searchbar">
-        	<div class="search">
-            	<input id="searchinput" type="text" value="Choose a Place" onfocus="if (value =='Choose a Place'){value =''}"  onblur="if (value ==''){value='Choose a Place'}"/>
-                <span></span>
-                <div class="choose_city">
-                	<span id="close" class="close"></span>
-                    <ul class="destination">
-                    	<li>Beijing1</li>
-                        <li>Beijing2</li>
-                        <li>Beijing3</li>
-                        <li>Beijing4</li>
-                        <li>Beijing5</li>
-                        <li>Beijing6</li>
-                        <li>Beijing7</li>
-                        <li>Beijing8</li>
-                        <li>Beijing5</li>
-                        <li>Beijing6</li>
-                        <li>Beijing7</li>
-                        <li>Beijing8</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    
-    <div class="content">
-    	<h1>Explore Dayfetch Places</h1>
-        <div class="wrap">
-        	<div class="twoimg">
-            	<div class="leftone hover">
-                	<a href=""></a>
-                	<div class="shade"></div>
-                	<h2>Pairs</h2>
-                </div>
-                <div class="rightone hover">
-                	<a href=""></a>
-                	<div class="shade"></div>
-                    <div class="host"></div>
-                	<h2>Linda's home</h2>
-                    <p>Pairs</p>
-                    <div class="price"><span>$</span>300</div>
-                </div>
-            </div>
-            
-            <div class="threeimg">
-            	<div class="leftbox hover">
-                	<a href=""></a>
-                	<div class="shade"></div>
-                	<h2>New York</h2>
-                </div>
-                <div class="middlebox hover">
-                	<a href=""></a>
-                	<div class="shade"></div>
-                	<h2>New York</h2>
-                </div>
-                <div class="rightbox hover">
-                	<a href=""></a>
-                	<div class="shade"></div>
-                	<h2>New York</h2>
-                </div>
-            </div>
-            
-            <div class="twoimg leftright">
-            	<div class="rightone hover">
-                	<a href=""></a>
-                	<div class="shade"></div>
-                	<h2>Seoul</h2>
-                </div>
-            	<div class="leftone hover">
-                	<a href=""></a>
-                	<div class="shade"></div>
-                	<h2>Los Angeles</h2>
-                </div>
-            </div>
-            
-        </div>
+    <form id="registerBasicInfo">
         
-        <div class="button">
-           <a href="javascript:void(0);">Show More</a>
-        </div>
-        
-    </div>
-    
-    
-    <div class="footer">
-    	<div class="policy">
-]]>
-
-		<select>
-			<c:forEach items="${currencyList}" var="currencyT" varStatus="status">
-				<c:if test="${status.index == 0}">
-				    <option value="${currencyT}" selected="selected">${currencyT}</option>
-				</c:if>
-				<c:if test="${status.index != 0}">
-				    <option value="${currencyT}">${currencyT}</option>
-				</c:if>
-			</c:forEach>
-		</select>
-            
-<![CDATA[
-        	<a href="">About </a>|
-            <a href="">Terms of Use </a>|
-            <a href="">Privacy Policy </a>
-            <span>Copyright 2014 © DayFetch All rights reserve</span>
-        </div>
-    </div>
-    
-    <div class="backtotop" id="ScrolltoTop">
-    	<a href="javascript:void(0);"></a>
-    </div>  
-]]>
-  
+	    <span>Email</span><input id="emailStr" name="emailStr" value="wum_132@163.com" type="email" required="true"/><br />
+		<span>Password</span><input id="passwordStr" name="passwordStr" value="123456" type="password" minlength="6" required="true"/><br />
+		
+	    <input class="button" type="button" value="Login" onclick="loginVisitor('${pageContext.request.contextPath}');"/><br />
+	</form>
+	
+	<hr />
+	
+	<form id="publishBasicInfo">
+	    <input class="button" type="button" value="发布时区" onclick="publishTimeZone('${pageContext.request.contextPath}');"/><br />
+	    <input class="button" type="button" value="发布语言" onclick="publishLanuage('${pageContext.request.contextPath}');"/><br />
+	    
+	    <input class="button" type="button" value="FloopyValue" onclick="publishFloopyValues('${pageContext.request.contextPath}');"/><br />
+	</form>
+	
 </body>
 </html>

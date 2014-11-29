@@ -53,34 +53,6 @@
         <filter-name>Spring OpenEntityManagerInViewFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
-    <!-- Needed for Error pages. Sets decorator for all error pages by setting request attribute decorator to public. 
-    <filter>
-        <filter-name>clearSiteMeshAppliedOnce</filter-name>
-        <filter-class>org.codeconsole.sitemesh.filter.ClearSitemeshAppliedOnceFilter</filter-class>
-        <init-param>
-            <param-name>decorator-attribute</param-name>
-            <param-value>public</param-value>
-        </init-param>
-    </filter>
-    
-    <filter-mapping>
-        <filter-name>clearSiteMeshAppliedOnce</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>ERROR</dispatcher>
-    </filter-mapping>
-    
-    <filter>
-        <filter-name>sitemeshFilter</filter-name>
-        <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
-    </filter>
-    
-    <filter-mapping>
-        <filter-name>sitemeshFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>ERROR</dispatcher>
-    </filter-mapping>-->
         
     <!-- Creates the Spring Container shared by all Servlets and Filters -->
     <listener>
