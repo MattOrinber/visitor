@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 
@@ -75,6 +77,14 @@ public final class EncryptionUtil {
 		} catch (NoSuchAlgorithmException ex) {
 			return null;
 		}
+	}
+	
+	public static String getToken(String emailStr, String passwordMd5Str, Date date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+		String dateStr = sdf.format(date);
+		String md5Ori = emailStr + WebInfo.SPLIT + passwordMd5Str + WebInfo.SPLIT + dateStr;
+		String md5Final = getMD5(md5Ori);
+		return md5Final;
 	}
 	
 }

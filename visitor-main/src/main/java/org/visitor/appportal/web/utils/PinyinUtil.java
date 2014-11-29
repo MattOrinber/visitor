@@ -14,6 +14,7 @@ public class PinyinUtil {
 	 * @return 汉语拼音首字母
 	 */
 	public static String cn2FirstSpell(String chinese) {
+		
 		return "";
 	}
 

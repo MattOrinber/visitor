@@ -18,6 +18,9 @@
 		
 		<!-- http://jquery.org/ -->
 		<script type="text/javascript" src="${scriptPackageUrl}/jquery-1.5.2/jquery.min.js"><c:out value=" " /></script>
+		<script type="text/javascript" src="${scriptPackageUrl}/jquery.md5.js"><c:out value=" " /></script>
+		<script type="text/javascript" src="${scriptPackageUrl}/jquery-validation-1.8.0/jquery.validate.js"><c:out value=" " /></script>
+		<script type="text/javascript" src="${scriptPackageUrl}/jquery.json-2.4.js"><c:out value="" /></script>
 		
 		<!-- http://jqueryui.com/ -->
 		<link type="text/css" href="${scriptPackageUrl}/jquery-ui-1.8.11/themes/base/jquery.ui.all.css" rel="stylesheet" media="all" />
@@ -26,9 +29,16 @@
 		<!-- https://github.com/cowboy/jquery-bbq -->
 		<script type="text/javascript" src="${scriptPackageUrl}//jquery-bbq-1.3/jquery.ba-bbq.min.js"><c:out value=" " /></script>
 		<script type="text/javascript" src="${scriptPackageUrl}//jquery-bbq-1.3/jquery-tabs-history.js"><c:out value=" " /></script>
+		
+		<!--<script type="text/javascript" src="${scriptPackageUrl}/jquery-ui-1.8.11/ui/jquery.ui.datepicker.js"><c:out value=" " /></script>-->
+		
+		<!-- custom js library -->
+		<script type="text/javascript" src="${scriptPackageUrl}/ckedit/ckeditor.js"><c:out value=" " /></script>
+		<script type="text/javascript" src="${scriptPackageUrl}/stomp.js"><c:out value=" " /></script>
+		<script type="text/javascript" src="${scriptPackageUrl}/testDatabase.js"><c:out value=" " /></script>
+		<script type="text/javascript" src="${scriptPackageUrl}/testPublish.js"><c:out value=" " /></script>
 
 		<!-- https://github.com/jzaefferer/jquery-validation -->	
-		<script type="text/javascript" src="${scriptPackageUrl}/jquery-validation-1.8.0/jquery.validate.js"><c:out value=" " /></script>
 		<link rel="stylesheet" href="${themePackageUrl}/950px/menu.css" type="text/css" />
         <title>${accountContext.site.name}:<decorator:title default="App Portal管理后台" /></title>
         <decorator:head />
@@ -62,76 +72,8 @@
 				<a href="${pageContext.request.contextPath}/"><img src="${themePackageUrl}/images/logo.png" /></a>
 			</div>
 			<div class="span-5 border" align="center">
-				<security:authorize ifNotGranted="ROLE_ADMIN,ROLE_USER,ROLE_SUPER">
-					<a href="${pageContext.request.contextPath}/login"><spring:message code="layout.login" /></a>
-				</security:authorize>
-				<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_USER,ROLE_SUPER">
-					${accountContext.account.nickname}
-					<a href="${pageContext.request.contextPath}/resources/j_spring_security_logout"><spring:message code="layout.logout" /></a>
-					&amp;nbsp;<a href="${pageContext.request.contextPath}/domain/account/changepwd"><spring:message code="layout.changepwd" /></a>
-				</security:authorize>
-			</div>
-			<div class="span-5 border" align="center">
 				<font size="5" color="red">${accountContext.site.name}</font>
 			</div>
-			<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_USER,ROLE_SUPER">
-			<hr/>
-			<div class="main_menu">
-				<ul>
-					<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_USER,ROLE_SUPER">
-					<li style="z-index: 1009"><a href="#">运营平台</a>
-						<ul>
-							<li><a href="${pageContext.request.contextPath}/domain/site/show/${sessionScope.siteId}"><spring:message code="site" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/folder/tree"><spring:message code="folder" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/recommandcontainer/search"><spring:message code="recommandContainer" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/advertise/search"><spring:message code="advertise" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/template/search"><spring:message code="template" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/picture/search"><spring:message code="productPic_pic" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/searchkeyword/search"><spring:message code="searchKeyword" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/recommendrule/search"><spring:message code="recommendRule" /></a></li>
-						</ul>
-					</li>
-					<li><a href="#">产品库</a>
-						<ul>
-							<li><a href="${pageContext.request.contextPath}/domain/productlist/search"><spring:message code="productList" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/productfile/search"><spring:message code="productFile" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/productpic/search"><spring:message code="productPic" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/productstate/search"><spring:message code="productState" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/label/showtree"><spring:message code="category_dic_tag" /></a></li>
-						</ul>
-					</li>
-					<li><a href="#">字典管理</a>
-						<ul>
-							<li><a href="${pageContext.request.contextPath}/domain/category/showtree/1"><spring:message code="category_dic_category" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/category/showtree/3"><spring:message code="category_dic_platform" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/category/showtree/5"><spring:message code="category_dic_resolution" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/category/showtree/6"><spring:message code="category_dic_billing" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/category/showtree/7"><spring:message code="category_dic_cooperation" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/category/showtree/8"><spring:message code="category_dic_operation" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/category/showtree/10"><spring:message code="category_dic_operator" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/category/showtree/11"><spring:message code="category_dic_importby" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/category/showtree/12"><spring:message code="category_dic_productsource" /></a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/category/showtree/13"><spring:message code="category_dic_merchant" /></a></li>
-						</ul>
-					</li>
-					</security:authorize>
-					<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_SUPER">
-					<li><a href="#">系统管理</a>
-						<ul>
-							<security:authorize ifAnyGranted="ROLE_SUPER">
-							<li><a href="${pageContext.request.contextPath}/domain/account/search">用户管理</a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/role/search">角色管理</a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/batch/search">产品导入</a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/redis/show">缓存数据操作</a></li>
-							</security:authorize>
-							<li><a href="${pageContext.request.contextPath}/domain/config/list">系统参数设置</a></li>
-							<li><a href="${pageContext.request.contextPath}/domain/productbatch/products">产品批量处理</a></li>
-						</ul>
-					</li>
-					</security:authorize>
-				</ul>
-			</div>
-			</security:authorize>
 			<hr />
 			<div id="main">
 				<decorator:body />
@@ -139,7 +81,7 @@
 			<hr />
 			<h3 align="center"><spring:message code="homepage.springfuse.footer" htmlEscape="false" /></h3>
 			<p style="text-align: center; background: skyblue;">
-				Copyright 2011 Nhorzion Software | 
+				Copyright 2011 DayFetch Software | 
 				<spring:message code="layout.all.rights.reserved" />		
 			</p>
 		</div>

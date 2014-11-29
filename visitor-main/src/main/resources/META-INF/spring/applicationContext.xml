@@ -10,7 +10,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
 	        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd         
-	        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd         
+	        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd       
 	        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd         
 	        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
 	        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
@@ -62,15 +62,17 @@
         The most commonly used annotation is @Autowired, which instructs Spring to
         dependency inject an object into your class.
     -->
+     <util:properties id="systemProperties" location="classpath:visitor.properties"/>
+     
     <context:component-scan base-package="org.visitor.appportal">
         <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     </context:component-scan>
     
     <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
-        <property name="driverClassName" value="${database.driverClassName}"/>
-        <property name="url" value="${database.url}"/>
-        <property name="username" value="${database.username}"/>
-        <property name="password" value="${database.password}"/>
+        <property name="driverClassName" value="${database.visitor.driverClassName}"/>
+        <property name="url" value="${database.visitor.url}"/>
+        <property name="username" value="${database.visitor.username}"/>
+        <property name="password" value="${database.visitor.password}"/>
         <property name="testOnBorrow" value="true"/>
         <property name="testOnReturn" value="true"/>
         <property name="testWhileIdle" value="true"/>
@@ -81,10 +83,10 @@
     </bean>
     
     <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSourceRead">
-        <property name="driverClassName" value="${database.read.driverClassName}"/>
-        <property name="url" value="${database.read.url}"/>
-        <property name="username" value="${database.read.username}"/>
-        <property name="password" value="${database.read.password}"/>
+        <property name="driverClassName" value="${database.visitor.driverClassName}"/>
+        <property name="url" value="${database.visitor.url}"/>
+        <property name="username" value="${database.visitor.username}"/>
+        <property name="password" value="${database.visitor.password}"/>
         <property name="testOnBorrow" value="true"/>
         <property name="testOnReturn" value="true"/>
         <property name="testWhileIdle" value="true"/>
@@ -120,8 +122,6 @@
 	
 	<bean id="md5PasswordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
 
-    <util:properties id="systemProperties" location="classpath:system.properties"/>
-
 	<!-- String solrServerUrl, int queueSize, int threadCount -->
 	<bean id="appUpdateSolrServer" class="org.apache.solr.client.solrj.impl.ConcurrentUpdateSolrServer">
 		<constructor-arg type="java.lang.String" index="0" value="${app.solrj.url}" />
@@ -133,4 +133,6 @@
 		<constructor-arg type="int" index="1" value="${game.solrj.queueSize}" />
 		<constructor-arg type="int" index="2" value="${game.solrj.threadCount}" />
 	</bean>	
+	
+	<bean class="com.mongodb.MongoClient"/>
 </beans>

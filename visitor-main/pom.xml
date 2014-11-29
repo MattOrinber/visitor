@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>visitor-main</artifactId>
 	<packaging>war</packaging>
-	<name>Visitor Site App Portal Admin Webapp</name>
+	<name>Visitor Site App Portal Front Webapp</name>
 	<url>http://maven.apache.org</url>
 	
 	<properties>
@@ -174,6 +174,12 @@
 			<version>4.8.2</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.1</version>
+        </dependency> 
 
 		<dependency>
 			<groupId>org.apache.poi</groupId>
@@ -195,6 +201,37 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>2.10.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.eclipse.paho</groupId>
+			<artifactId>mqtt-client</artifactId>
+			<version>0.4.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.codehaus.stomp</groupId>
+		    <artifactId>stompconnect</artifactId>
+		    <version>1.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk</artifactId>
+			<version>1.7.8</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.paypal.sdk</groupId>
+			<artifactId>rest-api-sdk</artifactId>
+			<version>0.11.0</version>
+		</dependency>
+		
 	</dependencies>
 	<build>
 		<plugins>

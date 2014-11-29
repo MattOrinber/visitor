@@ -14,41 +14,18 @@
         </properties>
         
 		<mapping-file>META-INF/orm.xml</mapping-file>
-		<class>org.visitor.appportal.domain.Category</class>
-		<class>org.visitor.appportal.domain.Folder</class>
-		<class>org.visitor.appportal.domain.HtmlPage</class>
-		<class>org.visitor.appportal.domain.HtmlPageBak</class>
-		<class>org.visitor.appportal.domain.MessageContent</class>
-		<class>org.visitor.appportal.domain.MessageReply</class>
-		<class>org.visitor.appportal.domain.ModelList</class>
-		<class>org.visitor.appportal.domain.PageContainer</class>
-		<class>org.visitor.appportal.domain.ProductContainer</class>
-		<class>org.visitor.appportal.domain.ProductFile</class>
-		<class>org.visitor.appportal.domain.ProductList</class>
-		<class>org.visitor.appportal.domain.ProductOperation</class>
-		<class>org.visitor.appportal.domain.ProductPic</class>
-		<class>org.visitor.appportal.domain.ProductSiteFolder</class>
-		<class>org.visitor.appportal.domain.ProductState</class>
-		<class>org.visitor.appportal.domain.RecommandContainer</class>
-		<class>org.visitor.appportal.domain.Site</class>
-		<class>org.visitor.appportal.domain.SiteValue</class>
-		<class>org.visitor.appportal.domain.Template</class>
-		<class>org.visitor.appportal.domain.TemplateBak</class>
-		<class>org.visitor.appportal.domain.Picture</class>
-		<class>org.visitor.appportal.domain.SearchKeyword</class>
-		
-		<class>org.visitor.appportal.domain.Account</class>
-		<class>org.visitor.appportal.domain.Role</class>
-		<class>org.visitor.appportal.domain.AccountRole</class>
-
-		<class>org.visitor.appportal.domain.Advertise</class>
-		<class>org.visitor.appportal.domain.RecommendRule</class>
-		<class>org.visitor.appportal.domain.ProductSiteRecommend</class>
-		<class>org.visitor.appportal.domain.RecommendRuleAcross</class>
-		<class>org.visitor.appportal.domain.ProductAcrossRecommend</class>
-		<class>org.visitor.appportal.domain.ProductContainerTask</class>
-		<class>org.visitor.appportal.domain.ProductDetail</class>
-        <class>org.visitor.appportal.domain.Label</class>
+		<class>org.visitor.appportal.visitor.domain.User</class>
+		<class>org.visitor.appportal.visitor.domain.Product</class>
+		<class>org.visitor.appportal.visitor.domain.Container</class>
+		<class>org.visitor.appportal.visitor.domain.ProductAddress</class>
+		<class>org.visitor.appportal.visitor.domain.ProductOperation</class>
+		<class>org.visitor.appportal.visitor.domain.RelationProductOrder</class>
+		<class>org.visitor.appportal.visitor.domain.RelationUserProduct</class>
+		<class>org.visitor.appportal.visitor.domain.VisitorLanguage</class>
+		<class>org.visitor.appportal.visitor.domain.TimeZone</class>
+		<class>org.visitor.appportal.visitor.domain.FloopyThing</class>
+		<class>org.visitor.appportal.visitor.domain.ProductMultiPrice</class>
+		<class>org.visitor.appportal.visitor.domain.ProductDetailInfo</class>
 		<exclude-unlisted-classes />        
     </persistence-unit>
 </persistence>

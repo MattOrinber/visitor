@@ -8,9 +8,9 @@
 
 	<appender name="file"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>/nh/logs/visitor-admin/errlog/webapp.out</file>
+		<file>/nh/logs/visitor-main/errlog/webapp.out</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<FileNamePattern>/nh/logs/visitor-admin/errlog/webapp.out-%d{yyyyMMdd}</FileNamePattern>
+			<FileNamePattern>/nh/logs/visitor-main/errlog/webapp.out-%d{yyyyMMdd}</FileNamePattern>
 			<maxHistory>3</maxHistory>
 		</rollingPolicy>
 		<encoder>
@@ -19,14 +19,26 @@
 	</appender>
 
 	<logger name="org.hibernate.SQL" additivity="true">
-		<level value="debug" />
+		<level value="info" />
 		<appender-ref ref="file" />
+		<appender-ref ref="stdout" />
 	</logger>
-	<logger name="org.springframework.web.servlet" level="warn" />
+	<logger name="org.springframework.web.servlet">
+	    <level value="info" />
+	    <appender-ref ref="file" />
+		<appender-ref ref="stdout" />
+	</logger>
 
 	<logger name="org.apache.solr.client.solrj.impl" level="error" />
+	
+	<logger name="classLogger" additivity="false">
+		<level value="info" />
+	    <appender-ref ref="file"/>
+	    <appender-ref ref="stdout" />
+	</logger>
 
 	<root level="INFO">
 		<appender-ref ref="file" />
+		<appender-ref ref="stdout" />
 	</root>
 </configuration>

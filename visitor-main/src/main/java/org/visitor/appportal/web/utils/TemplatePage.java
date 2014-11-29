@@ -22,7 +22,7 @@ import org.visitor.app.portal.model.SystemConstants;
 import org.visitor.appportal.domain.HtmlPage;
 import org.visitor.appportal.domain.Template;
 import org.visitor.appportal.domain.Template.TypeEnum;
-import org.visitor.appportal.service.SystemPreference;
+import org.visitor.appportal.service.newsite.SystemPreference;
 
 @Component("TemplatePage")
 @Scope("prototype")
