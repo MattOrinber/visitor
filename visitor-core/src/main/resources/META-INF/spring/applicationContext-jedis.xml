@@ -13,15 +13,6 @@
     <context:property-placeholder location="classpath*:META-INF/spring/*.properties"/>
 
 	<!-- Use Redis as key value store -->
-	<bean id="jedisConnectionFactory"
-		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:pool-config-ref="jedisPoolConfig"
-		p:use-pool="true" p:host-name="${redis.hostname}" p:port="${redis.port}" p:database="${redis.database}" p:timeout="9000" />
-	<bean id="jedisUserConnectionFactory"
-		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:timeout="9000" p:pool-config-ref="jedisPoolConfig"
-		p:use-pool="true" p:host-name="${redis_user.hostname}" p:port="${redis_user.port}" p:database="${redis_user.database}"/>
-	<bean id="jedisApuConnectionFactory"
-		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:timeout="9000" p:pool-config-ref="jedisPoolConfig"
-		p:use-pool="true" p:host-name="${redis_apu.hostname}" p:port="${redis_apu.port}" p:database="${redis_apu.database}"/>
 	<bean id="jedisVisitorConnectionFactory"
 		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:timeout="9000" p:pool-config-ref="jedisPoolConfig"
 		p:use-pool="true" p:host-name="${redis_visitor.hostname}" p:port="${redis_visitor.port}" p:database="${redis_visitor.database}"/>
@@ -45,17 +36,17 @@
 	<!-- redis template definition -->
 	<bean id="stringRedisTemplate"
 		class="org.springframework.data.redis.core.StringRedisTemplate"
-		p:connection-factory-ref="jedisConnectionFactory" />
+		p:connection-factory-ref="jedisVisitorConnectionFactory" />
 
 	<!-- The user redis template -->
 	<bean id="userStringByteRedisTemplate"
 		class="org.visitor.appportal.redis.support.StringByteRedisTemplate"
-		p:connection-factory-ref="jedisUserConnectionFactory" />
+		p:connection-factory-ref="jedisVisitorConnectionFactory" />
 		
 	<!-- The apu redis template -->
 	<bean id="apuStringRedisTemplate"
 		class="org.springframework.data.redis.core.StringRedisTemplate"
-		p:connection-factory-ref="jedisApuConnectionFactory" />
+		p:connection-factory-ref="jedisVisitorConnectionFactory" />
 		
 	<bean id="compressStringRedisTemplate"
 		class="org.springframework.data.redis.core.StringRedisTemplate"
