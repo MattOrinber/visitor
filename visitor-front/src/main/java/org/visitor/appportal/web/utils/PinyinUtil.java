@@ -6,7 +6,6 @@ import org.springframework.util.StringUtils;
 
 import org.visitor.util.AppStringUtils;
 
-
 public class PinyinUtil {
 	/**
 	 * 获取汉字串拼音首字母，英文字符不变
