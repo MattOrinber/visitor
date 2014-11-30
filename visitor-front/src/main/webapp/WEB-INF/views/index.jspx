@@ -39,7 +39,7 @@
         </form>
         <span class="checkbox"><input type="checkbox" checked="checked"  />Tell me about Airbnb news</span>
         <span class="terms">By signing up, I agree to DayFetch's <a href="">Terms of Service</a>, <a href="">Privacy Policy</a>, <a href="">Guest Refund Policy</a>, and <a href="">Host Guarantee Terms</a>.</span>
-        <a href="registerVisitor('${pageContext.request.contextPath}');" class="facebook">Sign up</a>
+        <a href="javascript:registerVisitor('${pageContext.request.contextPath}');" class="facebook">Sign up</a>
     	<span class="loginbutton">Already an Airbnb member? <a href="javascript:void(0);" id="signupTologin1">Log in</a></span>
     </div>
 </div>
@@ -54,7 +54,7 @@
         </form>
         <span class="checkbox"><input type="checkbox" />Remember me</span>
         <span class="forget"><a href="">Forgot password?</a></span>
-        <a href="javascript:void(0);" class="facebook login">Log  in</a>
+        <a href="javascript:loginVisitor('${pageContext.request.contextPath}');" class="facebook login">Log  in</a>
         <span class="loginbutton">Don't have an account? <a href="javascript:void(0);" id="loginTosignup">Sign up</a></span>
     </div>
 </div>
