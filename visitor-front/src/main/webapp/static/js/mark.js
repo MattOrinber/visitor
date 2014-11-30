@@ -159,7 +159,7 @@ function registerVisitor(pathOri)
 		        	var dataRes = "register result: " + data.result + "; resultDesc: " + data.resultDesc;
 		            alert(dataRes);
 		            var boxVar = $("#registerBasicInfo");
-		            boxVar.append("<p>"+dataRes+"</p>");
+		            boxVar.append("<p class=\"username\">"+dataRes+"</p>");
 		        },  
 		        error : function() {  
 		            alert('Err...');  
@@ -167,7 +167,7 @@ function registerVisitor(pathOri)
 		    }); 
 		} else {
 			var toSetNode = $("#cPasswordStr").parent();
-			toSetNode.append("<p color=\"red\">two passwrods not match</p>");
+			toSetNode.append("<p class=\"username\" color=\"red\">two passwrods not match</p>");
 		}
 	}
 }
@@ -199,7 +199,7 @@ function loginVisitor(pathOri) {
 	        	var dataRes = "login result: " + data.result + "; resultDesc: " + data.resultDesc;
 	            alert(dataRes);
 	            var boxVar = $("#loginBasicInfo");
-	            boxVar.append("<p>"+dataRes+"</p>");
+	            boxVar.append("<p class=\"username\">"+dataRes+"</p>");
 	            //var tokenBoxVar = $("#userLoginTokenStr");
 	            //var emailBoxVar = $("#userLoginEmailStr");
 	            //tokenBoxVar.html(data.token);
