@@ -1,6 +1,7 @@
 package org.visitor.appportal.service.newsite.redis;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,10 +49,19 @@ public class FloopyThingRedisService {
 		
 		String keyT = FloopyUtils.FLOOPY_PREFIX + key;
 		Map<Object, Object> entries = stringRedisVisitorTemplate.opsForHash().entries(keyT);
+		
+		Map<String, String> sortedList = new LinkedHashMap<String, String>();
+		
 		if (null != entries) {
 			for(Object entry : entries.keySet()) {
+				String keyStr = (String)entry;
 				String valueStr = (String)entries.get(entry);
-				result.add(valueStr);
+				sortedList.put(keyStr, valueStr);
+			}
+			
+			for (String keyType : sortedList.keySet()) {
+				String tmpResult = sortedList.get(keyType);
+				result.add(tmpResult);
 			}
 		}
 		
