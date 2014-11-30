@@ -90,7 +90,7 @@ public class UserController extends BasicController{
 		setResultToClient(response, rj);
 	}
 	
-	@RequestMapping("login/{emailStr}/{passMd5}")
+	@RequestMapping("login")
     public void login(HttpServletRequest request,
     		HttpServletResponse response) {
 		UserTemp ut = super.getUserJson(request);
