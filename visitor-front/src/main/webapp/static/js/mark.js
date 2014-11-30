@@ -42,15 +42,22 @@ function doImage() {
 	int=setInterval(autoshow, 4000);
 }
 
+function doFacebook() {
+	$("._4z_f").addClass('spanFaceBook');
+}
+//_4z_f fwb
+
 $(document).ready(function(){
 	$("#signbtn").click(function(){
 		$('.wrapwrapbox').show();
 		$("#signup").show();
+		doFacebook();
 	});
 	
 	$("#logbtn").click(function(){
 		$('.wrapwrapbox').show();
 		$("#login").show();
+		doFacebook();
 	});
 	
 	$("#signupTologin,#signupTologin1").click(function(){
@@ -228,11 +235,13 @@ function statusChangeCallback(response) {
 		testAPI();
 	} else if (response.status === 'not_authorized') {
 		// The person is logged into Facebook, but not your app.
-		document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
+		// document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
+		console.log('not authorized!');
 	} else {
 		// The person is not logged into Facebook, so we're not sure if
 		// they are logged into this app or not.
-		document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
+		// document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
+		console.log('Others!');
 	}
 }
 
@@ -284,6 +293,6 @@ function testAPI() {
 	console.log('Welcome!  Fetching your information.... ');
 	FB.api('/me', function(response) {
 		console.log('Successful login for: ' + response.name);
-		document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
+		//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
     });
 }
