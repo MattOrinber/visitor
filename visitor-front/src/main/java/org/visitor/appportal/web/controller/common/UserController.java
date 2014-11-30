@@ -45,10 +45,15 @@ public class UserController extends BasicController{
 	@Autowired
 	private S3Service s3Service;
 	
-	@RequestMapping("register/{emailStr}/{passMd5}")
-    public void register(@PathVariable("emailStr") String mailStrParam, 
-    		@PathVariable("passMd5") String passwordStrParam,
+	@RequestMapping("register")
+    public void register(HttpServletRequest request,
     		HttpServletResponse response) {
+		UserTemp ut = super.getUserJson(request);
+		
+		logTheJsonResult(ut);
+		String mailStrParam = ut.getEmailStr();
+		String passwordStrParam = ut.getPasswordStr();
+		
 		long count = visitorUserService.checkUserCount(mailStrParam);
 		Integer result = 0;
 		String resultDesc = "";
@@ -86,9 +91,13 @@ public class UserController extends BasicController{
 	}
 	
 	@RequestMapping("login/{emailStr}/{passMd5}")
-    public void login(@PathVariable("emailStr") String mailStrParam, 
-    		@PathVariable("passMd5") String passwordStrParam,
+    public void login(HttpServletRequest request,
     		HttpServletResponse response) {
+		UserTemp ut = super.getUserJson(request);
+		
+		logTheJsonResult(ut);
+		String mailStrParam = ut.getEmailStr();
+		String passwordStrParam = ut.getPasswordStr();
 		
 		ResultJson rj = checkIfTheUserLegal(mailStrParam, passwordStrParam);
 		
