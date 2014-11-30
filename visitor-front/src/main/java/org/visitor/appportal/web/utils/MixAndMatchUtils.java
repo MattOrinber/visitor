@@ -19,6 +19,8 @@ public class MixAndMatchUtils {
 	public static final String awsFileDomain = "aws.fileDomain";
 	public static final String awsImgDomain = "aws.imgDomain";
 	
+	public static final String awsImgStatic = "aws.imgBucketUseing";
+	
 	public static final String paypalClientID = "paypalClientID";
 	public static final String paypalClientSecret = "paypalClientSecret";
 	

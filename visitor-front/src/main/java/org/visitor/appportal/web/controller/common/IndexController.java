@@ -20,6 +20,7 @@ import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
 import org.visitor.appportal.service.newsite.redis.VisitorLanguageRedisService;
 import org.visitor.appportal.visitor.domain.TimeZone;
 import org.visitor.appportal.visitor.domain.VisitorLanguage;
+import org.visitor.appportal.web.utils.MixAndMatchUtils;
 
 /**
  * @author mengw
@@ -101,6 +102,10 @@ public class IndexController extends BasicController {
 		model.addAttribute("checkinAfterList", checkinAfterList);
 		model.addAttribute("checkoutBeforeList", checkoutBeforeList);
 		model.addAttribute("cancellationPolicyList", cancellationPolicyList);
+		
+		String imgPathOrigin = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic);
+		
+		model.addAttribute("imgPathOrigin", imgPathOrigin);
 		
 		return "index";
 	}
