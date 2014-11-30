@@ -53,18 +53,25 @@ $(document).ready(function(){
 		$("#login").show();
 	});
 	
-	$("#signupTologin").click(function(){
+	$("#signupTologin,#signupTologin1").click(function(){
 		$("#signup").hide();
+		$("#emailsignup").hide();
 		$("#login").show();
 	});
 	$("#loginTosignup").click(function(){
 		$("#login").hide();
+		$("#emailsignup").hide();
 		$("#signup").show();
 	});
 	$(".wrapwrapbox").click(function(){
 		$(this).hide();
 		$("#signup").hide();
 		$("#login").hide();
+		$("#emailsignup").hide();
+	});
+	$("#email_signup").click(function(){
+		$("#signup").hide();
+		$("#emailsignup").show();
 	});
 	
 	$("#searchinput").click(function(){

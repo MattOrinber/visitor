@@ -18,9 +18,24 @@
 <div class="wrapbox" >
 	<div class="signupbox" id="signup">
     	<a href="javascript:void(0);" class="facebook">Sign up with Facebook</a>
-        <a href="javascript:void(0);" class="email">Sign up with Email</a>
+        <a href="javascript:void(0);" class="email" id="email_signup">Sign up with Email</a>
         <span class="terms">By signing up, I agree to DayFetch's <a href="">Terms of Service</a>, <a href="">Privacy Policy</a>, <a href="">Guest Refund Policy</a>, and <a href="">Host Guarantee Terms</a>.</span>
     	<span class="loginbutton">Already an Airbnb member? <a href="javascript:void(0);" id="signupTologin">Log in</a></span>
+    </div>
+</div>
+
+<div class="wrapbox emailwrapbox" >
+	<div class="signupbox" id="emailsignup">
+    	<a href="javascript:void(0);" class="facebook">Sign up with Facebook</a>
+        <span class="username name1"><input type="text" value="First name"/></span>
+        <span class="username name1"><input type="text" value="Last name"/></span>
+        <span class="username"><input type="text" value="Email Address"/></span>
+        <span class="username password"><input type="text" value="Password"/></span>
+        <span class="username password"><input type="text" value="Confirm Password"/></span>
+        <span class="checkbox"><input type="checkbox" checked="checked"  />Tell me about Airbnb news</span>
+        <span class="terms">By signing up, I agree to DayFetch's <a href="">Terms of Service</a>, <a href="">Privacy Policy</a>, <a href="">Guest Refund Policy</a>, and <a href="">Host Guarantee Terms</a>.</span>
+        <a href="javascript:void(0);" class="facebook">Sign up</a>
+    	<span class="loginbutton">Already an Airbnb member? <a href="javascript:void(0);" id="signupTologin1">Log in</a></span>
     </div>
 </div>
 
