@@ -56,7 +56,7 @@ public class FloopyThingRedisService {
 			for(Object entry : entries.keySet()) {
 				String keyStr = (String)entry;
 				String valueStr = (String)entries.get(entry);
-				sortedList.put(keyStr, valueStr);
+				sortedList.put(valueStr, keyStr);
 			}
 			
 			for (String keyType : sortedList.keySet()) {

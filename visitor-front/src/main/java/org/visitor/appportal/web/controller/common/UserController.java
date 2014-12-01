@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -226,6 +227,17 @@ public class UserController extends BasicController{
 		}
 		
 		setResultToClient(response, resultJ);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping("facebook")
+	public void doFacebookReturn(HttpServletRequest request,
+			HttpServletResponse response) {
+		Map<String, String> req_map = request.getParameterMap();
+		
+		for (String key : req_map.keySet()) {
+			log.info("<key> : <"+key+"> ; <value> : <" + req_map.get(key) +">;"); 
+		}
 	}
 	
 	private ResultJson checkIfTheUserLegal(String mailStrParam, String passwordStrParam) {
