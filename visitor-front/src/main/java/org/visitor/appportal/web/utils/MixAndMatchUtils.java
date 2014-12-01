@@ -19,7 +19,25 @@ public class MixAndMatchUtils {
 	public static final String awsFileDomain = "aws.fileDomain";
 	public static final String awsImgDomain = "aws.imgDomain";
 	
+	//------------------------------------------aws static image url
 	public static final String awsImgStatic = "aws.imgBucketUseing";
+	
+	//------------------------------------------facebook related items
+	public static final String facebookCallbackURL = "facebookCallbackURL";
+	public static final String facebookAppId = "facebookAppId";
+	public static final String facebookAppSecret = "facebookAppSecret";
+	public static final String facebookLoginURL = "facebookLoginURL";
+	public static final String facebookAccessTokenURL = "facebookAccessTokenURL";
+	public static final String facebookGetUserInfoURL = "facebookGetUserInfoURL";
+	public static final String facebookGetUserPictureURL = "facebookGetUserPictureURL";
+	
+	public static final String param_facebook_client_id = "client_id";
+	public static final String param_facebook_redirect_uri = "redirect_uri";
+	public static final String param_facebook_display = "display";
+	public static final String param_facebook_auth_code = "code";
+	public static final String param_facebook_access_token = "access_token";
+	public static final String param_facebook_redirect = "redirect";
+	//------------------------------------------facebook related items end
 	
 	public static final String paypalClientID = "paypalClientID";
 	public static final String paypalClientSecret = "paypalClientSecret";

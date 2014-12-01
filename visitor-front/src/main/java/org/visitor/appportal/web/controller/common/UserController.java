@@ -2,6 +2,7 @@ package org.visitor.appportal.web.controller.common;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -234,10 +235,16 @@ public class UserController extends BasicController{
 	@RequestMapping("facebook")
 	public String doFacebookReturn(HttpServletRequest request,
 			HttpServletResponse response) {
-		String result = super.getJsonStr(request);
-		
-		log.info("result: >"+result+"<");
-		
+		//get authorization code
+		String codeStr = request.getParameter("code");
+		if (StringUtils.isNotEmpty(codeStr)) {
+			log.info("code: >"+codeStr+"<");
+			//get the access token
+			String facebookCallbackUrl = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.facebookCallbackURL);
+			
+		} else {
+			log.info("no authorization code returned");
+		}
 		return "index";
 	}
 	
@@ -325,5 +332,9 @@ public class UserController extends BasicController{
 		String toEncode = "http://ec2-54-169-2-129.ap-southeast-1.compute.amazonaws.com:8080/registerUser/facebook";
 		String result = URLEncoder.encode(toEncode, "UTF-8");
 		System.out.println(result);
+		
+		String emailStrOri = "wumengjz\u0040gmail.com";
+		String strOri = URLDecoder.decode(emailStrOri, "UTF-8");
+		System.out.println(strOri);
 	}
 }
