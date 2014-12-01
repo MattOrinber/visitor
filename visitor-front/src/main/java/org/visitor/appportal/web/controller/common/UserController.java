@@ -1,6 +1,8 @@
 package org.visitor.appportal.web.controller.common;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -317,5 +319,12 @@ public class UserController extends BasicController{
 			result = 2;
 		}
 		return result;
+	}
+	
+	
+	public static void main(String[]args) throws UnsupportedEncodingException {
+		String toEncode = "http://ec2-54-169-2-129.ap-southeast-1.compute.amazonaws.com:8080/registerUser/facebook";
+		String result = URLEncoder.encode(toEncode, "UTF-8");
+		System.out.println(result);
 	}
 }
