@@ -20,7 +20,7 @@
 
 <div class="wrapbox" >
 	<div class="signupbox" id="signup">
-    	<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+    	<a href="javascript:void(0);" class="facebook">Sign up with Facebook</a>
         <a href="javascript:void(0);" class="email" id="email_signup">Sign up with Email</a>
         <span class="terms">By signing up, I agree to DayFetch's <a href="">Terms of Service</a>, <a href="">Privacy Policy</a>, <a href="">Guest Refund Policy</a>, and <a href="">Host Guarantee Terms</a>.</span>
     	<span class="loginbutton">Already an Airbnb member? <a href="javascript:void(0);" id="signupTologin">Log in</a></span>
@@ -29,7 +29,7 @@
 
 <div class="wrapbox emailwrapbox" >
 	<div class="signupbox" id="emailsignup">
-    	<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+    	<a href="javascript:void(0);" class="facebook">Sign up with Facebook</a>
     	<form id="registerBasicInfo">
 	        <span class="username name1"><input id="firstNameStr" type="text" value="First name" type="string" minlength="2" required="true" onfocus="if (value =='First name'){value =''}" onblur="if (value ==''){value='First name'}"/></span>
 	        <span class="username name1"><input id="lastNameStr" type="text" value="Last name" type="string"  minlength="2" required="true" onfocus="if (value =='Last name'){value =''}" onblur="if (value ==''){value='Last name'}"/></span>
@@ -46,7 +46,7 @@
 
 <div class="wrapbox">
 	<div class="signupbox" style="height:320px;"  id="login">
-		<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+		<a href="javascript:void(0);" class="facebook">Sign up with Facebook</a>
         <span class="or">or</span>
         <form id="loginBasicInfo">
 	        <span class="username"><input id="loginEmailStr" type="text" value="Email Address" type="email" required="true" onfocus="if (value =='Email Address'){value =''}" onblur="if (value ==''){value='Email Address'}"/></span>
