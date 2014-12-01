@@ -35,7 +35,7 @@ public class BasicController {
 	public BasicController() {	
 	}
 	
-	private String getJsonStr(HttpServletRequest request) {
+	protected String getJsonStr(HttpServletRequest request) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		InputStream in;
 		try {

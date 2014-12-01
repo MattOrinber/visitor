@@ -231,15 +231,14 @@ public class UserController extends BasicController{
 		setResultToClient(response, resultJ);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@RequestMapping("facebook")
-	public void doFacebookReturn(HttpServletRequest request,
+	public String doFacebookReturn(HttpServletRequest request,
 			HttpServletResponse response) {
-		Map<String, String> req_map = request.getParameterMap();
+		String result = super.getJsonStr(request);
 		
-		for (String key : req_map.keySet()) {
-			log.info("<key> : <"+key+"> ; <value> : <" + req_map.get(key) +">;"); 
-		}
+		log.info("result: >"+result+"<");
+		
+		return "index";
 	}
 	
 	private ResultJson checkIfTheUserLegal(String mailStrParam, String passwordStrParam) {

@@ -261,7 +261,7 @@ function loginVisitor(pathOri) {
 	}
 }
 
-
+/*
 // facebook part
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {
@@ -340,3 +340,4 @@ function testAPI() {
 		//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
     });
 }
+*/
