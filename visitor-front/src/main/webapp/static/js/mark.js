@@ -129,9 +129,50 @@ $(window).scroll(function(){
 	}
 });
 
+function doRegisterClean() {
+	var passwordStr = $("#passwordStr").val();
+	var cPasswordStr = $("#cPasswordStr").val();
+	
+	var emailStr = $("#emailStr").val();
+	var firstNameStr = $("#firstNameStr").val();
+	var lastNameStr = $("#lastNameStr").val();
+	
+	if ("Password" == passwordStr) {
+		$("#passwordStr").val("");
+	}
+	if ("Confirm Password" == cPasswordStr) {
+		$("#cPasswordStr").val("");
+	}
+	
+	if ("Email Address" == emailStr) {
+		$("#emailStr").val("");
+	}
+	
+	if ("First name" == firstNameStr) {
+		$("#firstNameStr").val("");
+	}
+	
+	if ("Last name" == lastNameStr) {
+		$("#lastNameStr").val("");
+	}
+}
+
+function doLoginClean() {
+	var loginEmailStr = $("#loginEmailStr").val();
+	var loginPasswordStr = $("#loginPasswordStr").val();
+	
+	if ("Email Address" == loginEmailStr) {
+		$("#loginEmailStr").val("");
+	}
+	if ("Password" == loginPasswordStr) {
+		$("#loginPasswordStr").val("");
+	}
+}
+
 
 function registerVisitor(pathOri)
 {
+	doRegisterClean();
 	var form = $("#registerBasicInfo");
 	form.validate();
 	var ifValidateForm = form.valid();
@@ -180,6 +221,7 @@ function registerVisitor(pathOri)
 }
 
 function loginVisitor(pathOri) {
+	doLoginClean();
 	var form = $("#loginBasicInfo");
 	form.validate();
 	var ifValidateForm = form.valid();
