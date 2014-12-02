@@ -51,7 +51,7 @@ public class HttpClientUtil {
 		return null;
 	}
 	
-	public static String httpGetSoupeng(String url) {
+	public static String httpGet(String url) {
         HttpGet httpGet = new HttpGet(url);
 		HttpClient httpClient = new DefaultHttpClient();
         HttpResponse httpResponse;

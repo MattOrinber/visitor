@@ -2,6 +2,8 @@ package org.visitor.appportal.web.utils;
 
 import java.util.ResourceBundle;
 
+import org.apache.commons.lang.StringUtils;
+
 public class MixAndMatchUtils {
 	public static final ResourceBundle mailRB = ResourceBundle.getBundle("mailUtils");
 	public static final ResourceBundle mongoRB = ResourceBundle.getBundle("mongoUtils");
@@ -32,10 +34,12 @@ public class MixAndMatchUtils {
 	public static final String facebookGetUserPictureURL = "facebookGetUserPictureURL";
 	
 	public static final String param_facebook_client_id = "client_id";
+	public static final String param_facebook_client_secret = "client_secret";
 	public static final String param_facebook_redirect_uri = "redirect_uri";
 	public static final String param_facebook_display = "display";
 	public static final String param_facebook_auth_code = "code";
 	public static final String param_facebook_access_token = "access_token";
+	public static final String param_facebook_expires = "expires";
 	public static final String param_facebook_redirect = "redirect";
 	//------------------------------------------facebook related items end
 	
@@ -54,5 +58,17 @@ public class MixAndMatchUtils {
 	public static String getSystemAwsPaypalConfig(String keyT)
 	{
 		return awsRb.getString(keyT);
+	}
+	
+	public static Integer getGenderInteger(String genderStr) {
+		Integer result = -1;
+		if (StringUtils.equalsIgnoreCase(genderStr, "Male")) {
+			result = 0;
+		} else if(StringUtils.equalsIgnoreCase(genderStr, "Female")) {
+			result = 1;
+		} else if (StringUtils.equalsIgnoreCase(genderStr, "Other")) {
+			result = 2;
+		}
+		return result;
 	}
 }

@@ -7,7 +7,6 @@ import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -66,7 +64,7 @@ public class UserController extends BasicController{
 			User user = new User();
 			user.setUserEmail(mailStrParam);
 			user.setUserPassword(passwordStrParam);
-			user.setUserType(0); //0--admin, 1----normal user
+			user.setUserType(0); //0----normal user,1---facebook user
 			user.setUserStatus(0);
 			
 			Date registerDate = new Date();
@@ -141,7 +139,7 @@ public class UserController extends BasicController{
 			
 			user.setUserFirstName(ut.getFirstNameStr());
 			user.setUserLastName(ut.getLastNameStr());
-			user.setUserGender(getGenderInteger(ut.getGenderStr()));
+			user.setUserGender(MixAndMatchUtils.getGenderInteger(ut.getGenderStr()));
 			user.setUserLanguage(ut.getLanguageSpokenSelect());
 			user.setUserPhonenum(ut.getPhoneNumberStr()); //phone number not here
 			user.setUserSchool(ut.getSchoolStr());
@@ -232,22 +230,6 @@ public class UserController extends BasicController{
 		setResultToClient(response, resultJ);
 	}
 	
-	@RequestMapping("facebook")
-	public String doFacebookReturn(HttpServletRequest request,
-			HttpServletResponse response) {
-		//get authorization code
-		String codeStr = request.getParameter("code");
-		if (StringUtils.isNotEmpty(codeStr)) {
-			log.info("code: >"+codeStr+"<");
-			//get the access token
-			String facebookCallbackUrl = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.facebookCallbackURL);
-			
-		} else {
-			log.info("no authorization code returned");
-		}
-		return "index";
-	}
-	
 	private ResultJson checkIfTheUserLegal(String mailStrParam, String passwordStrParam) {
 		Integer result = 0;
 		String resultDesc = "";
@@ -314,19 +296,6 @@ public class UserController extends BasicController{
 			log.info("<user register>: >" + emailStr + "<");
 		}
 	}
-	
-	private Integer getGenderInteger(String genderStr) {
-		Integer result = -1;
-		if (StringUtils.equalsIgnoreCase(genderStr, "Male")) {
-			result = 0;
-		} else if(StringUtils.equalsIgnoreCase(genderStr, "Female")) {
-			result = 1;
-		} else if (StringUtils.equalsIgnoreCase(genderStr, "Other")) {
-			result = 2;
-		}
-		return result;
-	}
-	
 	
 	public static void main(String[]args) throws UnsupportedEncodingException {
 		String toEncode = "http://ec2-54-169-2-129.ap-southeast-1.compute.amazonaws.com:8080/registerUser/facebook";
