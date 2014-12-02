@@ -2,6 +2,9 @@ package org.visitor.appportal.web.utils;
 
 import java.util.ResourceBundle;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 
 public class MixAndMatchUtils {
@@ -41,6 +44,8 @@ public class MixAndMatchUtils {
 	public static final String param_facebook_access_token = "access_token";
 	public static final String param_facebook_expires = "expires";
 	public static final String param_facebook_redirect = "redirect";
+	
+	public static final Integer param_user_token_expire = 3600;
 	//------------------------------------------facebook related items end
 	
 	public static final String paypalClientID = "paypalClientID";
@@ -70,5 +75,15 @@ public class MixAndMatchUtils {
 			result = 2;
 		}
 		return result;
+	}
+	
+	public static void setUserCookie(HttpServletResponse response, String userEmailStr, String userAccessTokenStr, Integer expireSeconds) {
+		Cookie cookie_token = new Cookie("userAccessToken", userAccessTokenStr);
+		cookie_token.setMaxAge(expireSeconds);
+		response.addCookie(cookie_token);
+		
+		Cookie cookie_email = new Cookie("userEmail", userEmailStr);
+		cookie_email.setMaxAge(expireSeconds);
+		response.addCookie(cookie_email);
 	}
 }

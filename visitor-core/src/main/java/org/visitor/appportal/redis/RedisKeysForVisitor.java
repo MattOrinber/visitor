@@ -19,6 +19,10 @@ public class RedisKeysForVisitor {
     	return "visitor-site-userpasswordkey";
     }
     
+    public static String getVisitorSiteUserTokenInfoFirstKey() {
+    	return "visitor-site-user-token-info";
+    }
+    
     // redis info for login use
     // the key should be userId
     // the value should be user output whole String

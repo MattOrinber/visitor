@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.visitor.appportal.redis.ObjectMapperWrapperForVisitor;
 import org.visitor.appportal.redis.RedisKeysForVisitor;
 import org.visitor.appportal.visitor.domain.User;
+import org.visitor.appportal.visitor.domain.UserTokenInfo;
 
 @Service("userRedisService")
 public class UserRedisService {
@@ -28,6 +29,19 @@ public class UserRedisService {
 		String keyFirst = RedisKeysForVisitor.getVisitorSiteUserPasswordFirstKey();
 		String result = (String)compressStringRedisVisitorTemplate.opsForHash().get(keyFirst, keyT);
 		return objectMapperWrapperForVisitor.convertToUser(result);
+	}
+	
+	public void saveUserTokenInfo(UserTokenInfo uti) {
+		String keyT = RedisKeysForVisitor.getVisitorSiteUserTokenInfoFirstKey();
+		String valueT = objectMapperWrapperForVisitor.convert2String(uti);
+		
+		compressStringRedisVisitorTemplate.opsForHash().put(keyT, uti.getUfiUserEmail(), valueT);
+	}
+	
+	public UserTokenInfo getUserTokenInfo(String mailStr) {
+		String keyFirst = RedisKeysForVisitor.getVisitorSiteUserTokenInfoFirstKey();
+		String result = (String)compressStringRedisVisitorTemplate.opsForHash().get(keyFirst, mailStr);
+		return objectMapperWrapperForVisitor.convertToUserTokenInfo(result);
 	}
 	
 	public void saveUserToken(String userEmail, String userToken) {

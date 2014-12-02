@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -95,6 +96,7 @@ public class FacebookController extends BasicController {
 								user.setUserRegisterDate(registerDate);
 								
 								visitorUserService.saveUser(user);
+								userRedisService.saveUserPassword(user);
 								
 								uti.setUfiUserId(user.getUserId());
 								uti.setUfiUserEmail(user.getUserEmail());
@@ -102,10 +104,12 @@ public class FacebookController extends BasicController {
 								uti.setUfiAccessToken(tbTemp.getAccess_token());
 								uti.setUfiDetailUrl(ubTemp.getLink());
 								
-								long expireFinal = currentMilis + tbTemp.getExpires().longValue();
+								long expireFinal = currentMilis + 1000*tbTemp.getExpires().longValue();
 								uti.setUfiExpireDate(new Date(expireFinal));
 								
 								visitorUserTokenInfoService.saveUserTokenInfo(uti);
+								userRedisService.saveUserTokenInfo(uti);
+								MixAndMatchUtils.setUserCookie(response, user.getUserEmail(), tbTemp.getAccess_token(), tbTemp.getExpires().intValue());
 							}
 						}
 					}

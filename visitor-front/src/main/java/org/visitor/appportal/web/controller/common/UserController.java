@@ -7,6 +7,7 @@ import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,11 +22,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.visitor.appportal.service.newsite.S3Service;
 import org.visitor.appportal.service.newsite.VisitorUserService;
+import org.visitor.appportal.service.newsite.VisitorUserTokenInfoService;
 import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.beans.UserTemp;
 import org.visitor.appportal.visitor.domain.User;
+import org.visitor.appportal.visitor.domain.UserTokenInfo;
 import org.visitor.appportal.web.utils.EncryptionUtil;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
 import org.visitor.appportal.web.utils.RegisterInfo;
@@ -40,6 +43,8 @@ public class UserController extends BasicController{
 	
 	@Autowired
 	private VisitorUserService visitorUserService;
+	@Autowired
+	private VisitorUserTokenInfoService visitorUserTokenInfoService;
 	@Autowired
 	private UserRedisService userRedisService;
 	@Autowired
@@ -76,6 +81,22 @@ public class UserController extends BasicController{
 			
 			//save redis
 			userRedisService.saveUserPassword(user);
+			
+			UserTokenInfo uti = new UserTokenInfo();
+			
+			String accessTokenOri = UUID.randomUUID().toString();
+			String accessTokenStr = EncryptionUtil.getMD5(accessTokenOri);
+			uti.setUfiUserId(user.getUserId());
+			uti.setUfiUserEmail(user.getUserEmail());
+			
+			long ufiExpireDateLong = System.currentTimeMillis() + 2592000000L;
+			uti.setUfiExpireDate(new Date(ufiExpireDateLong));
+			uti.setUfiAuthCode(accessTokenStr);
+			uti.setUfiAccessToken(accessTokenStr);
+			
+			visitorUserTokenInfoService.saveUserTokenInfo(uti);
+			userRedisService.saveUserTokenInfo(uti);
+			MixAndMatchUtils.setUserCookie(response, user.getUserEmail(), uti.getUfiAccessToken(), MixAndMatchUtils.param_user_token_expire);
 			
 			result = 0;
 			resultDesc = RegisterInfo.REGISTER_SUCCESS;
