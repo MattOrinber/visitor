@@ -82,21 +82,9 @@ public class UserController extends BasicController{
 			//save redis
 			userRedisService.saveUserPassword(user);
 			
-			UserTokenInfo uti = new UserTokenInfo();
+			this.getAndSaveUserToken(response, mailStrParam, passwordStrParam);
 			
-			String accessTokenOri = UUID.randomUUID().toString();
-			String accessTokenStr = EncryptionUtil.getMD5(accessTokenOri);
-			uti.setUfiUserId(user.getUserId());
-			uti.setUfiUserEmail(user.getUserEmail());
-			
-			long ufiExpireDateLong = System.currentTimeMillis() + 2592000000L;
-			uti.setUfiExpireDate(new Date(ufiExpireDateLong));
-			uti.setUfiAuthCode(accessTokenStr);
-			uti.setUfiAccessToken(accessTokenStr);
-			
-			visitorUserTokenInfoService.saveUserTokenInfo(uti);
-			userRedisService.saveUserTokenInfo(uti);
-			MixAndMatchUtils.setUserCookie(response, user.getUserEmail(), uti.getUfiAccessToken(), MixAndMatchUtils.param_user_token_expire);
+			rj.setUserName(user.getUserEmail());
 			
 			result = 0;
 			resultDesc = RegisterInfo.REGISTER_SUCCESS;
@@ -105,7 +93,10 @@ public class UserController extends BasicController{
 		} else {
 			result = -1;
 			resultDesc = RegisterInfo.REGISTER_EMAIL_EXISTS;
+			rj.setUserName("--");
 		}
+		
+		rj.setUserPicUrl("--");
 		
 		rj.setResult(result);
 		rj.setResultDesc(resultDesc);
@@ -127,6 +118,9 @@ public class UserController extends BasicController{
 		if (rj.getResult() >= 0) {
 			String tokenStr = EncryptionUtil.getToken(mailStrParam, passwordStrParam, rj.getUserLoginTime());
 			userRedisService.saveUserToken(mailStrParam, tokenStr);
+			
+			this.getAndSaveUserToken(response, mailStrParam, passwordStrParam);
+			
 			rj.setToken(tokenStr);
 			rj.setUserEmail(mailStrParam);
 		}
@@ -215,7 +209,12 @@ public class UserController extends BasicController{
 					meta.setContentLength(uploadFile.getSize());
 					meta.setContentType(uploadFile.getContentType());
 					try {
-						s3Service.createNewFile("/user/icon"+user.getUserId()+"/"+uploadFile.getOriginalFilename(), uploadFile.getInputStream(), MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgDomain), meta);
+						s3Service.createNewFile("/user/icon"+user.getUserId()+"/"+uploadFile.getOriginalFilename(), uploadFile.getInputStream(), MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic), meta);
+						String finalFileUrl = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic) + "/user/icon"+user.getUserId()+"/"+uploadFile.getOriginalFilename();
+						user.setUserPhotourl(finalFileUrl);
+						
+						visitorUserService.saveUser(user);
+						userRedisService.saveUserPassword(user);
 						
 						result = 0;
 						resultDesc = RegisterInfo.USER_ICON_SET_SUCCESS;
@@ -276,6 +275,19 @@ public class UserController extends BasicController{
 				visitorUserService.saveUser(userT);
 				userRedisService.saveUserPassword(userT);
 				resultJson.setUserLoginTime(loginDate);
+				if (userT.getUserPhotourl() != null) {
+					resultJson.setUserPicUrl(userT.getUserPhotourl());
+				} else {
+					resultJson.setUserPicUrl("--");
+				}
+				
+				String userFirstNameStr = userT.getUserFirstName();
+				String userLastNameStr = userT.getUserLastName();
+				if (StringUtils.isNotEmpty(userFirstNameStr) && StringUtils.isNotEmpty(userLastNameStr)) {
+					resultJson.setUserName(userFirstNameStr + " " + userLastNameStr);
+				} else {
+					resultJson.setUserName(userT.getUserEmail());
+				}
 				
 				logTheLogintime(mailStrParam);
 			}
@@ -289,7 +301,22 @@ public class UserController extends BasicController{
 				user.setUserLastLoginTime(loginDate);
 				
 				visitorUserService.saveUser(user);
+				userRedisService.saveUserPassword(user);
 				resultJson.setUserLoginTime(loginDate);
+				if (user.getUserPhotourl() != null) {
+					resultJson.setUserPicUrl(user.getUserPhotourl());
+				} else {
+					resultJson.setUserPicUrl("--");
+				}
+				
+				String userFirstNameStr = user.getUserFirstName();
+				String userLastNameStr = user.getUserLastName();
+				if (StringUtils.isNotEmpty(userFirstNameStr) && StringUtils.isNotEmpty(userLastNameStr)) {
+					resultJson.setUserName(userFirstNameStr + " " + userLastNameStr);
+				} else {
+					resultJson.setUserName(user.getUserEmail());
+				}
+				
 				logTheLogintime(mailStrParam);
 			} else {
 				result = -2;
@@ -300,6 +327,25 @@ public class UserController extends BasicController{
 		resultJson.setResult(result);
 		resultJson.setResultDesc(resultDesc);
 		return resultJson;
+	}
+	
+	private void getAndSaveUserToken(HttpServletResponse response, String mailStrParam, String passwordStrParam) {
+		User user = visitorUserService.getUserFromEmailAndPassword(mailStrParam, passwordStrParam);
+		UserTokenInfo uti = new UserTokenInfo();
+		
+		String accessTokenOri = UUID.randomUUID().toString();
+		String accessTokenStr = EncryptionUtil.getMD5(accessTokenOri);
+		uti.setUfiUserId(user.getUserId());
+		uti.setUfiUserEmail(user.getUserEmail());
+		
+		long ufiExpireDateLong = System.currentTimeMillis() + 2592000000L;
+		uti.setUfiExpireDate(new Date(ufiExpireDateLong));
+		uti.setUfiAuthCode(accessTokenStr);
+		uti.setUfiAccessToken(accessTokenStr);
+		
+		visitorUserTokenInfoService.saveUserTokenInfo(uti);
+		userRedisService.saveUserTokenInfo(uti);
+		MixAndMatchUtils.setUserCookie(response, user.getUserEmail(), uti.getUfiAccessToken(), MixAndMatchUtils.param_user_token_expire);
 	}
 	
 	private void setResultToClient(HttpServletResponse response, ResultJson resultJson) {

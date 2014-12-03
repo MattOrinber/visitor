@@ -6,6 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>DayFetch</title>
 	<link href="${pageContext.request.contextPath}/static/css/main.css" rel="stylesheet" type="text/css" />
+	<link href="${pageContext.request.contextPath}/static/css/list_space.css" rel="stylesheet" type="text/css" />
 	<script src="${pageContext.request.contextPath}/static/js/jquery-1.7.1.min.js" type="text/javascript"><c:out value=" " /></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery.md5.js"><c:out value=" " /></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery-validation-1.8.0/jquery.validate.js"><c:out value=" " /></script>
@@ -91,11 +92,49 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
         <div class="logo">
         	<a href="index.html"><img src="${imgPathOrigin}/static/img/logo-white.png" width="35"/></a>
         </div>
-        <div class="loginbar">
-        	<a href="javascript:void(0);" id="signbtn">Sign Up</a>
-            <a href="javascript:void(0);" id="logbtn">Log In</a>
-            <a href="" class="list">List Your Activities</a>
+        
+]]>
+
+        <div id="loginBarToBeReplaced" class="loginbar">
+        	<!-- before login -->
+        	<c:choose>
+        		<c:when test="${loginName == '--'}">
+        			<a href="javascript:void(0);" id="signbtn">Sign Up</a>
+        			<a href="javascript:void(0);" id="logbtn">Log In</a>
+        			<a href="javascript:void(0);" class="list">List Your Activities</a>
+        		</c:when>
+        		<c:otherwise>
+        			<a href="javascript:void(0);" class="name" id="name">
+        			    <c:choose>
+        					<c:when test="${userIconUrl == '--'}">
+        						<span style="photo"></span>
+        					</c:when>
+        					<c:otherwise>
+        						<span class="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${userIconUrl}) no-repeat center center;float:left;"></span>
+        					</c:otherwise>
+        				</c:choose>
+        				<span class="peoplename">${loginName}</span>
+        			</a>
+		           	<span class="select">
+		               	<ul>
+		                   	<li><a href="#">Dashboard</a></li>
+		                    <li><a href="">Inbox</a></li>
+		                    <li><a href="">Your Listings</a></li>
+		                    <li><a href="">Your Trips</a></li>
+		                    <li><a href="">Wish Lists</a></li>
+		                    <li><a href="">Edit Profile</a></li>
+		                    <li><a href="">Account</a></li>
+		                    <li><a href="">Log Out</a></li>
+		                </ul>
+		            </span>
+		            <a href="javascript:void(0);" class="list">List Your Activities</a>
+		            <a href="javascript:void(0);" class="mail"><span class="number">1</span></a>
+        		</c:otherwise>
+        	</c:choose>
         </div>
+
+<![CDATA[
+
         <div class="tagline">
         	<p class="title">Book Amazing Activities, Tours, and more</p>
             <a href="javascript:void(0)" class="button" id="howtowork">How It Works</a>

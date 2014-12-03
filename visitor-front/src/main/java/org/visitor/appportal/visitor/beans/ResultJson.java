@@ -10,6 +10,8 @@ public class ResultJson {
 	private String token;
 	private String userEmail;
 	private Date userLoginTime;
+	private String userPicUrl;
+	private String userName;
 	
 	private Long productId;
 	public Integer getResult() {
@@ -48,5 +50,17 @@ public class ResultJson {
 	}
 	public void setProductId(Long productId) {
 		this.productId = productId;
+	}
+	public String getUserPicUrl() {
+		return userPicUrl;
+	}
+	public void setUserPicUrl(String userPicUrl) {
+		this.userPicUrl = userPicUrl;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

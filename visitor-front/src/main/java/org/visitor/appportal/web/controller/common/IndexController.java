@@ -3,9 +3,14 @@
  */
 package org.visitor.appportal.web.controller.common;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -15,12 +20,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.visitor.appportal.redis.FloopyUtils;
+import org.visitor.appportal.service.newsite.VisitorUserService;
+import org.visitor.appportal.service.newsite.VisitorUserTokenInfoService;
 import org.visitor.appportal.service.newsite.redis.FloopyThingRedisService;
 import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
+import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.service.newsite.redis.VisitorLanguageRedisService;
+import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.domain.TimeZone;
+import org.visitor.appportal.visitor.domain.User;
+import org.visitor.appportal.visitor.domain.UserTokenInfo;
 import org.visitor.appportal.visitor.domain.VisitorLanguage;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
+import org.visitor.appportal.web.utils.RegisterInfo;
 
 /**
  * @author mengw
@@ -37,6 +49,12 @@ public class IndexController extends BasicController {
 	private VisitorLanguageRedisService visitorLanguageRedisService;
 	@Autowired
 	private FloopyThingRedisService floopyThingRedisService;
+	@Autowired
+	private VisitorUserTokenInfoService visitorUserTokenInfoService;
+	@Autowired
+	private UserRedisService userRedisService;
+	@Autowired
+	private VisitorUserService visitorUserService;
 	
 	/**
 	 * 
@@ -46,7 +64,9 @@ public class IndexController extends BasicController {
 	}
 	
 	@RequestMapping({"index", ""})
-	public String index(HttpServletRequest request, Model model) {
+	public String index(HttpServletRequest request, 
+			HttpServletResponse response,
+			Model model) {
 		model.addAttribute("username", "visitor");
 		model.addAttribute("helloString", "you are welcome!");
 		
@@ -106,8 +126,78 @@ public class IndexController extends BasicController {
 		String imgPathOrigin = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic);
 		
 		model.addAttribute("imgPathOrigin", imgPathOrigin);
+		checkIfTheUserTokenLegal(model, request, response);
 		
 		return "index";
+	}
+	
+	private void checkIfTheUserTokenLegal(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		Cookie[] cookieArray = request.getCookies();
+		if (cookieArray.length > 0) {
+			
+			Map<String, String> cookieMap = new HashMap<String, String>();
+			
+			for (int j = 0; j < cookieArray.length; j ++) {
+				Cookie tmpCookie = cookieArray[j];
+				cookieMap.put(tmpCookie.getName(), tmpCookie.getValue());
+			}
+			
+			String userMailStr = cookieMap.get(MixAndMatchUtils.COOKIE_NAME_USER_EMAIL);
+			String userTokenInfoStr = cookieMap.get(MixAndMatchUtils.COOKIE_NAME_USER_ACCESS_TOKEN);
+			
+			if (StringUtils.isNotEmpty(userMailStr) && StringUtils.isNotEmpty(userTokenInfoStr)) {
+				UserTokenInfo userTi = userRedisService.getUserTokenInfo(userMailStr);
+				
+				if (userTi == null) {
+					
+					//get from database
+					UserTokenInfo userTiNew = visitorUserTokenInfoService.getUserTokenInfoByUserEmail(userMailStr);
+					
+					if (userTiNew != null) {
+						String storedAccessToken = userTiNew.getUfiAccessToken();
+						Date expireDate = userTiNew.getUfiExpireDate();
+						Date nowDate = new Date();
+						
+						if (StringUtils.isNotEmpty(storedAccessToken) && nowDate.before(expireDate)) {
+							User user = userRedisService.getUserPassword(userMailStr);
+							user.setUserLastLoginTime(nowDate);
+							
+							visitorUserService.saveUser(user);
+							userRedisService.saveUserPassword(user);
+							
+							MixAndMatchUtils.setUserModel(model, user);
+							logTheLogintime(userMailStr);
+						}
+					}
+					
+				} else {
+					String storedAccessToken = userTi.getUfiAccessToken();
+					Date expireDate = userTi.getUfiExpireDate();
+					Date nowDate = new Date();
+					
+					if (StringUtils.isNotEmpty(storedAccessToken) && nowDate.before(expireDate)) {
+						if (StringUtils.equals(userTokenInfoStr, storedAccessToken)) {
+							User user = userRedisService.getUserPassword(userMailStr);
+							user.setUserLastLoginTime(nowDate);
+							
+							visitorUserService.saveUser(user);
+							userRedisService.saveUserPassword(user);
+							
+							MixAndMatchUtils.setUserModel(model, user);
+							logTheLogintime(userMailStr);
+						}
+					}
+				}
+			}
+		}
+		
+	}
+	
+	private void logTheLogintime(String emailStr) {
+		if (log.isInfoEnabled()) {
+			log.info("<user token login>: >" + emailStr + "<");
+		}
 	}
 
 	@RequestMapping({"index1"})

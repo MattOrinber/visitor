@@ -17,4 +17,49 @@ public class RegisterInfo {
 	public static final String USER_PARAM_ILLEGAL = "please input right user and password";
 	
 	public static final String USER_ICON_SET_SUCCESS = "user icon been successfully set";
+	
+	//用户的类型，枚举
+	public enum UserTypeEnum {
+		NormalUser(0),FacebookUser(1);
+		private Integer value;
+		private String displayName;
+
+		private UserTypeEnum(Integer value) {
+			this.value = value;
+			switch (value) {
+			case 0:
+				displayName = "normal user";
+				break;
+			case 1:
+				displayName = "facebook user";
+				break;
+			}
+		}
+
+		/**
+		 * @return the value
+		 */
+		public Integer getValue() {
+			return value;
+		}
+
+		/**
+		 * @return the displayName
+		 */
+		public String getDisplayName() {
+			return displayName;
+		}
+
+		public static UserTypeEnum getInstance(Integer value) {
+			if (null != value) {
+				UserTypeEnum[] enums = UserTypeEnum.values();
+				for (UserTypeEnum status : enums) {
+					if (status.getValue().intValue() == value.intValue()) {
+						return status;
+					}
+				}
+			}
+			return null;
+		}
+	}
 }

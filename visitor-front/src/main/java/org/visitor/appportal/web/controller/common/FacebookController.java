@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.visitor.appportal.service.newsite.VisitorUserService;
 import org.visitor.appportal.service.newsite.VisitorUserTokenInfoService;
@@ -25,6 +26,7 @@ import org.visitor.appportal.web.facebook.TokenBean;
 import org.visitor.appportal.web.facebook.UserBean;
 import org.visitor.appportal.web.utils.HttpClientUtil;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
+import org.visitor.appportal.web.utils.RegisterInfo.UserTypeEnum;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -43,7 +45,8 @@ public class FacebookController extends BasicController {
 	
 	@RequestMapping("callback")
 	public String doFacebookReturn(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response,
+			Model model) {
 		
 		//get authorization code
 		String codeStr = request.getParameter("code");
@@ -84,7 +87,7 @@ public class FacebookController extends BasicController {
 								UserTokenInfo uti = new UserTokenInfo();
 								user.setUserEmail(ubTemp.getEmail());
 								user.setUserPassword("123456");
-								user.setUserStatus(1);
+								user.setUserType(UserTypeEnum.FacebookUser.getValue());
 								user.setUserStatus(0);
 								user.setUserFirstName(ubTemp.getFirst_name());
 								user.setUserLastName(ubTemp.getLast_name());
@@ -110,6 +113,8 @@ public class FacebookController extends BasicController {
 								visitorUserTokenInfoService.saveUserTokenInfo(uti);
 								userRedisService.saveUserTokenInfo(uti);
 								MixAndMatchUtils.setUserCookie(response, user.getUserEmail(), tbTemp.getAccess_token(), tbTemp.getExpires().intValue());
+								
+								MixAndMatchUtils.setUserModel(model, user);
 							}
 						}
 					}

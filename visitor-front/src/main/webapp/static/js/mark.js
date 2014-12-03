@@ -169,6 +169,52 @@ function doLoginClean() {
 	}
 }
 
+// user token and replace part
+
+//style="photo"
+//class="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${userIconUrl}) no-repeat center center;float:left;"
+
+//${loginName}
+
+var itemPicUrlOne = 'class="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(';
+var itemPicUrlTwo = ') no-repeat center center;float:left;"';
+
+var itemPicUrlSingle = 'style="photo"';
+
+var afterLoginPartOne = '<a href="javascript:void(0);" class="name" id="name"><span';
+var afterLoginPartTwo = '></span><span class="peoplename">';
+var afterLoginPartThree = '</span></a><span class="select"><ul>' + 
+	'<li><a href="#">Dashboard</a></li>' + 
+	'<li><a href="">Inbox</a></li>' +
+	'<li><a href="">Your Listings</a></li>' +
+	'<li><a href="">Your Trips</a></li>' +
+	'<li><a href="">Wish Lists</a></li>' +
+	'<li><a href="">Edit Profile</a></li>' +
+	'<li><a href="">Account</a></li>' +
+	'<li><a href="">Log Out</a></li>' +
+	'</ul></span>' +
+	'<a href="javascript:void(0);" class="list">List Your Activities</a>' +
+	'<a href="javascript:void(0);" class="mail"><span class="number">1</span></a>';
+
+
+function seeIfLoginBarDisplayed(data) {
+	var userNameStr = data.userName;
+    
+    if (userNameStr == "--") {
+    	console.log("not registered!");
+    } else {
+    	var userPicUrlStr = data.userPicUrl;
+    	
+    	var stringToDiv = '';
+    	if (userPicUrlStr == "--") {
+    		stringToDiv = afterLoginPartOne + itemPicUrlSingle + afterLoginPartTwo + userNameStr + afterLoginPartThree;
+    	} else {
+    		stringToDiv = afterLoginPartOne + itemPicUrlOne + userPicUrlStr + itemPicUrlTwo + afterLoginPartTwo + userNameStr + afterLoginPartThree;
+    	}
+    	
+    	$("#loginBarToBeReplaced").html(stringToDiv);
+    }
+}
 
 function registerVisitor(pathOri)
 {
@@ -206,8 +252,8 @@ function registerVisitor(pathOri)
 		        success : function(data) {  
 		        	var dataRes = "register result: " + data.result + "; resultDesc: " + data.resultDesc;
 		            alert(dataRes);
-		            //var boxVar = $("#registerBasicInfo");
-		            //boxVar.append("<p class=\"username\">"+dataRes+"</p>");
+		            
+		            seeIfLoginBarDisplayed(data);
 		        },  
 		        error : function() {  
 		            alert('Err...');  
@@ -247,12 +293,8 @@ function loginVisitor(pathOri) {
 	        success : function(data) {  
 	        	var dataRes = "login result: " + data.result + "; resultDesc: " + data.resultDesc;
 	            alert(dataRes);
-	            //var boxVar = $("#loginBasicInfo");
-	            //boxVar.append("<p class=\"username\">"+dataRes+"</p>");
-	            //var tokenBoxVar = $("#userLoginTokenStr");
-	            //var emailBoxVar = $("#userLoginEmailStr");
-	            //tokenBoxVar.html(data.token);
-	            //emailBoxVar.html(data.userEmail);
+	            
+	            seeIfLoginBarDisplayed(data);
 	        },  
 	        error : function() {  
 	            alert('Err...');  
@@ -261,83 +303,3 @@ function loginVisitor(pathOri) {
 	}
 }
 
-/*
-// facebook part
-// This is called with the results from from FB.getLoginStatus().
-function statusChangeCallback(response) {
-	console.log('statusChangeCallback');
-	console.log(response);
-	// The response object is returned with a status field that lets the
-	// app know the current login status of the person.
-	// Full docs on the response object can be found in the documentation
-	// for FB.getLoginStatus().
-	
-	if (response.status === 'connected') {
-		// Logged into your app and Facebook.
-		testAPI();
-	} else if (response.status === 'not_authorized') {
-		// The person is logged into Facebook, but not your app.
-		// document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
-		console.log('not authorized!');
-	} else {
-		// The person is not logged into Facebook, so we're not sure if
-		// they are logged into this app or not.
-		// document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
-		console.log('Others!');
-	}
-}
-
-// This function is called when someone finishes with the Login
-// Button.  See the onlogin handler attached to it in the sample
-// code below.
-function checkLoginState() {
-	FB.getLoginStatus(function(response) {
-		statusChangeCallback(response);
-	});
-}
-
-
-window.fbAsyncInit = function() {
-	FB.init({
-		appId      : '879056502107119',
-		cookie     : true,  // enable cookies to allow the server to access the session
-		xfbml      : true,  // parse social plugins on this page
-		version    : 'v2.1' // use version 2.1
-	});
-	
-	// Now that we've initialized the JavaScript SDK, we call 
-	// FB.getLoginStatus().  This function gets the state of the
-	// person visiting this page and can return one of three states to
-	// the callback you provide.  They can be:
-	//
-	// 1. Logged into your app ('connected')
-	// 2. Logged into Facebook, but not your app ('not_authorized')
-	// 3. Not logged into Facebook and can't tell if they are logged into
-	//    your app or not.
-	//
-	// These three cases are handled in the callback function.
-	FB.getLoginStatus(function(response) {
-		statusChangeCallback(response);
-	});
-};
-
-// Load the SDK asynchronously
-(function(d, s, id) {
-	var js, fjs = d.getElementsByTagName(s)[0];
-	if (d.getElementById(id)) return;
-	js = d.createElement(s); js.id = id;
-	js.src = "//connect.facebook.net/en_US/sdk.js";
-	fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
-
-// Here we run a very simple test of the Graph API after login is
-// successful.  See statusChangeCallback() for when this call is made.
-function testAPI() {
-	console.log('Welcome!  Fetching your information.... ');
-	FB.api('/me', function(response) {
-		console.log('Successful login for: ' + response.name);
-		//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
-    });
-}
-*/

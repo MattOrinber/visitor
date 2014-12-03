@@ -6,6 +6,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.ui.Model;
+import org.visitor.appportal.visitor.domain.User;
+import org.visitor.appportal.web.utils.RegisterInfo.UserTypeEnum;
 
 public class MixAndMatchUtils {
 	public static final ResourceBundle mailRB = ResourceBundle.getBundle("mailUtils");
@@ -46,6 +49,9 @@ public class MixAndMatchUtils {
 	public static final String param_facebook_redirect = "redirect";
 	
 	public static final Integer param_user_token_expire = 3600;
+	
+	public static final String COOKIE_NAME_USER_ACCESS_TOKEN = "userAccessToken";
+	public static final String COOKIE_NAME_USER_EMAIL = "userEmail";
 	//------------------------------------------facebook related items end
 	
 	public static final String paypalClientID = "paypalClientID";
@@ -78,12 +84,39 @@ public class MixAndMatchUtils {
 	}
 	
 	public static void setUserCookie(HttpServletResponse response, String userEmailStr, String userAccessTokenStr, Integer expireSeconds) {
-		Cookie cookie_token = new Cookie("userAccessToken", userAccessTokenStr);
+		Cookie cookie_token = new Cookie(COOKIE_NAME_USER_ACCESS_TOKEN, userAccessTokenStr);
 		cookie_token.setMaxAge(expireSeconds);
 		response.addCookie(cookie_token);
 		
-		Cookie cookie_email = new Cookie("userEmail", userEmailStr);
+		Cookie cookie_email = new Cookie(COOKIE_NAME_USER_EMAIL, userEmailStr);
 		cookie_email.setMaxAge(expireSeconds);
 		response.addCookie(cookie_email);
+	}
+	
+	public static void setUserModel(Model model, User user) {
+		String loginFirstName = user.getUserFirstName();
+		String loginLastName = user.getUserLastName();
+		String loginEmail = user.getUserEmail();
+		String loginUrl = user.getUserPhotourl();
+		if (StringUtils.isNotEmpty(loginFirstName) && StringUtils.isNotEmpty(loginLastName)) {
+			model.addAttribute("loginName", user.getUserFirstName() + " " + user.getUserLastName());
+		} else {
+			if (StringUtils.isNotEmpty(loginEmail)) {
+				model.addAttribute("loginName", loginEmail);
+			} else {
+				model.addAttribute("loginName", "--");
+			}
+		}
+		
+		if (user.getUserType() == UserTypeEnum.FacebookUser.getValue()) {
+			model.addAttribute("userIconUrl", loginUrl);
+		} else {
+			if (StringUtils.isNotEmpty(loginUrl)) {
+				model.addAttribute("userIconUrl", loginUrl);
+			}
+			else {
+				model.addAttribute("userIconUrl", "--");
+			}
+		}
 	}
 }
