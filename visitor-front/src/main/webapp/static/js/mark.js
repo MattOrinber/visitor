@@ -176,10 +176,10 @@ function doLoginClean() {
 
 //${loginName}
 
-var itemPicUrlOne = 'class="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(';
+var itemPicUrlOne = 'style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(';
 var itemPicUrlTwo = ') no-repeat center center;float:left;"';
 
-var itemPicUrlSingle = 'style="photo"';
+var itemPicUrlSingle = 'style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(../img/user_pic-50x50.png) no-repeat center center;float:left;"';
 
 var afterLoginPartOne = '<a href="javascript:void(0);" class="name" id="name"><span ';
 var afterLoginPartTwo = '></span><span class="peoplename">';
