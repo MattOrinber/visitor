@@ -183,7 +183,7 @@ var itemPicUrlSingle = 'style="photo"';
 
 var afterLoginPartOne = '<a href="javascript:void(0);" class="name" id="name"><span';
 var afterLoginPartTwo = '></span><span class="peoplename">';
-var afterLoginPartThree = '</span></a><span class="select"><ul>' + 
+var afterLoginPartThree = '</span></a><span class="select" style="display: none;"><ul>' + 
 	'<li><a href="#">Dashboard</a></li>' + 
 	'<li><a href="">Inbox</a></li>' +
 	'<li><a href="">Your Listings</a></li>' +

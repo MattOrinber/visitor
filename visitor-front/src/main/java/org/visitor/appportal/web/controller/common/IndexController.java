@@ -168,6 +168,7 @@ public class IndexController extends BasicController {
 							
 							MixAndMatchUtils.setUserModel(model, user);
 							logTheLogintime(userMailStr);
+							return;
 						}
 					}
 					
@@ -186,11 +187,14 @@ public class IndexController extends BasicController {
 							
 							MixAndMatchUtils.setUserModel(model, user);
 							logTheLogintime(userMailStr);
+							return;
 						}
 					}
 				}
-			}
-		}
+			} 
+		} 
+		User user = new User();
+		MixAndMatchUtils.setUserModel(model, user);
 		
 	}
 	
