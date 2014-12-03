@@ -61,7 +61,7 @@
 </div>
 
 	<div class="howtowork">
-    	<span id="hideit" style="position:absolute;right:20px;top:20px;cursor:pointer;"><img src="${imgPathOrigin}/static/img/close1.png" /></span>
+    	<span id="hideit" style="position:absolute;right:20px;top:20px;cursor:pointer;"><img src="${pageContext.request.contextPath}/static/img/close1.png" /></span>
     	<div class="works">
         	<span><p>Discover Amazing Places</p>
 Find hosts with extra rooms, entire homes, and unique accommodations like castles <br />and igloos.</span>
@@ -77,20 +77,20 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
     <div class="banner">
     	<div class="bannerimg" id="focus">
         	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);"><a href=""><img src="${imgPathOrigin}/static/img/hero1.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${imgPathOrigin}/static/img/hero2.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${imgPathOrigin}/static/img/hero3.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${imgPathOrigin}/static/img/hero4.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${imgPathOrigin}/static/img/hero5.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${imgPathOrigin}/static/img/hero6.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${imgPathOrigin}/static/img/hero7.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${imgPathOrigin}/static/img/hero8.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${imgPathOrigin}/static/img/hero9.jpg" width="100%"/></a></li>
+            	<li style="opacity:1;filter:alpha(opacity=1);"><a href=""><img src="${pageContext.request.contextPath}/static/img/hero1.jpg" width="100%"/></a></li>
+                <li><a href=""><img src="${pageContext.request.contextPath}/static/img/hero2.jpg" width="100%"/></a></li>
+                <li><a href=""><img src="${pageContext.request.contextPath}/static/img/hero3.jpg" width="100%"/></a></li>
+                <li><a href=""><img src="${pageContext.request.contextPath}/static/img/hero4.jpg" width="100%"/></a></li>
+                <li><a href=""><img src="${pageContext.request.contextPath}/static/img/hero5.jpg" width="100%"/></a></li>
+                <li><a href=""><img src="${pageContext.request.contextPath}/static/img/hero6.jpg" width="100%"/></a></li>
+                <li><a href=""><img src="${pageContext.request.contextPath}/static/img/hero7.jpg" width="100%"/></a></li>
+                <li><a href=""><img src="${pageContext.request.contextPath}/static/img/hero8.jpg" width="100%"/></a></li>
+                <li><a href=""><img src="${pageContext.request.contextPath}/static/img/hero9.jpg" width="100%"/></a></li>
             </ul>
         	
         </div>
         <div class="logo">
-        	<a href="index.html"><img src="${imgPathOrigin}/static/img/logo-white.png" width="35"/></a>
+        	<a href="index.html"><img src="${pageContext.request.contextPath}/static/img/logo-white.png" width="35"/></a>
         </div>
         
 ]]>
