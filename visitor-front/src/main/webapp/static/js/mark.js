@@ -181,7 +181,7 @@ var itemPicUrlTwo = ') no-repeat center center;float:left;"';
 
 var itemPicUrlSingle = 'style="photo"';
 
-var afterLoginPartOne = '<a href="javascript:void(0);" class="name" id="name"><span';
+var afterLoginPartOne = '<a href="javascript:void(0);" class="name" id="name"><span ';
 var afterLoginPartTwo = '></span><span class="peoplename">';
 var afterLoginPartThree = '</span></a><span class="select" style="display: none;"><ul>' + 
 	'<li><a href="#">Dashboard</a></li>' + 
@@ -196,6 +196,15 @@ var afterLoginPartThree = '</span></a><span class="select" style="display: none;
 	'<a href="javascript:void(0);" class="list">List Your Activities</a>' +
 	'<a href="javascript:void(0);" class="mail"><span class="number">1</span></a>';
 
+function doExtraStuff() {
+	$("#name").mouseenter(function(){
+		$('span.select').show();
+	});
+	$("span.select").mouseleave(function(){
+		$(this).hide();
+	});
+	$("#login").hide();
+}
 
 function seeIfLoginBarDisplayed(data) {
 	var userNameStr = data.userName;
@@ -213,6 +222,8 @@ function seeIfLoginBarDisplayed(data) {
     	}
     	
     	$("#loginBarToBeReplaced").html(stringToDiv);
+    	
+    	doExtraStuff();
     }
 }
 
