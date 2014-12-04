@@ -429,27 +429,6 @@ public class UserController extends BasicController{
 		return accessTokenStr;
 	}
 	
-	private boolean expireUserToken(HttpServletResponse response, String mailStrParam, String passwordStrParam) {
-		User user = userRedisService.getUserPassword(mailStrParam);
-		UserTokenInfo uti = new UserTokenInfo();
-		
-		String accessTokenOri = UUID.randomUUID().toString();
-		String accessTokenStr = EncryptionUtil.getMD5(accessTokenOri);
-		uti.setUfiUserId(user.getUserId());
-		uti.setUfiUserEmail(user.getUserEmail());
-		
-		long ufiExpireDateLong = System.currentTimeMillis() + 2592000000L;
-		uti.setUfiExpireDate(new Date(ufiExpireDateLong));
-		uti.setUfiAuthCode(accessTokenStr);
-		uti.setUfiAccessToken(accessTokenStr);
-		
-		visitorUserTokenInfoService.saveUserTokenInfo(uti);
-		userRedisService.saveUserTokenInfo(uti);
-		MixAndMatchUtils.setUserCookie(response, user.getUserEmail(), uti.getUfiAccessToken(), MixAndMatchUtils.param_user_token_expire);
-		
-		return accessTokenStr;
-	}
-	
 	private void setResultToClient(HttpServletResponse response, ResultJson resultJson) {
 		sendJSONResponse(resultJson, response);
 	}
