@@ -141,10 +141,15 @@ public class IndexController extends BasicController {
 			for (int j = 0; j < cookieArray.length; j ++) {
 				Cookie tmpCookie = cookieArray[j];
 				cookieMap.put(tmpCookie.getName(), tmpCookie.getValue());
+				log.info("cookie name: >" + tmpCookie.getName() + "<");
+				log.info("cookie value: >" + tmpCookie.getValue() + "<");
 			}
 			
 			String userMailStr = cookieMap.get(MixAndMatchUtils.COOKIE_NAME_USER_EMAIL);
 			String userTokenInfoStr = cookieMap.get(MixAndMatchUtils.COOKIE_NAME_USER_ACCESS_TOKEN);
+			
+			log.info("cookie userMailStr: >" + userMailStr + "<");
+			log.info("cookie userTokenInfoStr: >" + userTokenInfoStr + "<");
 			
 			if (StringUtils.isNotEmpty(userMailStr) && StringUtils.isNotEmpty(userTokenInfoStr)) {
 				UserTokenInfo userTi = userRedisService.getUserTokenInfo(userMailStr);
