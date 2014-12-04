@@ -161,7 +161,7 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
 		                    <li><a href="">Wish Lists</a></li>
 		                    <li><a href="">Edit Profile</a></li>
 		                    <li><a href="">Account</a></li>
-		                    <li><a href="">Log Out</a></li>
+		                    <li><a href="javascript:logoutVisitor('${pageContext.request.contextPath}');">Log Out</a></li>
 		                </ul>
 		            </span>
 		            <a href="javascript:void(0);" class="list">List Your Activities</a>
