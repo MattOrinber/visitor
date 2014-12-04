@@ -128,6 +128,83 @@ public class UserController extends BasicController{
 		setResultToClient(response, rj);
 	}
 	
+	@RequestMapping("logout")
+    public void logout(HttpServletRequest request,
+    		HttpServletResponse response) {
+		UserTemp ut = super.getUserJson(request);
+		
+		logTheJsonResult(ut);
+		
+		ResultJson rj = null;
+		
+		String mailStrParam;
+		try {
+			String mailOri = ut.getEmailStr();
+			String tokenStr = ut.getPasswordStr();
+			if (StringUtils.isNotEmpty(mailOri) && StringUtils.isNotEmpty(tokenStr)) {
+				mailStrParam = URLDecoder.decode(mailOri, "UTF-8");
+				rj = this.checkIfTokenLegal(mailStrParam, tokenStr);
+			} 
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		setResultToClient(response, rj);
+	}
+	
+	private ResultJson checkIfTokenLegal(String userMailStr, String userTokenInfoStr) {
+		ResultJson rj = new ResultJson();
+		Integer result = -1;
+		String resultDesc = "failed to logout";
+		
+		UserTokenInfo userTi = userRedisService.getUserTokenInfo(userMailStr);
+		
+		if (userTi == null) {
+			
+			//get from database
+			UserTokenInfo userTiNew = visitorUserTokenInfoService.getUserTokenInfoByUserEmail(userMailStr);
+			
+			if (userTiNew != null) {
+				String storedAccessToken = userTiNew.getUfiAccessToken();
+				Date expireDate = userTiNew.getUfiExpireDate();
+				Date nowDate = new Date();
+				
+				if (StringUtils.isNotEmpty(storedAccessToken) && nowDate.before(expireDate)) {
+					if (StringUtils.equals(userTokenInfoStr, storedAccessToken)) {
+						userTiNew.setUfiExpireDate(nowDate);
+						visitorUserTokenInfoService.saveUserTokenInfo(userTiNew);
+						userRedisService.saveUserTokenInfo(userTiNew);
+						
+						result = 0;
+						resultDesc = "logout success";
+					}
+				}
+			}
+			
+		} else {
+			String storedAccessToken = userTi.getUfiAccessToken();
+			Date expireDate = userTi.getUfiExpireDate();
+			Date nowDate = new Date();
+			
+			if (StringUtils.isNotEmpty(storedAccessToken) && nowDate.before(expireDate)) {
+				if (StringUtils.equals(userTokenInfoStr, storedAccessToken)) {
+					userTi.setUfiExpireDate(nowDate);
+					visitorUserTokenInfoService.saveUserTokenInfo(userTi);
+					userRedisService.saveUserTokenInfo(userTi);
+					
+					result = 0;
+					resultDesc = "logout success";
+				}
+			}
+		}
+		
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		return rj;
+	}
+	
 	@RequestMapping("postDetail")
 	public void postUserDetail(HttpServletRequest request, HttpServletResponse response) throws ParseException {
 		UserTemp ut = super.getUserJson(request);
@@ -333,6 +410,27 @@ public class UserController extends BasicController{
 	
 	private String getAndSaveUserToken(HttpServletResponse response, String mailStrParam, String passwordStrParam) {
 		User user = visitorUserService.getUserFromEmailAndPassword(mailStrParam, passwordStrParam);
+		UserTokenInfo uti = new UserTokenInfo();
+		
+		String accessTokenOri = UUID.randomUUID().toString();
+		String accessTokenStr = EncryptionUtil.getMD5(accessTokenOri);
+		uti.setUfiUserId(user.getUserId());
+		uti.setUfiUserEmail(user.getUserEmail());
+		
+		long ufiExpireDateLong = System.currentTimeMillis() + 2592000000L;
+		uti.setUfiExpireDate(new Date(ufiExpireDateLong));
+		uti.setUfiAuthCode(accessTokenStr);
+		uti.setUfiAccessToken(accessTokenStr);
+		
+		visitorUserTokenInfoService.saveUserTokenInfo(uti);
+		userRedisService.saveUserTokenInfo(uti);
+		MixAndMatchUtils.setUserCookie(response, user.getUserEmail(), uti.getUfiAccessToken(), MixAndMatchUtils.param_user_token_expire);
+		
+		return accessTokenStr;
+	}
+	
+	private boolean expireUserToken(HttpServletResponse response, String mailStrParam, String passwordStrParam) {
+		User user = userRedisService.getUserPassword(mailStrParam);
 		UserTokenInfo uti = new UserTokenInfo();
 		
 		String accessTokenOri = UUID.randomUUID().toString();

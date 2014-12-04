@@ -173,15 +173,17 @@ public class IndexController extends BasicController {
 						Date nowDate = new Date();
 						
 						if (StringUtils.isNotEmpty(storedAccessToken) && nowDate.before(expireDate)) {
-							User user = userRedisService.getUserPassword(userMailStr);
-							user.setUserLastLoginTime(nowDate);
-							
-							visitorUserService.saveUser(user);
-							userRedisService.saveUserPassword(user);
-							
-							MixAndMatchUtils.setUserModel(model, user);
-							logTheLogintime(userMailStr);
-							return;
+							if (StringUtils.equals(userTokenInfoStr, storedAccessToken)) {
+								User user = userRedisService.getUserPassword(userMailStr);
+								user.setUserLastLoginTime(nowDate);
+								
+								visitorUserService.saveUser(user);
+								userRedisService.saveUserPassword(user);
+								
+								MixAndMatchUtils.setUserModel(model, user);
+								logTheLogintime(userMailStr);
+								return;
+							}
 						}
 					}
 					

@@ -205,6 +205,15 @@ function seeIfLoginBarDisplayed(data) {
     }
 }
 
+function logoutBarDisplayed(data) {
+	$("#userIconUrlSpan").css("background", "url(http://172.18.100.66:8080/static/img/user_pic-50x50.png)");
+	$("#notLoginStatusBarPart").css("display", "block");
+	$("#loginStatusBarPart").css("display", "none");
+	$("#userNameSpan").html("");
+	$.removeCookie('userEmail');
+	$.removeCookie('userAccessToken');
+}
+
 function registerVisitor(pathOri)
 {
 	doRegisterClean();
@@ -290,5 +299,36 @@ function loginVisitor(pathOri) {
 	        }  
 	    }); 
 	}
+}
+
+function logoutVisitor(pathOri) {
+	var emailStr = $.cookie('userEmail');
+	var passwordStr = $.cookie('userAccessToken');
+    
+    var user = {};
+	user.emailStr = emailStr;
+	user.passwordStr = passwordStr;
+    
+    var urlStrStr = pathOri + '/registerUser/logout';
+    var jsonStr = $.toJSON(user);
+    
+    $.ajax({ 
+        type : 'POST',  
+        contentType : 'application/json',  
+        url : urlStrStr,  
+        processData : false,  
+        dataType : 'json',  
+        data : jsonStr,  
+        success : function(data) {  
+        	var dataRes = "login result: " + data.result + "; resultDesc: " + data.resultDesc;
+            alert(dataRes);
+            if (data.result == 0) {
+            	logoutBarDisplayed(data);
+            }
+        },  
+        error : function() {  
+            alert('Err...');  
+        }  
+    }); 
 }
 
