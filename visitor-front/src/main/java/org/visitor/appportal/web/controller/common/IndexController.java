@@ -3,6 +3,8 @@
  */
 package org.visitor.appportal.web.controller.common;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -126,12 +128,16 @@ public class IndexController extends BasicController {
 		String imgPathOrigin = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic);
 		
 		model.addAttribute("imgPathOrigin", imgPathOrigin);
-		checkIfTheUserTokenLegal(model, request, response);
+		try {
+			checkIfTheUserTokenLegal(model, request, response);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		
 		return "index";
 	}
 	
-	private void checkIfTheUserTokenLegal(Model model, HttpServletRequest request, HttpServletResponse response) {
+	private void checkIfTheUserTokenLegal(Model model, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		
 		Cookie[] cookieArray = request.getCookies();
 		if (cookieArray != null && cookieArray.length > 0) {
@@ -145,7 +151,7 @@ public class IndexController extends BasicController {
 				log.info("cookie value: >" + tmpCookie.getValue() + "<");
 			}
 			
-			String userMailStr = cookieMap.get(MixAndMatchUtils.COOKIE_NAME_USER_EMAIL);
+			String userMailStr = URLDecoder.decode(cookieMap.get(MixAndMatchUtils.COOKIE_NAME_USER_EMAIL), "UTF-8");
 			String userTokenInfoStr = cookieMap.get(MixAndMatchUtils.COOKIE_NAME_USER_ACCESS_TOKEN);
 			
 			log.info("cookie userMailStr: >" + userMailStr + "<");
