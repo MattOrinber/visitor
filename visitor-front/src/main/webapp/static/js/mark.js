@@ -182,7 +182,7 @@ function seeIfLoginBarDisplayed(data) {
     	var userTokenStr = data.token;
     	
     	if (userPicUrlStr == "--") {
-    		$("#userIconUrlSpan").css("background", "url(../img/user_pic-50x50.png)");
+    		$("#userIconUrlSpan").css("background", "url(http://172.18.100.66:8080/static/img/user_pic-50x50.png)");
     	} else {
     		$("#userIconUrlSpan").css("background", "url(" + userPicUrlStr + ")");
     	}
