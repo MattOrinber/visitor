@@ -96,81 +96,79 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
         
 ]]>
 
-        <div id="loginBarToBeReplaced" class="loginbar">
-        	<!-- before login -->
-        	<c:choose>
-        		<c:when test="${loginName == '--'}">
-	        		<div id="notLoginStatusBarPart" style="display:block;">
-	        			<a href="javascript:void(0);" id="signbtn">Sign Up</a>
-	        			<a href="javascript:void(0);" id="logbtn">Log In</a>
-	        			<a href="javascript:void(0);" class="list">List Your Activities</a>
-	        		</div>
-	        		
-	        		<div id="loginStatusBarPart" style="display:none;">
-	        			<a href="javascript:void(0);" class="name" id="name">
-	        			    <c:choose>
-	        					<c:when test="${userIconUrl == '--'}">
-	        						<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(../img/user_pic-50x50.png) no-repeat center center;float:left;"></span>
-	        					</c:when>
-	        					<c:otherwise>
-	        						<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${userIconUrl}) no-repeat center center;float:left;"></span>
-	        					</c:otherwise>
-	        				</c:choose>
-	        				<span id="userNameSpan" class="peoplename">${loginName}</span>
-	        			</a>
-			           	<span class="select">
-			               	<ul>
-			                   	<li><a href="#">Dashboard</a></li>
-			                    <li><a href="">Inbox</a></li>
-			                    <li><a href="">Your Listings</a></li>
-			                    <li><a href="">Your Trips</a></li>
-			                    <li><a href="">Wish Lists</a></li>
-			                    <li><a href="">Edit Profile</a></li>
-			                    <li><a href="">Account</a></li>
-			                    <li><a href="">Log Out</a></li>
-			                </ul>
-			            </span>
-			            <a href="javascript:void(0);" class="list">List Your Activities</a>
-			            <a href="javascript:void(0);" class="mail"><span class="number">1</span></a>
-	        		</div>
-        		</c:when>
-        		<c:otherwise>
-        			<div id="notLoginStatusBarPart" style="display:none;">
-	        			<a href="javascript:void(0);" id="signbtn">Sign Up</a>
-	        			<a href="javascript:void(0);" id="logbtn">Log In</a>
-	        			<a href="javascript:void(0);" class="list">List Your Activities</a>
-	        		</div>
-	        		
-	        		<div id="loginStatusBarPart" style="display:block;">
-	        			<a href="javascript:void(0);" class="name" id="name">
-	        			    <c:choose>
-	        					<c:when test="${userIconUrl == '--'}">
-	        						<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(../img/user_pic-50x50.png) no-repeat center center;float:left;"></span>
-	        					</c:when>
-	        					<c:otherwise>
-	        						<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${userIconUrl}) no-repeat center center;float:left;"></span>
-	        					</c:otherwise>
-	        				</c:choose>
-	        				<span id="userNameSpan" class="peoplename">${loginName}</span>
-	        			</a>
-			           	<span class="select">
-			               	<ul>
-			                   	<li><a href="#">Dashboard</a></li>
-			                    <li><a href="">Inbox</a></li>
-			                    <li><a href="">Your Listings</a></li>
-			                    <li><a href="">Your Trips</a></li>
-			                    <li><a href="">Wish Lists</a></li>
-			                    <li><a href="">Edit Profile</a></li>
-			                    <li><a href="">Account</a></li>
-			                    <li><a href="">Log Out</a></li>
-			                </ul>
-			            </span>
-			            <a href="javascript:void(0);" class="list">List Your Activities</a>
-			            <a href="javascript:void(0);" class="mail"><span class="number">1</span></a>
-	        		</div>
-        		</c:otherwise>
-        	</c:choose>
-        </div>
+       	<!-- before login -->
+       	<c:choose>
+       		<c:when test="${loginName == '--'}">
+        		<div id="notLoginStatusBarPart" class="loginbar" style="display:block;">
+        			<a href="javascript:void(0);" id="signbtn">Sign Up</a>
+        			<a href="javascript:void(0);" id="logbtn">Log In</a>
+        			<a href="javascript:void(0);" class="list">List Your Activities</a>
+        		</div>
+        		
+        		<div id="loginStatusBarPart" class="loginbar" style="display:none;">
+        			<a href="javascript:void(0);" class="name" id="name">
+        			    <c:choose>
+        					<c:when test="${userIconUrl == '--'}">
+        						<span id="userIconUrlSpan" class="photo"></span>
+        					</c:when>
+        					<c:otherwise>
+        						<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${userIconUrl}) no-repeat center center;float:left;" />
+        					</c:otherwise>
+        				</c:choose>
+        				<span id="userNameSpan" class="peoplename">${loginName}</span>
+        			</a>
+		           	<span class="select">
+		               	<ul>
+		                   	<li><a href="#">Dashboard</a></li>
+		                    <li><a href="">Inbox</a></li>
+		                    <li><a href="">Your Listings</a></li>
+		                    <li><a href="">Your Trips</a></li>
+		                    <li><a href="">Wish Lists</a></li>
+		                    <li><a href="">Edit Profile</a></li>
+		                    <li><a href="">Account</a></li>
+		                    <li><a href="">Log Out</a></li>
+		                </ul>
+		            </span>
+		            <a href="javascript:void(0);" class="list">List Your Activities</a>
+		            <a href="javascript:void(0);" class="mail"><span class="number">1</span></a>
+        		</div>
+       		</c:when>
+       		<c:otherwise>
+       			<div id="notLoginStatusBarPart" class="loginbar" style="display:none;">
+        			<a href="javascript:void(0);" id="signbtn">Sign Up</a>
+        			<a href="javascript:void(0);" id="logbtn">Log In</a>
+        			<a href="javascript:void(0);" class="list">List Your Activities</a>
+        		</div>
+        		
+        		<div id="loginStatusBarPart" class="loginbar" style="display:block;">
+        			<a href="javascript:void(0);" class="name" id="name">
+        			    <c:choose>
+        					<c:when test="${userIconUrl == '--'}">
+        						<span id="userIconUrlSpan" class="photo"></span>
+        					</c:when>
+        					<c:otherwise>
+        						<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${userIconUrl}) no-repeat center center;float:left;" />
+        					</c:otherwise>
+        				</c:choose>
+        				<span id="userNameSpan" class="peoplename">${loginName}</span>
+        			</a>
+		           	<span class="select">
+		               	<ul>
+		                   	<li><a href="#">Dashboard</a></li>
+		                    <li><a href="">Inbox</a></li>
+		                    <li><a href="">Your Listings</a></li>
+		                    <li><a href="">Your Trips</a></li>
+		                    <li><a href="">Wish Lists</a></li>
+		                    <li><a href="">Edit Profile</a></li>
+		                    <li><a href="">Account</a></li>
+		                    <li><a href="">Log Out</a></li>
+		                </ul>
+		            </span>
+		            <a href="javascript:void(0);" class="list">List Your Activities</a>
+		            <a href="javascript:void(0);" class="mail"><span class="number">1</span></a>
+        		</div>
+       		</c:otherwise>
+       	</c:choose>
 
 <![CDATA[
 
