@@ -42,22 +42,15 @@ function doImage() {
 	int=setInterval(autoshow, 4000);
 }
 
-function doFacebook() {
-	$("._4z_f").addClass('spanFaceBook');
-}
-//_4z_f fwb
-
 $(document).ready(function(){
 	$("#signbtn").click(function(){
 		$('.wrapwrapbox').show();
 		$("#signup").show();
-		doFacebook();
 	});
 	
 	$("#logbtn").click(function(){
 		$('.wrapwrapbox').show();
 		$("#login").show();
-		doFacebook();
 	});
 	
 	$("#signupTologin,#signupTologin1").click(function(){
@@ -171,39 +164,11 @@ function doLoginClean() {
 
 // user token and replace part
 
-//style="photo"
-//class="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${userIconUrl}) no-repeat center center;float:left;"
-
-//${loginName}
-
-var itemPicUrlOne = 'style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(';
-var itemPicUrlTwo = ') no-repeat center center;float:left;"';
-
-var itemPicUrlSingle = 'style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(../img/user_pic-50x50.png) no-repeat center center;float:left;"';
-
-var afterLoginPartOne = '<a href="javascript:void(0);" class="name" id="name"><span ';
-var afterLoginPartTwo = '></span><span class="peoplename">';
-var afterLoginPartThree = '</span></a><span class="select" style="display: none;"><ul>' + 
-	'<li><a href="#">Dashboard</a></li>' + 
-	'<li><a href="">Inbox</a></li>' +
-	'<li><a href="">Your Listings</a></li>' +
-	'<li><a href="">Your Trips</a></li>' +
-	'<li><a href="">Wish Lists</a></li>' +
-	'<li><a href="">Edit Profile</a></li>' +
-	'<li><a href="">Account</a></li>' +
-	'<li><a href="">Log Out</a></li>' +
-	'</ul></span>' +
-	'<a href="javascript:void(0);" class="list">List Your Activities</a>' +
-	'<a href="javascript:void(0);" class="mail"><span class="number">1</span></a>';
-
 function doExtraStuff() {
-	$("#name").mouseenter(function(){
-		$('span.select').show();
-	});
-	$("span.select").mouseleave(function(){
-		$(this).hide();
-	});
+	$(".wrapwrapbox").hide();
+	$("#signup").hide();
 	$("#login").hide();
+	$("#emailsignup").hide();
 }
 
 function seeIfLoginBarDisplayed(data) {
@@ -213,15 +178,20 @@ function seeIfLoginBarDisplayed(data) {
     	console.log("not registered!");
     } else {
     	var userPicUrlStr = data.userPicUrl;
+    	var userEmailStr = data.userEmail;
+    	var userTokenStr = data.token;
     	
-    	var stringToDiv = '';
     	if (userPicUrlStr == "--") {
-    		stringToDiv = afterLoginPartOne + itemPicUrlSingle + afterLoginPartTwo + userNameStr + afterLoginPartThree;
+    		$("#userIconUrlSpan").css("background", "url(../img/user_pic-50x50.png)");
     	} else {
-    		stringToDiv = afterLoginPartOne + itemPicUrlOne + userPicUrlStr + itemPicUrlTwo + afterLoginPartTwo + userNameStr + afterLoginPartThree;
+    		$("#userIconUrlSpan").css("background", "url(" + userPicUrlStr + ")");
     	}
     	
-    	$("#loginBarToBeReplaced").html(stringToDiv);
+    	$("#notLoginStatusBarPart").css("display", "none");
+    	$("#loginStatusBarPart").css("display", "block");
+    	$("#userNameSpan").html(userNameStr);
+    	$.cookie('userEmail', userEmailStr, { expires: 7 });
+    	$.cookie('userAccessToken', userTokenStr, { expires: 7 });
     	
     	doExtraStuff();
     }

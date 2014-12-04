@@ -82,9 +82,11 @@ public class UserController extends BasicController{
 			//save redis
 			userRedisService.saveUserPassword(user);
 			
-			this.getAndSaveUserToken(response, mailStrParam, passwordStrParam);
+			String resultToken = this.getAndSaveUserToken(response, mailStrParam, passwordStrParam);
 			
 			rj.setUserName(user.getUserEmail());
+			rj.setUserEmail(user.getUserEmail());
+			rj.setToken(resultToken);
 			
 			result = 0;
 			resultDesc = RegisterInfo.REGISTER_SUCCESS;
@@ -116,10 +118,8 @@ public class UserController extends BasicController{
 		ResultJson rj = checkIfTheUserLegal(mailStrParam, passwordStrParam);
 		
 		if (rj.getResult() >= 0) {
-			String tokenStr = EncryptionUtil.getToken(mailStrParam, passwordStrParam, rj.getUserLoginTime());
+			String tokenStr = this.getAndSaveUserToken(response, mailStrParam, passwordStrParam);
 			userRedisService.saveUserToken(mailStrParam, tokenStr);
-			
-			this.getAndSaveUserToken(response, mailStrParam, passwordStrParam);
 			
 			rj.setToken(tokenStr);
 			rj.setUserEmail(mailStrParam);
@@ -255,6 +255,8 @@ public class UserController extends BasicController{
 		String resultDesc = "";
 		ResultJson resultJson = new ResultJson();
 		
+		resultJson.setUserName("--");
+		
 		User user = userRedisService.getUserPassword(mailStrParam);
 		
 		if (user == null) {
@@ -329,7 +331,7 @@ public class UserController extends BasicController{
 		return resultJson;
 	}
 	
-	private void getAndSaveUserToken(HttpServletResponse response, String mailStrParam, String passwordStrParam) {
+	private String getAndSaveUserToken(HttpServletResponse response, String mailStrParam, String passwordStrParam) {
 		User user = visitorUserService.getUserFromEmailAndPassword(mailStrParam, passwordStrParam);
 		UserTokenInfo uti = new UserTokenInfo();
 		
@@ -346,6 +348,8 @@ public class UserController extends BasicController{
 		visitorUserTokenInfoService.saveUserTokenInfo(uti);
 		userRedisService.saveUserTokenInfo(uti);
 		MixAndMatchUtils.setUserCookie(response, user.getUserEmail(), uti.getUfiAccessToken(), MixAndMatchUtils.param_user_token_expire);
+		
+		return accessTokenStr;
 	}
 	
 	private void setResultToClient(HttpServletResponse response, ResultJson resultJson) {

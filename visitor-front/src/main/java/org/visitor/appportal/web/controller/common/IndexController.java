@@ -134,7 +134,7 @@ public class IndexController extends BasicController {
 	private void checkIfTheUserTokenLegal(Model model, HttpServletRequest request, HttpServletResponse response) {
 		
 		Cookie[] cookieArray = request.getCookies();
-		if (cookieArray.length > 0) {
+		if (cookieArray != null && cookieArray.length > 0) {
 			
 			Map<String, String> cookieMap = new HashMap<String, String>();
 			
