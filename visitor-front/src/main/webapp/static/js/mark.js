@@ -112,6 +112,14 @@ $(document).ready(function(){
 		$(".howtowork").hide();
 	});
 	
+	$("#name").mouseenter(function(){
+		$('span.select').show();
+	});
+	
+	$("span.select").mouseleave(function(){
+		$(this).hide();
+	});
+	
 	doImage();
 });
 
