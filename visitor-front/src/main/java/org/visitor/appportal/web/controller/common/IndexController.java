@@ -132,6 +132,8 @@ public class IndexController extends BasicController {
 			checkIfTheUserTokenLegal(model, request, response);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		return "index";
