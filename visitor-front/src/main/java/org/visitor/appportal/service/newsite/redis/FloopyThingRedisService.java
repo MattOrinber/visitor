@@ -60,8 +60,7 @@ public class FloopyThingRedisService {
 			}
 			
 			for (String keyType : sortedList.keySet()) {
-				String tmpResult = sortedList.get(keyType);
-				result.add(tmpResult);
+				result.add(keyType);
 			}
 		}
 		
