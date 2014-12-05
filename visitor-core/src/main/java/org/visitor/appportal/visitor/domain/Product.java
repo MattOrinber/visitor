@@ -48,6 +48,7 @@ public class Product {
 	private String productCity;
 	private Date productUpdateDate;
 	private Long productPublishUserId;
+	private String productPublishUserEmail;
 	
 	@Column(name = "product_id", nullable = false, unique = true, precision = 20)
 	@GeneratedValue
@@ -287,5 +288,14 @@ public class Product {
 	}
 	public void setProductPublishUserId(Long productPublishUserId) {
 		this.productPublishUserId = productPublishUserId;
+	}
+	
+	@Length(max = 64)
+	@Column(name = "product_publish_user_email", nullable = false)
+	public String getProductPublishUserEmail() {
+		return productPublishUserEmail;
+	}
+	public void setProductPublishUserEmail(String productPublishUserEmail) {
+		this.productPublishUserEmail = productPublishUserEmail;
 	}
 }

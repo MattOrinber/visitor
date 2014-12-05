@@ -20,6 +20,7 @@ import org.visitor.appportal.service.newsite.VisitorProductDetailInfoService;
 import org.visitor.appportal.service.newsite.VisitorProductMultiPriceService;
 import org.visitor.appportal.service.newsite.VisitorProductOperationService;
 import org.visitor.appportal.service.newsite.VisitorProductService;
+import org.visitor.appportal.service.newsite.VisitorUserInternalMailService;
 import org.visitor.appportal.service.newsite.redis.ProductRedisService;
 import org.visitor.appportal.visitor.beans.ProductAddressTemp;
 import org.visitor.appportal.visitor.beans.ProductDetailTemp;
@@ -34,6 +35,7 @@ import org.visitor.appportal.visitor.domain.ProductMultiPrice;
 import org.visitor.appportal.visitor.domain.ProductOperation;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.web.utils.ProductInfo;
+import org.visitor.appportal.web.utils.ProductInfo.StatusTypeEnum;
 import org.visitor.appportal.web.utils.WebInfo;
 
 @Controller
@@ -53,6 +55,8 @@ public class ProductController extends BasicController {
 	private VisitorProductMultiPriceService visitorProductMultiPriceService;
 	@Autowired
 	private VisitorProductOperationService visitorProductOperationService;
+	@Autowired
+	private VisitorUserInternalMailService visitorUserInternalMailService;
 	
 	@RequestMapping("create")
 	public void createProduct(HttpServletRequest request, 
@@ -358,6 +362,8 @@ public class ProductController extends BasicController {
 			ProductOperation poTemp = productRedisService.getProductOperationFromRedis(productIdStr, poIdStr);
 			
 			if (poTemp != null) {
+				poTemp.setPoStatus(StatusTypeEnum.Inactive.ordinal());
+				visitorProductOperationService.saveProductOperation(poTemp);
 				productRedisService.deleteProductOperationToRedis(poTemp);
 			}
 		}
@@ -382,5 +388,11 @@ public class ProductController extends BasicController {
 		} 
 		
 		super.sendJSONResponse(list, response);
+	}
+	
+	@RequestMapping("saveInternalMail")
+	public void saveUserInternalMail(HttpServletRequest request,
+			HttpServletResponse response) {
+		//do internal
 	}
 }
