@@ -1,9 +1,9 @@
 package org.visitor.appportal.service.newsite.redis;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -50,7 +50,7 @@ public class FloopyThingRedisService {
 		String keyT = FloopyUtils.FLOOPY_PREFIX + key;
 		Map<Object, Object> entries = stringRedisVisitorTemplate.opsForHash().entries(keyT);
 		
-		Map<String, String> sortedList = new LinkedHashMap<String, String>();
+		Map<String, String> sortedList = new TreeMap<String, String>();
 		
 		if (null != entries) {
 			for(Object entry : entries.keySet()) {
