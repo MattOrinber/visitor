@@ -85,4 +85,8 @@ public class RedisKeysForVisitor {
     public static String getVisitorUserTokenKey() {
     	return "visitor-site-user-token-";
     }
+    
+    public static String getVisitorProductOperationKey() {
+    	return "visitor-site-product-operation";
+    }
 }

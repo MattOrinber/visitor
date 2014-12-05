@@ -1,6 +1,10 @@
 package org.visitor.appportal.web.controller.common;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.visitor.appportal.service.newsite.VisitorProductAddressService;
 import org.visitor.appportal.service.newsite.VisitorProductDetailInfoService;
 import org.visitor.appportal.service.newsite.VisitorProductMultiPriceService;
+import org.visitor.appportal.service.newsite.VisitorProductOperationService;
 import org.visitor.appportal.service.newsite.VisitorProductService;
 import org.visitor.appportal.service.newsite.redis.ProductRedisService;
 import org.visitor.appportal.visitor.beans.ProductAddressTemp;
 import org.visitor.appportal.visitor.beans.ProductDetailTemp;
+import org.visitor.appportal.visitor.beans.ProductOperationTemp;
 import org.visitor.appportal.visitor.beans.ProductPriceMultiTemp;
 import org.visitor.appportal.visitor.beans.ProductTemp;
 import org.visitor.appportal.visitor.beans.ResultJson;
@@ -25,6 +31,7 @@ import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductAddress;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
 import org.visitor.appportal.visitor.domain.ProductMultiPrice;
+import org.visitor.appportal.visitor.domain.ProductOperation;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.web.utils.ProductInfo;
 import org.visitor.appportal.web.utils.WebInfo;
@@ -44,6 +51,8 @@ public class ProductController extends BasicController {
 	private VisitorProductDetailInfoService visitorProductDetailInfoService;
 	@Autowired
 	private VisitorProductMultiPriceService visitorProductMultiPriceService;
+	@Autowired
+	private VisitorProductOperationService visitorProductOperationService;
 	
 	@RequestMapping("create")
 	public void createProduct(HttpServletRequest request, 
@@ -275,5 +284,103 @@ public class ProductController extends BasicController {
 		rj.setResultDesc(resultDesc);
 		
 		super.sendJSONResponse(rj, response);
+	}
+	
+	@RequestMapping("saveOperation")
+	public void productSaveOperation(HttpServletRequest request, 
+			HttpServletResponse response) {
+		ProductOperationTemp pot = super.getProductOperationTempJson(request);
+		
+		String productIdStr = pot.getProductIdStr();
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		
+		Product product = productRedisService.getProductFromRedis(Long.valueOf(productIdStr));
+		
+		Integer result = 0;
+		String resultDesc = ProductInfo.PRODUCT_OPERATION_SAVE_SUCCESS;
+		
+		if (product == null) {
+			result = -1;
+			resultDesc = ProductInfo.PRODUCT_NOTFOUND_FOR_OPERATION_UPDATE;
+		} else {
+			String poTypeStr = pot.getPoTypeStr();
+			String poStartDateStr = pot.getPoStartDateStr();
+			String poEndDateStr = pot.getPoEndDateStr();
+			String poCurrencyStr = pot.getPoCurrencyStr();
+			String poPriceStr = pot.getPoPricePerNightStr();
+			String poNoticeStr = pot.getPoNoticeStr();
+			
+			ProductOperation poTemp = new ProductOperation();
+			poTemp.setPoProductid(product.getProductId());
+			poTemp.setPoCreateby(userTemp.getUserEmail());
+			
+			poTemp.setPoType(Integer.valueOf(poTypeStr));
+			poTemp.setPoCurrency(poCurrencyStr);
+			poTemp.setPoPricePerNight(Integer.valueOf(poPriceStr));
+			poTemp.setPoNotice(poNoticeStr);
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
+			try {
+				Date poStartDate = sdf.parse(poStartDateStr);
+				Date poEndDate = sdf.parse(poEndDateStr);
+				
+				poTemp.setPoStartDate(poStartDate);
+				poTemp.setPoEndDate(poEndDate);
+				
+				visitorProductOperationService.saveProductOperation(poTemp);
+				productRedisService.setProductOperationToRedis(poTemp);
+				
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		ResultJson rj = new ResultJson();
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		super.sendJSONResponse(rj, response);
+	}
+	
+	@RequestMapping("deleteOperation")
+	public void productDeleteOperation(HttpServletRequest request, 
+			HttpServletResponse response) {
+		ProductOperationTemp pot = super.getProductOperationTempJson(request);
+		
+		String poIdStr = pot.getPoIdStr();
+		String productIdStr = pot.getProductIdStr();
+		
+		Integer result = 0;
+		String resultDesc = ProductInfo.PRODUCT_OPERATION_SAVE_SUCCESS;
+		
+		if (StringUtils.isNotEmpty(poIdStr) && StringUtils.isNotEmpty(productIdStr)) {
+			ProductOperation poTemp = productRedisService.getProductOperationFromRedis(productIdStr, poIdStr);
+			
+			if (poTemp != null) {
+				productRedisService.deleteProductOperationToRedis(poTemp);
+			}
+		}
+		
+		ResultJson rj = new ResultJson();
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		super.sendJSONResponse(rj, response);
+	}
+	
+	@RequestMapping("getAllOperation")
+	public void getProductOperationList(HttpServletRequest request,
+			HttpServletResponse response) {
+		ProductOperationTemp pot = super.getProductOperationTempJson(request);
+		String productIdStr = pot.getProductIdStr();
+		
+		List<ProductOperation> list = new ArrayList<ProductOperation>();
+		
+		if (StringUtils.isNotEmpty(productIdStr)) {
+			list = productRedisService.getProductOperationList(Long.valueOf(productIdStr));
+		} 
+		
+		super.sendJSONResponse(list, response);
 	}
 }

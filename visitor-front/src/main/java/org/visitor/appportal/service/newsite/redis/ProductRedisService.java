@@ -14,6 +14,7 @@ import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductAddress;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
 import org.visitor.appportal.visitor.domain.ProductMultiPrice;
+import org.visitor.appportal.visitor.domain.ProductOperation;
 import org.visitor.appportal.visitor.domain.User;
 
 @Service("productRedisService")
@@ -30,7 +31,14 @@ public class ProductRedisService {
 		String valueT = objectMapperWrapperForVisitor.convert2String(product);
 		String scoreStr = String.valueOf(product.getProductId().longValue());
 		Double score = Double.valueOf(scoreStr);
-		compressStringRedisVisitorTemplate.opsForZSet().add(keyT, valueT, score);
+		compressStringRedisVisitorTemplate.opsForHash().put(keyT, score, valueT);
+	}
+	
+	public Product getProductFromRedis(Long pid) {
+		String keyT = RedisKeysForVisitor.getVisitorProductInfoKey();
+		String scoreStr = String.valueOf(pid.longValue());
+		String valueT = (String) compressStringRedisVisitorTemplate.opsForHash().get(keyT, scoreStr);
+		return objectMapperWrapperForVisitor.convertToProduct(valueT);
 	}
 	
 	public void saveUserProductToRedis(User user, Product product) {
@@ -144,5 +152,41 @@ public class ProductRedisService {
 		String key = RedisKeysForVisitor.getVisitorProductMultipriceInfoKey(pid);
 		String keyT = keyStr;
 		compressStringRedisVisitorTemplate.opsForHash().delete(key, keyT);
+	}
+	
+	
+	public void setProductOperationToRedis(ProductOperation entity) {
+		String key = RedisKeysForVisitor.getVisitorProductOperationKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + String.valueOf(entity.getPoProductid().longValue());
+		String keyT = String.valueOf(entity.getPoOperationid());
+		String valueT = objectMapperWrapperForVisitor.convert2String(entity);
+		compressStringRedisVisitorTemplate.opsForHash().put(key, keyT, valueT);
+	}
+	
+	public ProductOperation getProductOperationFromRedis(String pidStr, String poIdStr) {
+		String key = RedisKeysForVisitor.getVisitorProductOperationKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + pidStr;
+		String keyT = poIdStr;
+		String valueT = (String) compressStringRedisVisitorTemplate.opsForHash().get(key, keyT);
+		return objectMapperWrapperForVisitor.convertToProductOperation(valueT);
+	}
+	
+	public void deleteProductOperationToRedis(ProductOperation entity) {
+		String key = RedisKeysForVisitor.getVisitorProductOperationKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + String.valueOf(entity.getPoProductid().longValue());
+		String keyT = String.valueOf(entity.getPoOperationid());
+		compressStringRedisVisitorTemplate.opsForHash().delete(key, keyT);
+	}
+	
+	public List<ProductOperation> getProductOperationList(Long pid) {
+		List<ProductOperation> list = new ArrayList<ProductOperation>();
+		String key = RedisKeysForVisitor.getVisitorProductOperationKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + String.valueOf(pid.longValue());
+		
+		Map<Object, Object> objMap = compressStringRedisVisitorTemplate.opsForHash().entries(key);
+		for (Object obj: objMap.keySet()) {
+			String valueT = (String) objMap.get(obj);
+			
+			ProductOperation poT = objectMapperWrapperForVisitor.convertToProductOperation(valueT);
+			list.add(poT);
+		}
+		
+		return list;
 	}
 }

@@ -1,5 +1,8 @@
 package org.visitor.appportal.web.interceptors;
 
+import java.net.URLDecoder;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,9 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.visitor.appportal.service.newsite.VisitorUserTokenInfoService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.domain.User;
+import org.visitor.appportal.visitor.domain.UserTokenInfo;
 import org.visitor.appportal.web.utils.WebInfo;
 
 public class PublishInterceptor implements HandlerInterceptor {
@@ -19,26 +24,53 @@ public class PublishInterceptor implements HandlerInterceptor {
 	
 	@Autowired
 	private UserRedisService userRedisService;
+	@Autowired
+	private VisitorUserTokenInfoService visitorUserTokenInfoService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		// TODO Auto-generated method stub
-		String userEmailT = request.getParameter(WebInfo.UserEmailStr);
-		String userPasswordT = request.getParameter(WebInfo.UserPasswordStr);
+		String userMailStrOri = request.getParameter(WebInfo.UserEmailStr);
+		String userTokenInfoStr = request.getParameter(WebInfo.UserPasswordStr);
 		
-		if (StringUtils.isNotEmpty(userEmailT) && StringUtils.isNotEmpty(userPasswordT)) {
-			User userT = userRedisService.getUserPassword(userEmailT);
-			String md5Final = userRedisService.getUserToken(userEmailT);
+		if (StringUtils.isNotEmpty(userMailStrOri) && StringUtils.isNotEmpty(userTokenInfoStr)) {
+			String userMailStr = URLDecoder.decode(userMailStrOri, "UTF-8");
+			UserTokenInfo userTi = userRedisService.getUserTokenInfo(userMailStr);
 			
-			if (StringUtils.equals(userPasswordT, md5Final)) {
-				if (log.isInfoEnabled()) {
-					log.info("authorization passed for user: >"+userEmailT+"<");
+			if (userTi == null) {
+				
+				//get from database
+				UserTokenInfo userTiNew = visitorUserTokenInfoService.getUserTokenInfoByUserEmail(userMailStr);
+				
+				if (userTiNew != null) {
+					String storedAccessToken = userTiNew.getUfiAccessToken();
+					Date expireDate = userTiNew.getUfiExpireDate();
+					Date nowDate = new Date();
+					
+					if (StringUtils.isNotEmpty(storedAccessToken) && nowDate.before(expireDate)) {
+						if (StringUtils.equals(userTokenInfoStr, storedAccessToken)) {
+							User userT = userRedisService.getUserPassword(userMailStr);
+							request.setAttribute(WebInfo.UserID, userT);
+							return true;
+						}
+					}
 				}
-				request.setAttribute(WebInfo.UserID, userT);
-				return true;
+				
+			} else {
+				String storedAccessToken = userTi.getUfiAccessToken();
+				Date expireDate = userTi.getUfiExpireDate();
+				Date nowDate = new Date();
+				
+				if (StringUtils.isNotEmpty(storedAccessToken) && nowDate.before(expireDate)) {
+					if (StringUtils.equals(userTokenInfoStr, storedAccessToken)) {
+						User userT = userRedisService.getUserPassword(userMailStr);
+						request.setAttribute(WebInfo.UserID, userT);
+						return true;
+					}
+				}
 			}
-		}
+		} 
 		
 		Integer result = -1;
 		String resultDesc = "Not authorized";
