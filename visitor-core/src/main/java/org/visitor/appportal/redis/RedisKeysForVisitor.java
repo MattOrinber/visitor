@@ -89,4 +89,16 @@ public class RedisKeysForVisitor {
     public static String getVisitorProductOperationKey() {
     	return "visitor-site-product-operation";
     }
+    
+    public static String getUserInternalMailToMeKey() {
+    	return "visitor-site-user-internal-mail-unread" + getVisitorRedisWeakSplit();
+    }
+    
+    public static String getUserInternalMailFromMeKey() {
+    	return "visitor-site-user-internal-mail-history" + getVisitorRedisWeakSplit();
+    }
+    
+    public static String getUserInternalMailAlways() {
+    	return "visitor-site-user-internal-mail-always";
+    }
 }

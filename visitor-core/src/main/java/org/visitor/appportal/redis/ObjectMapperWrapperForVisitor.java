@@ -8,6 +8,7 @@ import org.visitor.appportal.visitor.domain.ProductDetailInfo;
 import org.visitor.appportal.visitor.domain.ProductMultiPrice;
 import org.visitor.appportal.visitor.domain.ProductOperation;
 import org.visitor.appportal.visitor.domain.User;
+import org.visitor.appportal.visitor.domain.UserInternalMail;
 import org.visitor.appportal.visitor.domain.UserTokenInfo;
 
 import com.alibaba.fastjson.JSON;
@@ -31,6 +32,13 @@ public class ObjectMapperWrapperForVisitor {
 			return null;
 		}
 		return JSON.parseObject(key, User.class);
+	}
+	
+	public UserInternalMail convertToUserInternalMail(String key) {
+		if (StringUtils.isBlank(key)) {
+			return null;
+		}
+		return JSON.parseObject(key, UserInternalMail.class);
 	}
 	
 	public UserTokenInfo convertToUserTokenInfo(String key) {

@@ -6,7 +6,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>DayFetch</title>
 	<link href="${pageContext.request.contextPath}/static/css/main.css" rel="stylesheet" type="text/css" />
-	<link href="${pageContext.request.contextPath}/static/css/list_space.css" rel="stylesheet" type="text/css" />
 	<script src="${pageContext.request.contextPath}/static/js/jquery-1.7.1.min.js" type="text/javascript"><c:out value=" " /></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery.md5.js"><c:out value=" " /></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery-validation-1.8.0/jquery.validate.js"><c:out value=" " /></script>
@@ -105,7 +104,7 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
         			<a href="javascript:void(0);" class="list">List Your Activities</a>
         		</div>
         		
-        		<div id="loginStatusBarPart" class="loginbar" style="display:none;">
+        		<div id="loginStatusBarPart" style="display:none;">
         			<a href="javascript:void(0);" class="name" id="name">
         			    <c:choose>
         					<c:when test="${userIconUrl == '--'}">
@@ -140,7 +139,7 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
         			<a href="javascript:void(0);" class="list">List Your Activities</a>
         		</div>
         		
-        		<div id="loginStatusBarPart" class="loginbar" style="display:block;">
+        		<div id="loginStatusBarPart" style="display:block;">
         			<a href="javascript:void(0);" class="name" id="name">
         			    <c:choose>
         					<c:when test="${userIconUrl == '--'}">

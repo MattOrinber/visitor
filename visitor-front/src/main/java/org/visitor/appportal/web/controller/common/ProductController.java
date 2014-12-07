@@ -22,20 +22,25 @@ import org.visitor.appportal.service.newsite.VisitorProductOperationService;
 import org.visitor.appportal.service.newsite.VisitorProductService;
 import org.visitor.appportal.service.newsite.VisitorUserInternalMailService;
 import org.visitor.appportal.service.newsite.redis.ProductRedisService;
+import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.visitor.beans.ProductAddressTemp;
 import org.visitor.appportal.visitor.beans.ProductDetailTemp;
 import org.visitor.appportal.visitor.beans.ProductOperationTemp;
 import org.visitor.appportal.visitor.beans.ProductPriceMultiTemp;
 import org.visitor.appportal.visitor.beans.ProductTemp;
 import org.visitor.appportal.visitor.beans.ResultJson;
+import org.visitor.appportal.visitor.beans.UserInternalMailTemp;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductAddress;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
 import org.visitor.appportal.visitor.domain.ProductMultiPrice;
 import org.visitor.appportal.visitor.domain.ProductOperation;
 import org.visitor.appportal.visitor.domain.User;
+import org.visitor.appportal.visitor.domain.UserInternalMail;
 import org.visitor.appportal.web.utils.ProductInfo;
 import org.visitor.appportal.web.utils.ProductInfo.StatusTypeEnum;
+import org.visitor.appportal.web.utils.RegisterInfo;
+import org.visitor.appportal.web.utils.RegisterInfo.UserMailStatusEnum;
 import org.visitor.appportal.web.utils.WebInfo;
 
 @Controller
@@ -57,6 +62,8 @@ public class ProductController extends BasicController {
 	private VisitorProductOperationService visitorProductOperationService;
 	@Autowired
 	private VisitorUserInternalMailService visitorUserInternalMailService;
+	@Autowired
+	private UserRedisService userRedisService;
 	
 	@RequestMapping("create")
 	public void createProduct(HttpServletRequest request, 
@@ -84,6 +91,7 @@ public class ProductController extends BasicController {
 		
 		User userTemp = (User) request.getAttribute(WebInfo.UserID);
 		product.setProductPublishUserId(userTemp.getUserId());
+		product.setProductPublishUserEmail(userTemp.getUserEmail());
 		
 		visitorProductService.saveProduct(product);
 		productRedisService.saveUserProductToRedis(userTemp, product);
@@ -394,5 +402,57 @@ public class ProductController extends BasicController {
 	public void saveUserInternalMail(HttpServletRequest request,
 			HttpServletResponse response) {
 		//do internal
+		Integer result = 0;
+		String resultDesc = RegisterInfo.USER_INTERNALMAIL_SAVE_SUCCESS;
+		
+		UserInternalMailTemp uimT = super.getUserInternalMailTempJson(request);
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		
+		String uimIdStr = uimT.getUimIdStr();
+		
+		if (StringUtils.isNotEmpty(uimIdStr)) {
+			UserInternalMail uimFetch = userRedisService.getUserInternalMailAlways(uimIdStr);
+			String userTEmailStr = userTemp.getUserEmail();
+			
+			String contentStr = "";
+			if (StringUtils.equals(userTEmailStr, uimFetch.getUimFromUserMail())) {
+				contentStr = uimFetch.getUimContent() + RegisterInfo.USER_EMAIL_CONTENT_SPLIT + RegisterInfo.USER_EMAIL_PREFIX_FROM + RegisterInfo.USER_EMAIL_SPLIT + uimT.getContentStr();
+			} else {
+				contentStr = uimFetch.getUimContent() + RegisterInfo.USER_EMAIL_CONTENT_SPLIT + RegisterInfo.USER_EMAIL_PREFIX_TO + RegisterInfo.USER_EMAIL_SPLIT + uimT.getContentStr();
+			}
+			
+			uimFetch.setUimContent(contentStr);
+			visitorUserInternalMailService.saveVisitorUserInternalMail(uimFetch);
+			userRedisService.setUserInternalMailAlways(uimFetch);
+			userRedisService.setUserInternalMailUnread(uimFetch);
+		} else {
+			String pidStr = uimT.getProductIdStr();
+			String contentStr = uimT.getContentStr();
+			
+			if (StringUtils.isNotEmpty(pidStr)) {
+				Long productId = Long.valueOf(pidStr);
+				UserInternalMail uim = new UserInternalMail();
+				uim.setUimProductId(productId);
+				
+				Product product = productRedisService.getProductFromRedis(productId);
+				uim.setUimFromUserMail(userTemp.getUserEmail());
+				uim.setUimToUserMail(product.getProductPublishUserEmail());
+				uim.setUimStatus(UserMailStatusEnum.Unread.ordinal());
+				uim.setUimContent(RegisterInfo.USER_EMAIL_PREFIX_FROM + RegisterInfo.USER_EMAIL_SPLIT + contentStr);
+				visitorUserInternalMailService.saveVisitorUserInternalMail(uim);
+				userRedisService.setUserInternalMailAlways(uim);
+				userRedisService.setUserInternalMailUnread(uim);
+			} else {
+				log.info("product Id null for user internal mail save");
+				result = -1;
+				resultDesc = RegisterInfo.USER_INTERNALMAIL_SAVE_FAIL;
+			}
+		}
+		
+		ResultJson rj = new ResultJson();
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		super.sendJSONResponse(rj, response);
 	}
 }

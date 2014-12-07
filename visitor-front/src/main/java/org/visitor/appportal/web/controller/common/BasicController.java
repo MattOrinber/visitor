@@ -23,6 +23,7 @@ import org.visitor.appportal.visitor.beans.ProductDetailTemp;
 import org.visitor.appportal.visitor.beans.ProductOperationTemp;
 import org.visitor.appportal.visitor.beans.ProductPriceMultiTemp;
 import org.visitor.appportal.visitor.beans.ProductTemp;
+import org.visitor.appportal.visitor.beans.UserInternalMailTemp;
 import org.visitor.appportal.visitor.beans.UserTemp;
 import org.visitor.appportal.web.mailutils.SendMailUtils;
 import org.visitor.appportal.web.mailutils.UserMailException;
@@ -139,6 +140,16 @@ public class BasicController {
 		if (StringUtils.isNotEmpty(originStr)) {
 			ProductOperationTemp productOperT = JSON.parseObject(originStr, ProductOperationTemp.class);
 			return productOperT;
+		}
+		return null;
+	}
+	
+	public UserInternalMailTemp getUserInternalMailTempJson(HttpServletRequest request) {
+		String originStr = getJsonStr(request);
+		
+		if (StringUtils.isNotEmpty(originStr)) {
+			UserInternalMailTemp uimT = JSON.parseObject(originStr, UserInternalMailTemp.class);
+			return uimT;
 		}
 		return null;
 	}
