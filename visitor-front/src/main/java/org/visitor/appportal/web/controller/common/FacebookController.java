@@ -79,7 +79,8 @@ public class FacebookController extends BasicController {
 							UserBean ubTemp = this.getUserInfo(userInfoResult);
 							if (StringUtils.isNotEmpty(ubTemp.getId()) && StringUtils.isNotEmpty(ubTemp.getEmail())) {
 								String getUserPictureURL = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.facebookGetUserPictureURL) + "?"
-										+ MixAndMatchUtils.param_facebook_access_token + "=" + tbTemp.getAccess_token();
+										+ MixAndMatchUtils.param_facebook_access_token + "=" + tbTemp.getAccess_token() + "&" 
+										+ MixAndMatchUtils.param_facebook_redirect + "=false";
 								log.info("getUserPictureURL: >" + getUserPictureURL + "<");
 								String userPictureResult = HttpClientUtil.httpGet(getUserPictureURL);
 								log.info("userPictureResult: >" +userPictureResult +"<");
