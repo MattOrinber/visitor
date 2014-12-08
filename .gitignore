@@ -46,3 +46,5 @@ pom.xml.*
 */pom.xml.*
 release.properties
 */dependency-reduced-pom.xml
+/profile-development.properties
+/profile-production.properties
