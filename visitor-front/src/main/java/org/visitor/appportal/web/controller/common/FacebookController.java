@@ -73,14 +73,18 @@ public class FacebookController extends BasicController {
 								+ MixAndMatchUtils.param_facebook_access_token + "=" + tbTemp.getAccess_token();
 						
 						String userInfoResult = HttpClientUtil.httpGet(getUserURL);
+						
+						log.info("userInfoResult: >" +userInfoResult+"<");
 						if (StringUtils.isNotEmpty(userInfoResult)) {
 							UserBean ubTemp = this.getUserInfo(userInfoResult);
 							if (StringUtils.isNotEmpty(ubTemp.getId()) && StringUtils.isNotEmpty(ubTemp.getEmail())) {
 								String getUserPictureURL = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.facebookGetUserPictureURL) + "?"
 										+ MixAndMatchUtils.param_facebook_access_token + "=" + tbTemp.getAccess_token();
+								log.info("getUserPictureURL: >" + getUserPictureURL + "<");
 								String userPictureResult = HttpClientUtil.httpGet(getUserPictureURL);
-								
+								log.info("userPictureResult: >" +userPictureResult +"<");
 								String userPictureURLFinal = this.getUserPictureURLFinal(userPictureResult);
+								log.info("userPictureURLFinal: >" + userPictureURLFinal +"<");
 								
 								//add user and add user
 								User user = new User();
