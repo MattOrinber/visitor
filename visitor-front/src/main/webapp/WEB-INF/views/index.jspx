@@ -101,7 +101,7 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
         		<div id="notLoginStatusBarPart" class="loginbar" style="display:block;">
         			<a href="javascript:void(0);" id="signbtn">Sign Up</a>
         			<a href="javascript:void(0);" id="logbtn">Log In</a>
-        			<a href="javascript:void(0);" class="list">List Your Activities</a>
+        			<a href="${pageContext.request.contextPath}/day/list_space" class="list">List Your Activities</a>
         		</div>
         		
         		<div id="loginStatusBarPart" class="loginbar1" style="display:none;">
@@ -128,7 +128,7 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
 		                    <li><a href="javascript:logoutVisitor('${pageContext.request.contextPath}');">Log Out</a></li>
 		                </ul>
 		            </span>
-		            <a href="javascript:void(0);" class="list">List Your Activities</a>
+		            <a href="${pageContext.request.contextPath}/day/list_space" class="list">List Your Activities</a>
 		            <a href="javascript:void(0);" class="mail"><span class="number">1</span></a>
         		</div>
        		</c:when>
@@ -136,7 +136,7 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
        			<div id="notLoginStatusBarPart" class="loginbar" style="display:none;">
         			<a href="javascript:void(0);" id="signbtn">Sign Up</a>
         			<a href="javascript:void(0);" id="logbtn">Log In</a>
-        			<a href="javascript:void(0);" class="list">List Your Activities</a>
+        			<a href="${pageContext.request.contextPath}/day/list_space" class="list">List Your Activities</a>
         		</div>
         		
         		<div id="loginStatusBarPart" class="loginbar1" style="display:block;">
@@ -163,7 +163,7 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
 		                    <li><a href="javascript:logoutVisitor('${pageContext.request.contextPath}');">Log Out</a></li>
 		                </ul>
 		            </span>
-		            <a href="javascript:void(0);" class="list">List Your Activities</a>
+		            <a href="${pageContext.request.contextPath}/day/list_space" class="list">List Your Activities</a>
 		            <a href="javascript:void(0);" class="mail"><span class="number">1</span></a>
         		</div>
        		</c:otherwise>

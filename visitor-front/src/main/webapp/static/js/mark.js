@@ -248,8 +248,8 @@ function registerVisitor(pathOri)
 		        dataType : 'json',  
 		        data : jsonStr,  
 		        success : function(data) {  
-		        	var dataRes = "register result: " + data.result + "; resultDesc: " + data.resultDesc;
-		            alert(dataRes);
+		        	//var dataRes = "register result: " + data.result + "; resultDesc: " + data.resultDesc;
+		            //alert(dataRes);
 		            
 		            seeIfLoginBarDisplayed(data, pathOri);
 		        },  
@@ -289,8 +289,8 @@ function loginVisitor(pathOri) {
 	        dataType : 'json',  
 	        data : jsonStr,  
 	        success : function(data) {  
-	        	var dataRes = "login result: " + data.result + "; resultDesc: " + data.resultDesc;
-	            alert(dataRes);
+	        	//var dataRes = "login result: " + data.result + "; resultDesc: " + data.resultDesc;
+	            //alert(dataRes);
 	            
 	            seeIfLoginBarDisplayed(data, pathOri);
 	        },  
@@ -320,8 +320,8 @@ function logoutVisitor(pathOri) {
         dataType : 'json',  
         data : jsonStr,  
         success : function(data) {  
-        	var dataRes = "login result: " + data.result + "; resultDesc: " + data.resultDesc;
-            alert(dataRes);
+        	//var dataRes = "login result: " + data.result + "; resultDesc: " + data.resultDesc;
+            //alert(dataRes);
             if (data.result == 0) {
             	logoutBarDisplayed(data, pathOri);
             }
