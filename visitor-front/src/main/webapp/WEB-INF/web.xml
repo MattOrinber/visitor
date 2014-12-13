@@ -54,7 +54,7 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     
-    <!-- Needed for Error pages. Sets decorator for all error pages by setting request attribute decorator to public. 
+    <!-- Needed for Error pages. Sets decorator for all error pages by setting request attribute decorator to public. -->
     <filter>
         <filter-name>clearSiteMeshAppliedOnce</filter-name>
         <filter-class>org.codeconsole.sitemesh.filter.ClearSitemeshAppliedOnceFilter</filter-class>
@@ -80,7 +80,7 @@
         <url-pattern>/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>ERROR</dispatcher>
-    </filter-mapping>-->
+    </filter-mapping>
         
     <!-- Creates the Spring Container shared by all Servlets and Filters -->
     <listener>

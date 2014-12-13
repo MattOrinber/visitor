@@ -1,0 +1,85 @@
+*{margin:0;padding:0;font-family:Arial,sans-serif;color:#565a5c;}
+a{text-decoration:none;}
+img{border:none;}
+li{list-style:none;}
+body{background:#f7f7f7;}
+
+.header{width:100%;height:55px;background:#fff;border-bottom:1px solid #c4c4c4;}
+.header .head{min-width:1080px;height:55px;margin:0 auto;}
+.header .head .logo{width:80px;height:45px;float:left;margin-left:20px;margin-top:10px;}
+.header .head .select{width:200px;height:20px;float:left;margin-top:22px;}
+.header .head .select select{border:1px solid #c4c4c4;width:120px;outline:none;}
+.header .head .loginbar{width:300px;height:50px;float:right;margin-top:15px;margin-right:20px;}
+.header .head .loginbar a{font-size:13px;color:#666;margin-left:25px;}
+.header .head .loginbar a.list{border:1px solid #007a87;border-bottom-color: #004f58;background-color: #007a87;display:inline-block;width:130px;height:28px;border-radius:3px;line-height:28px;text-align:center;font-weight:bold;color:#fff;}
+.header .head .loginbar a.list:hover{background-color:#12acbc;border:1px solid #12acbc;border-bottom-color: #004f58;}
+
+.nav{width:100%;height:40px;background:#565a5c;}
+.nav .nav-detail{width:100%;height:40px;line-height:40px;}
+.nav .nav-detail span{font-size:14px;color:#fff;margin-left:20px;display:block;height:25px;text-align:left;}
+.nav .nav-detail span a{float:left;color:#ccc;margin-right:40px;}
+.nav .nav-detail span a:hover{color:#fff;}
+
+
+.main{width:100%;}
+.main .leftmenu{width:230px;min-height:600px;float:left;background:#fff;border-right:1px solid #dce0e0;}
+.main .leftmenu ul{width:230px;height:140px;}
+.main .leftmenu ul li{width:205px;height:35px;padding-left:25px;line-height:35px;background:url(../img/shizi.png) no-repeat 200px center;}
+.main .leftmenu ul li.title{height:50px;line-height:50px;color:#cacccd;font-weight:bold;font-size:14px;background:none;}
+.main .leftmenu ul li.choosed{background:url(../img/shizi1.png) no-repeat 200px center #edefed;}
+.main .leftmenu ul li a{width:100%;height:35px;display:block;font-size:15px;}
+.main .leftmenu ul li.choosed a{font-weight:bold;}
+.main .leftmenu div.step{width:230px;margin-top:20px;border-top:1px solid #dce0e0;height:50px;text-align:center;line-height:25px;padding-top:20px;}
+.main .leftmenu div.step span{color:#F30;}
+
+.main .rightbox{margin-left:231px;min-height:600px;}
+.main .rightbox .kongbai{width:100%;height:50px;}
+.main .rightbox .choosedate{width:650px;height:360px;background:#fff;border:1px solid #dce0e0;margin-left:50px;position:relative;}
+.main .rightbox .choosedate h1{color: #565a5c;text-align:center;padding-top:50px;font-size:27px;font-weight:normal;}
+.main .rightbox .choosedate .threechoice{width:450px;height:180px;margin:0 auto;margin-top:30px;}
+.main .rightbox .choosedate .threechoice dl{width:150px;height:180px;float:left;text-align:center;}
+.main .rightbox .choosedate .threechoice dl dd{cursor:pointer;}
+.main .rightbox .choosedate .threechoice dl dt{width:150px;margin-top:20px;font-size:14px;line-height:20px;}
+.main .rightbox .choosedate .threechoice dl dt span{display:block;font-size:20px;margin-bottom:8px;}
+.main .rightbox .choosedate .first{position:absolute;left:0;top:0;width:650px;height:360px;background:#fff;border:1px solid #dce0e0;z-index:999;display:none;text-align:center;}
+.main .rightbox .choosedate .first span{display:block;margin-top:80px;margin-bottom:20px;}
+.main .rightbox .choosedate .first p{color:#959595;font-size:14px;margin-top:10px;margin-bottom:10px;}
+.main .rightbox .choosedate .first a{font-size:15px;color:#bebebe;font-weight:bold;}
+.main .rightbox .choosedate .third span{margin-top:50px;}
+.main .rightbox .choosedate .third input{width:120px;height:35px;border:1px solid #dce0e0;margin-right:10px;margin-left:10px;}
+.main .rightbox .choosedate .third a.button{width:80px;text-align:center;height:35px;display:inline-block;border:1px solid #fc989b;border-bottom-color: #ef8387;background: #fc989b;color: #fff;line-height:35px;}
+.main .rightbox .choosedate .third a.button:hover{background:#ff5a5f;border:1px solid #ff5a5f;border-bottom-color: #e00007;}
+
+
+.footer{width:100%;height:55px;background:#eee8df;}
+.footer .policy{width:1000px;margin:0 auto;line-height:55px;}
+.footer .policy a{font-size:13px;color:#4d3636;margin:auto 10px;}
+.footer .policy span{font-size:13px;color:#4d3636;float:right;}
+.footer .policy select{width:80px;height:18px;background:#eee8df;margin-right:10px;border:1px solid #999;}
+.footer .policy select option{font-size:13px;}
+
+.backtotop a{display:block;width:100%;height:50px;background:url(../img/totop.png) no-repeat center 7px #d9ccb9;cursor:pointer;}
+.backtotop a:hover{background:url(../img/totop.png) no-repeat center bottom #674702;}
+
+
+
+.wrapwrapbox{width:100%;height:100%;position:fixed;left:0;top:0;background:rgba(0,0,0,0.75);z-index:9998;display:none;}
+.wrapbox .signupbox{position:fixed;left:50%;top:0;z-index:9999;width:315px;height:260px;background:#fff;border-radius:3px;margin-left:-150px;margin-top:220px;padding-top:20px;display:none;}
+.wrapbox .signupbox a.facebook,.wrapbox .signupbox a.email{border:1px solid #d52b2a;border-bottom:1px solid #8a1c1b;background:#d52b2a;border-radius:3px;color: #fff;display:block;width:260px;height:40px;text-align:center;line-height:40px;margin:0 auto;margin-bottom:20px;}
+.wrapbox .signupbox a.facebook:hover,.wrapbox .signupbox a.email:hover{background:#df4c4b;}
+.wrapbox .signupbox span.terms{display:block;width:260px;margin:0 auto;font-size:12px;color:#666;margin-top:10px;line-height:20px;height:80px;border-bottom:1px solid #d2d2d2;}
+.wrapbox .signupbox span.terms a{color:#df4c4b;}
+.wrapbox .signupbox span.terms a:hover{text-decoration:underline;}
+.wrapbox .signupbox span.loginbutton{display:block;width:260px;margin:0 auto;margin-top:20px;font-size:14px;}
+.wrapbox .signupbox span.loginbutton a{color:#df4c4b;}
+.wrapbox .signupbox span.loginbutton a:hover{text-decoration:underline;}
+.wrapbox .signupbox span.or{margin-left:150px;margin-bottom:5px;}
+.wrapbox .signupbox span.username{display:block;width:260px;height:35px;margin:0 auto;margin-bottom:15px;border:1px solid #d4d4d4; border-radius:2px;background:url(../img/email.png) no-repeat 230px center;}
+.wrapbox .signupbox span.password{background:url(../img/lock.png) no-repeat 230px center;}
+.wrapbox .signupbox span.username input{width:220px;height:32px;border:none;outline:none;padding-left:5px;}
+.wrapbox .signupbox span.checkbox{width:150px;height:25px;margin-left:28px;font-size:13px;}
+.wrapbox .signupbox span.checkbox input{width:14px;height:14px;background:#fff;margin-right:3px}
+.wrapbox .signupbox span.forget{float:right;margin-right:28px;}
+.wrapbox .signupbox span.forget a{font-size:14px;color:#df4c4b;}
+.wrapbox .signupbox span.forget a:hover{text-decoration:underline;}
+.wrapbox .signupbox a.login{margin-top:20px;background:#e76261;}
