@@ -3,6 +3,10 @@
 <jsp:output omit-xml-declaration="yes" />
 <jsp:directive.page contentType="text/html; charset=UTF-8" />
 
+<head>
+	<link href="${pageContext.request.contextPath}/static/css/dashboard.css" rel="stylesheet" type="text/css" />
+</head>
+
 <body>
 <![CDATA[
 
