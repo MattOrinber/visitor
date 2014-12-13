@@ -2,7 +2,10 @@ package org.visitor.appportal.web.interceptors;
 
 import java.net.URLDecoder;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,6 +20,7 @@ import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.visitor.domain.UserTokenInfo;
+import org.visitor.appportal.web.utils.MixAndMatchUtils;
 import org.visitor.appportal.web.utils.WebInfo;
 
 public class PublishInterceptor implements HandlerInterceptor {
@@ -31,21 +35,48 @@ public class PublishInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		// TODO Auto-generated method stub
-		String userMailStrOri = request.getParameter(WebInfo.UserEmailStr);
-		String userTokenInfoStr = request.getParameter(WebInfo.UserPasswordStr);
 		
-		if (StringUtils.isNotEmpty(userMailStrOri) && StringUtils.isNotEmpty(userTokenInfoStr)) {
-			String userMailStr = URLDecoder.decode(userMailStrOri, "UTF-8");
-			UserTokenInfo userTi = userRedisService.getUserTokenInfo(userMailStr);
+		Cookie[] cookieArray = request.getCookies();
+		if (cookieArray != null && cookieArray.length > 0) {
 			
-			if (userTi == null) {
+			Map<String, String> cookieMap = new HashMap<String, String>();
+			
+			for (int j = 0; j < cookieArray.length; j ++) {
+				Cookie tmpCookie = cookieArray[j];
+				cookieMap.put(tmpCookie.getName(), tmpCookie.getValue());
+				log.info("cookie name: >" + tmpCookie.getName() + "<");
+				log.info("cookie value: >" + tmpCookie.getValue() + "<");
+			}
+			
+			String userMailStrOri = cookieMap.get(MixAndMatchUtils.COOKIE_NAME_USER_EMAIL);
+			String userTokenInfoStr = cookieMap.get(MixAndMatchUtils.COOKIE_NAME_USER_ACCESS_TOKEN);
+		
+			if (StringUtils.isNotEmpty(userMailStrOri) && StringUtils.isNotEmpty(userTokenInfoStr)) {
+				String userMailStr = URLDecoder.decode(userMailStrOri, "UTF-8");
+				UserTokenInfo userTi = userRedisService.getUserTokenInfo(userMailStr);
 				
-				//get from database
-				UserTokenInfo userTiNew = visitorUserTokenInfoService.getUserTokenInfoByUserEmail(userMailStr);
-				
-				if (userTiNew != null) {
-					String storedAccessToken = userTiNew.getUfiAccessToken();
-					Date expireDate = userTiNew.getUfiExpireDate();
+				if (userTi == null) {
+					
+					//get from database
+					UserTokenInfo userTiNew = visitorUserTokenInfoService.getUserTokenInfoByUserEmail(userMailStr);
+					
+					if (userTiNew != null) {
+						String storedAccessToken = userTiNew.getUfiAccessToken();
+						Date expireDate = userTiNew.getUfiExpireDate();
+						Date nowDate = new Date();
+						
+						if (StringUtils.isNotEmpty(storedAccessToken) && nowDate.before(expireDate)) {
+							if (StringUtils.equals(userTokenInfoStr, storedAccessToken)) {
+								User userT = userRedisService.getUserPassword(userMailStr);
+								request.setAttribute(WebInfo.UserID, userT);
+								return true;
+							}
+						}
+					}
+					
+				} else {
+					String storedAccessToken = userTi.getUfiAccessToken();
+					Date expireDate = userTi.getUfiExpireDate();
 					Date nowDate = new Date();
 					
 					if (StringUtils.isNotEmpty(storedAccessToken) && nowDate.before(expireDate)) {
@@ -56,21 +87,8 @@ public class PublishInterceptor implements HandlerInterceptor {
 						}
 					}
 				}
-				
-			} else {
-				String storedAccessToken = userTi.getUfiAccessToken();
-				Date expireDate = userTi.getUfiExpireDate();
-				Date nowDate = new Date();
-				
-				if (StringUtils.isNotEmpty(storedAccessToken) && nowDate.before(expireDate)) {
-					if (StringUtils.equals(userTokenInfoStr, storedAccessToken)) {
-						User userT = userRedisService.getUserPassword(userMailStr);
-						request.setAttribute(WebInfo.UserID, userT);
-						return true;
-					}
-				}
-			}
-		} 
+			} 
+		}
 		
 		Integer result = -1;
 		String resultDesc = "Not authorized";
