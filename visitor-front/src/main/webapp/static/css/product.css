@@ -151,11 +151,11 @@ border-bottom:1px solid #fa0008;color: #fff;margin-top:10px;margin-bottom:20px;b
 .boxshade{width:100%;height:100%;background:rgba(0,0,0,0.7);position:fixed;left:0;top:0;z-index:9999;}
 .boxshade .mod18{width:1024px;overflow:hidden;margin:0 auto;position:relative;}
 .boxshade .mod18 .btn{position:absolute;width:15px;height:70px;top:689px;cursor:pointer;z-index:99;font-size:50px;font-weight:bold;}
-.boxshade .mod18 .prev{left:0;background:url(img/prevBtn.png) no-repeat;}
+.boxshade .mod18 .prev{left:0;background:url(../img/prevBtn.png) no-repeat;}
 .boxshade .mod18 #prevTop,.mod18 #nextTop{top:300px;width:46px;height:48px;}
-.boxshade .mod18 #prevTop{background:url(img/prevBtnTop.png) 0 0 no-repeat;}
-.boxshade .mod18 #nextTop{background:url(img/nextBtnTop.png) 0 0 no-repeat;}
-.boxshade .mod18 .next{right:0;background:url(img/nextBtn.png) no-repeat;}
+.boxshade .mod18 #prevTop{background:url(../img/prevBtnTop.png) 0 0 no-repeat;}
+.boxshade .mod18 #nextTop{background:url(../img/nextBtnTop.png) 0 0 no-repeat;}
+.boxshade .mod18 .next{right:0;background:url(../img/nextBtn.png) no-repeat;}
 .boxshade .mod18 li{float:left;}
 .boxshade .mod18 .cf li{position:relative;color:#fff;}
 .boxshade .mod18 .cf a{display:block;width:1024px;height:683px;position:absolute;color:#fff;}
