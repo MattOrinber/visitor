@@ -104,11 +104,11 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
         			<a href="javascript:void(0);" class="list">List Your Activities</a>
         		</div>
         		
-        		<div id="loginStatusBarPart" style="display:none;">
+        		<div id="loginStatusBarPart" class="loginbar1" style="display:none;">
         			<a href="javascript:void(0);" class="name" id="name">
         			    <c:choose>
         					<c:when test="${userIconUrl == '--'}">
-        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(http://ec2-54-169-136-155.ap-southeast-1.compute.amazonaws.com:8080/static/img/user_pic-50x50.png) no-repeat center center;float:left;"></span>]]>
+        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${pageContext.request.contextPath}/static/img/user_pic-50x50.png) no-repeat center center;float:left;"></span>]]>
         					</c:when>
         					<c:otherwise>
         						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${userIconUrl}) no-repeat center center;float:left;"></span>]]>
@@ -139,11 +139,11 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
         			<a href="javascript:void(0);" class="list">List Your Activities</a>
         		</div>
         		
-        		<div id="loginStatusBarPart" style="display:block;">
+        		<div id="loginStatusBarPart" class="loginbar1" style="display:block;">
         			<a href="javascript:void(0);" class="name" id="name">
         			    <c:choose>
         					<c:when test="${userIconUrl == '--'}">
-        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(http://172.18.100.66:8080/static/img/user_pic-50x50.png) no-repeat center center;float:left;"></span>]]>
+        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${pageContext.request.contextPath}/static/img/user_pic-50x50.png) no-repeat center center;float:left;"></span>]]>
         					</c:when>
         					<c:otherwise>
         						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${userIconUrl}) no-repeat center center;float:left;"></span>]]>
