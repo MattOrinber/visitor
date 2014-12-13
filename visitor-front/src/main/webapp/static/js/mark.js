@@ -42,6 +42,63 @@ function doImage() {
 	int=setInterval(autoshow, 4000);
 }
 
+function doCanlendarPage() {
+	$("#showfirst").click(function(){
+		$('#first').show();
+	});
+	
+	$("#hidefirst").click(function(){
+		$('#first').hide();
+	});
+	
+	$("#showsecond").click(function(){
+		$('#second').show();
+	});
+	
+	$("#hidesecond").click(function(){
+		$('#second').hide();
+	});
+	
+	$("#showthird").click(function(){
+		$('#third').show();
+	});
+	
+	$("#hidethird").click(function(){
+		$('#third').hide();
+	});
+}
+
+function doProductImageRound(){
+	$(".img").mouseenter(function(){
+		$(this).find(".btn").show();
+	});
+	$(".img").mouseleave(function(){
+		$(this).find(".btn").hide();
+	});
+	$('.content .img a#btnLeft').click(function(){
+		var currentImg = $(this).parent().find('[anime-status="1"]');
+		currentImg.stop();
+		currentImg.siblings().animate({
+			opacity:0
+		},100);
+		currentImg.animate({
+			opacity:1
+		},100);
+		currentImg.attr('anime-status','0');
+		currentImg.siblings().attr('anime-status','1');
+	});
+}
+
+function productBigImage() {
+	$(".boxshade").hide();
+	$("#bigImgshow,#bigImgshow1,#bigImgshow2").click(function(){
+		$(".boxshade").show();
+	});
+	$("#closeit").click(function(){
+		$(".boxshade").hide();
+	});
+}
+
 $(document).ready(function(){
 	$("#signbtn").click(function(){
 		$('.wrapwrapbox').show();
@@ -121,12 +178,23 @@ $(document).ready(function(){
 	});
 	
 	doImage();
+	doCanlendarPage();
+	doProductImageRound();
+	productBigImage();
 });
 
 $(window).scroll(function(){
 	var targetTop = $(this).scrollTop();
 	if (targetTop >= 520){
 		$(".howtowork").hide();
+	}
+	
+	if (targetTop >= 520){
+		$(".menu").addClass("fixedSubNav");
+		$(".scrollbox").addClass("fixedbook");
+	}else{
+		$(".menu").removeClass("fixedSubNav");
+		$(".scrollbox").removeClass("fixedbook");
 	}
 });
 

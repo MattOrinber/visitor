@@ -28,13 +28,11 @@ import org.visitor.appportal.service.newsite.redis.FloopyThingRedisService;
 import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.service.newsite.redis.VisitorLanguageRedisService;
-import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.domain.TimeZone;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.visitor.domain.UserTokenInfo;
 import org.visitor.appportal.visitor.domain.VisitorLanguage;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
-import org.visitor.appportal.web.utils.RegisterInfo;
 
 /**
  * @author mengw
@@ -234,10 +232,69 @@ public class IndexController extends BasicController {
 	}
 	
 	@RequestMapping({"day/list_space"})
+	public String dayListSpace(HttpServletRequest request, HttpServletResponse response, Model model) {
+		this.setModel(request, response, model);
+		return "day/list_space";
+	}
+	
+	@RequestMapping({"day/calendar"})
+	public String dayCalendar(HttpServletRequest request, HttpServletResponse response, Model model) {
+		this.setModel(request, response, model);
+		return "day/calendar";
+	}
+	
+	@RequestMapping({"day/pricing"})
+	public String dayPricing(HttpServletRequest request, HttpServletResponse response, Model model) {
+		this.setModel(request, response, model);
+		return "day/pricing";
+	}
+	
+	@RequestMapping({"day/description"})
+	public String dayDescription(HttpServletRequest request, HttpServletResponse response, Model model) {
+		this.setModel(request, response, model);
+		return "day/description";
+	}
+	
+	@RequestMapping({"day/photos"})
+	public String dayPhotos(HttpServletRequest request, HttpServletResponse response, Model model) {
+		this.setModel(request, response, model);
+		return "day/photos";
+	}
+	
+	@RequestMapping({"day/terms"})
 	public String login(HttpServletRequest request, HttpServletResponse response, Model model) {
 		this.setModel(request, response, model);
-		
-		return "day/list_space";
+		return "day/terms";
+	}
+	
+	@RequestMapping({"day/city"})
+	public String dayCity(HttpServletRequest request, HttpServletResponse response, Model model) {
+		this.setModel(request, response, model);
+		return "day/city";
+	}
+	
+	@RequestMapping({"day/dashboard"})
+	public String dayDashboard(HttpServletRequest request, HttpServletResponse response, Model model) {
+		this.setModel(request, response, model);
+		return "day/dashboard";
+	}
+	
+	@RequestMapping({"day/inbox"})
+	public String dayInbox(HttpServletRequest request, HttpServletResponse response, Model model) {
+		this.setModel(request, response, model);
+		return "day/inbox";
+	}
+	
+	@RequestMapping({"day/host_profile"})
+	public String dayHostprofile(HttpServletRequest request, HttpServletResponse response, Model model) {
+		this.setModel(request, response, model);
+		return "day/host_profile";
+	}
+	
+	@RequestMapping({"day/product"})
+	public String dayProduct(HttpServletRequest request, HttpServletResponse response, Model model) {
+		this.setModel(request, response, model);
+		return "day/product";
 	}
 	
 	@RequestMapping({"publish"})

@@ -1,140 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Day Fetch</title>
-<link href="css/calendar.css" rel="stylesheet" type="text/css" />
-<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>
-<script>
-	$(document).ready(function(){
-		  $("#signbtn").click(function(){
-			  		$('.wrapwrapbox').show();
-			  		$("#signup").show();			  
-			  });
-			  
-		  $("#logbtn").click(function(){
-			  		$('.wrapwrapbox').show();
-			  		$("#login").show();			  
-			  });
-		  $("#signupTologin").click(function(){
-			  		$("#signup").hide();
-			  		$("#login").show();			  
-			  });
-		  $("#loginTosignup").click(function(){
-			  		$("#login").hide();
-			  		$("#signup").show();			  
-			  });  
-		  $(".wrapwrapbox").click(function(){
-			  		$(this).hide();
-			  		$("#signup").hide();
-					$("#login").hide();			  
-			  });
-			  
-			  
-			  
-		  $(".img").mouseenter(function(){
-			  	$(this).find(".btn").show();
-			  });
-		  $(".img").mouseleave(function(){
-			  	$(this).find(".btn").hide();
-			  });  
-		  
-		  $("#ScrolltoTop").click(function() {
-				$('html, body').animate({
-					scrollTop: 0
-				},
-				"normal")
-			})
-		
-		$("#bigImgshow,#bigImgshow1,#bigImgshow2").click(function(){
-				$(".boxshade").show();
-			});
-		$("#closeit").click(function(){
-				$(".boxshade").hide();
-			});
-			
-		
-		$("#showfirst").click(function(){
-			  		$('#first').show();		  
-			  });
-		$("#hidefirst").click(function(){
-			  		$('#first').hide();		  
-			  });
-		
-		$("#showsecond").click(function(){
-			  		$('#second').show();		  
-			  });
-		$("#hidesecond").click(function(){
-			  		$('#second').hide();		  
-			  });
-		
-		$("#showthird").click(function(){
-			  		$('#third').show();		  
-			  });
-		$("#hidethird").click(function(){
-			  		$('#third').hide();		  
-			  });
-			  
-			  	
-		  
-	});
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:security="http://www.springframework.org/security/tags" xmlns:form="http://www.springframework.org/tags/form" xmlns:spring="http://www.springframework.org/tags">
 
-	window.onload = function(){ 
-		   $(".boxshade").hide(); 
-		};
-	
-
-</script>
-</head>
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
 
 <body>
-
-<!--sign up login-->
-<div class="wrapwrapbox"></div>
-<div class="wrapbox" >
-	<div class="signupbox" id="signup">
-    	<a href="javascript:void(0);" class="facebook">Sign up with Facebook</a>
-        <a href="javascript:void(0);" class="email">Sign up with Email</a>
-        <span class="terms">By signing up, I agree to DayFetch's <a href="">Terms of Service</a>, <a href="">Privacy Policy</a>, <a href="">Guest Refund Policy</a>, and <a href="">Host Guarantee Terms</a>.</span>
-    	<span class="loginbutton">Already an Airbnb member? <a href="javascript:void(0);" id="signupTologin">Log in</a></span>
-    </div>
-</div>
-
-<div class="wrapbox">
-	<div class="signupbox" style="height:320px;"  id="login">
-    	<a href="javascript:void(0);" class="facebook">Log in with Facebook</a>
-        <span class="or">or</span>
-        <span class="username"><input type="text" value="Email Address"/></span>
-        <span class="username password"><input type="text" value="Password"/></span>
-        <span class="checkbox"><input type="checkbox" />Remember me</span>
-        <span class="forget"><a href="">Forgot password?</a></span>
-        <a href="javascript:void(0);" class="facebook login">Log  in</a>
-        <span class="loginbutton">Don't have an account? <a href="javascript:void(0);" id="loginTosignup">Sign up</a></span>
-    </div>
-</div>
-
-
-<div class="header">
-    <div class="head">
-    	<div class="logo"><a href="index.html"><img src="img/logo-red.png" /></a></div>
-        <div class="select">
-        	<select>
-            	<option>Pairs</option>
-                <option>New York</option>
-                <option>New York</option>
-                <option>New York</option>
-                <option>New York</option>
-                <option>New York</option>
-            </select>
-        </div>
-        <div class="loginbar">
-        	<a href="javascript:void(0);" id="signbtn">Sign Up</a>
-            <a href="javascript:void(0);" id="logbtn">Log In</a>
-            <a href="" class="list">List Your Activities</a>
-        </div>
-    </div>
-</div>
-
+<![CDATA[
 <div class="nav">
 	<div class="nav-detail">
     	<span><a href="your-listing.html"><</a>Entire home/apt in Beijing</span>
@@ -167,32 +37,32 @@
         	<h1>When is your listing available?</h1>
             <div class="threechoice">
             	<dl>
-                	<dd id="showfirst"><img src="img/always.jpg" onMouseOver="this.src='img/always-hover.jpg'" onMouseOut="this.src='img/always.jpg'"/></dd>
+                	<dd id="showfirst"><img src="${pageContext.request.contextPath}/static/img/always.jpg" onMouseOver="this.src='${pageContext.request.contextPath}/static/img/always-hover.jpg'" onMouseOut="this.src='${pageContext.request.contextPath}/static/img/always.jpg'"/></dd>
                     <dt><span>Always</span>List all dates as available</dt>
                 </dl>
                 <dl>
-                	<dd id="showsecond"><img src="img/sometime.jpg" onMouseOver="this.src='img/sometime-hover.jpg'" onMouseOut="this.src='img/sometime.jpg'"/></dd>
+                	<dd id="showsecond"><img src="${pageContext.request.contextPath}/static/img/sometime.jpg" onMouseOver="this.src='${pageContext.request.contextPath}/static/img/sometime-hover.jpg'" onMouseOut="this.src='${pageContext.request.contextPath}/static/img/sometime.jpg'"/></dd>
                     <dt><span>Sometimes</span>List some dates as available</dt>
                 </dl>
                 <dl>
-                	<dd id="showthird"><img src="img/onetime.jpg" onMouseOver="this.src='img/onetime-hover.jpg'" onMouseOut="this.src='img/onetime.jpg'"/></dd>
+                	<dd id="showthird"><img src="${pageContext.request.contextPath}/static/img/onetime.jpg" onMouseOver="this.src='${pageContext.request.contextPath}/static/img/onetime-hover.jpg'" onMouseOut="this.src='${pageContext.request.contextPath}/static/img/onetime.jpg'"/></dd>
                     <dt><span>One Time</span>List only one time period as available</dt>
                 </dl>
             </div>
             <div class="first" id="first">
-            	<span><img src="img/always.jpg" width="40" /></span>
+            	<span><img src="${pageContext.request.contextPath}/static/img/always.jpg" width="40" /></span>
                 <h2>Always Available</h2>
                 <p>This is your calendar! After listing your space, <br />return here to update your availability.</p>
                 <a href="#" id="hidefirst"><&nbsp;&nbsp;CHOOSE AGAIN</a>
             </div>
             <div class="first second" id="second">
-            	<span><img src="img/sometime.jpg" width="40" /></span>
+            	<span><img src="${pageContext.request.contextPath}/static/img/sometime.jpg" width="40" /></span>
                 <h2>Sometimes Available</h2>
                 <p>This is your calendar! After listing your space, <br />return here to update your availability.</p>
                 <a href="#" id="hidesecond"><&nbsp;&nbsp;CHOOSE AGAIN</a>
             </div>
             <div class="first third" id="third">
-            	<span><img src="img/onetime.jpg" width="40" /></span>
+            	<span><img src="${pageContext.request.contextPath}/static/img/onetime.jpg" width="40" /></span>
                 <h2>One Time Availability</h2>
                 <p>Select the dates your listing is available.</p>
                 <input type="text"/> to <input type="text" /> <a href="#" class="button">Save</a>
@@ -202,44 +72,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-    <div class="footer">
-    	<div class="policy">
-        	<select>
-            	<option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-            </select>
-        	<a href="">About </a>|
-            <a href="">Terms of Use </a>|
-            <a href="">Privacy Policy </a>
-            <span>Copyright 2014 © DayFetch All rights reserve</span>
-        </div>
-    </div>
-    
-    <div class="backtotop" id="ScrolltoTop">
-    	<a href="javascript:void(0);"></a>
-    </div>
-
-
-
-
-
+]]>
 </body>
 </html>

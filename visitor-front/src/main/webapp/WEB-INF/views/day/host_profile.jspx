@@ -1,193 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Day Fetch</title>
-<link href="css/host_profile.css" rel="stylesheet" type="text/css" />
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:security="http://www.springframework.org/security/tags" xmlns:form="http://www.springframework.org/tags/form" xmlns:spring="http://www.springframework.org/tags">
 
-<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>
-<script>
-	$(document).ready(function(){
-		  $("#signbtn").click(function(){
-			  		$('.wrapwrapbox').show();
-			  		$("#signup").show();			  
-			  });
-			  
-		  $("#logbtn").click(function(){
-			  		$('.wrapwrapbox').show();
-			  		$("#login").show();			  
-			  });
-		  $("#signupTologin").click(function(){
-			  		$("#signup").hide();
-			  		$("#login").show();			  
-			  });
-		  $("#loginTosignup").click(function(){
-			  		$("#login").hide();
-			  		$("#signup").show();			  
-			  });  
-		  $(".wrapwrapbox").click(function(){
-			  		$(this).hide();
-			  		$("#signup").hide();
-					$("#login").hide();			  
-			  });
-			  
-			  
-			  
-		  $(".img").mouseenter(function(){
-			  	$(this).find(".btn").show();
-			  });
-		  $(".img").mouseleave(function(){
-			  	$(this).find(".btn").hide();
-			  });  
-		  
-		  $("#ScrolltoTop").click(function() {
-				$('html, body').animate({
-					scrollTop: 0
-				},
-				"normal")
-			})
-		
-		$("#bigImgshow,#bigImgshow1,#bigImgshow2").click(function(){
-				$(".boxshade").show();
-			});
-		$("#closeit").click(function(){
-				$(".boxshade").hide();
-			});
-		  
-	});
-
-	window.onload = function(){ 
-		   $(".boxshade").hide(); 
-		};
-	
-	$(window).scroll(function(){
-		var $this = $(this);
-		var targetTop = $(this).scrollTop();
-		//var footerTop = $("#footer").offset().top;
-		var height = $(window).height();
-		
-		if (targetTop >= 520){
-			$(".menu").addClass("fixedSubNav");
-			$(".scrollbox").addClass("fixedbook");
-		}else{
-			$(".menu").removeClass("fixedSubNav");
-			$(".scrollbox").removeClass("fixedbook");
-		}
-		if(targetTop < 750){
-			subNav_scroll($(".adv_door"));
-		}else if(targetTop > 1200 && targetTop < 1640){
-				subNav_scroll($(".adv_source"));
-		}else if(targetTop > 2314 && targetTop < 2734){
-				subNav_scroll($(".adv_price"));
-		}else if(targetTop > 2968 && targetTop < 3268){
-				subNav_scroll($(".adv_transfer"));
-		}else if(targetTop > 3327 && targetTop < 3627){
-				subNav_scroll($(".adv_payment"));
-		}else if(targetTop > 3651 && targetTop < 4071){
-				subNav_scroll($(".adv_promise"));
-		}else if(targetTop > 4163 && targetTop < 4473){
-				subNav_scroll($(".adv_ride"));
-		}else if(targetTop > 4580){
-			subNav_scroll($(".adv_finance"));
-		}
-	});	
-</script>
-</head>
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
 
 <body>
-
-<!-- 弹出图片-->
-<div class="boxshade">
-	<a href="#" id="closeit" style="display:block;width:20px;height:20px;position:absolute;right:20px;top:20px;"><img src="img/close2.png" /></a>
-    <div class="mod18">
-        <span id="prev" class="btn prev"></span>
-        <span id="next" class="btn next"></span>
-        <span id="prevTop" class="btn prev"></span>
-        <span id="nextTop" class="btn next"></span>
-        <div id="picBox" class="picBox">
-            <ul class="cf">
-                <li><a href="#"><img width="1024" src="img/room-img/1b48bac4_original.jpg" alt="" /></a></li>
-                <li><a href="#" ><img width="1024" src="img/room-img/9a548b3e_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="img/room-img/72bbbc01_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="img/room-img/102faa20_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="img/room-img/885a3cec_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="img/room-img/c51b2f2b_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="img/room-img/e993905b_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="img/room-img/ef7dbcc4_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="img/room-img/78a645e0_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="img/room-img/d1a69cd5_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="img/room-img/e169dfe6_original.jpg" alt="" /></a></li>
-            </ul>
-        </div>
-        
-        <div id="listBox" class="listBox">
-            <ul class="cf">
-                <li class="on"><i class="arr2"></i><img width="118"  src="img/room-img/1b48bac4_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/9a548b3e_original.jpg" alt="roomimg"  /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/72bbbc01_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/102faa20_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/885a3cec_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/c51b2f2b_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/e993905b_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/ef7dbcc4_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/78a645e0_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/d1a69cd5_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/e169dfe6_original.jpg" alt="roomimg" /></li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<!--sign up login-->
-<div class="wrapwrapbox"></div>
-<div class="wrapbox" >
-	<div class="signupbox" id="signup">
-    	<a href="javascript:void(0);" class="facebook">Sign up with Facebook</a>
-        <a href="javascript:void(0);" class="email">Sign up with Email</a>
-        <span class="terms">By signing up, I agree to DayFetch's <a href="">Terms of Service</a>, <a href="">Privacy Policy</a>, <a href="">Guest Refund Policy</a>, and <a href="">Host Guarantee Terms</a>.</span>
-    	<span class="loginbutton">Already an Airbnb member? <a href="javascript:void(0);" id="signupTologin">Log in</a></span>
-    </div>
-</div>
-
-<div class="wrapbox">
-	<div class="signupbox" style="height:320px;"  id="login">
-    	<a href="javascript:void(0);" class="facebook">Log in with Facebook</a>
-        <span class="or">or</span>
-        <span class="username"><input type="text" value="Email Address"/></span>
-        <span class="username password"><input type="text" value="Password"/></span>
-        <span class="checkbox"><input type="checkbox" />Remember me</span>
-        <span class="forget"><a href="">Forgot password?</a></span>
-        <a href="javascript:void(0);" class="facebook login">Log  in</a>
-        <span class="loginbutton">Don't have an account? <a href="javascript:void(0);" id="loginTosignup">Sign up</a></span>
-    </div>
-</div>
-
-
-<div class="header">
-    <div class="head">
-    	<div class="logo"><a href="index.html"><img src="img/logo-red.png" /></a></div>
-        <div class="select">
-        	<select>
-            	<option>Pairs</option>
-                <option>New York</option>
-                <option>New York</option>
-                <option>New York</option>
-                <option>New York</option>
-                <option>New York</option>
-            </select>
-        </div>
-        <div class="loginbar">
-        	<a href="javascript:void(0);" id="signbtn">Sign Up</a>
-            <a href="javascript:void(0);" id="logbtn">Log In</a>
-            <a href="" class="list">List Your Activities</a>
-        </div>
-    </div>
-</div>
-
+<![CDATA[
 <div class="main">
     <div class="maincontent">
         <div class="left">
-        	<div class="hostimg"><img src="img/original1.jpg" width="230"/></div>
+        	<div class="hostimg"><img src="${pageContext.request.contextPath}/static/img/original1.jpg" width="230"/></div>
             <div class="aboutme">
             	<span>About Me</span>
                 <div><p><strong>School</strong>
@@ -195,7 +16,7 @@
                     <p><strong>Work</strong>
                     Freelance Interpreter</p>
                     <p><strong>Languages</strong>
-                    English, Français</p>
+                    English, FranÃ§ais</p>
                 </div>
             </div>
             <div class="listlist">
@@ -206,7 +27,7 @@
         <div class="right">
         	<div class="info">
                 <h1>Hey, I'm Kristin!</h1>
-    <span><strong>Paris, Île-de-France, France</strong> · Member since July 2011</span>
+    <span><strong>Paris, Ãle-de-France, France</strong> Â· Member since July 2011</span>
     <p>I love to travel and am always on the go. My apartment is my haven of tranquility in the beautiful city of Paris, where I've lived off and on for 20 years. The 11th arrondissement is a fantastic neighborhood, very vibrant and alive. So much to discover and explore...
     </p>
     <p>
@@ -228,7 +49,7 @@
                         <dd></dd>
                         <dt>Alexander</dt>
                     </dl>
-                    <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
+                    <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
                     <span>September 2014</span>
                 	</div>
                     <div class="list response">
@@ -237,7 +58,7 @@
                             <dt>Alexander</dt>
                         </dl>
                         <div class="text"><p>Response from Sarah:</p>
-                            Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
+                            SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
                         <span>September 2014</span>
                         </div>
                     </div>
@@ -248,7 +69,7 @@
                         <dd></dd>
                         <dt>Alexander</dt>
                     </dl>
-                    <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
+                    <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
                     <span>September 2014</span>
                     </div>
                 </div>
@@ -258,7 +79,7 @@
                         <dd></dd>
                         <dt>Alexander</dt>
                     </dl>
-                    <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
+                    <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
                     <span>September 2014</span>
                     </div>
                 </div>
@@ -268,7 +89,7 @@
                         <dd></dd>
                         <dt>Alexander</dt>
                     </dl>
-                    <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
+                    <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
                     <span>September 2014</span>
                     </div>
                 </div>
@@ -281,7 +102,7 @@
                         <dd></dd>
                         <dt>Alexander</dt>
                     </dl>
-                    <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
+                    <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
                     <span>September 2014</span>
                 	</div>
         		</div>
@@ -291,7 +112,7 @@
                         <dd></dd>
                         <dt>Alexander</dt>
                     </dl>
-                    <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
+                    <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
                     <span>September 2014</span>
                 	</div>
         		</div>
@@ -302,99 +123,7 @@
     </div>
 </div>
 
-
-<!--<div class="reviews">
-	<div class="details">
-		<div class="title">12 Reviews<span><img src="img/knewstuff.png" width="14"/><img src="img/knewstuff.png" width="14"/><img src="img/knewstuff.png" width="14"/><img src="img/halfstuff.png" width="14"/><img src="img/stuff-gray.png" width="14"/></span></div>
-        <div class="list">
-        	<dl>
-            	<dd></dd>
-                <dt>Alexander</dt>
-            </dl>
-            <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-            <span>September 2014</span>
-            </div>
-                <div class="list response">
-                    <dl>
-                        <dd></dd>
-                        <dt>Alexander</dt>
-                    </dl>
-                    <div class="text"><p>Response from Sarah:</p>
-                        Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-                    <span>September 2014</span>
-                    </div>
-            	</div>
-        </div>
-        <div class="line"></div>
-        <div class="list">
-        	<dl>
-            	<dd></dd>
-                <dt>Alexander</dt>
-            </dl>
-            <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-            <span>September 2014</span>
-            </div>
-        </div>
-        <div class="line"></div>
-        <div class="list">
-        	<dl>
-            	<dd></dd>
-                <dt>Alexander</dt>
-            </dl>
-            <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-            <span>September 2014</span>
-            </div>
-        </div>
-        <div class="line"></div>
-        <div class="list">
-        	<dl>
-            	<dd></dd>
-                <dt>Alexander</dt>
-            </dl>
-            <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-            <span>September 2014</span>
-            </div>
-        </div>
-    </div>
-
-</div>-->
-
-
-
-
-
-
-
-
-
-    <div class="footer">
-    	<div class="policy">
-        	<select>
-            	<option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-            </select>
-        	<a href="">About </a>|
-            <a href="">Terms of Use </a>|
-            <a href="">Privacy Policy </a>
-            <span>Copyright 2014 © DayFetch All rights reserve</span>
-        </div>
-    </div>
-    
-    <div class="backtotop" id="ScrolltoTop">
-    	<a href="javascript:void(0);"></a>
-    </div>
-
-
-
-
+]]>
 
 </body>
 </html>

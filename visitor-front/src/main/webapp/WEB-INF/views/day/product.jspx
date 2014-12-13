@@ -1,129 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Day Fetch</title>
-<link href="css/product.css" rel="stylesheet" type="text/css" />
-<style>
-	.boxshade{width:100%;height:100%;background:rgba(0,0,0,0.7);position:fixed;left:0;top:0;z-index:9999;}
-	
-	.boxshade .mod18{width:1024px;overflow:hidden;margin:0 auto;position:relative;}
-	.boxshade .mod18 .btn{position:absolute;width:15px;height:70px;top:689px;cursor:pointer;z-index:99;font-size:50px;font-weight:bold;}
-	.boxshade .mod18 .prev{left:0;background:url(img/prevBtn.png) no-repeat;}
-	.boxshade .mod18 #prevTop,.mod18 #nextTop{top:300px;width:46px;height:48px;}
-	.boxshade .mod18 #prevTop{background:url(img/prevBtnTop.png) 0 0 no-repeat;}
-	.boxshade .mod18 #nextTop{background:url(img/nextBtnTop.png) 0 0 no-repeat;}
-	.boxshade .mod18 .next{right:0;background:url(img/nextBtn.png) no-repeat;}
-	.boxshade .mod18 li{float:left;}
-	.boxshade .mod18 .cf li{position:relative;color:#fff;}
-	.boxshade .mod18 .cf a{display:block;width:1024px;height:683px;position:absolute;color:#fff;}
-	.boxshade .mod18 .picBox{height:683px;position:relative;overflow:hidden;}
-	.boxshade .mod18 .picBox ul{height:683px;position:absolute;}
-	.boxshade .mod18 .picBox li{width:1024px;height:683px;}
-	
-	.boxshade .mod18 .listBox{width:1024px;height:100px;margin:0 auto;position:relative;padding:6px 0 10px;overflow:hidden;}
-	.boxshade .mod18 .listBox ul{margin-left:30px;height:100px;position:absolute;}
-	.boxshade .mod18 .listBox li{width:129px;height:70px;cursor:pointer;position:relative;}
-	.boxshade .mod18 .listBox li i{display:none;}
-	.boxshade .mod18 .listBox li a{display:block;width:124px;height:70px;}
-	.boxshade .mod18 .listBox li img{width:124px;height:70px;}
-	.boxshade .mod18 .listBox .on img{width:118px;height:64px;border:3px solid #ff6600;}
-	.boxshade .mod18 .listBox .on i{display:block;}
-</style>
-<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>
-<script>
-	$(document).ready(function(){
-		  $("#signbtn").click(function(){
-			  		$('.wrapwrapbox').show();
-			  		$("#signup").show();			  
-			  });
-			  
-		  $("#logbtn").click(function(){
-			  		$('.wrapwrapbox').show();
-			  		$("#login").show();			  
-			  });
-		  $("#signupTologin").click(function(){
-			  		$("#signup").hide();
-			  		$("#login").show();			  
-			  });
-		  $("#loginTosignup").click(function(){
-			  		$("#login").hide();
-			  		$("#signup").show();			  
-			  });  
-		  $(".wrapwrapbox").click(function(){
-			  		$(this).hide();
-			  		$("#signup").hide();
-					$("#login").hide();			  
-			  });
-			  
-			  
-			  
-		  $(".img").mouseenter(function(){
-			  	$(this).find(".btn").show();
-			  });
-		  $(".img").mouseleave(function(){
-			  	$(this).find(".btn").hide();
-			  });  
-		  
-		  $("#ScrolltoTop").click(function() {
-				$('html, body').animate({
-					scrollTop: 0
-				},
-				"normal")
-			})
-		
-		$("#bigImgshow,#bigImgshow1,#bigImgshow2").click(function(){
-				$(".boxshade").show();
-			});
-		$("#closeit").click(function(){
-				$(".boxshade").hide();
-			});
-		  
-	});
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:security="http://www.springframework.org/security/tags" xmlns:form="http://www.springframework.org/tags/form" xmlns:spring="http://www.springframework.org/tags">
 
-	window.onload = function(){ 
-		   $(".boxshade").hide(); 
-		};
-	
-	$(window).scroll(function(){
-		var $this = $(this);
-		var targetTop = $(this).scrollTop();
-		//var footerTop = $("#footer").offset().top;
-		var height = $(window).height();
-		
-		if (targetTop >= 520){
-			$(".menu").addClass("fixedSubNav");
-			$(".scrollbox").addClass("fixedbook");
-		}else{
-			$(".menu").removeClass("fixedSubNav");
-			$(".scrollbox").removeClass("fixedbook");
-		}
-		if(targetTop < 750){
-			subNav_scroll($(".adv_door"));
-		}else if(targetTop > 1200 && targetTop < 1640){
-				subNav_scroll($(".adv_source"));
-		}else if(targetTop > 2314 && targetTop < 2734){
-				subNav_scroll($(".adv_price"));
-		}else if(targetTop > 2968 && targetTop < 3268){
-				subNav_scroll($(".adv_transfer"));
-		}else if(targetTop > 3327 && targetTop < 3627){
-				subNav_scroll($(".adv_payment"));
-		}else if(targetTop > 3651 && targetTop < 4071){
-				subNav_scroll($(".adv_promise"));
-		}else if(targetTop > 4163 && targetTop < 4473){
-				subNav_scroll($(".adv_ride"));
-		}else if(targetTop > 4580){
-			subNav_scroll($(".adv_finance"));
-		}
-	});	
-</script>
-</head>
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
 
 <body>
-
-<!-- 弹出图片-->
+<![CDATA[
+<!-- å¼¹åºå¾ç-->
 <div class="boxshade">
-	<a href="#" id="closeit" style="display:block;width:20px;height:20px;position:absolute;right:20px;top:20px;"><img src="img/close2.png" /></a>
+	<a href="#" id="closeit" style="display:block;width:20px;height:20px;position:absolute;right:20px;top:20px;"><img src="${pageContext.request.contextPath}/static/img/close2.png" /></a>
     <div class="mod18">
         <span id="prev" class="btn prev"></span>
         <span id="next" class="btn next"></span>
@@ -131,80 +15,34 @@
         <span id="nextTop" class="btn next"></span>
         <div id="picBox" class="picBox">
             <ul class="cf">
-                <li><a href="#"><img width="1024" src="img/room-img/1b48bac4_original.jpg" alt="" /></a></li>
-                <li><a href="#" ><img width="1024" src="img/room-img/9a548b3e_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="img/room-img/72bbbc01_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="img/room-img/102faa20_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="img/room-img/885a3cec_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="img/room-img/c51b2f2b_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="img/room-img/e993905b_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="img/room-img/ef7dbcc4_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="img/room-img/78a645e0_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="img/room-img/d1a69cd5_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="img/room-img/e169dfe6_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/1b48bac4_original.jpg" alt="" /></a></li>
+                <li><a href="#" ><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/9a548b3e_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/72bbbc01_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/102faa20_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/885a3cec_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/c51b2f2b_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/e993905b_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/ef7dbcc4_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/78a645e0_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/d1a69cd5_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/e169dfe6_original.jpg" alt="" /></a></li>
             </ul>
         </div>
         
         <div id="listBox" class="listBox">
             <ul class="cf">
-                <li class="on"><i class="arr2"></i><img width="118"  src="img/room-img/1b48bac4_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/9a548b3e_original.jpg" alt="roomimg"  /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/72bbbc01_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/102faa20_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/885a3cec_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/c51b2f2b_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/e993905b_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/ef7dbcc4_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/78a645e0_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/d1a69cd5_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="img/room-img/e169dfe6_original.jpg" alt="roomimg" /></li>
+                <li class="on"><i class="arr2"></i><img width="118"  src="${pageContext.request.contextPath}/static/img/room-img/1b48bac4_original.jpg" alt="roomimg" /></li>
+                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/9a548b3e_original.jpg" alt="roomimg"  /></li>
+                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/72bbbc01_original.jpg" alt="roomimg" /></li>
+                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/102faa20_original.jpg" alt="roomimg" /></li>
+                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/885a3cec_original.jpg" alt="roomimg" /></li>
+                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/c51b2f2b_original.jpg" alt="roomimg" /></li>
+                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/e993905b_original.jpg" alt="roomimg" /></li>
+                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/ef7dbcc4_original.jpg" alt="roomimg" /></li>
+                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/78a645e0_original.jpg" alt="roomimg" /></li>
+                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/d1a69cd5_original.jpg" alt="roomimg" /></li>
+                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/e169dfe6_original.jpg" alt="roomimg" /></li>
             </ul>
-        </div>
-    </div>
-</div>
-
-<!--sign up login-->
-<div class="wrapwrapbox"></div>
-<div class="wrapbox" >
-	<div class="signupbox" id="signup">
-    	<a href="javascript:void(0);" class="facebook">Sign up with Facebook</a>
-        <a href="javascript:void(0);" class="email">Sign up with Email</a>
-        <span class="terms">By signing up, I agree to DayFetch's <a href="">Terms of Service</a>, <a href="">Privacy Policy</a>, <a href="">Guest Refund Policy</a>, and <a href="">Host Guarantee Terms</a>.</span>
-    	<span class="loginbutton">Already an Airbnb member? <a href="javascript:void(0);" id="signupTologin">Log in</a></span>
-    </div>
-</div>
-
-<div class="wrapbox">
-	<div class="signupbox" style="height:320px;"  id="login">
-    	<a href="javascript:void(0);" class="facebook">Log in with Facebook</a>
-        <span class="or">or</span>
-        <span class="username"><input type="text" value="Email Address"/></span>
-        <span class="username password"><input type="text" value="Password"/></span>
-        <span class="checkbox"><input type="checkbox" />Remember me</span>
-        <span class="forget"><a href="">Forgot password?</a></span>
-        <a href="javascript:void(0);" class="facebook login">Log  in</a>
-        <span class="loginbutton">Don't have an account? <a href="javascript:void(0);" id="loginTosignup">Sign up</a></span>
-    </div>
-</div>
-
-
-<div class="header">
-    <div class="head">
-    	<div class="logo"><a href="index.html"><img src="img/logo-red.png" /></a></div>
-        <div class="select">
-        	<select>
-            	<option>Pairs</option>
-                <option>New York</option>
-                <option>New York</option>
-                <option>New York</option>
-                <option>New York</option>
-                <option>New York</option>
-            </select>
-        </div>
-        <div class="loginbar">
-        	<a href="javascript:void(0);" id="signbtn">Sign Up</a>
-            <a href="javascript:void(0);" id="logbtn">Log In</a>
-            <a href="" class="list">List Your Activities</a>
         </div>
     </div>
 </div>
@@ -229,7 +67,7 @@
             </div>
             <div class="info">
             	<h3>Chamsil-Lotte World & Nice Lake</h3>
-                <p>South Korea<span><img src="img/knewstuff.png" width="14"/><img src="img/knewstuff.png" width="14"/><img src="img/knewstuff.png" width="14"/><img src="img/halfstuff.png" width="14"/><img src="img/stuff-gray.png" width="14"/></span><span>(8)</span></p>
+                <p>South Korea<span><img src="${pageContext.request.contextPath}/static/img/knewstuff.png" width="14"/><img src="${pageContext.request.contextPath}/static/img/knewstuff.png" width="14"/><img src="${pageContext.request.contextPath}/static/img/knewstuff.png" width="14"/><img src="${pageContext.request.contextPath}/static/img/halfstuff.png" width="14"/><img src="${pageContext.request.contextPath}/static/img/stuff-gray.png" width="14"/></span><span>(8)</span></p>
             	<div class="pic-t">
                 	<span>1.5Hours</span>
                     <span class="people">2-5Person</span>
@@ -242,7 +80,7 @@
         <div class="rightbox">
             <div class="book">
                 <div class="price">
-                    ¥ 227<span>Per Night</span>
+                    Â¥ 227<span>Per Night</span>
                 </div>
                 <div class="date">
                     Date<span>2014-10-30</span>
@@ -260,25 +98,25 @@
 <div class="aboutlist">
 	<div class="listing">
     	<h4>About This Listing</h4>
-        <p>I have a 3 bedroom, 2 bath apartment. I will be renting two of the bedrooms and living in the 3rd room. I am a business woman, who has done business and lived in several countries over the last ten years. Having rented rooms and apartments for extended stays all over the world, I have gathered a great appreciation for what a home means for me. That being my sanctuary to relax, to feel secure, to feel at peace from a long day of business meetings or classes. I’ve tried to make this home into that type of comfortable environment.</p>
+        <p>I have a 3 bedroom, 2 bath apartment. I will be renting two of the bedrooms and living in the 3rd room. I am a business woman, who has done business and lived in several countries over the last ten years. Having rented rooms and apartments for extended stays all over the world, I have gathered a great appreciation for what a home means for me. That being my sanctuary to relax, to feel secure, to feel at peace from a long day of business meetings or classes. Iâve tried to make this home into that type of comfortable environment.</p>
         <a class="contact" href="javascript:void(0);">Contact Host</a>
         <div class="roomimg">
-        	<a href="javasrcipt:void(0)" id="bigImgshow"><img src="img/13971a33_original.jpg" width="680" /></a>
+        	<a href="javasrcipt:void(0)" id="bigImgshow"><img src="${pageContext.request.contextPath}/static/img/13971a33_original.jpg" width="680" /></a>
         </div>
         
         <table width="680" border="0">
           <tr>
             <td class="title">The Space</td>
             <td class="middle">
-            	 <div>Bed type: <strong>Real Bed</strong></div>
-             	 <div>Property type: <strong><a href="#">Apartment</a></strong></div>
-             	 <div>Accommodates: <strong>1</strong></div>
-             	 <div>Bedrooms: <strong>1</strong></div>
+            	 <div>Bed type:Â <strong>Real Bed</strong></div>
+             	 <div>Property type:Â <strong><a href="#">Apartment</a></strong></div>
+             	 <div>Accommodates:Â <strong>1</strong></div>
+             	 <div>Bedrooms:Â <strong>1</strong></div>
             </td>
-            <td><div>Bathrooms: <strong>1</strong></div>
-              	<div>Beds: <strong>1</strong></div>
-              	<div>Check In: <strong>2:00 PM</strong></div>
-              	<div>Check Out: <strong>12:00 PM (noon)</strong></div>
+            <td><div>Bathrooms:Â <strong>1</strong></div>
+              	<div>Beds:Â <strong>1</strong></div>
+              	<div>Check In:Â <strong>2:00 PM</strong></div>
+              	<div>Check Out:Â <strong>12:00 PM (noon)</strong></div>
             </td>
           </tr>
           <tr>
@@ -294,10 +132,10 @@
           </tr>
           <tr>
             <td class="title">Prices</td>
-            <td class="middle"><div>Cleaning Fee: <strong><span>¥120</span></strong></div>
-                <div>Security Deposit: <strong><span>¥1196</span></strong></div>
+            <td class="middle"><div>Cleaning Fee:Â <strong><span>Â¥120</span></strong></div>
+                <div>Security Deposit:Â <strong><span>Â¥1196</span></strong></div>
             </td>
-            <td>Cancellation: <strong><a href="#">Strict</a></strong></td>
+            <td>Cancellation:Â <strong><a href="#">Strict</a></strong></td>
           </tr>
           <tr>
             <td class="title">Description</td>
@@ -306,12 +144,12 @@
             </tr>
           <tr>
             <td class="title">Availability</td>
-            <td class="middle">Minimum Stay: <strong>2 nights</strong></td>
+            <td class="middle">Minimum Stay:Â <strong>2 nights</strong></td>
             <td><a href="#"><strong>View Calendar</strong></a></td>
           </tr>
         </table>
 		<div class="roomimg">
-        	<a href="javasrcipt:void(0)" id="bigImgshow1"><img src="img/885a3cec_original.jpg" width="680" /></a>
+        	<a href="javasrcipt:void(0)" id="bigImgshow1"><img src="${pageContext.request.contextPath}/static/img/885a3cec_original.jpg" width="680" /></a>
         </div>
     </div>
 	
@@ -319,13 +157,13 @@
 
 <div class="reviews">
 	<div class="details">
-		<div class="title">12 Reviews<span><img src="img/knewstuff.png" width="14"/><img src="img/knewstuff.png" width="14"/><img src="img/knewstuff.png" width="14"/><img src="img/halfstuff.png" width="14"/><img src="img/stuff-gray.png" width="14"/></span></div>
+		<div class="title">12 Reviews<span><img src="${pageContext.request.contextPath}/static/img/knewstuff.png" width="14"/><img src="${pageContext.request.contextPath}/static/img/knewstuff.png" width="14"/><img src="${pageContext.request.contextPath}/static/img/knewstuff.png" width="14"/><img src="${pageContext.request.contextPath}/static/img/halfstuff.png" width="14"/><img src="${pageContext.request.contextPath}/static/img/stuff-gray.png" width="14"/></span></div>
         <div class="list">
         	<dl>
             	<dd></dd>
                 <dt>Alexander</dt>
             </dl>
-            <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
+            <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
             <span>September 2014</span>
             </div>
                 <div class="list response">
@@ -334,7 +172,7 @@
                         <dt>Alexander</dt>
                     </dl>
                     <div class="text"><p>Response from Sarah:</p>
-                        Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
+                        SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
                     <span>September 2014</span>
                     </div>
             	</div>
@@ -345,7 +183,7 @@
             	<dd></dd>
                 <dt>Alexander</dt>
             </dl>
-            <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
+            <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
             <span>September 2014</span>
             </div>
         </div>
@@ -355,7 +193,7 @@
             	<dd></dd>
                 <dt>Alexander</dt>
             </dl>
-            <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
+            <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
             <span>September 2014</span>
             </div>
         </div>
@@ -365,7 +203,7 @@
             	<dd></dd>
                 <dt>Alexander</dt>
             </dl>
-            <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
+            <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
             <span>September 2014</span>
             </div>
         </div>
@@ -404,7 +242,7 @@
         <p>Similar Listings</span></p>
     </div>
 	<div class="apartment">
-    	<div class="img"><img src="img/aadec950_original.jpg" width="320"/></div>
+    	<div class="img"><img src="${pageContext.request.contextPath}/static/img/aadec950_original.jpg" width="320"/></div>
         <div class="photo"></div>
         <div class="price"><span>$</span>300</div>
         <div class="word">
@@ -413,7 +251,7 @@
         </div>
     </div>
     <div class="apartment">
-    	<div class="img"><img src="img/aadec950_original.jpg" width="320"/></div>
+    	<div class="img"><img src="${pageContext.request.contextPath}/static/img/aadec950_original.jpg" width="320"/></div>
         <div class="photo"></div>
         <div class="price"><span>$</span>300</div>
         <div class="word">
@@ -422,7 +260,7 @@
         </div>
     </div>
     <div class="apartment">
-    	<div class="img"><img src="img/aadec950_original.jpg" width="320"/></div>
+    	<div class="img"><img src="${pageContext.request.contextPath}/static/img/aadec950_original.jpg" width="320"/></div>
         <div class="photo"></div>
         <div class="price"><span>$</span>300</div>
         <div class="word">
@@ -433,138 +271,7 @@
     
 </div>
 
+]]>
 
-    <div class="footer">
-    	<div class="policy">
-        	<select>
-            	<option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-            </select>
-        	<a href="">About </a>|
-            <a href="">Terms of Use </a>|
-            <a href="">Privacy Policy </a>
-            <span>Copyright 2014 © DayFetch All rights reserve</span>
-        </div>
-    </div>
-    
-    <div class="backtotop" id="ScrolltoTop">
-    	<a href="javascript:void(0);"></a>
-    </div>
-
-
-
-
-<script type="text/javascript">
-(function(){
-	
-		function G(s){
-			return document.getElementById(s);
-		}
-		
-		function getStyle(obj, attr){
-			if(obj.currentStyle){
-				return obj.currentStyle[attr];
-			}else{
-				return getComputedStyle(obj, false)[attr];
-			}
-		}
-		
-		function Animate(obj, json){
-			if(obj.timer){
-				clearInterval(obj.timer);
-			}
-			obj.timer = setInterval(function(){
-				for(var attr in json){
-					var iCur = parseInt(getStyle(obj, attr));
-					iCur = iCur ? iCur : 0;
-					var iSpeed = (json[attr] - iCur) / 5;
-					iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
-					obj.style[attr] = iCur + iSpeed + 'px';
-					if(iCur == json[attr]){
-						clearInterval(obj.timer);
-					}
-				}
-			}, 30);
-		}
-	
-		var oPic = G("picBox");
-		var oList = G("listBox");
-		
-		var oPrev = G("prev");
-		var oNext = G("next");
-		var oPrevTop = G("prevTop");
-		var oNextTop = G("nextTop");
-	
-		var oPicLi = oPic.getElementsByTagName("li");
-		var oListLi = oList.getElementsByTagName("li");
-		var len1 = oPicLi.length;
-		var len2 = oListLi.length;
-		
-		var oPicUl = oPic.getElementsByTagName("ul")[0];
-		var oListUl = oList.getElementsByTagName("ul")[0];
-		var w1 = oPicLi[0].offsetWidth;
-		var w2 = oListLi[0].offsetWidth;
-	
-		oPicUl.style.width = w1 * len1 + "px";
-		oListUl.style.width = w2 * len2 + "px";
-	
-		var index = 0;
-		
-		var num = 5;
-		var num2 = Math.ceil(num / 2);
-	
-		function Change(){
-	
-			Animate(oPicUl, {left: - index * w1});
-			
-			if(index < num2){
-				Animate(oListUl, {left: 0});
-			}else if(index + num2 <= len2){
-				Animate(oListUl, {left: - (index - num2 + 1) * w2});
-			}else{
-				Animate(oListUl, {left: - (len2 - num) * w2});
-			}
-	
-			for (var i = 0; i < len2; i++) {
-				oListLi[i].className = "";
-				if(i == index){
-					oListLi[i].className = "on";
-				}
-			}
-		}
-		
-		oNextTop.onclick = oNext.onclick = function(){
-			index ++;
-			index = index == len2 ? 0 : index;
-			Change();
-		}
-	
-		oPrevTop.onclick = oPrev.onclick = function(){
-			index --;
-			index = index == -1 ? len2 -1 : index;
-			Change();
-		}
-	
-		for (var i = 0; i < len2; i++) {
-			oListLi[i].index = i;
-			oListLi[i].onclick = function(){
-				index = this.index;
-				Change();
-			}
-		}
-		
-	})();
-	
-
-
-</script>
 </body>
 </html>
