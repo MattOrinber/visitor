@@ -15,7 +15,6 @@
 <link href="${pageContext.request.contextPath}/static/css/inbox.css" rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/static/css/photos.css" rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/static/css/pricing.css" rel="stylesheet" type="text/css" />
-<link href="${pageContext.request.contextPath}/static/css/terms.css" rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/static/css/product.css" rel="stylesheet" type="text/css" />
 
 <script src="${pageContext.request.contextPath}/static/js/jquery-1.7.1.min.js" type="text/javascript"><c:out value=" " /></script>
