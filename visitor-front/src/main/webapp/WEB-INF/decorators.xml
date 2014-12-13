@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <decorators defaultdir="/WEB-INF/decorators">
-    <excludes>
-        <pattern>/</pattern>
-        <pattern>/index</pattern>
-    </excludes>
     <decorator name="default" page="default.jspx">
-        <pattern>/*</pattern>
+        <pattern>/day/*</pattern>
     </decorator>
 </decorators>

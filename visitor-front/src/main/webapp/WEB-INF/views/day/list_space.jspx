@@ -3,9 +3,6 @@
 <jsp:output omit-xml-declaration="yes" />
 <jsp:directive.page contentType="text/html; charset=UTF-8" />
 
-<head>
-	<link href="${pageContext.request.contextPath}/static/css/list_space.css" rel="stylesheet" type="text/css" />
-</head>
 <body>
 
 <div class="main">
@@ -14,7 +11,7 @@
         <p>Dayfetch lets you make money renting out your place.</p>
    </div>
 </div>
-
+<![CDATA[
 <div class="main2">
 	<div class="main2content">
     	<div class="hometype">
@@ -145,6 +142,7 @@
         </div>
     </div>
 </div>
+]]>
 
 
 </body>

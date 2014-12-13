@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:security="http://www.springframework.org/security/tags" xmlns:spring="http://www.springframework.org/tags">
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" >
 
 	<jsp:output omit-xml-declaration="yes" />
 	<jsp:directive.page contentType="text/html; charset=UTF-8" />
@@ -7,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Day Fetch</title>
-<link href="${pageContext.request.contextPath}/static/css/head.css" rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath}/static/css/list_space.css" rel="stylesheet" type="text/css" />
 <script src="${pageContext.request.contextPath}/static/js/jquery-1.7.1.min.js" type="text/javascript"><c:out value=" " /></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery.md5.js"><c:out value=" " /></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery-validation-1.8.0/jquery.validate.js"><c:out value=" " /></script>
@@ -18,7 +17,7 @@
 </head>
 
 <body>
-
+<![CDATA[
 <!--sign up login-->
 <div class="wrapwrapbox"></div>
 <div class="wrapbox" >
@@ -57,36 +56,91 @@
                 <option>New York</option>
             </select>
         </div>
-        <div class="loginbar" style="display:none;">
-        	<a href="javascript:void(0);" id="signbtn">Sign Up</a>
-            <a href="javascript:void(0);" id="logbtn">Log In</a>
-            <a href="" class="list">List Your Activities</a>
-        </div>
-        <div class="loginbar1" style="display:block;">
-        	<a href="javascript:void(0);" class="name" id="name"><span class="photo"></span><span class="peoplename">Username111</span></a>
-            	<span class="select">
-                	<ul>
-                    	<li><a href="#">Dashboard</a></li>
-                        <li><a href="">Inbox</a></li>
-                        <li><a href="">Your Listings</a></li>
-                        <li><a href="">Your Trips</a></li>
-                        <li><a href="">Wish Lists</a></li>
-                        <li><a href="">Edit Profile</a></li>
-                        <li><a href="">Account</a></li>
-                        <li><a href="">Log Out</a></li>
-                    </ul>
-                </span>
-            <a href="list_space.html" class="list">List Your Activities</a>
-            <a href="javascript:void(0);" class="mail"><span class="number">1</span></a>
-        </div>
+]]>
+        <!-- before login -->
+       	<c:choose>
+       		<c:when test="${loginName == '--'}">
+        		<div id="notLoginStatusBarPart" class="loginbar" style="display:block;">
+        			<a href="javascript:void(0);" id="signbtn">Sign Up</a>
+        			<a href="javascript:void(0);" id="logbtn">Log In</a>
+        			<a href="${pageContext.request.contextPath}/day/list_space" class="list">List Your Activities</a>
+        		</div>
+        		
+        		<div id="loginStatusBarPart" class="loginbar1" style="display:none;">
+        			<a href="javascript:void(0);" class="name" id="name">
+        			    <c:choose>
+        					<c:when test="${userIconUrl == '--'}">
+        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${pageContext.request.contextPath}/static/img/user_pic-50x50.png) no-repeat center center;float:left;"></span>]]>
+        					</c:when>
+        					<c:otherwise>
+        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${userIconUrl}) no-repeat center center;float:left;"></span>]]>
+        					</c:otherwise>
+        				</c:choose>
+        				<![CDATA[<span id="userNameSpan" class="peoplename">${loginName}</span>]]>
+        			</a>
+		           	<span class="select" style="display:none;">
+		               	<ul>
+		                   	<li><a href="#">Dashboard</a></li>
+		                    <li><a href="">Inbox</a></li>
+		                    <li><a href="">Your Listings</a></li>
+		                    <li><a href="">Your Trips</a></li>
+		                    <li><a href="">Wish Lists</a></li>
+		                    <li><a href="">Edit Profile</a></li>
+		                    <li><a href="">Account</a></li>
+		                    <li><a href="javascript:logoutVisitor('${pageContext.request.contextPath}');">Log Out</a></li>
+		                </ul>
+		            </span>
+		            <a href="${pageContext.request.contextPath}/day/list_space" class="list">List Your Activities</a>
+		            <a href="javascript:void(0);" class="mail"><span class="number">1</span></a>
+        		</div>
+       		</c:when>
+       		<c:otherwise>
+       			<div id="notLoginStatusBarPart" class="loginbar" style="display:none;">
+        			<a href="javascript:void(0);" id="signbtn">Sign Up</a>
+        			<a href="javascript:void(0);" id="logbtn">Log In</a>
+        			<a href="${pageContext.request.contextPath}/day/list_space" class="list">List Your Activities</a>
+        		</div>
+        		
+        		<div id="loginStatusBarPart" class="loginbar1" style="display:block;">
+        			<a href="javascript:void(0);" class="name" id="name">
+        			    <c:choose>
+        					<c:when test="${userIconUrl == '--'}">
+        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${pageContext.request.contextPath}/static/img/user_pic-50x50.png) no-repeat center center;float:left;"></span>]]>
+        					</c:when>
+        					<c:otherwise>
+        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${userIconUrl}) no-repeat center center;float:left;"></span>]]>
+        					</c:otherwise>
+        				</c:choose>
+        				<![CDATA[<span id="userNameSpan" class="peoplename">${loginName}</span>]]>
+        			</a>
+		           	<span class="select" style="display:none;">
+		               	<ul>
+		                   	<li><a href="#">Dashboard</a></li>
+		                    <li><a href="">Inbox</a></li>
+		                    <li><a href="">Your Listings</a></li>
+		                    <li><a href="">Your Trips</a></li>
+		                    <li><a href="">Wish Lists</a></li>
+		                    <li><a href="">Edit Profile</a></li>
+		                    <li><a href="">Account</a></li>
+		                    <li><a href="javascript:logoutVisitor('${pageContext.request.contextPath}');">Log Out</a></li>
+		                </ul>
+		            </span>
+		            <a href="${pageContext.request.contextPath}/day/list_space" class="list">List Your Activities</a>
+		            <a href="javascript:void(0);" class="mail"><span class="number">1</span></a>
+        		</div>
+       		</c:otherwise>
+       	</c:choose>
+<![CDATA[
     </div>
 </div>
+]]>
 
 <decorator:body />
-
+<![CDATA[
 <div class="footer">
 	<div class="policy">
     	<select>
+]]>
 			<c:forEach items="${currencyList}" var="currencyT" varStatus="status">
 				<c:if test="${status.index == 0}">
 				    <option value="${currencyT}" selected="selected">${currencyT}</option>
@@ -95,6 +149,7 @@
 				    <option value="${currencyT}">${currencyT}</option>
 				</c:if>
 			</c:forEach>
+<![CDATA[
 		</select>
     	<a href="">About </a>|
         <a href="">Terms of Use </a>|
@@ -106,7 +161,7 @@
 <div class="backtotop" id="ScrolltoTop">
 	<a href="javascript:void(0);"></a>
 </div>
-
+]]>
 
 </body>
 </html>

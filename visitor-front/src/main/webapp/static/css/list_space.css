@@ -29,7 +29,7 @@ body{background:#f7f7f7;}
 .header .head .loginbar1 a.mail{float:right;width:30px;height:30px;background:url(../img/e_mail.png) no-repeat left center;margin-left:0;}
 .header .head .loginbar1 a.mail span{display:inline-block;width:15px;height:15px;background:#ff575a;border-radius:50%;margin-left:17px;text-align:center;color:#fff;font-size:10px;}
 .header .head .loginbar1 a.name span.photo{width:28px;height:28px;border-radius:50%;display:inline-block;background:url(../img/user_pic-50x50.png) no-repeat center center;float:left;}
-.header .head .loginbar1 a.name span.peoplename{padding-right:15px;background:url(../img/arrowdown.png) no-repeat right bottom;padding-left:5px;float:left;line-height:28px;}
+.header .head .loginbar1 a.name span.peoplename{padding-right:15px;background:url(../img/arrowdown.png) no-repeat right bottom;padding-left:5px;float:left;line-height:28px;width:90px;overflow:hidden;}
 .header .head .loginbar1 a.list{border:1px solid #007a87;border-bottom-color: #004f58;background-color: #007a87;display:inline-block;width:130px;height:28px;border-radius:3px;line-height:28px;text-align:center;font-weight:bold;color:#fff;float:right;margin-right:4px;}
 .header .head .loginbar1 a.list:hover{background-color:#12acbc;border:1px solid #12acbc;border-bottom-color: #004f58;}
 
