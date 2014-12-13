@@ -227,73 +227,83 @@ public class IndexController extends BasicController {
 	@RequestMapping({"index1"})
 	public String indexOne(HttpServletRequest request, HttpServletResponse response,  Model model) {
 		this.setModel(request, response, model);
-		
 		return "index1";
 	}
 	
 	@RequestMapping({"day/list_space"})
 	public String dayListSpace(HttpServletRequest request, HttpServletResponse response, Model model) {
 		this.setModel(request, response, model);
+		model.addAttribute("pageName", "list_space");
 		return "day/list_space";
 	}
 	
 	@RequestMapping({"day/calendar"})
 	public String dayCalendar(HttpServletRequest request, HttpServletResponse response, Model model) {
 		this.setModel(request, response, model);
+		model.addAttribute("pageName", "calendar");
 		return "day/calendar";
 	}
 	
 	@RequestMapping({"day/pricing"})
 	public String dayPricing(HttpServletRequest request, HttpServletResponse response, Model model) {
 		this.setModel(request, response, model);
+		model.addAttribute("pageName", "pricing");
 		return "day/pricing";
 	}
 	
 	@RequestMapping({"day/description"})
 	public String dayDescription(HttpServletRequest request, HttpServletResponse response, Model model) {
 		this.setModel(request, response, model);
+		model.addAttribute("pageName", "description");
 		return "day/description";
 	}
 	
 	@RequestMapping({"day/photos"})
 	public String dayPhotos(HttpServletRequest request, HttpServletResponse response, Model model) {
 		this.setModel(request, response, model);
+		model.addAttribute("pageName", "photos");
 		return "day/photos";
 	}
 	
 	@RequestMapping({"day/terms"})
 	public String login(HttpServletRequest request, HttpServletResponse response, Model model) {
 		this.setModel(request, response, model);
+		model.addAttribute("pageName", "terms");
 		return "day/terms";
 	}
 	
 	@RequestMapping({"day/city"})
 	public String dayCity(HttpServletRequest request, HttpServletResponse response, Model model) {
 		this.setModel(request, response, model);
+		model.addAttribute("pageName", "city");
 		return "day/city";
 	}
 	
 	@RequestMapping({"day/dashboard"})
 	public String dayDashboard(HttpServletRequest request, HttpServletResponse response, Model model) {
 		this.setModel(request, response, model);
+		model.addAttribute("pageName", "dashboard");
 		return "day/dashboard";
 	}
 	
 	@RequestMapping({"day/inbox"})
 	public String dayInbox(HttpServletRequest request, HttpServletResponse response, Model model) {
 		this.setModel(request, response, model);
+		model.addAttribute("pageName", "inbox");
 		return "day/inbox";
 	}
 	
 	@RequestMapping({"day/host_profile"})
 	public String dayHostprofile(HttpServletRequest request, HttpServletResponse response, Model model) {
 		this.setModel(request, response, model);
+		model.addAttribute("pageName", "host_profile");
 		return "day/host_profile";
 	}
 	
 	@RequestMapping({"day/product"})
 	public String dayProduct(HttpServletRequest request, HttpServletResponse response, Model model) {
 		this.setModel(request, response, model);
+		model.addAttribute("pageName", "product");
 		return "day/product";
 	}
 	
