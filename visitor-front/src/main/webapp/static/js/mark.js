@@ -180,7 +180,7 @@ $(document).ready(function(){
 	doImage();
 	doCanlendarPage();
 	//doProductImageRound();
-	getProductImageListOperation();
+	//getProductImageListOperation();
 	productBigImage();
 });
 
