@@ -432,8 +432,21 @@ function homeTypeValueSet(valueT) {
 	$("#homeTypeNotChosen").hide();
 }
 
-function setHomeType(node) {
-	var valueT = $(this).html();
-	homeTypeValueSet(valueT);
+function setRoomTypeBack() {
+	$("#roomTypeChosen").hide();
+	$("#roomTypeChosen").html('0');
+	$("#roomTypeNotChosen").show();
+}
+
+function roomTypeValueSet(valueT) {
+	var toDNode = $("#roomTypeChosen");
+	toDNode.html('<a href="javascript:void(0);">'+valueT+'</a><a href="javascript:setRoomTypeBack();">day fetch offered bunch of room types<a>');
+	
+	toDNode.show();
+	$("#roomTypeNotChosen").hide();
+}
+
+function doProductGenerate() {
+	alert('product generate');
 }
 

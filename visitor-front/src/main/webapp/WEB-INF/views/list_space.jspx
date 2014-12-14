@@ -21,8 +21,12 @@
             	<div id="homeTypeChosen" style="display:none;">0</div>
             	
             	<div id="homeTypeNotChosen" style="display:block;">
-	            	<a href="javascript:homeTypeValueSet('Apartment');">Apartment</a><a href="javascript:homeTypeValueSet('House');" style="width:130px;">House</a><a style="width:190px;" href="javascript:homeTypeValueSet('Bed & Breakfast');">Bed & Breakfast</a>
 ]]>
+					<c:forEach items="${homeTypeList}" var="homeType" varStatus="status">
+						<c:if test="${status.index lt 3}">
+							<a href="javascript:homeTypeValueSet('${homeType}');">${homeType}</a>
+						</c:if>
+					</c:forEach>
 
 	            	<select id="productHomeTypeStr" name="productHomeTypeStr" onchange="homeTypeValueSet(this.value);">
 						<c:forEach items="${homeTypeList}" var="homeType" varStatus="status">
@@ -41,29 +45,33 @@
         <div class="hometype">
         	<div class="title">Room Type</div>
             <div class="choice choice2">
-            	<a href="">Entire home/apt</a><a href="" style="width:180px;">Private room</a><a style="width:180px;" href="">Shared room</a>
+            	<div id="roomTypeChosen" style="display:none;">0</div>
+            	<div id="roomTypeNotChosen" style="display:block;">
+]]>
+            		<c:forEach items="${roomTypeList}" var="roomType" varStatus="status">
+						<c:if test="${status.index lt 3}">
+							<a href="javascript:roomTypeValueSet('${roomType}');">${roomType}</a>
+						</c:if>
+					</c:forEach>
+<![CDATA[
+            	</div>
             </div>
         </div>
         <div class="hometype">
         	<div class="title">Accommodates</div>
             <div class="choice choice3">
-            	<select>
-                	<option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                    <option>9</option>
-                    <option>10</option>
-                    <option>11</option>
-                    <option>12</option>
-                    <option>13</option>
-                    <option>14</option>
-                    <option>15</option>
-                    <option>16+</option>
+            	<select id="accomodatesValueD">
+            		<option value="0" selected="selected"></option>
+]]>
+                	<c:forEach items="${accomodatesList}" var="accomodate" varStatus="status">
+						<c:if test="${status.index == 0}">
+						    <option value="${accomodate}">${accomodate}</option>
+						</c:if>
+						<c:if test="${status.index != 0}">
+						    <option value="${accomodate}">${accomodate}</option>
+						</c:if>
+					</c:forEach>
+<![CDATA[
                 </select>
             </div>
         </div>
@@ -73,7 +81,7 @@
         </div>
         <div class="hometype">
         	<div class="title"></div>
-            <div class="choice choice5"><a href="#">Continue</a></div>
+            <div class="choice choice5"><a href="javascript:doProductGenerate();">Continue</a></div>
         </div>
     </div>
 </div>
