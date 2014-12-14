@@ -4,4 +4,8 @@
     <decorator name="default" page="default.jspx">
         <pattern>/day/*</pattern>
     </decorator>
+    
+    <decorator name="list" page="default.jspx">
+        <pattern>/list_space</pattern>
+    </decorator>
 </decorators>
