@@ -21,7 +21,9 @@
             	<div id="homeTypeChosen" style="display:none;">0</div>
             	
             	<div id="homeTypeNotChosen" style="display:block;">
-	            	<a href="javascript:setHomeType(this);">Apartment</a><a href="javascript:setHomeType(this);" style="width:130px;">House</a><a style="width:190px;" href="javascript:setHomeType(this);">Bed & Breakfast</a>
+	            	<a href="javascript:homeTypeValueSet('Apartment');">Apartment</a><a href="javascript:homeTypeValueSet('House');" style="width:130px;">House</a><a style="width:190px;" href="javascript:homeTypeValueSet('Bed & Breakfast');">Bed & Breakfast</a>
+]]>
+
 	            	<select id="productHomeTypeStr" name="productHomeTypeStr" onchange="homeTypeValueSet(this.value);">
 						<c:forEach items="${homeTypeList}" var="homeType" varStatus="status">
 							<c:if test="${status.index == 3}">
@@ -32,6 +34,7 @@
 							</c:if>
 						</c:forEach>
 					</select>
+<![CDATA[
 				</div>
             </div>
         </div>

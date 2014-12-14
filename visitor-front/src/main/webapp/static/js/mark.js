@@ -433,7 +433,7 @@ function homeTypeValueSet(valueT) {
 }
 
 function setHomeType(node) {
-	var valueT = $(node).html();
+	var valueT = $(this).html();
 	homeTypeValueSet(valueT);
 }
 
