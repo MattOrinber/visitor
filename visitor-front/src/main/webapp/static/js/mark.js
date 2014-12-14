@@ -99,6 +99,16 @@ function productBigImage() {
 	});
 }
 
+function checkBox(){
+	var i=document.getElementById("checkbox");
+	var box = document.getElementById("option");
+	if(i.checked == true){
+	  box.style.display="block"; 
+	}else{
+	  box.style.display="none";
+	}
+}
+
 $(document).ready(function(){
 	$("#signbtn").click(function(){
 		$('.wrapwrapbox').show();
@@ -177,10 +187,14 @@ $(document).ready(function(){
 		$(this).hide();
 	});
 	
+	$(".closebutton").click(function(){
+		$(this).hide();
+	});
+	
 	doImage();
 	doCanlendarPage();
 	//doProductImageRound();
-	//getProductImageListOperation();
+	getProductImageListOperation();
 	productBigImage();
 });
 
