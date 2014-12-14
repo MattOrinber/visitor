@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Day Fetch</title>
+<link href="${pageContext.request.contextPath}/static/css/head.css" rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/static/css/${pageName}.css" rel="stylesheet" type="text/css" />
 <script src="${pageContext.request.contextPath}/static/js/jquery-1.7.1.min.js" type="text/javascript"><c:out value=" " /></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery.md5.js"><c:out value=" " /></script>
