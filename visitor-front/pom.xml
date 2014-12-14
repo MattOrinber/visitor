@@ -307,4 +307,27 @@
         </testResources>
 		<finalName>visitor-front</finalName>
 	</build>
+	
+	
+	<profiles>
+    	<profile>
+      		<id>development</id>
+      		<activation>
+        		<activeByDefault>true</activeByDefault>
+      		</activation>
+      		<build>
+        		<filters>
+          			<filter>../profile-development.properties</filter>
+        		</filters>
+      		</build>
+    	</profile>
+    	<profile>
+      		<id>production</id>
+      		<build>
+	        	<filters>
+	          		<filter>../profile-production.properties</filter>
+	        	</filters>
+      		</build>
+    	</profile>
+  	</profiles>
 </project>
