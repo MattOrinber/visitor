@@ -179,7 +179,8 @@ $(document).ready(function(){
 	
 	doImage();
 	doCanlendarPage();
-	doProductImageRound();
+	//doProductImageRound();
+	getProductImageListOperation();
 	productBigImage();
 });
 
