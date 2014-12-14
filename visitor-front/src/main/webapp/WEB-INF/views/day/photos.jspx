@@ -33,7 +33,7 @@
     </div>
     <div class="rightbox">
 		<div class="pricebox">
-			<img src="${imgPathOrigin}/static/img/photo.jpg" /><br />
+			<img src="${imgPathOrigin}/static/photo.jpg" /><br />
             <h2>Add a photo or two!</h2>
             <p>Or three, or more! Guests love photos that highlight the features of your space.</p>
             <a href="">Add Photos</a>

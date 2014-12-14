@@ -37,32 +37,32 @@
         	<h1>When is your listing available?</h1>
             <div class="threechoice">
             	<dl>
-                	<dd id="showfirst"><img src="${imgPathOrigin}/static/img/always.jpg" onMouseOver="this.src='${imgPathOrigin}/static/img/always-hover.jpg'" onMouseOut="this.src='${imgPathOrigin}/static/img/always.jpg'"/></dd>
+                	<dd id="showfirst"><img src="${imgPathOrigin}/static/always.jpg" onMouseOver="this.src='${imgPathOrigin}/static/always-hover.jpg'" onMouseOut="this.src='${imgPathOrigin}/static/always.jpg'"/></dd>
                     <dt><span>Always</span>List all dates as available</dt>
                 </dl>
                 <dl>
-                	<dd id="showsecond"><img src="${imgPathOrigin}/static/img/sometime.jpg" onMouseOver="this.src='${imgPathOrigin}/static/img/sometime-hover.jpg'" onMouseOut="this.src='${imgPathOrigin}/static/img/sometime.jpg'"/></dd>
+                	<dd id="showsecond"><img src="${imgPathOrigin}/static/sometime.jpg" onMouseOver="this.src='${imgPathOrigin}/static/sometime-hover.jpg'" onMouseOut="this.src='${imgPathOrigin}/static/sometime.jpg'"/></dd>
                     <dt><span>Sometimes</span>List some dates as available</dt>
                 </dl>
                 <dl>
-                	<dd id="showthird"><img src="${imgPathOrigin}/static/img/onetime.jpg" onMouseOver="this.src='${imgPathOrigin}/static/img/onetime-hover.jpg'" onMouseOut="this.src='${imgPathOrigin}/static/img/onetime.jpg'"/></dd>
+                	<dd id="showthird"><img src="${imgPathOrigin}/static/onetime.jpg" onMouseOver="this.src='${imgPathOrigin}/static/onetime-hover.jpg'" onMouseOut="this.src='${imgPathOrigin}/static/onetime.jpg'"/></dd>
                     <dt><span>One Time</span>List only one time period as available</dt>
                 </dl>
             </div>
             <div class="first" id="first">
-            	<span><img src="${imgPathOrigin}/static/img/always.jpg" width="40" /></span>
+            	<span><img src="${imgPathOrigin}/static/always.jpg" width="40" /></span>
                 <h2>Always Available</h2>
                 <p>This is your calendar! After listing your space, <br />return here to update your availability.</p>
                 <a href="#" id="hidefirst"><&nbsp;&nbsp;CHOOSE AGAIN</a>
             </div>
             <div class="first second" id="second">
-            	<span><img src="${imgPathOrigin}/static/img/sometime.jpg" width="40" /></span>
+            	<span><img src="${imgPathOrigin}/static/sometime.jpg" width="40" /></span>
                 <h2>Sometimes Available</h2>
                 <p>This is your calendar! After listing your space, <br />return here to update your availability.</p>
                 <a href="#" id="hidesecond"><&nbsp;&nbsp;CHOOSE AGAIN</a>
             </div>
             <div class="first third" id="third">
-            	<span><img src="${imgPathOrigin}/static/img/onetime.jpg" width="40" /></span>
+            	<span><img src="${imgPathOrigin}/static/onetime.jpg" width="40" /></span>
                 <h2>One Time Availability</h2>
                 <p>Select the dates your listing is available.</p>
                 <input type="text"/> to <input type="text" /> <a href="#" class="button">Save</a>

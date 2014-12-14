@@ -8,7 +8,7 @@
 <div class="main">
     <div class="maincontent">
         <div class="left">
-        	<div class="hostimg"><img src="${imgPathOrigin}/static/img/original1.jpg" width="230"/></div>
+        	<div class="hostimg"><img src="${imgPathOrigin}/static/original1.jpg" width="230"/></div>
             <div class="aboutme">
             	<span>About Me</span>
                 <div><p><strong>School</strong>
