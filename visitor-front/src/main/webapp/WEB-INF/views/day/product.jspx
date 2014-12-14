@@ -7,7 +7,7 @@
 <![CDATA[
 <!-- å¼¹åºå¾ç-->
 <div class="boxshade">
-	<a href="#" id="closeit" style="display:block;width:20px;height:20px;position:absolute;right:20px;top:20px;"><img src="${pageContext.request.contextPath}/static/img/close2.png" /></a>
+	<a href="#" id="closeit" style="display:block;width:20px;height:20px;position:absolute;right:20px;top:20px;"><img src="${imgPathOrigin}/static/img/close2.png" /></a>
     <div class="mod18">
         <span id="prev" class="btn prev"></span>
         <span id="next" class="btn next"></span>
@@ -15,33 +15,33 @@
         <span id="nextTop" class="btn next"></span>
         <div id="picBox" class="picBox">
             <ul class="cf">
-                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/1b48bac4_original.jpg" alt="" /></a></li>
-                <li><a href="#" ><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/9a548b3e_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/72bbbc01_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/102faa20_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/885a3cec_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/c51b2f2b_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/e993905b_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/ef7dbcc4_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/78a645e0_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/d1a69cd5_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="${pageContext.request.contextPath}/static/img/room-img/e169dfe6_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/img/room-img/1b48bac4_original.jpg" alt="" /></a></li>
+                <li><a href="#" ><img width="1024" src="${imgPathOrigin}/static/img/room-img/9a548b3e_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/img/room-img/72bbbc01_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/img/room-img/102faa20_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/img/room-img/885a3cec_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/img/room-img/c51b2f2b_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/img/room-img/e993905b_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/img/room-img/ef7dbcc4_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/img/room-img/78a645e0_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/img/room-img/d1a69cd5_original.jpg" alt="" /></a></li>
+                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/img/room-img/e169dfe6_original.jpg" alt="" /></a></li>
             </ul>
         </div>
         
         <div id="listBox" class="listBox">
             <ul class="cf">
-                <li class="on"><i class="arr2"></i><img width="118"  src="${pageContext.request.contextPath}/static/img/room-img/1b48bac4_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/9a548b3e_original.jpg" alt="roomimg"  /></li>
-                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/72bbbc01_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/102faa20_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/885a3cec_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/c51b2f2b_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/e993905b_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/ef7dbcc4_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/78a645e0_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/d1a69cd5_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="${pageContext.request.contextPath}/static/img/room-img/e169dfe6_original.jpg" alt="roomimg" /></li>
+                <li class="on"><i class="arr2"></i><img width="118"  src="${imgPathOrigin}/static/img/room-img/1b48bac4_original.jpg" alt="roomimg" /></li>
+                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/img/room-img/9a548b3e_original.jpg" alt="roomimg"  /></li>
+                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/img/room-img/72bbbc01_original.jpg" alt="roomimg" /></li>
+                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/img/room-img/102faa20_original.jpg" alt="roomimg" /></li>
+                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/img/room-img/885a3cec_original.jpg" alt="roomimg" /></li>
+                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/img/room-img/c51b2f2b_original.jpg" alt="roomimg" /></li>
+                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/img/room-img/e993905b_original.jpg" alt="roomimg" /></li>
+                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/img/room-img/ef7dbcc4_original.jpg" alt="roomimg" /></li>
+                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/img/room-img/78a645e0_original.jpg" alt="roomimg" /></li>
+                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/img/room-img/d1a69cd5_original.jpg" alt="roomimg" /></li>
+                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/img/room-img/e169dfe6_original.jpg" alt="roomimg" /></li>
             </ul>
         </div>
     </div>
@@ -67,7 +67,7 @@
             </div>
             <div class="info">
             	<h3>Chamsil-Lotte World & Nice Lake</h3>
-                <p>South Korea<span><img src="${pageContext.request.contextPath}/static/img/knewstuff.png" width="14"/><img src="${pageContext.request.contextPath}/static/img/knewstuff.png" width="14"/><img src="${pageContext.request.contextPath}/static/img/knewstuff.png" width="14"/><img src="${pageContext.request.contextPath}/static/img/halfstuff.png" width="14"/><img src="${pageContext.request.contextPath}/static/img/stuff-gray.png" width="14"/></span><span>(8)</span></p>
+                <p>South Korea<span><img src="${imgPathOrigin}/static/img/knewstuff.png" width="14"/><img src="${imgPathOrigin}/static/img/knewstuff.png" width="14"/><img src="${imgPathOrigin}/static/img/knewstuff.png" width="14"/><img src="${imgPathOrigin}/static/img/halfstuff.png" width="14"/><img src="${imgPathOrigin}/static/img/stuff-gray.png" width="14"/></span><span>(8)</span></p>
             	<div class="pic-t">
                 	<span>1.5Hours</span>
                     <span class="people">2-5Person</span>
@@ -101,7 +101,7 @@
         <p>I have a 3 bedroom, 2 bath apartment. I will be renting two of the bedrooms and living in the 3rd room. I am a business woman, who has done business and lived in several countries over the last ten years. Having rented rooms and apartments for extended stays all over the world, I have gathered a great appreciation for what a home means for me. That being my sanctuary to relax, to feel secure, to feel at peace from a long day of business meetings or classes. Iâve tried to make this home into that type of comfortable environment.</p>
         <a class="contact" href="javascript:void(0);">Contact Host</a>
         <div class="roomimg">
-        	<a href="javasrcipt:void(0)" id="bigImgshow"><img src="${pageContext.request.contextPath}/static/img/13971a33_original.jpg" width="680" /></a>
+        	<a href="javasrcipt:void(0)" id="bigImgshow"><img src="${imgPathOrigin}/static/img/13971a33_original.jpg" width="680" /></a>
         </div>
         
         <table width="680" border="0">
@@ -149,7 +149,7 @@
           </tr>
         </table>
 		<div class="roomimg">
-        	<a href="javasrcipt:void(0)" id="bigImgshow1"><img src="${pageContext.request.contextPath}/static/img/885a3cec_original.jpg" width="680" /></a>
+        	<a href="javasrcipt:void(0)" id="bigImgshow1"><img src="${imgPathOrigin}/static/img/885a3cec_original.jpg" width="680" /></a>
         </div>
     </div>
 	
@@ -157,7 +157,7 @@
 
 <div class="reviews">
 	<div class="details">
-		<div class="title">12 Reviews<span><img src="${pageContext.request.contextPath}/static/img/knewstuff.png" width="14"/><img src="${pageContext.request.contextPath}/static/img/knewstuff.png" width="14"/><img src="${pageContext.request.contextPath}/static/img/knewstuff.png" width="14"/><img src="${pageContext.request.contextPath}/static/img/halfstuff.png" width="14"/><img src="${pageContext.request.contextPath}/static/img/stuff-gray.png" width="14"/></span></div>
+		<div class="title">12 Reviews<span><img src="${imgPathOrigin}/static/img/knewstuff.png" width="14"/><img src="${imgPathOrigin}/static/img/knewstuff.png" width="14"/><img src="${imgPathOrigin}/static/img/knewstuff.png" width="14"/><img src="${imgPathOrigin}/static/img/halfstuff.png" width="14"/><img src="${imgPathOrigin}/static/img/stuff-gray.png" width="14"/></span></div>
         <div class="list">
         	<dl>
             	<dd></dd>
@@ -242,7 +242,7 @@
         <p>Similar Listings</span></p>
     </div>
 	<div class="apartment">
-    	<div class="img"><img src="${pageContext.request.contextPath}/static/img/aadec950_original.jpg" width="320"/></div>
+    	<div class="img"><img src="${imgPathOrigin}/static/img/aadec950_original.jpg" width="320"/></div>
         <div class="photo"></div>
         <div class="price"><span>$</span>300</div>
         <div class="word">
@@ -251,7 +251,7 @@
         </div>
     </div>
     <div class="apartment">
-    	<div class="img"><img src="${pageContext.request.contextPath}/static/img/aadec950_original.jpg" width="320"/></div>
+    	<div class="img"><img src="${imgPathOrigin}/static/img/aadec950_original.jpg" width="320"/></div>
         <div class="photo"></div>
         <div class="price"><span>$</span>300</div>
         <div class="word">
@@ -260,7 +260,7 @@
         </div>
     </div>
     <div class="apartment">
-    	<div class="img"><img src="${pageContext.request.contextPath}/static/img/aadec950_original.jpg" width="320"/></div>
+    	<div class="img"><img src="${imgPathOrigin}/static/img/aadec950_original.jpg" width="320"/></div>
         <div class="photo"></div>
         <div class="price"><span>$</span>300</div>
         <div class="word">

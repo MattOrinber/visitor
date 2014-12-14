@@ -32,7 +32,7 @@
                     </select>
                 </span>
                    <div class="message">
-                        <div class="photo"><img src="${pageContext.request.contextPath}/static/img/original.jpg" width="45" /></div>
+                        <div class="photo"><img src="${imgPathOrigin}/static/img/original.jpg" width="45" /></div>
                         <div class="time"><p>Matthew</p> <p>4 days ago</p></div>
                         <div class="content">
                             <p class="col-7">2222</p>
@@ -43,7 +43,7 @@
                         </div>
                    </div>
                    <div class="message">
-                        <div class="photo"><img src="${pageContext.request.contextPath}/static/img/original.jpg" width="45" /></div>
+                        <div class="photo"><img src="${imgPathOrigin}/static/img/original.jpg" width="45" /></div>
                         <div class="time"><p>Matthew</p> <p>4 days ago</p></div>
                         <div class="content">
                             <p class="col-7">2222</p>

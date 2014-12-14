@@ -24,9 +24,9 @@
         	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
             <a href="javascript:void(0);" class="btn" id="btnRight"></a>
         	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${pageContext.request.contextPath}/static/img/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/c4f01fea_original.jpg" width="340"/></li>
+            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/img/aadec950_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/4343c54e_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/c4f01fea_original.jpg" width="340"/></li>
             </ul>
         </div>
         <div class="photo"></div>
@@ -41,9 +41,9 @@
         	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
             <a href="javascript:void(0);" class="btn" id="btnRight"></a>
         	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${pageContext.request.contextPath}/static/img/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/c4f01fea_original.jpg" width="340"/></li>
+            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/img/aadec950_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/4343c54e_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/c4f01fea_original.jpg" width="340"/></li>
             </ul>
         </div>
         <div class="photo"></div>
@@ -58,9 +58,9 @@
         	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
             <a href="javascript:void(0);" class="btn" id="btnRight"></a>
         	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${pageContext.request.contextPath}/static/img/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/c4f01fea_original.jpg" width="340"/></li>
+            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/img/aadec950_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/4343c54e_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/c4f01fea_original.jpg" width="340"/></li>
             </ul>
         </div>
         <div class="photo"></div>
@@ -75,9 +75,9 @@
         	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
             <a href="javascript:void(0);" class="btn" id="btnRight"></a>
         	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${pageContext.request.contextPath}/static/img/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/c4f01fea_original.jpg" width="340"/></li>
+            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/img/aadec950_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/4343c54e_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/c4f01fea_original.jpg" width="340"/></li>
             </ul>
         </div>
         <div class="photo"></div>
@@ -92,9 +92,9 @@
         	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
             <a href="javascript:void(0);" class="btn" id="btnRight"></a>
         	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${pageContext.request.contextPath}/static/img/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/c4f01fea_original.jpg" width="340"/></li>
+            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/img/aadec950_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/4343c54e_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/c4f01fea_original.jpg" width="340"/></li>
             </ul>
         </div>
         <div class="photo"></div>
@@ -109,9 +109,9 @@
         	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
             <a href="javascript:void(0);" class="btn" id="btnRight"></a>
         	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${pageContext.request.contextPath}/static/img/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/c4f01fea_original.jpg" width="340"/></li>
+            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/img/aadec950_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/4343c54e_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/c4f01fea_original.jpg" width="340"/></li>
             </ul>
         </div>
         <div class="photo"></div>
@@ -126,9 +126,9 @@
         	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
             <a href="javascript:void(0);" class="btn" id="btnRight"></a>
         	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${pageContext.request.contextPath}/static/img/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/c4f01fea_original.jpg" width="340"/></li>
+            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/img/aadec950_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/4343c54e_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/c4f01fea_original.jpg" width="340"/></li>
             </ul>
         </div>
         <div class="photo"></div>
@@ -143,9 +143,9 @@
         	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
             <a href="javascript:void(0);" class="btn" id="btnRight"></a>
         	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${pageContext.request.contextPath}/static/img/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/c4f01fea_original.jpg" width="340"/></li>
+            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/img/aadec950_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/4343c54e_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/c4f01fea_original.jpg" width="340"/></li>
             </ul>
         </div>
         <div class="photo"></div>
@@ -160,9 +160,9 @@
         	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
             <a href="javascript:void(0);" class="btn" id="btnRight"></a>
         	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${pageContext.request.contextPath}/static/img/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/c4f01fea_original.jpg" width="340"/></li>
+            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/img/aadec950_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/4343c54e_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/c4f01fea_original.jpg" width="340"/></li>
             </ul>
         </div>
         <div class="photo"></div>
@@ -177,9 +177,9 @@
         	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
             <a href="javascript:void(0);" class="btn" id="btnRight"></a>
         	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${pageContext.request.contextPath}/static/img/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/c4f01fea_original.jpg" width="340"/></li>
+            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/img/aadec950_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/4343c54e_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/c4f01fea_original.jpg" width="340"/></li>
             </ul>
         </div>
         <div class="photo"></div>
@@ -194,9 +194,9 @@
         	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
             <a href="javascript:void(0);" class="btn" id="btnRight"></a>
         	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${pageContext.request.contextPath}/static/img/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/c4f01fea_original.jpg" width="340"/></li>
+            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/img/aadec950_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/4343c54e_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/c4f01fea_original.jpg" width="340"/></li>
             </ul>
         </div>
         <div class="photo"></div>
@@ -210,9 +210,9 @@
         	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
             <a href="javascript:void(0);" class="btn" id="btnRight"></a>
         	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${pageContext.request.contextPath}/static/img/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${pageContext.request.contextPath}/static/img/c4f01fea_original.jpg" width="340"/></li>
+            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/img/aadec950_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/4343c54e_original.jpg" width="340"/></li>
+                <li anime-status="0"><img src="${imgPathOrigin}/static/img/c4f01fea_original.jpg" width="340"/></li>
             </ul>
         </div>
         <div class="photo"></div>
