@@ -415,3 +415,25 @@ function logoutVisitor(pathOri) {
     }); 
 }
 
+
+
+//---------------list_space page info
+function setHomeTypeBack() {
+	$("#homeTypeChosen").hide();
+	$("#homeTypeChosen").html('0');
+	$("#homeTypeNotChosen").show();
+}
+
+function homeTypeValueSet(valueT) {
+	var toDNode = $("#homeTypeChosen");
+	toDNode.html('<a href="javascript:void(0);">'+valueT+'</a><a href="javascript:setHomeTypeBack();">day fetch offered bunch of room types<a>');
+	
+	toDNode.show();
+	$("#homeTypeNotChosen").hide();
+}
+
+function setHomeType(node) {
+	var valueT = $(node).html();
+	homeTypeValueSet(valueT);
+}
+
