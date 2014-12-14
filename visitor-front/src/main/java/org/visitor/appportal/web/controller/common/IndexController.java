@@ -230,11 +230,11 @@ public class IndexController extends BasicController {
 		return "index1";
 	}
 	
-	@RequestMapping({"day/list_space"})
+	@RequestMapping({"list_space"})
 	public String dayListSpace(HttpServletRequest request, HttpServletResponse response, Model model) {
 		this.setModel(request, response, model);
 		model.addAttribute("pageName", "list_space");
-		return "day/list_space";
+		return "list_space";
 	}
 	
 	@RequestMapping({"day/calendar"})
