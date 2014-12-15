@@ -60,8 +60,8 @@
         <div class="hometype">
         	<div class="title">Accommodates</div>
             <div class="choice choice3">
-            	<select id="accomodatesValueD">
-            		<option value="0" selected="selected"></option>
+            	<select id="accomodatesValueD" onchange="checkIfCanProceed();">
+            		<option value="0" selected="selected">0</option>
 ]]>
                 	<c:forEach items="${accomodatesList}" var="accomodate" varStatus="status">
 						<c:if test="${status.index == 0}">
@@ -77,11 +77,11 @@
         </div>
         <div class="hometype">
         	<div class="title">City</div>
-            <div class="choice choice4"><input type="text" value="Rome,Pairs..."/></div>
+            <div class="choice choice4"><input id="productCityInput" type="text" value="Rome,Pairs..." onfocus="if (value =='Rome,Pairs...'){value =''}" onblur="if (value ==''){value='Rome,Pairs...';} checkIfCanProceed();"/></div>
         </div>
         <div class="hometype">
         	<div class="title"></div>
-            <div class="choice choice5"><a href="javascript:doProductGenerate();">Continue</a></div>
+            <div class="choice choice5"><a id="proceedToGenerate" href="javascript:createProduct();">Continue</a></div>
         </div>
     </div>
 </div>

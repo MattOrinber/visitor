@@ -418,35 +418,54 @@ function logoutVisitor(pathOri) {
 
 
 //---------------list_space page info
-function setHomeTypeBack() {
+function setHomeTypeBack() { //re-choose the home type
 	$("#homeTypeChosen").hide();
 	$("#homeTypeChosen").html('0');
 	$("#homeTypeNotChosen").show();
+	$("#proceedToGenerate").attr("href", "javascript:void(0);");
 }
 
-function homeTypeValueSet(valueT) {
+function homeTypeValueSet(valueT) { // choose home type
 	var toDNode = $("#homeTypeChosen");
 	toDNode.html('<a href="javascript:void(0);">'+valueT+'</a><a href="javascript:setHomeTypeBack();">day fetch offered bunch of room types<a>');
 	
 	toDNode.show();
 	$("#homeTypeNotChosen").hide();
+	checkIfCanProceed();
 }
 
-function setRoomTypeBack() {
+function setRoomTypeBack() { //re-choose the room type
 	$("#roomTypeChosen").hide();
 	$("#roomTypeChosen").html('0');
 	$("#roomTypeNotChosen").show();
+	$("#proceedToGenerate").attr("href", "javascript:void(0);");
 }
 
-function roomTypeValueSet(valueT) {
+function roomTypeValueSet(valueT) { //choose room type
 	var toDNode = $("#roomTypeChosen");
 	toDNode.html('<a href="javascript:void(0);">'+valueT+'</a><a href="javascript:setRoomTypeBack();">day fetch offered bunch of room types<a>');
 	
 	toDNode.show();
 	$("#roomTypeNotChosen").hide();
+	
+	checkIfCanProceed();
 }
 
-function doProductGenerate() {
-	alert('product generate');
-}
 
+function checkIfCanProceed() { // see if we can create product
+	var htmlHomeType = $("#homeTypeChosen").html();
+	var htmlRoomType = $("#roomTypeChosen").html();
+	var accomodatesValue = $("#accomodatesValueD").val();
+	var productCityInput = $("#productCityInput").val();
+	var productCityInputStr = $.trim(productCityInput);
+	
+	if (htmlHomeType != "0" && 
+			htmlRoomType != "0" && 
+			accomodatesValue != "0" && 
+			productCityInputStr != "" && 
+			productCityInputStr != "Rome,Pairs...") {
+		$("#proceedToGenerate").attr("href", "javascript:createProduct();");
+	} else {
+		$("#proceedToGenerate").attr("href", "javascript:void(0);");
+	}
+}
