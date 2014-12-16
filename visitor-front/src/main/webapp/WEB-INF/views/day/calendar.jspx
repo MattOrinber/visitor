@@ -7,7 +7,7 @@
 <![CDATA[
 <div class="nav">
 	<div class="nav-detail">
-    	<span><a href="your-listing.html"><</a>${productInfo.productHometype} in ${productCity}</span>
+    	<span><a href="your-listing.html"><</a>${productInfo.productRoomType} in ${productInfo.productCity}</span>
     </div>
 </div>
 
