@@ -21,18 +21,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.visitor.appportal.redis.FloopyUtils;
 import org.visitor.appportal.service.newsite.VisitorUserService;
 import org.visitor.appportal.service.newsite.VisitorUserTokenInfoService;
 import org.visitor.appportal.service.newsite.redis.FloopyThingRedisService;
+import org.visitor.appportal.service.newsite.redis.ProductRedisService;
 import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.service.newsite.redis.VisitorLanguageRedisService;
+import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.TimeZone;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.visitor.domain.UserTokenInfo;
 import org.visitor.appportal.visitor.domain.VisitorLanguage;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
+import org.visitor.appportal.web.utils.WebInfo;
 
 /**
  * @author mengw
@@ -55,6 +59,8 @@ public class IndexController extends BasicController {
 	private UserRedisService userRedisService;
 	@Autowired
 	private VisitorUserService visitorUserService;
+	@Autowired
+	private ProductRedisService productRedisService;
 	
 	/**
 	 * 
@@ -63,88 +69,278 @@ public class IndexController extends BasicController {
 		// TODO Auto-generated constructor stub
 	}
 	
-	private void setModel(HttpServletRequest request, 
+	@RequestMapping({"index", ""})
+	public String index(HttpServletRequest request, 
 			HttpServletResponse response,
 			Model model) {
-		model.addAttribute("username", "visitor");
-		model.addAttribute("helloString", "you are welcome!");
+		this.setModel(request, response, model, true);
 		
-		List<TimeZone> listTZ = timezoneRedisService.getAllTimezones();
-		List<VisitorLanguage> listVL = visitorLanguageRedisService.getAllLanguages();
-		
-		List<String> homeTypeList = floopyThingRedisService.getFloopyValueList(FloopyUtils.HOME_TYPE_KEY);
-		List<String> roomTypeList = floopyThingRedisService.getFloopyValueList(FloopyUtils.ROOM_TYPE_KEY);
-		String singularAccomodates = floopyThingRedisService.getFloopyValueSingle(FloopyUtils.ACCOMODATES);
-		if (StringUtils.isNotEmpty(singularAccomodates)) {
-			Integer singularAccomodatesInt = Integer.valueOf(singularAccomodates);
-			List<String> accomodatesList = floopyThingRedisService.getFloopySingularGeneratedList(singularAccomodatesInt);
-			model.addAttribute("accomodatesList", accomodatesList);
+		return "index";
+	}
+	
+	private void logTheLogintime(String emailStr) {
+		if (log.isInfoEnabled()) {
+			log.info("<user token login>: >" + emailStr + "<");
+		}
+	}
+
+	@RequestMapping({"index1"})
+	public String indexOne(HttpServletRequest request, HttpServletResponse response,  Model model) {
+		this.setModel(request, response, model, true);
+		return "index1";
+	}
+	
+	@RequestMapping({"list_space"})
+	public String dayListSpace(HttpServletRequest request, HttpServletResponse response, Model model) {
+		this.setModel(request, response, model, false);
+		model.addAttribute("pageName", "list_space");
+		return "list_space";
+	}
+	
+	@RequestMapping({"day/calendar"})
+	public String dayCalendar(HttpServletRequest request, 
+			@RequestParam(value = "pid", required = true) String productIdStr,
+			HttpServletResponse response,
+			Model model) {
+		boolean ifLoggedIn = this.setModel(request, response, model, false);
+		if (!ifLoggedIn) {
+			return "redirect:/index";
 		}
 		
-		List<String> currencyList = floopyThingRedisService.getFloopyValueList(FloopyUtils.CURRENCY_KEY);
-		
-		List<String> amenitiesMostCommon = floopyThingRedisService.getFloopyValueList(FloopyUtils.AMENITIES_MOST_COMMON);
-		List<String> amenitiesExtras = floopyThingRedisService.getFloopyValueList(FloopyUtils.AMENITIES_EXTRAS);
-		List<String> amenitiesSpecialFeatures = floopyThingRedisService.getFloopyValueList(FloopyUtils.AMENITIES_SPECIAL_FEATURES);
-		List<String> amenitiesHomeSafty = floopyThingRedisService.getFloopyValueList(FloopyUtils.AMENITIES_HOME_SAFETY);
-		
-		List<String> bedroomNumberList = floopyThingRedisService.getFloopyValueList(FloopyUtils.BEDROOM_NUMBER);
-		String bedsNumberListStr = floopyThingRedisService.getFloopyValueSingle(FloopyUtils.BED_NUMBER);
-		
-		if (StringUtils.isNotEmpty(bedsNumberListStr)) {
-			Integer bedsNumberListSize = Integer.valueOf(bedsNumberListStr);
-			List<String> bedsNumberList = floopyThingRedisService.getFloopySingularGeneratedList(bedsNumberListSize);
-			model.addAttribute("bedsNumberList", bedsNumberList);
+		User user = (User) request.getAttribute(WebInfo.UserID);
+		boolean ifOwnedProduct = this.setProductModel(user, model, productIdStr);
+		if (!ifOwnedProduct) {
+			return "redirect:/index";
 		}
 		
-		List<String> bathroomNumberList = floopyThingRedisService.getFloopyValueList(FloopyUtils.BATHROOM_NUMBER);
+		model.addAttribute("pageName", "calendar");
+		return "day/calendar";
+	}
+	
+	@RequestMapping({"day/pricing"})
+	public String dayPricing(HttpServletRequest request,
+			@RequestParam(value = "pid", required = true) String productIdStr,
+			HttpServletResponse response, 
+			Model model) {
+		boolean ifLoggedIn = this.setModel(request, response, model, false);
+		if (!ifLoggedIn) {
+			return "redirect:/index";
+		}
 		
-		List<String> checkinAfterList = floopyThingRedisService.getFloopyValueList(FloopyUtils.TERM_CHECKIN_AFTER);
-		List<String> checkoutBeforeList = floopyThingRedisService.getFloopyValueList(FloopyUtils.TERM_CHECKOUT_BEFORE);
-		List<String> cancellationPolicyList = floopyThingRedisService.getFloopyValueList(FloopyUtils.TERM_CANCELLATION_POLICY);
+		User user = (User) request.getAttribute(WebInfo.UserID);
+		boolean ifOwnedProduct = this.setProductModel(user, model, productIdStr);
+		if (!ifOwnedProduct) {
+			return "redirect:/index";
+		}
 		
-		model.addAttribute("timezones", listTZ);
-		model.addAttribute("visitorlanguages", listVL);
+		model.addAttribute("pageName", "pricing");
+		return "day/pricing";
+	}
+	
+	@RequestMapping({"day/description"})
+	public String dayDescription(HttpServletRequest request,
+			@RequestParam(value = "pid", required = true) String productIdStr,
+			HttpServletResponse response, 
+			Model model) {
+		boolean ifLoggedIn = this.setModel(request, response, model, false);
+		if (!ifLoggedIn) {
+			return "redirect:/index";
+		}
 		
-		model.addAttribute("homeTypeList", homeTypeList);
-		model.addAttribute("roomTypeList", roomTypeList);
-		model.addAttribute("currencyList", currencyList);
+		User user = (User) request.getAttribute(WebInfo.UserID);
+		boolean ifOwnedProduct = this.setProductModel(user, model, productIdStr);
+		if (!ifOwnedProduct) {
+			return "redirect:/index";
+		}
 		
-		model.addAttribute("amenitiesMostCommon", amenitiesMostCommon);
-		model.addAttribute("amenitiesExtras", amenitiesExtras);
-		model.addAttribute("amenitiesSpecialFeatures", amenitiesSpecialFeatures);
-		model.addAttribute("amenitiesHomeSafty", amenitiesHomeSafty);
+		this.setModel(request, response, model, false);
+		model.addAttribute("pageName", "description");
+		return "day/description";
+	}
+	
+	@RequestMapping({"day/photos"})
+	public String dayPhotos(HttpServletRequest request,
+			@RequestParam(value = "pid", required = true) String productIdStr,
+			HttpServletResponse response, 
+			Model model) {
+		boolean ifLoggedIn = this.setModel(request, response, model, false);
+		if (!ifLoggedIn) {
+			return "redirect:/index";
+		}
 		
-		model.addAttribute("bedroomNumberList", bedroomNumberList);
-		model.addAttribute("bathroomNumberList", bathroomNumberList);
+		User user = (User) request.getAttribute(WebInfo.UserID);
+		boolean ifOwnedProduct = this.setProductModel(user, model, productIdStr);
+		if (!ifOwnedProduct) {
+			return "redirect:/index";
+		}
 		
-		model.addAttribute("checkinAfterList", checkinAfterList);
-		model.addAttribute("checkoutBeforeList", checkoutBeforeList);
-		model.addAttribute("cancellationPolicyList", cancellationPolicyList);
+		this.setModel(request, response, model, false);
+		model.addAttribute("pageName", "photos");
+		return "day/photos";
+	}
+	
+	@RequestMapping({"day/terms"})
+	public String login(HttpServletRequest request,
+			@RequestParam(value = "pid", required = true) String productIdStr,
+			HttpServletResponse response, 
+			Model model) {
+		boolean ifLoggedIn = this.setModel(request, response, model, false);
+		if (!ifLoggedIn) {
+			return "redirect:/index";
+		}
 		
-		String imgPathOrigin = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic);
+		User user = (User) request.getAttribute(WebInfo.UserID);
+		boolean ifOwnedProduct = this.setProductModel(user, model, productIdStr);
+		if (!ifOwnedProduct) {
+			return "redirect:/index";
+		}
 		
-		model.addAttribute("imgPathOrigin", imgPathOrigin);
+		this.setModel(request, response, model, false);
+		model.addAttribute("pageName", "terms");
+		return "day/terms";
+	}
+	
+	@RequestMapping({"day/city"})
+	public String dayCity(HttpServletRequest request,
+			HttpServletResponse response, 
+			Model model) {
+		this.setModel(request, response, model, false);
+		model.addAttribute("pageName", "city");
+		return "day/city";
+	}
+	
+	@RequestMapping({"day/dashboard"})
+	public String dayDashboard(HttpServletRequest request,
+			HttpServletResponse response, 
+			Model model) {
+		this.setModel(request, response, model, false);
+		model.addAttribute("pageName", "dashboard");
+		return "day/dashboard";
+	}
+	
+	@RequestMapping({"day/inbox"})
+	public String dayInbox(HttpServletRequest request, HttpServletResponse response, Model model) {
+		this.setModel(request, response, model, false);
+		model.addAttribute("pageName", "inbox");
+		return "day/inbox";
+	}
+	
+	@RequestMapping({"day/host_profile"})
+	public String dayHostprofile(HttpServletRequest request, HttpServletResponse response, Model model) {
+		this.setModel(request, response, model, false);
+		model.addAttribute("pageName", "host_profile");
+		return "day/host_profile";
+	}
+	
+	@RequestMapping({"day/product"})
+	public String dayProduct(HttpServletRequest request,
+			@RequestParam(value = "pid", required = true) String productIdStr,
+			HttpServletResponse response, 
+			Model model) {
+		this.setModel(request, response, model, false);
+		model.addAttribute("pageName", "product");
+		return "day/product";
+	}
+	
+	@RequestMapping({"publish"})
+	public String publish(HttpServletRequest request, Model model) {
+		return "publish";
+	}
+	
+	@RequestMapping({"websocket"})
+	public String websocket(HttpServletRequest request, Model model) {
+		return "websocket";
+		
+	}
+	
+	@RequestMapping({"userPicUpload"})
+	public String userPicUpload(HttpServletRequest request, Model model) {
+		return "userPicUpload";
+	}
+	
+	@RequestMapping({"productPicUpload"})
+	public String productPicUpload(HttpServletRequest request, Model model) {
+		return "productPicUpload";
+	}
+	
+	//在页面插入后台配置的各项数据
+	private boolean setModel(HttpServletRequest request, 
+			HttpServletResponse response,
+			Model model, boolean b) {
+		boolean ifloggedIn = false;
 		try {
-			checkIfTheUserTokenLegal(model, request, response);
+			ifloggedIn = checkIfTheUserTokenLegal(model, request, response, b);
+		
+			model.addAttribute("username", "visitor");
+			model.addAttribute("helloString", "you are welcome!");
+			
+			List<TimeZone> listTZ = timezoneRedisService.getAllTimezones();
+			List<VisitorLanguage> listVL = visitorLanguageRedisService.getAllLanguages();
+			
+			List<String> homeTypeList = floopyThingRedisService.getFloopyValueList(FloopyUtils.HOME_TYPE_KEY);
+			List<String> roomTypeList = floopyThingRedisService.getFloopyValueList(FloopyUtils.ROOM_TYPE_KEY);
+			String singularAccomodates = floopyThingRedisService.getFloopyValueSingle(FloopyUtils.ACCOMODATES);
+			if (StringUtils.isNotEmpty(singularAccomodates)) {
+				Integer singularAccomodatesInt = Integer.valueOf(singularAccomodates);
+				List<String> accomodatesList = floopyThingRedisService.getFloopySingularGeneratedList(singularAccomodatesInt);
+				model.addAttribute("accomodatesList", accomodatesList);
+			}
+			
+			List<String> currencyList = floopyThingRedisService.getFloopyValueList(FloopyUtils.CURRENCY_KEY);
+			
+			List<String> amenitiesMostCommon = floopyThingRedisService.getFloopyValueList(FloopyUtils.AMENITIES_MOST_COMMON);
+			List<String> amenitiesExtras = floopyThingRedisService.getFloopyValueList(FloopyUtils.AMENITIES_EXTRAS);
+			List<String> amenitiesSpecialFeatures = floopyThingRedisService.getFloopyValueList(FloopyUtils.AMENITIES_SPECIAL_FEATURES);
+			List<String> amenitiesHomeSafty = floopyThingRedisService.getFloopyValueList(FloopyUtils.AMENITIES_HOME_SAFETY);
+			
+			List<String> bedroomNumberList = floopyThingRedisService.getFloopyValueList(FloopyUtils.BEDROOM_NUMBER);
+			String bedsNumberListStr = floopyThingRedisService.getFloopyValueSingle(FloopyUtils.BED_NUMBER);
+			
+			if (StringUtils.isNotEmpty(bedsNumberListStr)) {
+				Integer bedsNumberListSize = Integer.valueOf(bedsNumberListStr);
+				List<String> bedsNumberList = floopyThingRedisService.getFloopySingularGeneratedList(bedsNumberListSize);
+				model.addAttribute("bedsNumberList", bedsNumberList);
+			}
+			
+			List<String> bathroomNumberList = floopyThingRedisService.getFloopyValueList(FloopyUtils.BATHROOM_NUMBER);
+			
+			List<String> checkinAfterList = floopyThingRedisService.getFloopyValueList(FloopyUtils.TERM_CHECKIN_AFTER);
+			List<String> checkoutBeforeList = floopyThingRedisService.getFloopyValueList(FloopyUtils.TERM_CHECKOUT_BEFORE);
+			List<String> cancellationPolicyList = floopyThingRedisService.getFloopyValueList(FloopyUtils.TERM_CANCELLATION_POLICY);
+			
+			model.addAttribute("timezones", listTZ);
+			model.addAttribute("visitorlanguages", listVL);
+			
+			model.addAttribute("homeTypeList", homeTypeList);
+			model.addAttribute("roomTypeList", roomTypeList);
+			model.addAttribute("currencyList", currencyList);
+			
+			model.addAttribute("amenitiesMostCommon", amenitiesMostCommon);
+			model.addAttribute("amenitiesExtras", amenitiesExtras);
+			model.addAttribute("amenitiesSpecialFeatures", amenitiesSpecialFeatures);
+			model.addAttribute("amenitiesHomeSafty", amenitiesHomeSafty);
+			
+			model.addAttribute("bedroomNumberList", bedroomNumberList);
+			model.addAttribute("bathroomNumberList", bathroomNumberList);
+			
+			model.addAttribute("checkinAfterList", checkinAfterList);
+			model.addAttribute("checkoutBeforeList", checkoutBeforeList);
+			model.addAttribute("cancellationPolicyList", cancellationPolicyList);
+			
+			String imgPathOrigin = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic);
+			
+			model.addAttribute("imgPathOrigin", imgPathOrigin);
+			
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return ifloggedIn;
 	}
 	
-	@RequestMapping({"index", ""})
-	public String index(HttpServletRequest request, 
-			HttpServletResponse response,
-			Model model) {
-		this.setModel(request, response, model);
-		
-		return "index";
-	}
-	
-	private void checkIfTheUserTokenLegal(Model model, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-		
+	//检查是否登陆， 如果登陆， 在页面插入用户数据
+	private boolean checkIfTheUserTokenLegal(Model model, HttpServletRequest request, HttpServletResponse response, boolean ifIndex) throws UnsupportedEncodingException {
 		Cookie[] cookieArray = request.getCookies();
 		if (cookieArray != null && cookieArray.length > 0) {
 			
@@ -180,14 +376,16 @@ public class IndexController extends BasicController {
 						if (StringUtils.isNotEmpty(storedAccessToken) && nowDate.before(expireDate)) {
 							if (StringUtils.equals(userTokenInfoStr, storedAccessToken)) {
 								User user = userRedisService.getUserPassword(userMailStr);
-								user.setUserLastLoginTime(nowDate);
-								
-								visitorUserService.saveUser(user);
-								userRedisService.saveUserPassword(user);
+								if (ifIndex) {
+									user.setUserLastLoginTime(nowDate);
+
+									visitorUserService.saveUser(user);
+									userRedisService.saveUserPassword(user);
+									logTheLogintime(userMailStr);
+								}
 								
 								MixAndMatchUtils.setUserModel(model, user);
-								logTheLogintime(userMailStr);
-								return;
+								return true;
 							}
 						}
 					}
@@ -200,131 +398,34 @@ public class IndexController extends BasicController {
 					if (StringUtils.isNotEmpty(storedAccessToken) && nowDate.before(expireDate)) {
 						if (StringUtils.equals(userTokenInfoStr, storedAccessToken)) {
 							User user = userRedisService.getUserPassword(userMailStr);
-							user.setUserLastLoginTime(nowDate);
-							
-							visitorUserService.saveUser(user);
-							userRedisService.saveUserPassword(user);
+							if (ifIndex) {
+								user.setUserLastLoginTime(nowDate);
+
+								visitorUserService.saveUser(user);
+								userRedisService.saveUserPassword(user);
+								logTheLogintime(userMailStr);
+							}
 							
 							MixAndMatchUtils.setUserModel(model, user);
-							logTheLogintime(userMailStr);
-							return;
+							return true;
 						}
 					}
 				}
 			} 
-		} 
+		}
 		User user = new User();
 		MixAndMatchUtils.setUserModel(model, user);
-		
+		return false;
 	}
 	
-	private void logTheLogintime(String emailStr) {
-		if (log.isInfoEnabled()) {
-			log.info("<user token login>: >" + emailStr + "<");
+	//在页面中插入product数据
+	private boolean setProductModel(User user, Model model, String productIdStr) {
+		Product product = productRedisService.getUserProductFromRedis(user, productIdStr);
+		if (product == null) {
+			return false;
+		} else {
+			model.addAttribute("productInfo", product);
+			return true;
 		}
-	}
-
-	@RequestMapping({"index1"})
-	public String indexOne(HttpServletRequest request, HttpServletResponse response,  Model model) {
-		this.setModel(request, response, model);
-		return "index1";
-	}
-	
-	@RequestMapping({"list_space"})
-	public String dayListSpace(HttpServletRequest request, HttpServletResponse response, Model model) {
-		this.setModel(request, response, model);
-		model.addAttribute("pageName", "list_space");
-		return "list_space";
-	}
-	
-	@RequestMapping({"day/calendar"})
-	public String dayCalendar(HttpServletRequest request, HttpServletResponse response, Model model) {
-		this.setModel(request, response, model);
-		model.addAttribute("pageName", "calendar");
-		return "day/calendar";
-	}
-	
-	@RequestMapping({"day/pricing"})
-	public String dayPricing(HttpServletRequest request, HttpServletResponse response, Model model) {
-		this.setModel(request, response, model);
-		model.addAttribute("pageName", "pricing");
-		return "day/pricing";
-	}
-	
-	@RequestMapping({"day/description"})
-	public String dayDescription(HttpServletRequest request, HttpServletResponse response, Model model) {
-		this.setModel(request, response, model);
-		model.addAttribute("pageName", "description");
-		return "day/description";
-	}
-	
-	@RequestMapping({"day/photos"})
-	public String dayPhotos(HttpServletRequest request, HttpServletResponse response, Model model) {
-		this.setModel(request, response, model);
-		model.addAttribute("pageName", "photos");
-		return "day/photos";
-	}
-	
-	@RequestMapping({"day/terms"})
-	public String login(HttpServletRequest request, HttpServletResponse response, Model model) {
-		this.setModel(request, response, model);
-		model.addAttribute("pageName", "terms");
-		return "day/terms";
-	}
-	
-	@RequestMapping({"day/city"})
-	public String dayCity(HttpServletRequest request, HttpServletResponse response, Model model) {
-		this.setModel(request, response, model);
-		model.addAttribute("pageName", "city");
-		return "day/city";
-	}
-	
-	@RequestMapping({"day/dashboard"})
-	public String dayDashboard(HttpServletRequest request, HttpServletResponse response, Model model) {
-		this.setModel(request, response, model);
-		model.addAttribute("pageName", "dashboard");
-		return "day/dashboard";
-	}
-	
-	@RequestMapping({"day/inbox"})
-	public String dayInbox(HttpServletRequest request, HttpServletResponse response, Model model) {
-		this.setModel(request, response, model);
-		model.addAttribute("pageName", "inbox");
-		return "day/inbox";
-	}
-	
-	@RequestMapping({"day/host_profile"})
-	public String dayHostprofile(HttpServletRequest request, HttpServletResponse response, Model model) {
-		this.setModel(request, response, model);
-		model.addAttribute("pageName", "host_profile");
-		return "day/host_profile";
-	}
-	
-	@RequestMapping({"day/product"})
-	public String dayProduct(HttpServletRequest request, HttpServletResponse response, Model model) {
-		this.setModel(request, response, model);
-		model.addAttribute("pageName", "product");
-		return "day/product";
-	}
-	
-	@RequestMapping({"publish"})
-	public String publish(HttpServletRequest request, Model model) {
-		return "publish";
-	}
-	
-	@RequestMapping({"websocket"})
-	public String websocket(HttpServletRequest request, Model model) {
-		return "websocket";
-		
-	}
-	
-	@RequestMapping({"userPicUpload"})
-	public String userPicUpload(HttpServletRequest request, Model model) {
-		return "userPicUpload";
-	}
-	
-	@RequestMapping({"productPicUpload"})
-	public String productPicUpload(HttpServletRequest request, Model model) {
-		return "productPicUpload";
 	}
 }

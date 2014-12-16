@@ -21,6 +21,7 @@
 	        <mvc:mapping path="/publishinfo/*"/>
 	        <mvc:mapping path="/product/*"/>
 	        <mvc:mapping path="/day/*"/>
+	        <mvc:mapping path="/list_space" />
 	        <bean class="org.visitor.appportal.web.interceptors.PublishInterceptor" />
 	    </mvc:interceptor>
 	</mvc:interceptors>

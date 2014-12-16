@@ -27,7 +27,7 @@ function createProduct()
         data : jsonStr,  
         success : function(data) {
         	$.cookie('currentProductID', data.productId, { expires: 7 });
-        	var redirectStr = pathGlobe + '/day/calendar';
+        	var redirectStr = pathGlobe + '/day/calendar?pid=' + data.productId;
         	window.location.href = redirectStr;
         },  
         error : function() {  

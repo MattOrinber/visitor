@@ -8,7 +8,7 @@
 
 <div class="nav">
 	<div class="nav-detail">
-    	<span><a href="your-listing.html"><</a>Entire home/apt in Beijing</span>
+    	<span><a href="your-listing.html"><</a>${productInfo.productHometype} in ${productCity}</span>
     </div>
 </div>
 
@@ -16,17 +16,17 @@
 	<div class="leftmenu">
     	<ul>
         	<li class="title">Basics</li>
-            <li><a href="calendar.html">Calendar</a></li>
-            <li class="choosed"><a href="pricing.html">Pricing</a></li>
+            <li><a href="${pageContext.request.contextPath}/day/calendar?pid=${productInfo.productId}">Calendar</a></li>
+            <li class="choosed"><a href="${pageContext.request.contextPath}/day/pricing?pid=${productInfo.productId}">Pricing</a></li>
         </ul>
         <ul>
         	<li class="title">Description</li>
-            <li><a href="description.html">Overview</a></li>
-            <li><a href="photos.html">Photos</a></li>
+            <li><a href="${pageContext.request.contextPath}/day/description?pid=${productInfo.productId}">Overview</a></li>
+            <li><a href="${pageContext.request.contextPath}/day/photos?pid=${productInfo.productId}">Photos</a></li>
         </ul>
         <ul>
         	<li class="title">Settings</li>
-            <li><a href="terms.html">Terms</a></li>
+            <li><a href="${pageContext.request.contextPath}/day/terms?pid=${productInfo.productId}">Terms</a></li>
         </ul>
         <div class="step">
         	Complete <span><span>5</span> steps</span><br />to list your space.
