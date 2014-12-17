@@ -52,6 +52,7 @@ public class MixAndMatchUtils {
 	
 	public static final String COOKIE_NAME_USER_ACCESS_TOKEN = "userAccessToken";
 	public static final String COOKIE_NAME_USER_EMAIL = "userEmail";
+	public static final String COOKIE_NAME_GLOBAL_CURRENCY = "globalCurrency";
 	//------------------------------------------facebook related items end
 	
 	public static final String paypalClientID = "paypalClientID";

@@ -35,8 +35,12 @@ import org.visitor.appportal.visitor.domain.TimeZone;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.visitor.domain.UserTokenInfo;
 import org.visitor.appportal.visitor.domain.VisitorLanguage;
+import org.visitor.appportal.web.utils.HttpClientUtil;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
 import org.visitor.appportal.web.utils.WebInfo;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 
 /**
  * @author mengw
@@ -356,8 +360,15 @@ public class IndexController extends BasicController {
 			String userMailStrOri = cookieMap.get(MixAndMatchUtils.COOKIE_NAME_USER_EMAIL);
 			String userTokenInfoStr = cookieMap.get(MixAndMatchUtils.COOKIE_NAME_USER_ACCESS_TOKEN);
 			
+			String globalCurrency = cookieMap.get(MixAndMatchUtils.COOKIE_NAME_GLOBAL_CURRENCY);
+			
 			log.info("cookie userMailStrOri: >" + userMailStrOri + "<");
 			log.info("cookie userTokenInfoStr: >" + userTokenInfoStr + "<");
+			log.info("cookie globalCurrency: >" + globalCurrency + "<");
+			
+			if (StringUtils.isNotEmpty(globalCurrency)) {
+				model.addAttribute("globalCurrencySetted", globalCurrency);
+			}
 			
 			if (StringUtils.isNotEmpty(userMailStrOri) && StringUtils.isNotEmpty(userTokenInfoStr)) {
 				String userMailStr = URLDecoder.decode(userMailStrOri, "UTF-8");
@@ -426,6 +437,35 @@ public class IndexController extends BasicController {
 		} else {
 			model.addAttribute("productInfo", product);
 			return true;
+		}
+	}
+	
+	
+	public static void main(String[] args) {
+		String getCurrencyUrl = "http://www.freecurrencyconverterapi.com/api/v2/currencies";
+		String convertURL = "http://www.freecurrencyconverterapi.com/api/v2/convert?q=USD_CNY&compact=y"; //1 USD to CNY
+		//HashMap<String, String> paramMap = new HashMap<String,String>();
+		
+		String jsonStr = HttpClientUtil.httpGetJSON(getCurrencyUrl);
+		
+		Map<String, String> mapOri = JSON.parseObject(jsonStr, new TypeReference<Map<String, String>>(){});
+		
+		if (mapOri.containsKey("results")) {
+			String dataStr = mapOri.get("results");
+			Map<String, String> mapData = JSON.parseObject(dataStr, new TypeReference<Map<String, String>>(){});
+			String finalStr = "";
+			
+			int i = 0;
+			for (String keyT : mapData.keySet()) {
+				if (i == 0) {
+					finalStr = finalStr + keyT;
+				} else {
+					finalStr = finalStr + "---" + keyT;
+				}
+				i ++;
+			}
+			
+			System.out.println(finalStr);
 		}
 	}
 }

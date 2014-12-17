@@ -119,7 +119,7 @@ public class ProductController extends BasicController {
 		if (product == null) {
 			result = -1;
 			resultDesc = ProductInfo.PRODUCT_NOTFOUND_FORUPDATE;
-		} else if (product.getProductAvailabletype().intValue() == ProductInfo.EDIT_STATUS.intValue()) {
+		} else if (product.getProductStatus().intValue() == ProductInfo.EDIT_STATUS.intValue()) {
 			// do store and to redis to mongo stuff
 			String productAvailabletypeStr = pdt.getProductAvailableTypeStr();
 			if (StringUtils.isNotEmpty(productAvailabletypeStr)) {

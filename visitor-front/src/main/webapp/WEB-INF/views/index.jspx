@@ -264,7 +264,7 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
     	<div class="policy">
 ]]>
 
-		<select>
+		<select id="globalCurrencySet" onchange="setGlobalCurrency();">
 			<c:forEach items="${currencyList}" var="currencyT" varStatus="status">
 				<c:if test="${status.index == 0}">
 				    <option value="${currencyT}" selected="selected">${currencyT}</option>

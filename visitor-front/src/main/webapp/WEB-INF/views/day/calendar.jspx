@@ -8,7 +8,7 @@
 <div class="nav">
 	<div class="nav-detail">
     	<span><a href="your-listing.html"><</a>${productInfo.productRoomType} in ${productInfo.productCity}</span>
-    </div>
+    </div><div id="availTypeStr" style="display:none;">${productInfo.productAvailabletype}</div>
 </div>
 
 <div class="main">

@@ -41,14 +41,30 @@
                 </div>
                 <div class="price">
                 	<span class="h">Currency</span>
-                    <select>
-                    	<option>USD</option>
-                        <option>USD</option>
-                        <option>USD</option>
-                        <option>USD</option>
-                    </select>
+]]>
+
+                	<select>
+						<c:forEach items="${currencyList}" var="currencyT" varStatus="status">
+							<c:if test="${currencyT == globalCurrencySetted}">
+							    <option value="${currencyT}" selected="selected">${currencyT}</option>
+							</c:if>
+							<c:if test="${status.index != 0}">
+							    <option value="${currencyT}">${currencyT}</option>
+							</c:if>
+						</c:forEach>
+					</select>
+<![CDATA[
                     <span class="h" style="margin-top:20px;">Price</span>
-                    <div><span>$</span><input type="text" /></div>
+]]>
+                    <c:choose>
+						<c:when test="${not empty productInfo.productBaseprice}">
+						  <div><span>$</span><input type="text" value="${productInfo.productBaseprice}" /></div>
+						</c:when>
+						<c:when test="${empty productInfo.productBaseprice}">
+						  <div><span>$</span><input type="text" /></div>
+						</c:when>
+					</c:choose>
+<![CDATA[            
                 </div>
             </div>
             <div class="down">

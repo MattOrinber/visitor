@@ -73,6 +73,29 @@ public class HttpClientUtil {
         }		
 		return null;
 	}
+	
+	public static String httpGetJSON(String url) {
+        HttpGet httpGet = new HttpGet(url);
+		HttpClient httpClient = new DefaultHttpClient();
+        HttpResponse httpResponse;
+        try {
+            httpResponse = httpClient.execute(httpGet);
+            if(null != httpResponse) {
+	            StatusLine statusLine = httpResponse.getStatusLine();
+	            int statusCode = statusLine.getStatusCode();
+	            if(200 == statusCode) {
+	            	return readJsonStrContentFromEntity(httpResponse.getEntity());
+	            }
+            }
+        } catch (IOException e) {
+        	log.error(e.getMessage(), e);
+        } finally {
+            if(httpGet != null){
+                httpGet.releaseConnection();
+            }
+        }		
+		return null;
+	}
 
     /**
      * 从response返回的实体中读取页面代码
@@ -83,6 +106,13 @@ public class HttpClientUtil {
     private static String readHtmlContentFromEntity(HttpEntity httpEntity) throws IOException {
     	if(null != httpEntity) {
     		return IOUtils.toString(httpEntity.getContent(), ContentType.getOrDefault(httpEntity).getCharset().toString());
+    	} 
+    	return null;
+    }
+    
+    private static String readJsonStrContentFromEntity(HttpEntity httpEntity) throws IOException {
+    	if(null != httpEntity) {
+    		return IOUtils.toString(httpEntity.getContent());
     	} 
     	return null;
     }

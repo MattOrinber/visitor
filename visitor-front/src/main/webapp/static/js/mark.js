@@ -50,7 +50,7 @@ function doCanlendarPage() { //product available type choose
 	
 	$("#hidefirst").click(function(){
 		$('#first').hide();
-		saveProductAvailableType("--");
+		saveProductAvailableType("5");
 	});
 	
 	$("#showsecond").click(function(){
@@ -60,7 +60,7 @@ function doCanlendarPage() { //product available type choose
 	
 	$("#hidesecond").click(function(){
 		$('#second').hide();
-		saveProductAvailableType("--");
+		saveProductAvailableType("5");
 	});
 	
 	$("#showthird").click(function(){
@@ -70,8 +70,17 @@ function doCanlendarPage() { //product available type choose
 	
 	$("#hidethird").click(function(){
 		$('#third').hide();
-		saveProductAvailableType("--");
+		saveProductAvailableType("5");
 	});
+	
+	var availOri = $("#availTypeStr").html();
+	if (availOri == "0") {
+		$('#first').show();
+	} else if (availOri == "1") {
+		$('#second').show();
+	} else if (availOri == "2") {
+		$('#third').show();
+	}
 }
 
 function doProductImageRound(){
@@ -113,6 +122,11 @@ function checkBox(){
 	}else{
 	  box.style.display="none";
 	}
+}
+
+function setGlobalCurrency() {
+	var globalCurrencyStr = $("#globalCurrencySet").val();
+	$.cookie('globalCurrency', globalCurrencyStr, { expires: 7 });
 }
 
 $(document).ready(function(){
