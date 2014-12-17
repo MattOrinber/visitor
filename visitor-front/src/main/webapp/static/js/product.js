@@ -16,7 +16,6 @@ function createProduct()
     
     var urlStrStr = pathGlobe + '/product/create';
     var jsonStr = $.toJSON(product);
-	alert(jsonStr);
     
     $.ajax({ 
         type : 'POST',  
@@ -29,6 +28,33 @@ function createProduct()
         	$.cookie('currentProductID', data.productId, { expires: 7 });
         	var redirectStr = pathGlobe + '/day/calendar?pid=' + data.productId;
         	window.location.href = redirectStr;
+        },  
+        error : function() {  
+            alert('Err...');  
+        }  
+    }); 
+}
+
+function saveProductAvailableType(availType) {
+	var productDetail = {};
+	var productIdStr = $.cookie('currentProductID');
+	var productAvailableTypeStr = availType;
+	
+	productDetail.productIdStr = productIdStr;
+	productDetail.productAvailableTypeStr = productAvailableTypeStr;
+    
+    var urlStrStr = pathGlobe + '/product/availtype';
+    var jsonStr = $.toJSON(productDetail);
+    
+    $.ajax({ 
+        type : 'POST',  
+        contentType : 'application/json',  
+        url : urlStrStr,  
+        processData : false,  
+        dataType : 'json',  
+        data : jsonStr,  
+        success : function(data) {  
+        	alert("save calendar success");
         },  
         error : function() {  
             alert('Err...');  

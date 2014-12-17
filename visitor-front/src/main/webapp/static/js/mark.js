@@ -42,29 +42,35 @@ function doImage() {
 	int=setInterval(autoshow, 4000);
 }
 
-function doCanlendarPage() {
+function doCanlendarPage() { //product available type choose
 	$("#showfirst").click(function(){
 		$('#first').show();
+		saveProductAvailableType("0");
 	});
 	
 	$("#hidefirst").click(function(){
 		$('#first').hide();
+		saveProductAvailableType("--");
 	});
 	
 	$("#showsecond").click(function(){
 		$('#second').show();
+		saveProductAvailableType("1");
 	});
 	
 	$("#hidesecond").click(function(){
 		$('#second').hide();
+		saveProductAvailableType("--");
 	});
 	
 	$("#showthird").click(function(){
 		$('#third').show();
+		saveProductAvailableType("2");
 	});
 	
 	$("#hidethird").click(function(){
 		$('#third').hide();
+		saveProductAvailableType("--");
 	});
 }
 

@@ -105,6 +105,39 @@ public class ProductController extends BasicController {
 		super.sendJSONResponse(rj, response);
 	}
 	
+	@RequestMapping("availtype")
+	public void productAvailType(HttpServletRequest request, 
+			HttpServletResponse response) {
+		ProductDetailTemp pdt = super.getProductDetailTempJson(request);
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		
+		Product product = productRedisService.getUserProductFromRedis(userTemp, pdt.getProductIdStr());
+		
+		Integer result = 0;
+		String resultDesc = ProductInfo.PRODUCT_DETAIL_UPDATE_SUCCESS;
+		
+		if (product == null) {
+			result = -1;
+			resultDesc = ProductInfo.PRODUCT_NOTFOUND_FORUPDATE;
+		} else if (product.getProductAvailabletype().intValue() == ProductInfo.EDIT_STATUS.intValue()) {
+			// do store and to redis to mongo stuff
+			String productAvailabletypeStr = pdt.getProductAvailableTypeStr();
+			if (StringUtils.isNotEmpty(productAvailabletypeStr)) {
+				Integer productAvailabletype = Integer.valueOf(productAvailabletypeStr);
+				product.setProductAvailabletype(productAvailabletype);
+			}
+			
+			visitorProductService.saveProduct(product);
+			productRedisService.saveUserProductToRedis(userTemp, product); //save to redis edit status
+		}
+		
+		ResultJson rj = new ResultJson();
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		super.sendJSONResponse(rj, response);
+	}
+	
 	@RequestMapping("savedetail")
 	public void savePorductDetail(HttpServletRequest request, 
 			HttpServletResponse response) {
