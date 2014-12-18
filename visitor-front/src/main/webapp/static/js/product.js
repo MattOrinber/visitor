@@ -63,34 +63,42 @@ function saveProductAvailableType(availType) {
 }
 
 function saveProductPriceSetting() {
+	var regExFloat = "^\\d+(\\.\\d+)?$";
+	var regExInt = "^[0-9]*[1-9][0-9]*$";
 	var productBasePriceValue = $.trim($("#productBaseCurrencyValue").val());
 	
+	
 	if (productBasePriceValue != "") {
-		var productDetail = {};
-		var productIdStr = $("#productIdPageTemp").html();
-		var productCurrencyChoose = $("#productCurrencyChoose").val();
-		
-		productDetail.productIdStr = productIdStr;
-		productDetail.productCurrencyStr = productCurrencyChoose;
-		productDetail.productBasepriceStr = productBasePriceValue;
-	    
-	    var urlStrStr = pathGlobe + '/product/pricing';
-	    var jsonStr = $.toJSON(productDetail);
-	    
-	    $.ajax({ 
-	        type : 'POST',  
-	        contentType : 'application/json',  
-	        url : urlStrStr,  
-	        processData : false,  
-	        dataType : 'json',  
-	        data : jsonStr,  
-	        success : function(data) {  
-	        	alert("save price success");
-	        },  
-	        error : function() {  
-	            alert('Err...');  
-	        }  
-	    }); 
+		if (regExFloat.test(productBasePriceValue) || regExInt.test(productBasePriceValue)) {
+			var productDetail = {};
+			var productIdStr = $("#productIdPageTemp").html();
+			var productCurrencyChoose = $("#productCurrencyChoose").val();
+			
+			productDetail.productIdStr = productIdStr;
+			productDetail.productCurrencyStr = productCurrencyChoose;
+			productDetail.productBasepriceStr = productBasePriceValue;
+		    
+		    var urlStrStr = pathGlobe + '/product/pricing';
+		    var jsonStr = $.toJSON(productDetail);
+		    
+		    $.ajax({ 
+		        type : 'POST',  
+		        contentType : 'application/json',  
+		        url : urlStrStr,  
+		        processData : false,  
+		        dataType : 'json',  
+		        data : jsonStr,  
+		        success : function(data) {  
+		        	alert("save price success");
+		        },  
+		        error : function() {  
+		            alert('Err...');  
+		        }  
+		    }); 
+		} else {
+			$("#productBaseCurrencyValue").val("");
+			alert("please set a right price format");
+		}
 	}
 }
 
