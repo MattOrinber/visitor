@@ -10,6 +10,7 @@
 <div class="nav">
 	<div class="nav-detail">
     	<span><a href="your-listing.html"><</a>${productInfo.productRoomType} in ${productInfo.productCity}</span>
+    	<div id="productIdPageTemp" style="display:none;">${productInfo.productId}</div>
     </div>
 </div>
 
@@ -42,9 +43,9 @@
                 </div>
                 <div class="price">
                 	<span class="h">Title *</span>
-                    <input type="text" />
+                    <input id="productTitle" type="text" />
                     <span class="h" style="margin-top:15px;">Details *</span>
-                    <textarea ></textarea>
+                    <textarea id="productOverviewDetailStr"></textarea>
                     <span class="h" style="margin-top:15px;">Duration</span>
                     <input type="text" />
                     <span class="h" style="margin-top:15px;">Group</span>
@@ -54,7 +55,7 @@
             </div>
             <div class="down">
 				<span>City *</span>
-                <span class="search"><input type="text" /></span>
+                <span class="search"><input id="searchCityInput" type="text" /></span>
             </div>
         </div>
     </div>

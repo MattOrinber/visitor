@@ -173,6 +173,52 @@ public class ProductController extends BasicController {
 		super.sendJSONResponse(rj, response);
 	}
 	
+	@RequestMapping("description")
+	public void productDescription(HttpServletRequest request, 
+			HttpServletResponse response) {
+		ProductDetailTemp pdt = super.getProductDetailTempJson(request);
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		
+		Product product = productRedisService.getUserProductFromRedis(userTemp, pdt.getProductIdStr());
+		
+		Integer result = 0;
+		String resultDesc = ProductInfo.PRODUCT_DETAIL_UPDATE_SUCCESS;
+		
+		if (product == null) {
+			result = -1;
+			resultDesc = ProductInfo.PRODUCT_NOTFOUND_FORUPDATE;
+		} else if (product.getProductStatus().intValue() == ProductInfo.EDIT_STATUS.intValue()) {
+			// do store and to redis to mongo stuff
+			String productTitleStr = pdt.getProductOverviewTitleStr();
+			String productDetailStr = pdt.getProductOverviewDetailStr();
+			if (StringUtils.isNotEmpty(productTitleStr) &&
+					StringUtils.isNotEmpty(productDetailStr)) {
+				product.setProductOverviewtitle(productTitleStr);;
+				
+				//details part;
+				ProductDetailInfo pdiBean = new ProductDetailInfo();
+				
+				pdiBean.setPriProductId(product.getProductId());
+				pdiBean.setPdiOwnerEmail(userTemp.getUserEmail());
+				pdiBean.setPdiProductOverviewDetail(productDetailStr);
+				
+				//product detail info save
+				visitorProductDetailInfoService.saveProductDetailInfo(pdiBean);
+				productRedisService.saveProductDetailInfoToRedis(pdiBean);
+				
+				//product basic info save
+				visitorProductService.saveProduct(product);
+				productRedisService.saveUserProductToRedis(userTemp, product); //save to redis edit status
+			}
+		}
+		
+		ResultJson rj = new ResultJson();
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		super.sendJSONResponse(rj, response);
+	}
+	
 	@RequestMapping("savedetail")
 	public void savePorductDetail(HttpServletRequest request, 
 			HttpServletResponse response) {

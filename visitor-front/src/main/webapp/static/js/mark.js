@@ -129,6 +129,20 @@ function setGlobalCurrency() {
 	$.cookie('globalCurrency', globalCurrencyStr, { expires: 7 });
 }
 
+function setProductDescEditor() {
+	// product
+	CKEDITOR.replace( 'productOverviewDetailStr', {
+		on: {blur: onProductDescAndTitle},
+		coreStyles_bold: { element: 'b' },
+		coreStyles_italic: { element: 'i' },
+
+		fontSize_style: {
+			element: 'font',
+			attributes: { 'size': '#(size)' }
+		}
+	});
+}
+
 $(document).ready(function(){
 	$("#signbtn").click(function(){
 		$('.wrapwrapbox').show();
@@ -216,6 +230,9 @@ $(document).ready(function(){
 	//doProductImageRound();
 	getProductImageListOperation();
 	productBigImage();
+	
+	setGlobalCurrency();
+	setProductDescEditor();
 });
 
 $(window).scroll(function(){

@@ -102,6 +102,40 @@ function saveProductPriceSetting() {
 	}
 }
 
+function onProductDescAndTitle() {
+	var titleStr = $.trim($("#productTitle").val());
+	if (titleStr != "") {
+		var editor = CKEDITOR.instances.productOverviewDetailStr;
+		var editorProductDesc = $.trim(editor.getData());
+		if (editorProductDesc != "") {
+			var productDetail = {};
+			var productIdStr = $("#productIdPageTemp").html();
+			
+			productDetail.productIdStr = productIdStr;
+			productDetail.productOverviewTitleStr = titleStr;
+			productDetail.productOverviewDetailStr = editorProductDesc;
+		    
+		    var urlStrStr = pathGlobe + '/product/description';
+		    var jsonStr = $.toJSON(productDetail);
+		    
+		    $.ajax({ 
+		        type : 'POST',  
+		        contentType : 'application/json',  
+		        url : urlStrStr,  
+		        processData : false,  
+		        dataType : 'json',  
+		        data : jsonStr,  
+		        success : function(data) {  
+		        	alert("save description success");
+		        },  
+		        error : function() {  
+		            alert('Err...');  
+		        }  
+		    }); 
+		}
+	}
+}
+
 function saveProductDetails(pathOri)
 {
 	var form = $("#productMoreInfo");
