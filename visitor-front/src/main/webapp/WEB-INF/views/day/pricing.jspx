@@ -9,6 +9,7 @@
 <div class="nav">
 	<div class="nav-detail">
     	<span><a href="your-listing.html"><</a>${productInfo.productRoomType} in ${productInfo.productCity}</span>
+    	<div id="productIdPageTemp" style="display:none;">${productInfo.productId}</div>
     </div>
 </div>
 
@@ -43,9 +44,9 @@
                 	<span class="h">Currency</span>
 ]]>
 
-                	<select>
+                	<select id="productCurrencyChoose">
 						<c:forEach items="${currencyList}" var="currencyT" varStatus="status">
-							<c:if test="${currencyT == globalCurrencySetted}">
+							<c:if test="${currencyT == productCurrencySetted}">
 							    <option value="${currencyT}" selected="selected">${currencyT}</option>
 							</c:if>
 							<c:if test="${status.index != 0}">
@@ -58,10 +59,10 @@
 ]]>
                     <c:choose>
 						<c:when test="${not empty productInfo.productBaseprice}">
-						  <div><span>$</span><input type="text" value="${productInfo.productBaseprice}" /></div>
+						  <div><span>$</span><input id="productBaseCurrencyValue" type="text" value="${productInfo.productBaseprice}" onblur="saveProductPriceSetting();"/></div>
 						</c:when>
 						<c:when test="${empty productInfo.productBaseprice}">
-						  <div><span>$</span><input type="text" /></div>
+						  <div><span>$</span><input id="productBaseCurrencyValue" type="text" onblur="saveProductPriceSetting();"/></div>
 						</c:when>
 					</c:choose>
 <![CDATA[            

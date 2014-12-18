@@ -66,6 +66,8 @@ public class IndexController extends BasicController {
 	@Autowired
 	private ProductRedisService productRedisService;
 	
+	private String globalCurrencyStored;
+
 	/**
 	 * 
 	 */
@@ -112,7 +114,7 @@ public class IndexController extends BasicController {
 		}
 		
 		User user = (User) request.getAttribute(WebInfo.UserID);
-		boolean ifOwnedProduct = this.setProductModel(user, model, productIdStr);
+		boolean ifOwnedProduct = this.setProductModel(user, request, model, productIdStr);
 		if (!ifOwnedProduct) {
 			return "redirect:/index";
 		}
@@ -132,7 +134,7 @@ public class IndexController extends BasicController {
 		}
 		
 		User user = (User) request.getAttribute(WebInfo.UserID);
-		boolean ifOwnedProduct = this.setProductModel(user, model, productIdStr);
+		boolean ifOwnedProduct = this.setProductModel(user, request, model, productIdStr);
 		if (!ifOwnedProduct) {
 			return "redirect:/index";
 		}
@@ -152,7 +154,7 @@ public class IndexController extends BasicController {
 		}
 		
 		User user = (User) request.getAttribute(WebInfo.UserID);
-		boolean ifOwnedProduct = this.setProductModel(user, model, productIdStr);
+		boolean ifOwnedProduct = this.setProductModel(user, request, model, productIdStr);
 		if (!ifOwnedProduct) {
 			return "redirect:/index";
 		}
@@ -173,7 +175,7 @@ public class IndexController extends BasicController {
 		}
 		
 		User user = (User) request.getAttribute(WebInfo.UserID);
-		boolean ifOwnedProduct = this.setProductModel(user, model, productIdStr);
+		boolean ifOwnedProduct = this.setProductModel(user, request, model, productIdStr);
 		if (!ifOwnedProduct) {
 			return "redirect:/index";
 		}
@@ -194,7 +196,7 @@ public class IndexController extends BasicController {
 		}
 		
 		User user = (User) request.getAttribute(WebInfo.UserID);
-		boolean ifOwnedProduct = this.setProductModel(user, model, productIdStr);
+		boolean ifOwnedProduct = this.setProductModel(user, request, model, productIdStr);
 		if (!ifOwnedProduct) {
 			return "redirect:/index";
 		}
@@ -367,6 +369,7 @@ public class IndexController extends BasicController {
 			log.info("cookie globalCurrency: >" + globalCurrency + "<");
 			
 			if (StringUtils.isNotEmpty(globalCurrency)) {
+				this.setGlobalCurrencyStored(globalCurrency);
 				model.addAttribute("globalCurrencySetted", globalCurrency);
 			}
 			
@@ -430,14 +433,27 @@ public class IndexController extends BasicController {
 	}
 	
 	//在页面中插入product数据
-	private boolean setProductModel(User user, Model model, String productIdStr) {
+	private boolean setProductModel(User user, HttpServletRequest request, Model model, String productIdStr) {
 		Product product = productRedisService.getUserProductFromRedis(user, productIdStr);
 		if (product == null) {
 			return false;
 		} else {
 			model.addAttribute("productInfo", product);
+			if (StringUtils.isNotEmpty(product.getProductCurrency())) {
+				model.addAttribute("productCurrencySetted", product.getProductCurrency());
+			} else {
+				model.addAttribute("productCurrencySetted", this.getGlobalCurrencyStored());
+			}
 			return true;
 		}
+	}
+	
+	public String getGlobalCurrencyStored() {
+		return globalCurrencyStored;
+	}
+
+	public void setGlobalCurrencyStored(String globalCurrencyStored) {
+		this.globalCurrencyStored = globalCurrencyStored;
 	}
 	
 	

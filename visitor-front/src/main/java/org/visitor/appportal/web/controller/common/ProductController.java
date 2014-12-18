@@ -138,6 +138,41 @@ public class ProductController extends BasicController {
 		super.sendJSONResponse(rj, response);
 	}
 	
+	@RequestMapping("pricing")
+	public void productPricing(HttpServletRequest request, 
+			HttpServletResponse response) {
+		ProductDetailTemp pdt = super.getProductDetailTempJson(request);
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		
+		Product product = productRedisService.getUserProductFromRedis(userTemp, pdt.getProductIdStr());
+		
+		Integer result = 0;
+		String resultDesc = ProductInfo.PRODUCT_DETAIL_UPDATE_SUCCESS;
+		
+		if (product == null) {
+			result = -1;
+			resultDesc = ProductInfo.PRODUCT_NOTFOUND_FORUPDATE;
+		} else if (product.getProductStatus().intValue() == ProductInfo.EDIT_STATUS.intValue()) {
+			// do store and to redis to mongo stuff
+			String productCurrencyStr = pdt.getProductCurrencyStr();
+			String productBasePricingStr = pdt.getProductBasepriceStr();
+			if (StringUtils.isNotEmpty(productCurrencyStr) &&
+					StringUtils.isNotEmpty(productBasePricingStr)) {
+				product.setProductCurrency(productCurrencyStr);
+				product.setProductBaseprice(productBasePricingStr);
+			}
+			
+			visitorProductService.saveProduct(product);
+			productRedisService.saveUserProductToRedis(userTemp, product); //save to redis edit status
+		}
+		
+		ResultJson rj = new ResultJson();
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		super.sendJSONResponse(rj, response);
+	}
+	
 	@RequestMapping("savedetail")
 	public void savePorductDetail(HttpServletRequest request, 
 			HttpServletResponse response) {

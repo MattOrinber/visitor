@@ -26,7 +26,7 @@ public class Product {
 	private String productRoomType;
 	private String productAccomodates;
 	private Integer productAvailabletype;
-	private Integer productBaseprice;
+	private String productBaseprice;
 	private String productCurrency;
 	private String productOverviewtitle;
 	private String productPhotopaths;
@@ -95,11 +95,12 @@ public class Product {
 		this.productAvailabletype = productAvailabletype;
 	}
 	
-	@Column(name = "product_baseprice", precision = 10)
-	public Integer getProductBaseprice() {
+	@Length(max = 31)
+	@Column(name = "product_baseprice")
+	public String getProductBaseprice() {
 		return productBaseprice;
 	}
-	public void setProductBaseprice(Integer productBaseprice) {
+	public void setProductBaseprice(String productBaseprice) {
 		this.productBaseprice = productBaseprice;
 	}
 	

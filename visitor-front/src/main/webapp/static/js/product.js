@@ -37,7 +37,7 @@ function createProduct()
 
 function saveProductAvailableType(availType) {
 	var productDetail = {};
-	var productIdStr = $.cookie('currentProductID');
+	var productIdStr = $("#productIdPageTemp").html();
 	var productAvailableTypeStr = availType;
 	
 	productDetail.productIdStr = productIdStr;
@@ -60,6 +60,38 @@ function saveProductAvailableType(availType) {
             alert('Err...');  
         }  
     }); 
+}
+
+function saveProductPriceSetting() {
+	var productBasePriceValue = $.trim($("#productBaseCurrencyValue").val());
+	
+	if (productBasePriceValue != "") {
+		var productDetail = {};
+		var productIdStr = $("#productIdPageTemp").html();
+		var productCurrencyChoose = $("#productCurrencyChoose").val();
+		
+		productDetail.productIdStr = productIdStr;
+		productDetail.productCurrencyStr = productCurrencyChoose;
+		productDetail.productBasepriceStr = productBasePriceValue;
+	    
+	    var urlStrStr = pathGlobe + '/product/pricing';
+	    var jsonStr = $.toJSON(productDetail);
+	    
+	    $.ajax({ 
+	        type : 'POST',  
+	        contentType : 'application/json',  
+	        url : urlStrStr,  
+	        processData : false,  
+	        dataType : 'json',  
+	        data : jsonStr,  
+	        success : function(data) {  
+	        	alert("save price success");
+	        },  
+	        error : function() {  
+	            alert('Err...');  
+	        }  
+	    }); 
+	}
 }
 
 function saveProductDetails(pathOri)
