@@ -199,8 +199,8 @@ public class ProductController extends BasicController {
 			
 			String productBasepriceStr = pdt.getProductBasepriceStr();
 			if (StringUtils.isNotEmpty(productBasepriceStr)) {
-				Integer productBaseprice = Integer.valueOf(productBasepriceStr);
-				product.setProductBaseprice(productBaseprice);
+				//Integer productBaseprice = Integer.valueOf(productBasepriceStr);
+				product.setProductBaseprice(productBasepriceStr);
 			}
 			
 			product.setProductRoomnum(pdt.getProductBedroomNumStr());
