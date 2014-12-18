@@ -73,7 +73,32 @@
             </div>
             <div class="down">
 				<span>City *</span>
+]]>
                 <span class="search"><input id="searchCityInput" type="text" /></span>
+                <c:choose>
+					<c:when test="${not empty productInfo.productCity}">
+					    <span class="search"><input id="searchCityInput" onblur="hideCities(this);" onfocus="showCities(this);" onkeyup="displayPosResult(this);" type="text" value="${productInfo.productCity}"/></span>
+					</c:when>
+					<c:when test="${empty productInfo.productCity}">
+					    <span class="search"><input id="searchCityInput" onblur="hideCities(this);" onfocus="showCities(this);" onkeyup="displayPosResult(this);" type="text" /></span>
+					</c:when>
+				</c:choose>
+<![CDATA[
+				<span></span>
+				<div id="productCityPart" style="display: none;">
+					<ul id="destinationPart">
+						<li>Beijing</li>
+						<li>Tokyo</li>
+						<li>New York</li>
+						<li>London</li>
+						<li>Berlin</li>
+						<li>Paris</li>
+						<li>Chicago</li>
+						<li>Shanghai</li>
+					</ul>
+				</div>
+				
+				<div id="map_canvas" style="width:600px; height:400px"></div>
             </div>
         </div>
     </div>

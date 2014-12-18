@@ -45,6 +45,7 @@ function doImage() {
 	int=setInterval(autoshow, 4000);
 }
 
+//产品可用类型页面设置
 function doCanlendarPage() { //product available type choose
 	$("#showfirst").click(function(){
 		$('#first').show();
@@ -132,6 +133,7 @@ function setGlobalCurrency() {
 	$.cookie('globalCurrency', globalCurrencyStr, { expires: 7 });
 }
 
+//产品详情
 function setProductDiscValue() {
 	var editor = CKEDITOR.instances.productOverviewDetailStr;
 	editor.insertHtml( productDetailStrGlobal );
@@ -141,9 +143,16 @@ function setProductDescEditor() {
 	// product
 	productDetailStrGlobal = $("#productOverviewDetailStr").html();
 	CKEDITOR.replace( 'productOverviewDetailStr', {
-		on: {blur: onProductDescAndTitle,instanceReady:setProductDiscValue},
-		coreStyles_bold: { element: 'b' },
-		coreStyles_italic: { element: 'i' },
+		on: {
+			blur: onProductDescAndTitle,
+			instanceReady:setProductDiscValue
+		},
+		coreStyles_bold: { 
+			element: 'b' 
+		},
+		coreStyles_italic: { 
+			element: 'i' 
+		},
 
 		fontSize_style: {
 			element: 'font',
