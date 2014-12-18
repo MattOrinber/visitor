@@ -43,9 +43,27 @@
                 </div>
                 <div class="price">
                 	<span class="h">Title *</span>
-                    <input id="productTitle" type="text" />
+]]>
+					<c:choose>
+						<c:when test="${not empty productInfo.productOverviewtitle}">
+						    <input id="productTitle" type="text" value="${productInfo.productOverviewtitle}"/>
+						</c:when>
+						<c:when test="${empty productInfo.productOverviewtitle}">
+						    <input id="productTitle" type="text" />
+						</c:when>
+					</c:choose>
+<![CDATA[
                     <span class="h" style="margin-top:15px;">Details *</span>
-                    <textarea id="productOverviewDetailStr"></textarea>
+]]>
+					<c:choose>
+						<c:when test="${not empty productDetailInfo.pdiProductOverviewDetail}">
+						    <textarea id="productOverviewDetailStr">${productDetailInfo.pdiProductOverviewDetail}</textarea>
+						</c:when>
+						<c:when test="${empty productDetailInfo.pdiProductOverviewDetail}">
+						    <textarea id="productOverviewDetailStr"></textarea>
+						</c:when>
+					</c:choose>
+<![CDATA[
                     <span class="h" style="margin-top:15px;">Duration</span>
                     <input type="text" />
                     <span class="h" style="margin-top:15px;">Group</span>
