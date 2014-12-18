@@ -1,3 +1,6 @@
+//global value area
+var productDetailStrGlobal = "";
+
 function doImage() {
 	var aImg = $('#focus ul li');
 	var iSize = aImg.size();
@@ -129,10 +132,16 @@ function setGlobalCurrency() {
 	$.cookie('globalCurrency', globalCurrencyStr, { expires: 7 });
 }
 
+function setProductDiscValue() {
+	var editor = CKEDITOR.instances.productOverviewDetailStr;
+	editor.setData( productDetailStrGlobal );
+}
+
 function setProductDescEditor() {
 	// product
+	productDetailStrGlobal = $("#productOverviewDetailStr").html();
 	CKEDITOR.replace( 'productOverviewDetailStr', {
-		on: {blur: onProductDescAndTitle},
+		on: {blur: onProductDescAndTitle,instanceReady:setProductDiscValue},
 		coreStyles_bold: { element: 'b' },
 		coreStyles_italic: { element: 'i' },
 
@@ -227,12 +236,11 @@ $(document).ready(function(){
 	
 	doImage();
 	doCanlendarPage();
+	setGlobalCurrency();
+	setProductDescEditor();
 	//doProductImageRound();
 	getProductImageListOperation();
 	productBigImage();
-	
-	setGlobalCurrency();
-	setProductDescEditor();
 });
 
 $(window).scroll(function(){
