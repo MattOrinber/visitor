@@ -63,8 +63,8 @@ function saveProductAvailableType(availType) {
 }
 
 function saveProductPriceSetting() {
-	var regExFloat = "^\\d+(\\.\\d+)?$";
-	var regExInt = "^[0-9]*[1-9][0-9]*$";
+	var regExFloat = /^\d+(\.\d+)?$/;
+    var regExInt = /^[0-9]*[1-9][0-9]*$/;
 	var productBasePriceValue = $.trim($("#productBaseCurrencyValue").val());
 	
 	
