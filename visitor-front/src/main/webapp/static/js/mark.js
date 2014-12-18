@@ -134,7 +134,7 @@ function setGlobalCurrency() {
 
 function setProductDiscValue() {
 	var editor = CKEDITOR.instances.productOverviewDetailStr;
-	editor.setData( productDetailStrGlobal );
+	editor.insertHtml( productDetailStrGlobal );
 }
 
 function setProductDescEditor() {
