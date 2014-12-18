@@ -136,6 +136,36 @@ function onProductDescAndTitle() {
 	}
 }
 
+function productAddressUpdate() {
+	var inputNodeValue = $.trim($("#searchCityInput").val());
+	
+	if (inputNodeValue != "") {
+		var productAddress = {};
+		var productIdStr = $("#productIdPageTemp").html();
+		
+		productAddress.productIdStr = productIdStr;
+		productAddress.productAddressDetailStr = inputNodeValue;
+	    
+	    var urlStrStr = pathGlobe + '/product/address';
+	    var jsonStr = $.toJSON(productAddress);
+	    
+	    $.ajax({ 
+	        type : 'POST',  
+	        contentType : 'application/json',  
+	        url : urlStrStr,  
+	        processData : false,  
+	        dataType : 'json',  
+	        data : jsonStr,  
+	        success : function(data) {  
+	        	alert("save address success");
+	        },  
+	        error : function() {  
+	            alert('Err...');  
+	        }  
+	    }); 
+	}
+}
+
 function saveProductDetails(pathOri)
 {
 	var form = $("#productMoreInfo");

@@ -247,6 +247,11 @@ $(document).ready(function(){
 	doCanlendarPage();
 	setGlobalCurrency();
 	setProductDescEditor();
+	
+	var mapNode = $("#map_canvas");
+	if (mapNode != null) {
+		mapInitialize();
+	}
 	//doProductImageRound();
 	getProductImageListOperation();
 	productBigImage();

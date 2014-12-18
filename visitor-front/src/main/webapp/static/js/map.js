@@ -31,6 +31,7 @@ function getPos() {
 
 function hideCities(node) {
 	$("#productCityPart").hide();
+	productAddressUpdate();
 }
 
 function showCities(node) {
