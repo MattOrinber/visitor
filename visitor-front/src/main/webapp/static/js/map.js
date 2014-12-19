@@ -1,5 +1,6 @@
 var geocoder;
 var map;
+
 function mapInitialize() {
 	geocoder = new google.maps.Geocoder();
 	var latlng = new google.maps.LatLng(-34.397, 150.644);
@@ -30,20 +31,22 @@ function getPos() {
 }
 
 function hideCities(node) {
-	$("#productCityPart").hide();
 	productAddressUpdate();
 }
 
 function showCities(node) {
-	$("#productCityPart").show();
 }
 
 function map_callback(results, status) {
 	if (status == google.maps.places.PlacesServiceStatus.OK) {
-		$("#destinationPart").html("");
+		var searchSuggest = [];
 		for (var i = 0; i < results.length; i++) {
-			$("#destinationPart").append('<li onclick="setPosValue(this)">'+results[i].name+'</li>');
+			searchSuggest[i] = results[i].name;
 		}
+		
+		$("#searchCityInput").autocomplete({
+		      source: searchSuggest
+	    });
 	}
 }
 
@@ -57,12 +60,4 @@ function displayPosResult(node) {
 		service = new google.maps.places.PlacesService(map);
 		service.textSearch(request, map_callback);
 	}
-}
-
-function setPosValue(node) {
-	var valueT = $(node).html();
-	
-	var inputNode = $("#searchCityInput");
-	inputNode.val(valueT);
-	hideCities(inputNode);
 }

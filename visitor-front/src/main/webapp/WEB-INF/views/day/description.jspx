@@ -47,24 +47,10 @@
 ]]>
 					<c:choose>
 						<c:when test="${not empty productInfo.productOverviewtitle}">
-						    <input id="productTitle" type="text" value="${productInfo.productOverviewtitle}">
-						    	<span></span>
-								<div id="productCityPart" style="display: none;">
-									<ul id="destinationPart">
-										<li> </li>
-									</ul>
-								</div>
-						    </input>
+						    <input id="productTitle" type="text" value="${productInfo.productOverviewtitle}"/>
 						</c:when>
 						<c:when test="${empty productInfo.productOverviewtitle}">
-						    <input id="productTitle" type="text" >
-						    	<span></span>
-								<div id="productCityPart" style="display: none;">
-									<ul id="destinationPart">
-										<li> </li>
-									</ul>
-								</div>
-						    </input>
+						    <input id="productTitle" type="text" />
 						</c:when>
 					</c:choose>
 <![CDATA[
@@ -89,7 +75,6 @@
 					</c:when>
 				</c:choose>
 <![CDATA[
-				
 				<div id="map_canvas" style="width:600px; height:400px"></div>
             </div>
         </div>
