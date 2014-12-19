@@ -246,7 +246,7 @@ public class ProductController extends BasicController {
 			product.setProductAddressid(productAddress.getPaId());
 			visitorProductService.saveProduct(product);
 			productRedisService.saveUserProductToRedis(userTemp, product);
-			productRedisService.saveProductToRedis(product); //online
+			//productRedisService.saveProductToRedis(product); //online
 			productRedisService.saveProductAddressToRedis(productAddress);
 		}
 		
