@@ -57,10 +57,14 @@
 ]]>
 					<c:choose>
 						<c:when test="${not empty productDetailInfo.pdiProductOverviewDetail}">
+<![CDATA[
 						    <textarea id="productOverviewDetailStr">${productDetailInfo.pdiProductOverviewDetail}</textarea>
+]]>
 						</c:when>
 						<c:when test="${empty productDetailInfo.pdiProductOverviewDetail}">
+<![CDATA[
 						    <textarea id="productOverviewDetailStr"></textarea>
+]]>
 						</c:when>
 					</c:choose>
 <![CDATA[
