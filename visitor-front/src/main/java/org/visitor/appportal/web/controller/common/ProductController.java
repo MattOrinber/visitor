@@ -219,6 +219,44 @@ public class ProductController extends BasicController {
 		super.sendJSONResponse(rj, response);
 	}
 	
+	@RequestMapping("address")
+	public void productAddress(HttpServletRequest request, 
+			HttpServletResponse response) {
+		ProductAddressTemp pdt = super.getProductAddressTempJson(request);
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		
+		Product product = productRedisService.getUserProductFromRedis(userTemp, pdt.getProductIdStr());
+		
+		Integer result = 0;
+		String resultDesc = ProductInfo.PRODUCT_ADDRESS_SAVE_SUCCESS;
+		
+		if (product == null) {
+			result = -1;
+			resultDesc = ProductInfo.PRODUCT_NOTFOUND_FORUPDATE;
+		} else {
+			// do store and to redis to mongo stuff
+			
+			ProductAddress productAddress = new ProductAddress();
+			
+			productAddress.setPaProductid(product.getProductId());
+			productAddress.setPaDetail(pdt.getProductAddressDetailStr());
+			
+			visitorProductAddressService.saveProductAddress(productAddress);
+			
+			product.setProductAddressid(productAddress.getPaId());
+			visitorProductService.saveProduct(product);
+			productRedisService.saveUserProductToRedis(userTemp, product);
+			productRedisService.saveProductToRedis(product); //online
+			productRedisService.saveProductAddressToRedis(productAddress);
+		}
+		
+		ResultJson rj = new ResultJson();
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		super.sendJSONResponse(rj, response);
+	}
+	
 	@RequestMapping("savedetail")
 	public void savePorductDetail(HttpServletRequest request, 
 			HttpServletResponse response) {
