@@ -85,7 +85,7 @@ public class UserController extends BasicController{
 			//save redis
 			userRedisService.saveUserPassword(user);
 			
-			String resultToken = this.getAndSaveUserToken(response, mailStrParam, passwordStrParam);
+			String resultToken = this.getAndSaveUserToken(response, mailStrParam, passwordStrParam, true);
 			
 			rj.setUserName(user.getUserEmail());
 			rj.setUserEmail(user.getUserEmail());
@@ -121,7 +121,7 @@ public class UserController extends BasicController{
 		ResultJson rj = checkIfTheUserLegal(mailStrParam, passwordStrParam);
 		
 		if (rj.getResult() >= 0) {
-			String tokenStr = this.getAndSaveUserToken(response, mailStrParam, passwordStrParam);
+			String tokenStr = this.getAndSaveUserToken(response, mailStrParam, passwordStrParam, false);
 			userRedisService.saveUserToken(mailStrParam, tokenStr);
 			
 			rj.setToken(tokenStr);
@@ -440,9 +440,23 @@ public class UserController extends BasicController{
 		return resultJson;
 	}
 	
-	private String getAndSaveUserToken(HttpServletResponse response, String mailStrParam, String passwordStrParam) {
+	private String getAndSaveUserToken(HttpServletResponse response, String mailStrParam, String passwordStrParam, boolean ifNeedCreate) {
 		User user = visitorUserService.getUserFromEmailAndPassword(mailStrParam, passwordStrParam);
-		UserTokenInfo uti = new UserTokenInfo();
+		
+		UserTokenInfo uti = null;
+		
+		if (ifNeedCreate) {
+			uti = new UserTokenInfo();
+		} else {
+			uti = userRedisService.getUserTokenInfo(mailStrParam);
+			if (uti == null) {
+				uti = visitorUserTokenInfoService.getUserTokenInfoByUserEmail(mailStrParam);
+			}
+			
+			if (uti == null) {
+				uti = new UserTokenInfo();
+			}
+		}
 		
 		String accessTokenOri = UUID.randomUUID().toString();
 		String accessTokenStr = EncryptionUtil.getMD5(accessTokenOri);

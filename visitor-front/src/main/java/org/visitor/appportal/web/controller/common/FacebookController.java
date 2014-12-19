@@ -87,38 +87,77 @@ public class FacebookController extends BasicController {
 								log.info("userPictureURLFinal: >" + userPictureURLFinal +"<");
 								
 								//add user and add user
-								User user = new User();
-								UserTokenInfo uti = new UserTokenInfo();
-								user.setUserEmail(ubTemp.getEmail());
-								user.setUserPassword("123456");
-								user.setUserType(UserTypeEnum.FacebookUser.getValue());
-								user.setUserStatus(0);
-								user.setUserFirstName(ubTemp.getFirst_name());
-								user.setUserLastName(ubTemp.getLast_name());
-								user.setUserGender(MixAndMatchUtils.getGenderInteger(ubTemp.getGender()));
-								user.setUserFacebookId(ubTemp.getId());
-								user.setUserPhotourl(userPictureURLFinal);
-								long currentMilis = System.currentTimeMillis();
-								Date registerDate = new Date(currentMilis);
-								user.setUserRegisterDate(registerDate);
+								String emailStrFacebook = ubTemp.getEmail();
+								User user = userRedisService.getUserPassword(emailStrFacebook);
+								if (user == null) {
+									user = visitorUserService.findUserByEmail(emailStrFacebook);
+								}
 								
-								visitorUserService.saveUser(user);
-								userRedisService.saveUserPassword(user);
-								
-								uti.setUfiUserId(user.getUserId());
-								uti.setUfiUserEmail(user.getUserEmail());
-								uti.setUfiAuthCode(codeStr);
-								uti.setUfiAccessToken(tbTemp.getAccess_token());
-								uti.setUfiDetailUrl(ubTemp.getLink());
-								
-								long expireFinal = currentMilis + 1000*tbTemp.getExpires().longValue();
-								uti.setUfiExpireDate(new Date(expireFinal));
-								
-								visitorUserTokenInfoService.saveUserTokenInfo(uti);
-								userRedisService.saveUserTokenInfo(uti);
-								MixAndMatchUtils.setUserCookie(response, user.getUserEmail(), tbTemp.getAccess_token(), tbTemp.getExpires().intValue());
-								
-								MixAndMatchUtils.setUserModel(model, user);
+								if (user == null) {
+									user = new User();
+									UserTokenInfo uti = new UserTokenInfo();
+									
+									user.setUserEmail(ubTemp.getEmail());
+									user.setUserPassword("123456");
+									user.setUserType(UserTypeEnum.FacebookUser.getValue());
+									user.setUserStatus(0);
+									user.setUserFirstName(ubTemp.getFirst_name());
+									user.setUserLastName(ubTemp.getLast_name());
+									user.setUserGender(MixAndMatchUtils.getGenderInteger(ubTemp.getGender()));
+									user.setUserFacebookId(ubTemp.getId());
+									user.setUserPhotourl(userPictureURLFinal);
+									long currentMilis = System.currentTimeMillis();
+									Date registerDate = new Date(currentMilis);
+									user.setUserRegisterDate(registerDate);
+									
+									visitorUserService.saveUser(user);
+									userRedisService.saveUserPassword(user);
+									
+									uti.setUfiUserId(user.getUserId());
+									uti.setUfiUserEmail(user.getUserEmail());
+									uti.setUfiAuthCode(codeStr);
+									uti.setUfiAccessToken(tbTemp.getAccess_token());
+									uti.setUfiDetailUrl(ubTemp.getLink());
+									
+									long expireFinal = currentMilis + 1000*tbTemp.getExpires().longValue();
+									uti.setUfiExpireDate(new Date(expireFinal));
+									
+									visitorUserTokenInfoService.saveUserTokenInfo(uti);
+									userRedisService.saveUserTokenInfo(uti);
+									MixAndMatchUtils.setUserCookie(response, user.getUserEmail(), tbTemp.getAccess_token(), tbTemp.getExpires().intValue());
+									
+									MixAndMatchUtils.setUserModel(model, user);
+								} else {
+									Date loginDate = new Date();
+									user.setUserLastLoginTime(loginDate);
+									visitorUserService.saveUser(user);
+									userRedisService.saveUserPassword(user);
+									
+									UserTokenInfo uti = userRedisService.getUserTokenInfo(emailStrFacebook);
+									if (uti == null) {
+										uti = visitorUserTokenInfoService.getUserTokenInfoByUserEmail(emailStrFacebook);
+									}
+									if (uti == null) {
+										uti = new UserTokenInfo();
+									}
+									
+									uti.setUfiUserId(user.getUserId());
+									uti.setUfiUserEmail(user.getUserEmail());
+									uti.setUfiAuthCode(codeStr);
+									uti.setUfiAccessToken(tbTemp.getAccess_token());
+									uti.setUfiDetailUrl(ubTemp.getLink());
+									
+									long currentMilis = System.currentTimeMillis();
+									
+									long expireFinal = currentMilis + 1000*tbTemp.getExpires().longValue();
+									uti.setUfiExpireDate(new Date(expireFinal));
+									
+									visitorUserTokenInfoService.saveUserTokenInfo(uti);
+									userRedisService.saveUserTokenInfo(uti);
+									MixAndMatchUtils.setUserCookie(response, user.getUserEmail(), tbTemp.getAccess_token(), tbTemp.getExpires().intValue());
+									
+									MixAndMatchUtils.setUserModel(model, user);
+								}
 							}
 						}
 					}

@@ -23,6 +23,12 @@ public class VisitorUserService {
 	}
 	
 	@Transactional
+	public User findUserByEmail(String emailStr) {
+		User user = visitorUserRepository.findUserByEmail(emailStr);
+		return user;
+	}
+	
+	@Transactional
 	public long checkUserCount(String emailStr) {
 		long userCount = visitorUserRepository.findUserCountByEmail(emailStr);
 		return userCount;
