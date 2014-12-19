@@ -290,7 +290,7 @@ public class ProductController extends BasicController {
 				meta.setContentType(fileProductPic.getContentType());
 				
 				try {
-					String fileOriUrl= "/product/"+product.getProductId()+"/"+fileProductPic.getOriginalFilename();
+					String fileOriUrl= "product/"+product.getProductId()+"/"+fileProductPic.getOriginalFilename();
 					String awsBucketName = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic);
 					s3Service.createNewFile(fileOriUrl, fileProductPic.getInputStream(), awsBucketName, meta);
 					
@@ -298,6 +298,7 @@ public class ProductController extends BasicController {
 					
 					ProductPicture productPic = new ProductPicture();
 					productPic.setProductPicProductId(product.getProductId());
+					productPic.setProductPicProductUrl(fileOriUrl);
 					productPic.setProductPicStatus(StatusTypeEnum.Active.ordinal());
 					
 					visitorProductPictureService.saveProductPicture(productPic);
