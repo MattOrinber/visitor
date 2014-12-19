@@ -7,7 +7,8 @@ function doProductImageUpload(pathOri) {
         $("#uploadProductPicForm").ajaxSubmit({
         	type: "post",
         	url: picUploadUrl,
-        	success: function (data) {
+        	success: function (dataT) {
+        		var data = $.secureEvalJSON(dataT);
         		if (data.result == 0) {
 	        		var imageUrl =  data.imageUrl;
 	        		$("#resultProductPicUpload").append("<span>" + imageUrl + "</span><br />");

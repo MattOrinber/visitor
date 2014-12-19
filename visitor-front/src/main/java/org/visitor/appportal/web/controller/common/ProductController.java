@@ -307,7 +307,7 @@ public class ProductController extends BasicController {
 					result = 0;
 					resultDesc = ProductInfo.PRODUCT_PICTURE_SAVE_SUCCESS;
 					
-					String displayUrl = imgDomain + awsBucketName + fileOriUrl; //实际访问图片的全路径
+					String displayUrl = imgDomain + awsBucketName + "/" + fileOriUrl; //实际访问图片的全路径
 					resultJ.setImageUrl(displayUrl);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
