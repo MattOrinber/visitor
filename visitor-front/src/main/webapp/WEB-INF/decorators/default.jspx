@@ -9,6 +9,7 @@
 <link href="${pageContext.request.contextPath}/static/css/head.css" rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/static/css/${pageName}.css" rel="stylesheet" type="text/css" />
 <script src="${pageContext.request.contextPath}/static/js/jquery-1.11.2.js" type="text/javascript"><c:out value=" " /></script>
+<script src="${pageContext.request.contextPath}/static/js/jquery-ui.min.js" type="text/javascript"><c:out value=" " /></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery.md5.js"><c:out value=" " /></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery-validation-1.8.0/jquery.validate.js"><c:out value=" " /></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery.json-2.4.js"><c:out value="" /></script>
