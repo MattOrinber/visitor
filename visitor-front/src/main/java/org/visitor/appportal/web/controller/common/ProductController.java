@@ -292,7 +292,7 @@ public class ProductController extends BasicController {
 				try {
 					String fileOriUrl= "/product/"+product.getProductId()+"/"+fileProductPic.getOriginalFilename();
 					s3Service.createNewFile(fileOriUrl, fileProductPic.getInputStream(), MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic), meta);
-					String finalFileUrl = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic) + fileOriUrl;
+					String finalFileUrl = fileOriUrl;
 					
 					ProductPicture productPic = new ProductPicture();
 					productPic.setProductPicProductId(product.getProductId());
@@ -303,7 +303,7 @@ public class ProductController extends BasicController {
 					
 					result = 0;
 					resultDesc = ProductInfo.PRODUCT_PICTURE_SAVE_SUCCESS;
-					resultJ.setImageUrl(finalFileUrl);
+					resultJ.setImageUrl(MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic) + finalFileUrl);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
