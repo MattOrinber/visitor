@@ -12,6 +12,7 @@ public class ResultJson {
 	private Date userLoginTime;
 	private String userPicUrl;
 	private String userName;
+	private String imageUrl;
 	
 	private Long productId;
 	public Integer getResult() {
@@ -62,5 +63,11 @@ public class ResultJson {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 }

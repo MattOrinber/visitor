@@ -15,6 +15,7 @@ import org.visitor.appportal.visitor.domain.ProductAddress;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
 import org.visitor.appportal.visitor.domain.ProductMultiPrice;
 import org.visitor.appportal.visitor.domain.ProductOperation;
+import org.visitor.appportal.visitor.domain.ProductPicture;
 import org.visitor.appportal.visitor.domain.User;
 
 @Service("productRedisService")
@@ -184,6 +185,37 @@ public class ProductRedisService {
 			String valueT = (String) objMap.get(obj);
 			
 			ProductOperation poT = objectMapperWrapperForVisitor.convertToProductOperation(valueT);
+			list.add(poT);
+		}
+		
+		return list;
+	}
+	
+	//product picture
+	public void setProductPictureToRedis(ProductPicture productPic) {
+		String key = RedisKeysForVisitor.getVisitorProductPictureKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + String.valueOf(productPic.getProductPicProductId().longValue());
+		String keyT = String.valueOf(productPic.getProductPicId().longValue());
+		String valueT = objectMapperWrapperForVisitor.convert2String(productPic);
+		
+		compressStringRedisVisitorTemplate.opsForHash().put(key, keyT, valueT);
+	}
+	
+	public void deleteProductPictureFromRedis(ProductPicture productPic) {
+		String key = RedisKeysForVisitor.getVisitorProductPictureKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + String.valueOf(productPic.getProductPicProductId().longValue());
+		String keyT = String.valueOf(productPic.getProductPicId().longValue());
+		
+		compressStringRedisVisitorTemplate.opsForHash().delete(key, keyT);
+	}
+	
+	public List<ProductPicture> getPictureListOfOneProduct(Long pid) {
+		List<ProductPicture> list = new ArrayList<ProductPicture>();
+		String key = RedisKeysForVisitor.getVisitorProductPictureKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + String.valueOf(pid.longValue());
+		
+		Map<Object, Object> objMap = compressStringRedisVisitorTemplate.opsForHash().entries(key);
+		for (Object obj: objMap.keySet()) {
+			String valueT = (String) objMap.get(obj);
+			
+			ProductPicture poT = objectMapperWrapperForVisitor.convertToProductPicture(valueT);
 			list.add(poT);
 		}
 		

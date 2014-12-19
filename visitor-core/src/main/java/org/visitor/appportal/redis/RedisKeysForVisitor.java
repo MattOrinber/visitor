@@ -90,6 +90,10 @@ public class RedisKeysForVisitor {
     	return "visitor-site-product-operation";
     }
     
+    public static String getVisitorProductPictureKey() {
+    	return "visitor-site-product-picture";
+    }
+    
     public static String getUserInternalMailToMeKey() {
     	return "visitor-site-user-internal-mail-unread" + getVisitorRedisWeakSplit();
     }

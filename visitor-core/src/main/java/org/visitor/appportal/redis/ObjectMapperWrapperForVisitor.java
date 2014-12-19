@@ -7,6 +7,7 @@ import org.visitor.appportal.visitor.domain.ProductAddress;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
 import org.visitor.appportal.visitor.domain.ProductMultiPrice;
 import org.visitor.appportal.visitor.domain.ProductOperation;
+import org.visitor.appportal.visitor.domain.ProductPicture;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.visitor.domain.UserInternalMail;
 import org.visitor.appportal.visitor.domain.UserTokenInfo;
@@ -67,6 +68,13 @@ public class ObjectMapperWrapperForVisitor {
 			return null;
 		}
 		return JSON.parseObject(key, ProductOperation.class);
+	}
+	
+	public ProductPicture convertToProductPicture(String key) {
+		if (StringUtils.isEmpty(key)) {
+			return null;
+		}
+		return JSON.parseObject(key, ProductPicture.class);
 	}
 	
 	public ProductDetailInfo convertToProductDetailInfo(String key) {

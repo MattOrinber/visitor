@@ -8,6 +8,7 @@
 <div class="nav">
 	<div class="nav-detail">
     	<span><a href="your-listing.html"><</a>${productInfo.productRoomType} in ${productInfo.productCity}</span>
+    	<div id="productIdPageTemp" style="display:none;">${productInfo.productId}</div>
     </div>
 </div>
 
@@ -36,7 +37,13 @@
 			<img src="${imgPathOrigin}/static/photo.jpg" /><br />
             <h2>Add a photo or two!</h2>
             <p>Or three, or more! Guests love photos that highlight the features of your space.</p>
-            <a href="">Add Photos</a>
+            
+            <form id="uploadProductPicForm" enctype="multipart/form-data">
+            	<span>Image:</span><input name="fileProductIcon" id="fileProductIcon" size="40" type="file" />
+            	<input name="upload" type="button" value="Upload" onclick="doProductImageUpload(${pageContext.request.contextPath});" />
+            </form>
+            <br />
+            <div id="resultProductPicUpload"></div>
         </div>
     </div>
 </div>

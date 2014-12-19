@@ -1,5 +1,6 @@
 package org.visitor.appportal.web.controller.common;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,10 +16,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.visitor.appportal.service.newsite.S3Service;
 import org.visitor.appportal.service.newsite.VisitorProductAddressService;
 import org.visitor.appportal.service.newsite.VisitorProductDetailInfoService;
 import org.visitor.appportal.service.newsite.VisitorProductMultiPriceService;
 import org.visitor.appportal.service.newsite.VisitorProductOperationService;
+import org.visitor.appportal.service.newsite.VisitorProductPictureService;
 import org.visitor.appportal.service.newsite.VisitorProductService;
 import org.visitor.appportal.service.newsite.VisitorUserInternalMailService;
 import org.visitor.appportal.service.newsite.redis.ProductRedisService;
@@ -35,13 +40,17 @@ import org.visitor.appportal.visitor.domain.ProductAddress;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
 import org.visitor.appportal.visitor.domain.ProductMultiPrice;
 import org.visitor.appportal.visitor.domain.ProductOperation;
+import org.visitor.appportal.visitor.domain.ProductPicture;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.visitor.domain.UserInternalMail;
+import org.visitor.appportal.web.utils.MixAndMatchUtils;
 import org.visitor.appportal.web.utils.ProductInfo;
 import org.visitor.appportal.web.utils.ProductInfo.StatusTypeEnum;
 import org.visitor.appportal.web.utils.RegisterInfo;
 import org.visitor.appportal.web.utils.RegisterInfo.UserMailStatusEnum;
 import org.visitor.appportal.web.utils.WebInfo;
+
+import com.amazonaws.services.s3.model.ObjectMetadata;
 
 @Controller
 @RequestMapping("/product/")
@@ -61,9 +70,13 @@ public class ProductController extends BasicController {
 	@Autowired
 	private VisitorProductOperationService visitorProductOperationService;
 	@Autowired
+	private VisitorProductPictureService visitorProductPictureService;
+	@Autowired
 	private VisitorUserInternalMailService visitorUserInternalMailService;
 	@Autowired
 	private UserRedisService userRedisService;
+	@Autowired
+	private S3Service s3Service;
 	
 	@RequestMapping("create")
 	public void createProduct(HttpServletRequest request, 
@@ -255,6 +268,59 @@ public class ProductController extends BasicController {
 		rj.setResultDesc(resultDesc);
 		
 		super.sendJSONResponse(rj, response);
+	}
+	
+	@RequestMapping("picture")
+	public void productPicCreate(HttpServletRequest request, 
+			HttpServletResponse response,
+			@RequestParam(value = "fileProductIcon", required = true) MultipartFile fileProductPic, 
+			@RequestParam(value = "pid", required = true) String pidStr) {
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		
+		Product product = productRedisService.getUserProductFromRedis(userTemp, pidStr);
+		
+		Integer result = 0;
+		String resultDesc = "";
+		ResultJson resultJ = new ResultJson();
+		
+		if (product != null) {
+			if (fileProductPic != null && !fileProductPic.isEmpty()) {
+				ObjectMetadata meta = new ObjectMetadata();
+				meta.setContentLength(fileProductPic.getSize());
+				meta.setContentType(fileProductPic.getContentType());
+				
+				try {
+					String fileOriUrl= "/product/"+product.getProductId()+"/"+fileProductPic.getOriginalFilename();
+					s3Service.createNewFile(fileOriUrl, fileProductPic.getInputStream(), MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic), meta);
+					String finalFileUrl = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic) + fileOriUrl;
+					
+					ProductPicture productPic = new ProductPicture();
+					productPic.setProductPicProductId(product.getProductId());
+					productPic.setProductPicStatus(StatusTypeEnum.Active.ordinal());
+					
+					visitorProductPictureService.saveProductPicture(productPic);
+					productRedisService.setProductPictureToRedis(productPic);
+					
+					result = 0;
+					resultDesc = ProductInfo.PRODUCT_PICTURE_SAVE_SUCCESS;
+					resultJ.setImageUrl(finalFileUrl);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		} else {
+			result = -1;
+			resultDesc = ProductInfo.PRODUCT_NOTFOUND_FORUPDATE;
+		}
+		
+		resultJ.setResult(result);
+		resultJ.setResultDesc(resultDesc);
+		
+		super.sendJSONResponse(resultJ, response);
 	}
 	
 	@RequestMapping("savedetail")
