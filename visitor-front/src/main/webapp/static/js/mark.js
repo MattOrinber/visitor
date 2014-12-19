@@ -141,7 +141,7 @@ function setProductDiscValue() {
 
 function setProductDescEditor() {
 	// product
-	productDetailStrGlobal = $("#productOverviewDetailStr").html();
+	productDetailStrGlobal = $("#productDetailDESCInfoStr").attr("data-inner");
 	CKEDITOR.replace( 'productOverviewDetailStr', {
 		on: {
 			blur: onProductDescAndTitle,

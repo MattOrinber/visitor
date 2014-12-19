@@ -11,6 +11,7 @@
 	<div class="nav-detail">
     	<span><a href="your-listing.html"><</a>${productInfo.productRoomType} in ${productInfo.productCity}</span>
     	<div id="productIdPageTemp" style="display:none;">${productInfo.productId}</div>
+    	<div id="productDetailDESCInfoStr" style="display:none;" data-inner="${productDetailInfo.pdiProductOverviewDetail}"></div>
     </div>
 </div>
 
@@ -46,28 +47,29 @@
 ]]>
 					<c:choose>
 						<c:when test="${not empty productInfo.productOverviewtitle}">
-						    <input id="productTitle" type="text" value="${productInfo.productOverviewtitle}"/>
+						    <input id="productTitle" type="text" value="${productInfo.productOverviewtitle}">
+						    	<span></span>
+								<div id="productCityPart" style="display: none;">
+									<ul id="destinationPart">
+										<li> </li>
+									</ul>
+								</div>
+						    </input>
 						</c:when>
 						<c:when test="${empty productInfo.productOverviewtitle}">
-						    <input id="productTitle" type="text" />
+						    <input id="productTitle" type="text" >
+						    	<span></span>
+								<div id="productCityPart" style="display: none;">
+									<ul id="destinationPart">
+										<li> </li>
+									</ul>
+								</div>
+						    </input>
 						</c:when>
 					</c:choose>
 <![CDATA[
                     <span class="h" style="margin-top:15px;">Details *</span>
-]]>
-					<c:choose>
-						<c:when test="${not empty productDetailInfo.pdiProductOverviewDetail}">
-<![CDATA[
-						    <textarea id="productOverviewDetailStr">${productDetailInfo.pdiProductOverviewDetail}</textarea>
-]]>
-						</c:when>
-						<c:when test="${empty productDetailInfo.pdiProductOverviewDetail}">
-<![CDATA[
-						    <textarea id="productOverviewDetailStr"></textarea>
-]]>
-						</c:when>
-					</c:choose>
-<![CDATA[
+                    <textarea id="productOverviewDetailStr"></textarea>
                     <span class="h" style="margin-top:15px;">Duration</span>
                     <input type="text" />
                     <span class="h" style="margin-top:15px;">Group</span>
@@ -87,19 +89,6 @@
 					</c:when>
 				</c:choose>
 <![CDATA[
-				<span></span>
-				<div id="productCityPart" style="display: none;">
-					<ul id="destinationPart">
-						<li>Beijing</li>
-						<li>Tokyo</li>
-						<li>New York</li>
-						<li>London</li>
-						<li>Berlin</li>
-						<li>Paris</li>
-						<li>Chicago</li>
-						<li>Shanghai</li>
-					</ul>
-				</div>
 				
 				<div id="map_canvas" style="width:600px; height:400px"></div>
             </div>
