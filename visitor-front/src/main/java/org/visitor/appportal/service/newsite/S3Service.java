@@ -2,7 +2,10 @@ package org.visitor.appportal.service.newsite;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
 
@@ -11,6 +14,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.BasicSessionCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.AccessControlList;
+import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.Grantee;
 import com.amazonaws.services.s3.model.GroupGrantee;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -24,9 +28,23 @@ import com.amazonaws.services.securitytoken.model.GetSessionTokenResult;
 
 @Service("s3Service")
 public class S3Service {
+	private static final Logger logger = LoggerFactory.getLogger(S3Service.class);
 
 	public void createNewFile(String key, InputStream input, String bucketName, ObjectMetadata meta) throws Exception {
 		AmazonS3Client s3 = initS3();
+		
+		List<Bucket> listB = s3.listBuckets();
+		
+		if (listB.size() > 0) {
+			logger.info(">>>>>>>>>>>>>>> has buckets");
+			for (Bucket b : listB) {
+				logger.info("bucket name: >" + b.getName() + "<");
+			}
+		} else {
+			logger.info(">>>>>>>>>>>>>>> not have buckets");
+		}
+		
+		
 		PutObjectRequest put = new PutObjectRequest(bucketName, key, input, meta);
 		//DeleteObjectRequest delObj = new DeleteObjectRequest(bucketName, key);
 		AccessControlList accessControlList = new AccessControlList();

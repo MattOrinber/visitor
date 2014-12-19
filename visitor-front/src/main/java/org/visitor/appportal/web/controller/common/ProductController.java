@@ -291,8 +291,10 @@ public class ProductController extends BasicController {
 				
 				try {
 					String fileOriUrl= "/product/"+product.getProductId()+"/"+fileProductPic.getOriginalFilename();
-					s3Service.createNewFile(fileOriUrl, fileProductPic.getInputStream(), MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic), meta);
-					String finalFileUrl = fileOriUrl;
+					String awsBucketName = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic);
+					s3Service.createNewFile(fileOriUrl, fileProductPic.getInputStream(), awsBucketName, meta);
+					
+					String imgDomain = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgDomain);
 					
 					ProductPicture productPic = new ProductPicture();
 					productPic.setProductPicProductId(product.getProductId());
@@ -303,7 +305,9 @@ public class ProductController extends BasicController {
 					
 					result = 0;
 					resultDesc = ProductInfo.PRODUCT_PICTURE_SAVE_SUCCESS;
-					resultJ.setImageUrl(MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic) + finalFileUrl);
+					
+					String displayUrl = imgDomain + awsBucketName + fileOriUrl; //实际访问图片的全路径
+					resultJ.setImageUrl(displayUrl);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

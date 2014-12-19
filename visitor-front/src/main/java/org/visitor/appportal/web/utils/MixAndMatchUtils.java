@@ -21,14 +21,10 @@ public class MixAndMatchUtils {
 	 * */
 	public static final String accessKey = "thisCan.acsKey";
 	public static final String secretKey = "thisCan.secKey";
-	public static final String imgBucketName = "aws.imgBucketName";
-	public static final String fileBucketName = "aws.fileBucketName";
-	public static final String merchantBucketName = "aws.merchantBucketName";
-	public static final String awsFileDomain = "aws.fileDomain";
-	public static final String awsImgDomain = "aws.imgDomain";
 	
 	//------------------------------------------aws static image url
 	public static final String awsImgStatic = "aws.imgBucketUseing";
+	public static final String awsImgDomain = "aws.imgDomain";
 	
 	//------------------------------------------facebook related items
 	public static final String facebookCallbackURL = "facebookCallbackURL";
