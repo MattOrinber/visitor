@@ -36,12 +36,15 @@ public class S3Service {
 		List<Bucket> listB = s3.listBuckets();
 		
 		if (listB.size() > 0) {
+			System.out.println(">>>>>>>>>>>>>>> has buckets");
 			logger.info(">>>>>>>>>>>>>>> has buckets");
 			for (Bucket b : listB) {
 				logger.info("bucket name: >" + b.getName() + "<");
+				System.out.println("bucket name: >" + b.getName() + "<");
 			}
 		} else {
 			logger.info(">>>>>>>>>>>>>>> not have buckets");
+			System.out.println(">>>>>>>>>>>>>>> not have buckets");
 		}
 		
 		

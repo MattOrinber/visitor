@@ -53,7 +53,7 @@ import org.visitor.appportal.web.utils.WebInfo;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 
 @Controller
-@RequestMapping("/product/")
+@RequestMapping("product")
 public class ProductController extends BasicController {
 	protected static final Logger log = LoggerFactory.getLogger(ProductController.class);
 	
@@ -78,7 +78,7 @@ public class ProductController extends BasicController {
 	@Autowired
 	private S3Service s3Service;
 	
-	@RequestMapping("create")
+	@RequestMapping("/create")
 	public void createProduct(HttpServletRequest request, 
 			HttpServletResponse response) {
 		ProductTemp pt = super.getProductTempJson(request);
@@ -118,7 +118,7 @@ public class ProductController extends BasicController {
 		super.sendJSONResponse(rj, response);
 	}
 	
-	@RequestMapping("availtype")
+	@RequestMapping("/availtype")
 	public void productAvailType(HttpServletRequest request, 
 			HttpServletResponse response) {
 		ProductDetailTemp pdt = super.getProductDetailTempJson(request);
@@ -151,7 +151,7 @@ public class ProductController extends BasicController {
 		super.sendJSONResponse(rj, response);
 	}
 	
-	@RequestMapping("pricing")
+	@RequestMapping("/pricing")
 	public void productPricing(HttpServletRequest request, 
 			HttpServletResponse response) {
 		ProductDetailTemp pdt = super.getProductDetailTempJson(request);
@@ -186,7 +186,7 @@ public class ProductController extends BasicController {
 		super.sendJSONResponse(rj, response);
 	}
 	
-	@RequestMapping("description")
+	@RequestMapping("/description")
 	public void productDescription(HttpServletRequest request, 
 			HttpServletResponse response) {
 		ProductDetailTemp pdt = super.getProductDetailTempJson(request);
@@ -232,7 +232,7 @@ public class ProductController extends BasicController {
 		super.sendJSONResponse(rj, response);
 	}
 	
-	@RequestMapping("address")
+	@RequestMapping("/address")
 	public void productAddress(HttpServletRequest request, 
 			HttpServletResponse response) {
 		ProductAddressTemp pdt = super.getProductAddressTempJson(request);
@@ -270,7 +270,7 @@ public class ProductController extends BasicController {
 		super.sendJSONResponse(rj, response);
 	}
 	
-	@RequestMapping("picture")
+	@RequestMapping("/picture")
 	public void productPicCreate(HttpServletRequest request, 
 			HttpServletResponse response,
 			@RequestParam(value = "fileProductIcon", required = true) MultipartFile fileProductPic, 
