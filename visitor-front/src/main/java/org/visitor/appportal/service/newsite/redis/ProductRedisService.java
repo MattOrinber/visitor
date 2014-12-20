@@ -56,7 +56,7 @@ public class ProductRedisService {
 		
 		if (null != entries) {
 			result = new ArrayList<String>();
-			for(Object entry : entries.entrySet()) {
+			for(Object entry : entries.keySet()) {
 				String valueStr = (String)entries.get(entry);
 				result.add(valueStr);
 			}
@@ -72,7 +72,7 @@ public class ProductRedisService {
 		
 		if (null != entries) {
 			result = new ArrayList<Product>();
-			for(Object entry : entries.entrySet()) {
+			for(Object entry : entries.keySet()) {
 				String valueStr = (String)entries.get(entry);
 				Product productT = objectMapperWrapperForVisitor.convertToProduct(valueStr);
 				result.add(productT);
@@ -121,7 +121,7 @@ public class ProductRedisService {
 		Map<Object, Object> entries = compressStringRedisVisitorTemplate.opsForHash().entries(keyT);
 		
 		if (null != entries) {
-			for(Object entry : entries.entrySet()) {
+			for(Object entry : entries.keySet()) {
 				String valueStr = (String)entries.get(entry);
 				Product productT = objectMapperWrapperForVisitor.convertToProduct(valueStr);
 				result.add(productT);
