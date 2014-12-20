@@ -109,13 +109,16 @@ function doProductImageRound(){
 }
 
 function productBigImage() {
-	$(".boxshade").hide();
-	$("#bigImgshow,#bigImgshow1,#bigImgshow2").click(function(){
-		$(".boxshade").show();
-	});
-	$("#closeit").click(function(){
-		$(".boxshade").hide();
-	});
+	var node = $(".boxshade");
+	if (node != null) {
+		node.hide();
+		$("#bigImgshow,#bigImgshow1,#bigImgshow2").click(function(){
+			$(".boxshade").show();
+		});
+		$("#closeit").click(function(){
+			$(".boxshade").hide();
+		});
+	}
 }
 
 function checkBox(){
@@ -141,24 +144,27 @@ function setProductDiscValue() {
 
 function setProductDescEditor() {
 	// product
-	productDetailStrGlobal = $("#productDetailDESCInfoStr").attr("data-inner");
-	CKEDITOR.replace( 'productOverviewDetailStr', {
-		on: {
-			blur: onProductDescAndTitle,
-			instanceReady:setProductDiscValue
-		},
-		coreStyles_bold: { 
-			element: 'b' 
-		},
-		coreStyles_italic: { 
-			element: 'i' 
-		},
-
-		fontSize_style: {
-			element: 'font',
-			attributes: { 'size': '#(size)' }
-		}
-	});
+	var node = $("#productDetailDESCInfoStr");
+	if (node != null) {
+		productDetailStrGlobal = $("#productDetailDESCInfoStr").attr("data-inner");
+		CKEDITOR.replace( 'productOverviewDetailStr', {
+			on: {
+				blur: onProductDescAndTitle,
+				instanceReady:setProductDiscValue
+			},
+			coreStyles_bold: { 
+				element: 'b' 
+			},
+			coreStyles_italic: { 
+				element: 'i' 
+			},
+	
+			fontSize_style: {
+				element: 'font',
+				attributes: { 'size': '#(size)' }
+			}
+		});
+	}
 }
 
 $(document).ready(function(){
@@ -246,6 +252,9 @@ $(document).ready(function(){
 	doImage();
 	doCanlendarPage();
 	setGlobalCurrency();
+	
+	productBigImage();
+	
 	setProductDescEditor();
 	
 	var mapNode = $("#map_canvas");
@@ -253,8 +262,7 @@ $(document).ready(function(){
 		mapInitialize();
 	}
 	//doProductImageRound();
-	getProductImageListOperation();
-	productBigImage();
+	//getProductImageListOperation();
 });
 
 $(window).scroll(function(){
