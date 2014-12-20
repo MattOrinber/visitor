@@ -479,8 +479,7 @@ function logoutVisitor(pathOri) {
 //---------------list_space page info
 function setHomeTypeBack() { //re-choose the home type
 	$("#homeTypeChosen").hide();
-	$("#homeTypeChosen").html('0');
-	$("#homeTypeNotChosen").show();
+	$("#inputvalHomeType").html('0');
 	$("#proceedToGenerate").attr("href", "javascript:void(0);");
 }
 
@@ -488,29 +487,28 @@ function homeTypeValueSet(valueT) { // choose home type
 	var toDNode = $("#inputvalHomeType");
 	toDNode.html(valueT);
 	
-	toDNode.show();
+	$("#homeTypeChosen").show();
 	checkIfCanProceed();
 }
 
 function setRoomTypeBack() { //re-choose the room type
 	$("#roomTypeChosen").hide();
-	$("#roomTypeChosen").html('0');
-	$("#roomTypeNotChosen").show();
+	$("#inputvalRoomType").html(0);
 	$("#proceedToGenerate").attr("href", "javascript:void(0);");
 }
 
 function roomTypeValueSet(valueT) { //choose room type
 	var toDNode = $("#inputvalRoomType");
-	toDNode.html(htmlToSet);
+	toDNode.html(valueT);
 	
-	toDNode.show();
+	$("#roomTypeChosen").show();
 	checkIfCanProceed();
 }
 
 
 function checkIfCanProceed() { // see if we can create product
-	var htmlHomeType = $("#homeTypeChosen").html();
-	var htmlRoomType = $("#roomTypeChosen").html();
+	var htmlHomeType = $("#inputvalHomeType").html();
+	var htmlRoomType = $("#inputvalRoomType").html();
 	var accomodatesValue = $("#accomodatesValueD").val();
 	var productCityInput = $("#productCityInput").val();
 	var productCityInputStr = $.trim(productCityInput);

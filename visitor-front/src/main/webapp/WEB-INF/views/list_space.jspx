@@ -42,15 +42,10 @@
         <div class="hometype">
         	<div class="title">Room Type</div>
             <div class="choice choice2">
-            	<div id="roomTypeNotChosen" style="display:block;">
-]]>
-            		<c:forEach items="${roomTypeList}" var="roomType" varStatus="status">
-						<c:if test="${status.index lt 3}">
-							<a href="javascript:roomTypeValueSet('${roomType}');">${roomType}</a>
-						</c:if>
-					</c:forEach>
-<![CDATA[
-            	</div>
+            	<a href="javascript:roomTypeValueSet('Entire home/apt');">Entire home/apt</a>
+            	<a href="javascript:roomTypeValueSet('Private room');" style="width:180px;">Private room</a>
+            	<a style="width:180px;" href="javascript:roomTypeValueSet('Shared room');">Shared room</a>
+            	
             	<div id="roomTypeChosen" class="hiddendiv" style="display:none;">
 					<div class="typechoosed" id="inputvalRoomType"></div><div class="text">Dayfetch guests love the variety of room types available. </div>
 				</div>
