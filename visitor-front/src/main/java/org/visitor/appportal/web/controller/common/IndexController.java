@@ -289,7 +289,7 @@ public class IndexController extends BasicController {
 		
 		User user = (User) request.getAttribute(WebInfo.UserID);
 		model.addAttribute("currentUser", user);
-		model.addAttribute("pageName", "edit-photos");
+		model.addAttribute("pageName", "photos");
 		return "day/edit-photos";
 	}
 	
