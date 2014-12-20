@@ -278,6 +278,21 @@ public class IndexController extends BasicController {
 		return "day/edit";
 	}
 	
+	@RequestMapping({"day/edit-photos"})
+	public String dayUserEditPhotos(HttpServletRequest request,
+			HttpServletResponse response, 
+			Model model) {
+		boolean ifLoggedIn = this.setModel(request, response, model, false);
+		if (!ifLoggedIn) {
+			return "redirect:/index";
+		}
+		
+		User user = (User) request.getAttribute(WebInfo.UserID);
+		model.addAttribute("currentUser", user);
+		model.addAttribute("pageName", "edit-photos");
+		return "day/edit-photos";
+	}
+	
 	@RequestMapping({"publish"})
 	public String publish(HttpServletRequest request, Model model) {
 		return "publish";

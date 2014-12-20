@@ -215,7 +215,6 @@
 						<input id="userPalpalNumStr" type="text" />
 					</c:if>
 <![CDATA[
-                    <input type="text" />
                     </span>
                     <span><label>Where you live</label>
 ]]>
@@ -231,11 +230,15 @@
                 	<span style="height:auto;"><label>Describe Yourself</label>
 ]]>
 					<c:if test="${not empty currentUser.userDetail}">
+<![CDATA[
 						<textarea id="selfDescriptionStr" rows="5" cols="40">${currentUser.userDetail}</textarea>
+]]>
 					</c:if>
 					
 					<c:if test="${empty currentUser.userDetail}">
+<![CDATA[
 						<textarea id="selfDescriptionStr" rows="5" cols="40"></textarea>
+]]>
 					</c:if>
 <![CDATA[
                 	
