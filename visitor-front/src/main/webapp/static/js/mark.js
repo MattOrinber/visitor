@@ -485,12 +485,10 @@ function setHomeTypeBack() { //re-choose the home type
 }
 
 function homeTypeValueSet(valueT) { // choose home type
-	var toDNode = $("#homeTypeChosen");
-	String htmlToSet = '<div class="typechoosed" id="inputval">' + valueT +'</div><div class="text">day fetch offered bunch of hoom types</div>';
-	toDNode.html(htmlToSet);
+	var toDNode = $("#inputvalHomeType");
+	toDNode.html(valueT);
 	
 	toDNode.show();
-	$("#homeTypeNotChosen").hide();
 	checkIfCanProceed();
 }
 
@@ -502,13 +500,10 @@ function setRoomTypeBack() { //re-choose the room type
 }
 
 function roomTypeValueSet(valueT) { //choose room type
-	var toDNode = $("#roomTypeChosen");
-	String htmlToSet = '<div class="typechoosed" id="inputval">' + valueT +'</div><div class="text">day fetch offered bunch of hoom types</div>';
+	var toDNode = $("#inputvalRoomType");
 	toDNode.html(htmlToSet);
 	
 	toDNode.show();
-	$("#roomTypeNotChosen").hide();
-	
 	checkIfCanProceed();
 }
 
