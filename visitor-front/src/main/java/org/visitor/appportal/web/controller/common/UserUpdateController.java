@@ -110,6 +110,15 @@ public class UserUpdateController extends BasicController {
 			try {
 				String awsBucketName = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic);
 				String imgDomain = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgDomain);
+				
+				if (log.isInfoEnabled()) {
+					if (userTemp == null) {
+						log.info("user null");
+					} else {
+						log.info("user can be used");
+					}
+				}
+				
 				String fileOriUrl = "user/icon-"+userTemp.getUserId()+"/"+uploadFile.getOriginalFilename();
 				
 				s3Service.createNewFile(fileOriUrl, uploadFile.getInputStream(), awsBucketName, meta);
