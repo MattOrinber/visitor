@@ -41,8 +41,7 @@ public class ProductRedisService {
 		String keyT = RedisKeysForVisitor.getVisitorProductInfoKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + cityStr;
 		String valueT = objectMapperWrapperForVisitor.convert2String(product);
 		String scoreStr = String.valueOf(product.getProductId().longValue());
-		Double score = Double.valueOf(scoreStr);
-		compressStringRedisVisitorTemplate.opsForHash().put(keyT, score, valueT);
+		compressStringRedisVisitorTemplate.opsForHash().put(keyT, scoreStr, valueT);
 		
 		String keyP = RedisKeysForVisitor.getVisitorProductInfoKey();
 		String scoreP = String.valueOf(product.getProductId().longValue());

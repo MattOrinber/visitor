@@ -62,7 +62,7 @@ function publishProduct() {
 
 function checkCanPublish(ifCan) {
 	if (ifCan == 1) {
-		$("#placeToPublishDiv").html('<input type="button" onclick="publishProduct();" />""');
+		$("#placeToPublishDiv").html('<input type="button" value="List space" onclick="publishProduct();" />');
 	}
 }
 
@@ -85,6 +85,7 @@ function saveProductAvailableType(availType) {
         dataType : 'json',  
         data : jsonStr,  
         success : function(data) {  
+        	checkCanPublish(data.productCan);
         	alert("save calendar success");
         },  
         error : function() {  
@@ -119,6 +120,7 @@ function saveProductPriceSetting() {
 		        dataType : 'json',  
 		        data : jsonStr,  
 		        success : function(data) {  
+		        	checkCanPublish(data.productCan);
 		        	alert("save price success");
 		        },  
 		        error : function() {  
@@ -156,6 +158,7 @@ function onProductDescAndTitle() {
 		        dataType : 'json',  
 		        data : jsonStr,  
 		        success : function(data) {  
+		        	checkCanPublish(data.productCan);
 		        	alert("save description success");
 		        },  
 		        error : function() {  
@@ -187,6 +190,7 @@ function productAddressUpdate() {
 	        dataType : 'json',  
 	        data : jsonStr,  
 	        success : function(data) {  
+	        	checkCanPublish(data.productCan);
 	        	alert("save address success");
 	        },  
 	        error : function() {  
@@ -215,6 +219,7 @@ function setProductCancellationPolicy() {
         dataType : 'json',  
         data : jsonStr,  
         success : function(data) {  
+        	checkCanPublish(data.productCan);
         	alert("save cancellation policy success");
         },  
         error : function() {  
