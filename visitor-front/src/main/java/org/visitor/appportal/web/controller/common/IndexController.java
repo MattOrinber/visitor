@@ -335,7 +335,7 @@ public class IndexController extends BasicController {
 			model.addAttribute("checkoutBeforeList", checkoutBeforeList);
 			model.addAttribute("cancellationPolicyList", cancellationPolicyList);
 			
-			String imgPathOrigin = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic);
+			String imgPathOrigin = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgDomain) + MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic);
 			
 			model.addAttribute("imgPathOrigin", imgPathOrigin);
 			
