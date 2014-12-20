@@ -18,18 +18,47 @@
 ]]>
 				<c:if test="${not empty productList}">
 					<c:forEach items="${productList}" var="productT" varStatus="status">
-					<span>${productT.productId}</span>
 <![CDATA[
 						<div class="message">
 	                        <div class="photo photo1"></div>
 	                        <div class="time" style="width:300px;">
 ]]>
+							<c:if test="${productT.productStatus == 0}">
 	                        	<a href="${pageContext.request.contextPath}/day/calendar?pid=${productT.productId}" class="title">${productT.productRoomType} in ${productT.productCity}</a>
+	                        </c:if>
+	                        
+	                        <c:if test="${productT.productStatus != 0}">
+	                        	<a href="${pageContext.request.contextPath}/day/product?pid=${productT.productId}" class="title">${productT.productRoomType} in ${productT.productCity}</a>
+	                        </c:if>
 <![CDATA[
 	                            <a href="" class="calendar">Manage Listing and Calendar</a>
 	                        </div>
 	                        <div class="price" style="width:200px;">
-	                            <a href="" class="btn">6 steps to list</a>
+]]>
+								<c:if test="${productT.productStatus == 1}">
+<![CDATA[
+									<a href="javascript:void(0);" class="dot dot1"></a>
+									<select>
+										<option>Unlisted</option>
+										<option selected="selected">listed</option>
+									</select>
+]]>
+								</c:if>
+								
+								<c:if test="${productT.productStatus == 2}">
+<![CDATA[
+									<a href="javascript:void(0);" class="dot"></a>
+									<select>
+										<option selected="selected">Unlisted</option>
+										<option>listed</option>
+									</select>
+]]>
+								</c:if>
+								
+								<c:if test="${productT.productStatus == 0}">
+									<a href="${pageContext.request.contextPath}/day/calendar?pid=${productT.productId}" class="btn">6 steps to list</a>
+								</c:if>
+<![CDATA[     
 	                        </div>
 	                   </div>
 ]]>
