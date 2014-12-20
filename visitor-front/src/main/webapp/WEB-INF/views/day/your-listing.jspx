@@ -17,17 +17,21 @@
                 </span>
 ]]>
 				<c:if test="${not empty productList}">
-					<c:forEach items="${productList}" var="product" varStatus="status">
+					<c:forEach items="${productList}" var="productT" varStatus="status">
+<![CDATA[
 						<div class="message">
 	                        <div class="photo photo1"></div>
 	                        <div class="time" style="width:300px;">
-	                        	<a href="${pageContext.request.contextPath}/day/calendar?pid=${product.productId}" class="title">${product.productRoomType} in ${product.productCity}</a>
+]]>
+	                        	<a href="${pageContext.request.contextPath}/day/calendar?pid=${productT.productId}" class="title">${productT.productRoomType} in ${productT.productCity}</a>
+<![CDATA[
 	                            <a href="" class="calendar">Manage Listing and Calendar</a>
 	                        </div>
 	                        <div class="price" style="width:200px;">
 	                            <a href="" class="btn">6 steps to list</a>
 	                        </div>
 	                   </div>
+]]>
 					</c:forEach>
 				</c:if>
 <![CDATA[

@@ -260,7 +260,7 @@ public class IndexController extends BasicController {
 		
 		User user = (User) request.getAttribute(WebInfo.UserID);
 		this.setMyProductModel(user, request, model);
-		model.addAttribute("pageName", "your-listing");
+		model.addAttribute("pageName", "inbox");
 		return "day/your-listing";
 	}
 	

@@ -118,7 +118,7 @@ var pathGlobe = '${pageContext.request.contextPath}';
 		               	<ul>
 		                   	<li><a href="#">Dashboard</a></li>
 		                    <li><a href="">Inbox</a></li>
-		                    <li><a href="">Your Listings</a></li>
+		                    <li><a href="javascript:toListing();">Your Listings</a></li>
 		                    <li><a href="">Your Trips</a></li>
 		                    <li><a href="">Wish Lists</a></li>
 		                    <li><a href="">Edit Profile</a></li>
@@ -153,7 +153,7 @@ var pathGlobe = '${pageContext.request.contextPath}';
 		               	<ul>
 		                   	<li><a href="#">Dashboard</a></li>
 		                    <li><a href="">Inbox</a></li>
-		                    <li><a href="">Your Listings</a></li>
+		                    <li><a href="javascript:toListing();">Your Listings</a></li>
 		                    <li><a href="">Your Trips</a></li>
 		                    <li><a href="">Wish Lists</a></li>
 		                    <li><a href="">Edit Profile</a></li>
