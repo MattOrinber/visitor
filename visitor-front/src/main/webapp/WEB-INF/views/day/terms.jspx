@@ -9,6 +9,7 @@
 <div class="nav">
 	<div class="nav-detail">
     	<span><a href="your-listing.html"><</a>${productInfo.productRoomType} in ${productInfo.productCity}</span>
+    	<div id="productIdPageTemp" style="display:none;">${productInfo.productId}</div>
     </div>
 </div>
 
@@ -28,7 +29,7 @@
         	<li class="title">Settings</li>
             <li class="choosed"><a href="${pageContext.request.contextPath}/day/terms?pid=${productInfo.productId}">Terms</a></li>
         </ul>
-        <div class="step">
+        <div id="placeToPublishDiv" class="step">
         	Complete <span><span>5</span> steps</span><br />to list your space.
         </div>
     </div>
@@ -41,12 +42,18 @@
                 </div>
                 <div class="price">
                 	<span class="h">Cancellation Policy</span>
-                    <select>
-                    	<option>USD</option>
-                        <option>USD</option>
-                        <option>USD</option>
-                        <option>USD</option>
-                    </select>
+]]>
+                	<select id="productCancellationPolicyStr" name="productCancellationPolicyStr" onchange="setProductCancellationPolicy();">
+						<c:forEach items="${cancellationPolicyList}" var="cancellationPolicyItem" varStatus="status">
+							<c:if test="${status.index == 0}">
+							    <option value="${cancellationPolicyItem}" selected="selected">${cancellationPolicyItem}</option>
+							</c:if>
+							<c:if test="${status.index != 0}">
+							    <option value="${cancellationPolicyItem}">${cancellationPolicyItem}</option>
+							</c:if>
+						</c:forEach>
+					</select>
+<![CDATA[
                 </div>
             </div>
         </div>

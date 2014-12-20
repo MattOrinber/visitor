@@ -35,6 +35,37 @@ function createProduct()
     }); 
 }
 
+function publishProduct() {
+	var productDetail = {};
+	var productIdStr = $("#productIdPageTemp").html();
+	
+	productDetail.productIdStr = productIdStr;
+	
+    var urlStrStr = pathGlobe + '/product/publishproduct';
+    var jsonStr = $.toJSON(productDetail);
+    
+    $.ajax({ 
+        type : 'POST',  
+        contentType : 'application/json',  
+        url : urlStrStr,  
+        processData : false,  
+        dataType : 'json',  
+        data : jsonStr,  
+        success : function(data) {  
+        	alert("publish product success");
+        },  
+        error : function() {  
+            alert('Err...');  
+        }  
+    }); 
+}
+
+function checkCanPublish(ifCan) {
+	if (ifCan == 1) {
+		$("#placeToPublishDiv").html('<input type="button" onclick="publishProduct();" />""');
+	}
+}
+
 function saveProductAvailableType(availType) {
 	var productDetail = {};
 	var productIdStr = $("#productIdPageTemp").html();
@@ -66,7 +97,6 @@ function saveProductPriceSetting() {
 	var regExFloat = /^\d+(\.\d+)?$/;
     var regExInt = /^[0-9]*[1-9][0-9]*$/;
 	var productBasePriceValue = $.trim($("#productBaseCurrencyValue").val());
-	
 	
 	if (productBasePriceValue != "") {
 		if (regExFloat.test(productBasePriceValue) || regExInt.test(productBasePriceValue)) {
@@ -164,6 +194,33 @@ function productAddressUpdate() {
 	        }  
 	    }); 
 	}
+}
+
+function setProductCancellationPolicy() {
+	var productDetail = {};
+	var productIdStr = $("#productIdPageTemp").html();
+	var productCancellationPolicyString = $("#productCancellationPolicyStr").val();
+	
+	productDetail.productIdStr = productIdStr;
+	productDetail.productCancellationPolicyStr = productCancellationPolicyString;
+    
+    var urlStrStr = pathGlobe + '/product/cancellationpolicy';
+    var jsonStr = $.toJSON(productDetail);
+    
+    $.ajax({ 
+        type : 'POST',  
+        contentType : 'application/json',  
+        url : urlStrStr,  
+        processData : false,  
+        dataType : 'json',  
+        data : jsonStr,  
+        success : function(data) {  
+        	alert("save cancellation policy success");
+        },  
+        error : function() {  
+            alert('Err...');  
+        }  
+    }); 
 }
 
 function saveProductDetails(pathOri)

@@ -28,7 +28,7 @@
         	<li class="title">Settings</li>
             <li><a href="${pageContext.request.contextPath}/day/terms?pid=${productInfo.productId}">Terms</a></li>
         </ul>
-        <div class="step">
+        <div id="placeToPublishDiv" class="step">
         	Complete <span><span>5</span> steps</span><br />to list your space.
         </div>
     </div>
@@ -48,10 +48,10 @@
 			<c:if test="${not empty productPictureList}">
 				<c:forEach items="${productPictureList}" var="productPicture" varStatus="status">
 					<c:if test="${status.index == 0}">
-					    <span>${productPictureList}</span>
+					    <span>${productPicture}</span>
 					</c:if>
 					<c:if test="${status.index != 0}">
-					    <br /><span>${productPictureList}</span>
+					    <br /><span>${productPicture}</span>
 					</c:if>
 				</c:forEach>
 			</c:if>

@@ -29,7 +29,7 @@
         	<li class="title">Settings</li>
             <li><a href="${pageContext.request.contextPath}/day/terms?pid=${productInfo.productId}">Terms</a></li>
         </ul>
-        <div class="step">
+        <div id="placeToPublishDiv" class="step">
         	Complete <span><span>5</span> steps</span><br />to list your space.
         </div>
     </div>

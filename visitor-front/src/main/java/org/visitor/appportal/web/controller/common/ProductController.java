@@ -148,6 +148,8 @@ public class ProductController extends BasicController {
 		rj.setResult(result);
 		rj.setResultDesc(resultDesc);
 		
+		checkIfProductCanBePublish(rj, product);
+		
 		super.sendJSONResponse(rj, response);
 	}
 	
@@ -182,6 +184,8 @@ public class ProductController extends BasicController {
 		ResultJson rj = new ResultJson();
 		rj.setResult(result);
 		rj.setResultDesc(resultDesc);
+		
+		checkIfProductCanBePublish(rj, product);
 		
 		super.sendJSONResponse(rj, response);
 	}
@@ -229,6 +233,8 @@ public class ProductController extends BasicController {
 		rj.setResult(result);
 		rj.setResultDesc(resultDesc);
 		
+		checkIfProductCanBePublish(rj, product);
+		
 		super.sendJSONResponse(rj, response);
 	}
 	
@@ -266,6 +272,8 @@ public class ProductController extends BasicController {
 		ResultJson rj = new ResultJson();
 		rj.setResult(result);
 		rj.setResultDesc(resultDesc);
+		
+		checkIfProductCanBePublish(rj, product);
 		
 		super.sendJSONResponse(rj, response);
 	}
@@ -325,7 +333,88 @@ public class ProductController extends BasicController {
 		resultJ.setResult(result);
 		resultJ.setResultDesc(resultDesc);
 		
+		checkIfProductCanBePublish(resultJ, product);
+		
 		super.sendJSONResponse(resultJ, response);
+	}
+	
+	@RequestMapping("/cancellationpolicy")
+	public void saveCancellationPolicy(HttpServletRequest request, 
+			HttpServletResponse response) {
+		ProductDetailTemp pdt = super.getProductDetailTempJson(request);
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		
+		Product product = productRedisService.getUserProductFromRedis(userTemp, pdt.getProductIdStr());
+		
+		Integer result = 0;
+		String resultDesc = ProductInfo.PRODUCT_CANCELLATION_POLICY_UPDATE_SUCCESS;
+		
+		if (product == null) {
+			result = -1;
+			resultDesc = ProductInfo.PRODUCT_NOTFOUND_FORUPDATE;
+		} else if (product.getProductStatus().intValue() == ProductInfo.EDIT_STATUS.intValue()) {
+			// do store and to redis to mongo stuff
+			String productCancellationPolicyStr = pdt.getProductCancellationPolicyStr();
+			if (StringUtils.isNotEmpty(productCancellationPolicyStr)) {
+				product.setProductCancellationpolicy(productCancellationPolicyStr);
+			}
+			
+			visitorProductService.saveProduct(product);
+			productRedisService.saveUserProductToRedis(userTemp, product); //save to redis edit status
+		}
+		
+		ResultJson rj = new ResultJson();
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		checkIfProductCanBePublish(rj, product);
+		
+		super.sendJSONResponse(rj, response);
+	}
+	
+	private void checkIfProductCanBePublish(ResultJson rj, Product product) {
+		if (product.getProductAvailabletype() != null &&
+				product.getProductCurrency() != null &&
+				product.getProductBaseprice() != null &&
+				product.getProductOverviewtitle() != null &&
+				product.getProductAddressid() != null &&
+				productRedisService.containsPicture(product.getProductId())) {
+			rj.setProductCan(1);
+		} else {
+			rj.setProductCan(0);
+		}
+	}
+	
+	@RequestMapping("/publishproduct")
+	public void publishProduct(HttpServletRequest request, 
+			HttpServletResponse response) {
+		ProductDetailTemp pdt = super.getProductDetailTempJson(request);
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		
+		Product product = productRedisService.getUserProductFromRedis(userTemp, pdt.getProductIdStr());
+		
+		Integer result = 0;
+		String resultDesc = ProductInfo.PRODUCT_PUBLISH_SUCCESS;
+		
+		if (product == null) {
+			result = -1;
+			resultDesc = ProductInfo.PRODUCT_NOTFOUND_FORUPDATE;
+		} else if (product.getProductStatus().intValue() == ProductInfo.EDIT_STATUS.intValue()) {
+			// do publish stuff
+			product.setProductStatus(ProductInfo.ONLINE_STATUS.intValue());
+			
+			visitorProductService.saveProduct(product);
+			productRedisService.saveUserProductToRedis(userTemp, product); //save to redis edit status
+			
+			//save city and product
+			productRedisService.saveProductToRedis(product);
+		}
+		
+		ResultJson rj = new ResultJson();
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		super.sendJSONResponse(rj, response);
 	}
 	
 	@RequestMapping("savedetail")

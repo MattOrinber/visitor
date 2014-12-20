@@ -27,12 +27,66 @@ public class ProductRedisService {
 	@Autowired
 	private ObjectMapperWrapperForVisitor objectMapperWrapperForVisitor;
 	
+	
+	//indexed by cities
 	public void saveProductToRedis(Product product) {
-		String keyT = RedisKeysForVisitor.getVisitorProductInfoKey();
+		
+		String cityStr = product.getProductCity();
+		
+		String cityKey = RedisKeysForVisitor.getVisitorProductCityKey();
+		if (!compressStringRedisVisitorTemplate.opsForHash().hasKey(cityKey, cityStr)) {
+			compressStringRedisVisitorTemplate.opsForHash().put(cityKey, cityStr, cityStr);
+		}
+		
+		String keyT = RedisKeysForVisitor.getVisitorProductInfoKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + cityStr;
 		String valueT = objectMapperWrapperForVisitor.convert2String(product);
 		String scoreStr = String.valueOf(product.getProductId().longValue());
 		Double score = Double.valueOf(scoreStr);
 		compressStringRedisVisitorTemplate.opsForHash().put(keyT, score, valueT);
+		
+		String keyP = RedisKeysForVisitor.getVisitorProductInfoKey();
+		String scoreP = String.valueOf(product.getProductId().longValue());
+		compressStringRedisVisitorTemplate.opsForHash().put(keyP, scoreP, valueT);
+		
+	}
+	
+	public List<String> getCities() {
+		String cityKey = RedisKeysForVisitor.getVisitorProductCityKey();
+		Map<Object, Object> entries = compressStringRedisVisitorTemplate.opsForHash().entries(cityKey);
+		List<String> result = null;
+		
+		if (null != entries) {
+			result = new ArrayList<String>();
+			for(Object entry : entries.entrySet()) {
+				String valueStr = (String)entries.get(entry);
+				result.add(valueStr);
+			}
+		}
+		return result;
+		
+	}
+	
+	public List<Product> getProductListFromRedis(String cityStr) {
+		String keyT = RedisKeysForVisitor.getVisitorProductInfoKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + cityStr;
+		Map<Object, Object> entries = compressStringRedisVisitorTemplate.opsForHash().entries(keyT);
+		List<Product> result = null;
+		
+		if (null != entries) {
+			result = new ArrayList<Product>();
+			for(Object entry : entries.entrySet()) {
+				String valueStr = (String)entries.get(entry);
+				Product productT = objectMapperWrapperForVisitor.convertToProduct(valueStr);
+				result.add(productT);
+			}
+		}
+		return result;
+	}
+	
+	public Product getProductFromRedisUsingCity(Long pid, String cityStr) {
+		String keyT = RedisKeysForVisitor.getVisitorProductInfoKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + cityStr;
+		String scoreStr = String.valueOf(pid.longValue());
+		String valueT = (String) compressStringRedisVisitorTemplate.opsForHash().get(keyT, scoreStr);
+		return objectMapperWrapperForVisitor.convertToProduct(valueT);
 	}
 	
 	public Product getProductFromRedis(Long pid) {
@@ -192,6 +246,12 @@ public class ProductRedisService {
 	}
 	
 	//product picture
+	
+	public Boolean containsPicture(Long pid) {
+		String key = RedisKeysForVisitor.getVisitorProductPictureKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + String.valueOf(pid.longValue());
+		return compressStringRedisVisitorTemplate.hasKey(key);
+	}
+	
 	public void setProductPictureToRedis(ProductPicture productPic) {
 		String key = RedisKeysForVisitor.getVisitorProductPictureKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + String.valueOf(productPic.getProductPicProductId().longValue());
 		String keyT = String.valueOf(productPic.getProductPicId().longValue());

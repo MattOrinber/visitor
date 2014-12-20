@@ -15,6 +15,7 @@ public class ResultJson {
 	private String imageUrl;
 	
 	private Long productId;
+	private Integer productCan;
 	public Integer getResult() {
 		return result;
 	}
@@ -69,5 +70,11 @@ public class ResultJson {
 	}
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+	public Integer getProductCan() {
+		return productCan;
+	}
+	public void setProductCan(Integer productCan) {
+		this.productCan = productCan;
 	}
 }
