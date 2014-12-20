@@ -18,7 +18,7 @@
         	<div class="title">Home Type</div>
             <div class="choice">
             
-            	<div id="homeTypeChosen" style="display:none;">0</div>
+            	<div id="homeTypeChosen" class="hiddendiv" style="display:none;">0</div>
             	
             	<div id="homeTypeNotChosen" style="display:block;">
 ]]>
@@ -45,7 +45,7 @@
         <div class="hometype">
         	<div class="title">Room Type</div>
             <div class="choice choice2">
-            	<div id="roomTypeChosen" style="display:none;">0</div>
+            	<div id="roomTypeChosen" class="hiddendiv" style="display:none;">0</div>
             	<div id="roomTypeNotChosen" style="display:block;">
 ]]>
             		<c:forEach items="${roomTypeList}" var="roomType" varStatus="status">
