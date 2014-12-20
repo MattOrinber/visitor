@@ -5,6 +5,7 @@ package org.visitor.appportal.web.controller.common;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +33,7 @@ import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.service.newsite.redis.VisitorLanguageRedisService;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
+import org.visitor.appportal.visitor.domain.ProductPicture;
 import org.visitor.appportal.visitor.domain.TimeZone;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.visitor.domain.UserTokenInfo;
@@ -449,6 +451,23 @@ public class IndexController extends BasicController {
 			if (productDetailInfo != null) {
 				model.addAttribute("productDetailInfo", productDetailInfo);
 			}
+			
+			List<ProductPicture> listPP = productRedisService.getPictureListOfOneProduct(product.getProductId());
+			
+			if (listPP != null && listPP.size() > 0) {
+				List<String> productPicUrls = new ArrayList<String>();
+				String awsBucketName = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic);
+				String imgDomain = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgDomain);
+				
+				for (ProductPicture pp : listPP) {
+					String fileOriUrl = pp.getProductPicProductUrl();
+					
+					String displayUrl = imgDomain + awsBucketName + "/" + fileOriUrl;
+					productPicUrls.add(displayUrl);
+				}
+				
+				model.addAttribute("productPictureList", productPicUrls);
+			}
 			return true;
 		}
 	}
@@ -464,7 +483,7 @@ public class IndexController extends BasicController {
 	
 	public static void main(String[] args) {
 		String getCurrencyUrl = "http://www.freecurrencyconverterapi.com/api/v2/currencies";
-		String convertURL = "http://www.freecurrencyconverterapi.com/api/v2/convert?q=USD_CNY&compact=y"; //1 USD to CNY
+		//String convertURL = "http://www.freecurrencyconverterapi.com/api/v2/convert?q=USD_CNY&compact=y"; //1 USD to CNY
 		//HashMap<String, String> paramMap = new HashMap<String,String>();
 		
 		String jsonStr = HttpClientUtil.httpGetJSON(getCurrencyUrl);

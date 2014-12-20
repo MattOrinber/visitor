@@ -43,7 +43,20 @@
             	<input name="upload" type="button" value="Upload" onclick="doProductImageUpload('${pageContext.request.contextPath}');" />
             </form>
             <br />
-            <div id="resultProductPicUpload"></div>
+            <div id="resultProductPicUpload">
+]]>
+			<c:if test="${not empty productPictureList}">
+				<c:forEach items="${productPictureList}" var="productPicture" varStatus="status">
+					<c:if test="${status.index == 0}">
+					    <span>${productPictureList}</span>
+					</c:if>
+					<c:if test="${status.index != 0}">
+					    <br /><span>${productPictureList}</span>
+					</c:if>
+				</c:forEach>
+			</c:if>
+<![CDATA[
+            </div>
         </div>
     </div>
 </div>
