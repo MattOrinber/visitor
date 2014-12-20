@@ -252,7 +252,6 @@ public class IndexController extends BasicController {
 	public String dayYourListing(HttpServletRequest request,
 			HttpServletResponse response, 
 			Model model) {
-		this.setModel(request, response, model, false);
 		boolean ifLoggedIn = this.setModel(request, response, model, false);
 		if (!ifLoggedIn) {
 			return "redirect:/index";
@@ -262,6 +261,21 @@ public class IndexController extends BasicController {
 		this.setMyProductModel(user, request, model);
 		model.addAttribute("pageName", "inbox");
 		return "day/your-listing";
+	}
+	
+	@RequestMapping({"day/edit"})
+	public String dayUserEdit(HttpServletRequest request,
+			HttpServletResponse response, 
+			Model model) {
+		boolean ifLoggedIn = this.setModel(request, response, model, false);
+		if (!ifLoggedIn) {
+			return "redirect:/index";
+		}
+		
+		User user = (User) request.getAttribute(WebInfo.UserID);
+		model.addAttribute("currentUser", user);
+		model.addAttribute("pageName", "edit");
+		return "day/edit";
 	}
 	
 	@RequestMapping({"publish"})
@@ -292,9 +306,6 @@ public class IndexController extends BasicController {
 		boolean ifloggedIn = false;
 		try {
 			ifloggedIn = checkIfTheUserTokenLegal(model, request, response, b);
-		
-			model.addAttribute("username", "visitor");
-			model.addAttribute("helloString", "you are welcome!");
 			
 			List<TimeZone> listTZ = timezoneRedisService.getAllTimezones();
 			List<VisitorLanguage> listVL = visitorLanguageRedisService.getAllLanguages();

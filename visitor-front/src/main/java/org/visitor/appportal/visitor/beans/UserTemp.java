@@ -20,6 +20,7 @@ public class UserTemp {
 	private String emerEmailStr;
 	private String emerRelationshipStr;
 	private String editorUserDetail;
+	private String userPalpalNumStr;
 	public String getEmailStr() {
 		return emailStr;
 	}
@@ -133,5 +134,11 @@ public class UserTemp {
 	}
 	public void setPhoneNumberStr(String phoneNumberStr) {
 		this.phoneNumberStr = phoneNumberStr;
+	}
+	public String getUserPalpalNumStr() {
+		return userPalpalNumStr;
+	}
+	public void setUserPalpalNumStr(String userPalpalNumStr) {
+		this.userPalpalNumStr = userPalpalNumStr;
 	}
 }

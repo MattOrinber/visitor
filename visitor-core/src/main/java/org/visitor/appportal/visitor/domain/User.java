@@ -48,6 +48,7 @@ public class User implements Serializable, Copyable<User> {
 	private Date userLastLoginTime;
 	private Integer userStatus;
 	private String userDetail;
+	private String userPaypalnum;
 	
 	@Column(name = "user_id", nullable = false, unique = true, precision = 20)
 	@GeneratedValue
@@ -295,5 +296,14 @@ public class User implements Serializable, Copyable<User> {
 	}
 	public void setUserDetail(String userDetail) {
 		this.userDetail = userDetail;
+	}
+
+	@Length(max = 63)
+	@Column(name = "user_paypalnum")
+	public String getUserPaypalnum() {
+		return userPaypalnum;
+	}
+	public void setUserPaypalnum(String userPaypalnum) {
+		this.userPaypalnum = userPaypalnum;
 	}
 }
