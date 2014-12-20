@@ -523,3 +523,9 @@ function checkIfCanProceed() { // see if we can create product
 		$("#proceedToGenerate").attr("href", "javascript:void(0);");
 	}
 }
+
+//my lists
+function toListing() {
+	var url = pathGlobe + "/day/your-listing";
+	window.location.href = url;
+}

@@ -182,7 +182,6 @@ public class IndexController extends BasicController {
 			return "redirect:/index";
 		}
 		
-		this.setModel(request, response, model, false);
 		model.addAttribute("pageName", "photos");
 		return "day/photos";
 	}
@@ -202,8 +201,7 @@ public class IndexController extends BasicController {
 		if (!ifOwnedProduct) {
 			return "redirect:/index";
 		}
-		
-		this.setModel(request, response, model, false);
+
 		model.addAttribute("pageName", "terms");
 		return "day/terms";
 	}
@@ -248,6 +246,22 @@ public class IndexController extends BasicController {
 		this.setModel(request, response, model, false);
 		model.addAttribute("pageName", "product");
 		return "day/product";
+	}
+	
+	@RequestMapping({"day/your-listing"})
+	public String dayYourListing(HttpServletRequest request,
+			HttpServletResponse response, 
+			Model model) {
+		this.setModel(request, response, model, false);
+		boolean ifLoggedIn = this.setModel(request, response, model, false);
+		if (!ifLoggedIn) {
+			return "redirect:/index";
+		}
+		
+		User user = (User) request.getAttribute(WebInfo.UserID);
+		this.setMyProductModel(user, request, model);
+		model.addAttribute("pageName", "your-listing");
+		return "day/your-listing";
 	}
 	
 	@RequestMapping({"publish"})
@@ -432,6 +446,16 @@ public class IndexController extends BasicController {
 		User user = new User();
 		MixAndMatchUtils.setUserModel(model, user);
 		return false;
+	}
+	
+	private boolean setMyProductModel(User user, HttpServletRequest request, Model model) {
+		List<Product> list = productRedisService.getUserProducts(user);
+		if (list != null && list.size() > 0) {
+			model.addAttribute("productList", list);
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	//在页面中插入product数据

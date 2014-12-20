@@ -81,7 +81,7 @@ var pathGlobe = '${pageContext.request.contextPath}';
 
 <div class="header">
     <div class="head">
-    	<div class="logo"><a href="index.html"><img src="${pageContext.request.contextPath}/static/img/logo-red.png" /></a></div>
+    	<div class="logo"><a href="${pageContext.request.contextPath}/index"><img src="${pageContext.request.contextPath}/static/img/logo-red.png" /></a></div>
         <div class="select">
         	<select>
             	<option>Pairs</option>

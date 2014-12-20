@@ -12,6 +12,10 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery.json-2.4.js"><c:out value="" /></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery.cookie.js"><c:out value="" /></script>
 	<script src="${pageContext.request.contextPath}/static/js/mark.js" type="text/javascript"><c:out value=" " /></script>
+	
+	<script>
+	var pathGlobe = '${pageContext.request.contextPath}';
+	</script>
 </head>
 <body>
 
@@ -120,7 +124,7 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
 		               	<ul>
 		                   	<li><a href="#">Dashboard</a></li>
 		                    <li><a href="">Inbox</a></li>
-		                    <li><a href="">Your Listings</a></li>
+		                    <li><a href="javascript:toListing();">Your Listings</a></li>
 		                    <li><a href="">Your Trips</a></li>
 		                    <li><a href="">Wish Lists</a></li>
 		                    <li><a href="">Edit Profile</a></li>
