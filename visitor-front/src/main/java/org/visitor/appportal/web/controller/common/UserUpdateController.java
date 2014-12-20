@@ -31,7 +31,7 @@ import org.visitor.appportal.web.utils.WebInfo;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 
 @Controller
-@RequestMapping("/updateUser/")
+@RequestMapping("updateUser")
 public class UserUpdateController extends BasicController {
 	protected static final Logger log = LoggerFactory.getLogger(UserUpdateController.class);
 	
@@ -47,7 +47,7 @@ public class UserUpdateController extends BasicController {
 	private S3Service s3Service;
 
 	
-	@RequestMapping("postUserDetail")
+	@RequestMapping("/postUserDetail")
 	public void postUserNewDetail(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			UserTemp ut = super.getUserJson(request);
@@ -92,7 +92,7 @@ public class UserUpdateController extends BasicController {
 		}
 	}
 	
-	@RequestMapping("usericon/create")
+	@RequestMapping("/usericon/create")
 	public void userIconCreate(HttpServletRequest request, 
 			HttpServletResponse response,
 			@RequestParam("fileUserIcon") MultipartFile uploadFile) {
