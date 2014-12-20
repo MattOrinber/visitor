@@ -21,25 +21,30 @@ body{background:#f7f7f7;}
 .nav .nav-detail a.select{color:#fff;border-bottom:4px solid #cacccd;}
 
 
-.main{width:100%;margin-bottom:30px;min-height:500px;}
+.main{width:100%;margin-bottom:30px;}
 .main .maincontent{width:1000px;margin:0 auto;margin-top:25px;overflow:hidden;}
-.main .maincontent .inbox{width:998px;border: 1px solid #dce0e0;border-bottom:none;background:#fff;}
-.main .maincontent .inbox p.y{line-height:30px;font-size:14px;padding-top:15px;margin-left:15px;}
-.main .maincontent .inbox a.v{display:block;height:30px;margin-bottom:15px;color:#ff5a5f;font-size:14px;line-height:30px;margin-left:15px;}
-.main .maincontent .inbox span{display:block;width:100%;height:60px;font-size:16px;line-height:50px;text-indent:10px;background:#edefed;border-bottom:1px solid #dce0e0;}
-.main .maincontent .inbox span select{height:30px;margin-top:15px;margin-left:10px;}
-.main .maincontent .inbox div{padding-left:10px;padding-right:10px;width:800px;padding-top:15px;padding-bottom:15px;}
-.main .maincontent .inbox div.message{height:70px;background:#fff;border-bottom:1px solid #dce0e0;width:978px;}
-.main .maincontent .inbox div.message .photo{padding:0;margin:0;margin-left:10px;margin-top:10px;width:45px;height:45px;float:left;border-radius: 50%;border:1px solid #ccc;overflow:hidden;}
-.main .maincontent .inbox div.message .time{width:100px;height:60px;float:left;margin-left:10px;font-size:14px;}
-.main .maincontent .inbox div.message .content{float:left;width:600px;font-size:14px;}
-.main .maincontent .inbox div.message .price{float:right;width:130px;font-size:14px;}
+.main .maincontent .leftmenu{width:230px;float:left;}
+.main .maincontent .leftmenu ul li{width:100%;height:35px;line-height:35px;}
+.main .maincontent .leftmenu ul li a{font-size:16px;color: #82888a;}
+.main .maincontent .leftmenu ul li a.select{font-weight:bold;color:#565a5c;}
 
-.main .maincontent .inbox div.message .time a.title{display:block;font-size:18px;font-weight:bold;}
-.main .maincontent .inbox div.message .time a.calendar{color:#FF0000;}
-.main .maincontent .inbox div.message .photo1{width:95px;height:63px;border-radius:0;margin-top:0px;background:#ccc;}
-.main .maincontent .inbox div.message .price a.btn{border:1px solid #009aab;border-bottom-color: #006671;
-background: #009aab;color: #fff;display:block;width:130px;height:34px;font-size:14px;text-align:center;line-height:34px;}
+.main .maincontent .rightcontent{width:765px;margin-top:8px;float:right;} 
+.main .maincontent .rightcontent1{width:763px;background:#fff;border:1px solid #dce0e0;}
+.main .maincontent .rightcontent1 .head{text-indent:15px;color: #565a5c;font-size: 16px;padding-top: 14px;padding-bottom: 14px;border-bottom: 1px solid #dce0e0;background: #edefed;}
+.main .maincontent .rightcontent1 .info{width:720px;margin:0 auto;margin-bottom:20px;overflow:hidden;}
+.main .maincontent .rightcontent1 .info span{display:block;width:100%;height:40px;margin-top:20px;line-height:40px;}
+.main .maincontent .rightcontent1 .info span label{display:inline-block;width:150px;height:40px;font-size:14px;padding-right:20px;text-align:right;}
+.main .maincontent .rightcontent1 .info span input{width:500px;height:32px;}
+.main .maincontent .rightcontent1 .info span select{width:120px;height:34px;margin-right:10px;}
+.main .maincontent .rightcontent1 .info span textarea{width:500px;padding-top: 10px;padding-bottom: 10px;resize: vertical;}
+.main .maincontent .rightcontent1 .info p{font-size:14px;color:#999;margin-left:170px;}
+.main .maincontent .rightcontent a.savebutton{margin-top:20px;border:1px solid #ff5a5f;border-bottom:1px solid #8a1c1b;background:#ff5a5f;border-radius:2px;color: #fff;display:block;width:100px;height:35px;text-align:center;line-height:35px;}
+
+.main .maincontent .rightcontent1 .info .photo{width:225px;height:225px;border:1px solid #c4c4c4;margin-top:20px;overflow:hidden;float:left;}
+.main .maincontent .rightcontent1 .info .upload{width:460px;float:left;}
+.main .maincontent .rightcontent1 .info .upload p{margin-left:20px;color:#565a5c;margin-top:20px;font-size:14px;line-height:25px;}
+.main .maincontent .rightcontent1 .info .upload .file-box{ position:relative;width:240px;height:65px;font-size:16px;padding-top:10px;font-weight:bold;text-align:center;line-height:30px;margin-top:20px;border:1px solid #c4c4c4;margin-left:20px;} 
+.main .maincontent .rightcontent1 .info .upload .file{ position:absolute; top:0; left:0px; height:75px; filter:alpha(opacity:0);opacity: 0;width:240px } 
 
 
 .footer{width:100%;height:55px;background:#eee8df;}
