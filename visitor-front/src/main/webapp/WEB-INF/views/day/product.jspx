@@ -49,6 +49,35 @@
 <div class="banner" id="bigImgshow2">
 </div>
 
+<div id="contactHostDialog" class="contact_host" style="display:none;">
+	<span>Send Message to Host<img src="${imgPathOrigin}/static/close1.png" onclick="closeDialog();" width="15"/></span>
+	<div>
+    	<table width="380" border="0">
+          <tr>
+            <td width="150">Check in</td>
+            <td width="150">Check out</td>
+            <td width="80">Guests</td>
+          </tr>
+          <tr>
+            <td><input id="checkinDate" type="text" placeholder="2015-01-01" /></td>
+            <td><input id="checkoutDate" type="text" placeholder="2015-01-05" /></td>
+            <td><select id="guestNumber"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
+          </tr>
+        </table>
+	<p>
+    	Some tips:<br />
+        * Tell Host a little about yourself<br />
+        * What brings you to here? Who's coming? <br />
+        * What do you love about this listing?
+    	
+    </p>
+    <textarea id="mailContent"></textarea>
+    <a href="javascript:checkAndSend();" class="button">Send Message</a>
+    </div>
+    <div id="loginUserMailForMail" style="display:none;"></div>
+    <div id="hostUserMailForMail" style="display:none;"></div>
+</div>
+
 <div class="hostinfo">
 	 <div class="menu">
      	<div class="inner">
@@ -67,7 +96,7 @@
                 	<p>${hostInfo.userFirstName} ${hostInfo.userLastName}</p>
                 </c:if>
                 
-				<c:if test="${empty hostInfo.userLastName}">
+				<c:if test="${empty hostInfo.userLastName or empty hostInfo.userFirstName}">
                 	<p>${hostInfo.userEmail}</p>
                 </c:if>
 <![CDATA[
@@ -129,8 +158,16 @@
 			<h4>About This Listing</h4>
 			<p>${productDetailInfo.pdiProductOverviewDetail}</p>
 		</c:if>
+		
+		<c:choose>
+      		<c:when test="${loginUserEmail == hostInfo.userEmail}">
+      			<a class="contact" href="javascript:void(0);">Contact Host</a>
+      		</c:when>
+      		<<c:otherwise>
+      			<a class="contact" href="javascript:contactHost(${loginUserEmail},${hostInfo.userEmail});">Contact Host</a>
+      		</c:otherwise>
+      	</c:choose>
 <![CDATA[
-        <a class="contact" href="javascript:void(0);">Contact Host</a>
         
         <table width="680" border="0">
           <tr>

@@ -776,30 +776,9 @@ public class ProductController extends BasicController {
 		//do internal
 		Integer result = 0;
 		String resultDesc = RegisterInfo.USER_INTERNALMAIL_SAVE_SUCCESS;
-		
-		UserInternalMailTemp uimT = super.getUserInternalMailTempJson(request);
 		User userTemp = (User) request.getAttribute(WebInfo.UserID);
 		
-		String pidStr = uimT.getProductIdStr();
-		String contentStr = uimT.getContentStr();
-		
-		if (StringUtils.isNotEmpty(pidStr)) {
-			Long productId = Long.valueOf(pidStr);
-			UserInternalMail uim = new UserInternalMail();
-			uim.setUimProductId(productId);
-			
-			Product product = productRedisService.getProductFromRedis(productId);
-			uim.setUimFromUserMail(userTemp.getUserEmail());
-			uim.setUimToUserMail(product.getProductPublishUserEmail());
-			uim.setUimStatus(UserMailStatusEnum.Unread.ordinal());
-			uim.setUimContent(contentStr);
-			visitorUserInternalMailService.saveVisitorUserInternalMail(uim);
-			userRedisService.setUserInternalMailUnread(uim);
-		} else {
-			log.info("product Id null for user internal mail save");
-			result = -1;
-			resultDesc = RegisterInfo.USER_INTERNALMAIL_SAVE_FAIL;
-		}
+		result = userRedisService.getUserInternalMailUnreadCount(userTemp.getUserEmail());
 		
 		ResultJson rj = new ResultJson();
 		rj.setResult(result);

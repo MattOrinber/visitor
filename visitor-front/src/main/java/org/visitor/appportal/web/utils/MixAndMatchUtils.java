@@ -95,6 +95,7 @@ public class MixAndMatchUtils {
 		String loginLastName = user.getUserLastName();
 		String loginEmail = user.getUserEmail();
 		String loginUrl = user.getUserPhotourl();
+		model.addAttribute("loginUserEmail", loginEmail);
 		if (StringUtils.isNotEmpty(loginFirstName) && StringUtils.isNotEmpty(loginLastName)) {
 			model.addAttribute("loginName", user.getUserFirstName() + " " + user.getUserLastName());
 		} else {

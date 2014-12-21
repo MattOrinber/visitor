@@ -116,3 +116,23 @@ function doUserImageUpload() {
     });
     $("#uploadUserPicForm").submit();
 }
+
+function contactHost(loginUserEmail, hostUserEmail) {
+	var dialog = $("#contactHostDialog");
+	$("#loginUserMailForMail").html(loginUserEmail);
+	$("#hostUserMailForMail").html(hostUserEmail);
+	$("#checkinDate").datepicker({dateFormat: "yyyy-mm-dd"});
+	$("#checkoutDate").datepicker({dateFormat: "yyyy-mm-dd"});
+	
+	$('.wrapwrapbox').show();
+	dialog.show();
+}
+
+function closeDialog() {
+	$("#contactHostDialog").hide();
+	$('.wrapwrapbox').hide();
+}
+
+function checkAndSend() {
+	;
+}
