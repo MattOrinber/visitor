@@ -94,8 +94,7 @@ function doUserImageUpload() {
 	
 	$("#uploadUserPicForm").submit(function() {
     	
-		var uid = $("#userIdTemp").html();
-    	var picUploadUrl = pathGlobe + "/updateUser/usericon/create?uid="+uid;
+    	var picUploadUrl = pathGlobe + "/updateUser/usericon";
     	
         $("#uploadUserPicForm").ajaxSubmit({
         	type: "post",

@@ -92,7 +92,7 @@ public class UserUpdateController extends BasicController {
 		}
 	}
 	
-	@RequestMapping("/usericon/create")
+	@RequestMapping("/usericon")
 	public void userIconCreate(HttpServletRequest request, 
 			HttpServletResponse response,
 			@RequestParam("fileUserIcon") MultipartFile uploadFile) {
