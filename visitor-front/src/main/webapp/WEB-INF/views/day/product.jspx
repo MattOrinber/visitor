@@ -63,7 +63,7 @@
         	<div class="photo">
             	<div class="img"></div>
 ]]>
-				<c:if test="${not empty hostInfo.userFirstName && not empty hostInfo.userLastName}">
+				<c:if test="${not empty hostInfo.userFirstName and not empty hostInfo.userLastName}">
                 	<p>${hostInfo.userFirstName} ${hostInfo.userLastName}</p>
                 </c:if>
                 
@@ -83,8 +83,10 @@
                 </c:if>
                 
                 <c:if test="${not empty productInfo.productCity}">
+                <![CDATA[
                 	<h3>${productInfo.productCity}</h3>
                 	<p>${productInfo.productCity}<span>
+                ]]>
                 </c:if>
                 
 				<c:if test="${empty productInfo.productCity}">
@@ -123,7 +125,7 @@
 	<div class="listing">
     	
 ]]>
-		<c:if test="${not empty productDetailInfo && not empty productDetailInfo.pdiProductOverviewDetail}">
+		<c:if test="${not empty productDetailInfo and not empty productDetailInfo.pdiProductOverviewDetail}">
 			<h4>About This Listing</h4>
 			<p>${productDetailInfo.pdiProductOverviewDetail}</p>
 		</c:if>
@@ -139,7 +141,7 @@
             </td>
           </tr>
 ]]>
-		<c:if test="${not empty productInfo && not empty productInfo.productCancellationpolicy}">
+		<c:if test="${not empty productInfo and not empty productInfo.productCancellationpolicy}">
 			<tr>
 				<td class="title">Prices</td>
 				<td>Cancellation policy: <strong><a href="javascript:void(0);">${productInfo.productCancellationpolicy}</a></strong></td>
