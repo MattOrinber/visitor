@@ -320,6 +320,9 @@ public class ProductController extends BasicController {
 					
 					product.setProductPhotopaths(displayUrl);
 					
+					visitorProductService.saveProduct(product);
+					productRedisService.saveUserProductToRedis(userTemp, product);
+					
 					resultJ.setImageUrl(displayUrl);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
