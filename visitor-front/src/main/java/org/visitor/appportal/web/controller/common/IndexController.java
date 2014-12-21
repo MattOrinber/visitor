@@ -243,7 +243,17 @@ public class IndexController extends BasicController {
 			@RequestParam(value = "pid", required = true) String productIdStr,
 			HttpServletResponse response, 
 			Model model) {
-		this.setModel(request, response, model, false);
+		boolean ifLoggedIn = this.setModel(request, response, model, false);
+		if (!ifLoggedIn) {
+			return "redirect:/index";
+		}
+		
+		User user = (User) request.getAttribute(WebInfo.UserID);
+		boolean ifProductAvail = this.setProductInfoModel(user, request, model, productIdStr);
+		if(!ifProductAvail) {
+			return "redirect:/index";
+		}
+		
 		model.addAttribute("pageName", "product");
 		return "day/product";
 	}
@@ -518,6 +528,46 @@ public class IndexController extends BasicController {
 				
 				model.addAttribute("productPictureList", productPicUrls);
 			}
+			return true;
+		}
+	}
+	
+	//在页面中插入product数据
+	private boolean setProductInfoModel(User user, HttpServletRequest request, Model model, String productIdStr) {
+		Product product = productRedisService.getProductFromRedis(Long.valueOf(productIdStr));
+		if (product == null) {
+			return false;
+		} else {
+			model.addAttribute("productInfo", product);
+			if (StringUtils.isNotEmpty(product.getProductCurrency())) {
+				model.addAttribute("productCurrencySetted", product.getProductCurrency());
+			} else {
+				model.addAttribute("productCurrencySetted", this.getGlobalCurrencyStored());
+			}
+			
+			ProductDetailInfo productDetailInfo = productRedisService.getProductDetailInfoUsingProductId(product.getProductId());
+			if (productDetailInfo != null) {
+				model.addAttribute("productDetailInfo", productDetailInfo);
+			}
+			
+			List<ProductPicture> listPP = productRedisService.getPictureListOfOneProduct(product.getProductId());
+			
+			if (listPP != null && listPP.size() > 0) {
+				List<String> productPicUrls = new ArrayList<String>();
+				String awsBucketName = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic);
+				String imgDomain = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgDomain);
+				
+				for (ProductPicture pp : listPP) {
+					String fileOriUrl = pp.getProductPicProductUrl();
+					
+					String displayUrl = imgDomain + awsBucketName + "/" + fileOriUrl;
+					productPicUrls.add(displayUrl);
+				}
+				
+				model.addAttribute("productPictureList", productPicUrls);
+			}
+			
+			model.addAttribute("hostInfo", user);
 			return true;
 		}
 	}

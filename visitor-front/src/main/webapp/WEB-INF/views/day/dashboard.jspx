@@ -8,31 +8,29 @@
 
 <div class="nav">
 	<div class="nav-detail">
-    	<a href="dashboard.html" class="select">Dashboard</a>
+    	<a href="javascript:void(0);" class="select">Dashboard</a>
         <a href="inbox.html">Inbox</a>
-        <a href="your-listing.html">Your Listings</a>
-        <a href="your-trip.html">Your Trips</a>
-        <a href="wishlist.html">Wish Lists</a>
-        <a href="edit.html">Edit Profile</a>
-        <a href="account.html">Account</a>
+        <a href="javascript:toListing();">Your Listings</a>
+        <a href="javascript:void(0);">Your Trips</a>
+        <a href="${pageContext.request.contextPath}/day/edit">Edit Profile</a>
     </div>
 </div>
 
 <div class="main">
     <div class="maincontent">
         <div class="left">
-        	<div class="hostimg"><a href="">Upload Profile Photo</a></div>
+        	<div class="hostimg"><a href="${pageContext.request.contextPath}/day/edit-photos">Upload Profile Photo</a></div>
             <div class="nameinfo">
             	<span>Name</span>
                 <a href="host_profile.html" class="view">View Profile</a>
-                <a href="edit.html" class="build">Build Your Profile</a>
+                <a href="${pageContext.request.contextPath}/day/edit" class="build">Build Your Profile</a>
             </div>
             <div class="aboutme">
             	<span>Quick Links</span>
                 <div>
-                	<a href="">View/Manage Listings</a>
-                    <a href="">Reservations</a>
-                    <a href="">Reviews & References</a>
+                	<a href="javascript:toListing();">View/Manage Listings</a>
+                    <a href="javascript:void(0);">Reservations</a>
+                    <a href="javascript:void(0);">Reviews & References</a>
                 </div>
             </div>
         </div>
@@ -40,7 +38,7 @@
         	<div class="info">
                <span>Quick Links</span>
                 <div>
-                	<a href="">Please tell us how to pay you. </a>
+                	<a href="${pageContext.request.contextPath}/day/edit">Please tell us how to pay you. </a>
                 </div>
             </div>
             <div class="info info2">

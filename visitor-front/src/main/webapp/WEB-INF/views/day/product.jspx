@@ -5,9 +5,8 @@
 
 <body>
 <![CDATA[
-<!-- å¼¹åºå¾ç-->
 <div class="boxshade">
-	<a href="#" id="closeit" style="display:block;width:20px;height:20px;position:absolute;right:20px;top:20px;"><img src="${imgPathOrigin}/static/close2.png" /></a>
+	<a href="javascript:void(0);" id="closeit" style="display:block;width:20px;height:20px;position:absolute;right:20px;top:20px;"><img src="${imgPathOrigin}/static/close2.png" /></a>
     <div class="mod18">
         <span id="prev" class="btn prev"></span>
         <span id="next" class="btn next"></span>
@@ -15,33 +14,33 @@
         <span id="nextTop" class="btn next"></span>
         <div id="picBox" class="picBox">
             <ul class="cf">
-                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/room-img/1b48bac4_original.jpg" alt="" /></a></li>
-                <li><a href="#" ><img width="1024" src="${imgPathOrigin}/static/room-img/9a548b3e_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/room-img/72bbbc01_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/room-img/102faa20_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/room-img/885a3cec_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/room-img/c51b2f2b_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/room-img/e993905b_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/room-img/ef7dbcc4_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/room-img/78a645e0_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/room-img/d1a69cd5_original.jpg" alt="" /></a></li>
-                <li><a href="#"><img width="1024" src="${imgPathOrigin}/static/room-img/e169dfe6_original.jpg" alt="" /></a></li>
+]]>
+			
+			<c:if test="${not empty productPictureList}">
+				<c:forEach items="${productPictureList}" var="productPicture" varStatus="status">
+					<li><a href="javascript:void(0);"><img width="1024" src="${productPicture}" alt="" /></a></li>
+				</c:forEach>
+			</c:if>
+
+<![CDATA[
             </ul>
         </div>
         
         <div id="listBox" class="listBox">
             <ul class="cf">
-                <li class="on"><i class="arr2"></i><img width="118"  src="${imgPathOrigin}/static/room-img/1b48bac4_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/room-img/9a548b3e_original.jpg" alt="roomimg"  /></li>
-                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/room-img/72bbbc01_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/room-img/102faa20_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/room-img/885a3cec_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/room-img/c51b2f2b_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/room-img/e993905b_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/room-img/ef7dbcc4_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/room-img/78a645e0_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/room-img/d1a69cd5_original.jpg" alt="roomimg" /></li>
-                <li><i class="arr2"></i><img width="118" src="${imgPathOrigin}/static/room-img/e169dfe6_original.jpg" alt="roomimg" /></li>
+]]>
+			<c:if test="${not empty productPictureList}">
+				<c:forEach items="${productPictureList}" var="productPicture" varStatus="status">
+					<c:if test="${status.index == 0}">
+					    <li class="on"><i class="arr2"></i><img width="118"  src="${productPicture}" alt="roomimg" /></li>
+					</c:if>
+					<c:if test="${status.index != 0}">
+					    <li><i class="arr2"></i><img width="118" src="${productPicture}" alt="roomimg" /></li>
+					</c:if>
+				</c:forEach>
+			</c:if>
+
+<![CDATA[
             </ul>
         </div>
     </div>
@@ -53,7 +52,7 @@
 <div class="hostinfo">
 	 <div class="menu">
      	<div class="inner">
-            <a href="#" id="sTop" class="subNavBtn ">Photos</a>
+            <a href="#" id="sTop" class="subNavBtn">Photos</a>
             <a href="#" id="s1" class="subNavBtn">About this listing</a>
             <a href="#" id="s2" class="subNavBtn">Reviews</a>
             <a href="#" id="s3" class="subNavBtn">The Host</a>
@@ -63,11 +62,36 @@
         <div class="host">
         	<div class="photo">
             	<div class="img"></div>
-                <p>Sunmi</p>
+]]>
+				<c:if test="${not empty hostInfo.userFirstName && not empty hostInfo.userLastName}">
+                	<p>${hostInfo.userFirstName} ${hostInfo.userLastName}</p>
+                </c:if>
+                
+				<c:if test="${empty hostInfo.userLastName}">
+                	<p>${hostInfo.userEmail}</p>
+                </c:if>
+<![CDATA[
             </div>
             <div class="info">
-            	<h3>Chamsil-Lotte World & Nice Lake</h3>
-                <p>South Korea<span><img src="${imgPathOrigin}/static/knewstuff.png" width="14"/><img src="${imgPathOrigin}/static/knewstuff.png" width="14"/><img src="${imgPathOrigin}/static/knewstuff.png" width="14"/><img src="${imgPathOrigin}/static/halfstuff.png" width="14"/><img src="${imgPathOrigin}/static/stuff-gray.png" width="14"/></span><span>(8)</span></p>
+]]>
+				<c:if test="${not empty productInfo.productOverviewtitle}">
+                	<h3>${productInfo.productOverviewtitle}</h3>
+                </c:if>
+                
+				<c:if test="${empty productInfo.productOverviewtitle}">
+                	<h3>Good place</h3>
+                </c:if>
+                
+                <c:if test="${not empty productInfo.productCity}">
+                	<h3>${productInfo.productCity}</h3>
+                	<p>${productInfo.productCity}<span>
+                </c:if>
+                
+				<c:if test="${empty productInfo.productCity}">
+                	<h3>Globe</h3>
+                </c:if>
+<![CDATA[
+                <img src="${imgPathOrigin}/static/knewstuff.png" width="14"/><img src="${imgPathOrigin}/static/knewstuff.png" width="14"/><img src="${imgPathOrigin}/static/knewstuff.png" width="14"/><img src="${imgPathOrigin}/static/halfstuff.png" width="14"/><img src="${imgPathOrigin}/static/stuff-gray.png" width="14"/></span><span>(8)</span></p>
             	<div class="pic-t">
                 	<span>1.5Hours</span>
                     <span class="people">2-5Person</span>
@@ -80,16 +104,16 @@
         <div class="rightbox">
             <div class="book">
                 <div class="price">
-                    Â¥ 227<span>Per Night</span>
+                    $ ${productInfo.productBaseprice}<span>Per Night</span>
                 </div>
                 <div class="date">
-                    Date<span>2014-10-30</span>
+                    start Date: <input type="text" placeholder="2014-10-30" /> end Date: <input type="text" placeholder="2014-10-30" />
                 </div>
                 <div class="booking">
-                    <a href="">instant book</a> 
+                    <a href="javascript:void();">instant book</a> 
                  </div>
-                 <a href="" class="save">Save to Wishes List</a>
-                 <a href="" class="share">Share: Facebook Twitter G+ Instagram</a>
+                 <a href="javascript:void();" class="save">Save to Wishes List</a>
+                 <a href="javascript:void();" class="share">Share: Facebook Twitter G+ Instagram</a>
              </div>
          </div>
      </div>
@@ -97,145 +121,35 @@
 
 <div class="aboutlist">
 	<div class="listing">
-    	<h4>About This Listing</h4>
-        <p>I have a 3 bedroom, 2 bath apartment. I will be renting two of the bedrooms and living in the 3rd room. I am a business woman, who has done business and lived in several countries over the last ten years. Having rented rooms and apartments for extended stays all over the world, I have gathered a great appreciation for what a home means for me. That being my sanctuary to relax, to feel secure, to feel at peace from a long day of business meetings or classes. Iâve tried to make this home into that type of comfortable environment.</p>
+    	
+]]>
+		<c:if test="${not empty productDetailInfo && not empty productDetailInfo.pdiProductOverviewDetail}">
+			<h4>About This Listing</h4>
+			<p>${productDetailInfo.pdiProductOverviewDetail}</p>
+		</c:if>
+<![CDATA[
         <a class="contact" href="javascript:void(0);">Contact Host</a>
-        <div class="roomimg">
-        	<a href="javasrcipt:void(0)" id="bigImgshow"><img src="${imgPathOrigin}/static/13971a33_original.jpg" width="680" /></a>
-        </div>
         
         <table width="680" border="0">
           <tr>
             <td class="title">The Space</td>
             <td class="middle">
-            	 <div>Bed type:Â <strong>Real Bed</strong></div>
-             	 <div>Property type:Â <strong><a href="#">Apartment</a></strong></div>
-             	 <div>Accommodates:Â <strong>1</strong></div>
-             	 <div>Bedrooms:Â <strong>1</strong></div>
-            </td>
-            <td><div>Bathrooms:Â <strong>1</strong></div>
-              	<div>Beds:Â <strong>1</strong></div>
-              	<div>Check In:Â <strong>2:00 PM</strong></div>
-              	<div>Check Out:Â <strong>12:00 PM (noon)</strong></div>
+             	 <div>Property type: <strong><a href="#">${productInfo.productRoomType}</a></strong></div>
+             	 <div>Accommodates: <strong>${productInfo.productAccomodates}</strong></div>
             </td>
           </tr>
-          <tr>
-            <td class="title">Amenities</td>
-            <td class="middle"><span id="">Kitchen</span><br />
-                <span id="">Internet</span><br />
-                <span id="">TV</span>
-            </td>
-            <td><span id="">Essentials</span><br />
-				<span id="">Heating</span><br />
-              	<a href="#">more</a>
-            </td>
-          </tr>
-          <tr>
-            <td class="title">Prices</td>
-            <td class="middle"><div>Cleaning Fee:Â <strong><span>Â¥120</span></strong></div>
-                <div>Security Deposit:Â <strong><span>Â¥1196</span></strong></div>
-            </td>
-            <td>Cancellation:Â <strong><a href="#">Strict</a></strong></td>
-          </tr>
-          <tr>
-            <td class="title">Description</td>
-            <td colspan="2"><p><strong>Other Things to Note</strong></p>
-              <p>Please read this carefully,I have 2 bedroom for guest.Each bedroom has a single bed,so you can't stay with your friend in same bedroom.If you are travel with your friend or couple, Please let me know and I can checkfor you!</p></td>
-            </tr>
-          <tr>
-            <td class="title">Availability</td>
-            <td class="middle">Minimum Stay:Â <strong>2 nights</strong></td>
-            <td><a href="#"><strong>View Calendar</strong></a></td>
-          </tr>
+]]>
+		<c:if test="${not empty productInfo && not empty productInfo.productCancellationpolicy}">
+			<tr>
+				<td class="title">Prices</td>
+				<td>Cancellation policy: <strong><a href="javascript:void(0);">${productInfo.productCancellationpolicy}</a></strong></td>
+			</tr>
+		</c:if>
+<![CDATA[
         </table>
-		<div class="roomimg">
-        	<a href="javasrcipt:void(0)" id="bigImgshow1"><img src="${imgPathOrigin}/static/885a3cec_original.jpg" width="680" /></a>
-        </div>
     </div>
 	
 </div>
-
-<div class="reviews">
-	<div class="details">
-		<div class="title">12 Reviews<span><img src="${imgPathOrigin}/static/knewstuff.png" width="14"/><img src="${imgPathOrigin}/static/knewstuff.png" width="14"/><img src="${imgPathOrigin}/static/knewstuff.png" width="14"/><img src="${imgPathOrigin}/static/halfstuff.png" width="14"/><img src="${imgPathOrigin}/static/stuff-gray.png" width="14"/></span></div>
-        <div class="list">
-        	<dl>
-            	<dd></dd>
-                <dt>Alexander</dt>
-            </dl>
-            <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-            <span>September 2014</span>
-            </div>
-                <div class="list response">
-                    <dl>
-                        <dd></dd>
-                        <dt>Alexander</dt>
-                    </dl>
-                    <div class="text"><p>Response from Sarah:</p>
-                        SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-                    <span>September 2014</span>
-                    </div>
-            	</div>
-        </div>
-        <div class="line"></div>
-        <div class="list">
-        	<dl>
-            	<dd></dd>
-                <dt>Alexander</dt>
-            </dl>
-            <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-            <span>September 2014</span>
-            </div>
-        </div>
-        <div class="line"></div>
-        <div class="list">
-        	<dl>
-            	<dd></dd>
-                <dt>Alexander</dt>
-            </dl>
-            <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-            <span>September 2014</span>
-            </div>
-        </div>
-        <div class="line"></div>
-        <div class="list">
-        	<dl>
-            	<dd></dd>
-                <dt>Alexander</dt>
-            </dl>
-            <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-            <span>September 2014</span>
-            </div>
-        </div>
-    </div>
-    <div class="page">
-    	<div class="info">
-            <a class="selected" href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="" style="border:none;background:none;padding:0;">...</a><a href="#">15</a><a href="">></a>
-        </div>
-    </div>
-</div>
-
-
-<div class="abouthost">
-	<div class="presentation">
-        <h3>About the host, <span>Sam</span></h3>
-        <div class="picture"><span></span></div>
-        <div class="description">
-        	<p>
-            Hi, <br />
-            Nice to meet you. <br />
-            I live in Seoul, Korea. <br />
-            There are five members in my family. <br />
-            Welcome to Seoul and Enjoy your experience here.
-            </p>
-            <a href="" class="view">View full profile</a>
-			<p>Kuala Lumpur ,Malaysia Member since September 2014.</p>
-            <a href="" class="contact">Contact Host</a>
-        </div>
-    </div>
-</div>
-
-
 
 <div class="content">
 	<div class="title">
