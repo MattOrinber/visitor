@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -316,6 +317,9 @@ public class ProductController extends BasicController {
 					resultDesc = ProductInfo.PRODUCT_PICTURE_SAVE_SUCCESS;
 					
 					String displayUrl = imgDomain + awsBucketName + "/" + fileOriUrl; //实际访问图片的全路径
+					
+					product.setProductPhotopaths(displayUrl);
+					
 					resultJ.setImageUrl(displayUrl);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -720,45 +724,78 @@ public class ProductController extends BasicController {
 		UserInternalMailTemp uimT = super.getUserInternalMailTempJson(request);
 		User userTemp = (User) request.getAttribute(WebInfo.UserID);
 		
-		String uimIdStr = uimT.getUimIdStr();
+		String pidStr = uimT.getProductIdStr();
+		String contentStr = uimT.getContentStr();
 		
-		if (StringUtils.isNotEmpty(uimIdStr)) {
-			UserInternalMail uimFetch = userRedisService.getUserInternalMailAlways(uimIdStr);
-			String userTEmailStr = userTemp.getUserEmail();
+		if (StringUtils.isNotEmpty(pidStr)) {
+			Long productId = Long.valueOf(pidStr);
+			UserInternalMail uim = new UserInternalMail();
+			uim.setUimProductId(productId);
 			
-			String contentStr = "";
-			if (StringUtils.equals(userTEmailStr, uimFetch.getUimFromUserMail())) {
-				contentStr = uimFetch.getUimContent() + RegisterInfo.USER_EMAIL_CONTENT_SPLIT + RegisterInfo.USER_EMAIL_PREFIX_FROM + RegisterInfo.USER_EMAIL_SPLIT + uimT.getContentStr();
-			} else {
-				contentStr = uimFetch.getUimContent() + RegisterInfo.USER_EMAIL_CONTENT_SPLIT + RegisterInfo.USER_EMAIL_PREFIX_TO + RegisterInfo.USER_EMAIL_SPLIT + uimT.getContentStr();
-			}
-			
-			uimFetch.setUimContent(contentStr);
-			visitorUserInternalMailService.saveVisitorUserInternalMail(uimFetch);
-			userRedisService.setUserInternalMailAlways(uimFetch);
-			userRedisService.setUserInternalMailUnread(uimFetch);
+			Product product = productRedisService.getProductFromRedis(productId);
+			uim.setUimFromUserMail(userTemp.getUserEmail());
+			uim.setUimToUserMail(product.getProductPublishUserEmail());
+			uim.setUimStatus(UserMailStatusEnum.Unread.ordinal());
+			uim.setUimContent(contentStr);
+			visitorUserInternalMailService.saveVisitorUserInternalMail(uim);
+			userRedisService.setUserInternalMailUnread(uim);
 		} else {
-			String pidStr = uimT.getProductIdStr();
-			String contentStr = uimT.getContentStr();
+			log.info("product Id null for user internal mail save");
+			result = -1;
+			resultDesc = RegisterInfo.USER_INTERNALMAIL_SAVE_FAIL;
+		}
+		
+		ResultJson rj = new ResultJson();
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		super.sendJSONResponse(rj, response);
+	}
+	
+	@RequestMapping("getInternalMailUnread")
+	public void getUserInternalMailList(HttpServletRequest request,
+			HttpServletResponse response,
+			Model model) {
+		//do internal
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		
+		String userEmailStr = userTemp.getUserEmail();
+		
+		List<UserInternalMail> listUIM = userRedisService.getUserInternalMailToMe(userEmailStr);
+		if (listUIM != null && listUIM.size() > 0) {
+			model.addAttribute("internalMailList", listUIM);
+		}
+	}
+	
+	@RequestMapping("getMailCount")
+	public void countUserInternalMail(HttpServletRequest request,
+			HttpServletResponse response) {
+		//do internal
+		Integer result = 0;
+		String resultDesc = RegisterInfo.USER_INTERNALMAIL_SAVE_SUCCESS;
+		
+		UserInternalMailTemp uimT = super.getUserInternalMailTempJson(request);
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		
+		String pidStr = uimT.getProductIdStr();
+		String contentStr = uimT.getContentStr();
+		
+		if (StringUtils.isNotEmpty(pidStr)) {
+			Long productId = Long.valueOf(pidStr);
+			UserInternalMail uim = new UserInternalMail();
+			uim.setUimProductId(productId);
 			
-			if (StringUtils.isNotEmpty(pidStr)) {
-				Long productId = Long.valueOf(pidStr);
-				UserInternalMail uim = new UserInternalMail();
-				uim.setUimProductId(productId);
-				
-				Product product = productRedisService.getProductFromRedis(productId);
-				uim.setUimFromUserMail(userTemp.getUserEmail());
-				uim.setUimToUserMail(product.getProductPublishUserEmail());
-				uim.setUimStatus(UserMailStatusEnum.Unread.ordinal());
-				uim.setUimContent(RegisterInfo.USER_EMAIL_PREFIX_FROM + RegisterInfo.USER_EMAIL_SPLIT + contentStr);
-				visitorUserInternalMailService.saveVisitorUserInternalMail(uim);
-				userRedisService.setUserInternalMailAlways(uim);
-				userRedisService.setUserInternalMailUnread(uim);
-			} else {
-				log.info("product Id null for user internal mail save");
-				result = -1;
-				resultDesc = RegisterInfo.USER_INTERNALMAIL_SAVE_FAIL;
-			}
+			Product product = productRedisService.getProductFromRedis(productId);
+			uim.setUimFromUserMail(userTemp.getUserEmail());
+			uim.setUimToUserMail(product.getProductPublishUserEmail());
+			uim.setUimStatus(UserMailStatusEnum.Unread.ordinal());
+			uim.setUimContent(contentStr);
+			visitorUserInternalMailService.saveVisitorUserInternalMail(uim);
+			userRedisService.setUserInternalMailUnread(uim);
+		} else {
+			log.info("product Id null for user internal mail save");
+			result = -1;
+			resultDesc = RegisterInfo.USER_INTERNALMAIL_SAVE_FAIL;
 		}
 		
 		ResultJson rj = new ResultJson();

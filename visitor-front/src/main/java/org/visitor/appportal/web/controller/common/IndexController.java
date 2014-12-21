@@ -36,6 +36,7 @@ import org.visitor.appportal.visitor.domain.ProductDetailInfo;
 import org.visitor.appportal.visitor.domain.ProductPicture;
 import org.visitor.appportal.visitor.domain.TimeZone;
 import org.visitor.appportal.visitor.domain.User;
+import org.visitor.appportal.visitor.domain.UserInternalMail;
 import org.visitor.appportal.visitor.domain.UserTokenInfo;
 import org.visitor.appportal.visitor.domain.VisitorLanguage;
 import org.visitor.appportal.web.utils.HttpClientUtil;
@@ -209,8 +210,15 @@ public class IndexController extends BasicController {
 	@RequestMapping({"day/city"})
 	public String dayCity(HttpServletRequest request,
 			HttpServletResponse response, 
+			@RequestParam(value = "c", required = true) String cityStr,
 			Model model) {
-		this.setModel(request, response, model, false);
+		boolean ifLoggedIn = this.setModel(request, response, model, false);
+		if (!ifLoggedIn) {
+			return "redirect:/index";
+		}
+		
+		this.setCityProductsModel(cityStr, request, model);
+		
 		model.addAttribute("pageName", "city");
 		return "day/city";
 	}
@@ -226,14 +234,34 @@ public class IndexController extends BasicController {
 	
 	@RequestMapping({"day/inbox"})
 	public String dayInbox(HttpServletRequest request, HttpServletResponse response, Model model) {
-		this.setModel(request, response, model, false);
+		boolean ifLoggedIn = this.setModel(request, response, model, false);
+		if (!ifLoggedIn) {
+			return "redirect:/index";
+		}
+		
+		//do internal
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		String userEmailStr = userTemp.getUserEmail();
+		
+		List<UserInternalMail> listUIM = userRedisService.getUserInternalMailToMe(userEmailStr);
+		if (listUIM != null && listUIM.size() > 0) {
+			model.addAttribute("internalMailList", listUIM);
+		}
+		
 		model.addAttribute("pageName", "inbox");
 		return "day/inbox";
 	}
 	
 	@RequestMapping({"day/host_profile"})
-	public String dayHostprofile(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String dayHostprofile(HttpServletRequest request, 
+			HttpServletResponse response, 
+			@RequestParam(value="emailStr", required = true) String emailStr,
+			Model model) {
 		this.setModel(request, response, model, false);
+		
+		User user = userRedisService.getUserPassword(emailStr);
+		model.addAttribute("userDisplay", user);
+		
 		model.addAttribute("pageName", "host_profile");
 		return "day/host_profile";
 	}
@@ -389,6 +417,10 @@ public class IndexController extends BasicController {
 			
 			model.addAttribute("imgPathOrigin", imgPathOrigin);
 			
+			List<String> listCity = productRedisService.getCities();
+			
+			model.addAttribute("productCities", listCity);
+			
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -487,6 +519,16 @@ public class IndexController extends BasicController {
 	private boolean setMyProductModel(User user, HttpServletRequest request, Model model) {
 		List<Product> list = productRedisService.getUserProducts(user);
 		if (list != null && list.size() > 0) {
+			model.addAttribute("productList", list);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	private boolean setCityProductsModel(String cityStr, HttpServletRequest request, Model model) {
+		List<Product> list = productRedisService.getProductListFromRedis(cityStr);
+		if (list!= null && list.size() > 0) {
 			model.addAttribute("productList", list);
 			return true;
 		} else {

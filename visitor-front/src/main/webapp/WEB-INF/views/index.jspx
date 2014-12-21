@@ -182,18 +182,13 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
                 <div class="choose_city">
                 	<span id="close" class="close"></span>
                     <ul class="destination">
-                    	<li>Beijing1</li>
-                        <li>Beijing2</li>
-                        <li>Beijing3</li>
-                        <li>Beijing4</li>
-                        <li>Beijing5</li>
-                        <li>Beijing6</li>
-                        <li>Beijing7</li>
-                        <li>Beijing8</li>
-                        <li>Beijing5</li>
-                        <li>Beijing6</li>
-                        <li>Beijing7</li>
-                        <li>Beijing8</li>
+]]>
+					<c:if test="${not empty productCities}">
+						<c:forEach items="${productCities}" var="cityT" varStatus="status">
+							<li><a href="${pageContext.request.contextPath}/day/city?c=${cityT}">${cityT}</a></li>
+						</c:forEach>
+					</c:if>
+<![CDATA[
                     </ul>
                 </div>
             </div>

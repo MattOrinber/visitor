@@ -19,209 +19,30 @@
             </select>
         </div>
     </div>
-	<div class="apartment">
-    	<div class="img" id="focus">
-        	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
-            <a href="javascript:void(0);" class="btn" id="btnRight"></a>
-        	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/c4f01fea_original.jpg" width="340"/></li>
-            </ul>
-        </div>
-        <div class="photo"></div>
-        <div class="price"><span>$</span>300</div>
-        <div class="word">
-        	<p class="product-title">Fabulous Seoul Apartment!</p>
-            <p class="duration">6 Hours</p>
-        </div>
-    </div>
-    <div class="apartment">
-    	<div class="img">
-        	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
-            <a href="javascript:void(0);" class="btn" id="btnRight"></a>
-        	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/c4f01fea_original.jpg" width="340"/></li>
-            </ul>
-        </div>
-        <div class="photo"></div>
-        <div class="price"><span>$</span>300</div>
-        <div class="word">
-        	<p class="product-title">Fabulous Seoul Apartment!</p>
-            <p class="duration">6 Hours</p>
-        </div>
-    </div>
-    <div class="apartment">
-    	<div class="img">
-        	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
-            <a href="javascript:void(0);" class="btn" id="btnRight"></a>
-        	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/c4f01fea_original.jpg" width="340"/></li>
-            </ul>
-        </div>
-        <div class="photo"></div>
-        <div class="price"><span>$</span>300</div>
-        <div class="word">
-        	<p class="product-title">Fabulous Seoul Apartment!</p>
-            <p class="duration">6 Hours</p>
-        </div>
-    </div>
-    <div class="apartment">
-    	<div class="img">
-        	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
-            <a href="javascript:void(0);" class="btn" id="btnRight"></a>
-        	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/c4f01fea_original.jpg" width="340"/></li>
-            </ul>
-        </div>
-        <div class="photo"></div>
-        <div class="price"><span>$</span>300</div>
-        <div class="word">
-        	<p class="product-title">Fabulous Seoul Apartment!</p>
-            <p class="duration">6 Hours</p>
-        </div>
-    </div>
-    <div class="apartment">
-    	<div class="img">
-        	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
-            <a href="javascript:void(0);" class="btn" id="btnRight"></a>
-        	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/c4f01fea_original.jpg" width="340"/></li>
-            </ul>
-        </div>
-        <div class="photo"></div>
-        <div class="price"><span>$</span>300</div>
-        <div class="word">
-        	<p class="product-title">Fabulous Seoul Apartment!</p>
-            <p class="duration">6 Hours</p>
-        </div>
-    </div>
-    <div class="apartment">
-    	<div class="img">
-        	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
-            <a href="javascript:void(0);" class="btn" id="btnRight"></a>
-        	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/c4f01fea_original.jpg" width="340"/></li>
-            </ul>
-        </div>
-        <div class="photo"></div>
-        <div class="price"><span>$</span>300</div>
-        <div class="word">
-        	<p class="product-title">Fabulous Seoul Apartment!</p>
-            <p class="duration">6 Hours</p>
-        </div>
-    </div>
-    <div class="apartment">
-    	<div class="img">
-        	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
-            <a href="javascript:void(0);" class="btn" id="btnRight"></a>
-        	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/c4f01fea_original.jpg" width="340"/></li>
-            </ul>
-        </div>
-        <div class="photo"></div>
-        <div class="price"><span>$</span>300</div>
-        <div class="word">
-        	<p class="product-title">Fabulous Seoul Apartment!</p>
-            <p class="duration">6 Hours</p>
-        </div>
-    </div>
-    <div class="apartment">
-    	<div class="img">
-        	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
-            <a href="javascript:void(0);" class="btn" id="btnRight"></a>
-        	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/c4f01fea_original.jpg" width="340"/></li>
-            </ul>
-        </div>
-        <div class="photo"></div>
-        <div class="price"><span>$</span>300</div>
-        <div class="word">
-        	<p class="product-title">Fabulous Seoul Apartment!</p>
-            <p class="duration">6 Hours</p>
-        </div>
-    </div>
-    <div class="apartment">
-    	<div class="img">
-        	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
-            <a href="javascript:void(0);" class="btn" id="btnRight"></a>
-        	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/c4f01fea_original.jpg" width="340"/></li>
-            </ul>
-        </div>
-        <div class="photo"></div>
-        <div class="price"><span>$</span>300</div>
-        <div class="word">
-        	<p class="product-title">Fabulous Seoul Apartment!</p>
-            <p class="duration">6 Hours</p>
-        </div>
-    </div>
-    <div class="apartment">
-    	<div class="img">
-        	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
-            <a href="javascript:void(0);" class="btn" id="btnRight"></a>
-        	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/c4f01fea_original.jpg" width="340"/></li>
-            </ul>
-        </div>
-        <div class="photo"></div>
-        <div class="price"><span>$</span>300</div>
-        <div class="word">
-        	<p class="product-title">Fabulous Seoul Apartment!</p>
-            <p class="duration">6 Hours</p>
-        </div>
-    </div>
-    <div class="apartment">
-    	<div class="img">
-        	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
-            <a href="javascript:void(0);" class="btn" id="btnRight"></a>
-        	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/c4f01fea_original.jpg" width="340"/></li>
-            </ul>
-        </div>
-        <div class="photo"></div>
-        <div class="price"><span>$</span>300</div>
-        <div class="word">
-        	<p class="product-title">Fabulous Seoul Apartment!</p>
-            <p class="duration">6 Hours</p>
-        </div>
-    </div><div class="apartment">
-    	<div class="img">
-        	<a href="javascript:void(0);" class="btn" id="btnLeft"></a>
-            <a href="javascript:void(0);" class="btn" id="btnRight"></a>
-        	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><img src="${imgPathOrigin}/static/aadec950_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/4343c54e_original.jpg" width="340"/></li>
-                <li anime-status="0"><img src="${imgPathOrigin}/static/c4f01fea_original.jpg" width="340"/></li>
-            </ul>
-        </div>
-        <div class="photo"></div>
-        <div class="price"><span>$</span>300</div>
-        <div class="word">
-        	<p class="product-title">Fabulous Seoul Apartment!</p>
-            <p class="duration">6 Hours</p>
-        </div>
-    </div>
+    
+]]>
+
+	<c:if test="${not empty productList}">
+		<c:forEach items="${productList}" var="productT" varStatus="status">
+		<![CDATA[
+			<div class="apartment">
+		    	<div class="img" id="focus">
+		        	<ul>
+		            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><a href="${pageContext.request.contextPath}/day/product?pid=${productT.productId}"><img src="${productT.productPhotopaths}" width="340"/></a></li>
+		            </ul>
+		        </div>
+		        <a href="${pageContext.request.contextPath}/day/host_profile?emailStr=${productT.productPublishUserEmail}"><div class="photo"></div></a>
+		        <div class="price"><span>$</span>${productT.productBaseprice}</div>
+		        <div class="word">
+		        	<p class="product-title">${productT.productOverviewtitle}</p>
+		            <p class="duration">6 Hours</p>
+		        </div>
+		    </div>
+		]]>
+		</c:forEach>
+	</c:if>
+
+<![CDATA[
     
 </div>
 

@@ -8,15 +8,32 @@
 <div class="main">
     <div class="maincontent">
         <div class="left">
-        	<div class="hostimg"><img src="${imgPathOrigin}/static/original1.jpg" width="230"/></div>
+        	<div class="hostimg">
+]]>
+		<c:choose>
+      		<c:when test="${not empty userDisplay and not empty userDisplay.userPhotourl}">
+      			<img src="${userDisplay.userPhotourl}" width="230"/>
+      		</c:when>
+      		<<c:otherwise>
+      			<img src="${imgPathOrigin}/static/original1.jpg" width="230"/>
+      		</c:otherwise>
+      	</c:choose>
+<![CDATA[
+        	</div>
             <div class="aboutme">
             	<span>About Me</span>
-                <div><p><strong>School</strong>
-                    Ecole Active Bilingue JM, University of California, Santa Barbara, UCBerkeley, M.I.I.S.</p>
-                    <p><strong>Work</strong>
-                    Freelance Interpreter</p>
-                    <p><strong>Languages</strong>
-                    English, FranÃ§ais</p>
+                <div>
+]]>
+			<c:if test="${not empty userDisplay and not empty userDisplay.userSchool}">
+				<p><strong>School</strong>
+                    ${userDisplay.userSchool}</p>
+			</c:if>
+			
+			<c:if test="${not empty userDisplay and not empty userDisplay.userWork}">
+				<p><strong>Work</strong>
+                    ${userDisplay.userWork}</p>
+			</c:if>
+<![CDATA[                    
                 </div>
             </div>
             <div class="listlist">
@@ -26,16 +43,13 @@
         </div>
         <div class="right">
         	<div class="info">
-                <h1>Hey, I'm Kristin!</h1>
-    <span><strong>Paris, Ãle-de-France, France</strong> Â· Member since July 2011</span>
-    <p>I love to travel and am always on the go. My apartment is my haven of tranquility in the beautiful city of Paris, where I've lived off and on for 20 years. The 11th arrondissement is a fantastic neighborhood, very vibrant and alive. So much to discover and explore...
-    </p>
-    <p>
-    My favorite pastimes include hiking, snowboarding, eating out, wine tasting, reading, meeting new people and spending time with my friends. My motto in life: "je ne regrette rien!"
-    </p>
-    <p>
-    Enjoy your stay in Paris!</p>
+]]>
+                <c:if test="${not empty userDisplay and not empty userDisplay.userDetail}">
+                	${userDisplay.userDetail}
+				</c:if>
+<![CDATA[
             </div>
+            
             <div class="review">
             	<a href="#review-details">26</a>
                 <span>Reviews</span>

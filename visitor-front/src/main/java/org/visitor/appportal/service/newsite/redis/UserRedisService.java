@@ -77,16 +77,11 @@ public class UserRedisService {
 	
 	public void setUserInternalMailUnread(UserInternalMail uim) {
 		String keyTo = RedisKeysForVisitor.getUserInternalMailToMeKey() + uim.getUimToUserMail();
-		String keyFrom = RedisKeysForVisitor.getUserInternalMailFromMeKey() + uim.getUimFromUserMail();
 		String hashKey = String.valueOf(uim.getUimId());
-		
-		uim.setUimStatus(UserMailStatusEnum.Read.ordinal());
-		String valueT = objectMapperWrapperForVisitor.convert2String(uim);
 		
 		uim.setUimStatus(UserMailStatusEnum.Unread.ordinal());
 		String valueTo = objectMapperWrapperForVisitor.convert2String(uim);
 		
-		compressStringRedisVisitorTemplate.opsForHash().put(keyFrom, hashKey, valueT);
 		compressStringRedisVisitorTemplate.opsForHash().put(keyTo, hashKey, valueTo);
 	}
 	
@@ -97,7 +92,7 @@ public class UserRedisService {
 		Map<Object, Object> entries = compressStringRedisVisitorTemplate.opsForHash().entries(keyTo);
 		
 		if (null != entries) {
-			for(Object entry : entries.entrySet()) {
+			for(Object entry : entries.keySet()) {
 				String valueStr = (String)entries.get(entry);
 				UserInternalMail uim = objectMapperWrapperForVisitor.convertToUserInternalMail(valueStr);
 				toMeList.add(uim);
@@ -106,19 +101,19 @@ public class UserRedisService {
 		return toMeList;
 	}
 	
-	public List<UserInternalMail> getUserInternalMailFromMe(String userMailStr) {
-		List<UserInternalMail> fromMeList = new ArrayList<UserInternalMail>();
+	public Integer getUserInternalMailUnreadCount(String userMailStr) {
+		Integer count = 0;
 		
-		String keyTo = RedisKeysForVisitor.getUserInternalMailFromMeKey() + userMailStr;
+		String keyTo = RedisKeysForVisitor.getUserInternalMailToMeKey() + userMailStr;
 		Map<Object, Object> entries = compressStringRedisVisitorTemplate.opsForHash().entries(keyTo);
-		
-		if (null != entries) {
-			for(Object entry : entries.entrySet()) {
-				String valueStr = (String)entries.get(entry);
-				UserInternalMail uim = objectMapperWrapperForVisitor.convertToUserInternalMail(valueStr);
-				fromMeList.add(uim);
-			}
+		if (entries != null && entries.size() > 0) {
+			count = entries.size();
 		}
-		return fromMeList;
+		return count;
+	}
+	
+	public void deleteUserInternalMail(String userMailStr, String uimIdStr) {
+		String keyTo = RedisKeysForVisitor.getUserInternalMailToMeKey() + userMailStr;
+		compressStringRedisVisitorTemplate.opsForHash().delete(keyTo, uimIdStr);
 	}
 }
