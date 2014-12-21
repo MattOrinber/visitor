@@ -1,13 +1,11 @@
 package org.visitor.appportal.web.controller.common;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.visitor.appportal.service.newsite.S3Service;
 import org.visitor.appportal.service.newsite.VisitorUserService;
 import org.visitor.appportal.service.newsite.VisitorUserTokenInfoService;
@@ -29,15 +25,11 @@ import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.beans.UserTemp;
 import org.visitor.appportal.visitor.domain.User;
-import org.visitor.appportal.visitor.domain.UserInternalMail;
 import org.visitor.appportal.visitor.domain.UserTokenInfo;
 import org.visitor.appportal.web.utils.EncryptionUtil;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
 import org.visitor.appportal.web.utils.RegisterInfo;
-import org.visitor.appportal.web.utils.RegisterInfo.UserMailStatusEnum;
 import org.visitor.appportal.web.utils.WebInfo;
-
-import com.amazonaws.services.s3.model.ObjectMetadata;
 
 @Controller
 @RequestMapping("/registerUser/")
@@ -156,27 +148,12 @@ public class UserController extends BasicController{
 		setResultToClient(response, rj);
 	}
 	
-	@RequestMapping("getInternalMail")
-    public void getInternalMail(HttpServletRequest request,
+	@RequestMapping("getInternalMailCount")
+    public void getInternalMailCount(HttpServletRequest request,
     		HttpServletResponse response) {
 		String userEmailStr = request.getParameter("userEmailStr");
 		
-		List<UserInternalMail> listFrom = userRedisService.getUserInternalMailFromMe(userEmailStr);
-		List<UserInternalMail> listTo = userRedisService.getUserInternalMailToMe(userEmailStr);
-		
-		int count = 0;
-		
-		for (UserInternalMail uim : listFrom) {
-			if (uim.getUimStatus() == UserMailStatusEnum.Unread.ordinal()) {
-				count ++;
-			}
-		}
-		
-		for (UserInternalMail uim : listTo) {
-			if (uim.getUimStatus() == UserMailStatusEnum.Unread.ordinal()) {
-				count ++;
-			}
-		}
+		Integer count = userRedisService.getUserInternalMailUnreadCount(userEmailStr);
 		
 		ResultJson rj = new ResultJson();
 		rj.setResult(count);
