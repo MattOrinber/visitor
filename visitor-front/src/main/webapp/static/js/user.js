@@ -2,12 +2,12 @@ function saveUserDetailToBack() {
 	var user = {};
 	var needUpdate = false;
 	
-	var firstNameStr = $.trim($("#firstNameStr").val());
+	var firstNameStr = $.trim($("#firstNameUpdateStr").val());
 	if (firstNameStr != null && firstNameStr != "") {
 		user.firstNameStr = firstNameStr;
 		needUpdate = true;
 	}
-	var lastNameStr = $.trim($("#lastNameStr").val());
+	var lastNameStr = $.trim($("#lastNameUpdateStr").val());
 	if (lastNameStr != null && lastNameStr != "") {
 		user.lastNameStr = lastNameStr;
 		needUpdate = true;

@@ -31,19 +31,19 @@
 ]]>
 					<c:choose>
 						<c:when test="${not empty currentUser.userFirstName}">
-							<span><label>First Name</label><input id="firstNameStr" type="text" value="${currentUser.userFirstName}"/></span>
+							<span><label>First Name</label><input id="firstNameUpdateStr" type="text" value="${currentUser.userFirstName}"/></span>
 						</c:when>
 						<c:otherwise>
-							<span><label>First Name</label><input id="firstNameStr" type="text" /></span>
+							<span><label>First Name</label><input id="firstNameUpdateStr" type="text" /></span>
 						</c:otherwise>
 					</c:choose>
 					
 					<c:choose>
 						<c:when test="${not empty currentUser.userLastName}">
-							<span><label>Last Name</label><input id="lastNameStr" type="text" value="${currentUser.userLastName}"/></span>
+							<span><label>Last Name</label><input id="lastNameUpdateStr" type="text" value="${currentUser.userLastName}"/></span>
 						</c:when>
 						<c:otherwise>
-							<span><label>Last Name</label><input id="lastNameStr" type="text" /></span>
+							<span><label>Last Name</label><input id="lastNameUpdateStr" type="text" /></span>
 						</c:otherwise>
 					</c:choose>
 					
