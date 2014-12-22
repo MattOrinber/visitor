@@ -14,8 +14,6 @@
         <a href="your-trip.html">Your Trips</a>
         <a href="edit.html" class="select">Edit Profile</a>
     </div>
-    
-    <div id="userEmailHidden">${currentUser.userEmail}</div>
 </div>
 
 <div class="main">
@@ -30,8 +28,27 @@
         	<div class="rightcontent1">
         		<div class="head">Required</div>
                 <div class="info">
-                	<span><label>First Name</label><input id="firstNameStr" type="text" /></span>
-                    <span><label>Last Name</label><input id="lastNameStr" type="text" /></span>
+]]>
+					<c:choose>
+						<c:when test="${not empty currentUser.userFirstName}">
+							<span><label>First Name</label><input id="firstNameStr" type="text" value="${currentUser.userFirstName}"/></span>
+						</c:when>
+						<c:otherwise>
+							<span><label>First Name</label><input id="firstNameStr" type="text" /></span>
+						</c:otherwise>
+					</c:choose>
+					
+					<c:choose>
+						<c:when test="${not empty currentUser.userLastName}">
+							<span><label>Last Name</label><input id="lastNameStr" type="text" value="${currentUser.userLastName}"/></span>
+						</c:when>
+						<c:otherwise>
+							<span><label>Last Name</label><input id="lastNameStr" type="text" /></span>
+						</c:otherwise>
+					</c:choose>
+					
+					
+<![CDATA[
                     <p>This is only shared once you have a confirmed booking with another Darfetch user.</p>
                     <span><label>I am</label>
                     	  <select id="gender">

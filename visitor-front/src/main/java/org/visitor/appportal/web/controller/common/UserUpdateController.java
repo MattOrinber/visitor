@@ -69,6 +69,7 @@ public class UserUpdateController extends BasicController {
 			userTemp.setUserGender(MixAndMatchUtils.getGenderInteger(ut.getGenderStr()));
 			userTemp.setUserPhonenum(ut.getPhoneNumberStr()); //phone number not here
 			userTemp.setUserWork(ut.getWorkStr());
+			userTemp.setUserPaypalnum(ut.getUserPalpalNumStr());
 				
 			Integer userTimeZoneInt = timezoneRedisService.getTimeZoneId(ut.getTimeZoneStr());
 			userTemp.setUserTimeZone(userTimeZoneInt);

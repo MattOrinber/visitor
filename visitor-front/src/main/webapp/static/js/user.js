@@ -2,11 +2,10 @@ function saveUserDetailToBack() {
 	var user = {};
 	var needUpdate = false;
 	
-	var emailStr = $("#userEmailHidden").val();
-	
 	var firstNameStr = $.trim($("#firstNameStr").val());
 	if (firstNameStr != null && firstNameStr != "") {
-		user.emailStr = emailStr;
+		user.firstNameStr = firstNameStr;
+		needUpdate = true;
 	}
 	var lastNameStr = $.trim($("#lastNameStr").val());
 	if (lastNameStr != null && lastNameStr != "") {
@@ -70,7 +69,7 @@ function saveUserDetailToBack() {
 	if (needUpdate) {
 		var urlStrStr = pathGlobe + '/updateUser/postUserDetail';
 		var jsonStr = $.toJSON(user);
-		alert(jsonStr);
+		//alert(jsonStr);
 		
 		$.ajax({ 
 	        type : 'POST',  

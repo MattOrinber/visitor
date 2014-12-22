@@ -14,7 +14,7 @@
         <a href="edit.html" class="select">Edit Profile</a>
     </div>
     
-    <div id="userIdTemp">${currentUser.userId}</div>
+    <div id="userIdTemp" style="display:none;">${currentUser.userId}</div>
 </div>
 
 <div class="main" style="min-height:500px;">
