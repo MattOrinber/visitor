@@ -607,6 +607,9 @@ public class IndexController extends BasicController {
 				}
 				
 				model.addAttribute("productPictureList", productPicUrls);
+				if (productPicUrls.size() > 0) {
+					model.addAttribute("productIcon", productPicUrls.get(0));
+				}
 			}
 			
 			String hostEmailStr = product.getProductPublishUserEmail();

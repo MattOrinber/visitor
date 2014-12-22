@@ -32,10 +32,14 @@
 			<c:if test="${not empty productPictureList}">
 				<c:forEach items="${productPictureList}" var="productPicture" varStatus="status">
 					<c:if test="${status.index == 0}">
+<![CDATA[
 					    <li class="on"><i class="arr2"></i><img width="118"  src="${productPicture}" alt="roomimg" /></li>
+]]>
 					</c:if>
 					<c:if test="${status.index != 0}">
+<![CDATA[
 					    <li><i class="arr2"></i><img width="118" src="${productPicture}" alt="roomimg" /></li>
+]]>
 					</c:if>
 				</c:forEach>
 			</c:if>
@@ -45,10 +49,19 @@
         </div>
     </div>
 </div>
+]]>
+<c:choose>
+	<c:when test="${not empty productIcon}">
+		<div class="banner" id="bigImgshow2" style="background:url(${productIcon});">
+		</div>
+	</c:when>
+	<c:otherwise>
+		<div class="banner" id="bigImgshow2">
+		</div>
+	</c:otherwise>
+</c:choose>
 
-<div class="banner" id="bigImgshow2">
-</div>
-
+<![CDATA[
 <div id="contactHostDialog" class="contact_host" style="display:none;">
 	<span>Send Message to Host<img src="${imgPathOrigin}/static/close1.png" onclick="closeDialog();" width="15"/></span>
 	<div>
