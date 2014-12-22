@@ -609,7 +609,10 @@ public class IndexController extends BasicController {
 				model.addAttribute("productPictureList", productPicUrls);
 			}
 			
-			model.addAttribute("hostInfo", user);
+			String hostEmailStr = product.getProductPublishUserEmail();
+			User hostUser = userRedisService.getUserPassword(hostEmailStr);
+			
+			model.addAttribute("hostInfo", hostUser);
 			return true;
 		}
 	}

@@ -137,6 +137,16 @@
                 <div class="price">
                     $ ${productInfo.productBaseprice}<span>Per Night</span>
                 </div>
+]]>
+				<c:choose>
+		      		<c:when test="${loginUserEmail == hostInfo.userEmail}">
+		      			<a class="contact" href="javascript:void(0);">Contact Host</a>
+		      		</c:when>
+		      		<c:otherwise>
+		      			<a class="contact" href="javascript:contactHost('${loginUserEmail}','${hostInfo.userEmail}');">Contact Host</a>
+		      		</c:otherwise>
+		      	</c:choose>
+<![CDATA[
                 <div class="date">
                     start Date: <input type="text" placeholder="2014-10-30" /> end Date: <input type="text" placeholder="2014-10-30" />
                 </div>
@@ -158,15 +168,6 @@
 			<h4>About This Listing</h4>
 			<p>${productDetailInfo.pdiProductOverviewDetail}</p>
 		</c:if>
-		
-		<c:choose>
-      		<c:when test="${loginUserEmail == hostInfo.userEmail}">
-      			<a class="contact" href="javascript:void(0);">Contact Host</a>
-      		</c:when>
-      		<<c:otherwise>
-      			<a class="contact" href="javascript:contactHost(${loginUserEmail},${hostInfo.userEmail});">Contact Host</a>
-      		</c:otherwise>
-      	</c:choose>
 <![CDATA[
         
         <table width="680" border="0">

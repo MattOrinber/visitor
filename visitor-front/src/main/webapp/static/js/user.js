@@ -121,8 +121,8 @@ function contactHost(loginUserEmail, hostUserEmail) {
 	var dialog = $("#contactHostDialog");
 	$("#loginUserMailForMail").html(loginUserEmail);
 	$("#hostUserMailForMail").html(hostUserEmail);
-	$("#checkinDate").datepicker({dateFormat: "yyyy-mm-dd"});
-	$("#checkoutDate").datepicker({dateFormat: "yyyy-mm-dd"});
+	$("#checkinDate").datepicker({dateFormat: "yy-mm-dd"});
+	$("#checkoutDate").datepicker({dateFormat: "yy-mm-dd"});
 	
 	$('.wrapwrapbox').show();
 	dialog.show();
