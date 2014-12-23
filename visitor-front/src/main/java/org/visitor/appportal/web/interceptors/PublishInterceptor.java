@@ -44,12 +44,15 @@ public class PublishInterceptor implements HandlerInterceptor {
 			for (int j = 0; j < cookieArray.length; j ++) {
 				Cookie tmpCookie = cookieArray[j];
 				cookieMap.put(tmpCookie.getName(), tmpCookie.getValue());
-				log.info("cookie name: >" + tmpCookie.getName() + "<");
-				log.info("cookie value: >" + tmpCookie.getValue() + "<");
+				//log.info("cookie name: >" + tmpCookie.getName() + "<");
+				//log.info("cookie value: >" + tmpCookie.getValue() + "<");
 			}
 			
 			String userMailStrOri = cookieMap.get(MixAndMatchUtils.COOKIE_NAME_USER_EMAIL);
 			String userTokenInfoStr = cookieMap.get(MixAndMatchUtils.COOKIE_NAME_USER_ACCESS_TOKEN);
+			
+			log.info("interceptor mail: >" + userMailStrOri + "<");
+			log.info("interceptor token: >" + userTokenInfoStr + "<");
 		
 			if (StringUtils.isNotEmpty(userMailStrOri) && StringUtils.isNotEmpty(userTokenInfoStr)) {
 				String userMailStr = URLDecoder.decode(userMailStrOri, "UTF-8");

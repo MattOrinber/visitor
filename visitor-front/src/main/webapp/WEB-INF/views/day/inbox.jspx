@@ -31,8 +31,8 @@
                 </span>
 ]]>
 
-				<c:if test="${not empty internalMailList}">
-					<c:forEach items="${internalMailList}" var="internalIO" varStatus="status">
+				<c:if test="${not empty internalIOList}">
+					<c:forEach items="${internalIOList}" var="internalIO" varStatus="status">
 					<a href="javascript:void(0);">
 						<div class="message">
 	                        <div class="photo">
@@ -65,7 +65,7 @@
 		                        </c:choose>
 	                        </div>
 	                        <div class="content">
-	                            <p class="col-7">Interested in <a href="${pageContext.request.contextPath}/day/product?pid=${internalIO.productId}">your space<a></p>
+	                            <p class="col-7">Interested in <a href="${pageContext.request.contextPath}/day/product?pid=${internalIO.productId}">your space</a></p>
 	                            <p class="text-muted">${internalIO.dateAndAccomodates}</p>
 	                        </div>
 	                        <div class="price">

@@ -274,7 +274,7 @@ public class IndexController extends BasicController {
 				listIO.add(io);
 			}
 			
-			model.addAttribute("internalMailList", listIO);
+			model.addAttribute("internalIOList", listIO);
 		}
 		
 		model.addAttribute("pageName", "inbox");
@@ -477,9 +477,9 @@ public class IndexController extends BasicController {
 			
 			String globalCurrency = cookieMap.get(MixAndMatchUtils.COOKIE_NAME_GLOBAL_CURRENCY);
 			
-			log.info("cookie userMailStrOri: >" + userMailStrOri + "<");
-			log.info("cookie userTokenInfoStr: >" + userTokenInfoStr + "<");
-			log.info("cookie globalCurrency: >" + globalCurrency + "<");
+			log.info("page user check userMailStrOri: >" + userMailStrOri + "<");
+			log.info("page user check userTokenInfoStr: >" + userTokenInfoStr + "<");
+			log.info("page user check globalCurrency: >" + globalCurrency + "<");
 			
 			if (StringUtils.isNotEmpty(globalCurrency)) {
 				this.setGlobalCurrencyStored(globalCurrency);
