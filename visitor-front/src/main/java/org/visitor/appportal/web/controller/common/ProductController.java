@@ -778,7 +778,12 @@ public class ProductController extends BasicController {
 		String resultDesc = RegisterInfo.USER_INTERNALMAIL_SAVE_SUCCESS;
 		User userTemp = (User) request.getAttribute(WebInfo.UserID);
 		
-		result = userRedisService.getUserInternalMailUnreadCount(userTemp.getUserEmail());
+		if (userTemp != null) {
+			result = userRedisService.getUserInternalMailUnreadCount(userTemp.getUserEmail());
+		} else {
+			result = -1;
+			resultDesc = RegisterInfo.USER_NOT_LOGGED_IN;
+		}
 		
 		ResultJson rj = new ResultJson();
 		rj.setResult(result);

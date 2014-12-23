@@ -20,6 +20,7 @@ public class RegisterInfo {
 	
 	public static final String USER_INTERNALMAIL_SAVE_SUCCESS = "user internal mail save success";
 	public static final String USER_INTERNALMAIL_SAVE_FAIL = "user internal mail save fail";
+	public static final String USER_NOT_LOGGED_IN = "user not logged in";
 	
 	public static final String USER_EMAIL_PREFIX_FROM = "0";
 	public static final String USER_EMAIL_PREFIX_TO = "1";

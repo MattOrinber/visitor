@@ -133,5 +133,74 @@ function closeDialog() {
 }
 
 function checkAndSend() {
-	;
+	var productIDForUse = $.trim($("#productIDForUse").val());
+	
+	if (productIDForUse != "") {
+		var checkinDateStr = $("#checkinDate").val();
+		var checkoutDateStr = $("#checkoutDate").val();
+		var guestNumber = $("#guestNumber").val();
+		var contentStr = $.trim($("#mailContent").val());
+		
+		var __SPLIT__ = "---";
+		
+		var contentFinal = checkinDateStr + __SPLIT__ +
+						checkoutDateStr	+ __SPLIT__ +
+						guestNumber + __SPLIT__ +
+						contentStr;
+		
+		var uim = {};
+		uim.productIdStr = productIDForUse;
+		uim.contentStr = contentFinal;
+		
+		var urlStrStr = pathGlobe + '/product/saveInternalMail';
+		var jsonStr = $.toJSON(uim);
+		//alert(jsonStr);
+		
+		$.ajax({ 
+	        type : 'POST',  
+	        contentType : 'application/json',  
+	        url : urlStrStr,  
+	        processData : false,  
+	        dataType : 'json',  
+	        data : jsonStr,  
+	        success : function(data) {  
+	        	if (data.result == 0) {
+	        		closeDialog();
+	        	} else {
+	        		alert(data.resultDesc);
+	        	}
+	        },  
+	        error : function() {  
+	            alert('Err...');  
+	        }  
+	    }); 
+	}
+}
+
+function checkInBox() {
+	var urlStrStr = pathGlobe + '/product/getMailCount';
+	var jsonStr = '{"aa":"bb"}';
+	//alert(jsonStr);
+	
+	$.ajax({ 
+        type : 'POST',  
+        contentType : 'application/json',  
+        url : urlStrStr,  
+        processData : false,  
+        dataType : 'json',  
+        data : jsonStr,  
+        success : function(data) {  
+        	if (data.result > 0) {
+        		//display the inbox item count
+        		$("#inboxItemCount").html(data.result);
+        	} else if (data.result < 0){
+        		if (inboxCheckPilot != null) {
+        			clearInterval(inboxCheckPilot);
+        		}
+        	}
+        },  
+        error : function() {
+            alert('Err...');  
+        }  
+    }); 
 }

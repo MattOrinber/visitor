@@ -5,6 +5,9 @@
 
 <body>
 <![CDATA[
+
+<input type="hidden" id="productIDForUse" value="${productInfo.productId}" />
+
 <div class="boxshade">
 	<a href="javascript:void(0);" id="closeit" style="display:block;width:20px;height:20px;position:absolute;right:20px;top:20px;"><img src="${imgPathOrigin}/static/close2.png" /></a>
     <div class="mod18">
@@ -52,12 +55,16 @@
 ]]>
 <c:choose>
 	<c:when test="${not empty productIcon}">
+<![CDATA[
 		<div class="banner" id="bigImgshow2" style="background:url(${productIcon});">
 		</div>
+]]>
 	</c:when>
 	<c:otherwise>
+<![CDATA[
 		<div class="banner" id="bigImgshow2">
 		</div>
+]]>
 	</c:otherwise>
 </c:choose>
 

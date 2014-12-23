@@ -474,6 +474,11 @@ function logoutVisitor(pathOri) {
             //alert(dataRes);
             if (data.result == 0) {
             	logoutBarDisplayed(data, pathOri);
+            	
+            	//clear the inbox check pilot
+            	if (inboxCheckPilot != null) {
+        			clearInterval(inboxCheckPilot);
+        		}
             }
         },  
         error : function() {  
@@ -536,4 +541,15 @@ function checkIfCanProceed() { // see if we can create product
 function toListing() {
 	var url = pathGlobe + "/day/your-listing";
 	window.location.href = url;
+}
+
+
+//inbox checking
+var inboxCheckPilot = null;
+
+function startChecking() {
+	var ifLoggedIn = $("#loginStatusBarPart").is(":visible");
+	if (ifLoggedIn) {
+		inboxCheckPilot = setInterval("checkInBox()", 10000); //every 10 seconds do a check
+	}
 }
