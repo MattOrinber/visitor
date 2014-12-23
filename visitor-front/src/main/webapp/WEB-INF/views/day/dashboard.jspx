@@ -9,7 +9,7 @@
 <div class="nav">
 	<div class="nav-detail">
     	<a href="javascript:void(0);" class="select">Dashboard</a>
-        <a href="inbox.html">Inbox</a>
+        <a href="${pageContext.request.contextPath}/day/inbox">Inbox</a>
         <a href="javascript:toListing();">Your Listings</a>
         <a href="javascript:void(0);">Your Trips</a>
         <a href="${pageContext.request.contextPath}/day/edit">Edit Profile</a>

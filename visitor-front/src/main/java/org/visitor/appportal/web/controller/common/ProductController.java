@@ -740,6 +740,10 @@ public class ProductController extends BasicController {
 			uim.setUimToUserMail(product.getProductPublishUserEmail());
 			uim.setUimStatus(UserMailStatusEnum.Unread.ordinal());
 			uim.setUimContent(contentStr);
+			
+			Date date = new Date();
+			uim.setUimCreateDate(date);
+			
 			visitorUserInternalMailService.saveVisitorUserInternalMail(uim);
 			userRedisService.setUserInternalMailUnread(uim);
 		} else {

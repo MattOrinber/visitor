@@ -31,6 +31,7 @@ import org.visitor.appportal.service.newsite.redis.ProductRedisService;
 import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.service.newsite.redis.VisitorLanguageRedisService;
+import org.visitor.appportal.visitor.beans.InboxOut;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
 import org.visitor.appportal.visitor.domain.ProductPicture;
@@ -243,9 +244,37 @@ public class IndexController extends BasicController {
 		User userTemp = (User) request.getAttribute(WebInfo.UserID);
 		String userEmailStr = userTemp.getUserEmail();
 		
+		List<InboxOut> listIO = new ArrayList<InboxOut>();
+		
 		List<UserInternalMail> listUIM = userRedisService.getUserInternalMailToMe(userEmailStr);
 		if (listUIM != null && listUIM.size() > 0) {
-			model.addAttribute("internalMailList", listUIM);
+			
+			long currentMillis = System.currentTimeMillis();
+			
+			for (UserInternalMail uim : listUIM) {
+				InboxOut io = new InboxOut();
+				String contentStr = uim.getUimContent();
+				String[] contentArray = contentStr.split(WebInfo.SPLIT);
+				String dateRangeAndAccomo = "From " + contentArray[0] + " to " + contentArray[1] + "; guest number " + contentArray[2];
+				Long pid = uim.getUimProductId();
+				io.setDateAndAccomodates(dateRangeAndAccomo);
+				io.setProductId(pid);
+				
+				String fromEmail = uim.getUimFromUserMail();
+				User tempUser = userRedisService.getUserPassword(fromEmail);
+				io.setUserFrom(tempUser);
+				
+				Date uimDate = uim.getUimCreateDate();
+				long uimMillis = uimDate.getTime();
+				
+				long daysToNow = (currentMillis-uimMillis)/(24*3600000);
+				
+				io.setDaysFromNow(new Long(daysToNow));
+				
+				listIO.add(io);
+			}
+			
+			model.addAttribute("internalMailList", listIO);
 		}
 		
 		model.addAttribute("pageName", "inbox");

@@ -7,11 +7,11 @@
 <![CDATA[
 <div class="nav">
 	<div class="nav-detail">
-    	<a href="dashboard.html">Dashboard</a>
-        <a href="inbox.html" class="select">Inbox</a>
-        <a href="your-listing.html">Your Listings</a>
-        <a href="your-trip.html">Your Trips</a>
-        <a href="edit.html">Edit Profile</a>
+    	<a href="${pageContext.request.contextPath}/day/dashboard" class="select">Dashboard</a>
+        <a href="javascript:void(0);">Inbox</a>
+        <a href="javascript:toListing();">Your Listings</a>
+        <a href="javascript:void(0);">Your Trips</a>
+        <a href="${pageContext.request.contextPath}/day/edit">Edit Profile</a>
     </div>
 </div>
 
@@ -29,28 +29,54 @@
                         <option value="hidden">Archived (0)</option>
                     </select>
                 </span>
-                   <div class="message">
-                        <div class="photo"><img src="${imgPathOrigin}/static/original.jpg" width="45" /></div>
-                        <div class="time"><p>Matthew</p> <p>4 days ago</p></div>
-                        <div class="content">
-                            <p class="col-7">2222</p>
-                            <p class="text-muted">Beijing, Beijing(Dec 2 - 3, 2014)</p>
-                        </div>
-                        <div class="price">
-                            <p style="color:#ffb400;font-weight:bold;">Inquiry </p><p>Â¥282</p>
-                        </div>
-                   </div>
-                   <div class="message">
-                        <div class="photo"><img src="${imgPathOrigin}/static/original.jpg" width="45" /></div>
-                        <div class="time"><p>Matthew</p> <p>4 days ago</p></div>
-                        <div class="content">
-                            <p class="col-7">2222</p>
-                            <p class="text-muted">Beijing, Beijing(Dec 2 - 3, 2014)</p>
-                        </div>
-                        <div class="price">
-                            <p style="color:#ffb400;font-weight:bold;">Inquiry </p><p>Â¥282</p>
-                        </div>
-                   </div>
+]]>
+
+				<c:if test="${not empty internalMailList}">
+					<c:forEach items="${internalMailList}" var="internalIO" varStatus="status">
+					<a href="javascript:void(0);">
+						<div class="message">
+	                        <div class="photo">
+		                        <c:choose>
+		                        	<c:when test="${not empty internalIO.userFrom and not empty internalIO.userFrom.userPhotourl}">
+		                        		<img src="${internalIO.userFrom.userPhotourl}" width="45" />
+		                        	</c:when>
+		                        	<c:otherwise>
+		                        		<img src="${imgPathOrigin}/static/user_pic-50x50.png" width="45" />
+		                        	</c:otherwise>
+		                        </c:choose>
+	                        </div>
+	                        <div class="time">
+	                        	 <c:choose>
+		                        	<c:when test="${not empty internalIO.userFrom and not empty internalIO.userFrom.userFirstName}">
+		                        		<p>${internalIO.userFrom.userFirstName}</p>
+		                        	</c:when>
+		                        	<c:otherwise>
+		                        		<p>Some Guy</p>
+		                        	</c:otherwise>
+		                        </c:choose>
+		                        
+		                        <c:choose>
+		                        	<c:when test="${not empty internalIO.daysFromNow and internalIO.daysFromNow gt 0}">
+		                        		<p>${internalIO.daysFromNow} days ago</p>
+		                        	</c:when>
+		                        	<c:otherwise>
+		                        		<p>within 1 day</p>
+		                        	</c:otherwise>
+		                        </c:choose>
+	                        </div>
+	                        <div class="content">
+	                            <p class="col-7">Interested in <a href="${pageContext.request.contextPath}/day/product?pid=${internalIO.productId}">your space<a></p>
+	                            <p class="text-muted">${internalIO.dateAndAccomodates}</p>
+	                        </div>
+	                        <div class="price">
+	                            <p style="color:#ffb400;font-weight:bold;">Inquiry </p><p>$ 282</p>
+	                        </div>
+	                	</div>
+	                </a>
+					</c:forEach>
+				</c:if>
+
+<![CDATA[
          </div>
     </div>
 </div>

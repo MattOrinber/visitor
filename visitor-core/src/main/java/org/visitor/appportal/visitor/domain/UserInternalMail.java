@@ -1,13 +1,20 @@
 package org.visitor.appportal.visitor.domain;
 
+import static javax.persistence.TemporalType.TIMESTAMP;
+
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 @Table(name = "user_internal_mail")
@@ -18,6 +25,7 @@ public class UserInternalMail {
 	private Long uimProductId;
 	private String uimContent;
 	private Integer uimStatus;
+	private Date uimCreateDate;
 	
 	@Column(name = "uim_id", nullable = false, unique = true, precision = 20)
 	@GeneratedValue
@@ -55,8 +63,8 @@ public class UserInternalMail {
 		this.uimProductId = uimProductId;
 	}
 	
-	@Lob
-	@Column(name = "uim_content",columnDefinition="MEDIUMTEXT")
+	@Length(max = 1023)
+	@Column(name = "uim_content", nullable = false)
 	public String getUimContent() {
 		return uimContent;
 	}
@@ -70,5 +78,15 @@ public class UserInternalMail {
 	}
 	public void setUimStatus(Integer uimStatus) {
 		this.uimStatus = uimStatus;
+	}
+	
+	@Column(name = "uim_create_date", nullable = true, length = 19)
+	@Temporal(TIMESTAMP)
+	@DateTimeFormat(iso = ISO.DATE)
+	public Date getUimCreateDate() {
+		return uimCreateDate;
+	}
+	public void setUimCreateDate(Date uimCreateDate) {
+		this.uimCreateDate = uimCreateDate;
 	}
 }

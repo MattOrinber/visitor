@@ -141,6 +141,10 @@ function checkAndSend() {
 		var guestNumber = $("#guestNumber").val();
 		var contentStr = $.trim($("#mailContent").val());
 		
+		if (contentStr == "") {
+			contentStr = "+";
+		}
+		
 		var __SPLIT__ = "---";
 		
 		var contentFinal = checkinDateStr + __SPLIT__ +

@@ -127,7 +127,7 @@ var pathGlobe = '${pageContext.request.contextPath}';
 		                </ul>
 		            </span>
 		            <a href="${pageContext.request.contextPath}/day/list_space" class="list">List Your Activities</a>
-		            <a href="javascript:void(0);" class="mail"><span id="inboxItemCount" class="number"></span></a>
+		            <a href="${pageContext.request.contextPath}/day/inbox" class="mail"><span id="inboxItemCount" class="number"></span></a>
         		</div>
        		</c:when>
        		<c:otherwise>
@@ -160,7 +160,7 @@ var pathGlobe = '${pageContext.request.contextPath}';
 		                </ul>
 		            </span>
 		            <a href="${pageContext.request.contextPath}/day/list_space" class="list">List Your Activities</a>
-		            <a href="javascript:void(0);" class="mail"><span id="inboxItemCount" class="number"></span></a>
+		            <a href="${pageContext.request.contextPath}/day/inbox" class="mail"><span id="inboxItemCount" class="number"></span></a>
         		</div>
        		</c:otherwise>
        	</c:choose>
