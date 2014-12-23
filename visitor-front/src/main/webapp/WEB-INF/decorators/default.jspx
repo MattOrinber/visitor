@@ -22,9 +22,6 @@
 <script src="${pageContext.request.contextPath}/static/js/map.js" type="text/javascript"><c:out value=" " /></script>
 <script src="${pageContext.request.contextPath}/static/js/productUploadPic.js" type="text/javascript"><c:out value=" " /></script>
 <script src="${pageContext.request.contextPath}/static/js/user.js" type="text/javascript"><c:out value=" " /></script>
-<![CDATA[
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyA6PgMSP1y1T1ykJpI1MhpiMHWlb6eObNc&sensor=false"></script>
-]]>
 
 <script>
 var pathGlobe = '${pageContext.request.contextPath}';

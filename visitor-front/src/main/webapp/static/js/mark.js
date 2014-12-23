@@ -148,16 +148,13 @@ function doProductImageRound(){
 
 //product page initialize
 function productBigImage() {
-	var node = $(".boxshade");
-	if (node != null) {
-		node.hide();
-		$("#bigImgshow,#bigImgshow1,#bigImgshow2").click(function(){
-			$(".boxshade").show();
-		});
-		$("#closeit").click(function(){
-			$(".boxshade").hide();
-		});
-	}
+	$(".boxshade").hide();
+	$("#bigImgshow2").click(function(){
+		$(".boxshade").show();
+	});
+	$("#closeit").click(function(){
+		$(".boxshade").hide();
+	});
 }
 
 function setGlobalCurrency() {

@@ -3,8 +3,7 @@
 <jsp:output omit-xml-declaration="yes" />
 <jsp:directive.page contentType="text/html; charset=UTF-8" />
 
-<head>
-
+<body>
 <![CDATA[
 	<script>
 		$(document).ready(function(){
@@ -13,12 +12,6 @@
 			startChecking();
 		});
 	</script>
-]]>
-
-</head>
-
-<body>
-<![CDATA[
 <div class="nav">
 	<div class="nav-detail">
     	<a href="${pageContext.request.contextPath}/day/dashboard" class="select">Dashboard</a>

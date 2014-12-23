@@ -6,6 +6,14 @@
 <head>
 
 <![CDATA[
+
+]]>
+
+</head>
+
+<body>
+<![CDATA[
+
 	<script>
 		$(document).ready(function(){
 			initLoginBar();
@@ -13,12 +21,7 @@
 			startChecking();
 		});
 	</script>
-]]>
-
-</head>
-
-<body>
-<![CDATA[
+	
 <div class="main">
     <div class="maincontent">
         <div class="left">

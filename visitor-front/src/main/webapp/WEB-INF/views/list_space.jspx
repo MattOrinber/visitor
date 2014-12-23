@@ -3,8 +3,7 @@
 <jsp:output omit-xml-declaration="yes" />
 <jsp:directive.page contentType="text/html; charset=UTF-8" />
 
-<head>
-
+<body>
 <![CDATA[
 	<script>
 		$(document).ready(function(){
@@ -15,9 +14,6 @@
 	</script>
 ]]>
 
-</head>
-
-<body>
 
 <div class="main">
    <div class="maincontent">

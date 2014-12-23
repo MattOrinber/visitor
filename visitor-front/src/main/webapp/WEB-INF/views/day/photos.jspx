@@ -6,6 +6,12 @@
 <head>
 
 <![CDATA[
+]]>
+
+</head>
+
+<body>
+<![CDATA[
 	<script>
 		$(document).ready(function(){
 			initLoginBar();
@@ -13,12 +19,7 @@
 			startChecking();
 		});
 	</script>
-]]>
-
-</head>
-
-<body>
-<![CDATA[
+	
 <div class="nav">
 	<div class="nav-detail">
     	<span><a href="your-listing.html"><</a>${productInfo.productRoomType} in ${productInfo.productCity}</span>
