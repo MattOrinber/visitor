@@ -172,7 +172,6 @@ var pathGlobe = '${pageContext.request.contextPath}';
 <![CDATA[
 <div class="footer">
 	<div class="policy">
-    	<select>
 ]]>
 
 		<select id="globalCurrencySet" onchange="setGlobalCurrency();">
@@ -189,7 +188,6 @@ var pathGlobe = '${pageContext.request.contextPath}';
 		</select>
             
 <![CDATA[
-		</select>
     	<a href="">About </a>|
         <a href="">Terms of Use </a>|
         <a href="">Privacy Policy </a>
