@@ -101,7 +101,7 @@ var pathGlobe = '${pageContext.request.contextPath}';
         		</div>
         		
         		<div id="loginStatusBarPart" class="loginbar1" style="display:none;">
-        			<a href="${pageContext.request.contextPath}/day/host_profile" class="name" id="name">
+        			<a href="${pageContext.request.contextPath}/host_profile" class="name" id="name">
         			    <c:choose>
         					<c:when test="${userIconUrl == '--'}">
         						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${pageContext.request.contextPath}/static/img/user_pic-50x50.png) no-repeat center center;float:left;"></span>]]>
@@ -122,7 +122,7 @@ var pathGlobe = '${pageContext.request.contextPath}';
 		                    <li><a href="javascript:logoutVisitor('${pageContext.request.contextPath}');">Log Out</a></li>
 		                </ul>
 		            </span>
-		            <a href="${pageContext.request.contextPath}/day/list_space" class="list">List Your Activities</a>
+		            <a href="${pageContext.request.contextPath}/list_space" class="list">List Your Activities</a>
 		            <a href="${pageContext.request.contextPath}/day/inbox" class="mail"><span id="inboxItemCount" class="number"></span></a>
         		</div>
        		</c:when>
@@ -130,7 +130,7 @@ var pathGlobe = '${pageContext.request.contextPath}';
        			<div id="notLoginStatusBarPart" class="loginbar" style="display:none;">
         			<a href="javascript:void(0);" id="signbtn">Sign Up</a>
         			<a href="javascript:void(0);" id="logbtn">Log In</a>
-        			<a href="${pageContext.request.contextPath}/day/list_space" class="list">List Your Activities</a>
+        			<a href="${pageContext.request.contextPath}/list_space" class="list">List Your Activities</a>
         		</div>
         		
         		<div id="loginStatusBarPart" class="loginbar1" style="display:block;">
@@ -155,7 +155,7 @@ var pathGlobe = '${pageContext.request.contextPath}';
 		                    <li><a href="javascript:logoutVisitor('${pageContext.request.contextPath}');">Log Out</a></li>
 		                </ul>
 		            </span>
-		            <a href="${pageContext.request.contextPath}/day/list_space" class="list">List Your Activities</a>
+		            <a href="${pageContext.request.contextPath}/list_space" class="list">List Your Activities</a>
 		            <a href="${pageContext.request.contextPath}/day/inbox" class="mail"><span id="inboxItemCount" class="number"></span></a>
         		</div>
        		</c:otherwise>

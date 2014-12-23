@@ -426,6 +426,7 @@ function loginVisitor(pathOri) {
 	            //alert(dataRes);
 	            
 	            seeIfLoginBarDisplayed(data, pathOri);
+	            startChecking();
 	        },  
 	        error : function() {  
 	            alert('Err...');  
