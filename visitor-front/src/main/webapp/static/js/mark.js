@@ -1,6 +1,43 @@
 //global value area
 var productDetailStrGlobal = "";
 
+//init index page
+function initIndex() {
+	// index city search input
+	$("#searchinput").click(function(){
+		$(".choose_city").show();
+	});
+	
+	$("#close").click(function(){
+		$(".choose_city").hide();
+	});
+	
+	$(".destination li").click(function(){
+		var htmlText = $(this).children(":first").html();
+		$("#searchinput").val(htmlText);
+		$(this).parent().parent().hide();
+	});
+	// index how to work
+	$("#howtowork").click(function(){
+		$(".howtowork").slideDown(800);
+	});
+	
+	$("#hideit").click(function(){
+		$(".howtowork").hide();
+	});
+	//index shade change
+	$(".hover").mouseenter(function(){
+		$(this).find(".shade").fadeIn();
+	});
+	
+	$(".hover").mouseleave(function(){
+		$(this).find(".shade").fadeOut();
+	});
+	
+	doImage();
+}
+
+//index page Image round play
 function doImage() {
 	var aImg = $('#focus ul li');
 	var iSize = aImg.size();
@@ -46,7 +83,7 @@ function doImage() {
 }
 
 //产品可用类型页面设置
-function doCanlendarPage() { //product available type choose
+function initCanlendarPage() { //product available type choose
 	$("#showfirst").click(function(){
 		$('#first').show();
 		saveProductAvailableType("0");
@@ -87,6 +124,7 @@ function doCanlendarPage() { //product available type choose
 	}
 }
 
+//product 页面小图动作效果，以后再加入
 function doProductImageRound(){
 	$(".img").mouseenter(function(){
 		$(this).find(".btn").show();
@@ -108,6 +146,7 @@ function doProductImageRound(){
 	});
 }
 
+//product page initialize
 function productBigImage() {
 	var node = $(".boxshade");
 	if (node != null) {
@@ -118,16 +157,6 @@ function productBigImage() {
 		$("#closeit").click(function(){
 			$(".boxshade").hide();
 		});
-	}
-}
-
-function checkBox(){
-	var i=document.getElementById("checkbox");
-	var box = document.getElementById("option");
-	if(i.checked == true){
-	  box.style.display="block"; 
-	}else{
-	  box.style.display="none";
 	}
 }
 
@@ -142,6 +171,7 @@ function setProductDiscValue() {
 	editor.insertHtml( productDetailStrGlobal );
 }
 
+// product page editor change to ckEditor
 function setProductDescEditor() {
 	// product
 	var node = $("#productDetailDESCInfoStr");
@@ -167,7 +197,8 @@ function setProductDescEditor() {
 	}
 }
 
-$(document).ready(function(){
+//login bar and page bottom control
+function initLoginBar() {
 	$("#signbtn").click(function(){
 		$('.wrapwrapbox').show();
 		$("#signup").show();
@@ -194,49 +225,11 @@ $(document).ready(function(){
 		$("#login").hide();
 		$("#emailsignup").hide();
 	});
+	
 	$("#email_signup").click(function(){
 		$("#signup").hide();
 		$("#emailsignup").show();
 	});
-	
-	$("#searchinput").click(function(){
-		$(".choose_city").show();
-	});
-	
-	$("#close").click(function(){
-		$(".choose_city").hide();
-	});
-	
-	$("#ScrolltoTop").click(function() {
-		$('html, body').animate({
-			scrollTop: 0
-		}, "normal");
-	});
-	
-	$(".destination li").click(function(){
-		var htmlText = $(this).html();
-		$("#searchinput").val(htmlText);
-		$(this).parent().parent().hide();
-	});
-	
-	//shade change
-	$(".hover").mouseenter(function(){
-		$(this).find(".shade").fadeIn();
-	});
-	
-	$(".hover").mouseleave(function(){
-		$(this).find(".shade").fadeOut();
-	});
-	
-	//how to work
-	$("#howtowork").click(function(){
-		$(".howtowork").slideDown(800);
-	});
-	
-	$("#hideit").click(function(){
-		$(".howtowork").hide();
-	});
-	
 	$("#name").mouseenter(function(){
 		$('span.select').show();
 	});
@@ -245,41 +238,33 @@ $(document).ready(function(){
 		$(this).hide();
 	});
 	
+	
+	//bottom back to top
+	$("#ScrolltoTop").click(function() {
+		$('html, body').animate({
+			scrollTop: 0
+		}, "normal");
+	});
+}
+
+
+//price page init
+function checkBox(){
+	var i=document.getElementById("checkbox");
+	var box = document.getElementById("option");
+	if(i.checked == true){
+	  box.style.display="block"; 
+	}else{
+	  box.style.display="none";
+	}
+}
+function initPricePage() {
+	//pricing page
 	$(".closebutton").click(function(){
 		$(this).hide();
 	});
-	
-	doImage();
-	doCanlendarPage();
-	setGlobalCurrency();
-	
-	productBigImage();
-	startChecking();
-	
-	setProductDescEditor();
-	
-	var mapNode = $("#map_canvas");
-	if (mapNode != null) {
-		mapInitialize();
-	}
-	//doProductImageRound();
-	//getProductImageListOperation();
-});
+}
 
-$(window).scroll(function(){
-	var targetTop = $(this).scrollTop();
-	if (targetTop >= 520){
-		$(".howtowork").hide();
-	}
-	
-	if (targetTop >= 520){
-		$(".menu").addClass("fixedSubNav");
-		$(".scrollbox").addClass("fixedbook");
-	}else{
-		$(".menu").removeClass("fixedSubNav");
-		$(".scrollbox").removeClass("fixedbook");
-	}
-});
 
 function doRegisterClean() {
 	var passwordStr = $("#passwordStr").val();

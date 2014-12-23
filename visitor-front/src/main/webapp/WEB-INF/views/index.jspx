@@ -15,19 +15,39 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery.cookie.js"><c:out value="" /></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery.form.js"><c:out value="" /></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/ckeditor/ckeditor.js"><c:out value="" /></script>
-	<script src="${pageContext.request.contextPath}/static/js/productBigPic.js" type="text/javascript"><c:out value=" " /></script>
 	<script src="${pageContext.request.contextPath}/static/js/mark.js" type="text/javascript"><c:out value=" " /></script>
 	<script src="${pageContext.request.contextPath}/static/js/product.js" type="text/javascript"><c:out value=" " /></script>
 	<script src="${pageContext.request.contextPath}/static/js/map.js" type="text/javascript"><c:out value=" " /></script>
 	<script src="${pageContext.request.contextPath}/static/js/productUploadPic.js" type="text/javascript"><c:out value=" " /></script>
 	<script src="${pageContext.request.contextPath}/static/js/user.js" type="text/javascript"><c:out value=" " /></script>
-	<![CDATA[
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyA6PgMSP1y1T1ykJpI1MhpiMHWlb6eObNc&sensor=false"></script>
-	]]>
-	
+
+<![CDATA[
 	<script>
-	var pathGlobe = '${pageContext.request.contextPath}';
+		var pathGlobe = '${pageContext.request.contextPath}';
+		$(document).ready(function(){
+			initIndex();
+			
+			initLoginBar();
+			setGlobalCurrency();
+			startChecking();
+		});
+		
+		$(window).scroll(function(){
+			var targetTop = $(this).scrollTop();
+			if (targetTop >= 520){
+				$(".howtowork").hide();
+			}
+			
+			if (targetTop >= 520){
+				$(".menu").addClass("fixedSubNav");
+				$(".scrollbox").addClass("fixedbook");
+			}else{
+				$(".menu").removeClass("fixedSubNav");
+				$(".scrollbox").removeClass("fixedbook");
+			}
+		});
 	</script>
+]]>
 </head>
 <body>
 
@@ -273,12 +293,14 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
 
 		<select id="globalCurrencySet" onchange="setGlobalCurrency();">
 			<c:forEach items="${currencyList}" var="currencyT" varStatus="status">
-				<c:if test="${status.index == 0}">
-				    <option value="${currencyT}" selected="selected">${currencyT}</option>
-				</c:if>
-				<c:if test="${status.index != 0}">
-				    <option value="${currencyT}">${currencyT}</option>
-				</c:if>
+				<c:choose>
+					<c:when test="${currencyT == 'USD'}">
+						<option value="${currencyT}" selected="selected">${currencyT}</option>
+					</c:when>
+					<c:otherwise>
+						<option value="${currencyT}">${currencyT}</option>
+					</c:otherwise>
+				</c:choose>
 			</c:forEach>
 		</select>
             

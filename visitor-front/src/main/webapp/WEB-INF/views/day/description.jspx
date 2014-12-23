@@ -3,6 +3,25 @@
 <jsp:output omit-xml-declaration="yes" />
 <jsp:directive.page contentType="text/html; charset=UTF-8" />
 
+<head>
+
+<![CDATA[
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyA6PgMSP1y1T1ykJpI1MhpiMHWlb6eObNc&sensor=false"></script>
+	<script>
+		$(document).ready(function(){
+			initLoginBar();
+			setGlobalCurrency();
+			
+			setProductDescEditor();
+			mapInitialize();
+			
+			startChecking();
+		});
+	</script>
+]]>
+
+</head>
+
 <body>
 
 <![CDATA[
