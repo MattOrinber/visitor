@@ -5,16 +5,6 @@
 
 <body>
 <![CDATA[
-
-	<script>
-		$(document).ready(function(){
-			initCanlendarPage();
-			
-			initLoginBar();
-			setGlobalCurrency();
-			startChecking();
-		});
-	</script>
 	
 <div class="nav">
 	<div class="nav-detail">
@@ -48,10 +38,60 @@
 
 <c:choose>
 	<c:when test="${not empty productInfo.productStatus and productInfo.productStatus gt 0}">
-		<p>need update</p>
+	
+<![CDATA[
+	<link href="${pageContext.request.contextPath}/static/css/responsiveCalendar/economica.css" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath}/static/css/responsiveCalendar/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath}/static/css/responsiveCalendar/responsive-calendar.css" rel="stylesheet" type="text/css" />
+	<script src="${pageContext.request.contextPath}/static/js/responsiveCalendar/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/responsiveCalendar/responsive-calendar.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/priceSet.js"></script>
+	<script>
+		$(document).ready(function(){
+			doCanlendarResponsive();
+			
+			initLoginBar();
+			setGlobalCurrency();
+			startChecking();
+		});
+	</script>
+	
+	<div class="container">
+    	<div class="responsive-calendar">
+			<div class="controls">
+				<a class="pull-left" data-go="prev"><div class="btn btn-primary">Prev</div></a>
+				<h4><span data-head-year></span> <span data-head-month></span></h4>
+				<a class="pull-right" data-go="next"><div class="btn btn-primary">Next</div></a>
+			</div>
+			<hr/>
+			<div class="day-headers">
+				<div class="day header">Mon</div>
+				<div class="day header">Tue</div>
+				<div class="day header">Wed</div>
+				<div class="day header">Thu</div>
+				<div class="day header">Fri</div>
+				<div class="day header">Sat</div>
+				<div class="day header">Sun</div>
+			</div>
+			<div class="days" data-group="days">
+			</div>
+		</div>
+    </div>
+]]>
 	</c:when>
 	<c:otherwise>
 <![CDATA[
+
+	<script>
+		$(document).ready(function(){
+			initCanlendarPage();
+			
+			initLoginBar();
+			setGlobalCurrency();
+			startChecking();
+		});
+	</script>
+	
 		    <div class="rightbox">
 		    	<div class="kongbai"></div>
 		    	<div class="choosedate">
