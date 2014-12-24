@@ -15,12 +15,12 @@
 	</script>
 	
 <div class="nav">
-	<div class="nav-detail">
-    	<a href="dashboard.html">Dashboard</a>
-        <a href="inbox.html">Inbox</a>
-        <a href="your-listing.html">Your Listings</a>
-        <a href="your-trip.html">Your Trips</a>
-        <a href="edit.html" class="select">Edit Profile</a>
+    <div class="nav-detail">
+    	<a href="${pageContext.request.contextPath}/day/dashboard">Dashboard</a>
+        <a href="${pageContext.request.contextPath}/day/inbox">Inbox</a>
+        <a href="javascript:toListing(0);">Your Listings</a>
+        <a href="javascript:void(0);">Your Inquiries</a>
+        <a href="${pageContext.request.contextPath}/day/edit" class="select">Edit Profile</a>
     </div>
 </div>
 

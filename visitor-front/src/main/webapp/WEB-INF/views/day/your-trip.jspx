@@ -17,8 +17,8 @@
 	<div class="nav-detail">
     	<a href="${pageContext.request.contextPath}/day/dashboard">Dashboard</a>
         <a href="${pageContext.request.contextPath}/day/inbox">Inbox</a>
-        <a href="javascript:void(0);" class="select">Your Listings</a>
-        <a href="javascript:void(0);">Your Trips</a>
+        <a href="javascript:toListing(0);">Your Listings</a>
+        <a href="javascript:void(0);" class="select">Your Inquiries</a>
         <a href="${pageContext.request.contextPath}/day/edit">Edit Profile</a>
     </div>
 </div>
