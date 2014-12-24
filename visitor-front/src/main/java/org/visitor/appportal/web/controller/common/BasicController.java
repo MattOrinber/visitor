@@ -17,6 +17,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.DeserializationConfig.Feature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.visitor.appportal.visitor.beans.BuyTemp;
 import org.visitor.appportal.visitor.beans.PayTemp;
 import org.visitor.appportal.visitor.beans.ProductAddressTemp;
 import org.visitor.appportal.visitor.beans.ProductDetailTemp;
@@ -150,6 +151,16 @@ public class BasicController {
 		if (StringUtils.isNotEmpty(originStr)) {
 			UserInternalMailTemp uimT = JSON.parseObject(originStr, UserInternalMailTemp.class);
 			return uimT;
+		}
+		return null;
+	}
+	
+	public BuyTemp getBuyTempJSON(HttpServletRequest request) {
+		String originStr = getJsonStr(request);
+		
+		if (StringUtils.isNotEmpty(originStr)) {
+			BuyTemp bt = JSON.parseObject(originStr, BuyTemp.class);
+			return bt;
 		}
 		return null;
 	}

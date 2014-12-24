@@ -43,12 +43,14 @@
 	<link href="${pageContext.request.contextPath}/static/css/responsiveCalendar/economica.css" rel="stylesheet" type="text/css" />
     <link href="${pageContext.request.contextPath}/static/css/responsiveCalendar/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="${pageContext.request.contextPath}/static/css/responsiveCalendar/responsive-calendar.css" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath}/static/css/responsiveCalendar/popupSet.css" rel="stylesheet" type="text/css" />
 	<script src="${pageContext.request.contextPath}/static/js/responsiveCalendar/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/responsiveCalendar/responsive-calendar.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/priceSet.js"></script>
 	<script>
 		$(document).ready(function(){
 			doCanlendarResponsive();
+			setPopUpDialogCallback();
 			
 			initLoginBar();
 			setGlobalCurrency();
@@ -77,6 +79,27 @@
 			</div>
 		</div>
     </div>
+    
+    <div class="choosetime" id="productOperationDialog" style="display:none;">
+            <div class="timetotime">
+                <input type="text" /> to <input type="text" />
+            </div>
+            <div class="tabbutton">
+                <a href="javascript:void(0);" class="selected" id="btn_one">Available</a>
+                <a href="javascript:void(0);" id="btn_two">Not Available</a>
+            </div>
+            <div class="tabcontent">
+                <div class="tabcontent1" id="tabcontent1" style="display:block;">
+                    <div class="inputprice"><span>$</span><input type="text" /></div>
+                    <textarea placeholder="Notes..."></textarea>
+                    <a href="javascript:void(0);" class="save">Save</a><a href="javascript:void(0);" class="cancel">Cancel</a>
+                </div>
+                <div class="tabcontent1 tabcontent2" id="tabcontent2" style="display:none;">
+                    <textarea placeholder="Notes..."></textarea>
+                    <a href="javascript:void(0);" class="save">Save</a><a href="javascript:void(0);" class="cancel">Cancel</a>
+                </div>
+            </div>
+        </div>
 ]]>
 	</c:when>
 	<c:otherwise>

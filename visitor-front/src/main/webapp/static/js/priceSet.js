@@ -38,6 +38,9 @@ function doCanlendarResponsive() {
 				if (canDoSet) {
 					clickEndDateMonth = key;
 					canDoSet = false;
+					
+					//do popup dialog set
+					popupDialog();
 				} else {
 					canDoSet = true;
 					clickDateMonth = key;
@@ -83,5 +86,29 @@ function doCanlendarResponsive() {
 				}
 			}
 		}
+	});
+}
+
+function popupDialog() {
+	$("#productOperationDialog").show();
+}
+
+function closeDialog() {
+	$("#productOperationDialog").hide();
+}
+
+function setPopUpDialogCallback() {
+	$("#btn_one").click(function(){
+		$('#tabcontent1').show();
+		$('#tabcontent2').hide();
+		$(this).addClass("selected");
+		$("#btn_two").removeClass("selected");
+	});
+	
+	$("#btn_two").click(function(){
+		$('#tabcontent2').show();
+		$('#tabcontent1').hide();
+		$("#btn_one").removeClass("selected");
+		$(this).addClass("selected");
 	});
 }
