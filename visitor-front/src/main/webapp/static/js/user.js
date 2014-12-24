@@ -204,7 +204,6 @@ function checkInBox() {
         	}
         },  
         error : function() {
-            alert('Err...');  
         }  
     }); 
 }
