@@ -19,7 +19,8 @@
 		<class>org.visitor.appportal.visitor.domain.Container</class>
 		<class>org.visitor.appportal.visitor.domain.ProductAddress</class>
 		<class>org.visitor.appportal.visitor.domain.ProductOperation</class>
-		<class>org.visitor.appportal.visitor.domain.RelationProductOrder</class>
+		<class>org.visitor.appportal.visitor.domain.ProductOrder</class>
+		<class>org.visitor.appportal.visitor.domain.ProductPayOrder</class>
 		<class>org.visitor.appportal.visitor.domain.RelationUserProduct</class>
 		<class>org.visitor.appportal.visitor.domain.VisitorLanguage</class>
 		<class>org.visitor.appportal.visitor.domain.TimeZone</class>

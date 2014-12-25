@@ -109,4 +109,17 @@ public class RedisKeysForVisitor {
     public static String getUserInternalMailAlways() {
     	return "visitor-site-user-internal-mail-always";
     }
+    
+    //order related
+    public static String getUserOrderKey() {
+    	return "visitor-site-user-orders";
+    }
+    
+    public static String getProductOrderKey() {
+    	return "visitor-site-product-orders";
+    }
+    
+    public static String getProductPayOrderKey() {
+    	return "ppok-";
+    }
 }

@@ -29,6 +29,7 @@ public class ProductOrder {
 	private Date orderCreateDate;
 	private Date orderUpdateDate;
 	private Long orderTotalAmount;
+	private Long orderPayOrderId;
 	
 	@Column(name = "order_id", nullable = false, unique = true, precision = 20)
 	@GeneratedValue
@@ -113,5 +114,13 @@ public class ProductOrder {
 	}
 	public void setOrderTotalAmount(Long orderTotalAmount) {
 		this.orderTotalAmount = orderTotalAmount;
+	}
+	
+	@Column(name = "order_pay_order_id", precision = 20)
+	public Long getOrderPayOrderId() {
+		return orderPayOrderId;
+	}
+	public void setOrderPayOrderId(Long orderPayOrderId) {
+		this.orderPayOrderId = orderPayOrderId;
 	}
 }
