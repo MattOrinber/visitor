@@ -28,7 +28,7 @@ public class ProductOrder {
 	private Date orderEndDate;
 	private Date orderCreateDate;
 	private Date orderUpdateDate;
-	private Long orderTotalAmount;
+	private Double orderTotalAmount;
 	private Long orderPayOrderId;
 	
 	@Column(name = "order_id", nullable = false, unique = true, precision = 20)
@@ -107,12 +107,11 @@ public class ProductOrder {
 		this.orderUpdateDate = orderUpdateDate;
 	}
 	
-	@NotNull
-	@Column(name = "order_total_amount", nullable = false, precision = 20)
-	public Long getOrderTotalAmount() {
+	@Column(name="order_total_amount", precision = 22)
+	public Double getOrderTotalAmount() {
 		return orderTotalAmount;
 	}
-	public void setOrderTotalAmount(Long orderTotalAmount) {
+	public void setOrderTotalAmount(Double orderTotalAmount) {
 		this.orderTotalAmount = orderTotalAmount;
 	}
 	

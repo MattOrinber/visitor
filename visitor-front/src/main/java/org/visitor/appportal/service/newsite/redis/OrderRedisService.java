@@ -33,6 +33,13 @@ public class OrderRedisService {
 		compressStringRedisVisitorTemplate.opsForHash().put(key, keyT, valueT);
 	}
 	
+	public ProductOrder getUserOrder(User user, Long poId) {
+		String key = RedisKeysForVisitor.getUserOrderKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + user.getUserEmail();
+		String keyT = String.valueOf(poId.longValue());
+		String valueT = (String) compressStringRedisVisitorTemplate.opsForHash().get(key, keyT);
+		return objectMapperWrapperForVisitor.convertToProductOrder(valueT);
+	}
+	
 	public void saveProductOrders(ProductOrder pOrder) {
 		String key = RedisKeysForVisitor.getProductOrderKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + pOrder.getOrderProductId();
 		String keyT = String.valueOf(pOrder.getOrderId().longValue());

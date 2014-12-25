@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,6 @@ import org.visitor.appportal.service.newsite.VisitorProductService;
 import org.visitor.appportal.service.newsite.VisitorUserInternalMailService;
 import org.visitor.appportal.service.newsite.redis.ProductRedisService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
-import org.visitor.appportal.visitor.beans.BuyTemp;
 import org.visitor.appportal.visitor.beans.ProductAddressTemp;
 import org.visitor.appportal.visitor.beans.ProductDetailTemp;
 import org.visitor.appportal.visitor.beans.ProductOperationTemp;
@@ -789,66 +787,6 @@ public class ProductController extends BasicController {
 		} else {
 			result = -1;
 			resultDesc = RegisterInfo.USER_NOT_LOGGED_IN;
-		}
-		
-		ResultJson rj = new ResultJson();
-		rj.setResult(result);
-		rj.setResultDesc(resultDesc);
-		
-		super.sendJSONResponse(rj, response);
-	}
-	
-	@RequestMapping("calcTotalPrice")
-	public void calculateTotalPrice(HttpServletRequest request,
-			HttpServletResponse response) {
-		Integer result = 0;
-		String resultDesc = ProductInfo.PRODUCT_AMOUNT_CALC_DONE;
-		
-		BuyTemp btTemp = super.getBuyTempJSON(request);
-		
-		if (btTemp != null) {
-			try {
-				String pidStr = btTemp.getProductIdStr();
-				String startDateStr = btTemp.getStartDate();
-				String endDateStr = btTemp.getEndDate();
-				
-				if (StringUtils.isNotEmpty(pidStr) &&
-						StringUtils.isNotEmpty(startDateStr) &&
-						StringUtils.isNotEmpty(endDateStr)) {
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
-					Date startDateT = sdf.parse(startDateStr);
-					Date endDateT = sdf.parse(endDateStr);
-					DateTime dtStart = new DateTime(startDateT);
-					DateTime dtEnd = new DateTime(endDateT);
-					
-					int daysCount = 0;
-					if (startDateT.before(endDateT)) {
-						daysCount = dtEnd.getDayOfMonth() - dtStart.getDayOfMonth();
-					} else {
-						daysCount = 1;
-					}
-					
-					//use product operation to select the special price set and calculate
-					List<ProductOperation> list = new ArrayList<ProductOperation>();
-					list = productRedisService.getProductOperationList(Long.valueOf(pidStr));
-					Product product = productRedisService.getProductFromRedis(Long.valueOf(pidStr));
-					
-					Double resultPrice = MixAndMatchUtils.calculatePrice(daysCount, dtStart, dtEnd, list, product);
-					
-					if (resultPrice.compareTo(new Double(0)) > 0) {
-						//generate an order and ready for paypal callback
-						;
-					}
-				} else {
-					result = -1;
-					resultDesc = ProductInfo.PRODUCT_BUY_TEMP_NOT_RIGHT;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else {
-			result = -1;
-			resultDesc = ProductInfo.PRODUCT_BUY_TEMP_NOT_RIGHT;
 		}
 		
 		ResultJson rj = new ResultJson();
