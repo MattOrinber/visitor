@@ -818,20 +818,27 @@ public class ProductController extends BasicController {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
 					Date startDateT = sdf.parse(startDateStr);
 					Date endDateT = sdf.parse(endDateStr);
+					DateTime dtStart = new DateTime(startDateT);
+					DateTime dtEnd = new DateTime(endDateT);
 					
-					long daysCount = 0;
+					int daysCount = 0;
 					if (startDateT.before(endDateT)) {
-						DateTime dtStart = new DateTime(startDateT);
-						DateTime dtEnd = new DateTime(endDateT);
-						
-						daysCount = (long)(dtEnd.getDayOfMonth() - dtStart.getDayOfMonth());
+						daysCount = dtEnd.getDayOfMonth() - dtStart.getDayOfMonth();
 					} else {
 						daysCount = 1;
 					}
 					
 					//use product operation to select the special price set and calculate
-					;
+					List<ProductOperation> list = new ArrayList<ProductOperation>();
+					list = productRedisService.getProductOperationList(Long.valueOf(pidStr));
+					Product product = productRedisService.getProductFromRedis(Long.valueOf(pidStr));
 					
+					Double resultPrice = MixAndMatchUtils.calculatePrice(daysCount, dtStart, dtEnd, list, product);
+					
+					if (resultPrice.compareTo(new Double(0)) > 0) {
+						//generate an order and ready for paypal callback
+						;
+					}
 				} else {
 					result = -1;
 					resultDesc = ProductInfo.PRODUCT_BUY_TEMP_NOT_RIGHT;

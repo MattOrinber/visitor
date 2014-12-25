@@ -1,12 +1,17 @@
 package org.visitor.appportal.web.utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
 import org.springframework.ui.Model;
+import org.visitor.appportal.visitor.domain.Product;
+import org.visitor.appportal.visitor.domain.ProductOperation;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.web.utils.RegisterInfo.UserTypeEnum;
 
@@ -116,5 +121,50 @@ public class MixAndMatchUtils {
 				model.addAttribute("userIconUrl", "--");
 			}
 		}
+	}
+	
+	
+	//计算订单总金额的接口
+	public static Double calculatePrice(int dayCount,
+			DateTime startDate,
+			DateTime endDate,
+			List<ProductOperation> poList,
+			Product product) {
+		List<Double> resList = new ArrayList<Double>();
+		List<DateTime> listDate = new ArrayList<DateTime>();
+		
+		for (int i = 0; i < dayCount; i ++) {
+			listDate.add(startDate.plusDays(i));
+		}
+		
+		for (DateTime dt : listDate) {
+			boolean ifFound = false;
+			for (ProductOperation po : poList) {
+				DateTime poS = new DateTime(po.getPoStartDate());
+				DateTime poE = new DateTime(po.getPoEndDate());
+				
+				if ((dt.isAfter(poS) && dt.isBefore(poE)) ||
+						dt.isEqual(poS) || dt.isEqual(poE)) {
+					ifFound = true;
+					double priceSpecial = (double)po.getPoPricePerNight();
+					resList.add(new Double(priceSpecial));
+					break;
+				}
+			}
+			
+			if (!ifFound) {
+				Integer basePrice = Integer.valueOf(product.getProductBaseprice());
+				double basePriceD = (double)(basePrice.intValue());
+				resList.add(new Double(basePriceD));
+			}
+		}
+		
+		Double result = new Double(0.0);
+		
+		for (Double item : resList) {
+			result += item;
+		}
+		
+		return result;
 	}
 }

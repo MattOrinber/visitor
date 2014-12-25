@@ -56,7 +56,7 @@ public class ProductDetailInfo {
 	}
 	
 	@Lob
-	@Column(name = "pdi_product_overview_detail",columnDefinition="MEDIUMTEXT")
+	@Column(name = "pdi_product_overview_detail",columnDefinition="TEXT")
 	public String getPdiProductOverviewDetail() {
 		return pdiProductOverviewDetail;
 	}
@@ -64,8 +64,8 @@ public class ProductDetailInfo {
 		this.pdiProductOverviewDetail = pdiProductOverviewDetail;
 	}
 	
-	@Lob
-	@Column(name = "pdi_product_extra_direction",columnDefinition="MEDIUMTEXT")
+	@Length(max = 1023)
+	@Column(name = "pdi_product_extra_direction")
 	public String getPdiProductExtraDirection() {
 		return pdiProductExtraDirection;
 	}
@@ -73,8 +73,8 @@ public class ProductDetailInfo {
 		this.pdiProductExtraDirection = pdiProductExtraDirection;
 	}
 	
-	@Lob
-	@Column(name = "pdi_product_extra_guest_access",columnDefinition="MEDIUMTEXT")
+	@Length(max = 1023)
+	@Column(name = "pdi_product_extra_guest_access")
 	public String getPdiProductExtraGuestAccess() {
 		return pdiProductExtraGuestAccess;
 	}
@@ -82,8 +82,8 @@ public class ProductDetailInfo {
 		this.pdiProductExtraGuestAccess = pdiProductExtraGuestAccess;
 	}
 	
-	@Lob
-	@Column(name = "pdi_product_extra_guest_interaction",columnDefinition="MEDIUMTEXT")
+	@Length(max = 1023)
+	@Column(name = "pdi_product_extra_guest_interaction")
 	public String getPdiProductExtraGuestInteraction() {
 		return pdiProductExtraGuestInteraction;
 	}
@@ -92,8 +92,8 @@ public class ProductDetailInfo {
 		this.pdiProductExtraGuestInteraction = pdiProductExtraGuestInteraction;
 	}
 	
-	@Lob
-	@Column(name = "pdi_product_extra_house_manual",columnDefinition="MEDIUMTEXT")
+	@Length(max = 1023)
+	@Column(name = "pdi_product_extra_house_manual")
 	public String getPdiProductExtraHouseManual() {
 		return pdiProductExtraHouseManual;
 	}
@@ -101,8 +101,8 @@ public class ProductDetailInfo {
 		this.pdiProductExtraHouseManual = pdiProductExtraHouseManual;
 	}
 	
-	@Lob
-	@Column(name = "pdi_product_extra_house_rule",columnDefinition="MEDIUMTEXT")
+	@Length(max = 1023)
+	@Column(name = "pdi_product_extra_house_rule")
 	public String getPdiProductExtraHouseRule() {
 		return pdiProductExtraHouseRule;
 	}
@@ -110,8 +110,8 @@ public class ProductDetailInfo {
 		this.pdiProductExtraHouseRule = pdiProductExtraHouseRule;
 	}
 	
-	@Lob
-	@Column(name = "pdi_product_extra_neighborhood",columnDefinition="MEDIUMTEXT")
+	@Length(max = 1023)
+	@Column(name = "pdi_product_extra_neighborhood")
 	public String getPdiProductExtraNeighborhood() {
 		return pdiProductExtraNeighborhood;
 	}
@@ -119,8 +119,8 @@ public class ProductDetailInfo {
 		this.pdiProductExtraNeighborhood = pdiProductExtraNeighborhood;
 	}
 	
-	@Lob
-	@Column(name = "pdi_product_extra_other_note",columnDefinition="MEDIUMTEXT")
+	@Length(max = 1023)
+	@Column(name = "pdi_product_extra_other_note")
 	public String getPdiProductExtraOtherNote() {
 		return pdiProductExtraOtherNote;
 	}
@@ -128,8 +128,8 @@ public class ProductDetailInfo {
 		this.pdiProductExtraOtherNote = pdiProductExtraOtherNote;
 	}
 	
-	@Lob
-	@Column(name = "pdi_product_extra_space",columnDefinition="MEDIUMTEXT")
+	@Length(max = 1023)
+	@Column(name = "pdi_product_extra_space")
 	public String getPdiProductExtraSpace() {
 		return pdiProductExtraSpace;
 	}
@@ -137,8 +137,8 @@ public class ProductDetailInfo {
 		this.pdiProductExtraSpace = pdiProductExtraSpace;
 	}
 	
-	@Lob
-	@Column(name = "pdi_product_extra_transit",columnDefinition="MEDIUMTEXT")
+	@Length(max = 1023)
+	@Column(name = "pdi_product_extra_transit")
 	public String getPdiProductExtraTransit() {
 		return pdiProductExtraTransit;
 	}

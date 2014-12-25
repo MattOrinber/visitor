@@ -1,0 +1,117 @@
+package org.visitor.appportal.visitor.domain;
+
+import static javax.persistence.TemporalType.TIMESTAMP;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+@Entity
+@Table(name = "product_order")
+public class ProductOrder {
+	//raw attributes
+	private Long orderId;
+	private Long orderProductId;
+	private String orderUserEmail;
+	private Integer orderStatus;
+	private Date orderStartDate;
+	private Date orderEndDate;
+	private Date orderCreateDate;
+	private Date orderUpdateDate;
+	private Long orderTotalAmount;
+	
+	@Column(name = "order_id", nullable = false, unique = true, precision = 20)
+	@GeneratedValue
+	@Id
+	public Long getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
+	
+	@NotNull
+	@Column(name = "order_product_id", nullable = false, precision = 20)
+	public Long getOrderProductId() {
+		return orderProductId;
+	}
+	public void setOrderProductId(Long orderProductId) {
+		this.orderProductId = orderProductId;
+	}
+	
+	@Length(max = 64)
+	@Column(name = "order_user_email", nullable = false)
+	public String getOrderUserEmail() {
+		return orderUserEmail;
+	}
+	public void setOrderUserEmail(String orderUserEmail) {
+		this.orderUserEmail = orderUserEmail;
+	}
+	
+	@Column(name = "order_status", nullable = false, precision = 2)
+	public Integer getOrderStatus() {
+		return orderStatus;
+	}
+	public void setOrderStatus(Integer orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+	
+	@Column(name = "order_start_date", nullable = true, length = 19)
+	@Temporal(TIMESTAMP)
+	@DateTimeFormat(iso = ISO.DATE)
+	public Date getOrderStartDate() {
+		return orderStartDate;
+	}
+	public void setOrderStartDate(Date orderStartDate) {
+		this.orderStartDate = orderStartDate;
+	}
+	
+	@Column(name = "order_end_date", nullable = true, length = 19)
+	@Temporal(TIMESTAMP)
+	@DateTimeFormat(iso = ISO.DATE)
+	public Date getOrderEndDate() {
+		return orderEndDate;
+	}
+	public void setOrderEndDate(Date orderEndDate) {
+		this.orderEndDate = orderEndDate;
+	}
+	
+	@Column(name = "order_create_date", nullable = true, length = 19)
+	@Temporal(TIMESTAMP)
+	@DateTimeFormat(iso = ISO.DATE)
+	public Date getOrderCreateDate() {
+		return orderCreateDate;
+	}
+	public void setOrderCreateDate(Date orderCreateDate) {
+		this.orderCreateDate = orderCreateDate;
+	}
+	
+	@Column(name = "order_update_date", nullable = true, length = 19)
+	@Temporal(TIMESTAMP)
+	@DateTimeFormat(iso = ISO.DATE)
+	public Date getOrderUpdateDate() {
+		return orderUpdateDate;
+	}
+	public void setOrderUpdateDate(Date orderUpdateDate) {
+		this.orderUpdateDate = orderUpdateDate;
+	}
+	
+	@NotNull
+	@Column(name = "order_total_amount", nullable = false, precision = 20)
+	public Long getOrderTotalAmount() {
+		return orderTotalAmount;
+	}
+	public void setOrderTotalAmount(Long orderTotalAmount) {
+		this.orderTotalAmount = orderTotalAmount;
+	}
+}
