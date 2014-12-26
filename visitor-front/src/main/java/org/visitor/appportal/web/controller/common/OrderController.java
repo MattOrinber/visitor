@@ -27,6 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.visitor.appportal.service.newsite.VisitorFloopyThingService;
 import org.visitor.appportal.service.newsite.VisitorProductOperationService;
 import org.visitor.appportal.service.newsite.VisitorProductOrderService;
 import org.visitor.appportal.service.newsite.VisitorProductService;
@@ -36,6 +37,7 @@ import org.visitor.appportal.service.newsite.redis.ProductRedisService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.visitor.beans.BuyTemp;
 import org.visitor.appportal.visitor.beans.ResultJson;
+import org.visitor.appportal.visitor.domain.FloopyThing;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductOperation;
 import org.visitor.appportal.visitor.domain.ProductOrder;
@@ -68,6 +70,8 @@ public class OrderController extends BasicController {
 	private UserRedisService userRedisService;
 	@Autowired
 	private FloopyThingRedisService floopyThingRedisService;
+	@Autowired
+	private VisitorFloopyThingService visitorFloopyThingService;
 	
 	@RequestMapping("calcTotalPrice")
 	public void calculateTotalPrice(HttpServletRequest request,
@@ -224,6 +228,7 @@ public class OrderController extends BasicController {
 			
 			String txnCheckStr = paramMap.get(PaypalInfo.txn_id);
 			if (!orderRedisService.checkTxnId(txnCheckStr)) {
+				orderRedisService.saveTxnId(txnCheckStr);
 				ProductPayOrder ppo = orderRedisService.getProductPayOrderById(ppoId);
 				setProductPayOrderInfo(ppo, paramMap, verifyResult);
 			} else {
@@ -306,6 +311,13 @@ public class OrderController extends BasicController {
 	
 	private void checkOrder(ProductPayOrder ppo) {
 		String merchantEmail = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.floopy_paypalMerchantEmail);
+		
+		if (StringUtils.isEmpty(merchantEmail)) {
+			FloopyThing ft = visitorFloopyThingService.getFloopyThingUsingKey(PaypalInfo.floopy_paypalMerchantEmail);
+			
+			floopyThingRedisService.saveFloopyThingToRedis(ft);
+			merchantEmail = ft.getFloopyValue();
+		}
 		
 		String orderOwnerEmail = ppo.getPayOrderOwnerEmail();
 		User user = userRedisService.getUserPassword(orderOwnerEmail);
