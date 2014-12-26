@@ -122,4 +122,8 @@ public class RedisKeysForVisitor {
     public static String getProductPayOrderKey() {
     	return "ppok-";
     }
+    
+    public static String getPaypalTxnIdKey() {
+    	return "paypal-txn-id-group";
+    }
 }

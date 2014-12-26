@@ -46,4 +46,8 @@ public class PaypalInfo {
 	public static final String status_paymentCompleted = "Completed";
 	public static final String status_paymentVerified = "VERIFIED";
 	public static final String status_paymentInvalid = "INVALID";
+	
+	
+	public static final String floopy_paypalMerchantId = "payPalMerchantId";
+	public static final String floopy_paypalMerchantEmail = "payPalMerchantEmail";
 }

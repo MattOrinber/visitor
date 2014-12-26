@@ -61,6 +61,7 @@ public class ProductPayOrder {
 	private String notifyVersion; //notify_version
 	private String charset; //charset
 	private String verifySign;//verify_sign
+	private String payOrderOwnerEmail;
 	
 	@Column(name = "pay_order_id", nullable = false, unique = true, precision = 20)
 	@GeneratedValue
@@ -430,6 +431,15 @@ public class ProductPayOrder {
 	}
 	public void setVerifySign(String verifySign) {
 		this.verifySign = verifySign;
+	}
+	
+	@Length(max = 64)
+	@Column(name = "pay_order_owner_email", nullable = false)
+	public String getPayOrderOwnerEmail() {
+		return payOrderOwnerEmail;
+	}
+	public void setPayOrderOwnerEmail(String payOrderOwnerEmail) {
+		this.payOrderOwnerEmail = payOrderOwnerEmail;
 	}
 	
 }

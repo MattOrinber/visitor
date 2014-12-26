@@ -101,4 +101,18 @@ public class OrderRedisService {
 		String valueT = stringRedisVisitorTemplate.opsForValue().get(key);
 		return objectMapperWrapperForVisitor.convertToProductPayOrder(valueT);
 	}
+	
+	
+	public void saveTxnId(String txnIdStr) {
+		String key = RedisKeysForVisitor.getPaypalTxnIdKey();
+		String keyT = txnIdStr;
+		String valueT = "-";
+		stringRedisVisitorTemplate.opsForHash().put(key, keyT, valueT);
+	}
+	
+	public Boolean checkTxnId(String txnIdStr) {
+		String key = RedisKeysForVisitor.getPaypalTxnIdKey();
+		String keyT = txnIdStr;
+		return stringRedisVisitorTemplate.opsForHash().hasKey(key, keyT);
+	}
 }

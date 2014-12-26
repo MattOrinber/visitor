@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.visitor.appportal.service.newsite.VisitorProductOperationService;
 import org.visitor.appportal.service.newsite.VisitorProductOrderService;
 import org.visitor.appportal.service.newsite.VisitorProductService;
+import org.visitor.appportal.service.newsite.redis.FloopyThingRedisService;
 import org.visitor.appportal.service.newsite.redis.OrderRedisService;
 import org.visitor.appportal.service.newsite.redis.ProductRedisService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
@@ -65,6 +66,8 @@ public class OrderController extends BasicController {
 	private ProductRedisService productRedisService;
 	@Autowired
 	private UserRedisService userRedisService;
+	@Autowired
+	private FloopyThingRedisService floopyThingRedisService;
 	
 	@RequestMapping("calcTotalPrice")
 	public void calculateTotalPrice(HttpServletRequest request,
@@ -117,6 +120,7 @@ public class OrderController extends BasicController {
 						po.setOrderUserEmail(userTemp.getUserEmail());
 						po.setOrderTotalAmount(resultPrice);
 						po.setOrderStatus(ProductOrderStatusEnum.Init.ordinal());
+						po.setOrderCurrency(product.getProductCurrency());
 						
 						visitorProductOrderService.saveProductOrder(po);
 						orderRedisService.saveUserOrders(userTemp, po);
@@ -155,6 +159,7 @@ public class OrderController extends BasicController {
 			ProductPayOrder ppo = new ProductPayOrder();
 			ppo.setPayOrderOids(String.valueOf(orderId.longValue()));
 			ppo.setPayStatus(ProductPayOrderStatusEnum.Init.ordinal());
+			ppo.setPayOrderOwnerEmail(userTemp.getUserEmail());
 			
 			visitorProductOrderService.saveProductPayOrder(ppo);
 			po.setOrderPayOrderId(ppo.getPayOrderId());
@@ -166,6 +171,8 @@ public class OrderController extends BasicController {
 			
 			model.addAttribute("order", po);
 			model.addAttribute("payOrder", ppo);
+			String menchantId = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.floopy_paypalMerchantId);
+			model.addAttribute("menchantId", menchantId);
 			
 			return "toPayOrder";
 		} else {
@@ -206,17 +213,24 @@ public class OrderController extends BasicController {
 			//do content verify as soon as possible
 			paramNameList.add(0, "cmd");
 			paramValueList.add(0, "_notify-validate");
-			String paypalVeryfyUrl = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.paypalVerifyURL);
+			String paypalVerifyUrl = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.paypalVerifyURL);
 			
-			String verifyResult = HttpClientUtil.httpPostToPaypal(paypalVeryfyUrl, paramNameList, paramValueList);
+			String verifyResult = HttpClientUtil.httpPostToPaypal(paypalVerifyUrl, paramNameList, paramValueList);
 			
 			Map<String, String> paramMap = new HashMap<String, String>();
 			for (int i = 0; i < paramNameList.size(); i ++) {
 				paramMap.put(paramNameList.get(i), paramValueList.get(i));
 			}
 			
-			ProductPayOrder ppo = orderRedisService.getProductPayOrderById(ppoId);
-			setProductPayOrderInfo(ppo, paramMap, verifyResult);
+			String txnCheckStr = paramMap.get(PaypalInfo.txn_id);
+			if (!orderRedisService.checkTxnId(txnCheckStr)) {
+				ProductPayOrder ppo = orderRedisService.getProductPayOrderById(ppoId);
+				setProductPayOrderInfo(ppo, paramMap, verifyResult);
+			} else {
+				if (log.isInfoEnabled()) {
+					log.info("txn id of this request has been processed!");
+				}
+			}
 		}
 	}
 	
@@ -276,11 +290,7 @@ public class OrderController extends BasicController {
 					StringUtils.equals(verifyResult, PaypalInfo.status_paymentVerified) &&
 					StringUtils.isNotEmpty(result) && 
 					StringUtils.equals(result, PaypalInfo.status_paymentCompleted)) { //Completed-----every thing looks fine
-				
-				
-				ppo.setPayStatus(ProductPayOrderStatusEnum.Completed.ordinal());
-				visitorProductOrderService.saveProductPayOrder(ppo);
-				orderRedisService.saveProductPayOrderById(ppo);
+				checkOrder(ppo); //check and update actual order
 			} else { //payment try invalid
 				ppo.setPayStatus(ProductPayOrderStatusEnum.Invalid.ordinal());
 				visitorProductOrderService.saveProductPayOrder(ppo);
@@ -292,6 +302,46 @@ public class OrderController extends BasicController {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	private void checkOrder(ProductPayOrder ppo) {
+		String merchantEmail = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.floopy_paypalMerchantEmail);
+		
+		String orderOwnerEmail = ppo.getPayOrderOwnerEmail();
+		User user = userRedisService.getUserPassword(orderOwnerEmail);
+		
+		Long orderId = Long.valueOf(ppo.getPayOrderOids());
+		ProductOrder po = orderRedisService.getUserOrder(user, orderId);
+		
+		if (StringUtils.equals(merchantEmail, ppo.getReceiverEmail()) &&
+				StringUtils.equals(po.getOrderCurrency(), ppo.getMcCurrency())) {
+			if (po.getOrderTotalAmount().equals(ppo.getMcGross())) {
+				//update product order to paid
+				ppo.setPayStatus(ProductPayOrderStatusEnum.Completed.ordinal());
+				
+				po.setOrderStatus(ProductOrderStatusEnum.PAID.ordinal());
+				
+				visitorProductOrderService.saveProductOrder(po);
+				orderRedisService.saveProductOrders(po);
+				orderRedisService.saveUserOrders(user, po);
+			} else if (po.getOrderTotalAmount().compareTo(ppo.getMcGross()) > 0 &&
+					ppo.getMcGross().compareTo(new Double(0)) > 0) {
+				//update product order to partially paid
+				ppo.setPayStatus(ProductPayOrderStatusEnum.Completed.ordinal());
+				po.setOrderStatus(ProductOrderStatusEnum.PARTIAL_PAID.ordinal());
+				po.setOrderRemainAmount(po.getOrderTotalAmount()-ppo.getMcGross());
+				
+				visitorProductOrderService.saveProductOrder(po);
+				orderRedisService.saveProductOrders(po);
+				orderRedisService.saveUserOrders(user, po);
+			} else {
+				ppo.setPayStatus(ProductPayOrderStatusEnum.Invalid.ordinal());
+			}
+		} else {
+			ppo.setPayStatus(ProductPayOrderStatusEnum.Invalid.ordinal());
+		}
+		visitorProductOrderService.saveProductPayOrder(ppo);
+		orderRedisService.saveProductPayOrderById(ppo);
 	}
 	
 	private void getParametersFromString(String oriStr,

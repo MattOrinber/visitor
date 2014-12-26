@@ -30,6 +30,8 @@ public class ProductOrder {
 	private Date orderUpdateDate;
 	private Double orderTotalAmount;
 	private Long orderPayOrderId;
+	private Double orderRemainAmount;
+	private String orderCurrency;
 	
 	@Column(name = "order_id", nullable = false, unique = true, precision = 20)
 	@GeneratedValue
@@ -121,5 +123,22 @@ public class ProductOrder {
 	}
 	public void setOrderPayOrderId(Long orderPayOrderId) {
 		this.orderPayOrderId = orderPayOrderId;
+	}
+	
+	@Column(name="order_remain_amount", precision = 22)
+	public Double getOrderRemainAmount() {
+		return orderRemainAmount;
+	}
+	public void setOrderRemainAmount(Double orderRemainAmount) {
+		this.orderRemainAmount = orderRemainAmount;
+	}
+	
+	@Length(max = 4)
+	@Column(name="order_currency")
+	public String getOrderCurrency() {
+		return orderCurrency;
+	}
+	public void setOrderCurrency(String orderCurrency) {
+		this.orderCurrency = orderCurrency;
 	}
 }
