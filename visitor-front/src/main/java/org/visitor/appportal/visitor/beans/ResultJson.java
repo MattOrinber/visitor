@@ -16,6 +16,7 @@ public class ResultJson {
 	
 	private Long productId;
 	private Integer productCan;
+	private Double totalPrice;
 	public Integer getResult() {
 		return result;
 	}
@@ -76,5 +77,11 @@ public class ResultJson {
 	}
 	public void setProductCan(Integer productCan) {
 		this.productCan = productCan;
+	}
+	public Double getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(Double totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 }

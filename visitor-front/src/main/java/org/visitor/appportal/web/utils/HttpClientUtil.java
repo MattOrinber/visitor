@@ -15,9 +15,11 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +42,46 @@ public class HttpClientUtil {
 	        int statusCode = statusLine.getStatusCode();
 	        if(200 == statusCode) {
 	        	return readHtmlContentFromEntity(httpResponse.getEntity());
+			} 
+        } catch (IOException e) {
+			log.error(e.getMessage(), e);
+		} finally {
+			if(null != post) {
+				post.releaseConnection();
+			}
+		}
+		return null;
+	}
+	
+	public static String httpPostToPaypal(String url, 
+			List<String> paramNameList,
+			List<String> paramValueList) {
+		HttpClient client = new DefaultHttpClient();
+		HttpPost post = new HttpPost(url);
+		List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
+		if (!paramNameList.isEmpty() && 
+				!paramValueList.isEmpty() &&
+				paramNameList.size() == paramValueList.size()) {
+			int sizeL = paramValueList.size();
+			for (int i = 0; i < sizeL; i ++) {
+				String paramName = paramNameList.get(i);
+				String paramValue = paramValueList.get(i);
+				urlParameters.add(new BasicNameValuePair(paramName, paramValue));
+			}
+		}
+		
+		if (log.isInfoEnabled()) {
+			String backToPayPalVerifyStr = URLEncodedUtils.format(urlParameters, "UTF-8");
+			log.info("paypal verify url queryString: >" + backToPayPalVerifyStr + "<");
+		}
+		
+    	try {
+			post.setEntity(new UrlEncodedFormEntity(urlParameters, "UTF-8"));
+			HttpResponse httpResponse = client.execute(post);
+			StatusLine statusLine = httpResponse.getStatusLine();
+	        int statusCode = statusLine.getStatusCode();
+	        if(200 == statusCode) {
+	        	return readJsonStrContentFromEntity(httpResponse.getEntity());
 			} 
         } catch (IOException e) {
 			log.error(e.getMessage(), e);

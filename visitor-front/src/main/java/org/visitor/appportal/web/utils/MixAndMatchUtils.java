@@ -59,6 +59,8 @@ public class MixAndMatchUtils {
 	public static final String paypalClientID = "paypalClientID";
 	public static final String paypalClientSecret = "paypalClientSecret";
 	
+	public static final String paypalVerifyURL = "paypalVerifyURL";
+	
 	public static String getSystemConfig(String keyT)
 	{
 		return mailRB.getString(keyT);

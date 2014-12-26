@@ -91,6 +91,11 @@ public class OrderRedisService {
 		stringRedisVisitorTemplate.expire(key, 1, TimeUnit.DAYS);
 	}
 	
+	public void deleteProductPayOrderById(ProductPayOrder ppo) {
+		String key = RedisKeysForVisitor.getProductPayOrderKey() + ppo.getPayOrderId();
+		stringRedisVisitorTemplate.delete(key);
+	}
+	
 	public ProductPayOrder getProductPayOrderById(Long ppoId) {
 		String key = RedisKeysForVisitor.getProductPayOrderKey() + ppoId;
 		String valueT = stringRedisVisitorTemplate.opsForValue().get(key);

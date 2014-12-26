@@ -8,7 +8,7 @@ public class OrderInfo {
 	
 	
 	public enum ProductOrderStatusEnum {
-		Init(0), WaitPay(1), EXPIRED(2), PAID(3), NEEDREFUND(4), REFUNDED(5);
+		Init(0), WaitPay(1), EXPIRED(2), PARTIAL_PAID(3), PAID(4), NEEDREFUND(5), REFUNDED(6);
 		private Integer value;
 		private String displayName;
 		
@@ -25,12 +25,15 @@ public class OrderInfo {
 				displayName = "EXPIRED";
 				break;
 			case 3:
-				displayName = "PAID";
+				displayName = "PARTIAL_PAID";
 				break;
 			case 4:
-				displayName = "NEEDREFUND";
+				displayName = "PAID";
 				break;
 			case 5:
+				displayName = "NEEDREFUND";
+				break;
+			case 6:
 				displayName = "REFUNDED";
 				break;
 			}
@@ -64,7 +67,7 @@ public class OrderInfo {
 	}
 	
 	public enum ProductPayOrderStatusEnum {
-		Init(0), WaitComplete(1), WaitValidate(2), Validated(3), Invalid(4);
+		Init(0), Completed(1), Validated(2), Invalid(3);
 		private Integer value;
 		private String displayName;
 		
@@ -75,15 +78,12 @@ public class OrderInfo {
 				displayName = "Init";
 				break;
 			case 1:
-				displayName = "WaitComplete";
+				displayName = "Completed";
 				break;
 			case 2:
-				displayName = "WaitValidate";
-				break;
-			case 3:
 				displayName = "Validated";
 				break;
-			case 4:
+			case 3:
 				displayName = "Invalid";
 				break;
 			}
