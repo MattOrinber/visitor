@@ -648,6 +648,7 @@ public class ProductController extends BasicController {
 			
 			poTemp.setPoType(Integer.valueOf(poTypeStr));
 			poTemp.setPoCurrency(poCurrencyStr);
+			poTemp.setPoStatus(StatusTypeEnum.Active.ordinal());
 			if (StringUtils.isNotEmpty(poPriceStr)) {
 				poTemp.setPoPricePerNight(Double.valueOf(poPriceStr));
 			} else {
