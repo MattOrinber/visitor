@@ -5,7 +5,6 @@
 
 <body>
 
-	<c:if test="${not }"></c:if>
 	<c:choose>
 		<c:when test="${not empty unavailDateList}">
 <![CDATA[
@@ -30,7 +29,7 @@
 		</c:otherwise>
 	</c:choose>
 
-
+<![CDATA[
 
 	<script>
 		$(document).ready(function(){

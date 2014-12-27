@@ -392,12 +392,6 @@ public class UserController extends BasicController{
 		sendJSONResponse(resultJson, response);
 	}
 	
-	private void logTheLogintime(String emailStr) {
-		if (log.isInfoEnabled()) {
-			log.info("<user login>: >" + emailStr + "<");
-		}
-	}
-	
 	private void logTheRegisterTime(String emailStr) {
 		if (log.isInfoEnabled()) {
 			log.info("<user register>: >" + emailStr + "<");
