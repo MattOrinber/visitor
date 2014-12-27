@@ -23,6 +23,7 @@
 <script src="${pageContext.request.contextPath}/static/js/productUploadPic.js" type="text/javascript"><c:out value=" " /></script>
 <script src="${pageContext.request.contextPath}/static/js/user.js" type="text/javascript"><c:out value=" " /></script>
 <script src="${pageContext.request.contextPath}/static/js/extraPrice.js"><c:out value=" " /></script>
+<script src="${pageContext.request.contextPath}/static/js/order.js"><c:out value=" " /></script>
 
 <script>
 var pathGlobe = '${pageContext.request.contextPath}';

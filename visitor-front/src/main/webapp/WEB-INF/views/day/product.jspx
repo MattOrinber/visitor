@@ -4,11 +4,38 @@
 <jsp:directive.page contentType="text/html; charset=UTF-8" />
 
 <body>
+
+	<c:if test="${not }"></c:if>
+	<c:choose>
+		<c:when test="${not empty unavailDateList}">
 <![CDATA[
+			<script>
+			var unavailDateList = [
+]]>
+			<c:forEach items="unavailDateList" var="unavailDate" varStatus="status">
+				<c:if test="${status.index == 0}">${unavailDate}</c:if>
+				<c:if test="${status.index != 0}">,${unavailDate}</c:if>
+			</c:forEach>
+<![CDATA[
+			];
+			</script>
+]]>
+		</c:when>
+		<c:otherwise>
+<![CDATA[
+			<script>
+			var unavailDateList = [];
+			</script>
+]]>
+		</c:otherwise>
+	</c:choose>
+
+
 
 	<script>
 		$(document).ready(function(){
 			productBigImage();
+			doProductDateInit();
 			
 			initLoginBar();
 			setGlobalCurrency();
@@ -173,18 +200,20 @@
 		      			<a class="contact" href="javascript:void(0);">Contact Host</a>
 		      		</c:when>
 		      		<c:otherwise>
+		      		<![CDATA[
 		      			<a class="contact" href="javascript:contactHost('${loginUserEmail}','${hostInfo.userEmail}');">Contact Host</a>
+		      			<div class="date">
+		                    select Date: <input id="toOrderStartDate" type="text" placeholder="2014-10-30" />
+		                </div>
+		                <div class="booking">
+		                	<a href="javascript:void();">instant book</a> 
+		                </div>
+		                <a href="javascript:void(0);" class="save">Save to Wishes List</a>
+		                <a href="javascript:void(0);" class="share">Share: Facebook Twitter G+ Instagram</a>
+		            ]]>
 		      		</c:otherwise>
 		      	</c:choose>
 <![CDATA[
-                <div class="date">
-                    start Date: <input type="text" placeholder="2014-10-30" /> end Date: <input type="text" placeholder="2014-10-30" />
-                </div>
-                <div class="booking">
-                    <a href="javascript:void();">instant book</a> 
-                 </div>
-                 <a href="javascript:void();" class="save">Save to Wishes List</a>
-                 <a href="javascript:void();" class="share">Share: Facebook Twitter G+ Instagram</a>
              </div>
          </div>
      </div>

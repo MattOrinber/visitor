@@ -23,6 +23,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.DeserializationConfig.Feature;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ import org.visitor.appportal.visitor.beans.UserTemp;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
 import org.visitor.appportal.visitor.domain.ProductMultiPrice;
+import org.visitor.appportal.visitor.domain.ProductOperation;
 import org.visitor.appportal.visitor.domain.ProductPicture;
 import org.visitor.appportal.visitor.domain.TimeZone;
 import org.visitor.appportal.visitor.domain.User;
@@ -55,6 +57,7 @@ import org.visitor.appportal.visitor.domain.VisitorLanguage;
 import org.visitor.appportal.web.mailutils.SendMailUtils;
 import org.visitor.appportal.web.mailutils.UserMailException;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
+import org.visitor.appportal.web.utils.ProductInfo.ProductOperationTypeEnum;
 
 import com.alibaba.fastjson.JSON;
 
@@ -530,6 +533,27 @@ public class BasicController {
 			ProductDetailInfo productDetailInfo = productRedisService.getProductDetailInfoUsingProductId(product.getProductId());
 			if (productDetailInfo != null) {
 				model.addAttribute("productDetailInfo", productDetailInfo);
+			}
+			
+			List<ProductOperation> listPO =  productRedisService.getProductOperationList(product.getProductId());
+			
+			List<String> unavailDateList = new ArrayList<String>();
+			for (ProductOperation po : listPO) {
+				if(po.getPoType().intValue() == ProductOperationTypeEnum.Publish_unavail.ordinal()) {
+					DateTime startOne = new DateTime(po.getPoStartDate());
+					DateTime endOne = new DateTime(po.getPoEndDate());
+					
+					while (!startOne.isEqual(endOne)) {
+						
+						String getOne = startOne.toString("yyyy-MM-dd");
+						unavailDateList.add(getOne);
+						startOne.plusDays(1);
+					}
+				}
+			}
+			
+			if (unavailDateList.size() > 0) {
+				model.addAttribute("unavailDateList", unavailDateList);
 			}
 			
 			List<ProductPicture> listPP = productRedisService.getPictureListOfOneProduct(product.getProductId());
