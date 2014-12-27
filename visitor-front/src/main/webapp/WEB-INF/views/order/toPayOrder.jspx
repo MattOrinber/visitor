@@ -1,110 +1,26 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Day Fetch</title>
-<link href="css/book.css" rel="stylesheet" type="text/css" />
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:security="http://www.springframework.org/security/tags" xmlns:form="http://www.springframework.org/tags/form" xmlns:spring="http://www.springframework.org/tags">
 
-<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>
-<script>
-	$(document).ready(function(){
-		  $("#signbtn").click(function(){
-			  		$('.wrapwrapbox').show();
-			  		$("#signup").show();			  
-			  });
-			  
-		  $("#logbtn").click(function(){
-			  		$('.wrapwrapbox').show();
-			  		$("#login").show();			  
-			  });
-		  $("#signupTologin").click(function(){
-			  		$("#signup").hide();
-			  		$("#login").show();			  
-			  });
-		  $("#loginTosignup").click(function(){
-			  		$("#login").hide();
-			  		$("#signup").show();			  
-			  });  
-		  $(".wrapwrapbox").click(function(){
-			  		$(this).hide();
-			  		$("#signup").hide();
-					$("#login").hide();			  
-			  });
-			  
-			  
-			  
-		  
-	});
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
 
-</script>
-</head>
 
 <body>
-
-<!-- 弹出图片-->
-
-
-<!--sign up login-->
-<div class="wrapwrapbox"></div>
-<div class="wrapbox" >
-	<div class="signupbox" id="signup">
-    	<a href="javascript:void(0);" class="facebook">Sign up with Facebook</a>
-        <a href="javascript:void(0);" class="email">Sign up with Email</a>
-        <span class="terms">By signing up, I agree to DayFetch's <a href="">Terms of Service</a>, <a href="">Privacy Policy</a>, <a href="">Guest Refund Policy</a>, and <a href="">Host Guarantee Terms</a>.</span>
-    	<span class="loginbutton">Already an Airbnb member? <a href="javascript:void(0);" id="signupTologin">Log in</a></span>
-    </div>
-</div>
-
-<div class="wrapbox">
-	<div class="signupbox" style="height:320px;"  id="login">
-    	<a href="javascript:void(0);" class="facebook">Log in with Facebook</a>
-        <span class="or">or</span>
-        <span class="username"><input type="text" value="Email Address"/></span>
-        <span class="username password"><input type="text" value="Password"/></span>
-        <span class="checkbox"><input type="checkbox" />Remember me</span>
-        <span class="forget"><a href="">Forgot password?</a></span>
-        <a href="javascript:void(0);" class="facebook login">Log  in</a>
-        <span class="loginbutton">Don't have an account? <a href="javascript:void(0);" id="loginTosignup">Sign up</a></span>
-    </div>
-</div>
-
-
-<div class="header">
-    <div class="head">
-    	<div class="logo"><a href="index.html"><img src="img/logo-red.png" /></a></div>
-        <div class="select">
-        	<select>
-            	<option>Pairs</option>
-                <option>New York</option>
-                <option>New York</option>
-                <option>New York</option>
-                <option>New York</option>
-                <option>New York</option>
-            </select>
-        </div>
-        <div class="loginbar">
-        	<a href="javascript:void(0);" id="signbtn">Sign Up</a>
-            <a href="javascript:void(0);" id="logbtn">Log In</a>
-            <a href="" class="list">List Your Activities</a>
-        </div>
-    </div>
-</div>
-
-
+<![CDATA[
 <div class="main">
     <div class="maincontent">
         <div class="left">
-        	<h1>More Service</h1>
-            <input type="checkbox" /><label>Single</label><label>$180</label><br />
-            <hr/>
-            <input type="checkbox" /><label>Minimal 2 Person</label><label>$150</label><br />
-            <hr />
-            <input type="checkbox" /><label>Child</label><label>$100</label><br />
-            <hr />
-            
+]]>
+		<c:if test="${not empty multiPriceSet}">
+			<h1>More Service</h1>
+			<c:forEach items="multiPriceSet" var="multiprice" varStatus="status">
+				<input id="${multiprice.pmpId}" type="checkbox" /><label>${multiprice.pmpProductPriceKey}</label><label>$ ${multiprice.pmpProductPriceValue}</label><br />
+            	<hr/>
+			</c:forEach>
+		</c:if>
+<![CDATA[
 			<h1>Payment</h1>
-            <a href="" class="button">Pay</a>
-            <h1>Billing Information</h1>
+            <a href="javascript:void(0);" class="button">Pay</a>
+            <h1>Billing Information(optional)</h1>
             <span class="name">First name<br /><input type="text" /></span>
             <span class="name">Last name<br /><input type="text" /></span>
             <span class="name" style="width:500px;">Postal code<br /><input type="text" /></span>
@@ -140,21 +56,16 @@
                 <br />
                 <table width="313" border="0">
                   <tr>
-                    <td>Nights</td>
-                    <td>3</td>
-                    
+                    <td>Days</td>
+                    <td>1</td>
                   </tr>
                   <tr>
-                    <td>$100*3 nights</td>
-                    <td>$300</td>
+                    <td>$ ${productInfo.productBaseprice}*1 nights</td>
+                    <td>$ ${productInfo.productBaseprice}</td>
                   </tr>
                   <tr>
-                    <td>Service fee</td>
-                    <td>$50</td>
-                  </tr>
-                  <tr>
-                    <td style="font-size:20px;font-weight:bold;">Total</td>
-                    <td style="font-size:20px;font-weight:bold;">$350</td>
+                    <td style="font-size:20px;font-weight:bold;">Total(services included)</td>
+                    <td style="font-size:20px;font-weight:bold;">$ ${po.orderTotalAmount}</td>
                   </tr>
                 </table>
 
@@ -162,100 +73,7 @@
         </div>
     </div>
 </div>
-
-
-<!--<div class="reviews">
-	<div class="details">
-		<div class="title">12 Reviews<span><img src="img/knewstuff.png" width="14"/><img src="img/knewstuff.png" width="14"/><img src="img/knewstuff.png" width="14"/><img src="img/halfstuff.png" width="14"/><img src="img/stuff-gray.png" width="14"/></span></div>
-        <div class="list">
-        	<dl>
-            	<dd></dd>
-                <dt>Alexander</dt>
-            </dl>
-            <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-            <span>September 2014</span>
-            </div>
-                <div class="list response">
-                    <dl>
-                        <dd></dd>
-                        <dt>Alexander</dt>
-                    </dl>
-                    <div class="text"><p>Response from Sarah:</p>
-                        Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-                    <span>September 2014</span>
-                    </div>
-            	</div>
-        </div>
-        <div class="line"></div>
-        <div class="list">
-        	<dl>
-            	<dd></dd>
-                <dt>Alexander</dt>
-            </dl>
-            <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-            <span>September 2014</span>
-            </div>
-        </div>
-        <div class="line"></div>
-        <div class="list">
-        	<dl>
-            	<dd></dd>
-                <dt>Alexander</dt>
-            </dl>
-            <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-            <span>September 2014</span>
-            </div>
-        </div>
-        <div class="line"></div>
-        <div class="list">
-        	<dl>
-            	<dd></dd>
-                <dt>Alexander</dt>
-            </dl>
-            <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-            <span>September 2014</span>
-            </div>
-        </div>
-    </div>
-
-</div>-->
-
-
-
-
-
-
-
-
-
-    <div class="footer">
-    	<div class="policy">
-        	<select>
-            	<option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-                <option>USD</option>
-            </select>
-        	<a href="">About </a>|
-            <a href="">Terms of Use </a>|
-            <a href="">Privacy Policy </a>
-            <span>Copyright 2014 © DayFetch All rights reserve</span>
-        </div>
-    </div>
-    
-    <div class="backtotop" id="ScrolltoTop">
-    	<a href="javascript:void(0);"></a>
-    </div>
-
-
-
-
+]]>
 
 </body>
 </html>

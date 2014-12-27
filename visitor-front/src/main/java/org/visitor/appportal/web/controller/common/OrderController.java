@@ -39,7 +39,6 @@ import org.visitor.appportal.visitor.beans.BuyTemp;
 import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.domain.FloopyThing;
 import org.visitor.appportal.visitor.domain.Product;
-import org.visitor.appportal.visitor.domain.ProductMultiPrice;
 import org.visitor.appportal.visitor.domain.ProductOperation;
 import org.visitor.appportal.visitor.domain.ProductOrder;
 import org.visitor.appportal.visitor.domain.ProductPayOrder;
@@ -132,6 +131,8 @@ public class OrderController extends BasicController {
 						orderRedisService.saveProductOrders(po);
 						
 						rj.setTotalPrice(resultPrice);
+						rj.setProductId(product.getProductId());
+						rj.setOrderId(po.getOrderId());
 					}
 				} else {
 					result = -1;

@@ -538,22 +538,33 @@ public class BasicController {
 			List<ProductOperation> listPO =  productRedisService.getProductOperationList(product.getProductId());
 			
 			List<String> unavailDateList = new ArrayList<String>();
+			String jsonUnavailableDates = "[";
+			
+			int idx = 0;
 			for (ProductOperation po : listPO) {
 				if(po.getPoType().intValue() == ProductOperationTypeEnum.Publish_unavail.ordinal()) {
 					DateTime startOne = new DateTime(po.getPoStartDate());
 					DateTime endOne = new DateTime(po.getPoEndDate());
-					
-					while (!startOne.isEqual(endOne)) {
-						
-						String getOne = startOne.toString("yyyy-MM-dd");
-						unavailDateList.add(getOne);
-						startOne.plusDays(1);
+					if (endOne.isAfter(startOne)) {
+						while (!startOne.isEqual(endOne)) {
+							String getOne = startOne.toString("yyyy-MM-dd");
+							if (idx == 0) {
+								jsonUnavailableDates = jsonUnavailableDates + "\"" + getOne;
+								idx ++;
+							} else {
+								jsonUnavailableDates = jsonUnavailableDates + "\",\"" + getOne;
+							}
+							unavailDateList.add(getOne);
+							startOne = startOne.plusDays(1);
+						}
 					}
 				}
 			}
 			
+			jsonUnavailableDates = jsonUnavailableDates + "\"]";
+			
 			if (unavailDateList.size() > 0) {
-				model.addAttribute("unavailDateList", unavailDateList);
+				model.addAttribute("unavailDateList", jsonUnavailableDates);
 			}
 			
 			List<ProductPicture> listPP = productRedisService.getPictureListOfOneProduct(product.getProductId());

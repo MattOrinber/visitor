@@ -9,21 +9,14 @@
 		<c:when test="${not empty unavailDateList}">
 <![CDATA[
 			<script>
-			var unavailDateList = [
-]]>
-			<c:forEach items="unavailDateList" var="unavailDate" varStatus="status">
-				<c:if test="${status.index == 0}">${unavailDate}</c:if>
-				<c:if test="${status.index != 0}">,${unavailDate}</c:if>
-			</c:forEach>
-<![CDATA[
-			];
+			var unavailDateList = ${unavailDateList};
 			</script>
 ]]>
 		</c:when>
 		<c:otherwise>
 <![CDATA[
 			<script>
-			var unavailDateList = [];
+			var unavailDateList = "";
 			</script>
 ]]>
 		</c:otherwise>
@@ -201,11 +194,11 @@
 		      		<c:otherwise>
 		      		<![CDATA[
 		      			<a class="contact" href="javascript:contactHost('${loginUserEmail}','${hostInfo.userEmail}');">Contact Host</a>
-		      			<div class="date">
+		      			<div id="priceBasicSetPart" class="date">
 		                    select Date: <input id="toOrderStartDate" type="text" placeholder="2014-10-30" />
 		                </div>
 		                <div class="booking">
-		                	<a href="javascript:void();">instant book</a> 
+		                	<a id="toPayOrderButton" href="javascript:void(0);">instant book</a> 
 		                </div>
 		                <a href="javascript:void(0);" class="save">Save to Wishes List</a>
 		                <a href="javascript:void(0);" class="share">Share: Facebook Twitter G+ Instagram</a>

@@ -1,23 +1,80 @@
+var unavailDateStrArray = null;
+
+function addLeadingZeroInOrder(num) {
+	if (num < 10) {
+		return "0" + num;
+	} else {
+		return "" + num;
+	}
+}
+
 function disableUnavailableDays(date) {
 	var result = true;
+	var myDate = new Date();
 	
 	//determine is it is false---unselectable
-	if (unavailDateList.length > 0) {
-		var month = addLeadingZero(date.getMonth());
-		var day = addLeadingZero(date.getDate());
+	if (unavailDateStrArray != null && unavailDateStrArray.length > 0) {
+		var month = addLeadingZeroInOrder(date.getMonth() + 1);
+		var day = addLeadingZeroInOrder(date.getDate());
 		var year = date.getFullYear();
 		var toCheck = year + '-' + month + '-' + day;
-		if ($.inArray(toCheck, unavailDateList) != -1) {
+		if ($.inArray(toCheck, unavailDateStrArray) != -1) {
 			result = false;
+		} else {
+			var beginDate = new Date(toCheck.replace(/-/g,"/"));
+			if(beginDate < myDate){
+				result = false;
+			}
 		}
 	}
 	
-	return result;
+	return [result];
+}
+
+//order generation call
+function callOrderGeneration(dateText, dpInstance) {
+	var pidStr = $("#productIDForUse").val();
+	var startDateStr = dateText;
+	var endDateStr = dateText;
+	
+	var buyTemp = {};
+	buyTemp.productIdStr = pidStr;
+	buyTemp.startDate = startDateStr;
+	buyTemp.endDate = endDateStr;
+	
+	var urlStrStr = pathGlobe + '/order/calcTotalPrice';
+    var jsonStr = $.toJSON(buyTemp);
+    
+    $.ajax({ 
+        type : 'POST',  
+        contentType : 'application/json',  
+        url : urlStrStr,  
+        processData : false,  
+        dataType : 'json',  
+        data : jsonStr,  
+        success : function(data) {  
+        	var productId = data.productId;
+        	var productOrderId = data.orderId;
+        	var priceTemp = data.poPrice;
+        	
+        	$("#priceBasicSetPart").append("<span>basic price: $ "+ priceTemp +"</span>");
+        	var payorderGenerationUrl = pathGlobe + "/order/toPayOrder/"+productId+"/"+productOrderId;
+        	
+        	$("#toPayOrderButton").attr("href", payorderGenerationUrl);
+        },  
+        error : function() {  
+            alert('order generation error...');  
+        }  
+    });
 }
 
 function doProductDateInit() {
+	if(unavailDateList != "") {
+		unavailDateStrArray = unavailDateList;
+	}
 	$("#toOrderStartDate").datepicker({
 		dateFormat: "yy-mm-dd",
-		beforeShowDay: disableUnavailableDays
+		beforeShowDay: disableUnavailableDays,
+		onSelect: callOrderGeneration
 	});
 }
