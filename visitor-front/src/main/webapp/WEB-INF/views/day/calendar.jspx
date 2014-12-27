@@ -80,7 +80,7 @@
 		</div>
     </div>
     
-    <div class="choosetime" id="productOperationDialog" style="display:none;">
+    	<div class="choosetime" id="productOperationDialog">
             <div class="timetotime">
                 <input type="text" /> to <input type="text" />
             </div>

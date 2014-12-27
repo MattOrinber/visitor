@@ -40,7 +40,7 @@ function doCanlendarResponsive() {
 					canDoSet = false;
 					
 					//do popup dialog set
-					popupDialog();
+					popupDialog(this);
 				} else {
 					canDoSet = true;
 					clickDateMonth = key;
@@ -70,14 +70,14 @@ function doCanlendarResponsive() {
 						//var dateArray = [];
 						for (var i = startDay; i <= dayCurrentInt; i ++) {
 							var dayToSet = '' + i;
-							var keyT = yearCurrent+'-'+monthCurrent+'-'+addLeadingZero(dayToSet);
+							//var keyT = yearCurrent+'-'+monthCurrent+'-'+addLeadingZero(dayToSet);
 							var needToClass = $(".responsive-calendar").find('[data-year="' + yearCurrent + '"][data-month="' + $(this).data('month') + '"][data-day="' + dayToSet + '"]').parent('.day');
 							//dateArray[i-startDay] = keyT;
 							//setDayClass(keyT);
 							needToClass.addClass('active');
 							//$(".responsive-calendar").responsiveCalendar('edit', {keyT:{"class": "active"}});
 						}
-						setDayClass(dateArray);
+						//setDayClass(dateArray);
 					}
 					//canDoSet = false;
 					//alert("can be booked!");
@@ -89,8 +89,31 @@ function doCanlendarResponsive() {
 	});
 }
 
-function popupDialog() {
-	$("#productOperationDialog").show();
+function popupDialog(currentNode) {
+	var dayNode = $(currentNode);
+	//var divNode = dayNode.parent();
+	//var dialogNode = $("#originDialogPos");
+	//divNode.html(dialogNode.html());
+	//dialogNode.html('');
+	
+	var dayNodeX = dayNode.offset().left; 
+	var dayNodeY = dayNode.offset().top;
+	
+	var dayNodeWidth = dayNode.outerWidth(true);
+	var dayNodeHeight = dayNode.outerHeight(true);
+	
+	var dialogNode = $("#productOperationDialog");
+	
+	//var dialogNodeHeight = dialogNode.outerHeight(true);
+	var dialogNodeWidth = dialogNode.outerWidth(true);
+	
+	var dialogNodeX = dayNodeX + dayNodeWidth/2 - dialogNodeWidth/2;
+	var dialogNodeY = dayNodeY + dayNodeHeight;
+	
+	dialogNode.css("left", dialogNodeX + "px");
+	dialogNode.css("top", dialogNodeY + "px");
+	
+	dialogNode.show();
 }
 
 function closeDialog() {
