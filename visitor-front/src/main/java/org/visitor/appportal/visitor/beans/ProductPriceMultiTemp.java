@@ -4,6 +4,8 @@ public class ProductPriceMultiTemp {
 	private String productIdStr;
 	private String additionalPriceKeyStr;
 	private String additionalPriceValue;
+	
+	private String pmpIdStr;
 	public String getProductIdStr() {
 		return productIdStr;
 	}
@@ -21,5 +23,11 @@ public class ProductPriceMultiTemp {
 	}
 	public void setAdditionalPriceValue(String additionalPriceValue) {
 		this.additionalPriceValue = additionalPriceValue;
+	}
+	public String getPmpIdStr() {
+		return pmpIdStr;
+	}
+	public void setPmpIdStr(String pmpIdStr) {
+		this.pmpIdStr = pmpIdStr;
 	}
 }

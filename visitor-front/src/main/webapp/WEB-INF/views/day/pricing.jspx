@@ -78,34 +78,37 @@
 <![CDATA[            
                 </div>
             </div>
+            
             <div class="down">
-            	<span><input type="checkbox" id="checkbox" onclick="checkBox();"/>This listing has multiple options</span>
-                <div class="option" id="option">
+            	<span><input type="checkbox" id="productExtraPriceCheckbox" onclick="checkBox();"/>This listing has multiple options</span>
+                <div class="option" id="productExtraPriceOption">
                 	<p>Option Values</p>
                     <div class="values">
-                    	<a href="javascript:;" class="closebutton">Single</a>
-                        <a href="javascript:;" class="closebutton">Minimal 2 Person</a>
-                        <a href="javascript:;" class="closebutton">Child</a>
-                        <span>Entry any name of options separated by a com</span>
+                    	<input id="extraVariants" type="text" placeholder="Variants"/>
+                        <input id="extraPriceSet" type="text" placeholder="Price" />
+                        <input type="button" value="add" class="button" id="addProductExtraPrice" onclick="addExtraPrice();" />
                     </div>
                     <p>Select which variants will be created</p>
-                    <table width="650" border="0">
+                    <table width="650" border="0" id="productExtraPriceTab">
                       <tr>
                         <td width="215">Variants</td>
                         <td align="center" width="375">Price</td>
+                        <td align="center">Delete</td>
                       </tr>
-                      <tr>
-                        <td class="red">Single</td>
-                        <td class="white">280.00</td>
-                      </tr>
-                      <tr>
-                        <td class="red">Minimal 2 Person</td>
-                        <td class="white">150.00</td>
-                      </tr>
-                      <tr>
-                        <td class="red">Child</td>
-                        <td class="white">130.00</td>
-                      </tr>
+                      
+]]>
+
+					<c:forEach items="${multiPriceSet}" var="priceSet" varStatus="status">
+						<tr>
+							<td class="red">${priceSet.pmpProductPriceKey}</td>
+							<td class="white">$ ${priceSet.pmpProductPriceValue}</td>
+							<td align="center">
+								<img src="${pageContext.request.contextPath}/static/img/close1.png" width="13" onclick="removeExtraPrice(this);" data-pmp-id="${priceSet.pmpId}"/>
+							</td>
+						</tr>
+					</c:forEach>
+
+<![CDATA[
                     </table>
                 </div>
             </div>

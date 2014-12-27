@@ -21,6 +21,8 @@ public class ResultJson {
 	private Integer poType;
 	private Double poPrice;
 	
+	private Long pmpId;
+	
 	public Integer getResult() {
 		return result;
 	}
@@ -99,5 +101,11 @@ public class ResultJson {
 	}
 	public void setPoPrice(Double poPrice) {
 		this.poPrice = poPrice;
+	}
+	public Long getPmpId() {
+		return pmpId;
+	}
+	public void setPmpId(Long pmpId) {
+		this.pmpId = pmpId;
 	}
 }

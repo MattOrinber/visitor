@@ -585,6 +585,7 @@ public class ProductController extends BasicController {
 		
 		Integer result = 0;
 		String resultDesc = ProductInfo.PRODUCT_EXTRA_PRICE_SET_SAVE_SUCCESS;
+		ResultJson rj = new ResultJson();
 		
 		if (product == null) {
 			result = -1;
@@ -601,13 +602,48 @@ public class ProductController extends BasicController {
 				
 				visitorProductMultiPriceService.saveProductMultiPrice(pmpT);
 				productRedisService.saveProductMultiPriceToRedis(pmpT);
+				
+				rj.setPmpId(pmpT.getPmpId());
 			} else {
 				ProductMultiPrice pmp = productRedisService.getProductMultiPriceSetByProductIdAndKey(product.getProductId(), pdt.getAdditionalPriceKeyStr());
 				pmp.setPmpProductPriceValue(Integer.valueOf(pdt.getAdditionalPriceValue()));
 				visitorProductMultiPriceService.saveProductMultiPrice(pmp);
 				productRedisService.saveProductMultiPriceToRedis(pmp);
+				rj.setPmpId(pmp.getPmpId());
 			}
 			//need to save to redis
+		}
+		
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		super.sendJSONResponse(rj, response);
+	}
+	
+	@RequestMapping("delmultiprice")
+	public void productMultiPriceDelete(HttpServletRequest request, 
+			HttpServletResponse response) {
+		ProductPriceMultiTemp pdt = super.getProductPriceMultiTempJson(request);
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		
+		Product product = productRedisService.getUserProductFromRedis(userTemp, pdt.getProductIdStr());
+		
+		Integer result = 0;
+		String resultDesc = ProductInfo.PRODUCT_EXTRA_PRICE_SET_SAVE_SUCCESS;
+		
+		if (product == null) {
+			result = -1;
+			resultDesc = ProductInfo.PRODUCT_NOTFOUND_FORUPDATE;
+		} else {
+			// do store and to redis to mongo stuff
+			if (productRedisService.ifContainsPriceKeySet(product.getProductId(), pdt.getAdditionalPriceKeyStr())) {
+				ProductMultiPrice pmpT = productRedisService.getProductMultiPriceSetByProductIdAndKey(product.getProductId(), pdt.getAdditionalPriceKeyStr());
+				
+				pmpT.setPmpStatus(StatusTypeEnum.Inactive.ordinal());
+				
+				visitorProductMultiPriceService.saveProductMultiPrice(pmpT);
+				productRedisService.removePriceKey(product.getProductId(), pdt.getAdditionalPriceKeyStr());
+			}
 		}
 		
 		ResultJson rj = new ResultJson();

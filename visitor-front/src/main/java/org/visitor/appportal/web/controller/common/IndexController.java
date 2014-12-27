@@ -34,6 +34,7 @@ import org.visitor.appportal.service.newsite.redis.VisitorLanguageRedisService;
 import org.visitor.appportal.visitor.beans.InboxOut;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
+import org.visitor.appportal.visitor.domain.ProductMultiPrice;
 import org.visitor.appportal.visitor.domain.ProductPicture;
 import org.visitor.appportal.visitor.domain.TimeZone;
 import org.visitor.appportal.visitor.domain.User;
@@ -577,6 +578,9 @@ public class IndexController extends BasicController {
 			} else {
 				model.addAttribute("productCurrencySetted", this.getGlobalCurrencyStored());
 			}
+			
+			List<ProductMultiPrice> listpmp = productRedisService.getAllMultiPricesSetsForProduct(product.getProductId());
+			model.addAttribute("multiPriceSet", listpmp);
 			
 			ProductDetailInfo productDetailInfo = productRedisService.getProductDetailInfoUsingProductId(product.getProductId());
 			if (productDetailInfo != null) {

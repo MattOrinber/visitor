@@ -247,8 +247,8 @@ function initLoginBar() {
 
 //price page init
 function checkBox(){
-	var i=document.getElementById("checkbox");
-	var box = document.getElementById("option");
+	var i=document.getElementById("productExtraPriceCheckbox");
+	var box = document.getElementById("productExtraPriceOption");
 	if(i.checked == true){
 	  box.style.display="block"; 
 	}else{
