@@ -27,7 +27,7 @@ public class ProductOperation {
 	private Date poEndDate;
 	private String poCreateby;
 	private String poCurrency;
-	private Integer poPricePerNight;
+	private Double poPricePerNight;
 	private String poNotice;
 	private Integer poStatus;
 	
@@ -97,12 +97,11 @@ public class ProductOperation {
 		this.poCurrency = poCurrency;
 	}
 	
-	@NotNull
-	@Column(name = "po_price_per_night", nullable = false, precision = 10)
-	public Integer getPoPricePerNight() {
+	@Column(name = "po_price_per_night", precision = 22)
+	public Double getPoPricePerNight() {
 		return poPricePerNight;
 	}
-	public void setPoPricePerNight(Integer poPricePerNight) {
+	public void setPoPricePerNight(Double poPricePerNight) {
 		this.poPricePerNight = poPricePerNight;
 	}
 	

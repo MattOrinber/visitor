@@ -79,7 +79,7 @@ public class ProductInfo {
 	}
 	
 	public enum ProductOperationTypeEnum {
-		Publish_avail(0), Publish_unavail(1), Order(2);
+		Publish_avail(0), Publish_unavail(1);
 		private Integer value;
 		private String displayName;
 		
@@ -91,9 +91,6 @@ public class ProductInfo {
 				break;
 			case 1:
 				displayName = "Publish unavailable";
-				break;
-			case 2:
-				displayName = "Order product";
 				break;
 			}
 		}

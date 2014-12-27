@@ -17,6 +17,10 @@ public class ResultJson {
 	private Long productId;
 	private Integer productCan;
 	private Double totalPrice;
+	
+	private Integer poType;
+	private Double poPrice;
+	
 	public Integer getResult() {
 		return result;
 	}
@@ -83,5 +87,17 @@ public class ResultJson {
 	}
 	public void setTotalPrice(Double totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+	public Integer getPoType() {
+		return poType;
+	}
+	public void setPoType(Integer poType) {
+		this.poType = poType;
+	}
+	public Double getPoPrice() {
+		return poPrice;
+	}
+	public void setPoPrice(Double poPrice) {
+		this.poPrice = poPrice;
 	}
 }

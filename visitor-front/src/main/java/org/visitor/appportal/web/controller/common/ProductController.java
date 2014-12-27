@@ -629,6 +629,7 @@ public class ProductController extends BasicController {
 		
 		Integer result = 0;
 		String resultDesc = ProductInfo.PRODUCT_OPERATION_SAVE_SUCCESS;
+		ResultJson rj = new ResultJson();
 		
 		if (product == null) {
 			result = -1;
@@ -647,7 +648,11 @@ public class ProductController extends BasicController {
 			
 			poTemp.setPoType(Integer.valueOf(poTypeStr));
 			poTemp.setPoCurrency(poCurrencyStr);
-			poTemp.setPoPricePerNight(Integer.valueOf(poPriceStr));
+			if (StringUtils.isNotEmpty(poPriceStr)) {
+				poTemp.setPoPricePerNight(Double.valueOf(poPriceStr));
+			} else {
+				poTemp.setPoPricePerNight(Double.valueOf(product.getProductBaseprice()));
+			}
 			poTemp.setPoNotice(poNoticeStr);
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
@@ -661,13 +666,13 @@ public class ProductController extends BasicController {
 				visitorProductOperationService.saveProductOperation(poTemp);
 				productRedisService.setProductOperationToRedis(poTemp);
 				
+				rj.setPoType(poTemp.getPoType());
+				rj.setPoPrice(poTemp.getPoPricePerNight());
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
-		ResultJson rj = new ResultJson();
 		rj.setResult(result);
 		rj.setResultDesc(resultDesc);
 		

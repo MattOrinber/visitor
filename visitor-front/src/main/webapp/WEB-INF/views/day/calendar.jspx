@@ -79,10 +79,12 @@
 			</div>
 		</div>
     </div>
+    <br /><br />
+    <span>original price per day: $</span><span> ${productInfo.productBaseprice}</span>
     
-    	<div class="choosetime" id="productOperationDialog">
+    	<div class="choosetime" id="productOperationDialog" style="display:none">
             <div class="timetotime">
-                <input type="text" /> to <input type="text" />
+                <input id="productOperationStartDate" type="text" /> to <input id="productOperationEndDate" type="text" />
             </div>
             <div class="tabbutton">
                 <a href="javascript:void(0);" class="selected" id="btn_one">Available</a>
@@ -90,13 +92,13 @@
             </div>
             <div class="tabcontent">
                 <div class="tabcontent1" id="tabcontent1" style="display:block;">
-                    <div class="inputprice"><span>$</span><input type="text" /></div>
-                    <textarea placeholder="Notes..."></textarea>
-                    <a href="javascript:void(0);" class="save">Save</a><a href="javascript:void(0);" class="cancel">Cancel</a>
+                    <div class="inputprice"><span>$</span><input id="availablePrice" type="text" /></div>
+                    <textarea id="notesAvail" placeholder="Notes..."></textarea>
+                    <a href="javascript:setProductOperation();" class="save">Save</a><a href="javascript:closeDialog();" class="cancel">Cancel</a>
                 </div>
                 <div class="tabcontent1 tabcontent2" id="tabcontent2" style="display:none;">
-                    <textarea placeholder="Notes..."></textarea>
-                    <a href="javascript:void(0);" class="save">Save</a><a href="javascript:void(0);" class="cancel">Cancel</a>
+                    <textarea id="notesUnavail" placeholder="Notes..."></textarea>
+                    <a href="javascript:setProductOperation();" class="save">Save</a><a href="javascript:closeDialog();" class="cancel">Cancel</a>
                 </div>
             </div>
         </div>

@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductOperation;
 import org.visitor.appportal.visitor.domain.User;
+import org.visitor.appportal.web.utils.ProductInfo.ProductOperationTypeEnum;
 import org.visitor.appportal.web.utils.RegisterInfo.UserTypeEnum;
 
 public class MixAndMatchUtils {
@@ -142,15 +143,17 @@ public class MixAndMatchUtils {
 		for (DateTime dt : listDate) {
 			boolean ifFound = false;
 			for (ProductOperation po : poList) {
-				DateTime poS = new DateTime(po.getPoStartDate());
-				DateTime poE = new DateTime(po.getPoEndDate());
-				
-				if ((dt.isAfter(poS) && dt.isBefore(poE)) ||
-						dt.isEqual(poS) || dt.isEqual(poE)) {
-					ifFound = true;
-					double priceSpecial = (double)po.getPoPricePerNight();
-					resList.add(new Double(priceSpecial));
-					break;
+				if (po.getPoType().intValue() == ProductOperationTypeEnum.Publish_avail.ordinal()) {
+					DateTime poS = new DateTime(po.getPoStartDate());
+					DateTime poE = new DateTime(po.getPoEndDate());
+					
+					if ((dt.isAfter(poS) && dt.isBefore(poE)) ||
+							dt.isEqual(poS) || dt.isEqual(poE)) {
+						ifFound = true;
+						double priceSpecial = (double)po.getPoPricePerNight();
+						resList.add(new Double(priceSpecial));
+						break;
+					}
 				}
 			}
 			
