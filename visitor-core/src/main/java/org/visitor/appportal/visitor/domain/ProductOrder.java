@@ -32,6 +32,7 @@ public class ProductOrder {
 	private Long orderPayOrderId;
 	private Double orderRemainAmount;
 	private String orderCurrency;
+	private String orderMultipriceIds;
 	
 	@Column(name = "order_id", nullable = false, unique = true, precision = 20)
 	@GeneratedValue
@@ -140,5 +141,14 @@ public class ProductOrder {
 	}
 	public void setOrderCurrency(String orderCurrency) {
 		this.orderCurrency = orderCurrency;
+	}
+	
+	@Length(max = 511)
+	@Column(name="order_multiprice_ids")
+	public String getOrderMultipriceIds() {
+		return orderMultipriceIds;
+	}
+	public void setOrderMultipriceIds(String orderMultipriceIds) {
+		this.orderMultipriceIds = orderMultipriceIds;
 	}
 }

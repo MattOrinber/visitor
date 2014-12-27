@@ -41,6 +41,8 @@
 
 <body>
 
+<!-- 弹出图片-->
+
 
 <!--sign up login-->
 <div class="wrapwrapbox"></div>
@@ -92,6 +94,14 @@
 <div class="main">
     <div class="maincontent">
         <div class="left">
+        	<h1>More Service</h1>
+            <input type="checkbox" /><label>Single</label><label>$180</label><br />
+            <hr/>
+            <input type="checkbox" /><label>Minimal 2 Person</label><label>$150</label><br />
+            <hr />
+            <input type="checkbox" /><label>Child</label><label>$100</label><br />
+            <hr />
+            
 			<h1>Payment</h1>
             <a href="" class="button">Pay</a>
             <h1>Billing Information</h1>
@@ -153,6 +163,71 @@
     </div>
 </div>
 
+
+<!--<div class="reviews">
+	<div class="details">
+		<div class="title">12 Reviews<span><img src="img/knewstuff.png" width="14"/><img src="img/knewstuff.png" width="14"/><img src="img/knewstuff.png" width="14"/><img src="img/halfstuff.png" width="14"/><img src="img/stuff-gray.png" width="14"/></span></div>
+        <div class="list">
+        	<dl>
+            	<dd></dd>
+                <dt>Alexander</dt>
+            </dl>
+            <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
+            <span>September 2014</span>
+            </div>
+                <div class="list response">
+                    <dl>
+                        <dd></dd>
+                        <dt>Alexander</dt>
+                    </dl>
+                    <div class="text"><p>Response from Sarah:</p>
+                        Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
+                    <span>September 2014</span>
+                    </div>
+            	</div>
+        </div>
+        <div class="line"></div>
+        <div class="list">
+        	<dl>
+            	<dd></dd>
+                <dt>Alexander</dt>
+            </dl>
+            <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
+            <span>September 2014</span>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="list">
+        	<dl>
+            	<dd></dd>
+                <dt>Alexander</dt>
+            </dl>
+            <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
+            <span>September 2014</span>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="list">
+        	<dl>
+            	<dd></dd>
+                <dt>Alexander</dt>
+            </dl>
+            <div class="text">I had only 2 days in Seoul and staying at Sun´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. Sun´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
+            <span>September 2014</span>
+            </div>
+        </div>
+    </div>
+
+</div>-->
+
+
+
+
+
+
+
+
+
     <div class="footer">
     	<div class="policy">
         	<select>
@@ -170,7 +245,7 @@
         	<a href="">About </a>|
             <a href="">Terms of Use </a>|
             <a href="">Privacy Policy </a>
-            <span>Copyright 2014 � DayFetch All rights reserve</span>
+            <span>Copyright 2014 © DayFetch All rights reserve</span>
         </div>
     </div>
     

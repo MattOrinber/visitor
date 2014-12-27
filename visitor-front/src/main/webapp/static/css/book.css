@@ -22,6 +22,8 @@ body{background:#f7f7f7;}
 .main .maincontent{width:1020px;margin:0 auto;margin-top:25px;overflow:hidden;}
 .main .maincontent .left{width:580px;min-height:500px;padding-left:12.5px;padding-right:12.5px;float:left;padding-bottom:30px;}
 .main .maincontent .left h1{display:block;width:500px;font-weight:normal;font-size:28px;margin-top:15px;margin-bottom:15px;}
+.main .maincontent .left label{display:inline-block;width:130px;font-size:14px;margin-right:30px;margin-left:10px;line-height:30px;}
+.main .maincontent .left hr{height:1px;border:none;border-top:1px dashed #c4c4c4;width:300px;}
 .main .maincontent .left span{display:block;}
 .main .maincontent .left span.name{width:250px;height:80px;float:left;font-size:14px;margin-right:30px;}
 .main .maincontent .left span.name input{width:250px;height:30px;}

@@ -8,4 +8,8 @@
     <decorator name="list" page="default.jspx">
         <pattern>/list_space</pattern>
     </decorator>
+    
+    <decorator name="order" page="default.jspx">
+        <pattern>/order/*</pattern>
+    </decorator>
 </decorators>

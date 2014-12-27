@@ -39,6 +39,7 @@ import org.visitor.appportal.visitor.beans.BuyTemp;
 import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.domain.FloopyThing;
 import org.visitor.appportal.visitor.domain.Product;
+import org.visitor.appportal.visitor.domain.ProductMultiPrice;
 import org.visitor.appportal.visitor.domain.ProductOperation;
 import org.visitor.appportal.visitor.domain.ProductOrder;
 import org.visitor.appportal.visitor.domain.ProductPayOrder;
@@ -112,7 +113,7 @@ public class OrderController extends BasicController {
 					
 					Double resultPrice = MixAndMatchUtils.calculatePrice(daysCount, dtStart, dtEnd, list, product);
 					
-					if (resultPrice.compareTo(new Double(0)) > 0) {
+					if (resultPrice.compareTo(new Double(0.0)) > 0) {
 						//generate a product order and ready for paypal order generation
 						ProductOrder po = new ProductOrder();
 						Date currentDate = new Date();
@@ -156,7 +157,20 @@ public class OrderController extends BasicController {
 			@PathVariable Long orderId,
 			HttpServletResponse response,
 			Model model) {
+		
+		boolean ifLoggedIn = super.setModel(request, response, model, false);
+		if (!ifLoggedIn) {
+			return "redirect:/index";
+		}
+		
 		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		boolean ifProductAvail = super.setProductModel(userTemp, request, model, String.valueOf(pid.longValue()));
+		if(!ifProductAvail) {
+			return "redirect:/index";
+		}
+		
+		model.addAttribute("pageName", "book");
+		
 		ProductOrder po = orderRedisService.getUserOrder(userTemp, orderId);
 		
 		if (po != null) {
