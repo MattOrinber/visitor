@@ -638,7 +638,7 @@ public class ProductController extends BasicController {
 			String poTypeStr = pot.getPoTypeStr();
 			String poStartDateStr = pot.getPoStartDateStr();
 			String poEndDateStr = pot.getPoEndDateStr();
-			String poCurrencyStr = pot.getPoCurrencyStr();
+			//String poCurrencyStr = pot.getPoCurrencyStr();
 			String poPriceStr = pot.getPoPricePerNightStr();
 			String poNoticeStr = pot.getPoNoticeStr();
 			
@@ -647,7 +647,7 @@ public class ProductController extends BasicController {
 			poTemp.setPoCreateby(userTemp.getUserEmail());
 			
 			poTemp.setPoType(Integer.valueOf(poTypeStr));
-			poTemp.setPoCurrency(poCurrencyStr);
+			poTemp.setPoCurrency(product.getProductCurrency());
 			poTemp.setPoStatus(StatusTypeEnum.Active.ordinal());
 			if (StringUtils.isNotEmpty(poPriceStr)) {
 				poTemp.setPoPricePerNight(Double.valueOf(poPriceStr));
