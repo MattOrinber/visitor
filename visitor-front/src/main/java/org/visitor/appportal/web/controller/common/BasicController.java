@@ -541,6 +541,14 @@ public class BasicController {
 				model.addAttribute("productDetailInfo", productDetailInfo);
 			}
 			
+			List<ProductMultiPrice> listpmp = productRedisService.getAllMultiPricesSetsForProduct(product.getProductId());
+			model.addAttribute("multiPriceSet", listpmp);
+			
+			ProductAddress pa = productRedisService.getProductAddressFromRedis(product.getProductId());
+			if (pa != null) {
+				model.addAttribute("productAddress", pa);
+			}
+			
 			List<ProductOperation> listPO =  productRedisService.getProductOperationList(product.getProductId());
 			
 			List<String> unavailDateList = new ArrayList<String>();

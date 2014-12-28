@@ -158,9 +158,8 @@ public class MixAndMatchUtils {
 			}
 			
 			if (!ifFound) {
-				Integer basePrice = Integer.valueOf(product.getProductBaseprice());
-				double basePriceD = (double)(basePrice.intValue());
-				resList.add(new Double(basePriceD));
+				Double basePrice = Double.valueOf(product.getProductBaseprice());
+				resList.add(basePrice);
 			}
 		}
 		

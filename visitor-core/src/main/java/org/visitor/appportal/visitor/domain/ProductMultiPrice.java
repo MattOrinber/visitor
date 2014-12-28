@@ -46,7 +46,7 @@ public class ProductMultiPrice {
 		this.pmpProductPriceKey = pmpProductPriceKey;
 	}
 	
-	@Column(name = "pmp_product_price_value", precision = 22)
+	@Column(name = "pmp_product_price_value", precision = 22, scale=2)
 	public Double getPmpProductPriceValue() {
 		return pmpProductPriceValue;
 	}

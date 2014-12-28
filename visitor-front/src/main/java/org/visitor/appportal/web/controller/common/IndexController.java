@@ -309,6 +309,13 @@ public class IndexController extends BasicController {
 		return "day/your-listing";
 	}
 	
+	@RequestMapping("day/toPayOrder")
+	public String toPayOrderPage(HttpServletRequest request,
+			HttpServletResponse response,
+			Model model) {
+		return "day/toPayOrder";
+	}
+	
 	@RequestMapping({"day/edit"})
 	public String dayUserEdit(HttpServletRequest request,
 			HttpServletResponse response, 

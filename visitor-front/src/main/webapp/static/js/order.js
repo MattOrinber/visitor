@@ -55,7 +55,7 @@ function callOrderGeneration(dateText, dpInstance) {
         success : function(data) {  
         	var productId = data.productId;
         	var productOrderId = data.orderId;
-        	var priceTemp = data.poPrice;
+        	var priceTemp = data.totalPrice;
         	
         	$("#priceBasicSetPart").append("<span>basic price: $ "+ priceTemp +"</span>");
         	var payorderGenerationUrl = pathGlobe + "/order/toPayOrder/"+productId+"/"+productOrderId;

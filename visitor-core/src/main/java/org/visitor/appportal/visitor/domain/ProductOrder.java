@@ -110,7 +110,7 @@ public class ProductOrder {
 		this.orderUpdateDate = orderUpdateDate;
 	}
 	
-	@Column(name="order_total_amount", precision = 22)
+	@Column(name="order_total_amount", precision = 22, scale=2)
 	public Double getOrderTotalAmount() {
 		return orderTotalAmount;
 	}
@@ -126,7 +126,7 @@ public class ProductOrder {
 		this.orderPayOrderId = orderPayOrderId;
 	}
 	
-	@Column(name="order_remain_amount", precision = 22)
+	@Column(name="order_remain_amount", precision = 22, scale=2)
 	public Double getOrderRemainAmount() {
 		return orderRemainAmount;
 	}

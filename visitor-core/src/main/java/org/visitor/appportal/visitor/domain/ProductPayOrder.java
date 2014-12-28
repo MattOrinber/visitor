@@ -278,7 +278,7 @@ public class ProductPayOrder {
 		this.custom = custom;
 	}
 	
-	@Column(name="handling_amount", precision = 22)
+	@Column(name="handling_amount", precision = 22, scale=2)
 	public Double getHandlingAmount() {
 		return handlingAmount;
 	}
@@ -313,7 +313,7 @@ public class ProductPayOrder {
 		this.mcCurrency = mcCurrency;
 	}
 	
-	@Column(name="mc_fee", precision = 22)
+	@Column(name="mc_fee", precision = 22, scale=2)
 	public Double getMcFee() {
 		return mcFee;
 	}
@@ -321,7 +321,7 @@ public class ProductPayOrder {
 		this.mcFee = mcFee;
 	}
 	
-	@Column(name="mc_gross", precision = 22)
+	@Column(name="mc_gross", precision = 22, scale=2)
 	public Double getMcGross() {
 		return mcGross;
 	}
@@ -339,7 +339,7 @@ public class ProductPayOrder {
 		this.paymentDate = paymentDate;
 	}
 	
-	@Column(name="payment_fee", precision = 22)
+	@Column(name="payment_fee", precision = 22, scale=2)
 	public Double getPaymentFee() {
 		return paymentFee;
 	}
@@ -347,7 +347,7 @@ public class ProductPayOrder {
 		this.paymentFee = paymentFee;
 	}
 	
-	@Column(name="payment_gross", precision = 22)
+	@Column(name="payment_gross", precision = 22, scale=2)
 	public Double getPaymentGross() {
 		return paymentGross;
 	}
@@ -390,7 +390,7 @@ public class ProductPayOrder {
 		this.quantity = quantity;
 	}
 	
-	@Column(name="shipping", precision = 22)
+	@Column(name="shipping", precision = 22, scale=2)
 	public Double getShipping() {
 		return shipping;
 	}
@@ -398,7 +398,7 @@ public class ProductPayOrder {
 		this.shipping = shipping;
 	}
 	
-	@Column(name="tax", precision = 22)
+	@Column(name="tax", precision = 22, scale=2)
 	public Double getTax() {
 		return tax;
 	}

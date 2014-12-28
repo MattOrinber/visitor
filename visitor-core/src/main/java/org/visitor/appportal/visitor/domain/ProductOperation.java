@@ -97,7 +97,7 @@ public class ProductOperation {
 		this.poCurrency = poCurrency;
 	}
 	
-	@Column(name = "po_price_per_night", nullable = false, precision = 22)
+	@Column(name = "po_price_per_night", nullable = false, precision = 22, scale=2)
 	public Double getPoPricePerNight() {
 		return poPricePerNight;
 	}

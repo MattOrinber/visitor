@@ -24,6 +24,7 @@
 	        <mvc:mapping path="/updateUser/*" />
 	        <mvc:mapping path="/list_space" />
 	        <mvc:mapping path="/order/*" />
+	        <mvc:mapping path="/order/toPayOrder/*/*" />
 	        <bean class="org.visitor.appportal.web.interceptors.PublishInterceptor" />
 	    </mvc:interceptor>
 	</mvc:interceptors>

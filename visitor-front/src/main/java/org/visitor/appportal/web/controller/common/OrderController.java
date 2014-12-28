@@ -113,7 +113,7 @@ public class OrderController extends BasicController {
 					
 					Double resultPrice = MixAndMatchUtils.calculatePrice(daysCount, dtStart, dtEnd, list, product);
 					
-					if (resultPrice.compareTo(new Double(0.0)) > 0) {
+					if (resultPrice.compareTo(new Double(0)) > 0) {
 						//generate a product order and ready for paypal order generation
 						ProductOrder po = new ProductOrder();
 						Date currentDate = new Date();
@@ -124,6 +124,7 @@ public class OrderController extends BasicController {
 						po.setOrderUpdateDate(currentDate);
 						po.setOrderUserEmail(userTemp.getUserEmail());
 						po.setOrderTotalAmount(resultPrice);
+						po.setOrderRemainAmount(resultPrice);
 						po.setOrderStatus(ProductOrderStatusEnum.Init.ordinal());
 						po.setOrderCurrency(product.getProductCurrency());
 						
@@ -166,7 +167,7 @@ public class OrderController extends BasicController {
 		}
 		
 		User userTemp = (User) request.getAttribute(WebInfo.UserID);
-		boolean ifProductAvail = super.setProductModel(userTemp, request, model, String.valueOf(pid.longValue()));
+		boolean ifProductAvail = super.setProductInfoModel(userTemp, request, model, String.valueOf(pid.longValue()));
 		if(!ifProductAvail) {
 			return "redirect:/index";
 		}
@@ -194,7 +195,7 @@ public class OrderController extends BasicController {
 			String menchantId = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.floopy_paypalMerchantId);
 			model.addAttribute("menchantId", menchantId);
 			
-			return "toPayOrder";
+			return "redirect:/day/toPayOrder";
 		} else {
 			//stay on the product page
 			return "redirect:/day/product?pid="+pid;
@@ -310,7 +311,7 @@ public class OrderController extends BasicController {
 		
 		model.addAttribute("info", info);
 		
-		return "result";
+		return "redirect:/day/result";
 	}
 	
 	private String setProductPayOrderInfo(ProductPayOrder ppo,
