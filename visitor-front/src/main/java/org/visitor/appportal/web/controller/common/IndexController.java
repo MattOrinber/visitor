@@ -350,7 +350,7 @@ public class IndexController extends BasicController {
 	}
 	
 	@RequestMapping("day/result")
-	public String toPayOrderPage(HttpServletRequest request,
+	public String toPayOrderPageResult(HttpServletRequest request,
 			@RequestParam(value = "info", required = true) String infoStr,
 			HttpServletResponse response,
 			Model model) throws UnsupportedEncodingException {
