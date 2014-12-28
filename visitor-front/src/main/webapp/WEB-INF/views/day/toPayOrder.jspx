@@ -30,7 +30,7 @@
 					data-amount="${order.orderTotalAmount}"
 					data-currency="${order.orderCurrency}"
 					data-size="large"
-					data-callback="${pageContext.request.contextPath}/order/paypalcallback/${payOrder.payOrderId}"
+					data-callback="${pathCallback}/order/paypalcallback/${payOrder.payOrderId}"
 				></script>
 			</div>
         </div>

@@ -50,4 +50,5 @@ public class PaypalInfo {
 	
 	public static final String floopy_paypalMerchantId = "payPalMerchantId";
 	public static final String floopy_paypalMerchantEmail = "payPalMerchantEmail";
+	public static final String floopy_paypalCallBackURL = "paypalCallbackURL";
 }

@@ -344,6 +344,8 @@ public class IndexController extends BasicController {
 		model.addAttribute("order", po);
 		model.addAttribute("payOrder", ppo);
 		String menchantId = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.floopy_paypalMerchantId);
+		String callbackURL = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.floopy_paypalCallBackURL);
+		model.addAttribute("pathCallback", callbackURL);
 		model.addAttribute("menchantId", menchantId);
 		
 		model.addAttribute("pageName", "book");
