@@ -3,6 +3,8 @@
  */
 package org.visitor.appportal.web.controller.common;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,14 +23,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.visitor.appportal.service.newsite.VisitorUserService;
 import org.visitor.appportal.service.newsite.VisitorUserTokenInfoService;
 import org.visitor.appportal.service.newsite.redis.FloopyThingRedisService;
+import org.visitor.appportal.service.newsite.redis.OrderRedisService;
 import org.visitor.appportal.service.newsite.redis.ProductRedisService;
 import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.service.newsite.redis.VisitorLanguageRedisService;
 import org.visitor.appportal.visitor.beans.InboxOut;
+import org.visitor.appportal.visitor.domain.ProductOrder;
+import org.visitor.appportal.visitor.domain.ProductPayOrder;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.visitor.domain.UserInternalMail;
 import org.visitor.appportal.web.utils.HttpClientUtil;
+import org.visitor.appportal.web.utils.PaypalInfo;
 import org.visitor.appportal.web.utils.WebInfo;
 
 import com.alibaba.fastjson.JSON;
@@ -57,6 +63,9 @@ public class IndexController extends BasicController {
 	private VisitorUserService visitorUserService;
 	@Autowired
 	private ProductRedisService productRedisService;
+	
+	@Autowired
+	private OrderRedisService orderRedisService;
 
 	/**
 	 * 
@@ -311,9 +320,45 @@ public class IndexController extends BasicController {
 	
 	@RequestMapping("day/toPayOrder")
 	public String toPayOrderPage(HttpServletRequest request,
+			@RequestParam(value = "pid", required = true) Long pid,
+			@RequestParam(value = "poid", required = true) Long poid,
+			@RequestParam(value = "ppoid", required = true) Long ppoid,
 			HttpServletResponse response,
 			Model model) {
+		boolean ifLoggedIn = super.setModel(request, response, model, false);
+		if (!ifLoggedIn) {
+			return "redirect:/index";
+		}
+		
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		boolean ifProductAvail = super.setProductInfoModel(userTemp, request, model, String.valueOf(pid.longValue()));
+		if(!ifProductAvail) {
+			return "redirect:/index";
+		}
+		
+		ProductOrder po = orderRedisService.getUserOrder(userTemp, poid);
+		ProductPayOrder ppo = orderRedisService.getProductPayOrderById(ppoid);
+		
+		model.addAttribute("order", po);
+		model.addAttribute("payOrder", ppo);
+		String menchantId = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.floopy_paypalMerchantId);
+		model.addAttribute("menchantId", menchantId);
+		
+		model.addAttribute("pageName", "book");
+		
 		return "day/toPayOrder";
+	}
+	
+	@RequestMapping("day/result")
+	public String toPayOrderPage(HttpServletRequest request,
+			@RequestParam(value = "info", required = true) String infoStr,
+			HttpServletResponse response,
+			Model model) throws UnsupportedEncodingException {
+		String infoFinal = URLDecoder.decode(infoStr, "UTF-8");
+		
+		model.addAttribute("info", infoFinal);
+		
+		return "day/result";
 	}
 	
 	@RequestMapping({"day/edit"})

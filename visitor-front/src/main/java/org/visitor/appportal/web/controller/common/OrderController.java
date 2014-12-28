@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -158,21 +159,9 @@ public class OrderController extends BasicController {
 	public String toPayOrder(HttpServletRequest request,
 			@PathVariable Long pid,
 			@PathVariable Long orderId,
-			HttpServletResponse response,
-			Model model) {
-		
-		boolean ifLoggedIn = super.setModel(request, response, model, false);
-		if (!ifLoggedIn) {
-			return "redirect:/index";
-		}
+			HttpServletResponse response) {
 		
 		User userTemp = (User) request.getAttribute(WebInfo.UserID);
-		boolean ifProductAvail = super.setProductInfoModel(userTemp, request, model, String.valueOf(pid.longValue()));
-		if(!ifProductAvail) {
-			return "redirect:/index";
-		}
-		
-		model.addAttribute("pageName", "book");
 		
 		ProductOrder po = orderRedisService.getUserOrder(userTemp, orderId);
 		
@@ -190,12 +179,7 @@ public class OrderController extends BasicController {
 			orderRedisService.saveProductOrders(po);
 			orderRedisService.saveProductPayOrderById(ppo);
 			
-			model.addAttribute("order", po);
-			model.addAttribute("payOrder", ppo);
-			String menchantId = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.floopy_paypalMerchantId);
-			model.addAttribute("menchantId", menchantId);
-			
-			return "redirect:/day/toPayOrder";
+			return "redirect:/day/toPayOrder?pid="+pid+"&poid="+po.getOrderId()+"&ppoid="+ppo.getPayOrderId();
 		} else {
 			//stay on the product page
 			return "redirect:/day/product?pid="+pid;
@@ -253,8 +237,7 @@ public class OrderController extends BasicController {
 	@RequestMapping(value="paypalcallback/{payorderid}",  method = { POST, PUT })
 	public String paypalCallback(HttpServletRequest request,
 			@PathVariable Long ppoId,
-			HttpServletResponse response,
-			Model model) {
+			HttpServletResponse response) throws UnsupportedEncodingException {
 		//get all the posted data from paypal
 		String queryStr = super.getJsonStr(request); //get the raw parameterStr
 		
@@ -309,9 +292,7 @@ public class OrderController extends BasicController {
 			info = "paypal returned null";
 		}
 		
-		model.addAttribute("info", info);
-		
-		return "redirect:/day/result";
+		return "redirect:/day/result?info=" + URLEncoder.encode(info, "UTF-8");
 	}
 	
 	private String setProductPayOrderInfo(ProductPayOrder ppo,

@@ -15,8 +15,8 @@
 ]]>
 		<c:if test="${not empty multiPriceSet}">
 			<h1>More Service</h1>
-			<c:forEach items="multiPriceSet" var="multiprice" varStatus="status">
-				<input data-key="${multiprice.pmpProductPriceKey}" type="checkbox" onclick="addServicePrice(this);" /><label>${multiprice.pmpProductPriceKey}</label><label>$ ${multiprice.pmpProductPriceValue}</label><br />
+			<c:forEach items="${multiPriceSet}" var="priceSpecial" varStatus="status">
+				<input data-key="${priceSpecial.pmpProductPriceKey}" type="checkbox" onclick="addServicePrice(this);" /><label>${priceSpecial.pmpProductPriceKey}</label><label>$ ${priceSpecial.pmpProductPriceValue}</label><br />
             	<hr/>
 			</c:forEach>
 		</c:if>
@@ -43,7 +43,7 @@
                 <br />
                 <hr />
                 <br />
-                <p>${${productInfo.productRoomType} for 1 guest</p>
+                <p>${productInfo.productRoomType} for 1 guest</p>
                 <p>${order.orderStartDate} to ${order.orderEndDate}</p>
                 <br />
                 <hr />
