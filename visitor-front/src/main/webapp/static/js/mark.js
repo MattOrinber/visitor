@@ -164,7 +164,7 @@ function setGlobalCurrency() {
 
 function doCitySelect(node) {
 	var city = $(node).val();
-	var urlToGo = '${pageContext.request.contextPath}/day/city?c=' + city;
+	var urlToGo = pathGlobe + '/day/city?c=' + city;
 	
 	window.location.href = urlToGo;
 }

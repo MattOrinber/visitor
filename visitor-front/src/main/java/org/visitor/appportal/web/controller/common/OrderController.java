@@ -28,6 +28,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.visitor.appportal.service.newsite.VisitorFloopyThingService;
 import org.visitor.appportal.service.newsite.VisitorProductOperationService;
 import org.visitor.appportal.service.newsite.VisitorProductOrderService;
@@ -234,9 +235,9 @@ public class OrderController extends BasicController {
 		super.sendJSONResponse(rj, response);
 	}
 	
-	@RequestMapping(value="paypalcallback/{payorderid}",  method = { POST, PUT })
+	@RequestMapping(value="paypalcallback",  method = { POST, PUT })
 	public String paypalCallback(HttpServletRequest request,
-			@PathVariable Long ppoId,
+			@RequestParam(value = "payorderid", required = true) Long ppoId,
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		//get all the posted data from paypal
 		String queryStr = super.getJsonStr(request); //get the raw parameterStr
