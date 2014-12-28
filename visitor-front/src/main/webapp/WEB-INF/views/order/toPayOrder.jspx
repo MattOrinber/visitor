@@ -6,6 +6,9 @@
 
 <body>
 <![CDATA[
+
+<input type="hidden" id="orderIDForUse" value="${order.orderId}" />
+
 <div class="main">
     <div class="maincontent">
         <div class="left">
@@ -13,44 +16,35 @@
 		<c:if test="${not empty multiPriceSet}">
 			<h1>More Service</h1>
 			<c:forEach items="multiPriceSet" var="multiprice" varStatus="status">
-				<input id="${multiprice.pmpId}" type="checkbox" /><label>${multiprice.pmpProductPriceKey}</label><label>$ ${multiprice.pmpProductPriceValue}</label><br />
+				<input data-key="${multiprice.pmpProductPriceKey}" type="checkbox" onclick="addServicePrice(this);" /><label>${multiprice.pmpProductPriceKey}</label><label>$ ${multiprice.pmpProductPriceValue}</label><br />
             	<hr/>
 			</c:forEach>
 		</c:if>
 <![CDATA[
 			<h1>Payment</h1>
-            <a href="javascript:void(0);" class="button">Pay</a>
-            <h1>Billing Information(optional)</h1>
-            <span class="name">First name<br /><input type="text" /></span>
-            <span class="name">Last name<br /><input type="text" /></span>
-            <span class="name" style="width:500px;">Postal code<br /><input type="text" /></span>
-            <h1>Introduce Yourself</h1>
-            <p>
-            	Giving your host more information will make them more likely to confirm your booking request:<br />
-                -Tell Ketsuda a little about yourself<br />
-                -What brings you to Mueang Chiang Mai? Who's joining you?<br />
-                -What do you love about this listing? Mention it!<br /> 
-            </p>
-            <div class="photo">
-            	<span class="pp"><img src="img/original2.jpg" width="120" /></span>
-                <span><textarea placeholder="Message your host..."></textarea></span>
-            </div>
-            <h1>Verify your phone number</h1>
-            <p>Looks like you're a new traveler. If your request is accepted, Host will need your contact information.</p>
-            <input type="text" class="tel"/>
-            <a href="" class="button">Request to Book</a>
-            <p>You will only be charged if the host accepts your request. They'll have 24 hours to reply. If the host declines or does not respond, no charge is made.</p>
+            <div id="button">
+				<script async src="${pageContext.request.contextPath}/static/js/button.js?merchant=${menchantId}"
+					data-button="buynow"
+					data-type="form"
+					data-name="Buy now!"
+					data-amount="${po.orderTotalAmount}"
+					data-currency="${po.orderCurrency}"
+					data-size="large"
+				></script>
+			</div>
         </div>
         <div class="right">
            <div class="roomimg"><img src="img/c4f01fea_original.jpg" width="313" /></div>
            <div class="information">
-           		<h2>City Center-Inside the old city - 2</h2>
-                <p>Arak Lane, Mueang Chiang Mai, Chiang Mai 50200, Thailand</p>
+           		<h2>Order Infomation</h2>
+                <p>]]><c:if test="${not empty productAddress}">${productAddress.paZipcode} ${productAddress.paStreetaddress} ${productAddress.paCity} ${productAddress.paState} ${productAddress.paCountry}</c:if>
+<![CDATA[
+                </p>
                 <br />
                 <hr />
                 <br />
-                <p>Entire home/apt for 1 guest</p>
-                <p>Mon, Feb 02, 2015 to Thu, Feb 05, 2015</p>
+                <p>${${productInfo.productRoomType} for 1 guest</p>
+                <p>${order.orderStartDate} to ${order.orderEndDate}</p>
                 <br />
                 <hr />
                 <br />
@@ -65,7 +59,7 @@
                   </tr>
                   <tr>
                     <td style="font-size:20px;font-weight:bold;">Total(services included)</td>
-                    <td style="font-size:20px;font-weight:bold;">$ ${po.orderTotalAmount}</td>
+                    <td id="finalPriceSetToChange" style="font-size:20px;font-weight:bold;">$ ${po.orderTotalAmount}</td>
                   </tr>
                 </table>
 

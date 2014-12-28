@@ -4,6 +4,10 @@ public class BuyTemp {
 	private String startDate;
 	private String endDate;
 	private String productIdStr;
+	
+	private String orderIdStr;
+	private String priceIdStr;
+	
 	public String getStartDate() {
 		return startDate;
 	}
@@ -21,5 +25,17 @@ public class BuyTemp {
 	}
 	public void setProductIdStr(String productIdStr) {
 		this.productIdStr = productIdStr;
+	}
+	public String getOrderIdStr() {
+		return orderIdStr;
+	}
+	public void setOrderIdStr(String orderIdStr) {
+		this.orderIdStr = orderIdStr;
+	}
+	public String getPriceIdStr() {
+		return priceIdStr;
+	}
+	public void setPriceIdStr(String priceIdStr) {
+		this.priceIdStr = priceIdStr;
 	}
 }

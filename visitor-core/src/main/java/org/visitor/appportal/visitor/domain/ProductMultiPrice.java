@@ -15,7 +15,7 @@ public class ProductMultiPrice {
 	private Long pmpId;
 	private Long pmpProductId;
 	private String pmpProductPriceKey;
-	private Integer pmpProductPriceValue;
+	private Double pmpProductPriceValue;
 	private Integer pmpStatus;
 	
 	@Column(name = "pmp_id", nullable = false, unique = true, precision = 20)
@@ -46,11 +46,11 @@ public class ProductMultiPrice {
 		this.pmpProductPriceKey = pmpProductPriceKey;
 	}
 	
-	@Column(name = "pmp_product_price_value", precision = 10)
-	public Integer getPmpProductPriceValue() {
+	@Column(name = "pmp_product_price_value", precision = 22)
+	public Double getPmpProductPriceValue() {
 		return pmpProductPriceValue;
 	}
-	public void setPmpProductPriceValue(Integer pmpProductPriceValue) {
+	public void setPmpProductPriceValue(Double pmpProductPriceValue) {
 		this.pmpProductPriceValue = pmpProductPriceValue;
 	}
 	

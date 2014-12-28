@@ -46,6 +46,7 @@ import org.visitor.appportal.visitor.beans.ProductTemp;
 import org.visitor.appportal.visitor.beans.UserInternalMailTemp;
 import org.visitor.appportal.visitor.beans.UserTemp;
 import org.visitor.appportal.visitor.domain.Product;
+import org.visitor.appportal.visitor.domain.ProductAddress;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
 import org.visitor.appportal.visitor.domain.ProductMultiPrice;
 import org.visitor.appportal.visitor.domain.ProductOperation;
@@ -495,6 +496,11 @@ public class BasicController {
 			ProductDetailInfo productDetailInfo = productRedisService.getProductDetailInfoUsingProductId(product.getProductId());
 			if (productDetailInfo != null) {
 				model.addAttribute("productDetailInfo", productDetailInfo);
+			}
+			
+			ProductAddress pa = productRedisService.getProductAddressFromRedis(product.getProductId());
+			if (pa != null) {
+				model.addAttribute("productAddress", pa);
 			}
 			
 			List<ProductPicture> listPP = productRedisService.getPictureListOfOneProduct(product.getProductId());

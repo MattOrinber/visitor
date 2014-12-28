@@ -39,6 +39,7 @@ import org.visitor.appportal.visitor.beans.BuyTemp;
 import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.domain.FloopyThing;
 import org.visitor.appportal.visitor.domain.Product;
+import org.visitor.appportal.visitor.domain.ProductMultiPrice;
 import org.visitor.appportal.visitor.domain.ProductOperation;
 import org.visitor.appportal.visitor.domain.ProductOrder;
 import org.visitor.appportal.visitor.domain.ProductPayOrder;
@@ -200,12 +201,63 @@ public class OrderController extends BasicController {
 		}
 	}
 	
-	@RequestMapping(value="paypalcallback/{payorderid}",  method = { POST, PUT })
-	public void paypalCallback(HttpServletRequest request,
-			@PathVariable Long ppoId,
+	@RequestMapping("addToPrice")
+	public void addToTotalPrice(HttpServletRequest request,
 			HttpServletResponse response) {
+		Integer result = 0;
+		String resultDesc = OrderInfo.PRODUCT_AMOUNT_CALC_DONE;
+		ResultJson rj = new ResultJson();
+		
+		BuyTemp btTemp = super.getBuyTempJSON(request);
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		
+		if (btTemp != null) {
+			try {
+				String orderIdStr = btTemp.getOrderIdStr();
+				String priceIdStr = btTemp.getPriceIdStr();
+				
+				if (StringUtils.isNotEmpty(orderIdStr) &&
+						StringUtils.isNotEmpty(priceIdStr)) {
+					ProductOrder po = orderRedisService.getUserOrder(userTemp, Long.valueOf(orderIdStr));
+					ProductMultiPrice pmp = productRedisService.getProductMultiPriceSetByProductIdAndKey(po.getOrderProductId(), priceIdStr);
+					
+					Double pmpPrice = pmp.getPmpProductPriceValue();
+					
+					Double finalPrice = po.getOrderTotalAmount() + pmpPrice;
+					po.setOrderTotalAmount(finalPrice);
+					
+					visitorProductOrderService.saveProductOrder(po);
+					orderRedisService.saveUserOrders(userTemp, po);
+					orderRedisService.saveProductOrders(po);
+					
+					rj.setPoPrice(finalPrice);
+				} else {
+					result = -1;
+					resultDesc = OrderInfo.PRODUCT_BUY_TEMP_NOT_RIGHT;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			result = -1;
+			resultDesc = OrderInfo.PRODUCT_BUY_TEMP_NOT_RIGHT;
+		}
+		
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		super.sendJSONResponse(rj, response);
+	}
+	
+	@RequestMapping(value="paypalcallback/{payorderid}",  method = { POST, PUT })
+	public String paypalCallback(HttpServletRequest request,
+			@PathVariable Long ppoId,
+			HttpServletResponse response,
+			Model model) {
 		//get all the posted data from paypal
 		String queryStr = super.getJsonStr(request); //get the raw parameterStr
+		
+		String info = "";
 		
 		//immediately send the 200 response back
 		try {
@@ -245,13 +297,20 @@ public class OrderController extends BasicController {
 			if (!orderRedisService.checkTxnId(txnCheckStr)) {
 				orderRedisService.saveTxnId(txnCheckStr);
 				ProductPayOrder ppo = orderRedisService.getProductPayOrderById(ppoId);
-				setProductPayOrderInfo(ppo, paramMap, verifyResult);
+				info = setProductPayOrderInfo(ppo, paramMap, verifyResult);
 			} else {
+				info = "txn id of this request has been processed!";
 				if (log.isInfoEnabled()) {
 					log.info("txn id of this request has been processed!");
 				}
 			}
+		} else {
+			info = "paypal returned null";
 		}
+		
+		model.addAttribute("info", info);
+		
+		return "result";
 	}
 	
 	private String setProductPayOrderInfo(ProductPayOrder ppo,

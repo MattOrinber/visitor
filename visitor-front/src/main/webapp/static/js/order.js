@@ -78,3 +78,37 @@ function doProductDateInit() {
 		onSelect: callOrderGeneration
 	});
 }
+
+//pay order part
+function addServicePrice(node) {
+	var orderIdStr = $("#orderIDForUse").val();
+	var priceSetId = $(node).attr("data-key");
+	
+	var buyTemp = {};
+	buyTemp.orderIdStr = orderIdStr;
+	buyTemp.priceIdStr = priceSetId;
+	
+	var urlStrStr = pathGlobe + '/order/calcTotalPrice';
+    var jsonStr = $.toJSON(buyTemp);
+    
+    $.ajax({ 
+        type : 'POST',  
+        contentType : 'application/json',  
+        url : urlStrStr,  
+        processData : false,  
+        dataType : 'json',  
+        data : jsonStr,  
+        success : function(data) {  
+        	var result = data.result;
+        	if (result == 0) {
+	        	var priceTemp = data.poPrice;
+	        	$("#finalPriceSetToChange").html("$ "+priceTemp);
+	        	// paypal button change
+	        	
+        	}
+        },  
+        error : function() {  
+            alert('order add service price error...');  
+        }  
+    });
+}
