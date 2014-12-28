@@ -82,17 +82,24 @@ var pathGlobe = '${pageContext.request.contextPath}';
 <div class="header">
     <div class="head">
     	<div class="logo"><a href="${pageContext.request.contextPath}/index"><img src="${pageContext.request.contextPath}/static/img/logo-red.png" /></a></div>
-        <div class="select">
-        	<select>
-            	<option>Pairs</option>
-                <option>New York</option>
-                <option>New York</option>
-                <option>New York</option>
-                <option>New York</option>
-                <option>New York</option>
-            </select>
-        </div>
-]]>
+    	
+    	]]>
+		<c:if test="${not empty productCities}">
+			<div class="select">
+				<select onchange="doCitySelect(this);">
+				<c:forEach items="${productCities}" var="cityT" varStatus="status">
+					<c:choose>
+						<c:when test="${not empty currentCity and currentCity == cityT}">
+							<option value="${cityT}" selected="selected">${cityT}</option>
+						</c:when>
+						<c:otherwise>
+							<option value="${cityT}">${cityT}</option>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				</select>
+			</div>
+		</c:if>
         <!-- before login -->
        	<c:choose>
        		<c:when test="${loginName == '--'}">

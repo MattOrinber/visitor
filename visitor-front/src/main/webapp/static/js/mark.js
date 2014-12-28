@@ -162,6 +162,13 @@ function setGlobalCurrency() {
 	$.cookie('globalCurrency', globalCurrencyStr, { expires: 7 });
 }
 
+function doCitySelect(node) {
+	var city = $(node).val();
+	var urlToGo = '${pageContext.request.contextPath}/day/city?c=' + city;
+	
+	window.location.href = urlToGo;
+}
+
 //产品详情
 function setProductDiscValue() {
 	var editor = CKEDITOR.instances.productOverviewDetailStr;

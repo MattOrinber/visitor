@@ -208,6 +208,8 @@ public class IndexController extends BasicController {
 		
 		super.setCityProductsModel(cityStr, request, model);
 		
+		model.addAttribute("currentCity", cityStr);
+		
 		model.addAttribute("pageName", "city");
 		return "day/city";
 	}
