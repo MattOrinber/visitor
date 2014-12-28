@@ -597,7 +597,7 @@ public class ProductController extends BasicController {
 				
 				pmpT.setPmpProductId(product.getProductId());
 				pmpT.setPmpProductPriceKey(pdt.getAdditionalPriceKeyStr());
-				pmpT.setPmpProductPriceValue(Integer.valueOf(pdt.getAdditionalPriceValue()));
+				pmpT.setPmpProductPriceValue(Double.valueOf(pdt.getAdditionalPriceValue()));
 				pmpT.setPmpStatus(0);
 				
 				visitorProductMultiPriceService.saveProductMultiPrice(pmpT);
@@ -606,7 +606,7 @@ public class ProductController extends BasicController {
 				rj.setPmpId(pmpT.getPmpId());
 			} else {
 				ProductMultiPrice pmp = productRedisService.getProductMultiPriceSetByProductIdAndKey(product.getProductId(), pdt.getAdditionalPriceKeyStr());
-				pmp.setPmpProductPriceValue(Integer.valueOf(pdt.getAdditionalPriceValue()));
+				pmp.setPmpProductPriceValue(Double.valueOf(pdt.getAdditionalPriceValue()));
 				visitorProductMultiPriceService.saveProductMultiPrice(pmp);
 				productRedisService.saveProductMultiPriceToRedis(pmp);
 				rj.setPmpId(pmp.getPmpId());
