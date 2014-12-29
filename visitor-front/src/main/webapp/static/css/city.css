@@ -23,7 +23,7 @@ body{background:#f7f7f7;}
 .content .title .sort{float:right;font-size:14px;}
 .content .title .sort select{border:1px solid #c4c4c4;width:140px;height:25px;outline:none;background:#f7f7f7;}
 .content .apartment{width:340px;height:290px;margin:10px;overflow:hidden;float:Left;position:relative;}
-.content .apartment .photo{width:60px;height:60px;border-radius: 50%;border: 2px solid #fff;overflow:hidden;background:url(../img/original.jpg) no-repeat center center;position:absolute;right:15px;bottom:35px;}
+.content .apartment .photo{width:60px;height:60px;border-radius: 50%;border: 2px solid #fff;overflow:hidden;position:absolute;right:15px;bottom:35px;}
 .content .apartment .price{width:80px;height:40px;background:rgba(0,0,0,0.8);position:absolute;left:0px;top:160px;font-size:28px;color:#fff;line-height:40px;}
 .content .apartment .price span{display:block;width:16px;height:16px;float:left;margin-left:6px;margin-top:10px;font-size:16px;color:#fff;line-height:10px;}
 .content .apartment .word p.product-title{font-size:16px;margin-top:12px;}

@@ -196,7 +196,9 @@ function setProductDescEditor() {
 			fontSize_style: {
 				element: 'font',
 				attributes: { 'size': '#(size)' }
-			}
+			},
+			width:800,
+			height:250
 		});
 	}
 }

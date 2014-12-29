@@ -16,7 +16,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery.json-2.4.js"><c:out value="" /></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery.cookie.js"><c:out value="" /></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery.form.js"><c:out value="" /></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/ckeditor/ckeditor.js"><c:out value="" /></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/ckedit/ckeditor.js"><c:out value="" /></script>
 <script src="${pageContext.request.contextPath}/static/js/mark.js" type="text/javascript"><c:out value=" " /></script>
 <script src="${pageContext.request.contextPath}/static/js/product.js" type="text/javascript"><c:out value=" " /></script>
 <script src="${pageContext.request.contextPath}/static/js/map.js" type="text/javascript"><c:out value=" " /></script>

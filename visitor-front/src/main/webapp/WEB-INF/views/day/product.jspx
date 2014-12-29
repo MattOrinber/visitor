@@ -33,6 +33,17 @@
 			setGlobalCurrency();
 			startChecking();
 		});
+		
+		$(window).scroll(function(){
+			var targetTop = $(this).scrollTop();
+			var height = $(window).height();
+			
+			if (targetTop >= 520){
+				$(".scrollbox").addClass("fixedbook");
+			}else{
+				$(".scrollbox").removeClass("fixedbook");
+			}
+		});
 	</script>
 
 <input type="hidden" id="productIDForUse" value="${productInfo.productId}" />
@@ -85,7 +96,7 @@
 <c:choose>
 	<c:when test="${not empty productIcon}">
 <![CDATA[
-		<div class="banner" id="bigImgshow2" style="background:url(${productIcon});">
+		<div class="banner" id="bigImgshow2" style="background:url(${productIcon}) no-repeat center;">
 		</div>
 ]]>
 	</c:when>
@@ -138,8 +149,20 @@
     </div>
 	<div class="main">
         <div class="host">
-        	<div class="photo">
-            	<div class="img"></div>
+        	<div class="photo">	
+
+				<div class="img">
+]]>
+					<c:choose>
+						<c:when test="${not empty hostInfo.userPhotourl}">
+							<img src="${hostInfo.userPhotourl}" width="90" />
+						</c:when>
+						<c:otherwise>
+							<img src="${imgPathOrigin}/static/user_pic-50x50.png" width="90" />
+						</c:otherwise>
+					</c:choose>
+<![CDATA[
+            	</div>
 ]]>
 				<c:if test="${not empty hostInfo.userFirstName and not empty hostInfo.userLastName}">
                 	<p>${hostInfo.userFirstName} ${hostInfo.userLastName}</p>
@@ -171,12 +194,6 @@
                 	<h3>Globe</h3>
                 </c:if>
 <![CDATA[
-                <img src="${imgPathOrigin}/static/knewstuff.png" width="14"/><img src="${imgPathOrigin}/static/knewstuff.png" width="14"/><img src="${imgPathOrigin}/static/knewstuff.png" width="14"/><img src="${imgPathOrigin}/static/halfstuff.png" width="14"/><img src="${imgPathOrigin}/static/stuff-gray.png" width="14"/></span><span>(8)</span></p>
-            	<div class="pic-t">
-                	<span>1.5Hours</span>
-                    <span class="people">2-5Person</span>
-                    <span class="language">English Chinese</span>
-                </div>
             </div>
         </div>
     </div>
@@ -189,19 +206,17 @@
 ]]>
 				<c:choose>
 		      		<c:when test="${loginUserEmail == hostInfo.userEmail}">
-		      			<a class="contact" href="javascript:void(0);">Contact Host</a>
+		      			<a class="save" href="javascript:void(0);">Contact Host</a>
 		      		</c:when>
 		      		<c:otherwise>
 		      		<![CDATA[
-		      			<a class="contact" href="javascript:contactHost('${loginUserEmail}','${hostInfo.userEmail}');">Contact Host</a>
+		      			<a class="save" href="javascript:contactHost('${loginUserEmail}','${hostInfo.userEmail}');">Contact Host</a>
 		      			<div id="priceBasicSetPart" class="date">
 		                    select Date: <input id="toOrderStartDate" type="text" placeholder="2014-10-30" />
 		                </div>
 		                <div class="booking">
 		                	<a id="toPayOrderButton" href="javascript:void(0);">instant book</a> 
 		                </div>
-		                <a href="javascript:void(0);" class="save">Save to Wishes List</a>
-		                <a href="javascript:void(0);" class="share">Share: Facebook Twitter G+ Instagram</a>
 		            ]]>
 		      		</c:otherwise>
 		      	</c:choose>

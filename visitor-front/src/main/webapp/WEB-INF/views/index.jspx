@@ -144,13 +144,13 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
         			<a href="${pageContext.request.contextPath}/day/host_profile" class="name" id="name">
         			    <c:choose>
         					<c:when test="${userIconUrl == '--'}">
-        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${imgPathOrigin}/static/user_pic-50x50.png) no-repeat center center;float:left;"></span>]]>
+        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;float:left;"><img src="${imgPathOrigin}/static/user_pic-50x50.png" width="28"/></span>]]>
         					</c:when>
         					<c:otherwise>
-        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${userIconUrl}) no-repeat center center;float:left;"></span>]]>
+        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;float:left;"><img src="${userIconUrl}" width="28"/></span>]]>
         					</c:otherwise>
         				</c:choose>
-        				<![CDATA[<span id="userNameSpan" class="peoplename">${loginName}</span>]]>
+        				<![CDATA[<span id="userNameSpan" class="peoplename" style="color:#FFF">${loginName}</span>]]>
         			</a>
 		           	<span class="select" style="display:none;">
 		               	<ul>
@@ -177,13 +177,13 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
         			<a href="${pageContext.request.contextPath}/day/host_profile" class="name" id="name">
         			    <c:choose>
         					<c:when test="${userIconUrl == '--'}">
-        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${imgPathOrigin}/static/user_pic-50x50.png) no-repeat center center;float:left;"></span>]]>
+        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;float:left;"><img src="${imgPathOrigin}/static/user_pic-50x50.png" width="28"/></span>]]>
         					</c:when>
         					<c:otherwise>
-        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${userIconUrl}) no-repeat center center;float:left;"></span>]]>
+        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;float:left;"><img src="${userIconUrl}" width="28"/></span>]]>
         					</c:otherwise>
         				</c:choose>
-        				<![CDATA[<span id="userNameSpan" class="peoplename">${loginName}</span>]]>
+        				<![CDATA[<span id="userNameSpan" class="peoplename" style="color:#FFF">${loginName}</span>]]>
         			</a>
 		           	<span class="select" style="display:none;">
 		               	<ul>

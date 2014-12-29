@@ -45,6 +45,7 @@ import org.visitor.appportal.visitor.beans.ProductPriceMultiTemp;
 import org.visitor.appportal.visitor.beans.ProductTemp;
 import org.visitor.appportal.visitor.beans.UserInternalMailTemp;
 import org.visitor.appportal.visitor.beans.UserTemp;
+import org.visitor.appportal.visitor.beans.view.CityProduct;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductAddress;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
@@ -468,9 +469,22 @@ public class BasicController {
 	}
 	
 	protected boolean setCityProductsModel(String cityStr, HttpServletRequest request, Model model) {
+		List<CityProduct> lcp = new ArrayList<CityProduct>();
+		
 		List<Product> list = productRedisService.getProductListFromRedis(cityStr);
 		if (list!= null && list.size() > 0) {
-			model.addAttribute("productList", list);
+			
+			for (Product product : list) {
+				CityProduct cp = new CityProduct();
+				cp.setProduct(product);
+				
+				String userEmail = product.getProductPublishUserEmail();
+				User host = userRedisService.getUserPassword(userEmail);
+				cp.setOwner(host);
+				lcp.add(cp);
+			}
+			
+			model.addAttribute("productList", lcp);
 			return true;
 		} else {
 			return false;

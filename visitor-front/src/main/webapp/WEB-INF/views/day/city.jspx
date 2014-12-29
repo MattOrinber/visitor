@@ -35,13 +35,26 @@
 			<div class="apartment">
 		    	<div class="img" id="focus">
 		        	<ul>
-		            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><a href="${pageContext.request.contextPath}/day/product?pid=${productT.productId}"><img src="${productT.productPhotopaths}" width="340"/></a></li>
+		            	<li style="opacity:1;filter:alpha(opacity=1);" anime-status="1"><a href="${pageContext.request.contextPath}/day/product?pid=${productT.product.productId}"><img src="${productT.product.productPhotopaths}" width="340"/></a></li>
 		            </ul>
 		        </div>
-		        <a href="${pageContext.request.contextPath}/day/host_profile?emailStr=${productT.productPublishUserEmail}"><div class="photo"></div></a>
-		        <div class="price"><span>$</span>${productT.productBaseprice}</div>
+		        <a href="${pageContext.request.contextPath}/day/host_profile?emailStr=${productT.owner.userEmail}">
+		        <div class="photo">
+		]]>
+			<c:choose>
+				<c:when test="${not empty productT.owner and not empty productT.owner.userPhotourl}">
+					<img src="${productT.owner.userPhotourl}" width="60" />
+				</c:when>
+				<c:otherwise>
+					<img src="${imgPathOrigin}/static/user_pic-50x50.png" width="60" />
+				</c:otherwise>
+			</c:choose>
+				
+		<![CDATA[
+		        </div></a>
+		        <div class="price"><span>$</span>${productT.product.productBaseprice}</div>
 		        <div class="word">
-		        	<p class="product-title">${productT.productOverviewtitle}</p>
+		        	<p class="product-title">${productT.product.productOverviewtitle}</p>
 		            <p class="duration">6 Hours</p>
 		        </div>
 		    </div>

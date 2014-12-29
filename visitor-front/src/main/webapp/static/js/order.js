@@ -12,20 +12,21 @@ function disableUnavailableDays(date) {
 	var result = true;
 	var myDate = new Date();
 	
+	var month = addLeadingZeroInOrder(date.getMonth() + 1);
+	var day = addLeadingZeroInOrder(date.getDate());
+	var year = date.getFullYear();
+	var toCheck = year + '-' + month + '-' + day;
+	
 	//determine is it is false---unselectable
 	if (unavailDateStrArray != null && unavailDateStrArray.length > 0) {
-		var month = addLeadingZeroInOrder(date.getMonth() + 1);
-		var day = addLeadingZeroInOrder(date.getDate());
-		var year = date.getFullYear();
-		var toCheck = year + '-' + month + '-' + day;
 		if ($.inArray(toCheck, unavailDateStrArray) != -1) {
 			result = false;
-		} else {
-			var beginDate = new Date(toCheck.replace(/-/g,"/"));
-			if(beginDate < myDate){
-				result = false;
-			}
 		}
+	}
+	
+	var beginDate = new Date(toCheck.replace(/-/g,"/"));
+	if(beginDate < myDate){
+		result = false;
 	}
 	
 	return [result];
