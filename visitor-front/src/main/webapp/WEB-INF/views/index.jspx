@@ -60,7 +60,7 @@
     	<a href="https://www.facebook.com/dialog/oauth?client_id=879056502107119&redirect_uri=http%3A%2F%2Fec2-54-169-136-155.ap-southeast-1.compute.amazonaws.com%3A8080%2Ffacebook%2Fcallback&display=popup" class="facebook">Sign up with Facebook</a>
         <a href="javascript:void(0);" class="email" id="email_signup">Sign up with Email</a>
         <span class="terms">By signing up, I agree to DayFetch's <a href="">Terms of Service</a>, <a href="">Privacy Policy</a>, <a href="">Guest Refund Policy</a>, and <a href="">Host Guarantee Terms</a>.</span>
-    	<span class="loginbutton">Already an Airbnb member? <a href="javascript:void(0);" id="signupTologin">Log in</a></span>
+    	<span class="loginbutton">Already an Dayfetch member? <a href="javascript:void(0);" id="signupTologin">Log in</a></span>
     </div>
 </div>
 
@@ -74,10 +74,10 @@
 	        <span class="username password"><input id="passwordStr" type="text" value="Password" type="password" minlength="6" required="true" onfocus="if (value =='Password'){value =''}" onblur="if (value ==''){value='Password'}"/></span>
 	        <span class="username password"><input id="cPasswordStr" type="text" value="Confirm Password" type="password" minlength="6" required="true" onfocus="if (value =='Confirm Password'){value =''}" onblur="if (value ==''){value='Confirm Password'}"/></span>
         </form>
-        <span class="checkbox"><input type="checkbox" checked="checked"  />Tell me about Airbnb news</span>
+        <span class="checkbox"><input type="checkbox" checked="checked"  />Tell me about Dayfetch news</span>
         <span class="terms">By signing up, I agree to DayFetch's <a href="">Terms of Service</a>, <a href="">Privacy Policy</a>, <a href="">Guest Refund Policy</a>, and <a href="">Host Guarantee Terms</a>.</span>
         <a href="javascript:registerVisitor('${pageContext.request.contextPath}');" class="facebook">Sign up</a>
-    	<span class="loginbutton">Already an Airbnb member? <a href="javascript:void(0);" id="signupTologin1">Log in</a></span>
+    	<span class="loginbutton">Already an Dayfetch member? <a href="javascript:void(0);" id="signupTologin1">Log in</a></span>
     </div>
 </div>
 
