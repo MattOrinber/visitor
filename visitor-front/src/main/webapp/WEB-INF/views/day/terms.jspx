@@ -27,17 +27,60 @@
 	<div class="leftmenu">
     	<ul>
         	<li class="title">Basics</li>
-            <li><a href="${pageContext.request.contextPath}/day/calendar?pid=${productInfo.productId}">Calendar</a></li>
-            <li><a href="${pageContext.request.contextPath}/day/pricing?pid=${productInfo.productId}">Pricing</a></li>
+]]>
+			<c:choose>
+				<c:when test="${not empty productInfo.productAvailabletype}">
+					<li id="productCalendarLi" class="publish"><a href="${pageContext.request.contextPath}/day/calendar?pid=${productInfo.productId}">Calendar</a></li>
+				</c:when>
+				<c:otherwise>
+					<li id="productCalendarLi"><a href="${pageContext.request.contextPath}/day/calendar?pid=${productInfo.productId}">Calendar</a></li>
+				</c:otherwise>
+			</c:choose>
+			
+			<c:choose>
+				<c:when test="${not empty productInfo.productBaseprice}">
+					<li id="productPriceLi" class="publish"><a href="${pageContext.request.contextPath}/day/pricing?pid=${productInfo.productId}">Pricing</a></li>
+				</c:when>
+				<c:otherwise>
+					<li id="productPriceLi"><a href="${pageContext.request.contextPath}/day/pricing?pid=${productInfo.productId}">Pricing</a></li>
+				</c:otherwise>
+			</c:choose>
+<![CDATA[
         </ul>
         <ul>
         	<li class="title">Description</li>
-            <li><a href="${pageContext.request.contextPath}/day/description?pid=${productInfo.productId}">Overview</a></li>
-            <li><a href="${pageContext.request.contextPath}/day/photos?pid=${productInfo.productId}">Photos</a></li>
+]]>
+			<c:choose>
+				<c:when test="${not empty productDetailInfo and not empty productInfo.productCity}">
+					<li id="productDescriptionLi" class="publish"><a href="${pageContext.request.contextPath}/day/description?pid=${productInfo.productId}">Overview</a></li>
+				</c:when>
+				<c:otherwise>
+					<li id="productDescriptionLi"><a href="${pageContext.request.contextPath}/day/description?pid=${productInfo.productId}">Overview</a></li>
+				</c:otherwise>
+			</c:choose>
+			
+			<c:choose>
+				<c:when test="${not empty productPictureList}">
+					<li id="productPhotosLi" class="publish"><a href="${pageContext.request.contextPath}/day/photos?pid=${productInfo.productId}">Photos</a></li>
+				</c:when>
+				<c:otherwise>
+					<li id="productPhotosLi"><a href="${pageContext.request.contextPath}/day/photos?pid=${productInfo.productId}">Photos</a></li>
+				</c:otherwise>
+			</c:choose>
+<![CDATA[
         </ul>
         <ul>
         	<li class="title">Settings</li>
-            <li class="choosed"><a href="${pageContext.request.contextPath}/day/terms?pid=${productInfo.productId}">Terms</a></li>
+]]>
+			<c:choose>
+				<c:when test="${not empty productInfo.productCancellationpolicy}">
+					<li id="productTermsLi" class="choosed publishchoosed"><a href="${pageContext.request.contextPath}/day/terms?pid=${productInfo.productId}">Terms</a></li>
+				</c:when>
+				<c:otherwise>
+					<li id="productTermsLi" class="choosed"><a href="${pageContext.request.contextPath}/day/terms?pid=${productInfo.productId}">Terms</a></li>
+				</c:otherwise>
+			</c:choose>
+<![CDATA[
         </ul>
         <div id="placeToPublishDiv" class="step">
         	Complete <span><span>5</span> steps</span><br />to list your space.
@@ -54,14 +97,34 @@
                 	<span class="h">Cancellation Policy</span>
 ]]>
                 	<select id="productCancellationPolicyStr" name="productCancellationPolicyStr" onchange="setProductCancellationPolicy();">
-						<c:forEach items="${cancellationPolicyList}" var="cancellationPolicyItem" varStatus="status">
-							<c:if test="${status.index == 0}">
-							    <option value="${cancellationPolicyItem}" selected="selected">${cancellationPolicyItem}</option>
-							</c:if>
-							<c:if test="${status.index != 0}">
-							    <option value="${cancellationPolicyItem}">${cancellationPolicyItem}</option>
-							</c:if>
-						</c:forEach>
+                	
+                	<c:choose>
+                		<c:when test="${not empty productInfo.productCancellationpolicy}">
+                			<c:forEach items="${cancellationPolicyList}" var="cancellationPolicyItem" varStatus="status">
+                				<c:choose>
+                					<c:when test="${productInfo.productCancellationpolicy == cancellationPolicyItem}">
+                						<option value="${cancellationPolicyItem}" selected="selected">${cancellationPolicyItem}</option>
+                					</c:when>
+                					<c:otherwise>
+                						<option value="${cancellationPolicyItem}">${cancellationPolicyItem}</option>
+                					</c:otherwise>
+                				</c:choose>
+							</c:forEach>
+                		</c:when>
+                		<c:otherwise>
+                			<c:forEach items="${cancellationPolicyList}" var="cancellationPolicyItem" varStatus="status">
+                				<c:choose>
+                					<c:when test="${status.index == 0}">
+                						<option value="${cancellationPolicyItem}" selected="selected">${cancellationPolicyItem}</option>
+                					</c:when>
+                					<c:otherwise>
+                						<option value="${cancellationPolicyItem}">${cancellationPolicyItem}</option>
+                					</c:otherwise>
+                				</c:choose>
+							</c:forEach>
+                		</c:otherwise>
+                	</c:choose>
+						
 					</select>
 <![CDATA[
                 </div>

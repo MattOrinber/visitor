@@ -63,3 +63,6 @@ body{background:#f7f7f7;}
 .wrapbox .signupbox span.forget a{font-size:14px;color:#df4c4b;}
 .wrapbox .signupbox span.forget a:hover{text-decoration:underline;}
 .wrapbox .signupbox a.login{margin-top:20px;background:#e76261;}
+
+.main .leftmenu ul li.publish{background:url(../img/yes.png) no-repeat 200px center;}
+.main .leftmenu ul li.publishchoosed{background:url(../img/yes.png) no-repeat 200px center #edefed;}
