@@ -113,10 +113,10 @@ var pathGlobe = '${pageContext.request.contextPath}';
         			<a href="${pageContext.request.contextPath}/host_profile" class="name" id="name">
         			    <c:choose>
         					<c:when test="${userIconUrl == '--'}">
-        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${pageContext.request.contextPath}/static/img/user_pic-50x50.png) no-repeat center center;float:left;"></span>]]>
+        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;float:left;overflow:hidden;"><img src="${imgPathOrigin}/static/user_pic-50x50.png" width="28"/></span>]]>
         					</c:when>
         					<c:otherwise>
-        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${userIconUrl}) no-repeat center center;float:left;"></span>]]>
+        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;float:left;overflow:hidden;"><img src="${userIconUrl}" width="28"/></span>]]>
         					</c:otherwise>
         				</c:choose>
         				<![CDATA[<span id="userNameSpan" class="peoplename">${loginName}</span>]]>
@@ -146,10 +146,10 @@ var pathGlobe = '${pageContext.request.contextPath}';
         			<a href="${pageContext.request.contextPath}/day/host_profile" class="name" id="name">
         			    <c:choose>
         					<c:when test="${userIconUrl == '--'}">
-        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${pageContext.request.contextPath}/static/img/user_pic-50x50.png) no-repeat center center;float:left;"></span>]]>
+        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;float:left;overflow:hidden;"><img src="${imgPathOrigin}/static/user_pic-50x50.png" width="28"/></span>]]>
         					</c:when>
         					<c:otherwise>
-        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;background:url(${userIconUrl}) no-repeat center center;float:left;"></span>]]>
+        						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;float:left;overflow:hidden;"><img src="${userIconUrl}" width="28"/></span>]]>
         					</c:otherwise>
         				</c:choose>
         				<![CDATA[<span id="userNameSpan" class="peoplename">${loginName}</span>]]>
