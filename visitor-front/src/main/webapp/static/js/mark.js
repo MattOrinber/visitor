@@ -341,8 +341,8 @@ function seeIfLoginBarDisplayed(data, path) {
     	$("#notLoginStatusBarPart").css("display", "none");
     	$("#loginStatusBarPart").css("display", "block");
     	$("#userNameSpan").html(userNameStr);
-    	$.cookie('userEmail', userEmailStr, { expires: 7 });
-    	$.cookie('userAccessToken', userTokenStr, { expires: 7 });
+    	$.cookie('userEmail', userEmailStr, { expires: 7, path: '/' });
+    	$.cookie('userAccessToken', userTokenStr, { expires: 7, path: '/' });
     	
     	doExtraStuff();
     }
@@ -353,8 +353,8 @@ function logoutBarDisplayed(data, path) {
 	$("#notLoginStatusBarPart").css("display", "block");
 	$("#loginStatusBarPart").css("display", "none");
 	$("#userNameSpan").html("");
-	$.removeCookie('userEmail');
-	$.removeCookie('userAccessToken');
+	$.removeCookie('userEmail', { path: '/' });
+	$.removeCookie('userAccessToken', { path: '/' });
 }
 
 function registerVisitor(pathOri)

@@ -382,6 +382,7 @@ public class UserController extends BasicController{
 						userNameReturned = "--";
 					}
 				}
+				resultJson.setUserName(userNameReturned);
 				
 				logTheLogintime(mailStrParam);
 			} else {
