@@ -107,11 +107,11 @@ public class MixAndMatchUtils {
 		
 		String userNameReturned = "";
 		if (StringUtils.isNotEmpty(loginFirstName)) {
-			userNameReturned = userNameReturned + loginFirstName;
+			userNameReturned = userNameReturned + " " + loginFirstName;
 		}
 		
 		if (StringUtils.isNotEmpty(loginLastName)) {
-			userNameReturned = userNameReturned + loginLastName;
+			userNameReturned = userNameReturned + " " + loginLastName;
 		}
 		
 		if (StringUtils.isEmpty(userNameReturned)) {
