@@ -59,8 +59,8 @@
         	<li class="title">Description</li>
 ]]>
 			<c:choose>
-				<c:when test="${not empty productDetailInfo and not empty productInfo.productCity}">
-					<li id="productDescriptionLi" class="choosed publishchoosed"><a href="${pageContext.request.contextPath}/day/description?pid=${productInfo.productId}">Overview</a></li>
+				<c:when test="${not empty productDetailInfo and not empty productAddress}">
+					<li id="productDescriptionLi" class="publishchoosed"><a href="${pageContext.request.contextPath}/day/description?pid=${productInfo.productId}">Overview</a></li>
 				</c:when>
 				<c:otherwise>
 					<li id="productDescriptionLi" class="choosed"><a href="${pageContext.request.contextPath}/day/description?pid=${productInfo.productId}">Overview</a></li>

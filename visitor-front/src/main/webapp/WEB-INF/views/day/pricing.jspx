@@ -43,7 +43,7 @@
 			
 			<c:choose>
 				<c:when test="${not empty productInfo.productBaseprice}">
-					<li id="productPriceLi" class="choosed publishchoosed"><a href="${pageContext.request.contextPath}/day/pricing?pid=${productInfo.productId}">Pricing</a></li>
+					<li id="productPriceLi" class="publishchoosed"><a href="${pageContext.request.contextPath}/day/pricing?pid=${productInfo.productId}">Pricing</a></li>
 				</c:when>
 				<c:otherwise>
 					<li id="productPriceLi" class="choosed"><a href="${pageContext.request.contextPath}/day/pricing?pid=${productInfo.productId}">Pricing</a></li>

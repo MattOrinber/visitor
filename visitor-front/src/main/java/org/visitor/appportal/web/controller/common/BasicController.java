@@ -498,7 +498,12 @@ public class BasicController {
 			return false;
 		} else {
 			model.addAttribute("productInfo", product);
+			
+			// start to calculate remain steps
+			Integer stepsRemain = 5;
+			// end to calculate remain steps
 			if (StringUtils.isNotEmpty(product.getProductCurrency())) {
+				stepsRemain --;
 				model.addAttribute("productCurrencySetted", product.getProductCurrency());
 			} else {
 				model.addAttribute("productCurrencySetted", this.getGlobalCurrencyStored());
@@ -515,6 +520,9 @@ public class BasicController {
 			ProductAddress pa = productRedisService.getProductAddressFromRedis(product.getProductId());
 			if (pa != null) {
 				model.addAttribute("productAddress", pa);
+				if (productDetailInfo != null) {
+					stepsRemain --;
+				}
 			}
 			
 			List<ProductPicture> listPP = productRedisService.getPictureListOfOneProduct(product.getProductId());
@@ -531,8 +539,19 @@ public class BasicController {
 					productPicUrls.add(displayUrl);
 				}
 				
+				stepsRemain --;
 				model.addAttribute("productPictureList", productPicUrls);
 			}
+			
+			if (product.getProductCancellationpolicy() != null) {
+				stepsRemain --;
+			}
+			
+			if (product.getProductAvailabletype() != null) {
+				stepsRemain --;
+			}
+			
+			model.addAttribute("stepsRemain", stepsRemain);
 			return true;
 		}
 	}

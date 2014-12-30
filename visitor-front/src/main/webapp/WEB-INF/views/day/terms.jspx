@@ -74,7 +74,7 @@
 ]]>
 			<c:choose>
 				<c:when test="${not empty productInfo.productCancellationpolicy}">
-					<li id="productTermsLi" class="choosed publishchoosed"><a href="${pageContext.request.contextPath}/day/terms?pid=${productInfo.productId}">Terms</a></li>
+					<li id="productTermsLi" class="publishchoosed"><a href="${pageContext.request.contextPath}/day/terms?pid=${productInfo.productId}">Terms</a></li>
 				</c:when>
 				<c:otherwise>
 					<li id="productTermsLi" class="choosed"><a href="${pageContext.request.contextPath}/day/terms?pid=${productInfo.productId}">Terms</a></li>

@@ -21,7 +21,7 @@
 ]]>
 			<c:choose>
 				<c:when test="${not empty productInfo.productAvailabletype}">
-					<li id="productCalendarLi" class="choosed publishchoosed"><a href="${pageContext.request.contextPath}/day/calendar?pid=${productInfo.productId}">Calendar</a></li>
+					<li id="productCalendarLi" class="publishchoosed"><a href="${pageContext.request.contextPath}/day/calendar?pid=${productInfo.productId}">Calendar</a></li>
 				</c:when>
 				<c:otherwise>
 					<li id="productCalendarLi" class="choosed"><a href="${pageContext.request.contextPath}/day/calendar?pid=${productInfo.productId}">Calendar</a></li>
