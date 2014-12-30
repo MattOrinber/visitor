@@ -321,11 +321,26 @@ public class UserController extends BasicController{
 				
 				String userFirstNameStr = userT.getUserFirstName();
 				String userLastNameStr = userT.getUserLastName();
-				if (StringUtils.isNotEmpty(userFirstNameStr) && StringUtils.isNotEmpty(userLastNameStr)) {
-					resultJson.setUserName(userFirstNameStr + " " + userLastNameStr);
-				} else {
-					resultJson.setUserName(userT.getUserEmail());
+				String loginEmail = userT.getUserEmail();
+				
+				String userNameReturned = "";
+				if (StringUtils.isNotEmpty(userFirstNameStr)) {
+					userNameReturned = userNameReturned + " " + userFirstNameStr;
 				}
+				
+				if (StringUtils.isNotEmpty(userLastNameStr)) {
+					userNameReturned = userNameReturned + " " + userLastNameStr;
+				}
+				
+				if (StringUtils.isEmpty(userNameReturned)) {
+					if (StringUtils.isNotEmpty(loginEmail)) {
+						userNameReturned = loginEmail.substring(0, loginEmail.indexOf("@"));
+					} else {
+						userNameReturned = "--";
+					}
+				}
+
+				resultJson.setUserName(userNameReturned);
 				
 				logTheLogintime(mailStrParam);
 			}
@@ -349,10 +364,23 @@ public class UserController extends BasicController{
 				
 				String userFirstNameStr = user.getUserFirstName();
 				String userLastNameStr = user.getUserLastName();
-				if (StringUtils.isNotEmpty(userFirstNameStr) && StringUtils.isNotEmpty(userLastNameStr)) {
-					resultJson.setUserName(userFirstNameStr + " " + userLastNameStr);
-				} else {
-					resultJson.setUserName(user.getUserEmail());
+				String loginEmail = user.getUserEmail();
+				
+				String userNameReturned = "";
+				if (StringUtils.isNotEmpty(userFirstNameStr)) {
+					userNameReturned = userNameReturned + " " + userFirstNameStr;
+				}
+				
+				if (StringUtils.isNotEmpty(userLastNameStr)) {
+					userNameReturned = userNameReturned + " " + userLastNameStr;
+				}
+				
+				if (StringUtils.isEmpty(userNameReturned)) {
+					if (StringUtils.isNotEmpty(loginEmail)) {
+						userNameReturned = loginEmail.substring(0, loginEmail.indexOf("@"));
+					} else {
+						userNameReturned = "--";
+					}
 				}
 				
 				logTheLogintime(mailStrParam);
