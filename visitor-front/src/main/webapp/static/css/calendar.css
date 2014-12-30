@@ -27,6 +27,8 @@ body{background:#f7f7f7;}
 .main .leftmenu ul li{width:205px;height:35px;padding-left:25px;line-height:35px;background:url(../img/shizi.png) no-repeat 200px center;}
 .main .leftmenu ul li.title{height:50px;line-height:50px;color:#cacccd;font-weight:bold;font-size:14px;background:none;}
 .main .leftmenu ul li.choosed{background:url(../img/shizi1.png) no-repeat 200px center #edefed;}
+.main .leftmenu ul li.publish{background:url(../img/yes.png) no-repeat 200px center;}
+.main .leftmenu ul li.publishchoosed{background:url(../img/yes.png) no-repeat 200px center #edefed;}
 .main .leftmenu ul li a{width:100%;height:35px;display:block;font-size:15px;}
 .main .leftmenu ul li.choosed a{font-weight:bold;}
 .main .leftmenu div.step{width:230px;margin-top:20px;border-top:1px solid #dce0e0;height:50px;text-align:center;line-height:25px;padding-top:20px;}

@@ -3,15 +3,11 @@
 <jsp:output omit-xml-declaration="yes" />
 <jsp:directive.page contentType="text/html; charset=UTF-8" />
 
-<head>
-
-<![CDATA[
-
-]]>
-
-</head>
-
 <body>
+	<c:if test="${not empty loginUserEmail}">
+		<script type="text/javascript">ifLogginIn = 1;</script>
+	</c:if>
+	
 <![CDATA[
 
 	<script>

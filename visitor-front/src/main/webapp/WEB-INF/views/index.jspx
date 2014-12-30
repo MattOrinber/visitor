@@ -48,6 +48,9 @@
 		});
 	</script>
 ]]>
+	<c:if test="${not empty loginUserEmail}">
+		<script type="text/javascript">ifLogginIn = 1;</script>
+	</c:if>
 </head>
 <body>
 

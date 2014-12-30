@@ -4,7 +4,10 @@
 <jsp:directive.page contentType="text/html; charset=UTF-8" />
 
 <body>
-
+	<c:if test="${not empty loginUserEmail}">
+		<script type="text/javascript">ifLogginIn = 1;</script>
+	</c:if>
+	
 	<c:choose>
 		<c:when test="${not empty unavailDateList}">
 <![CDATA[

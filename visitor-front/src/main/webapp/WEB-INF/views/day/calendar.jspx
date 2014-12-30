@@ -47,6 +47,11 @@
 	<script src="${pageContext.request.contextPath}/static/js/responsiveCalendar/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/responsiveCalendar/responsive-calendar.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/priceSet.js"></script>
+]]>
+		<c:if test="${not empty loginUserEmail}">
+			<script type="text/javascript">ifLogginIn = 1;</script>
+		</c:if>
+<![CDATA[
 	<script>
 		$(document).ready(function(){
 			doCanlendarResponsive();
@@ -105,6 +110,9 @@
 ]]>
 	</c:when>
 	<c:otherwise>
+		<c:if test="${not empty loginUserEmail}">
+			<script type="text/javascript">ifLogginIn = 1;</script>
+		</c:if>
 <![CDATA[
 
 	<script>
