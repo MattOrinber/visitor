@@ -44,7 +44,7 @@
 					</c:forEach>
 				</select>
 <![CDATA[
-				<div id="homeTypeChosen" class="hiddendiv" style="display:none;">
+				<div id="homeTypeChosen" class="hiddendiv" style="display:none;" onclick="setHomeTypeBack();">
 					<div class="typechoosed" id="inputvalHomeType"></div><div class="text">Dayfetch guests love the variety of home types available. </div>
 				</div>
             </div>
@@ -56,7 +56,7 @@
             	<a href="javascript:roomTypeValueSet('Private room');" style="width:180px;">Private room</a>
             	<a style="width:180px;" href="javascript:roomTypeValueSet('Shared room');">Shared room</a>
             	
-            	<div id="roomTypeChosen" class="hiddendiv" style="display:none;">
+            	<div id="roomTypeChosen" class="hiddendiv" style="display:none;"  onclick="setRoomTypeBack();">
 					<div class="typechoosed" id="inputvalRoomType"></div><div class="text">Dayfetch guests love the variety of room types available. </div>
 				</div>
             </div>
