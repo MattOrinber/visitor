@@ -20,9 +20,18 @@
 	    <mvc:interceptor>
 	        <mvc:mapping path="/publishinfo/*"/>
 	        <mvc:mapping path="/product/*"/>
-	        <mvc:mapping path="/day/*"/>
+	        <mvc:mapping path="/day/calendar"/>
+	        <mvc:mapping path="/day/pricing"/>
+	        <mvc:mapping path="/day/description"/>
+	        <mvc:mapping path="/day/photos"/>
+	        <mvc:mapping path="/day/terms"/>
+	        <mvc:mapping path="/day/dashboard"/>
+	        <mvc:mapping path="/day/inbox"/>
+	        <mvc:mapping path="/day/your-listing"/>
+	        <mvc:mapping path="/day/toPayOrder"/>
+	        <mvc:mapping path="/day/edit"/>
+	        <mvc:mapping path="/day/edit-photos"/>
 	        <mvc:mapping path="/updateUser/*" />
-	        <mvc:mapping path="/list_space" />
 	        <mvc:mapping path="/order/*" />
 	        <mvc:mapping path="/order/toPayOrder/*/*" />
 	        <bean class="org.visitor.appportal.web.interceptors.PublishInterceptor" />

@@ -538,7 +538,7 @@ public class BasicController {
 	}
 	
 	//在页面中插入product数据
-	protected boolean setProductInfoModel(User user, HttpServletRequest request, Model model, String productIdStr) {
+	protected boolean setProductInfoModel(HttpServletRequest request, Model model, String productIdStr) {
 		Product product = productRedisService.getProductFromRedis(Long.valueOf(productIdStr));
 		if (product == null) {
 			return false;

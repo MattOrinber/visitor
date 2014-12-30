@@ -1,5 +1,6 @@
 //global value area
 var productDetailStrGlobal = "";
+var ifLogginIn = 0;
 
 //init index page
 function initIndex() {
@@ -394,6 +395,7 @@ function registerVisitor(pathOri)
 		            //alert(dataRes);
 		            
 		            seeIfLoginBarDisplayed(data, pathOri);
+		            ifLogginIn = 1;
 		        },  
 		        error : function() {  
 		            alert('Err...');  
@@ -436,6 +438,7 @@ function loginVisitor(pathOri) {
 	            
 	            seeIfLoginBarDisplayed(data, pathOri);
 	            startChecking();
+	            ifLogginIn = 1;
 	        },  
 	        error : function() {  
 	            alert('Err...');  
@@ -524,10 +527,23 @@ function checkIfCanProceed() { // see if we can create product
 			accomodatesValue != "0" && 
 			productCityInputStr != "" && 
 			productCityInputStr != "Rome,Pairs...") {
-		$("#proceedToGenerate").attr("href", "javascript:createProduct();");
+		$("#proceedToGenerate").attr("href", "javascript:proposeToSignUp();");
 	} else {
 		$("#proceedToGenerate").attr("href", "javascript:void(0);");
 	}
+}
+
+function proposeToSignUp() {
+	if (ifLogginIn == 0) {
+		showLoginBarProposeDialog();
+	} else {
+		createProduct();
+	}
+}
+
+function showLoginBarProposeDialog() {
+	$('.wrapwrapbox').show();
+	$("#login").show();
 }
 
 //my lists

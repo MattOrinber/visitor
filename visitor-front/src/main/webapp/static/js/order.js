@@ -34,39 +34,43 @@ function disableUnavailableDays(date) {
 
 //order generation call
 function callOrderGeneration(dateText, dpInstance) {
-	var pidStr = $("#productIDForUse").val();
-	var startDateStr = dateText;
-	var endDateStr = dateText;
-	
-	var buyTemp = {};
-	buyTemp.productIdStr = pidStr;
-	buyTemp.startDate = startDateStr;
-	buyTemp.endDate = endDateStr;
-	
-	var urlStrStr = pathGlobe + '/order/calcTotalPrice';
-    var jsonStr = $.toJSON(buyTemp);
-    
-    $.ajax({ 
-        type : 'POST',  
-        contentType : 'application/json',  
-        url : urlStrStr,  
-        processData : false,  
-        dataType : 'json',  
-        data : jsonStr,  
-        success : function(data) {  
-        	var productId = data.productId;
-        	var productOrderId = data.orderId;
-        	var priceTemp = data.totalPrice;
-        	
-        	$("#priceBasicSetPart").append("<span>basic price: $ "+ priceTemp +"</span>");
-        	var payorderGenerationUrl = pathGlobe + "/order/toPayOrder/"+productId+"/"+productOrderId;
-        	
-        	$("#toPayOrderButton").attr("href", payorderGenerationUrl);
-        },  
-        error : function() {  
-            alert('order generation error...');  
-        }  
-    });
+	if (ifLogginIn == 0) {
+		showLoginBarProposeDialog();
+	} else {
+		var pidStr = $("#productIDForUse").val();
+		var startDateStr = dateText;
+		var endDateStr = dateText;
+		
+		var buyTemp = {};
+		buyTemp.productIdStr = pidStr;
+		buyTemp.startDate = startDateStr;
+		buyTemp.endDate = endDateStr;
+		
+		var urlStrStr = pathGlobe + '/order/calcTotalPrice';
+	    var jsonStr = $.toJSON(buyTemp);
+	    
+	    $.ajax({ 
+	        type : 'POST',  
+	        contentType : 'application/json',  
+	        url : urlStrStr,  
+	        processData : false,  
+	        dataType : 'json',  
+	        data : jsonStr,  
+	        success : function(data) {  
+	        	var productId = data.productId;
+	        	var productOrderId = data.orderId;
+	        	var priceTemp = data.totalPrice;
+	        	
+	        	$("#priceBasicSetPart").append("<span>basic price: $ "+ priceTemp +"</span>");
+	        	var payorderGenerationUrl = pathGlobe + "/order/toPayOrder/"+productId+"/"+productOrderId;
+	        	
+	        	$("#toPayOrderButton").attr("href", payorderGenerationUrl);
+	        },  
+	        error : function() {  
+	            alert('order generation error...');  
+	        }  
+	    });
+	}
 }
 
 function doProductDateInit() {

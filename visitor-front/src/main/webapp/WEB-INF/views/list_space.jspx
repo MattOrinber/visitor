@@ -81,11 +81,23 @@
         </div>
         <div class="hometype">
         	<div class="title">City</div>
-            <div class="choice choice4"><input id="productCityInput" type="text" value="Rome,Pairs..." onfocus="if (value =='Rome,Pairs...'){value =''}" onblur="if (value ==''){value='Rome,Pairs...';} checkIfCanProceed();"/></div>
+            <div class="choice choice4"><input id="productCityInput" type="text" placeholder="Rome,Pairs..." onblur="checkIfCanProceed();"/></div>
         </div>
         <div class="hometype">
         	<div class="title"></div>
-            <div class="choice choice5"><a id="proceedToGenerate" href="javascript:createProduct();">Continue</a></div>
+            <div class="choice choice5">
+]]>
+			<c:if test=""></c:if>
+			<c:choose>
+				<c:when test="${not empty loginUserEmail}">
+					<a id="proceedToGenerate" href="javascript:createProduct();">Continue</a>
+				</c:when>
+				<c:otherwise>
+					<a id="proceedToGenerate" href="javascript:proposeToSignUp();">Continue</a>
+				</c:otherwise>
+			</c:choose>
+<![CDATA[
+            </div>
         </div>
     </div>
 </div>

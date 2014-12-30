@@ -177,7 +177,7 @@ public class IndexController extends BasicController {
 	}
 	
 	@RequestMapping({"day/terms"})
-	public String login(HttpServletRequest request,
+	public String dayTerms(HttpServletRequest request,
 			@RequestParam(value = "pid", required = true) String productIdStr,
 			HttpServletResponse response, 
 			Model model) {
@@ -201,15 +201,10 @@ public class IndexController extends BasicController {
 			HttpServletResponse response, 
 			@RequestParam(value = "c", required = true) String cityStr,
 			Model model) {
-		boolean ifLoggedIn = super.setModel(request, response, model, false);
-		if (!ifLoggedIn) {
-			return "redirect:/index";
-		}
-		
+		super.setModel(request, response, model, false);
 		super.setCityProductsModel(cityStr, request, model);
 		
 		model.addAttribute("currentCity", cityStr);
-		
 		model.addAttribute("pageName", "city");
 		return "day/city";
 	}
@@ -290,13 +285,9 @@ public class IndexController extends BasicController {
 			@RequestParam(value = "pid", required = true) String productIdStr,
 			HttpServletResponse response, 
 			Model model) {
-		boolean ifLoggedIn = super.setModel(request, response, model, false);
-		if (!ifLoggedIn) {
-			return "redirect:/index";
-		}
+		super.setModel(request, response, model, false);
 		
-		User user = (User) request.getAttribute(WebInfo.UserID);
-		boolean ifProductAvail = super.setProductInfoModel(user, request, model, productIdStr);
+		boolean ifProductAvail = super.setProductInfoModel(request, model, productIdStr);
 		if(!ifProductAvail) {
 			return "redirect:/index";
 		}
@@ -333,7 +324,7 @@ public class IndexController extends BasicController {
 		}
 		
 		User userTemp = (User) request.getAttribute(WebInfo.UserID);
-		boolean ifProductAvail = super.setProductInfoModel(userTemp, request, model, String.valueOf(pid.longValue()));
+		boolean ifProductAvail = super.setProductInfoModel(request, model, String.valueOf(pid.longValue()));
 		if(!ifProductAvail) {
 			return "redirect:/index";
 		}
@@ -394,28 +385,6 @@ public class IndexController extends BasicController {
 		model.addAttribute("pageName", "photos");
 		return "day/edit-photos";
 	}
-	
-	@RequestMapping({"publish"})
-	public String publish(HttpServletRequest request, Model model) {
-		return "publish";
-	}
-	
-	@RequestMapping({"websocket"})
-	public String websocket(HttpServletRequest request, Model model) {
-		return "websocket";
-		
-	}
-	
-	@RequestMapping({"userPicUpload"})
-	public String userPicUpload(HttpServletRequest request, Model model) {
-		return "userPicUpload";
-	}
-	
-	@RequestMapping({"productPicUpload"})
-	public String productPicUpload(HttpServletRequest request, Model model) {
-		return "productPicUpload";
-	}
-	
 	
 	public static void main(String[] args) {
 		String getCurrencyUrl = "http://www.freecurrencyconverterapi.com/api/v2/currencies";

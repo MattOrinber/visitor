@@ -65,6 +65,8 @@ public class UserController extends BasicController{
 			user.setUserEmail(mailStrParam);
 			user.setUserPassword(passwordStrParam);
 			user.setUserType(0); //0----normal user,1---facebook user
+			user.setUserFirstName(ut.getFirstNameStr());
+			user.setUserLastName(ut.getLastNameStr());
 			user.setUserStatus(0);
 			
 			Date registerDate = new Date();
@@ -79,7 +81,19 @@ public class UserController extends BasicController{
 			
 			String resultToken = this.getAndSaveUserToken(response, mailStrParam, passwordStrParam, true);
 			
-			rj.setUserName(user.getUserEmail());
+			String userNameReturned = "";
+			if (StringUtils.isNotEmpty(user.getUserFirstName())) {
+				userNameReturned = userNameReturned + user.getUserFirstName();
+			}
+			
+			if (StringUtils.isNotEmpty(user.getUserLastName())) {
+				userNameReturned = userNameReturned + user.getUserLastName();
+			}
+			
+			if (StringUtils.isEmpty(userNameReturned)) {
+				userNameReturned = mailStrParam.substring(0, mailStrParam.indexOf("@"));
+			}
+			rj.setUserName(userNameReturned);
 			rj.setUserEmail(user.getUserEmail());
 			rj.setToken(resultToken);
 			

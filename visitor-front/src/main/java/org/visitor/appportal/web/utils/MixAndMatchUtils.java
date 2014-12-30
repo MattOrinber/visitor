@@ -104,15 +104,24 @@ public class MixAndMatchUtils {
 		String loginEmail = user.getUserEmail();
 		String loginUrl = user.getUserPhotourl();
 		model.addAttribute("loginUserEmail", loginEmail);
-		if (StringUtils.isNotEmpty(loginFirstName) && StringUtils.isNotEmpty(loginLastName)) {
-			model.addAttribute("loginName", user.getUserFirstName() + " " + user.getUserLastName());
-		} else {
+		
+		String userNameReturned = "";
+		if (StringUtils.isNotEmpty(loginFirstName)) {
+			userNameReturned = userNameReturned + loginFirstName;
+		}
+		
+		if (StringUtils.isNotEmpty(loginLastName)) {
+			userNameReturned = userNameReturned + loginLastName;
+		}
+		
+		if (StringUtils.isEmpty(userNameReturned)) {
 			if (StringUtils.isNotEmpty(loginEmail)) {
-				model.addAttribute("loginName", loginEmail);
+				userNameReturned = loginEmail.substring(0, loginEmail.indexOf("@"));
 			} else {
-				model.addAttribute("loginName", "--");
+				userNameReturned = "--";
 			}
 		}
+		model.addAttribute("loginName", userNameReturned);
 		
 		if (user.getUserType() == UserTypeEnum.FacebookUser.getValue()) {
 			model.addAttribute("userIconUrl", loginUrl);
