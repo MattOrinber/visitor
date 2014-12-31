@@ -26,7 +26,7 @@ public class ProductPayOrder {
 	private String receiverId; //receiver_id
 	private String residenceCountry; //residence_country
 	private Integer testIpn; //test_ipn
-	private String transactionSubject; //transaction_subject
+	private String transactionId; //transaction_subject
 	private String txnId; //txn_id
 	private String txnType; //txn_type
 	private String payerEmail; //payer_email
@@ -54,7 +54,7 @@ public class ProductPayOrder {
 	private Double paymentGross; //payment_gross
 	private String paymentStatus; //payment_status
 	private String paymentType; //payment_type
-	private String protectionEligibility; //protection_eligibility
+	private String checkoutStatus; //protection_eligibility
 	private Integer quantity; //quantity
 	private Double shipping; //shipping
 	private Double tax; //tax
@@ -62,6 +62,10 @@ public class ProductPayOrder {
 	private String charset; //charset
 	private String verifySign;//verify_sign
 	private String payOrderOwnerEmail;
+	private String payerPhoneNum;
+	private String paymentRequestId;
+	private String checkoutErrorCode;
+	private String checkoutErrorShortmsg;
 	
 	@Column(name = "pay_order_id", nullable = false, unique = true, precision = 20)
 	@GeneratedValue
@@ -126,12 +130,12 @@ public class ProductPayOrder {
 	}
 	
 	@Length(max = 63)
-	@Column(name = "transaction_subject")
-	public String getTransactionSubject() {
-		return transactionSubject;
+	@Column(name = "transaction_id")
+	public String getTransactionId() {
+		return transactionId;
 	}
-	public void setTransactionSubject(String transactionSubject) {
-		this.transactionSubject = transactionSubject;
+	public void setTransactionId(String transactionId) {
+		this.transactionId = transactionId;
 	}
 	
 	@Length(max = 31)
@@ -373,13 +377,13 @@ public class ProductPayOrder {
 		this.paymentType = paymentType;
 	}
 	
-	@Length(max = 16)
-	@Column(name = "protection_eligibility")
-	public String getProtectionEligibility() {
-		return protectionEligibility;
+	@Length(max = 63)
+	@Column(name = "checkout_status")
+	public String getCheckoutStatus() {
+		return checkoutStatus;
 	}
-	public void setProtectionEligibility(String protectionEligibility) {
-		this.protectionEligibility = protectionEligibility;
+	public void setCheckoutStatus(String checkoutStatus) {
+		this.checkoutStatus = checkoutStatus;
 	}
 	
 	@Column(name = "quantity", precision = 10)
@@ -440,6 +444,42 @@ public class ProductPayOrder {
 	}
 	public void setPayOrderOwnerEmail(String payOrderOwnerEmail) {
 		this.payOrderOwnerEmail = payOrderOwnerEmail;
+	}
+	
+	@Length(max = 31)
+	@Column(name = "payer_phone_num")
+	public String getPayerPhoneNum() {
+		return payerPhoneNum;
+	}
+	public void setPayerPhoneNum(String payerPhoneNum) {
+		this.payerPhoneNum = payerPhoneNum;
+	}
+	
+	@Length(max = 63)
+	@Column(name = "payment_request_id")
+	public String getPaymentRequestId() {
+		return paymentRequestId;
+	}
+	public void setPaymentRequestId(String paymentRequestId) {
+		this.paymentRequestId = paymentRequestId;
+	}
+	
+	@Length(max = 16)
+	@Column(name = "checkout_error_code")
+	public String getCheckoutErrorCode() {
+		return checkoutErrorCode;
+	}
+	public void setCheckoutErrorCode(String checkoutErrorCode) {
+		this.checkoutErrorCode = checkoutErrorCode;
+	}
+	
+	@Length(max = 127)
+	@Column(name="checkout_error_shormsg")
+	public String getCheckoutErrorShortmsg() {
+		return checkoutErrorShortmsg;
+	}
+	public void setCheckoutErrorShortmsg(String checkoutErrorShortmsg) {
+		this.checkoutErrorShortmsg = checkoutErrorShortmsg;
 	}
 	
 }

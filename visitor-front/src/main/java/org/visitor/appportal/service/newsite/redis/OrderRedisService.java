@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -34,10 +35,18 @@ public class OrderRedisService {
 	}
 	
 	public ProductOrder getUserOrder(User user, Long poId) {
-		String key = RedisKeysForVisitor.getUserOrderKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + user.getUserEmail();
-		String keyT = String.valueOf(poId.longValue());
-		String valueT = (String) compressStringRedisVisitorTemplate.opsForHash().get(key, keyT);
-		return objectMapperWrapperForVisitor.convertToProductOrder(valueT);
+		if (user != null && poId != null) {
+			String key = RedisKeysForVisitor.getUserOrderKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + user.getUserEmail();
+			String keyT = String.valueOf(poId.longValue());
+			String valueT = (String) compressStringRedisVisitorTemplate.opsForHash().get(key, keyT);
+			if (StringUtils.isNotEmpty(valueT)) {
+				return objectMapperWrapperForVisitor.convertToProductOrder(valueT);
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
 	}
 	
 	public void saveProductOrders(ProductOrder pOrder) {
@@ -127,9 +136,12 @@ public class OrderRedisService {
 	public User getPayPalTokenUser(String tokenStr) {
 		String key = RedisKeysForVisitor.getPaypalUserToken() + tokenStr;
 		String emailStr = (String)stringRedisVisitorTemplate.opsForValue().get(key);
-		
-		String keyFirst = RedisKeysForVisitor.getVisitorSiteUserPasswordFirstKey();
-		String result = (String)compressStringRedisVisitorTemplate.opsForHash().get(keyFirst, emailStr);
-		return objectMapperWrapperForVisitor.convertToUser(result);
+		if (StringUtils.isNotEmpty(emailStr)) {
+			String keyFirst = RedisKeysForVisitor.getVisitorSiteUserPasswordFirstKey();
+			String result = (String)compressStringRedisVisitorTemplate.opsForHash().get(keyFirst, emailStr);
+			return objectMapperWrapperForVisitor.convertToUser(result);
+		} else {
+			return null;
+		}
 	}
 }

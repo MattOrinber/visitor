@@ -84,5 +84,33 @@ public class PaypalInfo {
 	//GetExpressCheckoutDetails
 	public static final String pec_r_token = "TOKEN";
 	public static final String pec_r_ack = "ACK";
-
+	
+	
+	//detail info of paypal buyer
+	public static final String pec_d_checkoutstatus = "CHECKOUTSTATUS";
+	public static final String pec_d_email = "EMAIL";
+	public static final String pec_d_payerid = "PAYERID";
+	public static final String pec_d_payerstatus = "PAYERSTATUS";
+	public static final String pec_d_countrycode = "COUNTRYCODE";
+	public static final String pec_d_phonenum = "PHONENUM";
+	public static final String pec_d_amount = "PAYMENTREQUEST_0_AMT";
+	public static final String pec_d_currencycode = "PAYMENTREQUEST_0_CURRENCYCODE";
+	public static final String pec_d_transactionid = "PAYMENTREQUEST_0_TRANSACTIONID";
+	public static final String pec_d_requestid = "PAYMENTREQUEST_0_PAYMENTREQUESTID";
+	
+	public static final String pec_d_error_short_message = "PAYMENTINFO_0_SHORTMESSAGE";
+	public static final String pec_d_error_code = "PAYMENTINFO_0_ERRORCODE";
+	
+	
+	public static final String pec_d_taxidtype = "TAXIDTYPE";
+	public static final String pec_d_taxid = "TAXID";
+	public static final String pec_d_firstname = "FIRSTNAME";
+	public static final String pec_d_lastname = "LASTNAME";
+	
+	
+	//detail info status
+	public static final String pec_d_i_checkout_notinitialized = "PaymentActionNotInitiated";
+	public static final String pec_d_i_checkout_failed = "PaymentActionFailed";
+	public static final String pec_d_i_checkout_inprogress = "PaymentActionInProgress";
+	public static final String pec_d_i_checkout_completed = "PaymentActionCompleted";
 }
