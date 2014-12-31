@@ -51,4 +51,38 @@ public class PaypalInfo {
 	public static final String floopy_paypalMerchantId = "payPalMerchantId";
 	public static final String floopy_paypalMerchantEmail = "payPalMerchantEmail";
 	public static final String floopy_paypalCallBackURL = "paypalCallbackURL";
+	
+	
+	//express checkout info
+	public static final String paypalExpressCheckoutMethodPayment = "paypalExpressCheckoutMethodPayment";
+	public static final String paypalExpressCheckoutMethodDetail = "paypalExpressCheckoutMethodDetail";
+	public static final String paypalExpressCheckoutMethodSet = "paypalExpressCheckoutMethodSet";
+	public static final String paypalExpressCheckoutVersion = "paypalExpressCheckoutVersion";
+	public static final String paypalExpressCheckoutSignature = "paypalExpressCheckoutSignature";
+	public static final String paypalExpressCheckoutPassword = "paypalExpressCheckoutPassword";
+	public static final String paypalExpressCheckoutUser = "paypalExpressCheckoutUser";
+	public static final String paypalExpressCheckoutRedirectRUL = "paypalExpressCheckoutRedirectRUL";
+	public static final String paypalExpressCheckoutURL = "paypalExpressCheckoutURL";
+	
+	//fix parameter
+	public static final String pec_p_fix_action = "Sale";
+	public static final String pec_r_fix_ack = "Success";
+	
+	//express checkout single sale parameters
+	public static final String pec_p_user = "USER";
+	public static final String pec_p_password = "PWD";
+	public static final String pec_p_signature = "SIGNATURE";
+	public static final String pec_p_version = "VERSION";
+	public static final String pec_p_method = "METHOD";
+	public static final String pec_p_amount = "PAYMENTREQUEST_0_AMT";
+	public static final String pec_p_paymentaction = "PAYMENTREQUEST_0_PAYMENTACTION"; //Sale
+	public static final String pec_p_currencycode = "PAYMENTREQUEST_0_CURRENCYCODE"; //
+	
+	public static final String pec_p_returnurl = "returnUrl";
+	public static final String pec_p_cancelurl = "cancelUrl";
+	
+	//GetExpressCheckoutDetails
+	public static final String pec_r_token = "TOKEN";
+	public static final String pec_r_ack = "ACK";
+
 }

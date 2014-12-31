@@ -32,7 +32,9 @@
 	        <mvc:mapping path="/day/edit"/>
 	        <mvc:mapping path="/day/edit-photos"/>
 	        <mvc:mapping path="/updateUser/*" />
-	        <mvc:mapping path="/order/*" />
+	        <mvc:mapping path="/order/calcTotalPrice" />
+	        <mvc:mapping path="/order/expressCheckout/*/*" />
+	        <mvc:mapping path="/order/addToPrice" />
 	        <mvc:mapping path="/order/toPayOrder/*/*" />
 	        <bean class="org.visitor.appportal.web.interceptors.PublishInterceptor" />
 	    </mvc:interceptor>

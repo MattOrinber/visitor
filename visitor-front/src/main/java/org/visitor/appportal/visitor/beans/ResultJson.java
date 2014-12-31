@@ -23,6 +23,7 @@ public class ResultJson {
 	
 	private Long pmpId;
 	private Long orderId;
+	private Long payOrderId;
 	
 	public Integer getResult() {
 		return result;
@@ -114,5 +115,11 @@ public class ResultJson {
 	}
 	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
+	}
+	public Long getPayOrderId() {
+		return payOrderId;
+	}
+	public void setPayOrderId(Long payOrderId) {
+		this.payOrderId = payOrderId;
 	}
 }

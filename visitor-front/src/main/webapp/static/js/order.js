@@ -1,4 +1,5 @@
 var unavailDateStrArray = null;
+var orderIdReturnedFromExtraPriceSet = 0;
 
 function addLeadingZeroInOrder(num) {
 	if (num < 10) {
@@ -57,12 +58,19 @@ function callOrderGeneration(dateText, dpInstance) {
 	        dataType : 'json',  
 	        data : jsonStr,  
 	        success : function(data) {  
-	        	var productId = data.productId;
 	        	var productOrderId = data.orderId;
+	        	var productPayOrderId = data.payOrderId;
 	        	var priceTemp = data.totalPrice;
 	        	
-	        	$("#priceBasicSetPart").append("<span>basic price: $ "+ priceTemp +"</span>");
-	        	var payorderGenerationUrl = pathGlobe + "/order/toPayOrder/"+productId+"/"+productOrderId;
+	        	$("#priceBasicSetPart").append('<span id="totalPriceBeforePay">total price: $ '+ priceTemp +'</span>');
+	        	
+	        	var hiddenServiceStr = $("#hiddenServicePricePart");
+	        	if (hiddenServiceStr != null) {
+	        		hiddenServiceStr.show();
+	        	}
+	        	orderIdReturnedFromExtraPriceSet = productOrderId;
+	        	
+	        	var payorderGenerationUrl = pathGlobe + "/order/expressCheckout/"+productOrderId+"/"+productPayOrderId;
 	        	
 	        	$("#toPayOrderButton").attr("href", payorderGenerationUrl);
 	        },  
@@ -86,34 +94,35 @@ function doProductDateInit() {
 
 //pay order part
 function addServicePrice(node) {
-	var orderIdStr = $("#orderIDForUse").val();
-	var priceSetId = $(node).attr("data-key");
-	
-	var buyTemp = {};
-	buyTemp.orderIdStr = orderIdStr;
-	buyTemp.priceIdStr = priceSetId;
-	
-	var urlStrStr = pathGlobe + '/order/calcTotalPrice';
-    var jsonStr = $.toJSON(buyTemp);
-    
-    $.ajax({ 
-        type : 'POST',  
-        contentType : 'application/json',  
-        url : urlStrStr,  
-        processData : false,  
-        dataType : 'json',  
-        data : jsonStr,  
-        success : function(data) {  
-        	var result = data.result;
-        	if (result == 0) {
-	        	var priceTemp = data.poPrice;
-	        	$("#finalPriceSetToChange").html("$ "+priceTemp);
-	        	// paypal button change
-	        	
-        	}
-        },  
-        error : function() {  
-            alert('order add service price error...');  
-        }  
-    });
+	if (orderIdReturnedFromExtraPriceSet > 0) {
+		var orderIdStr = orderIdReturnedFromExtraPriceSet + "";
+		var priceSetId = $(node).attr("data-key");
+		
+		var buyTemp = {};
+		buyTemp.orderIdStr = orderIdStr;
+		buyTemp.priceIdStr = priceSetId;
+		
+		var urlStrStr = pathGlobe + '/order/calcTotalPrice';
+	    var jsonStr = $.toJSON(buyTemp);
+	    
+	    $.ajax({ 
+	        type : 'POST',  
+	        contentType : 'application/json',  
+	        url : urlStrStr,  
+	        processData : false,  
+	        dataType : 'json',  
+	        data : jsonStr,  
+	        success : function(data) {  
+	        	var result = data.result;
+	        	if (result == 0) {
+		        	var priceTemp = data.poPrice;
+		        	$("#totalPriceBeforePay").html("total price: $ "+priceTemp);
+		        	// paypal button change
+	        	}
+	        },  
+	        error : function() {  
+	            alert('order add service price error...');  
+	        }  
+	    });
+	}
 }

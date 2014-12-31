@@ -126,4 +126,8 @@ public class RedisKeysForVisitor {
     public static String getPaypalTxnIdKey() {
     	return "paypal-txn-id-group";
     }
+    
+    public static String getPaypalUserToken() {
+    	return "pout-";
+    }
 }

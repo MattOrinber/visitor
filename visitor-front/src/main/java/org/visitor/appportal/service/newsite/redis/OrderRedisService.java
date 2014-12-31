@@ -115,4 +115,21 @@ public class OrderRedisService {
 		String keyT = txnIdStr;
 		return stringRedisVisitorTemplate.opsForHash().hasKey(key, keyT);
 	}
+	
+	public void setPayPalTokenUser(User user, String tokenStr) {
+		String key = RedisKeysForVisitor.getPaypalUserToken() + tokenStr;
+		String valueT = user.getUserEmail();
+		
+		stringRedisVisitorTemplate.opsForValue().set(key, valueT);
+		stringRedisVisitorTemplate.expire(key, 3, TimeUnit.HOURS);
+	}
+	
+	public User getPayPalTokenUser(String tokenStr) {
+		String key = RedisKeysForVisitor.getPaypalUserToken() + tokenStr;
+		String emailStr = (String)stringRedisVisitorTemplate.opsForValue().get(key);
+		
+		String keyFirst = RedisKeysForVisitor.getVisitorSiteUserPasswordFirstKey();
+		String result = (String)compressStringRedisVisitorTemplate.opsForHash().get(keyFirst, emailStr);
+		return objectMapperWrapperForVisitor.convertToUser(result);
+	}
 }

@@ -25,7 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,6 +52,9 @@ import org.visitor.appportal.web.utils.OrderInfo.ProductOrderStatusEnum;
 import org.visitor.appportal.web.utils.OrderInfo.ProductPayOrderStatusEnum;
 import org.visitor.appportal.web.utils.PaypalInfo;
 import org.visitor.appportal.web.utils.WebInfo;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 
 @Controller
 @RequestMapping("/order/")
@@ -127,16 +129,27 @@ public class OrderController extends BasicController {
 						po.setOrderUserEmail(userTemp.getUserEmail());
 						po.setOrderTotalAmount(resultPrice);
 						po.setOrderRemainAmount(resultPrice);
-						po.setOrderStatus(ProductOrderStatusEnum.Init.ordinal());
 						po.setOrderCurrency(product.getProductCurrency());
+						po.setOrderStatus(ProductOrderStatusEnum.Init.ordinal());
+						visitorProductOrderService.saveProductOrder(po);
 						
+						ProductPayOrder ppo = new ProductPayOrder();
+						ppo.setPayOrderOids(String.valueOf(po.getOrderId().longValue()));
+						ppo.setPayStatus(ProductPayOrderStatusEnum.Init.ordinal());
+						ppo.setPayOrderOwnerEmail(userTemp.getUserEmail());
+						
+						visitorProductOrderService.saveProductPayOrder(ppo);
+						po.setOrderPayOrderId(ppo.getPayOrderId());
+						po.setOrderStatus(ProductOrderStatusEnum.WaitPay.ordinal());
 						visitorProductOrderService.saveProductOrder(po);
 						orderRedisService.saveUserOrders(userTemp, po);
 						orderRedisService.saveProductOrders(po);
+						orderRedisService.saveProductPayOrderById(ppo);
 						
 						rj.setTotalPrice(resultPrice);
 						rj.setProductId(product.getProductId());
 						rj.setOrderId(po.getOrderId());
+						rj.setPayOrderId(ppo.getPayOrderId());
 					}
 				} else {
 					result = -1;
@@ -185,6 +198,246 @@ public class OrderController extends BasicController {
 			//stay on the product page
 			return "redirect:/day/product?pid="+pid;
 		}
+	}
+	
+	//paypal express checkout pay order utilities
+	@RequestMapping(value="expressCheckout/{poId}/{ppoId}")
+	public String expressCheckout(HttpServletRequest request,
+			@PathVariable Long poId,
+			@PathVariable Long ppoId,
+			HttpServletResponse response) throws UnsupportedEncodingException {
+		String info = "success";
+		
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		
+		ProductOrder po = orderRedisService.getUserOrder(userTemp, poId);
+		ProductPayOrder ppo = orderRedisService.getProductPayOrderById(ppoId);
+		
+		String targetECURL = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.paypalExpressCheckoutURL);
+		String redirectECURL = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.paypalExpressCheckoutRedirectRUL);
+		
+		String redirectURLFinal = "";
+		//cmd=_express-checkout&token=
+		
+		//set expressCheckout
+		String ECUSER = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.paypalExpressCheckoutUser);
+		String ECPWD = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.paypalExpressCheckoutPassword);
+		String ECSIGNATURE = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.paypalExpressCheckoutSignature);
+		String ECVERSION = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.paypalExpressCheckoutVersion);
+		
+		String ECMETHOD = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.paypalExpressCheckoutMethodSet);
+		
+		String ECRETURNURL = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.floopy_paypalCallBackURL) +"/ecReturn/"+String.valueOf(po.getOrderId().doubleValue()) + String.valueOf(ppo.getPayOrderId().doubleValue());
+		String ECCANCELURL = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.floopy_paypalCallBackURL) +"/ecCancel/"+String.valueOf(po.getOrderId().doubleValue()) + String.valueOf(ppo.getPayOrderId().doubleValue());
+		
+		String p_ECUSER = PaypalInfo.pec_p_user;
+		String p_ECPWD = PaypalInfo.pec_p_password;
+		String p_ECSIGNATURE = PaypalInfo.pec_p_signature;
+		String p_ECVERSION = PaypalInfo.pec_p_version;
+		
+		String p_ECMETHOD = PaypalInfo.pec_p_method;
+		String p_ECAMOUNT = PaypalInfo.pec_p_amount;
+		String p_ECPAYMENTACTION = PaypalInfo.pec_p_paymentaction; //Sale
+		String p_ECCURRENCYCODE = PaypalInfo.pec_p_currencycode; //
+		
+		String p_ECRETURNURL = PaypalInfo.pec_p_returnurl;
+		String p_ECCANCELURL = PaypalInfo.pec_p_cancelurl;
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put(p_ECUSER, ECUSER);
+		paramMap.put(p_ECPWD, ECPWD);
+		paramMap.put(p_ECSIGNATURE, ECSIGNATURE);
+		paramMap.put(p_ECVERSION, ECVERSION);
+		paramMap.put(p_ECMETHOD, ECMETHOD);
+		paramMap.put(p_ECAMOUNT, String.valueOf(po.getOrderRemainAmount()));
+		paramMap.put(p_ECPAYMENTACTION, PaypalInfo.pec_p_fix_action);
+		paramMap.put(p_ECCURRENCYCODE, po.getOrderCurrency());
+		paramMap.put(p_ECRETURNURL, ECRETURNURL);
+		paramMap.put(p_ECCANCELURL, ECCANCELURL);
+		
+		String paramFinal = "?";
+		int idx = 0;
+		for (String keyT : paramMap.keySet()) {
+			String finalValue = URLEncoder.encode(paramMap.get(keyT), "UTF-8");
+			if (idx == 0) {
+				paramFinal = paramFinal + keyT + "=" + finalValue;
+				idx ++;
+			} else {
+				paramFinal = paramFinal + "&" + keyT + "=" + finalValue;
+			}
+		}
+		
+		String setExpressCheckoutURL = targetECURL + paramFinal;
+		
+		String oriJsonResponseStr = HttpClientUtil.httpGetJSON(setExpressCheckoutURL);
+		
+		Map<String, String> jsonResponseOri = JSON.parseObject(oriJsonResponseStr, new TypeReference<Map<String, String>>(){});
+		
+		boolean ifCorrect = false;
+		if (jsonResponseOri.size() > 0) {
+			String r_ECACK = PaypalInfo.pec_r_ack;
+			String r_ECTOKEN = PaypalInfo.pec_r_token;
+			
+			if (jsonResponseOri.containsKey(r_ECACK) && jsonResponseOri.containsKey(r_ECTOKEN)) {
+				String ackStr = jsonResponseOri.get(r_ECACK);
+				String tokenStr = jsonResponseOri.get(r_ECTOKEN);
+				
+				if (StringUtils.equals(ackStr, PaypalInfo.pec_r_fix_ack)) {
+					// do redirect call
+					if (StringUtils.isNotEmpty(tokenStr)) {
+						orderRedisService.setPayPalTokenUser(userTemp, tokenStr);
+						redirectURLFinal = "redirect:" + redirectECURL + "?" + r_ECTOKEN + "=" + tokenStr;
+						ifCorrect = true;
+					} 
+				} 
+			} 
+		} 
+		
+		if (!ifCorrect) {
+			log.info("paypal response not right: >"+oriJsonResponseStr+"<");
+			info = "Payment failed due to network error, please init payment again";
+			redirectURLFinal = "redirect:/day/result?info=" + URLEncoder.encode(info, "UTF-8");
+		}
+		//DoExpressCheckoutPayment like the set above
+		
+		return redirectURLFinal;
+	}
+	
+	@RequestMapping(value="ecReturn/{poId}/{ppoId}")
+	public String expressCheckoutReturn(HttpServletRequest request,
+			@PathVariable Long poId,
+			@PathVariable Long ppoId,
+			@RequestParam(value = "TOKEN", required = true) String tokenPassed,
+			HttpServletResponse response) throws UnsupportedEncodingException {
+		String info = "success";
+		
+		User userTemp = orderRedisService.getPayPalTokenUser(tokenPassed);
+		
+		ProductOrder po = orderRedisService.getUserOrder(userTemp, poId);
+		ProductPayOrder ppo = orderRedisService.getProductPayOrderById(ppoId);
+		
+		String targetECURL = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.paypalExpressCheckoutURL);
+		String redirectECURL = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.paypalExpressCheckoutRedirectRUL);
+		
+		String redirectURLFinal = "";
+		//cmd=_express-checkout&token=
+		
+		//set expressCheckout
+		String ECUSER = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.paypalExpressCheckoutUser);
+		String ECPWD = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.paypalExpressCheckoutPassword);
+		String ECSIGNATURE = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.paypalExpressCheckoutSignature);
+		String ECVERSION = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.paypalExpressCheckoutVersion);
+		
+		String ECMETHOD = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.paypalExpressCheckoutMethodSet);
+		
+		String ECRETURNURL = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.floopy_paypalCallBackURL) +"/ecReturn/"+String.valueOf(po.getOrderId().doubleValue()) + String.valueOf(ppo.getPayOrderId().doubleValue());
+		String ECCANCELURL = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.floopy_paypalCallBackURL) +"/ecCancel/"+String.valueOf(po.getOrderId().doubleValue()) + String.valueOf(ppo.getPayOrderId().doubleValue());
+		
+		String p_ECUSER = PaypalInfo.pec_p_user;
+		String p_ECPWD = PaypalInfo.pec_p_password;
+		String p_ECSIGNATURE = PaypalInfo.pec_p_signature;
+		String p_ECVERSION = PaypalInfo.pec_p_version;
+		
+		String p_ECMETHOD = PaypalInfo.pec_p_method;
+		String p_ECAMOUNT = PaypalInfo.pec_p_amount;
+		String p_ECPAYMENTACTION = PaypalInfo.pec_p_paymentaction; //Sale
+		String p_ECCURRENCYCODE = PaypalInfo.pec_p_currencycode; //
+		
+		String p_ECRETURNURL = PaypalInfo.pec_p_returnurl;
+		String p_ECCANCELURL = PaypalInfo.pec_p_cancelurl;
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put(p_ECUSER, ECUSER);
+		paramMap.put(p_ECPWD, ECPWD);
+		paramMap.put(p_ECSIGNATURE, ECSIGNATURE);
+		paramMap.put(p_ECVERSION, ECVERSION);
+		paramMap.put(p_ECMETHOD, ECMETHOD);
+		paramMap.put(p_ECAMOUNT, String.valueOf(po.getOrderRemainAmount()));
+		paramMap.put(p_ECPAYMENTACTION, PaypalInfo.pec_p_fix_action);
+		paramMap.put(p_ECCURRENCYCODE, po.getOrderCurrency());
+		paramMap.put(p_ECRETURNURL, ECRETURNURL);
+		paramMap.put(p_ECCANCELURL, ECCANCELURL);
+		
+		String paramFinal = "?";
+		int idx = 0;
+		for (String keyT : paramMap.keySet()) {
+			String finalValue = URLEncoder.encode(paramMap.get(keyT), "UTF-8");
+			if (idx == 0) {
+				paramFinal = paramFinal + keyT + "=" + finalValue;
+				idx ++;
+			} else {
+				paramFinal = paramFinal + "&" + keyT + "=" + finalValue;
+			}
+		}
+		
+		String setExpressCheckoutURL = targetECURL + paramFinal;
+		
+		String oriJsonResponseStr = HttpClientUtil.httpGetJSON(setExpressCheckoutURL);
+		
+		Map<String, String> jsonResponseOri = JSON.parseObject(oriJsonResponseStr, new TypeReference<Map<String, String>>(){});
+		
+		boolean ifCorrect = false;
+		if (jsonResponseOri.size() > 0) {
+			String r_ECACK = PaypalInfo.pec_r_ack;
+			String r_ECTOKEN = PaypalInfo.pec_r_token;
+			
+			if (jsonResponseOri.containsKey(r_ECACK) && jsonResponseOri.containsKey(r_ECTOKEN)) {
+				String ackStr = jsonResponseOri.get(r_ECACK);
+				String tokenStr = jsonResponseOri.get(r_ECTOKEN);
+				
+				if (StringUtils.equals(ackStr, PaypalInfo.pec_r_fix_ack)) {
+					// do redirect call
+					if (StringUtils.isNotEmpty(tokenStr)) {
+						redirectURLFinal = "redirect:" + redirectECURL + "?" + r_ECTOKEN + "=" + tokenStr;
+						ifCorrect = true;
+					} 
+				} 
+			} 
+		} 
+		
+		if (!ifCorrect) {
+			log.info("paypal response not right: >"+oriJsonResponseStr+"<");
+			info = "Payment failed due to network error, please init payment again";
+			redirectURLFinal = "redirect:/day/result?info=" + URLEncoder.encode(info, "UTF-8");
+		}
+		
+		//DoExpressCheckoutPayment like the set above
+		
+		return redirectURLFinal;
+	}
+	
+	@RequestMapping(value="ecCancel/{poId}/{ppoId}")
+	public String expressCheckoutCancel(HttpServletRequest request,
+			@PathVariable Long poId,
+			@PathVariable Long ppoId,
+			@RequestParam(value = "TOKEN", required = true) String tokenPassed,
+			HttpServletResponse response) throws UnsupportedEncodingException {
+		String info = "success";
+		
+		User userTemp = orderRedisService.getPayPalTokenUser(tokenPassed);
+		
+		ProductOrder po = orderRedisService.getUserOrder(userTemp, poId);
+		ProductPayOrder ppo = orderRedisService.getProductPayOrderById(ppoId);
+		
+		po.setOrderStatus(ProductOrderStatusEnum.EXPIRED.ordinal());
+		ppo.setPayStatus(ProductPayOrderStatusEnum.Invalid.ordinal());
+		
+		visitorProductOrderService.saveProductOrder(po);
+		visitorProductOrderService.saveProductPayOrder(ppo);
+		orderRedisService.saveUserOrders(userTemp, po);
+		orderRedisService.saveProductOrders(po);
+		orderRedisService.saveProductPayOrderById(ppo);
+		
+		if (log.isInfoEnabled()) {
+			log.info("order id: >" + String.valueOf(po.getOrderId()) +"< canceled");
+		}
+		
+		String redirectURLFinal = "";
+		//cmd=_express-checkout&token=
+		info = "Payment unauthorized, drop order";
+		redirectURLFinal = "redirect:/day/result?info=" + URLEncoder.encode(info, "UTF-8");
+		
+		return redirectURLFinal;
 	}
 	
 	@RequestMapping("addToPrice")
