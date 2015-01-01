@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -282,7 +283,7 @@ public class OrderController extends BasicController {
 		
 		log.info("paypal response ori: >"+oriJsonResponseStr+"<");
 		
-		Map<String, String> jsonResponseOri = JSON.parseObject(oriJsonResponseStr, new TypeReference<Map<String, String>>(){});
+		Map<String, String> jsonResponseOri = this.parseOriString(oriJsonResponseStr);
 		
 		boolean ifCorrect = false;
 		if (jsonResponseOri.size() > 0) {
@@ -370,7 +371,7 @@ public class OrderController extends BasicController {
 			
 			if (StringUtils.isNotEmpty(oriJsonResponseStr)) {
 			
-				Map<String, String> jsonResponseOri = JSON.parseObject(oriJsonResponseStr, new TypeReference<Map<String, String>>(){});
+				Map<String, String> jsonResponseOri = this.parseOriString(oriJsonResponseStr);
 				
 				boolean ifCorrect = false;
 				if (jsonResponseOri.size() > 0) {
@@ -589,7 +590,7 @@ public class OrderController extends BasicController {
 			
 			if (StringUtils.isNotEmpty(oriJsonResponseStr)) {
 			
-				Map<String, String> jsonResponseOri = JSON.parseObject(oriJsonResponseStr, new TypeReference<Map<String, String>>(){});
+				Map<String, String> jsonResponseOri = this.parseOriString(oriJsonResponseStr);
 				
 				boolean ifCorrect = false;
 				if (jsonResponseOri.size() > 0) {
@@ -677,6 +678,26 @@ public class OrderController extends BasicController {
 		return redirectURLFinal;
 	}
 	
+	private Map<String, String> parseOriString(String oriJsonResponseStr) {
+		// TODO Auto-generated method stub
+		Map<String, String> retMap = new HashMap<String, String>();
+		
+		String[] splitOne = oriJsonResponseStr.split("&");
+		if (splitOne.length > 1) {
+			for (int i = 0; i < splitOne.length; i ++) {
+				String[] splitTwo = splitOne[i].split("=");
+				
+				if (splitTwo.length != 2) {
+					log.info("innner params format not right! >"+splitOne[i]+"<");
+				} else {
+					retMap.put(splitTwo[0], splitTwo[1]);
+				}
+			}
+		}
+		
+		return retMap;
+	}
+
 	public static void main(String[] args) {
 		//String a = "a=8&b=7&aaa=65&rere=dsfdsd";
 		List<String> paramNameList = new ArrayList<String>();
