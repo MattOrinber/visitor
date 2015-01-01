@@ -298,7 +298,7 @@ public class OrderController extends BasicController {
 					// do redirect call
 					if (StringUtils.isNotEmpty(tokenStr)) {
 						orderRedisService.setPayPalTokenUser(userTemp, tokenStr);
-						redirectURLFinal = "redirect:" + redirectECURL + "?" + r_ECTOKEN + "=" + tokenStr;
+						redirectURLFinal = "redirect:" + redirectECURL + "?cmd=_express-checkout&token=XXXX&" + r_ECTOKEN + "=" + tokenStr;
 						ppo.setCustom(tokenStr);
 						
 						visitorProductOrderService.saveProductPayOrder(ppo);
