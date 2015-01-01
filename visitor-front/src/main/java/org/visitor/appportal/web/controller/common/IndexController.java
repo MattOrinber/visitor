@@ -311,6 +311,21 @@ public class IndexController extends BasicController {
 		return "day/your-listing";
 	}
 	
+	@RequestMapping({"day/your-trip"})
+	public String dayYourTrip(HttpServletRequest request,
+			HttpServletResponse response, 
+			Model model) {
+		boolean ifLoggedIn = super.setModel(request, response, model, false);
+		if (!ifLoggedIn) {
+			return "redirect:/index";
+		}
+		
+		User user = (User) request.getAttribute(WebInfo.UserID);
+		super.setMyTripModel(user, request, model);
+		model.addAttribute("pageName", "yourtrip");
+		return "day/your-trip";
+	}
+	
 	@RequestMapping("day/toPayOrder")
 	public String toPayOrderPage(HttpServletRequest request,
 			@RequestParam(value = "pid", required = true) Long pid,

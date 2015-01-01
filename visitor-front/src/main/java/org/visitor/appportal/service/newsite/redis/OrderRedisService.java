@@ -108,7 +108,11 @@ public class OrderRedisService {
 	public ProductPayOrder getProductPayOrderById(Long ppoId) {
 		String key = RedisKeysForVisitor.getProductPayOrderKey() + ppoId;
 		String valueT = stringRedisVisitorTemplate.opsForValue().get(key);
-		return objectMapperWrapperForVisitor.convertToProductPayOrder(valueT);
+		if (StringUtils.isNotEmpty(valueT)) {
+			return objectMapperWrapperForVisitor.convertToProductPayOrder(valueT);
+		} else {
+			return null;
+		}
 	}
 	
 	

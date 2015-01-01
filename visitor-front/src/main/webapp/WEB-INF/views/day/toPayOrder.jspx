@@ -15,17 +15,11 @@
     <div class="maincontent">
         <div class="left">
 			<h1>Payment</h1>
-            <div id="button">
-				<script async src="${pageContext.request.contextPath}/static/js/button.js?merchant=${menchantId}"
-					data-button="buynow"
-					data-type="form"
-					data-name="Buy now!"
-					data-amount="${order.orderTotalAmount}"
-					data-currency="${order.orderCurrency}"
-					data-size="large"
-					data-callback="${pathCallback}/order/paypalcallback?payorderid=${payOrder.payOrderId}"
-				></script>
-			</div>
+			<a href="${pageContext.request.contextPath}/order/toPayOrder/${order.orderId}/${payOrder.payOrderId}" class="button">Confirm</a>
+			<h1>Paypal Information</h1>
+            <span class="name">First name<br /><input type="text" value="${payOrder.firstName}"/></span>
+            <span class="name">Last name<br /><input type="text" value="${payOrder.lastName}"/></span>
+            <span class="name">Paypal account email<br /><input type="text" value="${payOrder.payerEmail}"/></span>
         </div>
         <div class="right">
            <div class="roomimg"><img src="img/c4f01fea_original.jpg" width="313" /></div>
@@ -57,9 +51,6 @@
                   </tr>
                 </table>
                 
-                <br />
-                <p> ;${order.orderCurrency};</p><br />
-                <p> ;${order.orderTotalAmount};</p>
            </div> 
         </div>
     </div>

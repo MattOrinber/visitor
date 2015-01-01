@@ -32,6 +32,7 @@ import org.visitor.appportal.redis.FloopyUtils;
 import org.visitor.appportal.service.newsite.VisitorUserService;
 import org.visitor.appportal.service.newsite.VisitorUserTokenInfoService;
 import org.visitor.appportal.service.newsite.redis.FloopyThingRedisService;
+import org.visitor.appportal.service.newsite.redis.OrderRedisService;
 import org.visitor.appportal.service.newsite.redis.ProductRedisService;
 import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
@@ -46,11 +47,13 @@ import org.visitor.appportal.visitor.beans.ProductTemp;
 import org.visitor.appportal.visitor.beans.UserInternalMailTemp;
 import org.visitor.appportal.visitor.beans.UserTemp;
 import org.visitor.appportal.visitor.beans.view.CityProduct;
+import org.visitor.appportal.visitor.beans.view.OrderProduct;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductAddress;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
 import org.visitor.appportal.visitor.domain.ProductMultiPrice;
 import org.visitor.appportal.visitor.domain.ProductOperation;
+import org.visitor.appportal.visitor.domain.ProductOrder;
 import org.visitor.appportal.visitor.domain.ProductPicture;
 import org.visitor.appportal.visitor.domain.TimeZone;
 import org.visitor.appportal.visitor.domain.User;
@@ -66,6 +69,8 @@ import com.alibaba.fastjson.JSON;
 public class BasicController {
 	protected static final Logger log = LoggerFactory.getLogger(BasicController.class);
 	
+	@Autowired
+	private OrderRedisService orderRedisService;
 	@Autowired
 	private TimezoneRedisService timezoneRedisService;
 	@Autowired
@@ -462,6 +467,28 @@ public class BasicController {
 		List<Product> list = productRedisService.getUserProducts(user);
 		if (list != null && list.size() > 0) {
 			model.addAttribute("productList", list);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	protected boolean setMyTripModel(User user, HttpServletRequest request, Model model) {
+		List<OrderProduct> listpo = new ArrayList<OrderProduct>();
+		List<ProductOrder> list = orderRedisService.getUserOrders(user);
+		if (list != null && list.size() > 0) {
+			
+			for (ProductOrder po : list) {
+				OrderProduct op = new OrderProduct();
+				op.setOrder(po);
+				
+				Long pid = po.getOrderProductId();
+				Product product = productRedisService.getProductFromRedis(pid);
+				op.setProduct(product);
+				listpo.add(op);
+			}
+			
+			model.addAttribute("productOrders", listpo);
 			return true;
 		} else {
 			return false;

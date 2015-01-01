@@ -113,4 +113,15 @@ public class PaypalInfo {
 	public static final String pec_d_i_checkout_failed = "PaymentActionFailed";
 	public static final String pec_d_i_checkout_inprogress = "PaymentActionInProgress";
 	public static final String pec_d_i_checkout_completed = "PaymentActionCompleted";
+	
+	
+	
+	
+	
+	//complete transaction utilities
+	
+	public static final String pec_c_paymentstatus = "PAYMENTINFO_0_PAYMENTSTATUS";
+	public static final String pec_c_i_paymentcompleted = "Completed";
+	
+	public static final String pec_c_paymentamount = "PAYMENTINFO_0_AMT";
 }

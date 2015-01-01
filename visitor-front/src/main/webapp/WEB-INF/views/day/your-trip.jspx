@@ -22,7 +22,7 @@
     	<a href="${pageContext.request.contextPath}/day/dashboard">Dashboard</a>
         <a href="${pageContext.request.contextPath}/day/inbox">Inbox</a>
         <a href="javascript:toListing(0);">Your Listings</a>
-        <a href="javascript:void(0);" class="select">Your Inquiries</a>
+        <a href="javascript:void(0);" class="select">Your trips</a>
         <a href="${pageContext.request.contextPath}/day/edit">Edit Profile</a>
     </div>
 </div>
@@ -31,11 +31,20 @@
     <div class="maincontent">
         <div class="inbox">
             	<span>Your Trips</span>
-                   <div class="message">
-						<p>You have no current trips.</p>
-                        <input type="text" placeholder="Where are you going?" /><a href="" class="button">Search</a>
-                   </div>
-                 
+                   
+]]>
+					<c:choose>
+						<c:when test="${not empty productOrders}">
+							
+						</c:when>
+						<c:otherwise>
+							<div class="message">
+								<p>You have no current trips.</p>
+								<input id="tripListPartSuggest" type="text" placeholder="Where are you going?" />
+							</div>
+						</c:otherwise>
+					</c:choose>
+<![CDATA[
          </div>
     </div>
 </div>

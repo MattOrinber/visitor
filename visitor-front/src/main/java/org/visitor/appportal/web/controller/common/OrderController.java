@@ -1,14 +1,7 @@
 package org.visitor.appportal.web.controller.common;
 
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
-
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,7 +31,6 @@ import org.visitor.appportal.service.newsite.redis.ProductRedisService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.visitor.beans.BuyTemp;
 import org.visitor.appportal.visitor.beans.ResultJson;
-import org.visitor.appportal.visitor.domain.FloopyThing;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductMultiPrice;
 import org.visitor.appportal.visitor.domain.ProductOperation;
@@ -338,7 +330,11 @@ public class OrderController extends BasicController {
 		ProductOrder po = orderRedisService.getUserOrder(userTemp, poId);
 		ProductPayOrder ppo = orderRedisService.getProductPayOrderById(ppoId);
 		
-		if (userTemp != null && po != null && ppo != null && StringUtils.equals(tokenPassed, ppo.getCustom())) {
+		if (userTemp != null && 
+				po != null && 
+				ppo != null && 
+				StringUtils.equals(tokenPassed, ppo.getCustom()) &&
+				ppo.getPayStatus().intValue() == ProductPayOrderStatusEnum.Init.ordinal()) {
 		
 			String targetECURL = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.paypalExpressCheckoutURL);
 			
@@ -539,30 +535,140 @@ public class OrderController extends BasicController {
 	public String toPayOrder(HttpServletRequest request,
 			@PathVariable Long poId,
 			@PathVariable Long ppoId,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws UnsupportedEncodingException {
+		String redirectURLFinal = "";
 		User userTemp = (User) request.getAttribute(WebInfo.UserID);
 		
 		ProductOrder po = orderRedisService.getUserOrder(userTemp, poId);
+		ProductPayOrder ppo = orderRedisService.getProductPayOrderById(ppoId);
 		
-		if (po != null) {
-			ProductPayOrder ppo = new ProductPayOrder();
-			ppo.setPayOrderOids(String.valueOf(poId.longValue()));
-			ppo.setPayStatus(ProductPayOrderStatusEnum.Init.ordinal());
-			ppo.setPayOrderOwnerEmail(userTemp.getUserEmail());
+		if (po != null && ppo != null) {
+			String tokenPassed = ppo.getCustom();
 			
-			visitorProductOrderService.saveProductPayOrder(ppo);
-			po.setOrderPayOrderId(ppo.getPayOrderId());
-			po.setOrderStatus(ProductOrderStatusEnum.WaitPay.ordinal());
-			visitorProductOrderService.saveProductOrder(po);
-			orderRedisService.saveUserOrders(userTemp, po);
-			orderRedisService.saveProductOrders(po);
-			orderRedisService.saveProductPayOrderById(ppo);
+			String targetECURL = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.paypalExpressCheckoutURL);
+			String ECMETHOD = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.paypalExpressCheckoutMethodPayment);
+			String ECTOKEN = tokenPassed;
+			String ECPAYERID = ppo.getPayerId();
+			String ECACTIONTYPE = PaypalInfo.pec_p_fix_action;
+			String ECAMOUNT = String.valueOf(ppo.getPaymentGross().doubleValue());
 			
-			return "redirect:/day/toPayOrder?pid="+po.getOrderProductId()+"&poid="+po.getOrderId()+"&ppoid="+ppo.getPayOrderId();
+			String p_ECMETHOD = PaypalInfo.pec_p_method;
+			String p_ECTOKEN = PaypalInfo.pec_r_token;
+			String p_ECPAYERID = PaypalInfo.pec_d_payerid;
+			String p_ECACTIONTYPE = PaypalInfo.pec_p_paymentaction;
+			String p_ECAMOUNT = PaypalInfo.pec_p_amount;
+			
+			Map<String, String> paramMap = new HashMap<String, String>();
+			paramMap.put(p_ECMETHOD, ECMETHOD);
+			paramMap.put(p_ECTOKEN, ECTOKEN);
+			paramMap.put(p_ECPAYERID, ECPAYERID);
+			paramMap.put(p_ECACTIONTYPE, ECACTIONTYPE);
+			paramMap.put(ECAMOUNT, p_ECAMOUNT);
+			
+			String paramFinal = "?";
+			int idx = 0;
+			for (String keyT : paramMap.keySet()) {
+				String finalValue = URLEncoder.encode(paramMap.get(keyT), "UTF-8");
+				if (idx == 0) {
+					paramFinal = paramFinal + keyT + "=" + finalValue;
+					idx ++;
+				} else {
+					paramFinal = paramFinal + "&" + keyT + "=" + finalValue;
+				}
+			}
+			
+			String setExpressCheckoutURL = targetECURL + paramFinal;
+			
+			String oriJsonResponseStr = HttpClientUtil.httpGetJSON(setExpressCheckoutURL);
+			
+			if (StringUtils.isNotEmpty(oriJsonResponseStr)) {
+			
+				Map<String, String> jsonResponseOri = JSON.parseObject(oriJsonResponseStr, new TypeReference<Map<String, String>>(){});
+				
+				boolean ifCorrect = false;
+				if (jsonResponseOri.size() > 0) {
+					String r_ECTOKEN = PaypalInfo.pec_r_token;
+					
+					if (jsonResponseOri.containsKey(r_ECTOKEN)) {
+						String tokenStr = jsonResponseOri.get(r_ECTOKEN);
+						
+						if (StringUtils.equals(tokenStr, tokenPassed)) {
+							// get the information and update pay order
+							boolean ifErrorOccured = false;
+							String checkoutErrorCodeStr = jsonResponseOri.get(PaypalInfo.pec_d_error_code);
+							if (StringUtils.isNotEmpty(checkoutErrorCodeStr)) {
+								ppo.setCheckoutErrorCode(checkoutErrorCodeStr);
+								ifErrorOccured = true;
+							}
+							
+							String coErrorShortMsg = jsonResponseOri.get(PaypalInfo.pec_d_error_short_message);
+							if (StringUtils.isNotEmpty(coErrorShortMsg)) {
+								ppo.setCheckoutErrorShortmsg(coErrorShortMsg);
+							}
+							
+							if (!ifErrorOccured) {
+							
+								String paymentStatusStr = jsonResponseOri.get(PaypalInfo.pec_c_paymentstatus);
+								if (StringUtils.isNotEmpty(paymentStatusStr)) {
+									ppo.setPaymentStatus(paymentStatusStr);
+									
+									if (StringUtils.equals(paymentStatusStr, PaypalInfo.pec_c_i_paymentcompleted)) {
+										// completed a payment
+										String amountPayedStr = jsonResponseOri.get(PaypalInfo.pec_c_paymentamount);
+										if (StringUtils.isNotEmpty(amountPayedStr)) {
+											Double payedAmountValue = Double.valueOf(amountPayedStr);
+											Double shouldBePaid = po.getOrderTotalAmount();
+											if (shouldBePaid.doubleValue() == payedAmountValue.doubleValue()) {
+												po.setOrderStatus(ProductOrderStatusEnum.PAID.ordinal());
+												po.setOrderRemainAmount(new Double(0));
+												ppo.setPayStatus(ProductPayOrderStatusEnum.Completed.ordinal());
+											} else if (shouldBePaid.doubleValue() > payedAmountValue.doubleValue()) {
+												po.setOrderStatus(ProductOrderStatusEnum.PARTIAL_PAID.ordinal());
+												po.setOrderRemainAmount(shouldBePaid - payedAmountValue);
+												ppo.setPayStatus(ProductPayOrderStatusEnum.Completed.ordinal());
+											}
+											
+											visitorProductOrderService.saveProductOrder(po);
+											visitorProductOrderService.saveProductPayOrder(ppo);
+											orderRedisService.saveUserOrders(userTemp, po);
+											orderRedisService.saveProductOrders(po);
+											orderRedisService.saveProductPayOrderById(ppo);
+										}
+									}
+								}
+								
+								ifCorrect = true;
+							}
+							
+							visitorProductOrderService.saveProductPayOrder(ppo);
+							orderRedisService.saveProductPayOrderById(ppo);
+						} 
+					} 
+				} 
+				
+				if (!ifCorrect) {
+					if (log.isInfoEnabled()) {
+						log.info("paypal response not right: >"+oriJsonResponseStr+"<");
+					}
+					redirectURLFinal = "redirect:/day/product?pid="+po.getOrderProductId();
+				} else {
+					if (log.isInfoEnabled()) {
+						log.info("paypal response json: >"+ oriJsonResponseStr +"<");
+					}
+					redirectURLFinal = "redirect:/day/your-trip";
+				}
+			} else {
+				if (log.isInfoEnabled()) {
+					log.info("-----illegal callback from paypal");
+				}
+				redirectURLFinal = "redirect:/day/product?pid="+po.getOrderProductId();
+			}
 		} else {
-			//stay on the product page
-			return "redirect:/index";
+			//go to index, this can not happen
+			redirectURLFinal = "redirect:/index";
 		}
+		
+		return redirectURLFinal;
 	}
 	
 	public static void main(String[] args) {
