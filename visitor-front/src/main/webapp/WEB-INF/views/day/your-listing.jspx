@@ -45,10 +45,14 @@
 ]]>
 							<c:choose>
 								<c:when test="${not empty productOrderBundle.productPicUrlFirst}">
-									<div class="photo photo1"><img src="${productOrderBundle.productPicUrlFirst}" width="28"/></div>
+<![CDATA[
+									<div class="photo photo1"><img src="${productOrderBundle.productPicUrlFirst}" width="95"/></div>
+]]>
 								</c:when>
 								<c:otherwise>
+<![CDATA[
 									<div class="photo photo1"></div>
+]]>
 								</c:otherwise>
 							</c:choose>
 <![CDATA[
