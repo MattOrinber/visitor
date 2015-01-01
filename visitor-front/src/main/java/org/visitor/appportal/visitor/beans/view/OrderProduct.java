@@ -6,6 +6,7 @@ import org.visitor.appportal.visitor.domain.ProductOrder;
 public class OrderProduct {
 	private Product product;
 	private ProductOrder order;
+	private String productPicUrlFirst;
 	public Product getProduct() {
 		return product;
 	}
@@ -17,5 +18,11 @@ public class OrderProduct {
 	}
 	public void setOrder(ProductOrder order) {
 		this.order = order;
+	}
+	public String getProductPicUrlFirst() {
+		return productPicUrlFirst;
+	}
+	public void setProductPicUrlFirst(String productPicUrlFirst) {
+		this.productPicUrlFirst = productPicUrlFirst;
 	}
 }

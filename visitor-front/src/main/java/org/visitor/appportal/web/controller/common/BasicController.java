@@ -464,9 +464,31 @@ public class BasicController {
 	}
 	
 	protected boolean setMyProductModel(User user, HttpServletRequest request, Model model) {
+		List<OrderProduct> listpo = new ArrayList<OrderProduct>();
 		List<Product> list = productRedisService.getUserProducts(user);
 		if (list != null && list.size() > 0) {
-			model.addAttribute("productList", list);
+			
+			for (Product product : list) {
+				OrderProduct op = new OrderProduct();
+				op.setProduct(product);
+				
+				List<ProductPicture> listPP = productRedisService.getPictureListOfOneProduct(product.getProductId());
+				
+				if (listPP != null && listPP.size() > 0) {
+					String awsBucketName = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic);
+					String imgDomain = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgDomain);
+					
+					ProductPicture pp = listPP.get(0);
+					String fileOriUrl = pp.getProductPicProductUrl();
+						
+					String displayUrl = imgDomain + awsBucketName + "/" + fileOriUrl;
+					op.setProductPicUrlFirst(displayUrl);
+				} 
+				
+				listpo.add(op);
+			}
+			
+			model.addAttribute("productList", listpo);
 			return true;
 		} else {
 			return false;
@@ -485,6 +507,20 @@ public class BasicController {
 				Long pid = po.getOrderProductId();
 				Product product = productRedisService.getProductFromRedis(pid);
 				op.setProduct(product);
+				
+				List<ProductPicture> listPP = productRedisService.getPictureListOfOneProduct(pid);
+				
+				if (listPP != null && listPP.size() > 0) {
+					String awsBucketName = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic);
+					String imgDomain = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgDomain);
+					
+					ProductPicture pp = listPP.get(0);
+					String fileOriUrl = pp.getProductPicProductUrl();
+						
+					String displayUrl = imgDomain + awsBucketName + "/" + fileOriUrl;
+					op.setProductPicUrlFirst(displayUrl);
+				} 
+				
 				listpo.add(op);
 			}
 			

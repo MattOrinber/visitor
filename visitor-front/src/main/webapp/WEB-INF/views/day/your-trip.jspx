@@ -35,7 +35,25 @@
 ]]>
 					<c:choose>
 						<c:when test="${not empty productOrders}">
-							
+							<c:forEach items="${productOrders}" var="productOrderBundle" varStatus="status">
+		<![CDATA[
+								<div class="message">
+		]]>
+								<c:choose>
+									<c:when test="${not empty productOrderBundle.productPicUrlFirst}">
+										<div class="photo photo1"><img src="${productOrderBundle.productPicUrlFirst}" width="28"/></div>
+									</c:when>
+									<c:otherwise>
+										<div class="photo photo1"></div>
+									</c:otherwise>
+								</c:choose>
+		<![CDATA[
+			                        <div class="time" style="width:300px;">
+										<a href="${pageContext.request.contextPath}/day/product?pid=${productOrderBundle.product.productId}" class="title">${productOrderBundle.product.productRoomType} in ${productOrderBundle.product.productCity}</a>
+			                        </div>
+			                   </div>
+		]]>
+							</c:forEach>
 						</c:when>
 						<c:otherwise>
 							<div class="message">

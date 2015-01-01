@@ -21,7 +21,7 @@
     	<a href="javascript:void(0);" class="select">Dashboard</a>
         <a href="${pageContext.request.contextPath}/day/inbox">Inbox</a>
         <a href="javascript:toListing();">Your Listings</a>
-        <a href="javascript:void(0);">Your Inquiries</a>
+        <a href="${pageContext.request.contextPath}/day/your-trip">Your trips</a>
         <a href="${pageContext.request.contextPath}/day/edit">Edit Profile</a>
     </div>
 </div>

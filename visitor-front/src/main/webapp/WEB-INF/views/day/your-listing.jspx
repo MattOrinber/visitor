@@ -22,7 +22,7 @@
     	<a href="${pageContext.request.contextPath}/day/dashboard">Dashboard</a>
         <a href="${pageContext.request.contextPath}/day/inbox">Inbox</a>
         <a href="javascript:void(0);" class="select">Your Listings</a>
-        <a href="javascript:void(0);">Your Inquiries</a>
+        <a href="${pageContext.request.contextPath}/day/your-trip">Your trips</a>
         <a href="${pageContext.request.contextPath}/day/edit">Edit Profile</a>
     </div>
 </div>
@@ -39,25 +39,34 @@
                 </span>
 ]]>
 				<c:if test="${not empty productList}">
-					<c:forEach items="${productList}" var="productT" varStatus="status">
+					<c:forEach items="${productList}" var="productOrderBundle" varStatus="status">
 <![CDATA[
 						<div class="message">
-	                        <div class="photo photo1"></div>
+]]>
+							<c:choose>
+								<c:when test="${not empty productOrderBundle.productPicUrlFirst}">
+									<div class="photo photo1"><img src="${productOrderBundle.productPicUrlFirst}" width="28"/></div>
+								</c:when>
+								<c:otherwise>
+									<div class="photo photo1"></div>
+								</c:otherwise>
+							</c:choose>
+<![CDATA[
 	                        <div class="time" style="width:300px;">
 ]]>
-							<c:if test="${productT.productStatus == 0}">
-	                        	<a href="${pageContext.request.contextPath}/day/calendar?pid=${productT.productId}" class="title">${productT.productRoomType} in ${productT.productCity}</a>
+							<c:if test="${productOrderBundle.product.productStatus == 0}">
+	                        	<a href="${pageContext.request.contextPath}/day/calendar?pid=${productOrderBundle.product.productId}" class="title">${productOrderBundle.product.productRoomType} in ${productOrderBundle.product.productCity}</a>
 	                        </c:if>
 	                        
-	                        <c:if test="${productT.productStatus != 0}">
-	                        	<a href="${pageContext.request.contextPath}/day/product?pid=${productT.productId}" class="title">${productT.productRoomType} in ${productT.productCity}</a>
+	                        <c:if test="${productOrderBundle.product.productStatus != 0}">
+	                        	<a href="${pageContext.request.contextPath}/day/product?pid=${productOrderBundle.product.productId}" class="title">${productOrderBundle.product.productRoomType} in ${productOrderBundle.product.productCity}</a>
 	                        </c:if>
 <![CDATA[
-	                            <a href="${pageContext.request.contextPath}/day/calendar?pid=${productT.productId}" class="calendar">Manage Listing and Calendar</a>
+	                            <a href="${pageContext.request.contextPath}/day/calendar?pid=${productOrderBundle.product.productId}" class="calendar">Manage Listing and Calendar</a>
 	                        </div>
 	                        <div class="price" style="width:200px;">
 ]]>
-								<c:if test="${productT.productStatus == 1}">
+								<c:if test="${productOrderBundle.product.productStatus == 1}">
 <![CDATA[
 									<a href="javascript:void(0);" class="dot dot1"></a>
 									<select>
@@ -67,7 +76,7 @@
 ]]>
 								</c:if>
 								
-								<c:if test="${productT.productStatus == 2}">
+								<c:if test="${productOrderBundle.product.productStatus == 2}">
 <![CDATA[
 									<a href="javascript:void(0);" class="dot"></a>
 									<select>
@@ -77,8 +86,8 @@
 ]]>
 								</c:if>
 								
-								<c:if test="${productT.productStatus == 0}">
-									<a href="${pageContext.request.contextPath}/day/calendar?pid=${productT.productId}" class="btn">6 steps to list</a>
+								<c:if test="${productOrderBundle.product.productStatus == 0}">
+									<a href="${pageContext.request.contextPath}/day/calendar?pid=${productOrderBundle.product.productId}" class="btn">6 steps to list</a>
 								</c:if>
 <![CDATA[     
 	                        </div>
