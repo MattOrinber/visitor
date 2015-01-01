@@ -280,6 +280,8 @@ public class OrderController extends BasicController {
 		
 		String oriJsonResponseStr = HttpClientUtil.httpGetJSON(setExpressCheckoutURL);
 		
+		log.info("paypal response ori: >"+oriJsonResponseStr+"<");
+		
 		Map<String, String> jsonResponseOri = JSON.parseObject(oriJsonResponseStr, new TypeReference<Map<String, String>>(){});
 		
 		boolean ifCorrect = false;
@@ -363,6 +365,8 @@ public class OrderController extends BasicController {
 			String setExpressCheckoutURL = targetECURL + paramFinal;
 			
 			String oriJsonResponseStr = HttpClientUtil.httpGetJSON(setExpressCheckoutURL);
+			
+			log.info("paypal response ori: >"+oriJsonResponseStr+"<");
 			
 			if (StringUtils.isNotEmpty(oriJsonResponseStr)) {
 			
@@ -580,6 +584,8 @@ public class OrderController extends BasicController {
 			String setExpressCheckoutURL = targetECURL + paramFinal;
 			
 			String oriJsonResponseStr = HttpClientUtil.httpGetJSON(setExpressCheckoutURL);
+			
+			log.info("paypal response ori: >"+oriJsonResponseStr+"<");
 			
 			if (StringUtils.isNotEmpty(oriJsonResponseStr)) {
 			
