@@ -4,9 +4,11 @@ public class BuyTemp {
 	private String startDate;
 	private String endDate;
 	private String productIdStr;
+	private String totalCountStr;
 	
 	private String orderIdStr;
 	private String priceIdStr;
+	private String priceAmount;
 	
 	public String getStartDate() {
 		return startDate;
@@ -37,5 +39,17 @@ public class BuyTemp {
 	}
 	public void setPriceIdStr(String priceIdStr) {
 		this.priceIdStr = priceIdStr;
+	}
+	public String getPriceAmount() {
+		return priceAmount;
+	}
+	public void setPriceAmount(String priceAmount) {
+		this.priceAmount = priceAmount;
+	}
+	public String getTotalCountStr() {
+		return totalCountStr;
+	}
+	public void setTotalCountStr(String totalCountStr) {
+		this.totalCountStr = totalCountStr;
 	}
 }

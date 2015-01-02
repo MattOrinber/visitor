@@ -162,8 +162,8 @@ public class OrderController extends BasicController {
 		super.sendJSONResponse(rj, response);
 	}
 	
-	@RequestMapping("addToPrice")
-	public void addToTotalPrice(HttpServletRequest request,
+	@RequestMapping("addBasicPrice")
+	public void addBasicPrice(HttpServletRequest request,
 			HttpServletResponse response) {
 		Integer result = 0;
 		String resultDesc = OrderInfo.PRODUCT_AMOUNT_CALC_DONE;
@@ -175,23 +175,23 @@ public class OrderController extends BasicController {
 		if (btTemp != null) {
 			try {
 				String orderIdStr = btTemp.getOrderIdStr();
-				String priceIdStr = btTemp.getPriceIdStr();
+				String totalAmountStr = btTemp.getTotalCountStr();
 				
 				if (StringUtils.isNotEmpty(orderIdStr) &&
-						StringUtils.isNotEmpty(priceIdStr)) {
+						StringUtils.isNotEmpty(totalAmountStr)) {
 					ProductOrder po = orderRedisService.getUserOrder(userTemp, Long.valueOf(orderIdStr));
-					ProductMultiPrice pmp = productRedisService.getProductMultiPriceSetByProductIdAndKey(po.getOrderProductId(), priceIdStr);
+					Product pro = productRedisService.getProductFromRedis(po.getOrderProductId());
 					
-					Double pmpPrice = pmp.getPmpProductPriceValue();
-					
-					Double finalPrice = po.getOrderTotalAmount() + pmpPrice;
-					po.setOrderTotalAmount(finalPrice);
+					Double totalPricePre = Double.valueOf(pro.getProductBaseprice())*Integer.valueOf(totalAmountStr);
+					po.setOrderTotalAmount(totalPricePre);
+					po.setOrderRemainAmount(totalPricePre);
+					po.setOrderTotalCount(Integer.valueOf(totalAmountStr));
 					
 					visitorProductOrderService.saveProductOrder(po);
 					orderRedisService.saveUserOrders(userTemp, po);
 					orderRedisService.saveProductOrders(po);
 					
-					rj.setPoPrice(finalPrice);
+					rj.setPoPrice(po.getOrderTotalAmount());
 				} else {
 					result = -1;
 					resultDesc = OrderInfo.PRODUCT_BUY_TEMP_NOT_RIGHT;
@@ -210,6 +210,112 @@ public class OrderController extends BasicController {
 		super.sendJSONResponse(rj, response);
 	}
 	
+	@RequestMapping("addToPrice")
+	public void addToTotalPrice(HttpServletRequest request,
+			HttpServletResponse response) {
+		Integer result = 0;
+		String resultDesc = OrderInfo.PRODUCT_AMOUNT_CALC_DONE;
+		ResultJson rj = new ResultJson();
+		
+		BuyTemp btTemp = super.getBuyTempJSON(request);
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		
+		if (btTemp != null) {
+			try {
+				String orderIdStr = btTemp.getOrderIdStr();
+				String priceIdStr = btTemp.getPriceIdStr();
+				String priceAmountStr = btTemp.getPriceAmount();
+				
+				if (StringUtils.isNotEmpty(orderIdStr) &&
+						StringUtils.isNotEmpty(priceIdStr) &&
+						StringUtils.isNotEmpty(priceAmountStr)) {
+					ProductOrder po = orderRedisService.getUserOrder(userTemp, Long.valueOf(orderIdStr));
+					ProductMultiPrice pmp = productRedisService.getProductMultiPriceSetByProductIdAndKey(po.getOrderProductId(), priceIdStr);
+					Product pro = productRedisService.getProductFromRedis(po.getOrderProductId());
+					
+					dealWithPriceIds(pro, po, pmp, Integer.valueOf(priceAmountStr));
+					
+					visitorProductOrderService.saveProductOrder(po);
+					orderRedisService.saveUserOrders(userTemp, po);
+					orderRedisService.saveProductOrders(po);
+					
+					rj.setPoPrice(po.getOrderTotalAmount());
+				} else {
+					result = -1;
+					resultDesc = OrderInfo.PRODUCT_BUY_TEMP_NOT_RIGHT;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			result = -1;
+			resultDesc = OrderInfo.PRODUCT_BUY_TEMP_NOT_RIGHT;
+		}
+		
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		super.sendJSONResponse(rj, response);
+	}
+	
+	private void dealWithPriceIds(Product pro, ProductOrder po, ProductMultiPrice pmp,
+			Integer currentAmount) {
+		// TODO Auto-generated method stub
+		String priceIdsStr = po.getOrderMultipriceIds();
+		String priceIdsCountStr = po.getOrderMultipriceIdsCount();
+		String currentPriceIdStr = String.valueOf(pmp.getPmpId().longValue());
+		
+		Map<String, Integer> mapPrice = new HashMap<String, Integer>();
+		
+		if (StringUtils.isNotEmpty(priceIdsStr) && StringUtils.isNotEmpty(priceIdsCountStr)) {
+			String[] idArray = priceIdsStr.split(";");
+			String[] idCountArray = priceIdsCountStr.split(";");
+			
+			if (idArray.length != idCountArray.length) {
+				log.info("original list not right");
+			} else {
+				
+				for (int i = 0; i < idArray.length; i ++) {
+					mapPrice.put(idArray[i], Integer.valueOf(idCountArray[i]));
+				}
+				
+				if (currentAmount.intValue() == 0) {
+					mapPrice.remove(currentPriceIdStr);
+				} else {
+					mapPrice.put(currentPriceIdStr, currentAmount);
+				}
+			}
+		} else {
+			mapPrice.put(currentPriceIdStr, currentAmount);
+		}
+		
+		String priceIdsStrFinal = "";
+		String priceIdsCountStrFinal = "";
+		Double finalAmount = (po.getOrderTotalCount()) * Double.valueOf(pro.getProductBaseprice());
+		if (!mapPrice.isEmpty()) {
+			int idx = 0;
+			for (String priceIdT : mapPrice.keySet()) {
+				ProductMultiPrice pmpT = productRedisService.getProductMultiPriceSetByProductIdAndKey(po.getOrderProductId(), priceIdT);
+				Integer countT = mapPrice.get(priceIdT);
+				finalAmount = finalAmount + countT * pmpT.getPmpProductPriceValue();
+				
+				if (idx == 0) {
+					priceIdsStrFinal = priceIdsStrFinal + priceIdT;
+					priceIdsCountStrFinal = priceIdsCountStrFinal + String.valueOf(countT.intValue());
+				} else {
+					priceIdsStrFinal = priceIdsStrFinal + ";" + priceIdT;
+					priceIdsCountStrFinal = priceIdsCountStrFinal + ";" + String.valueOf(countT.intValue());
+				}
+				idx ++;
+			}
+		}
+		
+		po.setOrderTotalAmount(finalAmount);
+		po.setOrderRemainAmount(finalAmount);
+		po.setOrderMultipriceIds(priceIdsStrFinal);
+		po.setOrderMultipriceIdsCount(priceIdsCountStrFinal);
+	}
+
 	//paypal express checkout pay order utilities
 	@RequestMapping(value="expressCheckout/{poId}/{ppoId}")
 	public String expressCheckout(HttpServletRequest request,

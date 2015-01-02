@@ -204,7 +204,7 @@
         <div class="rightbox">
             <div class="book">
                 <div class="price">
-                    $ ${productInfo.productBaseprice}<span>Per Night</span>
+                    $ ${productInfo.productBaseprice}<span> Each</span>
                 </div>
 ]]>
 				<c:choose>
@@ -217,17 +217,19 @@
 		      			<div id="priceBasicSetPart" class="date">
 		                    select Date: <input id="toOrderStartDate" type="text" placeholder="2014-10-30" />
 		                </div>
+		                
+		                <div id="hiddenServicePricePart" style="display:none;">
+		                	<label>Participant:</label><label>$ ${productInfo.productBaseprice}</label> <input id="orderBasicPriceCount" type="text" onblur="addBasicPrice(this);" /><br />
 		            ]]>
 		                <c:if test="${not empty multiPriceSet}">
-		                	<div id="hiddenServicePricePart" style="display:none;">
-								<h4>More Service</h4>
-								<c:forEach items="${multiPriceSet}" var="priceSpecial" varStatus="status">
-									<input data-key="${priceSpecial.pmpProductPriceKey}" type="checkbox" onclick="addServicePrice(this);" /><label>${priceSpecial.pmpProductPriceKey} </label><label>$ ${priceSpecial.pmpProductPriceValue}</label><br />
-					            	<hr/>
-								</c:forEach>
-							</div>
+							<h4>More Service</h4>
+							<c:forEach items="${multiPriceSet}" var="priceSpecial" varStatus="status">
+								<label>${priceSpecial.pmpProductPriceKey} </label><label>$ ${priceSpecial.pmpProductPriceValue}</label><input data-key="${priceSpecial.pmpProductPriceKey}" data-amount="0" type="text" onblur="addServicePrice(this);" placeholder="0"/><br />
+				            	<hr/>
+							</c:forEach>
 						</c:if>
 					<![CDATA[
+						</div>
 		                <div class="booking">
 		                	<a id="toPayOrderButton" href="javascript:void(0);">instant book</a> 
 		                </div>

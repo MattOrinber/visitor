@@ -33,6 +33,8 @@ public class ProductOrder {
 	private Double orderRemainAmount;
 	private String orderCurrency;
 	private String orderMultipriceIds;
+	private Integer orderTotalCount;
+	private String orderMultipriceIdsCount;
 	
 	@Column(name = "order_id", nullable = false, unique = true, precision = 20)
 	@GeneratedValue
@@ -150,5 +152,22 @@ public class ProductOrder {
 	}
 	public void setOrderMultipriceIds(String orderMultipriceIds) {
 		this.orderMultipriceIds = orderMultipriceIds;
+	}
+	
+	@Column(name = "order_total_count", precision = 10)
+	public Integer getOrderTotalCount() {
+		return orderTotalCount;
+	}
+	public void setOrderTotalCount(Integer orderTotalCount) {
+		this.orderTotalCount = orderTotalCount;
+	}
+	
+	@Length(max = 511)
+	@Column(name="order_multiprice_ids_count")
+	public String getOrderMultipriceIdsCount() {
+		return orderMultipriceIdsCount;
+	}
+	public void setOrderMultipriceIdsCount(String orderMultipriceIdsCount) {
+		this.orderMultipriceIdsCount = orderMultipriceIdsCount;
 	}
 }
