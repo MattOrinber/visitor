@@ -97,15 +97,12 @@ function addServicePrice(node) {
 	if (orderIdReturnedFromExtraPriceSet > 0) {
 		var orderIdStr = orderIdReturnedFromExtraPriceSet + "";
 		var priceSetId = $(node).attr("data-key");
-		var dateStrTemp = $("#toOrderStartDate").val();
 		
 		var buyTemp = {};
 		buyTemp.orderIdStr = orderIdStr;
 		buyTemp.priceIdStr = priceSetId;
-		buyTemp.startDate = dateStrTemp;
-		buyTemp.endDate = dateStrTemp;
 		
-		var urlStrStr = pathGlobe + '/order/calcTotalPrice';
+		var urlStrStr = pathGlobe + '/order/addToPrice';
 	    var jsonStr = $.toJSON(buyTemp);
 	    
 	    $.ajax({ 
