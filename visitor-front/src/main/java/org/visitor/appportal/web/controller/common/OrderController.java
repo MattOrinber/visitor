@@ -259,7 +259,7 @@ public class OrderController extends BasicController {
 		// TODO Auto-generated method stub
 		String priceIdsStr = po.getOrderMultipriceIds();
 		String priceIdsCountStr = po.getOrderMultipriceIdsCount();
-		String currentPriceIdStr = String.valueOf(pmp.getPmpId().longValue());
+		String currentPriceIdStr = pmp.getPmpProductPriceKey();
 		
 		Map<String, Integer> mapPrice = new HashMap<String, Integer>();
 		
