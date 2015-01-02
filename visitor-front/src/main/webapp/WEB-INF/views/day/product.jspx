@@ -251,13 +251,6 @@
 <![CDATA[
         
         <table width="680" border="0">
-          <tr>
-            <td class="title">The Space</td>
-            <td class="middle">
-             	 <div>Property type: <strong><a href="#">${productInfo.productRoomType}</a></strong></div>
-             	 <div>Accommodates: <strong>${productInfo.productAccomodates}</strong></div>
-            </td>
-          </tr>
 ]]>
 		<c:if test="${not empty productInfo and not empty productInfo.productCancellationpolicy}">
 			<tr>
