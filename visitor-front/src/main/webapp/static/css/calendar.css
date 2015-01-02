@@ -60,26 +60,3 @@ body{background:#f7f7f7;}
 
 .backtotop a{display:block;width:100%;height:50px;background:url(../img/totop.png) no-repeat center 7px #d9ccb9;cursor:pointer;}
 .backtotop a:hover{background:url(../img/totop.png) no-repeat center bottom #674702;}
-
-
-
-.wrapwrapbox{width:100%;height:100%;position:fixed;left:0;top:0;background:rgba(0,0,0,0.75);z-index:9998;display:none;}
-.wrapbox .signupbox{position:fixed;left:50%;top:0;z-index:9999;width:315px;height:260px;background:#fff;border-radius:3px;margin-left:-150px;margin-top:220px;padding-top:20px;display:none;}
-.wrapbox .signupbox a.facebook,.wrapbox .signupbox a.email{border:1px solid #d52b2a;border-bottom:1px solid #8a1c1b;background:#d52b2a;border-radius:3px;color: #fff;display:block;width:260px;height:40px;text-align:center;line-height:40px;margin:0 auto;margin-bottom:20px;}
-.wrapbox .signupbox a.facebook:hover,.wrapbox .signupbox a.email:hover{background:#df4c4b;}
-.wrapbox .signupbox span.terms{display:block;width:260px;margin:0 auto;font-size:12px;color:#666;margin-top:10px;line-height:20px;height:80px;border-bottom:1px solid #d2d2d2;}
-.wrapbox .signupbox span.terms a{color:#df4c4b;}
-.wrapbox .signupbox span.terms a:hover{text-decoration:underline;}
-.wrapbox .signupbox span.loginbutton{display:block;width:260px;margin:0 auto;margin-top:20px;font-size:14px;}
-.wrapbox .signupbox span.loginbutton a{color:#df4c4b;}
-.wrapbox .signupbox span.loginbutton a:hover{text-decoration:underline;}
-.wrapbox .signupbox span.or{margin-left:150px;margin-bottom:5px;}
-.wrapbox .signupbox span.username{display:block;width:260px;height:35px;margin:0 auto;margin-bottom:15px;border:1px solid #d4d4d4; border-radius:2px;background:url(../img/email.png) no-repeat 230px center;}
-.wrapbox .signupbox span.password{background:url(../img/lock.png) no-repeat 230px center;}
-.wrapbox .signupbox span.username input{width:220px;height:32px;border:none;outline:none;padding-left:5px;}
-.wrapbox .signupbox span.checkbox{width:150px;height:25px;margin-left:28px;font-size:13px;}
-.wrapbox .signupbox span.checkbox input{width:14px;height:14px;background:#fff;margin-right:3px}
-.wrapbox .signupbox span.forget{float:right;margin-right:28px;}
-.wrapbox .signupbox span.forget a{font-size:14px;color:#df4c4b;}
-.wrapbox .signupbox span.forget a:hover{text-decoration:underline;}
-.wrapbox .signupbox a.login{margin-top:20px;background:#e76261;}
