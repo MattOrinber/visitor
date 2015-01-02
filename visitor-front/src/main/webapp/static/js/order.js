@@ -150,7 +150,7 @@ function addServicePrice(node) {
 		
 		if (formerAmount != currentAmount) {
 			
-			var regExInt = /^[0-9]*[1-9][0-9]*$/;
+			var regExInt = /^\d+$/;
 			if (regExInt.test(currentAmount)) {
 				var buyTemp = {};
 				buyTemp.orderIdStr = orderIdStr;
