@@ -82,6 +82,13 @@ public class IndexController extends BasicController {
 		
 		return "index";
 	}
+	
+	@RequestMapping({"privacy"})
+	public String privacy(HttpServletRequest request, 
+			HttpServletResponse response,
+			Model model) {
+		return "privacy";
+	}
 
 	@RequestMapping({"index1"})
 	public String indexOne(HttpServletRequest request, HttpServletResponse response,  Model model) {
