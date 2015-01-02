@@ -90,10 +90,12 @@ public class MixAndMatchUtils {
 	
 	public static void setUserCookie(HttpServletResponse response, String userEmailStr, String userAccessTokenStr, Integer expireSeconds) {
 		Cookie cookie_token = new Cookie(COOKIE_NAME_USER_ACCESS_TOKEN, userAccessTokenStr);
+		cookie_token.setPath("/");
 		cookie_token.setMaxAge(expireSeconds);
 		response.addCookie(cookie_token);
 		
 		Cookie cookie_email = new Cookie(COOKIE_NAME_USER_EMAIL, userEmailStr);
+		cookie_email.setPath("/");
 		cookie_email.setMaxAge(expireSeconds);
 		response.addCookie(cookie_email);
 	}
