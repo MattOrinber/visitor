@@ -62,6 +62,7 @@ import org.visitor.appportal.visitor.domain.VisitorLanguage;
 import org.visitor.appportal.web.mailutils.SendMailUtils;
 import org.visitor.appportal.web.mailutils.UserMailException;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
+import org.visitor.appportal.web.utils.ProductInfo;
 import org.visitor.appportal.web.utils.ProductInfo.ProductOperationTypeEnum;
 
 import com.alibaba.fastjson.JSON;
@@ -531,10 +532,12 @@ public class BasicController {
 		}
 	}
 	
-	protected boolean setCityProductsModel(String cityStr, HttpServletRequest request, Model model) {
+	protected boolean setCityProductsModel(String cityStr, HttpServletRequest request, Model model, Integer orderType, Long pageIdx) {
 		List<CityProduct> lcp = new ArrayList<CityProduct>();
 		
-		List<Product> list = productRedisService.getProductListFromRedis(cityStr);
+		Long pageSize = Long.valueOf(floopyThingRedisService.getFloopyValueSingle(ProductInfo.PRODUCT_PAGE_SIZE));
+		
+		List<Product> list = productRedisService.getProductListFromRedis(cityStr, orderType, pageIdx, pageSize);
 		if (list!= null && list.size() > 0) {
 			
 			for (Product product : list) {

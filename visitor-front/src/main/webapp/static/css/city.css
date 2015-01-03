@@ -18,7 +18,7 @@ body{background:#f7f7f7;}
 .header .head .loginbar a.list:hover{background-color:#12acbc;border:1px solid #12acbc;border-bottom-color: #004f58;}
 
 .content{width:1080px;overflow:hidden;margin:0 auto;margin-top:20px;}
-.content .title{width:1080px;height:50px;}
+.content .title{width:1080px;height:50px;margin-top:80px;}
 .content .title p{font-size:28px;color:#5e5e5e;float:left;}
 .content .title .sort{float:right;font-size:14px;}
 .content .title .sort select{border:1px solid #c4c4c4;width:140px;height:25px;outline:none;background:#f7f7f7;}

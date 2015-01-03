@@ -415,6 +415,7 @@ public class ProductController extends BasicController {
 			
 			//save city and product
 			productRedisService.saveProductToRedis(product);
+			productRedisService.saveProductCityOrderToRedis(product);
 		}
 		
 		ResultJson rj = new ResultJson();

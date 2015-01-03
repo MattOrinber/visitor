@@ -20,6 +20,8 @@ public class ProductInfo {
 	public static final Integer AMENITIES_TYPE_SPECIALFEATURE = 2;
 	public static final Integer AMENITIES_TYPE_HOMESAFETY = 3;
 	
+	public static final String PRODUCT_PAGE_SIZE = "product_page_size";
+	
 	public static final String PRODUCT_CREATE_SUCCESS = "product ceated successfully";
 	
 	public static final String PRODUCT_DETAIL_UPDATE_SUCCESS = "product detail update success";//0

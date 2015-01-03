@@ -3,6 +3,7 @@ package org.visitor.appportal.service.newsite.redis;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.visitor.appportal.redis.ObjectMapperWrapperForVisitor;
 import org.visitor.appportal.redis.RedisKeysForVisitor;
+import org.visitor.appportal.visitor.beans.view.PageProduct;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductAddress;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
@@ -38,15 +40,24 @@ public class ProductRedisService {
 			compressStringRedisVisitorTemplate.opsForHash().put(cityKey, cityStr, cityStr);
 		}
 		
-		String keyT = RedisKeysForVisitor.getVisitorProductInfoKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + cityStr;
-		String valueT = objectMapperWrapperForVisitor.convert2String(product);
-		String scoreStr = String.valueOf(product.getProductId().longValue());
-		compressStringRedisVisitorTemplate.opsForHash().put(keyT, scoreStr, valueT);
-		
 		String keyP = RedisKeysForVisitor.getVisitorProductInfoKey();
 		String scoreP = String.valueOf(product.getProductId().longValue());
+		String valueT = objectMapperWrapperForVisitor.convert2String(product);
 		compressStringRedisVisitorTemplate.opsForHash().put(keyP, scoreP, valueT);
+	}
+	
+	public void saveProductCityOrderToRedis(Product product) {
+		String cityStr = product.getProductCity();
 		
+		String keyNewOld = RedisKeysForVisitor.getVisitorProductCityNewOldKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + cityStr;
+		String keyPrice = RedisKeysForVisitor.getVisitorProductCityPriceKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + cityStr;
+		
+		Double scoreNewOld = new Double(product.getProductId().doubleValue());
+		String productIdStr = String.valueOf(product.getProductId());
+		Double scorePrice = Double.valueOf(product.getProductBaseprice());
+		
+		stringRedisVisitorTemplate.opsForZSet().add(keyPrice, productIdStr, scorePrice.doubleValue());
+		stringRedisVisitorTemplate.opsForZSet().add(keyNewOld, productIdStr, scoreNewOld.doubleValue());
 	}
 	
 	public List<String> getCities() {
@@ -65,17 +76,80 @@ public class ProductRedisService {
 		
 	}
 	
-	public List<Product> getProductListFromRedis(String cityStr) {
-		String keyT = RedisKeysForVisitor.getVisitorProductInfoKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + cityStr;
-		Map<Object, Object> entries = compressStringRedisVisitorTemplate.opsForHash().entries(keyT);
+	public PageProduct getCityProductListSize(String cityStr, Integer orderType, Long pageSize) {
+		String keyT = "";
+		PageProduct pageInfo = new PageProduct(); 
+		
+		switch(orderType) {
+		case 0:
+			keyT = RedisKeysForVisitor.getVisitorProductCityNewOldKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + cityStr;
+			break;
+		case 1:
+			keyT = RedisKeysForVisitor.getVisitorProductCityNewOldKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + cityStr;
+			break;
+		case 2:
+			keyT = RedisKeysForVisitor.getVisitorProductCityPriceKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + cityStr;
+			break;
+		case 3:
+			keyT = RedisKeysForVisitor.getVisitorProductCityPriceKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + cityStr;
+			break;
+		default:
+			break;
+		}
+		if (StringUtils.isNotEmpty(keyT)) {
+			Long allSize = stringRedisVisitorTemplate.opsForZSet().size(keyT);
+			Long pageNum = allSize/pageSize; 
+			Long pageResidual = allSize%pageSize; 
+			if (pageResidual > 0) {
+				pageNum ++;;
+			}
+			pageInfo.setTotalSize(allSize);
+			pageInfo.setPageNum(pageNum);
+		}
+		
+		return pageInfo;
+	}
+	
+	public List<Product> getProductListFromRedis(String cityStr, Integer orderType, Long pageIdx, Long pageSize) {
+		String keyT = "";
 		List<Product> result = null;
 		
-		if (null != entries) {
-			result = new ArrayList<Product>();
-			for(Object entry : entries.keySet()) {
-				String valueStr = (String)entries.get(entry);
-				Product productT = objectMapperWrapperForVisitor.convertToProduct(valueStr);
-				result.add(productT);
+		switch(orderType) {
+		case 0:
+			keyT = RedisKeysForVisitor.getVisitorProductCityNewOldKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + cityStr;
+			break;
+		case 1:
+			keyT = RedisKeysForVisitor.getVisitorProductCityNewOldKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + cityStr;
+			break;
+		case 2:
+			keyT = RedisKeysForVisitor.getVisitorProductCityPriceKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + cityStr;
+			break;
+		case 3:
+			keyT = RedisKeysForVisitor.getVisitorProductCityPriceKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + cityStr;
+			break;
+		default:
+			break;
+		}
+		if (StringUtils.isNotEmpty(keyT)) {
+			long start = pageIdx * pageSize;
+			long end = (pageIdx+1) * pageSize - 1;
+			
+			Set<String> listIds = null;
+			if (orderType == 0 || orderType == 1) {
+				listIds = stringRedisVisitorTemplate.opsForZSet().range(keyT, start, end);
+			} else {
+				listIds = stringRedisVisitorTemplate.opsForZSet().reverseRange(keyT, start, end);
+			}
+			
+			if (null != listIds && listIds.size() > 0) {
+				result = new ArrayList<Product>();
+				for (String pid : listIds) {
+					String keyP = RedisKeysForVisitor.getVisitorProductInfoKey();
+					String scoreP = pid;
+					String valueT = (String) compressStringRedisVisitorTemplate.opsForHash().get(keyP, scoreP);
+					Product productT = objectMapperWrapperForVisitor.convertToProduct(valueT);
+					result.add(productT);
+				}
 			}
 		}
 		return result;

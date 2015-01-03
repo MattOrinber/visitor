@@ -207,9 +207,11 @@ public class IndexController extends BasicController {
 	public String dayCity(HttpServletRequest request,
 			HttpServletResponse response, 
 			@RequestParam(value = "c", required = true) String cityStr,
+			@RequestParam(value = "o", required = true) Integer orderType,
+			@RequestParam(value = "p", required = true) Long pageIdx,
 			Model model) {
 		super.setModel(request, response, model, false);
-		super.setCityProductsModel(cityStr, request, model);
+		super.setCityProductsModel(cityStr, request, model, orderType, pageIdx);
 		
 		model.addAttribute("currentCity", cityStr);
 		model.addAttribute("pageName", "city");

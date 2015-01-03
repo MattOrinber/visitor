@@ -18,14 +18,13 @@
 <![CDATA[
 <div class="content">
 	<div class="title">
-        <p>Book Amazing  Activities in <span>Pairs</span></p>
+        <p>Book Amazing  Activities in <span>${currentCity}</span></p>
         <div class="sort">Sort By: 
             <select>
                 <option>Newest to Oldest</option>
                 <option>Oldest to Newest</option>
-                <option>A-Z</option>
-                <option>Z-A</option>
                 <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
             </select>
         </div>
     </div>
