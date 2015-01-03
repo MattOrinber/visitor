@@ -220,7 +220,7 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
 ]]>
 					<c:if test="${not empty productCities}">
 						<c:forEach items="${productCities}" var="cityT" varStatus="status">
-							<li><a href="${pageContext.request.contextPath}/day/city?c=${cityT}">${cityT}</a></li>
+							<li><a href="${pageContext.request.contextPath}/day/city?c=${cityT}&o=0&p=1">${cityT}</a></li>
 						</c:forEach>
 					</c:if>
 <![CDATA[

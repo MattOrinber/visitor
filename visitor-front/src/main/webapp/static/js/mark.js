@@ -165,8 +165,22 @@ function setGlobalCurrency() {
 
 function doCitySelect(node) {
 	var city = $(node).val();
-	var urlToGo = pathGlobe + '/day/city?c=' + city;
+	var urlToGo = pathGlobe + '/day/city?c=' + city + '&o=0&p=1';
 	
+	window.location.href = urlToGo;
+}
+
+function selectCityChange(node) {
+	var oType = $(node).val();
+	var cityStr = $(node).attr("data-city-current");
+	
+	var urlToGo = pathGlobe + '/day/city?c=' + cityStr + '&o=' + oType +'&p=1';
+	window.location.href = urlToGo;
+}
+
+function selectCityPage(cityStr, pageNum) {
+	var oType = $("#productCitySelectOrderPart").val();
+	var urlToGo = pathGlobe + '/day/city?c=' + cityStr + '&o=' + oType +'&p='+pageNum;
 	window.location.href = urlToGo;
 }
 

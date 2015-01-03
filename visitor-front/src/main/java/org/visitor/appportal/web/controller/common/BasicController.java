@@ -48,6 +48,7 @@ import org.visitor.appportal.visitor.beans.UserInternalMailTemp;
 import org.visitor.appportal.visitor.beans.UserTemp;
 import org.visitor.appportal.visitor.beans.view.CityProduct;
 import org.visitor.appportal.visitor.beans.view.OrderProduct;
+import org.visitor.appportal.visitor.beans.view.PageProduct;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductAddress;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
@@ -536,6 +537,29 @@ public class BasicController {
 		List<CityProduct> lcp = new ArrayList<CityProduct>();
 		
 		Long pageSize = Long.valueOf(floopyThingRedisService.getFloopyValueSingle(ProductInfo.PRODUCT_PAGE_SIZE));
+		
+		PageProduct pageInfo= productRedisService.getCityProductListSize(cityStr, orderType, pageSize);
+		pageInfo.setPageSize(pageSize);
+		pageInfo.setCurrentPageNum(pageIdx);
+		pageInfo.setStartPilot(new Long(3));
+		Long pageNumT = pageInfo.getPageNum();
+		if (pageNumT != null && pageNumT.longValue() > 9) {
+			pageInfo.setEndPilot(pageInfo.getPageNum() - 2);
+		} else {
+			pageInfo.setEndPilot(new Long(0));
+		}
+		Long windowStart = pageIdx - 3;
+		if (windowStart < 1) {
+			windowStart = 1L;
+		}
+		pageInfo.setWindowStart(windowStart);
+		Long windowEnd = pageIdx + 3;
+		if (windowEnd > pageNumT) {
+			windowEnd = pageNumT;
+		}
+		pageInfo.setWindowEnd(windowEnd);
+		
+		model.addAttribute("pageInfo", pageInfo);
 		
 		List<Product> list = productRedisService.getProductListFromRedis(cityStr, orderType, pageIdx, pageSize);
 		if (list!= null && list.size() > 0) {

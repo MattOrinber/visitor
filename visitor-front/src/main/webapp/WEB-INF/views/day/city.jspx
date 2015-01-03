@@ -20,11 +20,11 @@
 	<div class="title">
         <p>Book Amazing  Activities in <span>${currentCity}</span></p>
         <div class="sort">Sort By: 
-            <select>
-                <option>Newest to Oldest</option>
-                <option>Oldest to Newest</option>
-                <option>Price: Low to High</option>
-                <option>Price: High to Low</option>
+            <select id="productCitySelectOrderPart" data-city-current="${currentCity}" onchange="selectCityChange(this);">
+                <option value="0" selected="selected">Newest to Oldest</option>
+                <option value="1">Oldest to Newest</option>
+                <option value="2">Price: Low to High</option>
+                <option value="3">Price: High to Low</option>
             </select>
         </div>
     </div>
@@ -68,14 +68,60 @@
     
 </div>
 
-	<div class="page">
-    	<div class="info">
-        	<p>1-18 of <span>1000</span> Activities</p>
-            <a class="selected" href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="" style="border:none;background:none;padding:0;">...</a><a href="#">15</a><a href="">></a>
-        </div>
-    </div>
-    
 ]]>
 
+	<c:choose>
+		<c:when test="${not empty pageInfo and not empty pageInfo.ifPager and pageInfo.ifPager == 1}">
+			<![CDATA[
+			<div class="page">
+		    	<div class="info">
+		        	<p>1-${pageInfo.pageSize} of <span>${pageInfo.totalSize}</span> Activities</p>
+		    ]]>
+		    	<c:if test="${pageInfo.windowStart gt 1}">
+		    		<c:choose>
+		    			<c:when test="${not empty pageInfo.currentPageNum and pageInfo.currentPageNum eq 1}">
+		    				<a class="selected" href="javascript:void(0);">${pageInfo.currentPageNum}</a>
+		    			</c:when>
+		    			<c:otherwise>
+		    				<a href="javascript:selectCityPage('${currentCity}','1');">1</a>
+		    			</c:otherwise>
+		    		</c:choose>
+		    	</c:if>
+		    	
+		    	<c:if test="${pageInfo.windowStart gt pageInfo.startPilot}">
+		            <a href="javascript:void(0);" style="border:none;background:none;padding:0;">...</a>
+		        </c:if>
+		            
+	            <c:forEach begin="${pageInfo.windowStart}" end="${pageInfo.windowEnd}" var="pNum">
+	                <c:choose>
+	                    <c:when test="${pageInfo.currentPageNum eq pNum}">
+	                    	<a class="selected" href="javascript:void(0);">${pNum}</a>
+	                    </c:when>
+	                    <c:otherwise>
+	                        <a href="javascript:selectCityPage('${currentCity}','${pNum}');">${pNum}</a>
+	                    </c:otherwise>
+	                </c:choose>
+	            </c:forEach>
+	            
+		        <c:if test="${pageInfo.windowStart lt pageInfo.endPilot}">
+		            <a href="javascript:void(0);" style="border:none;background:none;padding:0;">...</a>
+		        </c:if>
+		        
+		        <c:if test="${pageInfo.windowEnd lt pageInfo.pageNum}">
+		    		<c:choose>
+		    			<c:when test="${not empty pageInfo.currentPageNum and pageInfo.currentPageNum eq pageInfo.pageNum}">
+		    				<a class="selected" href="javascript:void(0);">${pageInfo.currentPageNum}</a>
+		    			</c:when>
+		    			<c:otherwise>
+		    				<a href="javascript:selectCityPage('${currentCity}','${pageInfo.pageNum}');">${pageInfo.pageNum}</a>
+		    			</c:otherwise>
+		    		</c:choose>
+		    	</c:if>
+		    <![CDATA[
+		        </div>
+		    </div>
+		    ]]>
+		</c:when>
+	</c:choose>
 </body>
 </html>

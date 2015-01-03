@@ -103,6 +103,11 @@ public class ProductRedisService {
 			if (pageResidual > 0) {
 				pageNum ++;;
 			}
+			if (pageNum > 1) {
+				pageInfo.setIfPager(new Integer(1));
+			} else {
+				pageInfo.setIfPager(new Integer(0));
+			}
 			pageInfo.setTotalSize(allSize);
 			pageInfo.setPageNum(pageNum);
 		}
@@ -131,8 +136,8 @@ public class ProductRedisService {
 			break;
 		}
 		if (StringUtils.isNotEmpty(keyT)) {
-			long start = pageIdx * pageSize;
-			long end = (pageIdx+1) * pageSize - 1;
+			long start = (pageIdx-1) * pageSize;
+			long end = pageIdx * pageSize - 1;
 			
 			Set<String> listIds = null;
 			if (orderType == 0 || orderType == 1) {
