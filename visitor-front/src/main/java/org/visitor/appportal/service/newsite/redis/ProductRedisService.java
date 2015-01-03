@@ -140,7 +140,7 @@ public class ProductRedisService {
 			long end = pageIdx * pageSize - 1;
 			
 			Set<String> listIds = null;
-			if (orderType == 0 || orderType == 1) {
+			if (orderType == 1 || orderType == 2) {
 				listIds = stringRedisVisitorTemplate.opsForZSet().range(keyT, start, end);
 			} else {
 				listIds = stringRedisVisitorTemplate.opsForZSet().reverseRange(keyT, start, end);

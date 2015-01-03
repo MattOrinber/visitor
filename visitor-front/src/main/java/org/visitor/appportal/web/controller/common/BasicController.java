@@ -560,6 +560,7 @@ public class BasicController {
 		pageInfo.setWindowEnd(windowEnd);
 		
 		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("orderTypeCurrent", orderType);
 		
 		List<Product> list = productRedisService.getProductListFromRedis(cityStr, orderType, pageIdx, pageSize);
 		if (list!= null && list.size() > 0) {
