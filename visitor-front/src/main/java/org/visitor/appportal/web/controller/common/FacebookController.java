@@ -171,7 +171,7 @@ public class FacebookController extends BasicController {
 		}
 		
 		super.setModel(request, response, model, true);
-		return "index";
+		return "redirect:/index";
 	}
 	
 	private TokenBean getAccessToken(String sourceStr) {
