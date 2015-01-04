@@ -111,6 +111,7 @@ public class OrderController extends BasicController {
 						ProductOrder po = new ProductOrder();
 						Date currentDate = new Date();
 						po.setOrderCreateDate(new Date());
+						po.setOrderTotalCount(1);
 						po.setOrderStartDate(startDateT);
 						po.setOrderEndDate(endDateT);
 						po.setOrderProductId(product.getProductId());

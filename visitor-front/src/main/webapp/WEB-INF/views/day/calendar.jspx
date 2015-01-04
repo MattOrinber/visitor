@@ -74,7 +74,7 @@
 <![CDATA[
         </ul>
         <div id="placeToPublishDiv" class="step">
-        	Complete <span><span>5</span> steps</span><br />to list your space.
+        	Complete <span><span id="remainStepsSpan">${stepsRemain}</span> steps</span><br />to list your space.
         </div>
     </div>
 ]]>
