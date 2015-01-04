@@ -62,8 +62,17 @@ function publishProduct() {
 
 function checkCanPublish(ifCan) {
 	if (ifCan == 1) {
-		$("#placeToPublishDiv").html('<input type="button" value="List space" onclick="publishProduct();" />');
+		$("#placeToPublishDiv").html('<a href="javasrcript:publishProduct();" style="width: 150px;text-align: center;height: 35px;display: inline-block;background:#ff5a5f;border:1px solid #ff5a5f;border-bottom-color: #e00007;color: #fff;line-height: 35px;border-radius: 3px;">List Space</a>');
 	}
+}
+
+function playSaving() {
+	$("#dispearText_saving").show().animate({opacity:0},2000); 
+}
+
+function playSaved() {
+	$("#dispearText_saving").hide();
+	$("#dispearText_saved").show().animate({opacity:0},2000);
 }
 
 function saveProductAvailableType(availType) {
@@ -77,6 +86,8 @@ function saveProductAvailableType(availType) {
     var urlStrStr = pathGlobe + '/product/availtype';
     var jsonStr = $.toJSON(productDetail);
     
+    playSaving();
+    
     $.ajax({ 
         type : 'POST',  
         contentType : 'application/json',  
@@ -86,7 +97,7 @@ function saveProductAvailableType(availType) {
         data : jsonStr,  
         success : function(data) {  
         	checkCanPublish(data.productCan);
-        	alert("save calendar success");
+        	playSaved();
         },  
         error : function() {  
             alert('Err...');  
@@ -112,6 +123,8 @@ function saveProductPriceSetting() {
 		    var urlStrStr = pathGlobe + '/product/pricing';
 		    var jsonStr = $.toJSON(productDetail);
 		    
+		    playSaving();
+		    
 		    $.ajax({ 
 		        type : 'POST',  
 		        contentType : 'application/json',  
@@ -121,7 +134,7 @@ function saveProductPriceSetting() {
 		        data : jsonStr,  
 		        success : function(data) {  
 		        	checkCanPublish(data.productCan);
-		        	alert("save price success");
+		        	playSaved();
 		        },  
 		        error : function() {  
 		            alert('Err...');  
@@ -150,6 +163,8 @@ function onProductDescAndTitle() {
 		    var urlStrStr = pathGlobe + '/product/description';
 		    var jsonStr = $.toJSON(productDetail);
 		    
+		    playSaving();
+		    
 		    $.ajax({ 
 		        type : 'POST',  
 		        contentType : 'application/json',  
@@ -159,7 +174,7 @@ function onProductDescAndTitle() {
 		        data : jsonStr,  
 		        success : function(data) {  
 		        	checkCanPublish(data.productCan);
-		        	alert("save description success");
+		        	playSaved();
 		        },  
 		        error : function() {  
 		            alert('Err...');  
@@ -182,6 +197,8 @@ function productAddressUpdate() {
 	    var urlStrStr = pathGlobe + '/product/address';
 	    var jsonStr = $.toJSON(productAddress);
 	    
+	    playSaving();
+	    
 	    $.ajax({ 
 	        type : 'POST',  
 	        contentType : 'application/json',  
@@ -191,7 +208,7 @@ function productAddressUpdate() {
 	        data : jsonStr,  
 	        success : function(data) {  
 	        	checkCanPublish(data.productCan);
-	        	alert("save address success");
+	        	playSaved();
 	        },  
 	        error : function() {  
 	            alert('Err...');  
@@ -211,6 +228,8 @@ function setProductCancellationPolicy() {
     var urlStrStr = pathGlobe + '/product/cancellationpolicy';
     var jsonStr = $.toJSON(productDetail);
     
+    playSaving();
+    
     $.ajax({ 
         type : 'POST',  
         contentType : 'application/json',  
@@ -220,7 +239,7 @@ function setProductCancellationPolicy() {
         data : jsonStr,  
         success : function(data) {  
         	checkCanPublish(data.productCan);
-        	alert("save cancellation policy success");
+        	playSaved();
         },  
         error : function() {  
             alert('Err...');  

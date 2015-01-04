@@ -91,6 +91,10 @@
         </div>
     </div>
     <div class="rightbox">
+    	<div class="saving-saved" style="position:relative;float:left;margin-top:10px;margin-left:450px;">
+            <p id="dispearText_saving" style="position:absolute;left:0;top:0;font-size:16px;font-weight:bold;color:#F30;">Saving...</p>
+            <p id="dispearText_saved" style="display:none;position:absolute;left:0;top:0;font-size:16px;font-weight:bold;color:#F30;">Saved!</p>
+        </div>
 		<div class="pricebox">
         	<div class="up">
             	<div class="baseprice">
