@@ -165,9 +165,10 @@ function setGlobalCurrency() {
 
 function doCitySelect(node) {
 	var city = $(node).val();
-	var urlToGo = pathGlobe + '/day/city?c=' + city + '&o=0&p=1';
-	
-	window.location.href = urlToGo;
+	if (city != "--") {
+		var urlToGo = pathGlobe + '/day/city?c=' + city + '&o=0&p=1';
+		window.location.href = urlToGo;
+	}
 }
 
 function selectCityChange(node) {

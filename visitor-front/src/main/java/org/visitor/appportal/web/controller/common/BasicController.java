@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ import org.visitor.appportal.visitor.beans.ProductPriceMultiTemp;
 import org.visitor.appportal.visitor.beans.ProductTemp;
 import org.visitor.appportal.visitor.beans.UserInternalMailTemp;
 import org.visitor.appportal.visitor.beans.UserTemp;
+import org.visitor.appportal.visitor.beans.view.CityName;
 import org.visitor.appportal.visitor.beans.view.CityProduct;
 import org.visitor.appportal.visitor.beans.view.OrderProduct;
 import org.visitor.appportal.visitor.beans.view.PageProduct;
@@ -367,8 +369,25 @@ public class BasicController {
 			model.addAttribute("imgPathOrigin", imgPathOrigin);
 			
 			List<String> listCity = productRedisService.getCities();
+			List<CityName> listCityDisplay = new ArrayList<CityName>();
 			
-			model.addAttribute("productCities", listCity);
+			char[] checkOnes = {','};
+			for (String cityOri : listCity) {
+				String cityTo = "";
+				if (StringUtils.containsAny(cityOri, checkOnes)) {
+					cityTo = StringUtils.substring(cityOri, 0, StringUtils.indexOfAny(cityOri, checkOnes));
+				} else {
+					cityTo = cityOri;
+				}
+				CityName cn = new CityName();
+				
+				String cityURLname = URLEncoder.encode(cityOri, "UTF-8");
+				cn.setOriginName(cityURLname);
+				cn.setDisplayName(cityTo);
+				listCityDisplay.add(cn);
+			}
+			
+			model.addAttribute("productCities", listCityDisplay);
 			
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();

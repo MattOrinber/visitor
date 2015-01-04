@@ -210,12 +210,19 @@ public class IndexController extends BasicController {
 			@RequestParam(value = "o", required = true) Integer orderType,
 			@RequestParam(value = "p", required = true) Long pageIdx,
 			Model model) {
-		super.setModel(request, response, model, false);
-		super.setCityProductsModel(cityStr, request, model, orderType, pageIdx);
-		
-		model.addAttribute("currentCity", cityStr);
-		model.addAttribute("pageName", "city");
-		return "day/city";
+		try {
+			super.setModel(request, response, model, false);
+			String cityDecoded = URLDecoder.decode(cityStr, "UTF-8");
+			super.setCityProductsModel(cityDecoded, request, model, orderType, pageIdx);
+			
+			model.addAttribute("currentCity", cityStr);
+			model.addAttribute("pageName", "city");
+			return "day/city";
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "redirect:/index";
 	}
 	
 	@RequestMapping({"day/dashboard"})
