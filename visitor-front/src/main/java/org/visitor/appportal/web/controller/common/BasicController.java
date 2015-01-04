@@ -51,6 +51,7 @@ import org.visitor.appportal.visitor.beans.view.CityName;
 import org.visitor.appportal.visitor.beans.view.CityProduct;
 import org.visitor.appportal.visitor.beans.view.OrderProduct;
 import org.visitor.appportal.visitor.beans.view.PageProduct;
+import org.visitor.appportal.visitor.beans.view.ProductPictureView;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductAddress;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
@@ -636,7 +637,7 @@ public class BasicController {
 			List<ProductPicture> listPP = productRedisService.getPictureListOfOneProduct(product.getProductId());
 			
 			if (listPP != null && listPP.size() > 0) {
-				List<String> productPicUrls = new ArrayList<String>();
+				List<ProductPictureView> productPicUrls = new ArrayList<ProductPictureView>();
 				String awsBucketName = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic);
 				String imgDomain = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgDomain);
 				
@@ -644,7 +645,11 @@ public class BasicController {
 					String fileOriUrl = pp.getProductPicProductUrl();
 					
 					String displayUrl = imgDomain + awsBucketName + "/" + fileOriUrl;
-					productPicUrls.add(displayUrl);
+					ProductPictureView ppv = new ProductPictureView();
+					ppv.setPid(product.getProductId());
+					ppv.setPicId(pp.getProductPicId());
+					ppv.setPicUrl(displayUrl);
+					productPicUrls.add(ppv);
 				}
 				
 				stepsRemain --;

@@ -102,20 +102,15 @@
             	<input name="upload" type="button" value="Upload" onclick="doProductImageUpload('${pageContext.request.contextPath}');" />
             </form>
             <br />
-            <div id="resultProductPicUpload">
-]]>
-			<c:if test="${not empty productPictureList}">
-				<c:forEach items="${productPictureList}" var="productPicture" varStatus="status">
-					<c:if test="${status.index == 0}">
-					    <span>${productPicture}</span>
-					</c:if>
-					<c:if test="${status.index != 0}">
-					    <br /><span>${productPicture}</span>
-					</c:if>
-				</c:forEach>
-			</c:if>
+]]>       
+            <div id="resultProductPicUpload" class="preview">
+            	<c:if test="${not empty productPictureList}">
+					<c:forEach items="${productPictureList}" var="productPicture" varStatus="status">
+						<div class="imgbox"><img src="${productPicture.picUrl}" width="180"/><img src="${imgPathOrigin}/static/closediv.png" width="15" class="closediv" onclick="deleteProductPicture('this','${productPicture.pid}','${productPicture.picId}');"/></div>
+					</c:forEach>
+				</c:if>
+	        </div>
 <![CDATA[
-            </div>
         </div>
     </div>
 </div>

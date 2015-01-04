@@ -15,6 +15,7 @@ public class ResultJson {
 	private String imageUrl;
 	
 	private Long productId;
+	private Long productPicId;
 	private Integer productCan;
 	private Double totalPrice;
 	
@@ -121,5 +122,11 @@ public class ResultJson {
 	}
 	public void setPayOrderId(Long payOrderId) {
 		this.payOrderId = payOrderId;
+	}
+	public Long getProductPicId() {
+		return productPicId;
+	}
+	public void setProductPicId(Long productPicId) {
+		this.productPicId = productPicId;
 	}
 }

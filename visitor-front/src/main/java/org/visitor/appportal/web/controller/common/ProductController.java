@@ -324,6 +324,8 @@ public class ProductController extends BasicController {
 					productRedisService.saveUserProductToRedis(userTemp, product);
 					
 					resultJ.setImageUrl(displayUrl);
+					resultJ.setProductId(product.getProductId());
+					resultJ.setProductPicId(productPic.getProductPicId());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -341,6 +343,44 @@ public class ProductController extends BasicController {
 		resultJ.setResultDesc(resultDesc);
 		
 		checkIfProductCanBePublish(resultJ, product);
+		
+		super.sendJSONResponse(resultJ, response);
+	}
+	
+	@RequestMapping("/delpicture")
+	public void deletePicture(HttpServletRequest request, 
+			HttpServletResponse response,
+			@RequestParam(value = "picId", required = true) Long picId, 
+			@RequestParam(value = "pid", required = true) Long pid) {
+		Integer result = 0;
+		String resultDesc = "success";
+		ResultJson resultJ = new ResultJson();
+		
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		Product product = productRedisService.getUserProductFromRedis(userTemp, String.valueOf(pid.longValue()));
+		
+		if (product != null) {
+			ProductPicture poT = productRedisService.getProductPictureFromRedis(pid, picId);
+			if (poT != null) {
+				poT.setProductPicStatus(StatusTypeEnum.Inactive.ordinal());
+				
+				visitorProductPictureService.saveProductPicture(poT);
+				productRedisService.deleteProductPictureFromRedis(pid, picId);
+				
+				resultJ.setProductId(product.getProductId());
+				resultJ.setProductPicId(poT.getProductPicId());
+			} else {
+				result = -1;
+				resultDesc = ProductInfo.PRODUCT_NOTFOUND_FORUPDATE;
+			}
+			checkIfProductCanBePublish(resultJ, product);
+		} else {
+			result = -1;
+			resultDesc = ProductInfo.PRODUCT_NOTFOUND_FORUPDATE;
+		}
+		
+		resultJ.setResult(result);
+		resultJ.setResultDesc(resultDesc);
 		
 		super.sendJSONResponse(resultJ, response);
 	}

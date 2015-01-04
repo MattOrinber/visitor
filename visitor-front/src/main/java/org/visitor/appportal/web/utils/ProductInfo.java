@@ -32,6 +32,7 @@ public class ProductInfo {
 	public static final String PRODUCT_OPERATION_SAVE_SUCCESS = "product operation set success";
 	public static final String PRODUCT_PICTURE_SAVE_SUCCESS = "product picture save success";
 	public static final String PRODUCT_NOTFOUND_FORUPDATE = "product not found in redis for update";//-1
+	public static final String PRODUCT_PICTURE_NOTFOUND_FORUPDATE = "product picture not found in redis for update";//-1
 	public static final String PRODUCT_NOTFOUND_FOR_OPERATION_UPDATE = "product not found in redis for update";//-1
 	
 	public enum ProductAvailableTypeEnum {

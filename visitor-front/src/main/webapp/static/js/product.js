@@ -63,6 +63,9 @@ function publishProduct() {
 function checkCanPublish(ifCan) {
 	if (ifCan == 1) {
 		$("#placeToPublishDiv").html('<a href="javasrcript:publishProduct();" style="width: 150px;text-align: center;height: 35px;display: inline-block;background:#ff5a5f;border:1px solid #ff5a5f;border-bottom-color: #e00007;color: #fff;line-height: 35px;border-radius: 3px;">List Space</a>');
+		return 1;
+	} else {
+		return 0;
 	}
 }
 
@@ -98,6 +101,7 @@ function saveProductAvailableType(availType) {
         success : function(data) {  
         	checkCanPublish(data.productCan);
         	playSaved();
+        	$("#productCalendarLi").attr('class', 'publishchoosed');
         },  
         error : function() {  
             alert('Err...');  
@@ -135,6 +139,7 @@ function saveProductPriceSetting() {
 		        success : function(data) {  
 		        	checkCanPublish(data.productCan);
 		        	playSaved();
+		        	$("#productPriceLi").attr('class', 'publishchoosed');
 		        },  
 		        error : function() {  
 		            alert('Err...');  
@@ -175,6 +180,7 @@ function onProductDescAndTitle() {
 		        success : function(data) {  
 		        	checkCanPublish(data.productCan);
 		        	playSaved();
+		        	$("#productDescriptionLi").attr('class', 'publishchoosed');
 		        },  
 		        error : function() {  
 		            alert('Err...');  
@@ -240,6 +246,7 @@ function setProductCancellationPolicy() {
         success : function(data) {  
         	checkCanPublish(data.productCan);
         	playSaved();
+        	$("#productTermsLi").attr('class', 'publishchoosed');
         },  
         error : function() {  
             alert('Err...');  

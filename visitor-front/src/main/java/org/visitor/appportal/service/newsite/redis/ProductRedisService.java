@@ -338,11 +338,27 @@ public class ProductRedisService {
 		compressStringRedisVisitorTemplate.opsForHash().put(key, keyT, valueT);
 	}
 	
-	public void deleteProductPictureFromRedis(ProductPicture productPic) {
-		String key = RedisKeysForVisitor.getVisitorProductPictureKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + String.valueOf(productPic.getProductPicProductId().longValue());
-		String keyT = String.valueOf(productPic.getProductPicId().longValue());
+	public ProductPicture getProductPictureFromRedis(Long pid, Long picId) {
+		String key = RedisKeysForVisitor.getVisitorProductPictureKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + String.valueOf(pid.longValue());
+		String keyT = String.valueOf(picId.longValue());
+		String valueT = (String) compressStringRedisVisitorTemplate.opsForHash().get(key, keyT);
+		ProductPicture poT = null;
+		if (StringUtils.isNotEmpty(valueT)) {
+			poT = objectMapperWrapperForVisitor.convertToProductPicture(valueT);
+		}
+		
+		return poT;
+	}
+	
+	public void deleteProductPictureFromRedis(Long pid, Long picId) {
+		String key = RedisKeysForVisitor.getVisitorProductPictureKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + String.valueOf(pid.longValue());
+		String keyT = String.valueOf(picId.longValue());
 		
 		compressStringRedisVisitorTemplate.opsForHash().delete(key, keyT);
+		
+		if (compressStringRedisVisitorTemplate.opsForHash().size(key) == 0) {
+			compressStringRedisVisitorTemplate.delete(key);
+		}
 	}
 	
 	public List<ProductPicture> getPictureListOfOneProduct(Long pid) {

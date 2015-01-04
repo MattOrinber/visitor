@@ -27,6 +27,7 @@
 <![CDATA[
 <script>
 var pathGlobe = '${pageContext.request.contextPath}';
+var imgPathOriginStr = '${imgPathOrigin}';
 </script>
 ]]>
 </head>
