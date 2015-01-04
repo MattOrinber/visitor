@@ -9,9 +9,11 @@
 	</c:if>
 <![CDATA[
 	<script>
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyA6PgMSP1y1T1ykJpI1MhpiMHWlb6eObNc&sensor=false"></script>
 		$(document).ready(function(){
 			initLoginBar();
 			setGlobalCurrency();
+			autoCompleteCities('productCityInput');
 			startChecking();
 		});
 	</script>

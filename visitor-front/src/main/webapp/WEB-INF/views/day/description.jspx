@@ -124,10 +124,10 @@
 ]]>
                 <c:choose>
 					<c:when test="${not empty productInfo.productCity}">
-					    <span class="search"><input id="searchCityInput" onblur="hideCities(this);" onfocus="showCities(this);" onkeyup="displayPosResult(this);" type="text" value="${productInfo.productCity}"/></span>
+					    <span class="search"><input id="searchCityInput" onblur="hideCities(this);" onkeyup="displayPosResult(this);" type="text" value="${productInfo.productCity}"/></span>
 					</c:when>
 					<c:when test="${empty productInfo.productCity}">
-					    <span class="search"><input id="searchCityInput" onblur="hideCities(this);" onfocus="showCities(this);" onkeyup="displayPosResult(this);" type="text" /></span>
+					    <span class="search"><input id="searchCityInput" onblur="hideCities(this);" onkeyup="displayPosResult(this);" type="text" /></span>
 					</c:when>
 				</c:choose>
 <![CDATA[

@@ -605,15 +605,13 @@ public class BasicController {
 			
 			ProductDetailInfo productDetailInfo = productRedisService.getProductDetailInfoUsingProductId(product.getProductId());
 			if (productDetailInfo != null) {
+				stepsRemain --;
 				model.addAttribute("productDetailInfo", productDetailInfo);
 			}
 			
 			ProductAddress pa = productRedisService.getProductAddressFromRedis(product.getProductId());
 			if (pa != null) {
 				model.addAttribute("productAddress", pa);
-				if (productDetailInfo != null) {
-					stepsRemain --;
-				}
 			}
 			
 			List<ProductPicture> listPP = productRedisService.getPictureListOfOneProduct(product.getProductId());

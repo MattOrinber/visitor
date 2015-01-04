@@ -35,7 +35,13 @@ function hideCities(node) {
 	productAddressUpdate();
 }
 
-function showCities(node) {
+function autoCompleteCities(name) {
+	var input = document.getElementById(name);
+	var options = {
+	  types: ['(cities)']
+	};
+
+	autocomplete = new google.maps.places.Autocomplete(input, options);
 }
 
 function map_callback(results, status) {
