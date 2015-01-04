@@ -88,7 +88,7 @@ var pathGlobe = '${pageContext.request.contextPath}';
 			<div class="select">
 				<select onchange="doCitySelect(this);">
 					<c:choose>
-						<c:when test="">
+						<c:when test="${empty currentCityOri}">
 							<option value="--" selected="selected"></option>
 						</c:when>
 						<c:otherwise>
@@ -97,7 +97,7 @@ var pathGlobe = '${pageContext.request.contextPath}';
 					</c:choose>
 				<c:forEach items="${productCities}" var="cityT" varStatus="status">
 					<c:choose>
-						<c:when test="${not empty currentCity and currentCity == cityT.originName}">
+						<c:when test="${not empty currentCityOri and currentCityOri == cityT.originName}">
 							<option value="${cityT.originName}" selected="selected">${cityT.displayName}</option>
 						</c:when>
 						<c:otherwise>

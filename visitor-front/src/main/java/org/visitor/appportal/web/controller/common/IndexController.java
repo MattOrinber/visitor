@@ -5,6 +5,7 @@ package org.visitor.appportal.web.controller.common;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -212,10 +213,11 @@ public class IndexController extends BasicController {
 			Model model) {
 		try {
 			super.setModel(request, response, model, false);
-			String cityDecoded = URLDecoder.decode(cityStr, "UTF-8");
-			super.setCityProductsModel(cityDecoded, request, model, orderType, pageIdx);
+			String cityEncoded = URLEncoder.encode(cityStr, "UTF-8");
+			super.setCityProductsModel(cityStr, request, model, orderType, pageIdx);
 			
 			model.addAttribute("currentCity", cityStr);
+			model.addAttribute("currentCityOri", cityEncoded);
 			model.addAttribute("pageName", "city");
 			return "day/city";
 		} catch (UnsupportedEncodingException e) {
