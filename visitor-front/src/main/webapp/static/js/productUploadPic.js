@@ -26,7 +26,6 @@ function doProductImageUpload(pathOri) {
         });
         return false;
     });
-    $("#uploadProductPicForm").submit();
 }
 
 function deleteProductPicture(node, pid, picId) {
