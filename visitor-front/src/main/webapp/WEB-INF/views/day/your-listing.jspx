@@ -91,7 +91,14 @@
 								</c:if>
 								
 								<c:if test="${productOrderBundle.product.productStatus == 0}">
-									<a href="${pageContext.request.contextPath}/day/calendar?pid=${productOrderBundle.product.productId}" class="btn">6 steps to list</a>
+									<c:choose>
+										<c:when test="${productOrderBundle.remainSteps gt 0}">
+											<a href="${pageContext.request.contextPath}/day/calendar?pid=${productOrderBundle.product.productId}" class="btn">${productOrderBundle.remainSteps} steps to list</a>
+										</c:when>
+										<c:otherwise>
+											<a href="javascript:publishProduct();" style="width: 150px;text-align: center;height: 35px;display: inline-block;background:#ff5a5f;border:1px solid #ff5a5f;border-bottom-color: #e00007;color: #fff;line-height: 35px;border-radius: 3px;">List Space</a>
+										</c:otherwise>
+									</c:choose>
 								</c:if>
 <![CDATA[     
 	                        </div>

@@ -59,6 +59,8 @@ function publishProduct() {
         data : jsonStr,  
         success : function(data) {  
         	playSaved();
+        	var htmlToGo = '<a href="javascript:void(0);" class="dot"></a><select><option selected="selected">Unlisted</option><option>listed</option></select>';
+        	$("#placeToPublishDiv").html(htmlToGo);
         },  
         error : function() { 
         }  

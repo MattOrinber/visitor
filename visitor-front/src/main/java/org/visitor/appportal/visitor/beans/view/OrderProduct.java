@@ -7,6 +7,7 @@ public class OrderProduct {
 	private Product product;
 	private ProductOrder order;
 	private String productPicUrlFirst;
+	private Integer remainSteps;
 	public Product getProduct() {
 		return product;
 	}
@@ -24,5 +25,11 @@ public class OrderProduct {
 	}
 	public void setProductPicUrlFirst(String productPicUrlFirst) {
 		this.productPicUrlFirst = productPicUrlFirst;
+	}
+	public Integer getRemainSteps() {
+		return remainSteps;
+	}
+	public void setRemainSteps(Integer remainSteps) {
+		this.remainSteps = remainSteps;
 	}
 }

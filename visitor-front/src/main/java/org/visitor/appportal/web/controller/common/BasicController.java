@@ -45,6 +45,7 @@ import org.visitor.appportal.visitor.beans.ProductDetailTemp;
 import org.visitor.appportal.visitor.beans.ProductOperationTemp;
 import org.visitor.appportal.visitor.beans.ProductPriceMultiTemp;
 import org.visitor.appportal.visitor.beans.ProductTemp;
+import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.beans.UserInternalMailTemp;
 import org.visitor.appportal.visitor.beans.UserTemp;
 import org.visitor.appportal.visitor.beans.view.CityName;
@@ -488,11 +489,16 @@ public class BasicController {
 	protected boolean setMyProductModel(User user, HttpServletRequest request, Model model) {
 		List<OrderProduct> listpo = new ArrayList<OrderProduct>();
 		List<Product> list = productRedisService.getUserProducts(user);
+		ResultJson rj = new ResultJson();
 		if (list != null && list.size() > 0) {
 			
 			for (Product product : list) {
 				OrderProduct op = new OrderProduct();
 				op.setProduct(product);
+				
+				checkIfProductCanBePublish(rj, product);
+				
+				op.setRemainSteps(rj.getStepsCount());
 				
 				List<ProductPicture> listPP = productRedisService.getPictureListOfOneProduct(product.getProductId());
 				
@@ -520,6 +526,7 @@ public class BasicController {
 	protected boolean setMyTripModel(User user, HttpServletRequest request, Model model) {
 		List<OrderProduct> listpo = new ArrayList<OrderProduct>();
 		List<ProductOrder> list = orderRedisService.getUserOrders(user);
+		
 		if (list != null && list.size() > 0) {
 			
 			for (ProductOrder po : list) {
@@ -753,5 +760,20 @@ public class BasicController {
 			model.addAttribute("hostInfo", hostUser);
 			return true;
 		}
+	}
+	
+	protected void checkIfProductCanBePublish(ResultJson rj, Product product) {
+		Integer resultCount = 0;
+		resultCount += (product.getProductAvailabletype() != null ? 0 : 1);
+		resultCount += ((product.getProductCurrency() != null && product.getProductBaseprice() != null) ? 0 : 1);
+		resultCount += (product.getProductOverviewtitle() != null ? 0 : 1);
+		resultCount += (product.getProductCancellationpolicy() != null ? 0 : 1);
+		resultCount += (productRedisService.containsPicture(product.getProductId()) ? 0 : 1);
+		if (resultCount == 0) {
+			rj.setProductCan(1);
+		} else {
+			rj.setProductCan(0);
+		}
+		rj.setStepsCount(resultCount);
 	}
 }

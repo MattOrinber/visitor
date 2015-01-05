@@ -426,21 +426,6 @@ public class ProductController extends BasicController {
 		super.sendJSONResponse(rj, response);
 	}
 	
-	private void checkIfProductCanBePublish(ResultJson rj, Product product) {
-		Integer resultCount = 0;
-		resultCount += (product.getProductAvailabletype() != null ? 0 : 1);
-		resultCount += ((product.getProductCurrency() != null && product.getProductBaseprice() != null) ? 0 : 1);
-		resultCount += (product.getProductOverviewtitle() != null ? 0 : 1);
-		resultCount += (product.getProductCancellationpolicy() != null ? 0 : 1);
-		resultCount += (productRedisService.containsPicture(product.getProductId()) ? 0 : 1);
-		if (resultCount == 0) {
-			rj.setProductCan(1);
-		} else {
-			rj.setProductCan(0);
-		}
-		rj.setStepsCount(resultCount);
-	}
-	
 	@RequestMapping("/publishproduct")
 	public void publishProduct(HttpServletRequest request, 
 			HttpServletResponse response) {

@@ -68,3 +68,7 @@ body{background:#f7f7f7;}
 
 .main .leftmenu ul li.publish{background:url(../img/yes.png) no-repeat 200px center;}
 .main .leftmenu ul li.publishchoosed{background:url(../img/yes.png) no-repeat 200px center #edefed;}
+
+#placeToPublishDiv a.dot{display:inline-block;width:15px;height:15px;background:#FF0000;border-radius:50%;}
+#placeToPublishDiv a.dot1{background:#009900;}
+#placeToPublishDiv select{width:100px;height:30px;}
