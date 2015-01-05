@@ -8,15 +8,6 @@
 		<script type="text/javascript">ifLogginIn = 1;</script>
 	</c:if>
 	
-	<c:if test="${not empty productInfo.productStatus and productInfo.productStatus gt 0}">
-	<![CDATA[
-		<link href="${pageContext.request.contextPath}/static/css/responsiveCalendar/economica.css" rel="stylesheet" type="text/css" />
-	    <link href="${pageContext.request.contextPath}/static/css/responsiveCalendar/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	    <link href="${pageContext.request.contextPath}/static/css/responsiveCalendar/responsive-calendar.css" rel="stylesheet" type="text/css" />
-	    <link href="${pageContext.request.contextPath}/static/css/responsiveCalendar/popupSet.css" rel="stylesheet" type="text/css" />
-	]]>
-	</c:if>
-	
 <![CDATA[
 	<script>
 		$(document).ready(function(){
