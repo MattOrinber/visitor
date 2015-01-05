@@ -115,7 +115,7 @@
             <div id="resultProductPicUpload" class="preview">
             	<c:if test="${not empty productPictureList}">
 					<c:forEach items="${productPictureList}" var="productPicture" varStatus="status">
-						<div class="imgbox"><img src="${productPicture.picUrl}" width="180"/><img src="${imgPathOrigin}/static/closediv.png" width="15" class="closediv" onclick="deleteProductPicture('this','${productPicture.pid}','${productPicture.picId}');"/></div>
+						<div id="pic_${productPicture.picId}" class="imgbox"><img src="${productPicture.picUrl}" width="180"/><img src="${imgPathOrigin}/static/closediv.png" width="15" class="closediv" onclick="deleteProductPicture('this','${productPicture.pid}','${productPicture.picId}');"/></div>
 					</c:forEach>
 				</c:if>
 	        </div>

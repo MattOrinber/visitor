@@ -141,7 +141,7 @@ var imgPathOriginStr = '${imgPathOrigin}';
 		                </ul>
 		            </span>
 		            <a href="${pageContext.request.contextPath}/list_space" class="list">List Your Activities</a>
-		            <a href="${pageContext.request.contextPath}/day/inbox" class="mail"><span id="inboxItemCount" class="number"></span></a>
+		            <a href="${pageContext.request.contextPath}/day/inbox" class="mail"><span id="inboxItemCount" class="number"  style="display:none;"></span></a>
         		</div>
        		</c:when>
        		<c:otherwise>
@@ -174,7 +174,7 @@ var imgPathOriginStr = '${imgPathOrigin}';
 		                </ul>
 		            </span>
 		            <a href="${pageContext.request.contextPath}/list_space" class="list">List Your Activities</a>
-		            <a href="${pageContext.request.contextPath}/day/inbox" class="mail"><span id="inboxItemCount" class="number"></span></a>
+		            <a href="${pageContext.request.contextPath}/day/inbox" class="mail"><span id="inboxItemCount" class="number"  style="display:none;"></span></a>
         		</div>
        		</c:otherwise>
        	</c:choose>

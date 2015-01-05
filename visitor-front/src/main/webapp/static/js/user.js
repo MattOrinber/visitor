@@ -197,6 +197,7 @@ function checkInBox() {
         	if (data.result > 0) {
         		//display the inbox item count
         		$("#inboxItemCount").html(data.result);
+        		$("#inboxItemCount").show();
         	} else if (data.result < 0){
         		if (inboxCheckPilot != null) {
         			clearInterval(inboxCheckPilot);
