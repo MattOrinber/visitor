@@ -49,6 +49,8 @@ function publishProduct() {
     var urlStrStr = pathGlobe + '/product/publishproduct';
     var jsonStr = $.toJSON(productDetail);
     
+    playSaving();
+    
     $.ajax({ 
         type : 'POST',  
         contentType : 'application/json',  
@@ -57,7 +59,7 @@ function publishProduct() {
         dataType : 'json',  
         data : jsonStr,  
         success : function(data) {  
-        	alert("publish product success");
+        	playSaved();
         },  
         error : function() {  
             alert('Err...');  
@@ -167,7 +169,9 @@ function onProductDescAndTitle() {
 		if (titleStr != "") {
 			var editor = CKEDITOR.instances.productOverviewDetailStr;
 			var editorProductDesc = $.trim(editor.getData());
-			if (editorProductDesc != "") {
+			
+			var originDescStr = $("#productDetailDESCInfoStr").attr("data-inner");
+			if (editorProductDesc != "" && editorProductDesc != originDescStr) {
 				var productDetail = {};
 				var productIdStr = $("#productIdPageTemp").html();
 				

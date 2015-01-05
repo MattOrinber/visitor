@@ -15,6 +15,7 @@ function doProductImageUpload(pathOri) {
 	        		var appendDiv = '<div class="imgbox"><img src="'+ imageUrl + '" width="180"/><img src="'+imgPathOriginStr+'/static/closediv.png" width="15" class="closediv" onclick="deleteProductPicture(\'this\',\''+data.productId+'\',\''+data.productPicId+'\');"/></div>';
 	        		$("#resultProductPicUpload").append(appendDiv);
 	        		$("#productPhotosLi").attr('class', 'publishchoosed');
+	        		$("#fileProductIcon").val("");
         		} else {
         			alert(data.resultDesc);
         		}

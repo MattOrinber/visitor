@@ -18,7 +18,7 @@
 
 <div class="nav">
 	<div class="nav-detail">
-    	<span><a href="${pageContext.request.contextPath}/day/your-listing"><</a>${productInfo.productRoomType} in ${productInfo.productCity}</span>
+    	<span><a href="javascript:toListing();"><</a>${productInfo.productRoomType} in ${productInfo.productCity}</span>
     	<div id="productIdPageTemp" style="display:none;">${productInfo.productId}</div>
     </div>
 </div>
