@@ -420,7 +420,7 @@ function registerVisitor(pathOri)
 		            ifLogginIn = 1;
 		        },  
 		        error : function() {  
-		            alert('Err...');  
+		            alert('register err...');  
 		        }  
 		    }); 
 		} else {
@@ -463,7 +463,7 @@ function loginVisitor(pathOri) {
 	            ifLogginIn = 1;
 	        },  
 	        error : function() {  
-	            alert('Err...');  
+	            alert('login err...');  
 	        }  
 	    }); 
 	}
@@ -500,7 +500,7 @@ function logoutVisitor(pathOri) {
             }
         },  
         error : function() {  
-            alert('Err...');  
+            alert('logout err...');  
         }  
     }); 
 }

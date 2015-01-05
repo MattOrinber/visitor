@@ -35,7 +35,6 @@ function createProduct()
         	window.location.href = redirectStr;
         },  
         error : function() {  
-            alert('Err...');  
         }  
     }); 
 }
@@ -61,8 +60,7 @@ function publishProduct() {
         success : function(data) {  
         	playSaved();
         },  
-        error : function() {  
-            alert('Err...');  
+        error : function() { 
         }  
     }); 
 }
@@ -111,8 +109,7 @@ function saveProductAvailableType(availType) {
 	        	playSaved();
 	        	$("#productCalendarLi").attr('class', 'publishchoosed');
 	        },  
-	        error : function() {  
-	            alert('Err...');  
+	        error : function() { 
 	        }  
 	    }); 
 	}
@@ -152,7 +149,6 @@ function saveProductPriceSetting() {
 			        	$("#productPriceLi").attr('class', 'publishchoosed');
 			        },  
 			        error : function() {  
-			            alert('Err...');  
 			        }  
 			    }); 
 			} else {
@@ -197,7 +193,6 @@ function onProductDescAndTitle() {
 			        	$("#productDescriptionLi").attr('class', 'publishchoosed');
 			        },  
 			        error : function() {  
-			            alert('Err...');  
 			        }  
 			    }); 
 			}
@@ -233,7 +228,6 @@ function productAddressUpdate() {
 		        	playSaved();
 		        },  
 		        error : function() {  
-		            alert('Err...');  
 		        }  
 		    }); 
 		}
@@ -267,7 +261,6 @@ function setProductCancellationPolicy() {
 	        	$("#productTermsLi").attr('class', 'publishchoosed');
 	        },  
 	        error : function() {  
-	            alert('Err...');  
 	        }  
 	    });
 	}

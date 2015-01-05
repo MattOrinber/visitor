@@ -170,8 +170,7 @@ function setProductOperation() {
         success : function(data) {  
         	setBackPrice(data.poType, data.poPrice);
         },  
-        error : function() {  
-            alert('Err...');  
+        error : function() {   
         }  
     });
     

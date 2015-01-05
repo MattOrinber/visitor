@@ -54,7 +54,6 @@ function deleteProductPicture(node, pid, picId) {
         	$(idDel).hide();
         },  
         error : function() {  
-            alert('Err...');  
         }  
     });
 }
