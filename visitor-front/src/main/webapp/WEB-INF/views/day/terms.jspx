@@ -83,12 +83,21 @@
 <![CDATA[
         </ul>
         <div id="placeToPublishDiv" class="step">
-        	Complete <span><span id="remainStepsSpan">${stepsRemain}</span> steps</span><br />to list your space.
-        </div>
+]]>
+	<c:choose>
+		<c:when test="${stepsRemain eq 0}">
+		<![CDATA[
+			<a href="javascript:publishProduct();" style="width: 150px;text-align: center;height: 35px;display: inline-block;background:#ff5a5f;border:1px solid #ff5a5f;border-bottom-color: #e00007;color: #fff;line-height: 35px;border-radius: 3px;">List Space</a>
+	    ]]>
+		</c:when>
+		<c:otherwise><![CDATA[Complete <span><span id="remainStepsSpan">${stepsRemain}</span> steps</span><br />to list your space.]]></c:otherwise>
+	</c:choose>
+<![CDATA[
+		</div>
     </div>
     <div class="rightbox">
     	<div class="saving-saved" style="position:relative;float:left;margin-top:10px;margin-left:450px;">
-            <p id="dispearText_saving" style="position:absolute;left:0;top:0;font-size:16px;font-weight:bold;color:#F30;">Saving...</p>
+            <p id="dispearText_saving" style="display:none;position:absolute;left:0;top:0;font-size:16px;font-weight:bold;color:#F30;">Saving...</p>
             <p id="dispearText_saved" style="display:none;position:absolute;left:0;top:0;font-size:16px;font-weight:bold;color:#F30;">Saved!</p>
         </div>
 		<div class="pricebox">
@@ -104,6 +113,7 @@
                 	
                 	<c:choose>
                 		<c:when test="${not empty productInfo.productCancellationpolicy}">
+                		<option value="0"></option>
                 			<c:forEach items="${cancellationPolicyList}" var="cancellationPolicyItem" varStatus="status">
                 				<c:choose>
                 					<c:when test="${productInfo.productCancellationpolicy == cancellationPolicyItem}">
@@ -116,6 +126,7 @@
 							</c:forEach>
                 		</c:when>
                 		<c:otherwise>
+                		<option value="0" selected="selected"></option>
                 			<c:forEach items="${cancellationPolicyList}" var="cancellationPolicyItem" varStatus="status">
                 				<c:choose>
                 					<c:when test="${status.index == 0}">

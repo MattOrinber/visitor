@@ -87,31 +87,37 @@ function doImage() {
 function initCanlendarPage() { //product available type choose
 	$("#showfirst").click(function(){
 		$('#first').show();
+		setifCanUpdate();
 		saveProductAvailableType("0");
 	});
 	
 	$("#hidefirst").click(function(){
 		$('#first').hide();
+		setifCanUpdate();
 		saveProductAvailableType("5");
 	});
 	
 	$("#showsecond").click(function(){
 		$('#second').show();
+		setifCanUpdate();
 		saveProductAvailableType("1");
 	});
 	
 	$("#hidesecond").click(function(){
 		$('#second').hide();
+		setifCanUpdate();
 		saveProductAvailableType("5");
 	});
 	
 	$("#showthird").click(function(){
 		$('#third').show();
+		setifCanUpdate();
 		saveProductAvailableType("2");
 	});
 	
 	$("#hidethird").click(function(){
 		$('#third').hide();
+		setifCanUpdate();
 		saveProductAvailableType("5");
 	});
 	
@@ -199,6 +205,7 @@ function setProductDescEditor() {
 		productDetailStrGlobal = $("#productDetailDESCInfoStr").attr("data-inner");
 		CKEDITOR.replace( 'productOverviewDetailStr', {
 			on: {
+				focus: setifCanUpdate,
 				blur: onProductDescAndTitle,
 				instanceReady:setProductDiscValue
 			},

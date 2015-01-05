@@ -1,4 +1,9 @@
 //---------------------------------product part---------------------------------
+var ifCanUpdate = false;
+
+function setifCanUpdate() {
+	ifCanUpdate = true;
+}
 
 function createProduct()
 {	
@@ -62,7 +67,7 @@ function publishProduct() {
 
 function checkCanPublish(ifCan) {
 	if (ifCan == 1) {
-		$("#placeToPublishDiv").html('<a href="javasrcript:publishProduct();" style="width: 150px;text-align: center;height: 35px;display: inline-block;background:#ff5a5f;border:1px solid #ff5a5f;border-bottom-color: #e00007;color: #fff;line-height: 35px;border-radius: 3px;">List Space</a>');
+		$("#placeToPublishDiv").html('<a href="javascript:publishProduct();" style="width: 150px;text-align: center;height: 35px;display: inline-block;background:#ff5a5f;border:1px solid #ff5a5f;border-bottom-color: #e00007;color: #fff;line-height: 35px;border-radius: 3px;">List Space</a>');
 		return 1;
 	} else {
 		return 0;
@@ -79,129 +84,16 @@ function playSaved() {
 }
 
 function saveProductAvailableType(availType) {
-	var productDetail = {};
-	var productIdStr = $("#productIdPageTemp").html();
-	var productAvailableTypeStr = availType;
-	
-	productDetail.productIdStr = productIdStr;
-	productDetail.productAvailableTypeStr = productAvailableTypeStr;
-    
-    var urlStrStr = pathGlobe + '/product/availtype';
-    var jsonStr = $.toJSON(productDetail);
-    
-    playSaving();
-    
-    $.ajax({ 
-        type : 'POST',  
-        contentType : 'application/json',  
-        url : urlStrStr,  
-        processData : false,  
-        dataType : 'json',  
-        data : jsonStr,  
-        success : function(data) {  
-        	checkCanPublish(data.productCan);
-        	playSaved();
-        	$("#productCalendarLi").attr('class', 'publishchoosed');
-        },  
-        error : function() {  
-            alert('Err...');  
-        }  
-    }); 
-}
-
-function saveProductPriceSetting() {
-	var regExFloat = /^\d+(\.\d+)?$/;
-    var regExInt = /^[0-9]*[1-9][0-9]*$/;
-	var productBasePriceValue = $.trim($("#productBaseCurrencyValue").val());
-	
-	if (productBasePriceValue != "") {
-		if (regExFloat.test(productBasePriceValue) || regExInt.test(productBasePriceValue)) {
-			var productDetail = {};
-			var productIdStr = $("#productIdPageTemp").html();
-			var productCurrencyChoose = $("#productCurrencyChoose").val();
-			
-			productDetail.productIdStr = productIdStr;
-			productDetail.productCurrencyStr = productCurrencyChoose;
-			productDetail.productBasepriceStr = productBasePriceValue;
-		    
-		    var urlStrStr = pathGlobe + '/product/pricing';
-		    var jsonStr = $.toJSON(productDetail);
-		    
-		    playSaving();
-		    
-		    $.ajax({ 
-		        type : 'POST',  
-		        contentType : 'application/json',  
-		        url : urlStrStr,  
-		        processData : false,  
-		        dataType : 'json',  
-		        data : jsonStr,  
-		        success : function(data) {  
-		        	checkCanPublish(data.productCan);
-		        	playSaved();
-		        	$("#productPriceLi").attr('class', 'publishchoosed');
-		        },  
-		        error : function() {  
-		            alert('Err...');  
-		        }  
-		    }); 
-		} else {
-			$("#productBaseCurrencyValue").val("");
-			alert("please set a right price format");
-		}
-	}
-}
-
-function onProductDescAndTitle() {
-	var titleStr = $.trim($("#productTitle").val());
-	if (titleStr != "") {
-		var editor = CKEDITOR.instances.productOverviewDetailStr;
-		var editorProductDesc = $.trim(editor.getData());
-		if (editorProductDesc != "") {
-			var productDetail = {};
-			var productIdStr = $("#productIdPageTemp").html();
-			
-			productDetail.productIdStr = productIdStr;
-			productDetail.productOverviewTitleStr = titleStr;
-			productDetail.productOverviewDetailStr = editorProductDesc;
-		    
-		    var urlStrStr = pathGlobe + '/product/description';
-		    var jsonStr = $.toJSON(productDetail);
-		    
-		    playSaving();
-		    
-		    $.ajax({ 
-		        type : 'POST',  
-		        contentType : 'application/json',  
-		        url : urlStrStr,  
-		        processData : false,  
-		        dataType : 'json',  
-		        data : jsonStr,  
-		        success : function(data) {  
-		        	checkCanPublish(data.productCan);
-		        	playSaved();
-		        	$("#productDescriptionLi").attr('class', 'publishchoosed');
-		        },  
-		        error : function() {  
-		            alert('Err...');  
-		        }  
-		    }); 
-		}
-	}
-}
-
-function productAddressUpdate() {
-	var inputNodeValue = $.trim($("#searchCityInput").val());
-	
-	if (inputNodeValue != "") {
-		var productAddress = {};
+	if (ifCanUpdate) {
+		var productDetail = {};
 		var productIdStr = $("#productIdPageTemp").html();
+		var productAvailableTypeStr = availType;
 		
-		productAddress.productIdStr = productIdStr;
-		productAddress.productAddressDetailStr = inputNodeValue;
+		productDetail.productIdStr = productIdStr;
+		productDetail.productAvailableTypeStr = productAvailableTypeStr;
 	    
-	    var urlStrStr = pathGlobe + '/product/address';
-	    var jsonStr = $.toJSON(productAddress);
+	    var urlStrStr = pathGlobe + '/product/availtype';
+	    var jsonStr = $.toJSON(productDetail);
 	    
 	    playSaving();
 	    
@@ -215,6 +107,7 @@ function productAddressUpdate() {
 	        success : function(data) {  
 	        	checkCanPublish(data.productCan);
 	        	playSaved();
+	        	$("#productCalendarLi").attr('class', 'publishchoosed');
 	        },  
 	        error : function() {  
 	            alert('Err...');  
@@ -223,35 +116,157 @@ function productAddressUpdate() {
 	}
 }
 
+function saveProductPriceSetting() {
+	if (ifCanUpdate) {
+		var regExFloat = /^\d+(\.\d+)?$/;
+	    var regExInt = /^[0-9]*[1-9][0-9]*$/;
+		var productBasePriceValue = $.trim($("#productBaseCurrencyValue").val());
+		
+		if (productBasePriceValue != "") {
+			if (regExFloat.test(productBasePriceValue) || regExInt.test(productBasePriceValue)) {
+				var productDetail = {};
+				var productIdStr = $("#productIdPageTemp").html();
+				var productCurrencyChoose = $("#productCurrencyChoose").val();
+				
+				productDetail.productIdStr = productIdStr;
+				productDetail.productCurrencyStr = productCurrencyChoose;
+				productDetail.productBasepriceStr = productBasePriceValue;
+			    
+			    var urlStrStr = pathGlobe + '/product/pricing';
+			    var jsonStr = $.toJSON(productDetail);
+			    
+			    playSaving();
+			    
+			    $.ajax({ 
+			        type : 'POST',  
+			        contentType : 'application/json',  
+			        url : urlStrStr,  
+			        processData : false,  
+			        dataType : 'json',  
+			        data : jsonStr,  
+			        success : function(data) {  
+			        	checkCanPublish(data.productCan);
+			        	playSaved();
+			        	$("#productPriceLi").attr('class', 'publishchoosed');
+			        },  
+			        error : function() {  
+			            alert('Err...');  
+			        }  
+			    }); 
+			} else {
+				$("#productBaseCurrencyValue").val("");
+				alert("please set a right price format");
+			}
+		}
+	}
+}
+
+function onProductDescAndTitle() {
+	if (ifCanUpdate) {
+		var titleStr = $.trim($("#productTitle").val());
+		if (titleStr != "") {
+			var editor = CKEDITOR.instances.productOverviewDetailStr;
+			var editorProductDesc = $.trim(editor.getData());
+			if (editorProductDesc != "") {
+				var productDetail = {};
+				var productIdStr = $("#productIdPageTemp").html();
+				
+				productDetail.productIdStr = productIdStr;
+				productDetail.productOverviewTitleStr = titleStr;
+				productDetail.productOverviewDetailStr = editorProductDesc;
+			    
+			    var urlStrStr = pathGlobe + '/product/description';
+			    var jsonStr = $.toJSON(productDetail);
+			    
+			    playSaving();
+			    
+			    $.ajax({ 
+			        type : 'POST',  
+			        contentType : 'application/json',  
+			        url : urlStrStr,  
+			        processData : false,  
+			        dataType : 'json',  
+			        data : jsonStr,  
+			        success : function(data) {  
+			        	checkCanPublish(data.productCan);
+			        	playSaved();
+			        	$("#productDescriptionLi").attr('class', 'publishchoosed');
+			        },  
+			        error : function() {  
+			            alert('Err...');  
+			        }  
+			    }); 
+			}
+		}
+	}
+}
+
+function productAddressUpdate() {
+	if (ifCanUpdate) {
+		var inputNodeValue = $.trim($("#searchCityInput").val());
+		
+		if (inputNodeValue != "") {
+			var productAddress = {};
+			var productIdStr = $("#productIdPageTemp").html();
+			
+			productAddress.productIdStr = productIdStr;
+			productAddress.productAddressDetailStr = inputNodeValue;
+		    
+		    var urlStrStr = pathGlobe + '/product/address';
+		    var jsonStr = $.toJSON(productAddress);
+		    
+		    playSaving();
+		    
+		    $.ajax({ 
+		        type : 'POST',  
+		        contentType : 'application/json',  
+		        url : urlStrStr,  
+		        processData : false,  
+		        dataType : 'json',  
+		        data : jsonStr,  
+		        success : function(data) {  
+		        	checkCanPublish(data.productCan);
+		        	playSaved();
+		        },  
+		        error : function() {  
+		            alert('Err...');  
+		        }  
+		    }); 
+		}
+	}
+}
+
 function setProductCancellationPolicy() {
-	var productDetail = {};
 	var productIdStr = $("#productIdPageTemp").html();
 	var productCancellationPolicyString = $("#productCancellationPolicyStr").val();
 	
-	productDetail.productIdStr = productIdStr;
-	productDetail.productCancellationPolicyStr = productCancellationPolicyString;
-    
-    var urlStrStr = pathGlobe + '/product/cancellationpolicy';
-    var jsonStr = $.toJSON(productDetail);
-    
-    playSaving();
-    
-    $.ajax({ 
-        type : 'POST',  
-        contentType : 'application/json',  
-        url : urlStrStr,  
-        processData : false,  
-        dataType : 'json',  
-        data : jsonStr,  
-        success : function(data) {  
-        	checkCanPublish(data.productCan);
-        	playSaved();
-        	$("#productTermsLi").attr('class', 'publishchoosed');
-        },  
-        error : function() {  
-            alert('Err...');  
-        }  
-    }); 
+	if (productCancellationPolicyString != '0') {
+		var productDetail = {};
+		productDetail.productIdStr = productIdStr;
+		productDetail.productCancellationPolicyStr = productCancellationPolicyString;
+	    
+	    var urlStrStr = pathGlobe + '/product/cancellationpolicy';
+	    var jsonStr = $.toJSON(productDetail);
+	    
+	    playSaving();
+	    
+	    $.ajax({ 
+	        type : 'POST',  
+	        contentType : 'application/json',  
+	        url : urlStrStr,  
+	        processData : false,  
+	        dataType : 'json',  
+	        data : jsonStr,  
+	        success : function(data) {  
+	        	checkCanPublish(data.productCan);
+	        	playSaved();
+	        	$("#productTermsLi").attr('class', 'publishchoosed');
+	        },  
+	        error : function() {  
+	            alert('Err...');  
+	        }  
+	    });
+	}
 }
 
 function saveProductDetails(pathOri)
