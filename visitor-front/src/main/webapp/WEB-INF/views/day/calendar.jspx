@@ -78,7 +78,7 @@
 	<c:choose>
 		<c:when test="${stepsRemain eq 0}">
 			<c:choose>
-				<c:when test="${${not empty productInfo.productStatus and productInfo.productStatus eq 0}}">
+				<c:when test="${not empty productInfo.productStatus and productInfo.productStatus eq 0}">
 					<![CDATA[
 					<a href="javascript:publishProduct();" style="width: 150px;text-align: center;height: 35px;display: inline-block;background:#ff5a5f;border:1px solid #ff5a5f;border-bottom-color: #e00007;color: #fff;line-height: 35px;border-radius: 3px;">List Space</a>
 				    ]]>
@@ -87,8 +87,8 @@
 					<![CDATA[
 					<a href="javascript:void(0);" class="dot"></a>
 					<select>
-						<option selected="selected">Unlisted</option>
-						<option>listed</option>
+						<option>Unlisted</option>
+						<option selected="selected">listed</option>
 					</select>
 					]]>
 				</c:otherwise>
