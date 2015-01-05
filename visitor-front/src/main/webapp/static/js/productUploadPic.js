@@ -14,6 +14,7 @@ function doProductImageUpload(pathOri) {
         		$("#resultProductPicUpload").append(appendDiv);
         		$("#productPhotosLi").attr('class', 'publishchoosed');
         		$("#fileProductIcon").val("");
+        		$("#remainStepsSpan").html(data.stepsCount);
     		} else {
     			alert(data.resultDesc);
     		}

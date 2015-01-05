@@ -25,6 +25,7 @@ public class ResultJson {
 	private Long pmpId;
 	private Long orderId;
 	private Long payOrderId;
+	private Integer stepsCount;
 	
 	public Integer getResult() {
 		return result;
@@ -128,5 +129,11 @@ public class ResultJson {
 	}
 	public void setProductPicId(Long productPicId) {
 		this.productPicId = productPicId;
+	}
+	public Integer getStepsCount() {
+		return stepsCount;
+	}
+	public void setStepsCount(Integer stepsCount) {
+		this.stepsCount = stepsCount;
 	}
 }

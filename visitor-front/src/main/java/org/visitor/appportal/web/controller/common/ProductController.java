@@ -427,17 +427,18 @@ public class ProductController extends BasicController {
 	}
 	
 	private void checkIfProductCanBePublish(ResultJson rj, Product product) {
-		if (product.getProductAvailabletype() != null &&
-				product.getProductCurrency() != null &&
-				product.getProductBaseprice() != null &&
-				product.getProductOverviewtitle() != null &&
-				product.getProductAddressid() != null &&
-				product.getProductCancellationpolicy() != null &&
-				productRedisService.containsPicture(product.getProductId())) {
+		Integer resultCount = 0;
+		resultCount += (product.getProductAvailabletype() != null ? 0 : 1);
+		resultCount += ((product.getProductCurrency() != null && product.getProductBaseprice() != null) ? 0 : 1);
+		resultCount += (product.getProductOverviewtitle() != null ? 0 : 1);
+		resultCount += (product.getProductCancellationpolicy() != null ? 0 : 1);
+		resultCount += (productRedisService.containsPicture(product.getProductId()) ? 0 : 1);
+		if (resultCount == 0) {
 			rj.setProductCan(1);
 		} else {
 			rj.setProductCan(0);
 		}
+		rj.setStepsCount(resultCount);
 	}
 	
 	@RequestMapping("/publishproduct")

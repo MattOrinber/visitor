@@ -108,6 +108,7 @@ function saveProductAvailableType(availType) {
 	        	checkCanPublish(data.productCan);
 	        	playSaved();
 	        	$("#productCalendarLi").attr('class', 'publishchoosed');
+	        	$("#remainStepsSpan").html(data.stepsCount);
 	        },  
 	        error : function() { 
 	        }  
@@ -147,6 +148,7 @@ function saveProductPriceSetting() {
 			        	checkCanPublish(data.productCan);
 			        	playSaved();
 			        	$("#productPriceLi").attr('class', 'publishchoosed');
+			        	$("#remainStepsSpan").html(data.stepsCount);
 			        },  
 			        error : function() {  
 			        }  
@@ -191,6 +193,7 @@ function onProductDescAndTitle() {
 			        	checkCanPublish(data.productCan);
 			        	playSaved();
 			        	$("#productDescriptionLi").attr('class', 'publishchoosed');
+			        	$("#remainStepsSpan").html(data.stepsCount);
 			        },  
 			        error : function() {  
 			        }  
@@ -259,6 +262,7 @@ function setProductCancellationPolicy() {
 	        	checkCanPublish(data.productCan);
 	        	playSaved();
 	        	$("#productTermsLi").attr('class', 'publishchoosed');
+	        	$("#remainStepsSpan").html(data.stepsCount);
 	        },  
 	        error : function() {  
 	        }  
