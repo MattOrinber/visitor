@@ -25,6 +25,14 @@ public class VisitorProductPictureService {
 	}
 	
 	@Transactional
+	public void deleteProductPicture(ProductPicture entity) {
+		visitorProductPicRepository.delete(entity);
+		if (logger.isInfoEnabled()) {
+			logger.info("delete product picture success");
+		}
+	}
+	
+	@Transactional
 	public List<ProductPicture> getProductPictureList(Long pid) {
 		return visitorProductPicRepository.getProductPictureList(pid);
 	}

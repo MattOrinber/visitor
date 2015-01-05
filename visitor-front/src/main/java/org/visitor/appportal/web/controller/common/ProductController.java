@@ -288,8 +288,8 @@ public class ProductController extends BasicController {
 		
 		Product product = productRedisService.getUserProductFromRedis(userTemp, pidStr);
 		
-		Integer result = 0;
-		String resultDesc = "";
+		Integer result = -1;
+		String resultDesc = "not do";
 		ResultJson resultJ = new ResultJson();
 		
 		if (product != null) {
@@ -300,32 +300,38 @@ public class ProductController extends BasicController {
 				
 				try {
 					String fileOriUrl= "product/"+product.getProductId()+"/"+fileProductPic.getOriginalFilename();
-					String awsBucketName = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic);
-					s3Service.createNewFile(fileOriUrl, fileProductPic.getInputStream(), awsBucketName, meta);
-					
-					String imgDomain = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgDomain);
-					
-					ProductPicture productPic = new ProductPicture();
-					productPic.setProductPicProductId(product.getProductId());
-					productPic.setProductPicProductUrl(fileOriUrl);
-					productPic.setProductPicStatus(StatusTypeEnum.Active.ordinal());
-					
-					visitorProductPictureService.saveProductPicture(productPic);
-					productRedisService.setProductPictureToRedis(productPic);
-					
-					result = 0;
-					resultDesc = ProductInfo.PRODUCT_PICTURE_SAVE_SUCCESS;
-					
-					String displayUrl = imgDomain + awsBucketName + "/" + fileOriUrl; //实际访问图片的全路径
-					
-					product.setProductPhotopaths(displayUrl);
-					
-					visitorProductService.saveProduct(product);
-					productRedisService.saveUserProductToRedis(userTemp, product);
-					
-					resultJ.setImageUrl(displayUrl);
-					resultJ.setProductId(product.getProductId());
-					resultJ.setProductPicId(productPic.getProductPicId());
+					if (log.isInfoEnabled()) {
+						log.info("fileOri url: >"+fileOriUrl+"<");
+					}
+					if (!productRedisService.checkIfPictureUrlExists(product.getProductId(), fileOriUrl)) {
+						String awsBucketName = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic);
+						s3Service.createNewFile(fileOriUrl, fileProductPic.getInputStream(), awsBucketName, meta);
+						
+						String imgDomain = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgDomain);
+						
+						ProductPicture productPic = new ProductPicture();
+						productPic.setProductPicProductId(product.getProductId());
+						productPic.setProductPicProductUrl(fileOriUrl);
+						productPic.setProductPicStatus(StatusTypeEnum.Active.ordinal());
+						
+						visitorProductPictureService.saveProductPicture(productPic);
+						productRedisService.setProductPictureToRedis(productPic);
+						productRedisService.savePictureUrlToRedis(productPic);
+						
+						result = 0;
+						resultDesc = ProductInfo.PRODUCT_PICTURE_SAVE_SUCCESS;
+						
+						String displayUrl = imgDomain + awsBucketName + "/" + fileOriUrl; //实际访问图片的全路径
+						
+						product.setProductPhotopaths(displayUrl);
+						
+						visitorProductService.saveProduct(product);
+						productRedisService.saveUserProductToRedis(userTemp, product);
+						
+						resultJ.setImageUrl(displayUrl);
+						resultJ.setProductId(product.getProductId());
+						resultJ.setProductPicId(productPic.getProductPicId());
+					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -364,7 +370,8 @@ public class ProductController extends BasicController {
 			if (poT != null) {
 				poT.setProductPicStatus(StatusTypeEnum.Inactive.ordinal());
 				
-				visitorProductPictureService.saveProductPicture(poT);
+				visitorProductPictureService.deleteProductPicture(poT);
+				productRedisService.deletePictureUrlFromRedis(poT);
 				productRedisService.deleteProductPictureFromRedis(pid, picId);
 				
 				resultJ.setProductId(product.getProductId());

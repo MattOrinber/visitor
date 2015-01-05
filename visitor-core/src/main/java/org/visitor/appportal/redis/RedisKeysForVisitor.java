@@ -105,6 +105,9 @@ public class RedisKeysForVisitor {
     public static String getVisitorProductPictureKey() {
     	return "visitor-site-product-picture";
     }
+    public static String getVisitorProductPictureURLKey() {
+    	return "visitor-site-product-picture-url";
+    }
     
     public static String getUserInternalMailToMeKey() {
     	return "visitor-site-user-internal-mail-unread" + getVisitorRedisWeakSplit();

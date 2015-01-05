@@ -325,6 +325,27 @@ public class ProductRedisService {
 	
 	//product picture
 	
+	public void savePictureUrlToRedis(ProductPicture productPic) {
+		String key = RedisKeysForVisitor.getVisitorProductPictureURLKey()+ RedisKeysForVisitor.getVisitorRedisWeakSplit() + String.valueOf(productPic.getProductPicProductId().longValue());
+		String keyT = productPic.getProductPicProductUrl();
+		String valueT = "-";
+		
+		compressStringRedisVisitorTemplate.opsForHash().put(key, keyT, valueT);
+	}
+	public void deletePictureUrlFromRedis(ProductPicture productPic) {
+		String key = RedisKeysForVisitor.getVisitorProductPictureURLKey()+ RedisKeysForVisitor.getVisitorRedisWeakSplit() + String.valueOf(productPic.getProductPicProductId().longValue());
+		String keyT = productPic.getProductPicProductUrl();
+		
+		compressStringRedisVisitorTemplate.opsForHash().delete(key, keyT);
+	}
+	public boolean checkIfPictureUrlExists(Long pid, String picUrl) {
+		boolean res = false;
+		String key = RedisKeysForVisitor.getVisitorProductPictureURLKey()+ RedisKeysForVisitor.getVisitorRedisWeakSplit() + String.valueOf(pid.longValue());
+		res = compressStringRedisVisitorTemplate.opsForHash().hasKey(key, picUrl);
+
+		return res;
+	}
+	
 	public Boolean containsPicture(Long pid) {
 		String key = RedisKeysForVisitor.getVisitorProductPictureKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + String.valueOf(pid.longValue());
 		return compressStringRedisVisitorTemplate.hasKey(key);
