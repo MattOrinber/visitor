@@ -432,6 +432,7 @@ public class ProductController extends BasicController {
 				product.getProductBaseprice() != null &&
 				product.getProductOverviewtitle() != null &&
 				product.getProductAddressid() != null &&
+				product.getProductCancellationpolicy() != null &&
 				productRedisService.containsPicture(product.getProductId())) {
 			rj.setProductCan(1);
 		} else {
