@@ -20,11 +20,11 @@
 	
 <div class="nav">
 	<div class="nav-detail">
-    	<a href="dashboard.html">Dashboard</a>
-        <a href="inbox.html">Inbox</a>
-        <a href="your-listing.html">Your Listings</a>
-        <a href="your-trip.html">Your Trips</a>
-        <a href="edit.html" class="select">Edit Profile</a>
+    	<a href="${pageContext.request.contextPath}/day/dashboard">Dashboard</a>
+        <a href="${pageContext.request.contextPath}/day/inbox">Inbox</a>
+        <a href="javascript:toListing(0);">Your Listings</a>
+        <a href="${pageContext.request.contextPath}/day/your-trip">Your trips</a>
+        <a href="${pageContext.request.contextPath}/day/edit" class="select">Edit Profile</a>
     </div>
     
     <div id="userIdTemp" style="display:none;">${currentUser.userId}</div>
@@ -42,29 +42,30 @@
         	<div class="rightcontent1">
         		<div class="head">Profile Photo</div>
                 <div class="info">
-                   <div class="photo"><img src="img/user_pic-225x225.png" /></div>
+                   <div class="photo">
+]]>
+						<c:choose>
+							<c:when test="${not empty currentUser.userPhotourl}">
+								<img id="userPictureDisplay" src="${currentUser.userPhotourl}" />
+							</c:when>
+							<c:otherwise>
+								<img id="userPictureDisplay" src="${imgPathOrigin}/static/user_pic-225x225.png" />
+							</c:otherwise>
+						</c:choose>
+<![CDATA[
+                       
+                   </div>
                    <div class="upload">
                    		<p>Clear frontal face photos are an important way for hosts and guests to learn about each other. It's not much fun to host a landscape! Please upload a photo that clearly shows your face.</p>
                    		<div class="file-box"> Upload a file from <br />your computer
-                   		
-	                   		<form id="uploadUserPicForm" enctype="multipart/form-data">
-				            	<span>Image:</span><input name="fileUserIcon" id="fileUserIcon" type="file" class="file"/>
-				            	<input name="upload" type="button" value="Upload" onclick="doUserImageUpload('${pageContext.request.contextPath}');" />
-				            </form>
-				            
-				            <div id="resultUserPicUpload">
-]]>
-								<c:if test="${not empty currentUser.userPhotourl}">
-									<span>${currentUser.userPhotourl}</span>
-								</c:if>
-<![CDATA[
-            				</div>
+                   			<input type="file" name="fileUserIcon" id="fileUserIcon" class="file" value="upload" /> 
                         </div> 
+                        <input type="button" value="Update" onclick="doUserImageUpload('${pageContext.request.contextPath}');" style="font-size:15px;margin-left:20px;margin-top:20px;width: 150px;text-align: center;height: 35px;display: inline-block;background:#ff5a5f;border:1px solid #ff5a5f;border-bottom-color: #e00007;color: #fff;line-height: 35px;border-radius: 3px;"/>
                    </div>
-                
                 </div>
             </div>
         </div>
+        
     </div>
 </div>
 

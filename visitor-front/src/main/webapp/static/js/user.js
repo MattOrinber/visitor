@@ -136,7 +136,8 @@ function doUserImageUpload() {
         		var data = $.secureEvalJSON(dataT);
         		if (data.result == 0) {
 	        		var imageUrl =  data.imageUrl;
-	        		$("#resultUserPicUpload").append("<span>" + imageUrl + "</span><br />");
+	        		//$("#resultUserPicUpload").append("<span>" + imageUrl + "</span><br />");
+	        		$("#userPictureDisplay").attr("src", imageUrl);
         		} else {
         			alert(data.resultDesc);
         		}
