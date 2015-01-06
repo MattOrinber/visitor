@@ -30,7 +30,7 @@ body{background:#f7f7f7;}
 .hostinfo .main{width:1020px;height:164px;margin:0 auto;position:relative;}
 .hostinfo .main .host{width:680px;height:164px;float:left;}
 .hostinfo .main .host .photo{width:150px;height:164px;float:left;}
-.hostinfo .main .host .photo .img{width:90px;height:90px;margin-top:15px;margin-bottom:5px;border-radius:50%;border: 2px solid #fff;overflow:hidden;}
+.hostinfo .main .host .photo .img{width:90px;height:90px;margin-top:15px;margin-bottom:5px;border-radius:50%;border: 2px solid #fff;background:url(../img/original2.jpg) no-repeat center center;}
 .hostinfo .main .host .photo p{width:90px;text-align:center;font-size:14px;color:#82888a;}
 .hostinfo .main .host .info{width:500px;height:148px;float:left;padding-top:15px;}
 .hostinfo .main .host .info h3{font-size:22px;margin-bottom:10px;}
@@ -45,13 +45,23 @@ body{background:#f7f7f7;}
 .hostinfo .scrollbox{width:100%;height:310px;position:relative;margin-top:-164px;}
 .hostinfo .scrollbox.fixedbook{position:fixed;top:0;left:0;z-index:1000;margin-top:40px;z-index:2000;}
 .hostinfo .scrollbox .rightbox{width:1020px;height:310px;margin:0 auto;position:relative;}
-.hostinfo .scrollbox .rightbox .book{width:300px;height:310px;position:absolute;right:0;top:-40px;}
+.hostinfo .scrollbox .rightbox .book{width:300px;height:375px;position:absolute;right:0;top:-40px;border:1px solid #d4d4d4;border-top:none;}
 .hostinfo .scrollbox.fixedbook .rightbox .book{background:#fff;border:1px solid #d4d4d4;border-top:none;}
 .hostinfo .scrollbox .rightbox .book .price{width:260px;height:40px;background:rgba(0,0,0,0.6);color:#fff;font-size:25px;line-height:40px;padding-left:20px;padding-right:20px;pointer-events: none}
 .hostinfo .scrollbox .rightbox .book .price span{font-size:14px;color:#fff;float:right;}
-.hostinfo .scrollbox .rightbox .book .date{width:260px;padding-left:20px;padding-right:20px;margin-top:20px;font-size:16px;}
+.hostinfo .scrollbox .rightbox .book .date{width:260px;padding-left:20px;padding-right:20px;margin-top:20px;font-size:16px;background:#fff;}
+
+
+.hostinfo .scrollbox .rightbox .book .date table{background:#ccc;}
+.hostinfo .scrollbox .rightbox .book .date table tr td{height:26px;background:#fff;font-size:14px;text-indent:5px;}
+.hostinfo .scrollbox .rightbox .book .date table tr td input{margin-left:20px;width:20px;height:20px;border:1px solid #ccc;text-align:center;}
+
+
+
+
+
 .hostinfo .scrollbox .rightbox .book .date span{display:block;width:260px;height:40px;background:#d5d5d5;border-radius:3px;margin-top:10px;text-align:center;line-height:40px;font-size:15px;cursor:pointer;color:#666;}
-.hostinfo .scrollbox .rightbox .book .booking{width:260px;padding-left:20px;padding-right:20px;margin-top:20px;}
+.hostinfo .scrollbox .rightbox .book .booking{width:260px;padding-left:20px;padding-right:20px;margin-top:10px;}
 .hostinfo .scrollbox .rightbox .book .booking a{display:block;border-radius:3px;width:260px;height:40px;background:#ff5a5f;color:#fff;line-height:40px;text-align:center;border:1px solid #ff7e82;
 border-bottom:1px solid #fa0008;font-size:18px;}
 .hostinfo .scrollbox .rightbox .book .booking a:hover{background:#ff7e82;}
@@ -113,50 +123,5 @@ border-bottom:1px solid #fa0008;color: #fff;margin-top:10px;margin-bottom:20px;b
 .content .apartment .word p.duration{font-size:14px;color:#979797;margin-top:5px;}
 .content .img{width:320px;height:227px;overflow:hidden;}
 
-
-
-.footer{width:100%;height:55px;background:#eee8df;}
-.footer .policy{width:1000px;margin:0 auto;line-height:55px;}
-.footer .policy a{font-size:13px;color:#4d3636;margin:auto 10px;}
-.footer .policy span{font-size:13px;color:#4d3636;float:right;}
-.footer .policy select{width:80px;height:18px;background:#eee8df;margin-right:10px;border:1px solid #999;}
-.footer .policy select option{font-size:13px;}
-
-.backtotop a{display:block;width:100%;height:50px;background:url(../img/totop.png) no-repeat center 7px #d9ccb9;cursor:pointer;}
-.backtotop a:hover{background:url(../img/totop.png) no-repeat center bottom #674702;}
-
-.boxshade{width:100%;height:100%;background:rgba(0,0,0,0.7);position:fixed;left:0;top:0;z-index:9999;}
-.boxshade .mod18{width:1024px;overflow:hidden;margin:0 auto;position:relative;}
-.boxshade .mod18 .btn{position:absolute;width:15px;height:70px;top:689px;cursor:pointer;z-index:99;font-size:50px;font-weight:bold;}
-.boxshade .mod18 .prev{left:0;background:url(../img/prevBtn.png) no-repeat;}
-.boxshade .mod18 #prevTop,.mod18 #nextTop{top:300px;width:46px;height:48px;}
-.boxshade .mod18 #prevTop{background:url(../img/prevBtnTop.png) 0 0 no-repeat;}
-.boxshade .mod18 #nextTop{background:url(../img/nextBtnTop.png) 0 0 no-repeat;}
-.boxshade .mod18 .next{right:0;background:url(../img/nextBtn.png) no-repeat;}
-.boxshade .mod18 li{float:left;}
-.boxshade .mod18 .cf li{position:relative;color:#fff;}
-.boxshade .mod18 .cf a{display:block;width:1024px;height:683px;position:absolute;color:#fff;}
-.boxshade .mod18 .picBox{height:683px;position:relative;overflow:hidden;}
-.boxshade .mod18 .picBox ul{height:683px;position:absolute;}
-.boxshade .mod18 .picBox li{width:1024px;height:683px;}
-
-.boxshade .mod18 .listBox{width:1024px;height:100px;margin:0 auto;position:relative;padding:6px 0 10px;overflow:hidden;}
-.boxshade .mod18 .listBox ul{margin-left:30px;height:100px;position:absolute;}
-.boxshade .mod18 .listBox li{width:129px;height:70px;cursor:pointer;position:relative;}
-.boxshade .mod18 .listBox li i{display:none;}
-.boxshade .mod18 .listBox li a{display:block;width:124px;height:70px;}
-.boxshade .mod18 .listBox li img{width:124px;height:70px;}
-.boxshade .mod18 .listBox .on img{width:118px;height:64px;border:3px solid #ff6600;}
-.boxshade .mod18 .listBox .on i{display:block;}
-
-.contact_host{width:400px;background:#fff;border:1px solid #c4c4c4;position:fixed;left:50%;top:30%;margin-left:-200px;z-index:9999;}
-.contact_host span{display:block;width:100%;height:40px;font-size:16px;text-indent:10px;line-height:40px;background:#d4d4d4;}
-.contact_host span img{float:right;margin-right:10px;margin-top:10px;}
-.contact_host div{width:380px;margin:0 auto;margin-top:20px;}
-.contact_host div table input{width:130px;height:30px;}
-.contact_host div table select{width:50px;height:34px;}
-.contact_host div p{margin-top:15px;font-size:14px;line-height:20px;}
-.contact_host div textarea{width:380px;height:100px;margin-top:10px;margin-bottom:10px;}
-.contact_host div a.button{width:80px;text-align:center;height:30px;display:inline-block;border:1px solid #fc989b;border-bottom-color: #ef8387;background: #fc989b;color: #fff;line-height:30px;float:right;margin-bottom:20px;}
 
 #toOrderStartDate{width:260px;height:30px}

@@ -63,7 +63,7 @@ function callOrderGeneration(dateText, dpInstance) {
 	        	var productPayOrderId = data.payOrderId;
 	        	var priceTemp = data.totalPrice;
 	        	
-	        	$("#totalPriceDisplayStr").append('Total: $ '+ priceTemp);
+	        	$("#totalPriceDisplayStr").html('Total: $ '+ priceTemp);
 	        	
 	        	var hiddenServiceStr = $("#hiddenServicePricePart");
 	        	if (hiddenServiceStr != null) {

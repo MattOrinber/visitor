@@ -170,7 +170,7 @@ public class FacebookController extends BasicController {
 			log.info("no authorization code returned");
 		}
 		
-		super.setModel(request, response, model, true);
+		//super.setModel(request, response, model, true);
 		return "redirect:/index";
 	}
 	
