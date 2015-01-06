@@ -215,21 +215,28 @@
 		      		<![CDATA[
 		      			<a class="save" href="javascript:contactHost('${loginUserEmail}','${hostInfo.userEmail}');">Contact Host</a>
 		      			<div id="priceBasicSetPart" class="date">
-		                    select Date: <input id="toOrderStartDate" type="text" placeholder="2014-10-30" />
+		                    Date: <input id="toOrderStartDate" type="text" placeholder="2014-10-30"  style="width:258px;height:32px;border:1px solid #ccc;text-align:center;"/>
 		                </div>
 		                
-		                <div id="hiddenServicePricePart" style="display:none;">
-		                	<label>Participant:</label><label>$ ${productInfo.productBaseprice}</label> <input id="orderBasicPriceCount" type="text" onblur="addBasicPrice(this);" /><br />
+		                <div class="date">
+		                    <table width="260" border="0" cellpadding="0" cellspacing="1">
+		                      <tr>
+		                        <td width="146">Participant:</td>
+		                        <td width="111">$ ${productInfo.productBaseprice}<input id="orderBasicPriceCount" type="text" onblur="addBasicPrice(this);" /></td>
+		                      </tr>
 		            ]]>
 		                <c:if test="${not empty multiPriceSet}">
-							<h4>More Service</h4>
 							<c:forEach items="${multiPriceSet}" var="priceSpecial" varStatus="status">
-								<label>${priceSpecial.pmpProductPriceKey} </label><label>$ ${priceSpecial.pmpProductPriceValue}</label><input data-key="${priceSpecial.pmpProductPriceKey}" data-amount="0" type="text" onblur="addServicePrice(this);" placeholder="0"/><br />
-				            	<hr/>
+				            	<tr>
+			                        <td width="146">${priceSpecial.pmpProductPriceKey}</td>
+			                        <td width="111">$ ${priceSpecial.pmpProductPriceValue}<input data-key="${priceSpecial.pmpProductPriceKey}" data-amount="0" type="text" onblur="addServicePrice(this);" placeholder="0"/></td>
+			                    </tr>
 							</c:forEach>
 						</c:if>
 					<![CDATA[
-						</div>
+		                    </table>
+		                </div>
+		                <p id="hiddenServicePricePart" style="display:none;text-align:center;margin-top:10px;"><b id="totalPriceDisplayStr">Total:$ 1000</b></p>
 		                <div class="booking">
 		                	<a id="toPayOrderButton" href="javascript:void(0);">instant book</a> 
 		                </div>
