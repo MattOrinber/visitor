@@ -28,6 +28,7 @@
 	        <mvc:mapping path="/day/dashboard"/>
 	        <mvc:mapping path="/day/inbox"/>
 	        <mvc:mapping path="/day/your-listing"/>
+	        <mvc:mapping path="/day/your-trip"/>
 	        <mvc:mapping path="/day/toPayOrder"/>
 	        <mvc:mapping path="/day/edit"/>
 	        <mvc:mapping path="/day/edit-photos"/>
