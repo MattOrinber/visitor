@@ -43,15 +43,15 @@ function saveUserDetailToBack() {
 		user.lastNameStr = lastNameStr;
 		needUpdate = true;
 	}
-	var genderStr = $("#gender").val();
+	var genderStr = $.trim($("#gender").val());
 	if (genderStr != null && genderStr != "" && genderStr != "0") {
 		user.genderStr = genderStr;
 		needUpdate = true;
 	}
 	
-	var birthDateDay = $("#birthDateDay").val();
-	var birthDateMonth = $("#birthDateMonth").val();
-	var birthDateYear = $("#birthDateYear").val();
+	var birthDateDay = $.trim($("#birthDateDay").val());
+	var birthDateMonth = $.trim($("#birthDateMonth").val());
+	var birthDateYear = $.trim($("#birthDateYear").val());
 	
 	if (birthDateDay != null && birthDateDay != "" &&
 			birthDateMonth != null && birthDateMonth != "" &&
@@ -94,7 +94,7 @@ function saveUserDetailToBack() {
 		needUpdate = true;
 	}
 	
-	var timeZoneStr = $("#timeZoneStr").val();
+	var timeZoneStr = $.trim($("#timeZoneStr").val());
 	if (timeZoneStr != null && timeZoneStr != "") {
 		user.timeZoneStr = timeZoneStr;
 		needUpdate = true;

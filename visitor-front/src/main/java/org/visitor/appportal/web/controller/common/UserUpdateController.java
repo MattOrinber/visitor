@@ -8,6 +8,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,22 +59,56 @@ public class UserUpdateController extends BasicController {
 			Integer result = 0;
 			String resultDesc = "";
 			
-			userTemp.setUserAddress(ut.getAddressStr());
+			String userAddressStr = ut.getAddressStr();
+			if (StringUtils.isNotEmpty(userAddressStr)) {
+				userTemp.setUserAddress(userAddressStr);
+			}
+			
 			String birthDateT = ut.getBirthDateStr();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
-			Date dateT = sdf.parse(birthDateT);
-			userTemp.setUserBirthdate(dateT);
-				
-			userTemp.setUserFirstName(ut.getFirstNameStr());
-			userTemp.setUserLastName(ut.getLastNameStr());
-			userTemp.setUserGender(MixAndMatchUtils.getGenderInteger(ut.getGenderStr()));
-			userTemp.setUserPhonenum(ut.getPhoneNumberStr()); //phone number not here
-			userTemp.setUserWork(ut.getWorkStr());
-			userTemp.setUserPaypalnum(ut.getUserPalpalNumStr());
-				
-			Integer userTimeZoneInt = timezoneRedisService.getTimeZoneId(ut.getTimeZoneStr());
-			userTemp.setUserTimeZone(userTimeZoneInt);
-			userTemp.setUserDetail(ut.getDescriptionStr());
+			if (StringUtils.isNotEmpty(birthDateT)) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
+				Date dateT = sdf.parse(birthDateT);
+				userTemp.setUserBirthdate(dateT);
+			}
+			
+			String firstNameStr = ut.getFirstNameStr();
+			if (StringUtils.isNotEmpty(firstNameStr)) {
+				userTemp.setUserFirstName(firstNameStr);
+			}
+			
+			String lastNameStr = ut.getLastNameStr();
+			if (StringUtils.isNotEmpty(lastNameStr)) {
+				userTemp.setUserLastName(lastNameStr);
+			}
+			
+			String userGenderStr = ut.getGenderStr();
+			if (StringUtils.isNotEmpty(userGenderStr)) {
+				userTemp.setUserGender(MixAndMatchUtils.getGenderInteger(userGenderStr));
+			}
+			
+			String phoneNumberStr = ut.getPhoneNumberStr();
+			if (StringUtils.isNotEmpty(phoneNumberStr)) {
+				userTemp.setUserPhonenum(phoneNumberStr); //phone number not here
+			}
+			String workStr = ut.getWorkStr();
+			if (StringUtils.isNotEmpty(workStr)) {
+				userTemp.setUserWork(workStr);
+			}
+			String paypalNumStr = ut.getUserPalpalNumStr();
+			if (StringUtils.isNotEmpty(paypalNumStr)) {
+				userTemp.setUserPaypalnum(paypalNumStr);
+			}
+			
+			String timeZoneStrT = ut.getTimeZoneStr();
+			if (StringUtils.isNotEmpty(timeZoneStrT)) {
+				Integer userTimeZoneInt = timezoneRedisService.getTimeZoneId(timeZoneStrT);
+				userTemp.setUserTimeZone(userTimeZoneInt);
+			}
+			
+			String userDetailStr = ut.getDescriptionStr();
+			if (StringUtils.isNotEmpty(userDetailStr)) {
+				userTemp.setUserDetail(userDetailStr);
+			}
 			
 			//mysql
 			visitorUserService.saveUser(userTemp);
