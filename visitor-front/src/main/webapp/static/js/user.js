@@ -1,3 +1,34 @@
+var userDetailStrGlobal = "";
+
+function setUserDiscValue() {
+	var editor = CKEDITOR.instances.selfDescriptionStr;
+	editor.insertHtml(userDetailStrGlobal);
+}
+
+function initUserDetailTextarea() {
+	var node = $("#selfDescriptionStr");
+	if (node != null) {
+		userDetailStrGlobal = $("#userDetailOnPage").html();
+		CKEDITOR.replace( 'selfDescriptionStr', {
+			on: {
+				instanceReady:setUserDiscValue
+			},
+			coreStyles_bold: { 
+				element: 'b' 
+			},
+			coreStyles_italic: { 
+				element: 'i' 
+			},
+	
+			fontSize_style: {
+				element: 'font',
+				attributes: { 'size': '#(size)' }
+			},
+			width:760,
+			height:250
+		});
+	}
+}
 function saveUserDetailToBack() {
 	var user = {};
 	var needUpdate = false;
@@ -48,9 +79,12 @@ function saveUserDetailToBack() {
 		needUpdate = true;
 	}
 	
-	var selfDescriptionStr = $.trim($("#selfDescriptionStr").val());
-	if (selfDescriptionStr != null && selfDescriptionStr != "") {
-		user.descriptionStr = selfDescriptionStr;
+	var editor = CKEDITOR.instances.selfDescriptionStr;
+	var editorUserDesc = $.trim(editor.getData());
+	
+	var oriDescriptionStr = $.trim($("#userDetailOnPage").html());
+	if (editorUserDesc != null && editorUserDesc != "" && editorUserDesc != oriDescriptionStr) {
+		user.descriptionStr = editorUserDesc;
 		needUpdate = true;
 	}
 	

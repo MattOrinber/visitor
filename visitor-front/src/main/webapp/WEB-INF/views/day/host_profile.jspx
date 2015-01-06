@@ -27,7 +27,7 @@
       		<c:when test="${not empty userDisplay and not empty userDisplay.userPhotourl}">
       			<img src="${userDisplay.userPhotourl}" width="230"/>
       		</c:when>
-      		<<c:otherwise>
+      		<c:otherwise>
       			<img src="${imgPathOrigin}/static/original1.jpg" width="230"/>
       		</c:otherwise>
       	</c:choose>
@@ -62,90 +62,6 @@
 				</c:if>
 <![CDATA[
             </div>
-            
-            <div class="review">
-            	<a href="#review-details">26</a>
-                <span>Reviews</span>
-            </div>
-            
-            <div class="review-details" id="review-details">
-            	<h2>Reviews (26)</h2>
-                <p>Reviews From Guests</p>
-                <div class="list">
-                    <dl>
-                        <dd></dd>
-                        <dt>Alexander</dt>
-                    </dl>
-                    <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-                    <span>September 2014</span>
-                	</div>
-                    <div class="list response">
-                        <dl>
-                            <dd></dd>
-                            <dt>Alexander</dt>
-                        </dl>
-                        <div class="text"><p>Response from Sarah:</p>
-                            SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-                        <span>September 2014</span>
-                        </div>
-                    </div>
-        		</div>
-        		<div class="line"></div>
-                <div class="list">
-                    <dl>
-                        <dd></dd>
-                        <dt>Alexander</dt>
-                    </dl>
-                    <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-                    <span>September 2014</span>
-                    </div>
-                </div>
-                <div class="line"></div>
-                <div class="list">
-                    <dl>
-                        <dd></dd>
-                        <dt>Alexander</dt>
-                    </dl>
-                    <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-                    <span>September 2014</span>
-                    </div>
-                </div>
-                <div class="line"></div>
-                <div class="list">
-                    <dl>
-                        <dd></dd>
-                        <dt>Alexander</dt>
-                    </dl>
-                    <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-                    <span>September 2014</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="review-details" style="margin-top:30px;margin-bottom:50px;">
-                <p>Reviews From Host</p>
-                <div class="list">
-                    <dl>
-                        <dd></dd>
-                        <dt>Alexander</dt>
-                    </dl>
-                    <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-                    <span>September 2014</span>
-                	</div>
-        		</div>
-                <div class="line"></div>
-                <div class="list">
-                    <dl>
-                        <dd></dd>
-                        <dt>Alexander</dt>
-                    </dl>
-                    <div class="text">I had only 2 days in Seoul and staying at SunÂ´s place was the best idea ever. First night when I arrived Sun, Christy the other flat mate staying at Suns, and myself went out for dinner. Great Food, lots of laughter, discussing sightseeing highlights. SunÂ´s place is super nice, super clean and a 3min walk away from the Underground. Sun gives info to all questions about the City one might have. Was great Sun !! Many thanks 
-                    <span>September 2014</span>
-                	</div>
-        		</div>
-
-            </div>
-            
         </div>
     </div>
 </div>
