@@ -124,31 +124,25 @@ function saveUserDetailToBack() {
 }
 
 function doUserImageUpload() {
+	var picUploadUrl = pathGlobe + "/updateUser/usericon";
 	
-	$("#uploadUserPicForm").submit(function() {
-    	
-    	var picUploadUrl = pathGlobe + "/updateUser/usericon";
-    	
-        $("#uploadUserPicForm").ajaxSubmit({
-        	type: "post",
-        	url: picUploadUrl,
-        	success: function (dataT) {
-        		var data = $.secureEvalJSON(dataT);
-        		if (data.result == 0) {
-	        		var imageUrl =  data.imageUrl;
-	        		//$("#resultUserPicUpload").append("<span>" + imageUrl + "</span><br />");
-	        		$("#userPictureDisplay").attr("src", imageUrl);
-        		} else {
-        			alert(data.resultDesc);
-        		}
-            },
-            error: function (msg) {
-            	alert("image upload failed");
-            }
-        });
-        return false;
+    $("#uploadUserPicForm").ajaxSubmit({
+    	type: "post",
+    	url: picUploadUrl,
+    	success: function (dataT) {
+    		var data = $.secureEvalJSON(dataT);
+    		if (data.result == 0) {
+        		var imageUrl =  data.imageUrl;
+        		//$("#resultUserPicUpload").append("<span>" + imageUrl + "</span><br />");
+        		$("#userPictureDisplay").attr("src", imageUrl);
+    		} else {
+    			alert(data.resultDesc);
+    		}
+        },
+        error: function (msg) {
+        	alert("image upload failed");
+        }
     });
-    $("#uploadUserPicForm").submit();
 }
 
 function contactHost(loginUserEmail, hostUserEmail) {
