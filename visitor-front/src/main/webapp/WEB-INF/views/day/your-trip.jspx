@@ -48,9 +48,20 @@
 									</c:otherwise>
 								</c:choose>
 		<![CDATA[
-			                        <div class="time" style="width:300px;">
-										<a href="${pageContext.request.contextPath}/day/product?pid=${productOrderBundle.product.productId}" class="title">${productOrderBundle.product.productRoomType} in ${productOrderBundle.product.productCity}</a>
-			                        </div>
+								   <div class="time" style="width:500px;">
+			                           <a href="${pageContext.request.contextPath}/day/product?pid=${productOrderBundle.product.productId}" class="title">${productOrderBundle.product.productRoomType} in ${productOrderBundle.product.productCity}</a>
+			                       </div>
+			                       
+			                       <div class="content">
+									   <p class="col-7">Total: $ ${productOrderBundle.order.orderTotalAmount}</p>
+								   </div>
+		]]>
+									<c:if test="${productOrderBundle.order.orderStatus == 0 or productOrderBundle.order.orderStatus == 1}">
+										<div class="price">
+				                           <a id="toPayOrderButton" href="javascript:void(0);">Pay</a>
+				                       </div>
+									</c:if>
+		<![CDATA[ 
 			                   </div>
 		]]>
 							</c:forEach>

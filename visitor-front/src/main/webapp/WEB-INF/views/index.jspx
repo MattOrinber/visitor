@@ -160,7 +160,7 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
 		                   	<li><a href="${pageContext.request.contextPath}/day/dashboard">Dashboard</a></li>
 		                    <li><a href="${pageContext.request.contextPath}/day/inbox">Inbox</a></li>
 		                    <li><a href="javascript:toListing();">Your Listings</a></li>
-		                    <li><a href="">Your Trips</a></li>
+		                    <li><a href="${pageContext.request.contextPath}/day/your-trip">Your Trips</a></li>
 		                    <li><a href="${pageContext.request.contextPath}/day/edit">Edit Profile</a></li>
 		                    <li><a href="javascript:logoutVisitor('${pageContext.request.contextPath}');">Log Out</a></li>
 		                </ul>
@@ -193,7 +193,7 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
 		                   	<li><a href="${pageContext.request.contextPath}/day/dashboard">Dashboard</a></li>
 		                    <li><a href="${pageContext.request.contextPath}/day/inbox">Inbox</a></li>
 		                    <li><a href="javascript:toListing();">Your Listings</a></li>
-		                    <li><a href="">Your Trips</a></li>
+		                    <li><a href="${pageContext.request.contextPath}/day/your-trip">Your Trips</a></li>
 		                    <li><a href="${pageContext.request.contextPath}/day/edit">Edit Profile</a></li>
 		                    <li><a href="javascript:logoutVisitor('${pageContext.request.contextPath}');">Log Out</a></li>
 		                </ul>
