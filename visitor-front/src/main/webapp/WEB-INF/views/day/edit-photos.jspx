@@ -58,7 +58,7 @@
                    <div class="upload">
                    		<p>Clear frontal face photos are an important way for hosts and guests to learn about each other. It's not much fun to host a landscape! Please upload a photo that clearly shows your face.</p>
                    		<div class="file-box"> Upload a file from <br />your computer
-                   			<input type="file" name="fileUserIcon" id="fileUserIcon" class="file" value="upload" /> 
+                   			<form id="uploadUserPicForm"><input type="file" name="fileUserIcon" id="fileUserIcon" class="file" value="upload" /></form> 
                         </div> 
                         <input type="button" value="Update" onclick="doUserImageUpload('${pageContext.request.contextPath}');" style="font-size:15px;margin-left:20px;margin-top:20px;width: 150px;text-align: center;height: 35px;display: inline-block;background:#ff5a5f;border:1px solid #ff5a5f;border-bottom-color: #e00007;color: #fff;line-height: 35px;border-radius: 3px;"/>
                    </div>
