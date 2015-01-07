@@ -1,0 +1,40 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:security="http://www.springframework.org/security/tags" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:directive.page contentType="text/html;charset=UTF-8" />
+<jsp:output omit-xml-declaration="yes" />
+
+<head>
+    <title>Dayfetch admin</title>
+    
+    <!-- custom js library -->
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery-1.5.2/jquery.min.js"><c:out value=" " /></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery.md5.js"><c:out value=" " /></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery-validation-1.8.0/jquery.validate.js"><c:out value=" " /></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery.json-2.4.js"><c:out value="" /></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/testPublish.js"><c:out value=" " /></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/admin.js"><c:out value=" " /></script>
+	
+	<script type="text/javascript">
+	var pathGlobe = '${pageContext.request.contextPath}';
+	</script>
+    
+    <style>
+		.headDiv{position:absolute;top:0px;left:0px;height:200px;width:100%;padding:50px;font-family:"microsoft yahei";font-size:13px;border-style: solid;border-top-width: 0px;border-right-width: 0px;border-bottom-width: 1px;border-left-width: 0px;}
+		.iconDiv{position:relative; float:left;width:100px;height:100px;}
+		.boxDiv{position:absolute;top:350px;right:200px;width:300px;height:400px;}
+	</style>
+</head>
+<body>
+	<div class="headDiv">
+		<div class="iconDiv">
+			<img src="${pageContext.request.contextPath}/static/img/thumbnail.png" width="100"/>
+		</div>
+		
+		<div class="boxDiv">
+			<p>用户名</p><input type="text" id="usernameInput" placeholder="username" /><br />
+			<p>密码</p><input type="text" id="passwordInput" placeholder="password" /><br />
+			<input type="button" id="loginButton" onclick="loginUser();" value="登陆" />
+		</div>
+	</div>
+</body>
+</html>

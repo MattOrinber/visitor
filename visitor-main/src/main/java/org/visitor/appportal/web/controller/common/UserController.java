@@ -102,6 +102,29 @@ public class UserController extends BasicController{
 		setResultToClient(response, rj);
 	}
 	
+	@RequestMapping("loginback")
+    public void loginback(HttpServletRequest request,
+    		HttpServletResponse response) {
+		UserTemp ut = super.getUserJson(request);
+		
+		logTheJsonResult(ut);
+		
+		//update mysql
+		String mailStrParam = ut.getEmailStr();
+		String passwordStrParam = ut.getPasswordStr();
+		
+		ResultJson rj = checkIfTheUserLegal(mailStrParam, passwordStrParam);
+		
+		if (rj.getResult() >= 0) {
+			String tokenStr = EncryptionUtil.getToken(mailStrParam, passwordStrParam, rj.getUserLoginTime());
+			userRedisService.saveUserToken(mailStrParam, tokenStr);
+			rj.setToken(tokenStr);
+			rj.setUserEmail(mailStrParam);
+		}
+		
+		setResultToClient(response, rj);
+	}
+	
 	@RequestMapping("postDetail")
 	public void postUserDetail(HttpServletRequest request, HttpServletResponse response) throws ParseException {
 		UserTemp ut = super.getUserJson(request);
