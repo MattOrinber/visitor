@@ -105,7 +105,7 @@
 	</c:when>
 	<c:otherwise>
 <![CDATA[
-		<div class="banner" id="bigImgshow2">
+		<div class="bannerPlaceHolder" id="bigImgshow2">
 		</div>
 ]]>
 	</c:otherwise>

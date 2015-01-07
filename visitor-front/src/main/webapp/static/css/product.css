@@ -18,6 +18,7 @@ body{background:#f7f7f7;}
 .header .head .loginbar a.list:hover{background-color:#12acbc;border:1px solid #12acbc;border-bottom-color: #004f58;}
 
 .banner{width:100%;height:520px;background:url(../img/12e158cf_original.jpg) no-repeat center center;cursor:pointer;}
+.bannerPlaceHolder{width:100%;height:520px;cursor:pointer;}
 
 .hostinfo{width:100%;height:164px;background:#fff;border-bottom:1px solid #c4c4c4;position:relative;}
 .hostinfo .menu{width:100%;height:40px;background:#565a5c;position:absolute;left:0;top:-40px;display:none;}
