@@ -127,18 +127,16 @@
             <td><select id="guestNumber"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
           </tr>
         </table>
-	<p>
-    	Some tips:<br />
-        * Tell Host a little about yourself<br />
-        * What brings you to here? Who's coming? <br />
-        * What do you love about this listing?
-    	
-    </p>
-    <textarea id="mailContent"></textarea>
-    <a href="javascript:checkAndSend();" class="button">Send Message</a>
+		<p>
+	    	Some tips:<br />
+	        * Tell Host a little about yourself<br />
+	        * What brings you to here? Who's coming? <br />
+	        * What do you love about this listing?
+	    	
+	    </p>
+	    <textarea id="mailContent"></textarea>
+	    <a href="javascript:checkAndSend();" class="button">Send Message</a>
     </div>
-    <div id="loginUserMailForMail" style="display:none;"></div>
-    <div id="hostUserMailForMail" style="display:none;"></div>
 </div>
 
 <div class="hostinfo">
@@ -172,7 +170,7 @@
                 </c:if>
                 
 				<c:if test="${empty hostInfo.userLastName or empty hostInfo.userFirstName}">
-                	<p>${hostInfo.userEmail}</p>
+                	<p>Cool Guy</p>
                 </c:if>
 <![CDATA[
             </div>
@@ -213,7 +211,7 @@
 		      		</c:when>
 		      		<c:otherwise>
 		      		<![CDATA[
-		      			<a class="save" href="javascript:contactHost('${loginUserEmail}','${hostInfo.userEmail}');">Contact Host</a>
+		      			<a class="save" href="javascript:contactHost('${loginUserEmail}','${hostInfo.userId}');">Contact Host</a>
 		      			<div id="priceBasicSetPart" class="date">
 		                    Date: <input id="toOrderStartDate" type="text" placeholder="2014-10-30"  style="width:258px;height:32px;border:1px solid #ccc;text-align:center;"/>
 		                </div>

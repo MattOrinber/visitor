@@ -19,6 +19,10 @@ public class RedisKeysForVisitor {
     	return "visitor-site-userpasswordkey";
     }
     
+    public static String getAllUserInfoKey() {
+    	return "visitor-site-userinfokey";
+    }
+    
     public static String getVisitorSiteUserTokenInfoFirstKey() {
     	return "visitor-site-user-token-info";
     }
@@ -115,6 +119,10 @@ public class RedisKeysForVisitor {
     
     public static String getUserInternalMailFromMeKey() {
     	return "visitor-site-user-internal-mail-history" + getVisitorRedisWeakSplit();
+    }
+    
+    public static String getUserInternalMailRepliedFromMeKey() {
+    	return "visitor-site-user-internal-mail-replied" + getVisitorRedisWeakSplit();
     }
     
     public static String getUserInternalMailAlways() {

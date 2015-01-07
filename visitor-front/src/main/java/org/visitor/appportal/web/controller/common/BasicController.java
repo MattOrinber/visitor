@@ -39,6 +39,7 @@ import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.service.newsite.redis.VisitorLanguageRedisService;
 import org.visitor.appportal.visitor.beans.BuyTemp;
+import org.visitor.appportal.visitor.beans.InboxOut;
 import org.visitor.appportal.visitor.beans.PayTemp;
 import org.visitor.appportal.visitor.beans.ProductAddressTemp;
 import org.visitor.appportal.visitor.beans.ProductDetailTemp;
@@ -61,6 +62,7 @@ import org.visitor.appportal.visitor.domain.ProductOperation;
 import org.visitor.appportal.visitor.domain.ProductOrder;
 import org.visitor.appportal.visitor.domain.ProductPicture;
 import org.visitor.appportal.visitor.domain.User;
+import org.visitor.appportal.visitor.domain.UserInternalMail;
 import org.visitor.appportal.visitor.domain.UserTokenInfo;
 import org.visitor.appportal.web.mailutils.SendMailUtils;
 import org.visitor.appportal.web.mailutils.UserMailException;
@@ -844,5 +846,71 @@ public class BasicController {
 			rj.setProductCan(0);
 		}
 		rj.setStepsCount(resultCount);
+	}
+
+	public void setInboxModel(HttpServletRequest request, Model model) {
+		// TODO Auto-generated method stub
+		//do internal
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		String userEmailStr = userTemp.getUserEmail();
+		
+		//获取系统当前毫秒数
+		long currentMillis = System.currentTimeMillis();
+		
+		//设置未读邮件列表
+		List<UserInternalMail> listUIM = userRedisService.getUserInternalMailToMe(userEmailStr);
+		List<InboxOut> listUnReadIO = setMailIOList(listUIM, model, currentMillis);
+		model.addAttribute("internalIOList", listUnReadIO);
+		model.addAttribute("inboxUnreadCount", listUnReadIO.size());
+		
+		//设置发送邮件列表
+		List<UserInternalMail> listFromMeUIM = userRedisService.getUserInternalMailFromMe(userEmailStr);
+		List<InboxOut> listFromMeIO = setMailIOList(listFromMeUIM, model, currentMillis);
+		model.addAttribute("internalFromMeIOList", listFromMeIO);
+		model.addAttribute("inboxFromMeCount", listFromMeIO.size());
+		
+		//设置已回复邮件列表
+		List<UserInternalMail> listRepliedUIM = userRedisService.getUserInternalMailRepliedFromMe(userEmailStr);
+		List<InboxOut> listRepliedIO = setMailIOList(listRepliedUIM, model, currentMillis);
+		model.addAttribute("internalRepliedIOList", listRepliedIO);
+		model.addAttribute("inboxRepliedCount", listRepliedIO.size());
+	}
+	
+	
+	private List<InboxOut> setMailIOList(List<UserInternalMail> listUIM, Model model, long currentMillis) {
+		List<InboxOut> listIO = new ArrayList<InboxOut>();
+		
+		if (listUIM != null && listUIM.size() > 0) {
+			for (UserInternalMail uim : listUIM) {
+				InboxOut io = new InboxOut();
+				String contentStr = uim.getUimContent();
+				String[] contentArray = contentStr.split(WebInfo.SPLIT);
+				String dateRangeAndAccomo = "From " + contentArray[0] + " to " + contentArray[1] + "; guest number " + contentArray[2];
+				Long pid = uim.getUimProductId();
+				io.setDateAndAccomodates(dateRangeAndAccomo);
+				io.setProductId(pid);
+				
+				Product product = productRedisService.getProductFromRedis(pid);
+				Double count = Double.valueOf(contentArray[2]);
+				Double basicPrice = Double.valueOf(product.getProductBaseprice());
+				Double totalPrice = count * basicPrice;
+				io.setTotalBasicPrice(totalPrice);
+				
+				String fromEmail = uim.getUimFromUserMail();
+				User tempUser = userRedisService.getUserPassword(fromEmail);
+				io.setUserFrom(tempUser);
+				
+				Date uimDate = uim.getUimCreateDate();
+				long uimMillis = uimDate.getTime();
+				
+				long daysToNow = (currentMillis-uimMillis)/(24*3600000);
+				
+				io.setDaysFromNow(new Long(daysToNow));
+				
+				listIO.add(io);
+			}
+		} 
+		
+		return listIO;
 	}
 }

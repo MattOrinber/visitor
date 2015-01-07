@@ -13,7 +13,6 @@ import org.visitor.appportal.redis.RedisKeysForVisitor;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.visitor.domain.UserInternalMail;
 import org.visitor.appportal.visitor.domain.UserTokenInfo;
-import org.visitor.appportal.web.utils.RegisterInfo.UserMailStatusEnum;
 
 @Service("userRedisService")
 public class UserRedisService {
@@ -60,6 +59,7 @@ public class UserRedisService {
 		return result;
 	}
 	
+	//存储邮件实体
 	public void setUserInternalMailAlways(UserInternalMail uim) {
 		String key = RedisKeysForVisitor.getUserInternalMailAlways();
 		String hashKey = String.valueOf(uim.getUimId());
@@ -67,7 +67,7 @@ public class UserRedisService {
 		String valueT = objectMapperWrapperForVisitor.convert2String(uim);
 		compressStringRedisVisitorTemplate.opsForHash().put(key, hashKey, valueT);
 	}
-	
+	//获取邮件实体
 	public UserInternalMail getUserInternalMailAlways(String uimIdStr) {
 		String key = RedisKeysForVisitor.getUserInternalMailAlways();
 		String valueOri = (String) compressStringRedisVisitorTemplate.opsForHash().get(key, uimIdStr);
@@ -75,35 +75,89 @@ public class UserRedisService {
 		return uimT;
 	}
 	
+	//设置收方未读列表
 	public void setUserInternalMailUnread(UserInternalMail uim) {
 		String keyTo = RedisKeysForVisitor.getUserInternalMailToMeKey() + uim.getUimToUserMail();
 		String hashKey = String.valueOf(uim.getUimId());
-		
-		uim.setUimStatus(UserMailStatusEnum.Unread.ordinal());
-		String valueTo = objectMapperWrapperForVisitor.convert2String(uim);
-		
+		String valueTo = "-";
 		compressStringRedisVisitorTemplate.opsForHash().put(keyTo, hashKey, valueTo);
 	}
+	//设置发方发送列表
+	public void setUserInternalMailFromMe(User user, UserInternalMail uim) {
+		String keyFrom = RedisKeysForVisitor.getUserInternalMailFromMeKey() + user.getUserEmail();
+		String hashKey = String.valueOf(uim.getUimId());
+		String valueTo = "-";
+		compressStringRedisVisitorTemplate.opsForHash().put(keyFrom, hashKey, valueTo);
+	}
+	//设置发方已回复列表
+	public void setUserInternalMailReplied(User user, UserInternalMail uim) {
+		String keyFrom = RedisKeysForVisitor.getUserInternalMailRepliedFromMeKey() + user.getUserEmail();
+		String hashKey = String.valueOf(uim.getUimId());
+		String valueTo = "-";
+		compressStringRedisVisitorTemplate.opsForHash().put(keyFrom, hashKey, valueTo);
+	}
 	
+	//查看本人的未读邮件列表
 	public List<UserInternalMail> getUserInternalMailToMe(String userMailStr) {
 		List<UserInternalMail> toMeList = new ArrayList<UserInternalMail>();
 		
 		String keyTo = RedisKeysForVisitor.getUserInternalMailToMeKey() + userMailStr;
 		Map<Object, Object> entries = compressStringRedisVisitorTemplate.opsForHash().entries(keyTo);
 		
+		String keyA = RedisKeysForVisitor.getUserInternalMailAlways();
+		
 		if (null != entries) {
 			for(Object entry : entries.keySet()) {
-				String valueStr = (String)entries.get(entry);
-				UserInternalMail uim = objectMapperWrapperForVisitor.convertToUserInternalMail(valueStr);
-				toMeList.add(uim);
+				String uimIdStr = (String)entry;
+				String valueOri = (String) compressStringRedisVisitorTemplate.opsForHash().get(keyA, uimIdStr);
+				UserInternalMail uimT = objectMapperWrapperForVisitor.convertToUserInternalMail(valueOri);
+				toMeList.add(uimT);
+			}
+		}
+		return toMeList;
+	}
+	//查看本人的已发送邮件列表
+	public List<UserInternalMail> getUserInternalMailFromMe(String userMailStr) {
+		List<UserInternalMail> toMeList = new ArrayList<UserInternalMail>();
+		
+		String keyTo = RedisKeysForVisitor.getUserInternalMailFromMeKey() + userMailStr;
+		Map<Object, Object> entries = compressStringRedisVisitorTemplate.opsForHash().entries(keyTo);
+		
+		String keyA = RedisKeysForVisitor.getUserInternalMailAlways();
+		
+		if (null != entries) {
+			for(Object entry : entries.keySet()) {
+				String uimIdStr = (String)entry;
+				String valueOri = (String) compressStringRedisVisitorTemplate.opsForHash().get(keyA, uimIdStr);
+				UserInternalMail uimT = objectMapperWrapperForVisitor.convertToUserInternalMail(valueOri);
+				toMeList.add(uimT);
+			}
+		}
+		return toMeList;
+	}
+	//查看本人的已回复邮件列表
+	public List<UserInternalMail> getUserInternalMailRepliedFromMe(String userMailStr) {
+		List<UserInternalMail> toMeList = new ArrayList<UserInternalMail>();
+		
+		String keyTo = RedisKeysForVisitor.getUserInternalMailRepliedFromMeKey() + userMailStr;
+		Map<Object, Object> entries = compressStringRedisVisitorTemplate.opsForHash().entries(keyTo);
+		
+		String keyA = RedisKeysForVisitor.getUserInternalMailAlways();
+		
+		if (null != entries) {
+			for(Object entry : entries.keySet()) {
+				String uimIdStr = (String)entry;
+				String valueOri = (String) compressStringRedisVisitorTemplate.opsForHash().get(keyA, uimIdStr);
+				UserInternalMail uimT = objectMapperWrapperForVisitor.convertToUserInternalMail(valueOri);
+				toMeList.add(uimT);
 			}
 		}
 		return toMeList;
 	}
 	
+	//获取我的未读邮件的个数
 	public Integer getUserInternalMailUnreadCount(String userMailStr) {
 		Integer count = 0;
-		
 		String keyTo = RedisKeysForVisitor.getUserInternalMailToMeKey() + userMailStr;
 		Map<Object, Object> entries = compressStringRedisVisitorTemplate.opsForHash().entries(keyTo);
 		if (entries != null && entries.size() > 0) {
@@ -111,8 +165,29 @@ public class UserRedisService {
 		}
 		return count;
 	}
+	//获取我发送的邮件的个数
+	public Integer getUserInternalMailFromMeCount(String userMailStr) {
+		Integer count = 0;
+		String keyTo = RedisKeysForVisitor.getUserInternalMailFromMeKey() + userMailStr;
+		Map<Object, Object> entries = compressStringRedisVisitorTemplate.opsForHash().entries(keyTo);
+		if (entries != null && entries.size() > 0) {
+			count = entries.size();
+		}
+		return count;
+	}
+	//获取我回复的邮件的个数
+	public Integer getUserInternalMailRepliedFromMeCount(String userMailStr) {
+		Integer count = 0;
+		String keyTo = RedisKeysForVisitor.getUserInternalMailRepliedFromMeKey() + userMailStr;
+		Map<Object, Object> entries = compressStringRedisVisitorTemplate.opsForHash().entries(keyTo);
+		if (entries != null && entries.size() > 0) {
+			count = entries.size();
+		}
+		return count;
+	}
 	
-	public void deleteUserInternalMail(String userMailStr, String uimIdStr) {
+	//挪出我的未读列表
+	public void deleteUserInternalMailUnread(String userMailStr, String uimIdStr) {
 		String keyTo = RedisKeysForVisitor.getUserInternalMailToMeKey() + userMailStr;
 		compressStringRedisVisitorTemplate.opsForHash().delete(keyTo, uimIdStr);
 	}

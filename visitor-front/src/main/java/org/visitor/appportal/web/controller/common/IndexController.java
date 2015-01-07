@@ -244,48 +244,7 @@ public class IndexController extends BasicController {
 			return "redirect:/index";
 		}
 		
-		//do internal
-		User userTemp = (User) request.getAttribute(WebInfo.UserID);
-		String userEmailStr = userTemp.getUserEmail();
-		
-		List<InboxOut> listIO = new ArrayList<InboxOut>();
-		
-		List<UserInternalMail> listUIM = userRedisService.getUserInternalMailToMe(userEmailStr);
-		if (listUIM != null && listUIM.size() > 0) {
-			
-			long currentMillis = System.currentTimeMillis();
-			
-			for (UserInternalMail uim : listUIM) {
-				InboxOut io = new InboxOut();
-				String contentStr = uim.getUimContent();
-				String[] contentArray = contentStr.split(WebInfo.SPLIT);
-				String dateRangeAndAccomo = "From " + contentArray[0] + " to " + contentArray[1] + "; guest number " + contentArray[2];
-				Long pid = uim.getUimProductId();
-				io.setDateAndAccomodates(dateRangeAndAccomo);
-				io.setProductId(pid);
-				
-				Product product = productRedisService.getProductFromRedis(pid);
-				Double count = Double.valueOf(contentArray[2]);
-				Double basicPrice = Double.valueOf(product.getProductBaseprice());
-				Double totalPrice = count * basicPrice;
-				io.setTotalBasicPrice(totalPrice);
-				
-				String fromEmail = uim.getUimFromUserMail();
-				User tempUser = userRedisService.getUserPassword(fromEmail);
-				io.setUserFrom(tempUser);
-				
-				Date uimDate = uim.getUimCreateDate();
-				long uimMillis = uimDate.getTime();
-				
-				long daysToNow = (currentMillis-uimMillis)/(24*3600000);
-				
-				io.setDaysFromNow(new Long(daysToNow));
-				
-				listIO.add(io);
-			}
-			
-			model.addAttribute("internalIOList", listIO);
-		}
+		super.setInboxModel(request, model);
 		
 		model.addAttribute("pageName", "inbox");
 		return "day/inbox";

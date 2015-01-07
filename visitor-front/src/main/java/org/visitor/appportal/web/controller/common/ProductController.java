@@ -822,7 +822,9 @@ public class ProductController extends BasicController {
 			uim.setUimCreateDate(date);
 			
 			visitorUserInternalMailService.saveVisitorUserInternalMail(uim);
+			userRedisService.setUserInternalMailAlways(uim);
 			userRedisService.setUserInternalMailUnread(uim);
+			userRedisService.setUserInternalMailFromMe(userTemp, uim);
 		} else {
 			log.info("product Id null for user internal mail save");
 			result = -1;
@@ -836,19 +838,62 @@ public class ProductController extends BasicController {
 		super.sendJSONResponse(rj, response);
 	}
 	
-	@RequestMapping("getInternalMailUnread")
-	public void getUserInternalMailList(HttpServletRequest request,
-			HttpServletResponse response,
-			Model model) {
+	@RequestMapping("replyInternalMail")
+	public void replyUserInternalMail(HttpServletRequest request,
+			HttpServletResponse response) {
 		//do internal
+		Integer result = 0;
+		String resultDesc = RegisterInfo.USER_INTERNALMAIL_SAVE_SUCCESS;
+		
+		UserInternalMailTemp uimT = super.getUserInternalMailTempJson(request);
 		User userTemp = (User) request.getAttribute(WebInfo.UserID);
 		
-		String userEmailStr = userTemp.getUserEmail();
+		String uimIDStrT = uimT.getUimIdStr();
 		
-		List<UserInternalMail> listUIM = userRedisService.getUserInternalMailToMe(userEmailStr);
-		if (listUIM != null && listUIM.size() > 0) {
-			model.addAttribute("internalMailList", listUIM);
+		if (StringUtils.isNotEmpty(uimIDStrT)) {
+			UserInternalMail needReplyEmail = userRedisService.getUserInternalMailAlways(uimIDStrT);
+			
+			if (needReplyEmail != null) {
+				String contentStr = uimT.getContentStr();
+				
+				UserInternalMail uim = new UserInternalMail();
+				uim.setUimProductId(needReplyEmail.getUimProductId());
+				
+				uim.setUimFromUserMail(needReplyEmail.getUimToUserMail());
+				uim.setUimToUserMail(needReplyEmail.getUimFromUserMail());
+				uim.setUimStatus(UserMailStatusEnum.Unread.ordinal());
+				uim.setUimContent(contentStr);
+				
+				Date date = new Date();
+				uim.setUimCreateDate(date);
+				
+				visitorUserInternalMailService.saveVisitorUserInternalMail(uim);
+				userRedisService.setUserInternalMailAlways(uim);
+				userRedisService.setUserInternalMailUnread(uim);
+				userRedisService.setUserInternalMailFromMe(userTemp, uim);
+				userRedisService.deleteUserInternalMailUnread(userTemp.getUserEmail(), uimIDStrT);
+				
+				//set the old internal mail
+				needReplyEmail.setUimStatus(UserMailStatusEnum.Read.ordinal());
+				visitorUserInternalMailService.saveVisitorUserInternalMail(needReplyEmail);
+				userRedisService.setUserInternalMailAlways(needReplyEmail);
+				
+			} else {
+				log.info("user internal mail not in redis");
+				result = -1;
+				resultDesc = RegisterInfo.USER_INTERNALMAIL_REPLY_FAIL;
+			}
+		} else {
+			log.info("passed user internal mail Id null for user internal mail reply");
+			result = -1;
+			resultDesc = RegisterInfo.USER_INTERNALMAIL_REPLY_FAIL;
 		}
+		
+		ResultJson rj = new ResultJson();
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		super.sendJSONResponse(rj, response);
 	}
 	
 	@RequestMapping("getMailCount")
