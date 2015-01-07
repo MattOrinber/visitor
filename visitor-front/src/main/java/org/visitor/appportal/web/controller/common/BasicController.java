@@ -60,14 +60,13 @@ import org.visitor.appportal.visitor.domain.ProductMultiPrice;
 import org.visitor.appportal.visitor.domain.ProductOperation;
 import org.visitor.appportal.visitor.domain.ProductOrder;
 import org.visitor.appportal.visitor.domain.ProductPicture;
-import org.visitor.appportal.visitor.domain.TimeZone;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.visitor.domain.UserTokenInfo;
-import org.visitor.appportal.visitor.domain.VisitorLanguage;
 import org.visitor.appportal.web.mailutils.SendMailUtils;
 import org.visitor.appportal.web.mailutils.UserMailException;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
 import org.visitor.appportal.web.utils.ProductInfo;
+import org.visitor.appportal.web.utils.WebInfo;
 import org.visitor.appportal.web.utils.ProductInfo.ProductOperationTypeEnum;
 
 import com.alibaba.fastjson.JSON;
@@ -662,6 +661,93 @@ public class BasicController {
 	//在页面中插入product数据
 	protected boolean setProductInfoModel(HttpServletRequest request, Model model, String productIdStr) {
 		Product product = productRedisService.getProductFromRedis(Long.valueOf(productIdStr));
+		if (product == null) {
+			return false;
+		} else {
+			model.addAttribute("productInfo", product);
+			if (StringUtils.isNotEmpty(product.getProductCurrency())) {
+				model.addAttribute("productCurrencySetted", product.getProductCurrency());
+			} else {
+				model.addAttribute("productCurrencySetted", this.getGlobalCurrencyStored());
+			}
+			
+			ProductDetailInfo productDetailInfo = productRedisService.getProductDetailInfoUsingProductId(product.getProductId());
+			if (productDetailInfo != null) {
+				model.addAttribute("productDetailInfo", productDetailInfo);
+			}
+			
+			List<ProductMultiPrice> listpmp = productRedisService.getAllMultiPricesSetsForProduct(product.getProductId());
+			model.addAttribute("multiPriceSet", listpmp);
+			
+			ProductAddress pa = productRedisService.getProductAddressFromRedis(product.getProductId());
+			if (pa != null) {
+				model.addAttribute("productAddress", pa);
+			}
+			
+			List<ProductOperation> listPO =  productRedisService.getProductOperationList(product.getProductId());
+			
+			List<String> unavailDateList = new ArrayList<String>();
+			String jsonUnavailableDates = "[";
+			
+			int idx = 0;
+			for (ProductOperation po : listPO) {
+				if(po.getPoType().intValue() == ProductOperationTypeEnum.Publish_unavail.ordinal()) {
+					DateTime startOne = new DateTime(po.getPoStartDate());
+					DateTime endOne = new DateTime(po.getPoEndDate());
+					if (endOne.isAfter(startOne)) {
+						while (!startOne.isEqual(endOne)) {
+							String getOne = startOne.toString("yyyy-MM-dd");
+							if (idx == 0) {
+								jsonUnavailableDates = jsonUnavailableDates + "\"" + getOne;
+								idx ++;
+							} else {
+								jsonUnavailableDates = jsonUnavailableDates + "\",\"" + getOne;
+							}
+							unavailDateList.add(getOne);
+							startOne = startOne.plusDays(1);
+						}
+					}
+				}
+			}
+			
+			jsonUnavailableDates = jsonUnavailableDates + "\"]";
+			
+			if (unavailDateList.size() > 0) {
+				model.addAttribute("unavailDateList", jsonUnavailableDates);
+			}
+			
+			List<ProductPicture> listPP = productRedisService.getPictureListOfOneProduct(product.getProductId());
+			
+			if (listPP != null && listPP.size() > 0) {
+				List<String> productPicUrls = new ArrayList<String>();
+				String awsBucketName = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgStatic);
+				String imgDomain = MixAndMatchUtils.getSystemAwsPaypalConfig(MixAndMatchUtils.awsImgDomain);
+				
+				for (ProductPicture pp : listPP) {
+					String fileOriUrl = pp.getProductPicProductUrl();
+					
+					String displayUrl = imgDomain + awsBucketName + "/" + fileOriUrl;
+					productPicUrls.add(displayUrl);
+				}
+				
+				model.addAttribute("productPictureList", productPicUrls);
+				if (productPicUrls.size() > 0) {
+					model.addAttribute("productIcon", productPicUrls.get(0));
+				}
+			}
+			
+			String hostEmailStr = product.getProductPublishUserEmail();
+			User hostUser = userRedisService.getUserPassword(hostEmailStr);
+			
+			model.addAttribute("hostInfo", hostUser);
+			return true;
+		}
+	}
+	
+	//在页面中插入product数据
+	protected boolean setPreviewProductInfoModel(HttpServletRequest request, Model model, String productIdStr) {
+		User user = (User) request.getAttribute(WebInfo.UserID);
+		Product product = productRedisService.getUserProductFromRedis(user, productIdStr);
 		if (product == null) {
 			return false;
 		} else {

@@ -18,7 +18,7 @@ body{background:#f7f7f7;}
 .header .head .loginbar a.list{border:1px solid #007a87;border-bottom-color: #004f58;background-color: #007a87;display:inline-block;width:130px;height:28px;border-radius:3px;line-height:28px;text-align:center;font-weight:bold;color:#fff;}
 .header .head .loginbar a.list:hover{background-color:#12acbc;border:1px solid #12acbc;border-bottom-color: #004f58;}
 
-.header .head .loginbar1{width:350px;height:50px;float:right;margin-top:15px;margin-right:20px;}
+.header .head .loginbar1{width:350px;height:40px;float:right;margin-top:15px;margin-right:20px;}
 .header .head .loginbar1 a{font-size:13px;color:#666;margin-left:25px;}
 .header .head .loginbar1 a.name{float:left;margin-left:10px;position:relative;}
 .header .head .loginbar1 span.select{position:absolute;right:160px;top:30px;display:none;}

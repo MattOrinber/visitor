@@ -25,7 +25,7 @@
 
 <div class="nav">
 	<div class="nav-detail">
-    	<span><a href="javascript:toListing();"><</a>${productInfo.productRoomType} in ${productInfo.productCity}<a style="float:right;" href="${pageContext.request.contextPath}/day/product?pid=${productInfo.productId}">Preview &nbsp; ></a></span>
+    	<span><a href="javascript:toListing();"><</a>${productInfo.productRoomType} in ${productInfo.productCity}<a style="float:right;" href="${pageContext.request.contextPath}/day/previewproduct?pid=${productInfo.productId}">Preview &nbsp; ></a></span>
     	<div id="productIdPageTemp" style="display:none;">${productInfo.productId}</div>
     	<div id="productDetailDESCInfoStr" style="display:none;" data-inner="${productDetailInfo.pdiProductOverviewDetail}"></div>
     </div>

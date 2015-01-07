@@ -32,6 +32,7 @@
 	        <mvc:mapping path="/day/toPayOrder"/>
 	        <mvc:mapping path="/day/edit"/>
 	        <mvc:mapping path="/day/edit-photos"/>
+	        <mvc:mapping path="/day/previewproduct"/>
 	        <mvc:mapping path="/updateUser/*" />
 	        <mvc:mapping path="/order/calcTotalPrice" />
 	        <mvc:mapping path="/order/addBasicPrice" />

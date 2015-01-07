@@ -314,9 +314,28 @@ public class IndexController extends BasicController {
 		
 		boolean ifProductAvail = super.setProductInfoModel(request, model, productIdStr);
 		if(!ifProductAvail) {
-			return "redirect:/index";
+			boolean ifMyProductAvail = super.setPreviewProductInfoModel(request, model, productIdStr);
+			if (!ifMyProductAvail) {
+				return "redirect:/index";
+			}
 		}
 		
+		model.addAttribute("pageName", "product");
+		return "day/product";
+	}
+	
+	@RequestMapping({"day/previewproduct"})
+	public String dayPreviewProduct(HttpServletRequest request,
+			@RequestParam(value = "pid", required = true) String productIdStr,
+			HttpServletResponse response, 
+			Model model) {
+		super.setModel(request, response, model, false);
+
+		boolean ifMyProductAvail = super.setPreviewProductInfoModel(request, model, productIdStr);
+		if (!ifMyProductAvail) {
+			return "redirect:/index";
+		}
+	
 		model.addAttribute("pageName", "product");
 		return "day/product";
 	}
