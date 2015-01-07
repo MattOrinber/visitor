@@ -12,11 +12,18 @@
 	<script>
 		$(document).ready(function(){
 			initLoginBar();
+			initMyTripCityStr();
 			setGlobalCurrency();
 			startChecking();
 		});
 	</script>
-	
+]]>
+	<c:if test="${not empty cityArray}">
+	<![CDATA[
+		<script>var cityArrayToGo = ${cityArray}</script>
+	]]>
+	</c:if>
+<![CDATA[
 <div class="nav">
 	<div class="nav-detail">
     	<a href="${pageContext.request.contextPath}/day/dashboard">Dashboard</a>
@@ -49,16 +56,28 @@
 								</c:choose>
 		<![CDATA[
 								   <div class="time" style="width:500px;">
-			                           <a href="${pageContext.request.contextPath}/day/product?pid=${productOrderBundle.product.productId}" class="title">${productOrderBundle.product.productRoomType} in ${productOrderBundle.product.productCity}</a>
+			                           <a href="${pageContext.request.contextPath}/day/product?pid=${productOrderBundle.product.productId}" class="title">
+			                           ]]>
+			                           <c:choose>
+				                           <c:when test="${not empty productOrderBundle.product.productOverviewtitle}">
+				                               <p>${productOrderBundle.product.productOverviewtitle}</p>
+				                           </c:when>
+				                           <c:otherwise>
+				                               <p>${productOrderBundle.product.productRoomType} in ${productOrderBundle.product.productCity}</p>
+				                           </c:otherwise>
+			                           </c:choose>
+			                           <![CDATA[
+			                           </a>
+			                           <div class="content">
+										   <p class="col-7">Total: $ ${productOrderBundle.order.orderTotalAmount}</p>
+									   </div>
 			                       </div>
 			                       
-			                       <div class="content">
-									   <p class="col-7">Total: $ ${productOrderBundle.order.orderTotalAmount}</p>
-								   </div>
+			                       
 		]]>
 									<c:if test="${productOrderBundle.order.orderStatus == 0 or productOrderBundle.order.orderStatus == 1}">
 										<div class="price">
-				                           <a id="toPayOrderButton" href="javascript:void(0);">Pay</a>
+				                           <a id="toPayOrderButton" href="javascript:void(0);" style="width: 150px;text-align: center;height: 35px;display: inline-block;background:#ff5a5f;border:1px solid #ff5a5f;border-bottom-color: #e00007;color: #fff;line-height: 35px;border-radius: 3px;">Pay</a>
 				                       </div>
 									</c:if>
 		<![CDATA[ 

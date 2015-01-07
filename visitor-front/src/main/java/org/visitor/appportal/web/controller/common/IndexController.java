@@ -30,6 +30,7 @@ import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.service.newsite.redis.VisitorLanguageRedisService;
 import org.visitor.appportal.visitor.beans.InboxOut;
+import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductOrder;
 import org.visitor.appportal.visitor.domain.ProductPayOrder;
 import org.visitor.appportal.visitor.domain.User;
@@ -262,6 +263,12 @@ public class IndexController extends BasicController {
 				Long pid = uim.getUimProductId();
 				io.setDateAndAccomodates(dateRangeAndAccomo);
 				io.setProductId(pid);
+				
+				Product product = productRedisService.getProductFromRedis(pid);
+				Double count = Double.valueOf(contentArray[2]);
+				Double basicPrice = Double.valueOf(product.getProductBaseprice());
+				Double totalPrice = count * basicPrice;
+				io.setTotalBasicPrice(totalPrice);
 				
 				String fromEmail = uim.getUimFromUserMail();
 				User tempUser = userRedisService.getUserPassword(fromEmail);

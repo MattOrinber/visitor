@@ -7,6 +7,7 @@ public class InboxOut {
 	private Long daysFromNow;
 	private String dateAndAccomodates;
 	private Long productId; 
+	private Double totalBasicPrice;
 	
 	public User getUserFrom() {
 		return userFrom;
@@ -31,5 +32,11 @@ public class InboxOut {
 	}
 	public void setProductId(Long productId) {
 		this.productId = productId;
+	}
+	public Double getTotalBasicPrice() {
+		return totalBasicPrice;
+	}
+	public void setTotalBasicPrice(Double totalBasicPrice) {
+		this.totalBasicPrice = totalBasicPrice;
 	}
 }

@@ -59,11 +59,29 @@
 	                        <div class="time" style="width:300px;">
 ]]>
 							<c:if test="${productOrderBundle.product.productStatus == 0}">
-	                        	<a href="${pageContext.request.contextPath}/day/calendar?pid=${productOrderBundle.product.productId}" class="title">${productOrderBundle.product.productRoomType} in ${productOrderBundle.product.productCity}</a>
+	                        	<a href="${pageContext.request.contextPath}/day/calendar?pid=${productOrderBundle.product.productId}" class="title">
+	                           <c:choose>
+		                           <c:when test="${not empty productOrderBundle.product.productOverviewtitle}">
+		                               <p>${productOrderBundle.product.productOverviewtitle}</p>
+		                           </c:when>
+		                           <c:otherwise>
+		                               <p>${productOrderBundle.product.productRoomType} in ${productOrderBundle.product.productCity}</p>
+		                           </c:otherwise>
+	                           </c:choose>
+	                        	</a>
 	                        </c:if>
 	                        
 	                        <c:if test="${productOrderBundle.product.productStatus != 0}">
-	                        	<a href="${pageContext.request.contextPath}/day/product?pid=${productOrderBundle.product.productId}" class="title">${productOrderBundle.product.productRoomType} in ${productOrderBundle.product.productCity}</a>
+	                        	<a href="${pageContext.request.contextPath}/day/product?pid=${productOrderBundle.product.productId}" class="title">
+	                        	<c:choose>
+		                           <c:when test="${not empty productOrderBundle.product.productOverviewtitle}">
+		                               <p>${productOrderBundle.product.productOverviewtitle}</p>
+		                           </c:when>
+		                           <c:otherwise>
+		                               <p>${productOrderBundle.product.productRoomType} in ${productOrderBundle.product.productCity}</p>
+		                           </c:otherwise>
+	                           </c:choose>
+	                        	</a>
 	                        </c:if>
 <![CDATA[
 	                            <a href="${pageContext.request.contextPath}/day/calendar?pid=${productOrderBundle.product.productId}" class="calendar">Manage Listing and Calendar</a>

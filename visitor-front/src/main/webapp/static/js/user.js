@@ -237,3 +237,21 @@ function checkInBox() {
         }  
     }); 
 }
+
+function toCityProducts(event, ui) {
+	var nodeVal = $.trim($("#tripListPartSuggest").val());
+	if (nodeVal != null && nodeVal != "") {
+		var toGoUrl = pathGlobe + "/day/city?c=" + nodeVal + "&o=0&p=1";
+		window.location.href = toGoUrl;
+	}
+}
+
+function initMyTripCityStr() {
+	var node = $("#tripListPartSuggest");
+	if (node != null) {
+		node.autocomplete({
+			source: cityArrayToGo,
+			change: toCityProducts
+		});
+	}
+}

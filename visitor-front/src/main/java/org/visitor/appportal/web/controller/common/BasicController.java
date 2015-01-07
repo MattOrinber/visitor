@@ -522,6 +522,23 @@ public class BasicController {
 			model.addAttribute("productOrders", listpo);
 			return true;
 		} else {
+			
+			List<String> cities = productRedisService.getCities();
+			if (cities != null && cities.size() > 0) {
+				String cityFinal = "[";
+				int idx = 0;
+				for (String cityT : cities) {
+					if (idx == 0) {
+						cityFinal = cityFinal +"\"" + cityT + "\"";
+					} else {
+						cityFinal = cityFinal +",\"" + cityT + "\"";
+					}
+					idx ++;
+				}
+				cityFinal = cityFinal + "]";
+				
+				model.addAttribute("cityArray", cityFinal);
+			}
 			return false;
 		}
 	}

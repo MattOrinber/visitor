@@ -79,7 +79,7 @@
 	                            <p class="text-muted">${internalIO.dateAndAccomodates}</p>
 	                        </div>
 	                        <div class="price">
-	                            <p style="color:#ffb400;font-weight:bold;">Inquiry </p><p>$ 282</p>
+	                            <p style="color:#ffb400;font-weight:bold;">Inquiry </p><p>$ ${internalIO.totalBasicPrice}</p>
 	                        </div>
 	                	</div>
 	                </a>
