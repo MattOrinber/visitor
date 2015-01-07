@@ -31,7 +31,7 @@ body{background:#f7f7f7;}
 .hostinfo .main{width:1020px;height:164px;margin:0 auto;position:relative;}
 .hostinfo .main .host{width:680px;height:164px;float:left;}
 .hostinfo .main .host .photo{width:150px;height:164px;float:left;}
-.hostinfo .main .host .photo .img{width:90px;height:90px;margin-top:15px;margin-bottom:5px;border-radius:50%;border: 2px solid #fff;background:url(../img/original2.jpg) no-repeat center center;}
+.hostinfo .main .host .photo .img{width:90px;height:90px;margin-top:15px;margin-bottom:5px;border-radius:50%;border: 2px solid #fff;background:url(../img/original2.jpg) no-repeat center center;overflow:hidden;}
 .hostinfo .main .host .photo p{width:90px;text-align:center;font-size:14px;color:#82888a;}
 .hostinfo .main .host .info{width:500px;height:148px;float:left;padding-top:15px;}
 .hostinfo .main .host .info h3{font-size:22px;margin-bottom:10px;}
