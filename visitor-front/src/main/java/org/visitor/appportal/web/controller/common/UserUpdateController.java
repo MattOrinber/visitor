@@ -1,13 +1,9 @@
 package org.visitor.appportal.web.controller.common;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,11 +26,7 @@ import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.beans.UserTemp;
 import org.visitor.appportal.visitor.domain.User;
-import org.visitor.appportal.web.mailutils.SendMailUtils;
-import org.visitor.appportal.web.mailutils.UserMailException;
-import org.visitor.appportal.web.utils.EncryptionUtil;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
-import org.visitor.appportal.web.utils.PaypalInfo;
 import org.visitor.appportal.web.utils.RegisterInfo;
 import org.visitor.appportal.web.utils.WebInfo;
 
@@ -194,67 +186,6 @@ public class UserUpdateController extends BasicController {
 		}
 		
 		setResultToClient(response, resultJ);
-	}
-	
-	@RequestMapping("/retrievepassword")
-	public void retrieveUserPassword(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-		//update mysql
-		Integer result = 0;
-		String resultDesc = "Success";
-		
-		UserTemp ut = super.getUserJson(request);
-		logTheJsonResult(ut);
-		
-		String userEmailStr = ut.getEmailStr();
-		if (StringUtils.isNotEmpty(userEmailStr)) {
-			User user = userRedisService.getUserPassword(userEmailStr);
-			
-			if (user != null) {
-				String resetTokenStr = EncryptionUtil.getMD5(UUID.randomUUID().toString());
-				String resetURL = floopyThingRedisService.getFloopyValueSingle(PaypalInfo.floopy_paypalCallBackURL)+"/day/resetpass?token=" + resetTokenStr +"&mail=" + URLEncoder.encode(userEmailStr, "UTF-8");
-				
-				userRedisService.setUserResetPasswordToken(user.getUserEmail(), resetTokenStr);
-				
-				//send email
-				
-				String usernameStr = user.getUserFirstName();
-				if (StringUtils.isEmpty(usernameStr)) {
-					String emailNameStr = StringUtils.substring(userEmailStr, 0, StringUtils.indexOf(userEmailStr, '@'));
-					usernameStr = emailNameStr;
-				}
-				
-				SendMailUtils sendMU = new SendMailUtils();
-				Locale tLocale = new Locale("en");
-				sendMU.setTitle(MixAndMatchUtils.getLocaleSpecificString(messageSource, "type_user_action_resetpass", tLocale));
-				sendMU.setContent(MixAndMatchUtils.getLocaleSpecificString(messageSource, "mail_reset_pwd_content_part_1", tLocale) 
-						+ usernameStr
-						+ MixAndMatchUtils.getLocaleSpecificString(messageSource, "mail_reset_pwd_content_part_2", tLocale)
-						+ resetURL
-						+ MixAndMatchUtils.getLocaleSpecificString(messageSource, "mail_reset_pwd_content_part_3", tLocale));
-				sendMU.setToAddress(userEmailStr);
-				try
-				{
-					sendMU.sendEmailHtml();
-				} catch (UserMailException e)
-				{
-					if (log.isInfoEnabled()) {
-						log.info(e.getMessage());
-					}
-					e.printStackTrace();
-				}
-			} else {
-				result = -1;
-				resultDesc = "user not registered";
-			}
-		} else {
-			result = -1;
-			resultDesc = "user email passed is null";
-		}
-		ResultJson rj = new ResultJson();
-		rj.setResult(result);
-		rj.setResultDesc(resultDesc);
-		
-		setResultToClient(response, rj);
 	}
 	
 	private void setResultToClient(HttpServletResponse response, ResultJson resultJson) {

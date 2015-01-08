@@ -382,7 +382,7 @@ function requestUserRetrievePassword() {
 			var user = {};
 			user.emailStr = emailStr;
 			
-			var urlStrStr = pathGlobe + '/updateUser/retrievepassword';
+			var urlStrStr = pathGlobe + '/registerUser/retrievepassword';
 			var jsonStr = $.toJSON(user);
 			
 			$.ajax({ 
