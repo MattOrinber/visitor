@@ -1,0 +1,101 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:security="http://www.springframework.org/security/tags" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:directive.page contentType="text/html;charset=UTF-8" />
+<jsp:output omit-xml-declaration="yes" />
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Day Fetch</title>
+	<link href="${pageContext.request.contextPath}/static/css/admin.css" rel="stylesheet" type="text/css" />
+
+	<!-- custom js library -->
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery-1.5.2/jquery.min.js"><c:out value=" " /></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery.md5.js"><c:out value=" " /></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery-validation-1.8.0/jquery.validate.js"><c:out value=" " /></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery.json-2.4.js"><c:out value="" /></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/testPublish.js"><c:out value=" " /></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/admin.js"><c:out value=" " /></script>
+	
+	<script type="text/javascript">
+		var pathGlobe = '${pageContext.request.contextPath}';
+	</script>
+</head>
+
+<body>
+<![CDATA[
+<div class="header">
+    <div class="head">
+    	<div class="logo"><a href="index.html"><img src="img/logo-red.png" /></a></div>
+    </div>
+</div>
+
+<div class="nav">
+	<div class="nav-detail">
+    	<span>Welcome,Adminstrator!</span>
+        <a href="#" class="logout">Logout</a>
+    </div>
+</div>
+
+<div class="main">
+	<div class="leftmenu">
+    	<ul id="adminTags">
+            <li class="choosed"><a href="javascript:void(0)"  onClick="selectAdminTag('detail0',this)">oneoneone</a></li>
+            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail1',this)">oneoneone</a></li>
+            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail2',this)">oneoneone</a></li>
+            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail3',this)">oneoneone</a></li>
+            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail4',this)">oneoneone</a></li>
+            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail5',this)">oneoneone</a></li>
+            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail6',this)">oneoneone</a></li>
+            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail7',this)">oneoneone</a></li>
+        </ul>
+    </div>
+    <div class="rightbox">
+    	<div id="detail0" style="display:block;">
+        	<span><label>XXXX</label><input type="text" /></span>
+            <span><label>XXXX</label><input type="text" /></span>
+            <span><label>XXXX</label><input type="text" /></span>
+            <span><label>XXXX</label><input type="text" /></span>
+            <span><label>XXXX</label><input type="text" /></span>
+            <span><label>XXXX</label><input type="text" /></span>
+            <span><a href="">Button</a></span>
+            <table width="600" border="0" cellpadding="0" cellspacing="1">
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+
+        </div>
+        
+        <div id="detail1" style="display:none;">222</div>
+        <div id="detail2" style="display:none;">33</div>
+        <div id="detail3" style="display:none;">444</div>
+        <div id="detail4" style="display:none;">555</div>
+        <div id="detail5" style="display:none;">66</div>
+        <div id="detail6" style="display:none;">77</div>
+        <div id="detail7" style="display:none;">88</div>
+    </div>
+</div>
+]]>
+</body>
+</html>

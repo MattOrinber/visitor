@@ -21,7 +21,7 @@ function loginUser() {
 	        data : jsonStr,  
 	        success : function(data) {  
 	        	if (data.result == 0) {
-	        		var hrefURL = pathGlobe +'/index';
+	        		var hrefURL = pathGlobe +'/admin';
 	        		window.location.href = hrefURL;
 	        	} else {
 	        		alert("login failed");
@@ -33,3 +33,19 @@ function loginUser() {
 	    }); 
 	}
 } 
+
+
+function selectAdminTag(showContent,selfObj){
+	var tag = document.getElementById("adminTags").getElementsByTagName("li");
+	var taglength = tag.length;
+	for(var i = 0; i < taglength; i ++) {
+		tag[i].className = "";
+	}
+	
+	selfObj.parentNode.className = "choosed";
+	for(var i = 0; i < 8; i ++) {
+		var j=document.getElementById("detail"+i);
+		j.style.display = "none";
+	}
+	document.getElementById(showContent).style.display = "block";
+}
