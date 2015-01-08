@@ -32,7 +32,7 @@ public class UserRedisService {
 	
 	public void saveUserToken(String userEmail, String userToken) {
 		String keyT = RedisKeysForVisitor.getVisitorUserTokenKey() + userEmail;
-		stringRedisVisitorTemplate.opsForValue().set(keyT, userToken, 2, TimeUnit.HOURS);
+		stringRedisVisitorTemplate.opsForValue().set(keyT, userToken, 1, TimeUnit.HOURS);
 	}
 	
 	public String getUserToken(String userEmail) {

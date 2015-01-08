@@ -118,6 +118,7 @@ public class UserController extends BasicController{
 		if (rj.getResult() >= 0) {
 			String tokenStr = EncryptionUtil.getToken(mailStrParam, passwordStrParam, rj.getUserLoginTime());
 			userRedisService.saveUserToken(mailStrParam, tokenStr);
+			MixAndMatchUtils.setUserCookie(response, mailStrParam, tokenStr, MixAndMatchUtils.param_user_token_expire);
 			rj.setToken(tokenStr);
 			rj.setUserEmail(mailStrParam);
 		}

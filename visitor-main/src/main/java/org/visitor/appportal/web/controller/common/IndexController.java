@@ -171,9 +171,9 @@ public class IndexController extends BasicController {
 		return "login";
 	}
 	
-	@RequestMapping({"admin"})
+	@RequestMapping({"day/admin"})
 	public String admin(HttpServletRequest request, Model model) {
-		return "admin";
+		return "day/admin";
 	}
 	
 	@RequestMapping({"publish"})

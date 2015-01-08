@@ -1,5 +1,11 @@
 package org.visitor.appportal.web.interceptors;
 
+import java.net.URLDecoder;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.domain.User;
+import org.visitor.appportal.visitor.domain.UserTokenInfo;
+import org.visitor.appportal.web.utils.MixAndMatchUtils;
 import org.visitor.appportal.web.utils.WebInfo;
 
 public class PublishInterceptor implements HandlerInterceptor {
@@ -24,20 +32,35 @@ public class PublishInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		// TODO Auto-generated method stub
-		String userEmailT = request.getParameter(WebInfo.UserEmailStr);
-		String userPasswordT = request.getParameter(WebInfo.UserPasswordStr);
 		
-		if (StringUtils.isNotEmpty(userEmailT) && StringUtils.isNotEmpty(userPasswordT)) {
-			User userT = userRedisService.getUserPassword(userEmailT);
-			String md5Final = userRedisService.getUserToken(userEmailT);
+		Cookie[] cookieArray = request.getCookies();
+		if (cookieArray != null && cookieArray.length > 0) {
 			
-			if (StringUtils.equals(userPasswordT, md5Final)) {
-				if (log.isInfoEnabled()) {
-					log.info("authorization passed for user: >"+userEmailT+"<");
-				}
-				request.setAttribute(WebInfo.UserID, userT);
-				return true;
+			Map<String, String> cookieMap = new HashMap<String, String>();
+			
+			for (int j = 0; j < cookieArray.length; j ++) {
+				Cookie tmpCookie = cookieArray[j];
+				cookieMap.put(tmpCookie.getName(), tmpCookie.getValue());
 			}
+			
+			String userMailStrOri = cookieMap.get(MixAndMatchUtils.COOKIE_NAME_USER_EMAIL);
+			String userTokenInfoStr = cookieMap.get(MixAndMatchUtils.COOKIE_NAME_USER_ACCESS_TOKEN);
+			
+			log.info("interceptor mail: >" + userMailStrOri + "<");
+			log.info("interceptor token: >" + userTokenInfoStr + "<");
+		
+			if (StringUtils.isNotEmpty(userMailStrOri) && StringUtils.isNotEmpty(userTokenInfoStr)) {
+				String userMailStr = URLDecoder.decode(userMailStrOri, "UTF-8");
+				String userTokenStored = userRedisService.getUserToken(userMailStrOri);
+				
+				if (StringUtils.isNotEmpty(userTokenStored)) {
+					if (StringUtils.equals(userTokenInfoStr, userTokenStored)) {
+						User userT = userRedisService.getUserPassword(userMailStr);
+						request.setAttribute(WebInfo.UserID, userT);
+						return true;
+					}
+				}
+			} 
 		}
 		
 		Integer result = -1;
