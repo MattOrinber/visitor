@@ -71,11 +71,11 @@
 	<div class="signupbox" id="emailsignup">
     	<a href="https://www.facebook.com/dialog/oauth?client_id=879056502107119&redirect_uri=http%3A%2F%2Fwww.day.me%2Ffacebook%2Fcallback&display=popup" class="facebook">Sign up with Facebook</a>
     	<form id="registerBasicInfo">
-	        <span class="username name1"><input id="firstNameStr" type="text" value="First name" type="string" minlength="2" required="true" onfocus="if (value =='First name'){value =''}" onblur="if (value ==''){value='First name'}"/></span>
-	        <span class="username name1"><input id="lastNameStr" type="text" value="Last name" type="string"  minlength="2" required="true" onfocus="if (value =='Last name'){value =''}" onblur="if (value ==''){value='Last name'}"/></span>
-	        <span class="username"><input id="emailStr" type="text" value="Email Address" type="email" required="true" onfocus="if (value =='Email Address'){value =''}" onblur="if (value ==''){value='Email Address'}"/></span>
-	        <span class="username password"><input id="passwordStr" type="password" value="Password" type="password" minlength="6" required="true" onfocus="if (value =='Password'){value =''}" onblur="if (value ==''){value='Password'}"/></span>
-	        <span class="username password"><input id="cPasswordStr" type="password" value="Confirm Password" type="password" minlength="6" required="true" onfocus="if (value =='Confirm Password'){value =''}" onblur="if (value ==''){value='Confirm Password'}"/></span>
+	        <span class="username name1"><input id="firstNameStr" type="text" placeholder="First name" type="string" minlength="2" required="true" /></span>
+	        <span class="username name1"><input id="lastNameStr" type="text" placeholder="Last name" type="string"  minlength="2" required="true" /></span>
+	        <span class="username"><input id="emailStr" type="text" placeholder="Email Address" type="email" required="true" /></span>
+	        <span class="username password"><input id="passwordStr" type="password" placeholder="Password" minlength="6" required="true" /></span>
+	        <span class="username password"><input id="cPasswordStr" type="password" placeholder="Confirm Password" minlength="6" required="true" /></span>
         </form>
         <span class="checkbox"><input type="checkbox" checked="checked"  />Tell me about Dayfetch news</span>
         <span class="terms">By signing up, I agree to DayFetch's <a href="">Terms of Service</a>, <a href="">Privacy Policy</a>, <a href="">Guest Refund Policy</a>, and <a href="">Host Guarantee Terms</a>.</span>
@@ -89,11 +89,11 @@
 		<a href="https://www.facebook.com/dialog/oauth?client_id=879056502107119&redirect_uri=http%3A%2F%2Fwww.day.me%2Ffacebook%2Fcallback&display=popup" class="facebook">Sign up with Facebook</a>
         <span class="or">or</span>
         <form id="loginBasicInfo">
-	        <span class="username"><input id="loginEmailStr" type="text" value="Email Address" type="email" required="true" onfocus="if (value =='Email Address'){value =''}" onblur="if (value ==''){value='Email Address'}"/></span>
-	        <span class="username password"><input id="loginPasswordStr" type="password" value="Password" type="password" minlength="6" required="true" onfocus="if (value =='Password'){value =''}" onblur="if (value ==''){value='Password'}"/></span>
+	        <span class="username"><input id="loginEmailStr" type="text" placeholder="Email Address" type="email" required="true" /></span>
+	        <span class="username password"><input id="loginPasswordStr" type="password" placeholder="Password" minlength="6" required="true" /></span>
         </form>
         <span class="checkbox"><input type="checkbox" />Remember me</span>
-        <span class="forget"><a href="">Forgot password?</a></span>
+        <span class="forget"><a href="javascript:requestUserRetrievePassword();">Forgot password?</a></span>
         <a href="javascript:loginVisitor('${pageContext.request.contextPath}');" class="facebook login">Log  in</a>
         <span class="loginbutton">Don't have an account? <a href="javascript:void(0);" id="loginTosignup">Sign up</a></span>
     </div>

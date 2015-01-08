@@ -373,6 +373,44 @@ function initMyTripCityStr() {
 	}
 }
 
+function requestUserRetrievePassword() {
+	var emailStr = $.trim($("#loginEmailStr").val());
+	
+	if (emailStr != "") {
+		var emailRegEx = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+		if (emailRegEx.test(emailStr)) {
+			var user = {};
+			user.emailStr = emailStr;
+			
+			var urlStrStr = pathGlobe + '/updateUser/retrievepassword';
+			var jsonStr = $.toJSON(user);
+			
+			$.ajax({ 
+		        type : 'POST',  
+		        contentType : 'application/json',  
+		        url : urlStrStr,  
+		        processData : false,  
+		        dataType : 'json',  
+		        data : jsonStr,  
+		        success : function(data) {  
+		        	if (data.result = 0) {
+		        		alert("please check your email inbox and click password reset");
+		        	} else {
+		        		alert(data.resultDesc);
+		        	}
+		        },  
+		        error : function() {  
+		            alert('network error when doing password reset');  
+		        }  
+		    }); 
+		} else {
+			alert("please input valid email address");
+		}
+	} else {
+		alert("please input your email address");
+	}
+}
+
 function checkAndResetPassword() {
 	var emailStr = $.trim($("#mailInput").val());
 	var tokenStr = $.trim($("#tokenInput").val());
