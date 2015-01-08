@@ -15,9 +15,13 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 public class SimpleMailSender
 {
+	protected static final Logger log = LoggerFactory.getLogger(SimpleMailSender.class);
 	/**
 	 * 以文本格式发送邮件
 	 * 
@@ -112,6 +116,9 @@ public class SimpleMailSender
 			return true;
 		} catch (MessagingException ex)
 		{
+			if (log.isInfoEnabled()) {
+				log.info("send mail exception due to :"+ex.getMessage());
+			}
 			throw new UserMailException("email is illegal!");
 		}
 	}

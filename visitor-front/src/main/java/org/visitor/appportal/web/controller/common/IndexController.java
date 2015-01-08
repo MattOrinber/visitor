@@ -413,7 +413,7 @@ public class IndexController extends BasicController {
 		
 		String tokenStrStored = userRedisService.getUserresetPasswordToken(emailStr);
 		
-		if (StringUtils.isEmpty(tokenStrStored) || StringUtils.equals(tokenStrStored, tokenStr)) {
+		if (StringUtils.isEmpty(tokenStrStored) || !StringUtils.equals(tokenStrStored, tokenStr)) {
 			model.addAttribute("canReset", 0);
 		} else {
 			model.addAttribute("canReset", 1);
