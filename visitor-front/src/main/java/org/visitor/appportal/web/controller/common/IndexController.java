@@ -405,6 +405,12 @@ public class IndexController extends BasicController {
 			@RequestParam(value="mail", required=true) String emailStr,
 			@RequestParam(value="token", required=true) String tokenStr,
 			Model model) {
+		super.setModel(request, response, model, false);
+		
+		if (log.isInfoEnabled()) {
+			log.info("user :"+emailStr+": try to reset password using token :"+tokenStr+":");
+		}
+		
 		String tokenStrStored = userRedisService.getUserresetPasswordToken(emailStr);
 		
 		if (StringUtils.isEmpty(tokenStrStored) || StringUtils.equals(tokenStrStored, tokenStr)) {

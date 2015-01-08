@@ -217,6 +217,8 @@ public class UserController extends BasicController{
 						log.info(e.getMessage());
 					}
 					e.printStackTrace();
+					result = -1;
+					resultDesc = "send email failed";
 				}
 			} else {
 				result = -1;
