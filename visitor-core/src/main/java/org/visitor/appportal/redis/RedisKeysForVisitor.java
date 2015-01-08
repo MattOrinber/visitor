@@ -149,4 +149,8 @@ public class RedisKeysForVisitor {
     public static String getPaypalUserToken() {
     	return "pout-";
     }
+    
+    public static String getResetPasswordKey() {
+    	return "rp-";
+    }
 }

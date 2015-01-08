@@ -372,3 +372,48 @@ function initMyTripCityStr() {
 		});
 	}
 }
+
+function checkAndResetPassword() {
+	var emailStr = $.trim($("#mailInput").val());
+	var tokenStr = $.trim($("#tokenInput").val());
+	
+	var newPassOneStr = $.trim($("#newPassOne").val());
+	var newPassTwoStr = $.trim($("#newPassTwo").val());
+	
+	if (newPassOneStr != "" && newPassTwoStr != "") {
+		if (newPassTwoStr == newPassOneStr) {
+			var passwordMd5 = $.md5(newPassOneStr);
+			
+			var user = {};
+			user.emailStr = emailStr;
+			user.userTokenStr = tokenStr;
+			user.newPassStr = passwordMd5;
+			
+			var urlStrStr = pathGlobe + '/registerUser/updateUserPassword';
+			var jsonStr = $.toJSON(user);
+			
+			$.ajax({ 
+		        type : 'POST',  
+		        contentType : 'application/json',  
+		        url : urlStrStr,  
+		        processData : false,  
+		        dataType : 'json',  
+		        data : jsonStr,  
+		        success : function(data) {  
+		        	if (data.result = 0) {
+		        		alert("update success");
+		        	} else {
+		        		alert(data.resultDesc);
+		        	}
+		        },  
+		        error : function() {  
+		            alert('network error when doing password reset');  
+		        }  
+		    }); 
+		} else {
+			alert("repeated password does not match the first one");
+		}
+	} else {
+		alert("please input your new password");
+	}
+}

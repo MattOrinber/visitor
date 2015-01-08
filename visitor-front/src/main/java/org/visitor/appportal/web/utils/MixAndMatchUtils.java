@@ -2,6 +2,7 @@ package org.visitor.appportal.web.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.servlet.http.Cookie;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.springframework.context.MessageSource;
 import org.springframework.ui.Model;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductOperation;
@@ -181,5 +183,11 @@ public class MixAndMatchUtils {
 		}
 		
 		return result;
+	}
+	
+	public static String getLocaleSpecificString(MessageSource messageSource, String type, Locale tLocale)
+	{
+		String rbStr = messageSource.getMessage(type, null, tLocale);
+		return rbStr;
 	}
 }

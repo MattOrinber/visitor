@@ -6,14 +6,12 @@ package org.visitor.appportal.web.controller.common;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +27,9 @@ import org.visitor.appportal.service.newsite.redis.ProductRedisService;
 import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.service.newsite.redis.VisitorLanguageRedisService;
-import org.visitor.appportal.visitor.beans.InboxOut;
-import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductOrder;
 import org.visitor.appportal.visitor.domain.ProductPayOrder;
 import org.visitor.appportal.visitor.domain.User;
-import org.visitor.appportal.visitor.domain.UserInternalMail;
 import org.visitor.appportal.web.utils.HttpClientUtil;
 import org.visitor.appportal.web.utils.PaypalInfo;
 import org.visitor.appportal.web.utils.WebInfo;
@@ -402,6 +397,26 @@ public class IndexController extends BasicController {
 		model.addAttribute("currentUser", user);
 		model.addAttribute("pageName", "edit");
 		return "day/edit-photos";
+	}
+	
+	@RequestMapping({"day/resetpass"})
+	public String dayResetPassword(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value="mail", required=true) String emailStr,
+			@RequestParam(value="token", required=true) String tokenStr,
+			Model model) {
+		String tokenStrStored = userRedisService.getUserresetPasswordToken(emailStr);
+		
+		if (StringUtils.isEmpty(tokenStrStored) || StringUtils.equals(tokenStrStored, tokenStr)) {
+			model.addAttribute("canReset", 0);
+		} else {
+			model.addAttribute("canReset", 1);
+			model.addAttribute("tokenUsed", tokenStrStored);
+			model.addAttribute("mailUsed", emailStr);
+		}
+		
+		model.addAttribute("pageName", "inbox");
+		return "day/resetpass";
 	}
 	
 	public static void main(String[] args) {

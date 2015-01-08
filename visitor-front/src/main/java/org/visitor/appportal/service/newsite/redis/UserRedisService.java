@@ -197,4 +197,18 @@ public class UserRedisService {
 		String keyTo = RedisKeysForVisitor.getUserInternalMailToMeKey() + userMailStr;
 		compressStringRedisVisitorTemplate.opsForHash().delete(keyTo, uimIdStr);
 	}
+	
+	
+	
+	//重置密码邮件部分
+	public void setUserResetPasswordToken(String userEmail, String tokenStr) {
+		String keyT = RedisKeysForVisitor.getResetPasswordKey() + userEmail;
+		String valueT = tokenStr;
+		stringRedisVisitorTemplate.opsForValue().set(keyT, valueT);
+		stringRedisVisitorTemplate.expire(keyT, 2, TimeUnit.DAYS);
+	}
+	public String getUserresetPasswordToken(String userEmail) {
+		String keyT = RedisKeysForVisitor.getResetPasswordKey() + userEmail;
+		return (String)stringRedisVisitorTemplate.opsForValue().get(keyT);
+	}
 }

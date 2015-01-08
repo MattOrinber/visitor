@@ -162,6 +162,62 @@ public class UserController extends BasicController{
 		setResultToClient(response, rj);
 	}
 	
+	@RequestMapping("updateUserPassword")
+	public void updateUserPassword(HttpServletRequest request,
+			HttpServletResponse response) {
+		UserTemp ut = super.getUserJson(request);
+		logTheJsonResult(ut);
+		
+		ResultJson rj = new ResultJson();
+		
+		Integer result = 0;
+		String resultDesc = "reset password success";
+		
+		String emailStr = ut.getEmailStr();
+		String tokenStr = ut.getUserTokenStr();
+		String newPassStr = ut.getNewPassStr();
+		
+		if (StringUtils.isNotEmpty(emailStr) && StringUtils.isNotEmpty(tokenStr) && StringUtils.isNotEmpty(newPassStr)) {
+			String storedToken = userRedisService.getUserresetPasswordToken(emailStr);
+			
+			if (StringUtils.isNotEmpty(storedToken) && StringUtils.equals(tokenStr, storedToken)) {
+				User user = userRedisService.getUserPassword(emailStr);
+				
+				if (user != null) {
+					user.setUserPassword(newPassStr);
+					
+					visitorUserService.saveUser(user);
+					userRedisService.saveUserPassword(user);
+				} else {
+					User userT = visitorUserService.findUserByEmail(emailStr);
+					
+					if (userT != null) {
+						userT.setUserPassword(newPassStr);
+						
+						visitorUserService.saveUser(userT);
+						userRedisService.saveUserPassword(userT);
+					} else {
+						result = -1;
+						resultDesc = "user does not exist";
+					}
+				}
+				
+			} else {
+				result = -1;
+				resultDesc = "token expired";
+			}
+			
+		} else {
+			result = -1;
+			resultDesc = "parammeter not right";
+		}
+		
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		setResultToClient(response, rj);
+	}
+	
 	@RequestMapping("getInternalMailCount")
     public void getInternalMailCount(HttpServletRequest request,
     		HttpServletResponse response) {

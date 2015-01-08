@@ -21,6 +21,9 @@ public class UserTemp {
 	private String emerRelationshipStr;
 	private String editorUserDetail;
 	private String userPalpalNumStr;
+	
+	private String userTokenStr;
+	private String newPassStr;
 	public String getEmailStr() {
 		return emailStr;
 	}
@@ -140,5 +143,17 @@ public class UserTemp {
 	}
 	public void setUserPalpalNumStr(String userPalpalNumStr) {
 		this.userPalpalNumStr = userPalpalNumStr;
+	}
+	public String getUserTokenStr() {
+		return userTokenStr;
+	}
+	public void setUserTokenStr(String userTokenStr) {
+		this.userTokenStr = userTokenStr;
+	}
+	public String getNewPassStr() {
+		return newPassStr;
+	}
+	public void setNewPassStr(String newPassStr) {
+		this.newPassStr = newPassStr;
 	}
 }

@@ -1,0 +1,31 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:security="http://www.springframework.org/security/tags" xmlns:form="http://www.springframework.org/tags/form" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+
+<body>
+<c:if test="${not empty canReset and canReset eq 1}">
+<![CDATA[
+	<script type="text/javascript">
+		function checkAndResetPassword() {
+			;
+		}
+	</script>
+]]>
+</c:if>
+
+	<div class="resetPasswordCenter">
+	<c:choose>
+		<c:when test="${not empty canReset and canReset eq 1}">
+			<p>new password</p><input type="password" id="newPassOne" placeholder="123456" />
+			<p>repeat password</p><input type="password" id="newPassTwo" placeholder="123456" />
+			<input type="button" value="Reset" onclick="checkAndResetPassword();" />
+			
+			<input type="hidden" value="${tokenUsed}" id="tokenInput" />
+			<input type="hidden" value="${mailUsed}" id="mailInput" />
+		</c:when>
+		<c:otherwise>Token expired</c:otherwise>
+	</c:choose>
+	</div>
+</body>
+</html>
