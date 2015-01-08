@@ -300,7 +300,7 @@ function replyEmailActual(uimIdStr, pidStr) {
 	        data : jsonStr,  
 	        success : function(data) {  
 	        	if (data.result == 0) {
-	        		closeDialog();
+	        		closeReplyEmail();
 	        	} else {
 	        		alert(data.resultDesc);
 	        	}
