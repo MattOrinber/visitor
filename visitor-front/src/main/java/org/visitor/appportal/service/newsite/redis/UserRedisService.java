@@ -111,7 +111,9 @@ public class UserRedisService {
 				String uimIdStr = (String)entry;
 				String valueOri = (String) compressStringRedisVisitorTemplate.opsForHash().get(keyA, uimIdStr);
 				UserInternalMail uimT = objectMapperWrapperForVisitor.convertToUserInternalMail(valueOri);
-				toMeList.add(uimT);
+				if (uimT != null) {
+					toMeList.add(uimT);
+				}
 			}
 		}
 		return toMeList;
@@ -130,7 +132,9 @@ public class UserRedisService {
 				String uimIdStr = (String)entry;
 				String valueOri = (String) compressStringRedisVisitorTemplate.opsForHash().get(keyA, uimIdStr);
 				UserInternalMail uimT = objectMapperWrapperForVisitor.convertToUserInternalMail(valueOri);
-				toMeList.add(uimT);
+				if (uimT != null) {
+					toMeList.add(uimT);
+				}
 			}
 		}
 		return toMeList;
@@ -149,7 +153,9 @@ public class UserRedisService {
 				String uimIdStr = (String)entry;
 				String valueOri = (String) compressStringRedisVisitorTemplate.opsForHash().get(keyA, uimIdStr);
 				UserInternalMail uimT = objectMapperWrapperForVisitor.convertToUserInternalMail(valueOri);
-				toMeList.add(uimT);
+				if (uimT != null) {
+					toMeList.add(uimT);
+				}
 			}
 		}
 		return toMeList;

@@ -889,6 +889,8 @@ public class BasicController {
 				Long pid = uim.getUimProductId();
 				io.setDateAndAccomodates(dateRangeAndAccomo);
 				io.setProductId(pid);
+				io.setContentStr(contentArray[3]);
+				io.setUimId(uim.getUimId());
 				
 				Product product = productRedisService.getProductFromRedis(pid);
 				Double count = Double.valueOf(contentArray[2]);

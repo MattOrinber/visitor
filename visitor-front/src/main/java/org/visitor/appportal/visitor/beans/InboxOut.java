@@ -8,6 +8,8 @@ public class InboxOut {
 	private String dateAndAccomodates;
 	private Long productId; 
 	private Double totalBasicPrice;
+	private String contentStr;
+	private Long uimId;
 	
 	public User getUserFrom() {
 		return userFrom;
@@ -38,5 +40,17 @@ public class InboxOut {
 	}
 	public void setTotalBasicPrice(Double totalBasicPrice) {
 		this.totalBasicPrice = totalBasicPrice;
+	}
+	public String getContentStr() {
+		return contentStr;
+	}
+	public void setContentStr(String contentStr) {
+		this.contentStr = contentStr;
+	}
+	public Long getUimId() {
+		return uimId;
+	}
+	public void setUimId(Long uimId) {
+		this.uimId = uimId;
 	}
 }

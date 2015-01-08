@@ -208,15 +208,41 @@ function checkAndSend() {
 	}
 }
 
-function replyEmail(uimIdStr, pidStr) {
+function replyEmail(uimIdStr, pidStr, contentStr) {
 	$("#uimIdInputHidden").val(uimIdStr);
 	$("#productIdInputHidden").val(pidStr);
+	$("#msgContent").html(contentStr);
 	
 	var dialog = $("#replyVisitorDialog");
 	$("#checkinDate").datepicker({dateFormat: "yy-mm-dd"});
 	$("#checkoutDate").datepicker({dateFormat: "yy-mm-dd"});
 	
 	$('.wrapwrapbox').show();
+	$("#msgDivPart").show();
+	$("#replyDivPart").show();
+	dialog.show();
+}
+
+function doToMeListSelect(node) {
+	var valueT = $(node).val();
+	
+	if (valueT == "0") {
+		$("#repliedListDiv").hide();
+		$("#unreadListDiv").show();
+	} else {
+		$("#unreadListDiv").hide();
+		$("#repliedListDiv").show();
+	}
+}
+
+function checkEmail(contentStr) {
+	$("#msgContent").html(contentStr);
+	
+	var dialog = $("#replyVisitorDialog");
+	
+	$('.wrapwrapbox').show();
+	$("#msgDivPart").show();
+	$("#replyDivPart").hide();
 	dialog.show();
 }
 

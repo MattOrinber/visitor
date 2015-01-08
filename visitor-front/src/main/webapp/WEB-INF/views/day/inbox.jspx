@@ -27,10 +27,10 @@
 
 <div id="replyVisitorDialog" class="contact_host" style="display:none;">
 	<span>Reply Message to Visitor<img src="${imgPathOrigin}/static/close1.png" onclick="closeReplyEmail();" width="15"/></span>
-	<div id="msgDivPart">
+	<div id="msgDivPart" style="display:none;">
 		<textarea id="msgContent"></textarea>
 	</div>
-	<div id="replyDivPart">
+	<div id="replyDivPart" style="display:block;">
     	<table width="380" border="0">
           <tr>
             <td width="150">Check in Avail</td>
@@ -51,9 +51,9 @@
 	    </p>
 	    <textarea id="mailContent"></textarea>
 	    <a href="javascript:replyEmailActual();" class="button">Reply Message</a>
+	    <input id="uimIdInputHidden" type="hidden" value="" />
+    	<input id="productIdInputHidden" type="hidden" value="" />
     </div>
-    <input id="uimIdInputHidden" type="hidden" value="" />
-    <input id="productIdInputHidden" type="hidden" value="" />
 </div>
 
 <div class="main">
@@ -75,65 +75,7 @@
 					]]>
 				<c:if test="${not empty internalFromMeIOList}">
 					<c:forEach items="${internalFromMeIOList}" var="internalIO" varStatus="status">
-						<div class="message">
-	                        <div class="photo">
-		                        <c:choose>
-		                        	<c:when test="${not empty internalIO.userFrom and not empty internalIO.userFrom.userPhotourl}">
-		                        		<img src="${internalIO.userFrom.userPhotourl}" width="45" />
-		                        	</c:when>
-		                        	<c:otherwise>
-		                        		<img src="${imgPathOrigin}/static/user_pic-50x50.png" width="45" />
-		                        	</c:otherwise>
-		                        </c:choose>
-	                        </div>
-	                        <div class="time">
-	                        	 <c:choose>
-		                        	<c:when test="${not empty internalIO.userFrom and not empty internalIO.userFrom.userFirstName}">
-		                        		<p>${internalIO.userFrom.userFirstName}</p>
-		                        	</c:when>
-		                        	<c:otherwise>
-		                        		<p>Some Guy</p>
-		                        	</c:otherwise>
-		                        </c:choose>
-		                        
-		                        <c:choose>
-		                        	<c:when test="${not empty internalIO.daysFromNow and internalIO.daysFromNow gt 0}">
-		                        		<p>${internalIO.daysFromNow} days ago</p>
-		                        	</c:when>
-		                        	<c:otherwise>
-		                        		<p>within 1 day</p>
-		                        	</c:otherwise>
-		                        </c:choose>
-	                        </div>
-	                        <div class="content">
-	                            <p class="col-7">Interested in <a href="${pageContext.request.contextPath}/day/product?pid=${internalIO.productId}">your activity</a></p>
-	                            <p class="text-muted">${internalIO.dateAndAccomodates}</p>
-	                        </div>
-	                        <div class="price">
-	                            <p style="color:#ffb400;font-weight:bold;">Inquiry </p><p>$ ${internalIO.totalBasicPrice}</p>
-	                        </div>
-	                	</div>
-					</c:forEach>
-				</c:if>
-<![CDATA[
-				</div>
-			</div>
-			
-			
-            <div id="detail2" style="display:block;">
-            	<div class="inbox inbox1">
-					<span>
-						<select>
-							<option>All Messages (${inboxTotalCount})</option>
-							<option value="unread" selected="selected">Unread (${inboxUnreadCount})</option>
-							<option value="reservations">Replied (${inboxRepliedCount})</option>
-						</select>
-					</span>
-                   
-                   ]]>
-				<c:if test="${not empty internalIOList}">
-					<c:forEach items="${internalIOList}" var="internalIO" varStatus="status">
-					<a href="javascript:replyEmail('${internalIO.uimId}','${internalIO.productId}');">
+					<a href="javascript:checkEmail('${internalIO.contentStr}');">
 						<div class="message">
 	                        <div class="photo">
 		                        <c:choose>
@@ -175,6 +117,114 @@
 	                </a>
 					</c:forEach>
 				</c:if>
+<![CDATA[
+				</div>
+			</div>
+			
+			
+            <div id="detail2" style="display:block;">
+            	<div class="inbox inbox1">
+					<span>
+						<select onchange="doToMeListSelect(this);">
+							<option value="0" selected="selected">Unread (${inboxUnreadCount})</option>
+							<option value="1">Replied (${inboxRepliedCount})</option>
+						</select>
+					</span>
+                   
+                   ]]>
+                <div id="unreadListDiv" style="display:block;">
+				<c:if test="${not empty internalIOList}">
+					<c:forEach items="${internalIOList}" var="internalIO" varStatus="status">
+					<a href="javascript:replyEmail('${internalIO.uimId}','${internalIO.productId}', '${internalIO.contentStr}');">
+						<div class="message">
+	                        <div class="photo">
+		                        <c:choose>
+		                        	<c:when test="${not empty internalIO.userFrom and not empty internalIO.userFrom.userPhotourl}">
+		                        		<img src="${internalIO.userFrom.userPhotourl}" width="45" />
+		                        	</c:when>
+		                        	<c:otherwise>
+		                        		<img src="${imgPathOrigin}/static/user_pic-50x50.png" width="45" />
+		                        	</c:otherwise>
+		                        </c:choose>
+	                        </div>
+	                        <div class="time">
+	                        	 <c:choose>
+		                        	<c:when test="${not empty internalIO.userFrom and not empty internalIO.userFrom.userFirstName}">
+		                        		<p>${internalIO.userFrom.userFirstName}</p>
+		                        	</c:when>
+		                        	<c:otherwise>
+		                        		<p>Some Guy</p>
+		                        	</c:otherwise>
+		                        </c:choose>
+		                        
+		                        <c:choose>
+		                        	<c:when test="${not empty internalIO.daysFromNow and internalIO.daysFromNow gt 0}">
+		                        		<p>${internalIO.daysFromNow} days ago</p>
+		                        	</c:when>
+		                        	<c:otherwise>
+		                        		<p>within 1 day</p>
+		                        	</c:otherwise>
+		                        </c:choose>
+	                        </div>
+	                        <div class="content">
+	                            <p class="col-7">Interested in <a href="${pageContext.request.contextPath}/day/product?pid=${internalIO.productId}">your activity</a></p>
+	                            <p class="text-muted">${internalIO.dateAndAccomodates}</p>
+	                        </div>
+	                        <div class="price">
+	                            <p style="color:#ffb400;font-weight:bold;">Inquiry </p><p>$ ${internalIO.totalBasicPrice}</p>
+	                        </div>
+	                	</div>
+	                </a>
+					</c:forEach>
+				</c:if>
+				</div>
+				
+				<div id="repliedListDiv" style="display:none;">
+				<c:if test="${not empty internalRepliedIOList}">
+					<c:forEach items="${internalRepliedIOList}" var="internalIO" varStatus="status">
+					<a href="javascript:checkEmail('${internalIO.contentStr}');">
+						<div class="message">
+	                        <div class="photo">
+		                        <c:choose>
+		                        	<c:when test="${not empty internalIO.userFrom and not empty internalIO.userFrom.userPhotourl}">
+		                        		<img src="${internalIO.userFrom.userPhotourl}" width="45" />
+		                        	</c:when>
+		                        	<c:otherwise>
+		                        		<img src="${imgPathOrigin}/static/user_pic-50x50.png" width="45" />
+		                        	</c:otherwise>
+		                        </c:choose>
+	                        </div>
+	                        <div class="time">
+	                        	 <c:choose>
+		                        	<c:when test="${not empty internalIO.userFrom and not empty internalIO.userFrom.userFirstName}">
+		                        		<p>${internalIO.userFrom.userFirstName}</p>
+		                        	</c:when>
+		                        	<c:otherwise>
+		                        		<p>Some Guy</p>
+		                        	</c:otherwise>
+		                        </c:choose>
+		                        
+		                        <c:choose>
+		                        	<c:when test="${not empty internalIO.daysFromNow and internalIO.daysFromNow gt 0}">
+		                        		<p>${internalIO.daysFromNow} days ago</p>
+		                        	</c:when>
+		                        	<c:otherwise>
+		                        		<p>within 1 day</p>
+		                        	</c:otherwise>
+		                        </c:choose>
+	                        </div>
+	                        <div class="content">
+	                            <p class="col-7">Interested in <a href="${pageContext.request.contextPath}/day/product?pid=${internalIO.productId}">your activity</a></p>
+	                            <p class="text-muted">${internalIO.dateAndAccomodates}</p>
+	                        </div>
+	                        <div class="price">
+	                            <p style="color:#ffb400;font-weight:bold;">Inquiry </p><p>$ ${internalIO.totalBasicPrice}</p>
+	                        </div>
+	                	</div>
+	                </a>
+					</c:forEach>
+				</c:if>
+				</div>
 <![CDATA[
 				</div>
             </div>
