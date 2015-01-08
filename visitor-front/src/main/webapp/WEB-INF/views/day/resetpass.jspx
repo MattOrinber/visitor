@@ -4,16 +4,6 @@
 <jsp:directive.page contentType="text/html; charset=UTF-8" />
 
 <body>
-<c:if test="${not empty canReset and canReset eq 1}">
-<![CDATA[
-	<script type="text/javascript">
-		function checkAndResetPassword() {
-			;
-		}
-	</script>
-]]>
-</c:if>
-
 	<div class="resetPasswordCenter">
 	<c:choose>
 		<c:when test="${not empty canReset and canReset eq 1}">
