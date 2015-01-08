@@ -15,6 +15,7 @@ public class FloopyThing {
 	private String floopyKey;
 	private String floopyValue;
 	private Integer floopyStatus;
+	private String floopyDesc;
 	
 	@Column(name = "floopy_id", nullable = false, unique = true, precision = 20)
 	@GeneratedValue
@@ -50,6 +51,15 @@ public class FloopyThing {
 	}
 	public void setFloopyStatus(Integer floopyStatus) {
 		this.floopyStatus = floopyStatus;
+	}
+	
+	@Length(max = 1023)
+	@Column(name = "floopy_desc")
+	public String getFloopyDesc() {
+		return floopyDesc;
+	}
+	public void setFloopyDesc(String floopyDesc) {
+		this.floopyDesc = floopyDesc;
 	}
 	
 	
