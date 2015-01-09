@@ -42,66 +42,66 @@
     		]]>
     		<c:choose>
     			<c:when test="${pageType eq 0}">
-    				<li class="choosed"><a href="javascript:void(0);"  onClick="selectAdminTag('detail0',this)">用户管理</a></li>
+    				<li class="choosed"><a href="javascript:void(0);" >用户管理</a></li>
     			</c:when>
     			<c:otherwise>
     			<![CDATA[
-    				<li><a href="${pageContext.request.contextPath}/day/admin?type=0&p=1" onClick="selectAdminTag('detail0',this)">用户管理</a></li>
+    				<li><a href="${pageContext.request.contextPath}/day/admin?type=0&p=1">用户管理</a></li>
     			]]>
     			</c:otherwise>
     		</c:choose>
     		
     		<c:choose>
     			<c:when test="${pageType eq 1}">
-    				<li class="choosed"><a href="javascript:void(0);"  onClick="selectAdminTag('detail1',this)">页面常量管理</a></li>
+    				<li class="choosed"><a href="javascript:void(0);" >页面常量管理</a></li>
     			</c:when>
     			<c:otherwise>
     			<![CDATA[
-    				<li><a href="${pageContext.request.contextPath}/day/admin?type=1&p=1"  onClick="selectAdminTag('detail1',this)">页面常量管理</a></li>
+    				<li><a href="${pageContext.request.contextPath}/day/admin?type=1&p=1">页面常量管理</a></li>
     			]]>
     			</c:otherwise>
     		</c:choose>
     		
     		<c:choose>
     			<c:when test="${pageType eq 2}">
-    				<li class="choosed"><a href="javascript:void(0);"  onClick="selectAdminTag('detail2',this)">城市管理</a></li>
+    				<li class="choosed"><a href="javascript:void(0);">城市管理</a></li>
     			</c:when>
     			<c:otherwise>
     			<![CDATA[
-    				<li><a href="${pageContext.request.contextPath}/day/admin?type=2&p=1"  onClick="selectAdminTag('detail2',this)">城市管理</a></li>
+    				<li><a href="${pageContext.request.contextPath}/day/admin?type=2&p=1">城市管理</a></li>
     			]]>
     			</c:otherwise>
     		</c:choose>
     		
     		<c:choose>
     			<c:when test="${pageType eq 3}">
-    				<li class="choosed"><a href="javascript:void(0);"  onClick="selectAdminTag('detail3',this)">主页城市推荐位管理</a></li>
+    				<li class="choosed"><a href="javascript:void(0);">主页城市推荐位管理</a></li>
     			</c:when>
     			<c:otherwise>
     			<![CDATA[
-    				<li><a href="${pageContext.request.contextPath}/day/admin?type=3&p=1"  onClick="selectAdminTag('detail3',this)">主页城市推荐位管理</a></li>
+    				<li><a href="${pageContext.request.contextPath}/day/admin?type=3&p=1">主页城市推荐位管理</a></li>
     			]]>
     			</c:otherwise>
     		</c:choose>
     		
     		<c:choose>
     			<c:when test="${pageType eq 4}">
-    				<li class="choosed"><a href="javascript:void(0);"  onClick="selectAdminTag('detail4',this)">Activities(产品)管理</a></li>
+    				<li class="choosed"><a href="javascript:void(0);">Activities(产品)管理</a></li>
     			</c:when>
     			<c:otherwise>
     			<![CDATA[
-    				<li><a href="${pageContext.request.contextPath}/day/admin?type=4&p=1"  onClick="selectAdminTag('detail4',this)">Activities(产品)管理</a></li>
+    				<li><a href="${pageContext.request.contextPath}/day/admin?type=4&p=1">Activities(产品)管理</a></li>
     			]]>
     			</c:otherwise>
     		</c:choose>
     		
     		<c:choose>
     			<c:when test="${pageType eq 5}">
-    				<li class="choosed"><a href="javascript:void(0);"  onClick="selectAdminTag('detail5',this)">订单管理</a></li>
+    				<li class="choosed"><a href="javascript:void(0);">订单管理</a></li>
     			</c:when>
     			<c:otherwise>
     			<![CDATA[
-    				<li><a href="${pageContext.request.contextPath}/day/admin?type=5&p=1"  onClick="selectAdminTag('detail5',this)">订单管理</a></li>
+    				<li><a href="${pageContext.request.contextPath}/day/admin?type=5&p=1">订单管理</a></li>
     			]]>
     			</c:otherwise>
     		</c:choose>
@@ -110,65 +110,84 @@
         </ul>
     </div>
     <div class="rightbox">
-    	<div id="detail0" style="display:block;">
-        	<span><label>Email</label><input id="searchEmailStr" type="text" placeholder="bob@gmail.com" /></span>
-            <span><a href="javascript:toUserSearchResult();">查询</a></span>
-            <table width="100%" border="0" cellpadding="0" cellspacing="1">
-              <tr>
-                <th width="20%">ID</th>
-                <th width="30%">EMAIL</th>
-                <th width="30%">用户类型</th>
-                <th width="20%">操作</th>
-              </tr>
-              
-              ]]>
-              <c:if test="${not empty userCount and userCount gt 0}">
-	              <c:forEach items="${userList}" var="userTemp" varStatus="_st">
-	                  <tr>
-		                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">${userTemp.userId}</a></td>
-		                <td>${userTemp.userEmail}</td>
-		                <td>
-		                	<c:choose>
-		                		<c:when test="${userTemp.userType eq 0}"><p>普通用户</p>
-		                		</c:when>
-		                		<c:when test="${userTemp.userType eq 1}"><p>Facebook用户</p>
-		                		</c:when>
-		                		<c:when test="${userTemp.userType eq 2}"><p>管理员</p>
-		                		</c:when>
-		                		<c:otherwise>
-		                		</c:otherwise>
-		                	</c:choose>
-		                </td>
-		                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">发布</a></td>
-		              </tr>
-	              </c:forEach>
-              </c:if>
-              
-              <c:if test="${not empty pageNumber and pageNumber gt 1}">
-				<tr>
-					<td align="center" colspan="4">
-						<c:choose>
-				 		<c:when test="${ifEnd eq 0}"><a href="javascript:void(0);">前一页</a></c:when>
-				 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=0&p=${pageIndex-1}">前一页</a>]]></c:otherwise>
-				 	</c:choose>
-				 	<input id="pageIdxStr" type="text" value="${pageIndex}" style="width:50px" />
-				 	<c:choose>
-				 		<c:when test="${ifEnd eq 2}"><a href="javascript:void(0);">后一页</a><span>共${pageNumber}页</span></c:when>
-				 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=0&p=${pageIndex+1}">后一页</a><span>共${pageNumber}页</span>]]></c:otherwise>
-				 	</c:choose>
-					</td>
-				</tr>
-			   </c:if>
-              
-              <![CDATA[
-            </table>
-        </div>
+    ]]>
+    
+    	<c:choose>
+    	<c:when test="${pageType eq 0}">
+	    	<![CDATA[
+	    	<div id="detail0" style="display:block;">
+	        	<span><label>Email</label><input id="searchEmailStr" type="text" placeholder="bob@gmail.com" /></span>
+	            <span><a href="javascript:toUserSearchResult();">查询</a></span>
+	            <table width="100%" border="0" cellpadding="0" cellspacing="1">
+	              <tr>
+	                <th width="20%">ID</th>
+	                <th width="30%">EMAIL</th>
+	                <th width="30%">用户类型</th>
+	                <th width="20%">操作</th>
+	              </tr>
+	              
+	        ]]>
+	              <c:if test="${not empty itemCount and itemCount gt 0}">
+		              <c:forEach items="${itemList}" var="userTemp" varStatus="_st">
+		                  <tr>
+			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">${userTemp.userId}</a></td>
+			                <td>${userTemp.userEmail}</td>
+			                <td>
+			                	<c:choose>
+			                		<c:when test="${userTemp.userType eq 0}"><p>普通用户</p>
+			                		</c:when>
+			                		<c:when test="${userTemp.userType eq 1}"><p>Facebook用户</p>
+			                		</c:when>
+			                		<c:when test="${userTemp.userType eq 2}"><p>管理员</p>
+			                		</c:when>
+			                		<c:otherwise>
+			                		</c:otherwise>
+			                	</c:choose>
+			                </td>
+			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">发布</a></td>
+			              </tr>
+		              </c:forEach>
+	              </c:if>
+	              
+	              <c:if test="${not empty pageNumber and pageNumber gt 1}">
+					<tr>
+						<td align="center" colspan="4">
+							<c:choose>
+					 		<c:when test="${ifEnd eq 0}"><a href="javascript:void(0);">前一页</a></c:when>
+					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=0&p=${pageIndex-1}">前一页</a>]]></c:otherwise>
+					 	</c:choose>
+					 	<input id="pageIdxStr" type="text" value="${pageIndex}" style="width:50px" />
+					 	<c:choose>
+					 		<c:when test="${ifEnd eq 2}"><a href="javascript:void(0);">后一页</a><span>共${pageNumber}页</span></c:when>
+					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=0&p=${pageIndex+1}">后一页</a><span>共${pageNumber}页</span>]]></c:otherwise>
+					 	</c:choose>
+						</td>
+					</tr>
+				   </c:if>
+	              
+	        <![CDATA[
+	            </table>
+	        </div>
+	        ]]>
+        </c:when>
+        <c:when test="${pageType eq 1}">
+        	<div id="detail1" style="display:none;">222</div>
+        </c:when>
+        <c:when test="${pageType eq 2}">
+        	<div id="detail2" style="display:none;">33</div>
+        </c:when>
+        <c:when test="${pageType eq 3}">
+        	<div id="detail3" style="display:none;">444</div>
+        </c:when>
+        <c:when test="${pageType eq 4}">
+        	<div id="detail4" style="display:none;">555</div>
+        </c:when>
+        <c:when test="${pageType eq 5}">
+        	<div id="detail5" style="display:none;">666</div>
+        </c:when>
         
-        <div id="detail1" style="display:none;">222</div>
-        <div id="detail2" style="display:none;">33</div>
-        <div id="detail3" style="display:none;">444</div>
-        <div id="detail4" style="display:none;">555</div>
-        <div id="detail5" style="display:none;">666</div>
+        </c:choose>
+        <![CDATA[
     </div>
 </div>
 ]]>

@@ -153,4 +153,8 @@ public class RedisKeysForVisitor {
     public static String getResetPasswordKey() {
     	return "rp-";
     }
+    
+    public static String getContainerKey() {
+    	return "visitor-site-containers";
+    }
 }

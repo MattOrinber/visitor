@@ -26,6 +26,11 @@ import org.visitor.appportal.visitor.beans.ProductDetailTemp;
 import org.visitor.appportal.visitor.beans.ProductPriceMultiTemp;
 import org.visitor.appportal.visitor.beans.ProductTemp;
 import org.visitor.appportal.visitor.beans.UserTemp;
+import org.visitor.appportal.visitor.domain.City;
+import org.visitor.appportal.visitor.domain.Container;
+import org.visitor.appportal.visitor.domain.FloopyThing;
+import org.visitor.appportal.visitor.domain.Product;
+import org.visitor.appportal.visitor.domain.ProductOrder;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.web.controller.service.PageActivitiesService;
 import org.visitor.appportal.web.controller.service.PageCityService;
@@ -36,7 +41,6 @@ import org.visitor.appportal.web.controller.service.PageUserService;
 import org.visitor.appportal.web.mailutils.SendMailUtils;
 import org.visitor.appportal.web.mailutils.UserMailException;
 import org.visitor.appportal.web.utils.WebInfo;
-import org.visitor.appportal.web.utils.WebInfo.ManagementPageTypeEnum;
 
 import com.alibaba.fastjson.JSON;
 
@@ -223,37 +227,80 @@ public class BasicController {
 	}
 	
 	protected void setPageModel(HttpServletRequest request, Integer pageType, Model model) {
-		if (pageType.intValue() == ManagementPageTypeEnum.UserMan.ordinal()) {
-			Long userCount = pageUserService.getUserCount();
-			if (userCount.longValue() > 0) {
-				model.addAttribute("userCount", userCount);
-				Long pageNum = userCount/WebInfo.pageSize;
-				Long residue = userCount%(WebInfo.pageSize);
-				if (residue.longValue() > 0) {
-					pageNum += 1;
-				}
-				
-				model.addAttribute("pageNumber", pageNum);
-				
-				Long pageIdx = null;
-				String pStr = request.getParameter("p");
-				if (StringUtils.isNotEmpty(pStr)) {
-					pageIdx = Long.valueOf(pStr);
-				} else {
-					pageIdx = 1L;
-				}
-				model.addAttribute("pageIndex", pageIdx);
-				
-				if (pageIdx == pageNum) {
-					model.addAttribute("ifEnd", 2); //页尾
-				} else if (pageIdx.longValue() == 1) {
-					model.addAttribute("ifEnd", 0); //页头
-				} else {
-					model.addAttribute("ifEnd", 1);
-				}
-				
-				List<User> userList = pageUserService.getUserList(pageIdx);
-				model.addAttribute("userList", userList);
+		Long itemCount = null;
+		switch (pageType) {
+		case 0:
+			itemCount = pageUserService.getUserCount();
+			break;
+		case 1:
+			itemCount = pageConstantService.getFloopyCount();
+			break;
+		case 2:
+			itemCount = pageCityService.getCityCount();
+			break;
+		case 3:
+			itemCount = pageRecommendService.getContainerCount();
+			break;
+		case 4:
+			itemCount = pageActivitiesService.getActivitiesCount();
+			break;
+		case 5:
+			itemCount = pageOrdersService.countOrders();
+			break;
+		}
+		
+		if (itemCount != null && itemCount.longValue() > 0) {
+			model.addAttribute("itemCount", itemCount);
+			Long pageNum = itemCount/WebInfo.pageSize;
+			Long residue = itemCount%(WebInfo.pageSize);
+			if (residue.longValue() > 0) {
+				pageNum += 1;
+			}
+			
+			model.addAttribute("pageNumber", pageNum);
+			
+			Long pageIdx = null;
+			String pStr = request.getParameter("p");
+			if (StringUtils.isNotEmpty(pStr)) {
+				pageIdx = Long.valueOf(pStr);
+			} else {
+				pageIdx = 1L;
+			}
+			model.addAttribute("pageIndex", pageIdx);
+			
+			if (pageIdx == pageNum) {
+				model.addAttribute("ifEnd", 2); //页尾
+			} else if (pageIdx.longValue() == 1) {
+				model.addAttribute("ifEnd", 0); //页头
+			} else {
+				model.addAttribute("ifEnd", 1);
+			}
+			
+			switch (pageType) {
+			case 0:
+				List<User> itemList = pageUserService.getUserList(pageIdx);
+				model.addAttribute("itemList", itemList);
+				break;
+			case 1:
+				List<FloopyThing> floopyList = pageConstantService.getPagedFloopies(pageIdx);
+				model.addAttribute("itemList", floopyList);
+				break;
+			case 2:
+				List<City> cityList = pageCityService.getPagedCities(pageIdx);
+				model.addAttribute("itemList", cityList);
+				break;
+			case 3:
+				List<Container> containerList = pageRecommendService.getPagedContainers(pageIdx);
+				model.addAttribute("itemList", containerList);
+				break;
+			case 4:
+				List<Product> productList = pageActivitiesService.getPagedProducts(pageIdx);
+				model.addAttribute("itemList", productList);
+				break;
+			case 5:
+				List<ProductOrder> orderList = pageOrdersService.getPagedOrders(pageIdx);
+				model.addAttribute("itemList", orderList);
+				break;
 			}
 		}
 		
