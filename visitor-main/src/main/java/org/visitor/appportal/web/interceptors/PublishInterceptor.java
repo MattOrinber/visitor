@@ -1,7 +1,6 @@
 package org.visitor.appportal.web.interceptors;
 
 import java.net.URLDecoder;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.domain.User;
-import org.visitor.appportal.visitor.domain.UserTokenInfo;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
 import org.visitor.appportal.web.utils.WebInfo;
 
