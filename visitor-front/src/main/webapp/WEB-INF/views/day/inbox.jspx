@@ -132,7 +132,7 @@
 					</span>
                    
                    ]]>
-                <div id="unreadListDiv" style="display:block;">
+                <div id="unreadListDiv" style="display:block;padding-left:0">
 				<c:if test="${not empty internalIOList}">
 					<c:forEach items="${internalIOList}" var="internalIO" varStatus="status">
 					<a href="javascript:replyEmail('${internalIO.uimId}','${internalIO.productId}', '${internalIO.contentStr}');">
@@ -179,7 +179,7 @@
 				</c:if>
 				</div>
 				
-				<div id="repliedListDiv" style="display:none;">
+				<div id="repliedListDiv" style="display:none;padding-left:0">
 				<c:if test="${not empty internalRepliedIOList}">
 					<c:forEach items="${internalRepliedIOList}" var="internalIO" varStatus="status">
 					<a href="javascript:checkEmail('${internalIO.contentStr}');">

@@ -41,7 +41,7 @@
 				<c:if test="${not empty productList}">
 					<c:forEach items="${productList}" var="productOrderBundle" varStatus="status">
 <![CDATA[
-						<div class="message">
+						<div class="message" style="height:65px">
 ]]>
 							<c:choose>
 								<c:when test="${not empty productOrderBundle.productPicUrlFirst}">

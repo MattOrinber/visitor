@@ -125,4 +125,41 @@ border-bottom:1px solid #fa0008;color: #fff;margin-top:10px;margin-bottom:20px;b
 .content .img{width:320px;height:227px;overflow:hidden;}
 
 
+.contact_host{width:400px;background:#fff;border:1px solid #c4c4c4;position:fixed;left:50%;top:30%;margin-left:-200px;z-index:9999;}
+.contact_host span{display:block;width:100%;height:40px;font-size:16px;text-indent:10px;line-height:40px;background:#d4d4d4;}
+.contact_host span img{float:right;margin-right:10px;margin-top:10px;}
+.contact_host div{width:380px;margin:0 auto;margin-top:20px;}
+.contact_host div table input{width:130px;height:30px;}
+.contact_host div table select{width:50px;height:34px;}
+.contact_host div p{margin-top:15px;font-size:14px;line-height:20px;}
+.contact_host div textarea{width:380px;height:100px;margin-top:10px;margin-bottom:10px;}
+.contact_host div a.button{width:80px;text-align:center;height:30px;display:inline-block;border:1px solid #fc989b;border-bottom-color: #ef8387;background: #fc989b;color: #fff;line-height:30px;float:right;margin-bottom:20px;}
+
+
+
 #toOrderStartDate{width:260px;height:30px}
+
+.boxshade{width:100%;height:100%;background:rgba(0,0,0,0.7);position:fixed;left:0;top:0;z-index:9999;}
+	
+.boxshade .mod18{width:1024px;overflow:hidden;margin:0 auto;position:relative;}
+.boxshade .mod18 .btn{position:absolute;width:15px;height:70px;top:689px;cursor:pointer;z-index:99;font-size:50px;font-weight:bold;}
+.boxshade .mod18 .prev{left:0;background:url(img/prevBtn.png) no-repeat;}
+.boxshade .mod18 #prevTop,.mod18 #nextTop{top:300px;width:46px;height:48px;}
+.boxshade .mod18 #prevTop{background:url(img/prevBtnTop.png) 0 0 no-repeat;}
+.boxshade .mod18 #nextTop{background:url(img/nextBtnTop.png) 0 0 no-repeat;}
+.boxshade .mod18 .next{right:0;background:url(img/nextBtn.png) no-repeat;}
+.boxshade .mod18 li{float:left;}
+.boxshade .mod18 .cf li{position:relative;color:#fff;}
+.boxshade .mod18 .cf a{display:block;width:1024px;height:683px;position:absolute;color:#fff;}
+.boxshade .mod18 .picBox{height:683px;position:relative;overflow:hidden;}
+.boxshade .mod18 .picBox ul{height:683px;position:absolute;}
+.boxshade .mod18 .picBox li{width:1024px;height:683px;}
+
+.boxshade .mod18 .listBox{width:1024px;height:100px;margin:0 auto;position:relative;padding:6px 0 10px;overflow:hidden;}
+.boxshade .mod18 .listBox ul{margin-left:30px;height:100px;position:absolute;}
+.boxshade .mod18 .listBox li{width:129px;height:70px;cursor:pointer;position:relative;}
+.boxshade .mod18 .listBox li i{display:none;}
+.boxshade .mod18 .listBox li a{display:block;width:124px;height:70px;}
+.boxshade .mod18 .listBox li img{width:124px;height:70px;}
+.boxshade .mod18 .listBox .on img{width:118px;height:64px;border:3px solid #ff6600;}
+.boxshade .mod18 .listBox .on i{display:block;}

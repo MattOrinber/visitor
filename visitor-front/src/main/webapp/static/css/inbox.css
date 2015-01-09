@@ -56,10 +56,26 @@ border-radius: 3px;margin-top:20px;}
 
 .main .maincontent .inbox1 div.message{height:70px;background:#fff;border-bottom:1px solid #dce0e0;width:938px;}
 .main .maincontent .inbox1 div.message .photo{padding:0;margin:0;margin-left:10px;margin-top:10px;width:45px;height:45px;float:left;border-radius: 50%;border:1px solid #ccc;overflow:hidden;}
+.main .maincontent .inbox div.message .photo1{width:95px;height:63px;border-radius:0;margin-top:0px;background:#ccc;}
 .main .maincontent .inbox1 div.message .time{width:100px;height:40px;float:left;margin-left:10px;font-size:14px;}
 .main .maincontent .inbox1 div.message .content{float:left;width:500px;font-size:14px;}
 .main .maincontent .inbox1 div.message .price{float:right;width:130px;font-size:14px;}
+.main .maincontent .inbox div.message .price a.btn{border:1px solid #009aab;border-bottom-color: #006671;background: #009aab;color: #fff;display:block;width:130px;height:34px;font-size:14px;text-align:center;line-height:34px;}
+.main .maincontent .inbox div.message .price a.dot{display:inline-block;width:15px;height:15px;background:#FF0000;border-radius:50%;}
+.main .maincontent .inbox div.message .price a.dot1{background:#009900;}
+.main .maincontent .inbox div.message .price select{width:100px;height:30px;}
+.main .maincontent .inbox div.message .time a.title{display:block;font-size:18px;font-weight:bold;}
+.main .maincontent .inbox div.message .time a.calendar{color:#FF0000;}
 
+.contact_host{width:400px;background:#fff;border:1px solid #c4c4c4;position:fixed;left:50%;top:30%;margin-left:-200px;z-index:9999;}
+.contact_host span{display:block;width:100%;height:40px;font-size:16px;text-indent:10px;line-height:40px;background:#d4d4d4;}
+.contact_host span img{float:right;margin-right:10px;margin-top:10px;}
+.contact_host div{width:380px;margin:0 auto;margin-top:20px;}
+.contact_host div table input{width:130px;height:30px;}
+.contact_host div table select{width:50px;height:34px;}
+.contact_host div p{margin-top:15px;font-size:14px;line-height:20px;}
+.contact_host div textarea{width:380px;height:100px;margin-top:10px;margin-bottom:10px;}
+.contact_host div a.button{width:80px;text-align:center;height:30px;display:inline-block;border:1px solid #fc989b;border-bottom-color: #ef8387;background: #fc989b;color: #fff;line-height:30px;float:right;margin-bottom:20px;}
 
 
 .footer{width:100%;height:55px;background:#eee8df;}
