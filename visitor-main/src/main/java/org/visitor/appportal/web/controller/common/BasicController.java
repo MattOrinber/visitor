@@ -35,6 +35,7 @@ import org.visitor.appportal.web.controller.service.PageRecommendService;
 import org.visitor.appportal.web.controller.service.PageUserService;
 import org.visitor.appportal.web.mailutils.SendMailUtils;
 import org.visitor.appportal.web.mailutils.UserMailException;
+import org.visitor.appportal.web.utils.WebInfo;
 import org.visitor.appportal.web.utils.WebInfo.ManagementPageTypeEnum;
 
 import com.alibaba.fastjson.JSON;
@@ -221,14 +222,41 @@ public class BasicController {
 		}
 	}
 	
-	protected void setPageModel(Integer pageType, Model model) {
+	protected void setPageModel(HttpServletRequest request, Integer pageType, Model model) {
 		if (pageType.intValue() == ManagementPageTypeEnum.UserMan.ordinal()) {
-			List<User> userList = pageUserService.getUserList();
-			if (userList != null && userList.size() > 0) {
-				model.addAttribute("userCount", userList.size());
+			Long userCount = pageUserService.getUserCount();
+			if (userCount.longValue() > 0) {
+				model.addAttribute("userCount", userCount);
+				Long pageNum = userCount/WebInfo.pageSize;
+				Long residue = userCount%(WebInfo.pageSize);
+				if (residue.longValue() > 0) {
+					pageNum += 1;
+				}
+				
+				model.addAttribute("pageNumber", pageNum);
+				
+				Long pageIdx = null;
+				String pStr = request.getParameter("p");
+				if (StringUtils.isNotEmpty(pStr)) {
+					pageIdx = Long.valueOf(pStr);
+				} else {
+					pageIdx = 1L;
+				}
+				model.addAttribute("pageIndex", pageIdx);
+				
+				if (pageIdx == pageNum) {
+					model.addAttribute("ifEnd", 2); //页尾
+				} else if (pageIdx.longValue() == 1) {
+					model.addAttribute("ifEnd", 0); //页头
+				} else {
+					model.addAttribute("ifEnd", 1);
+				}
+				
+				List<User> userList = pageUserService.getUserList(pageIdx);
+				model.addAttribute("userList", userList);
 			}
-			model.addAttribute("userList", userList);
-			model.addAttribute("pageType", pageType);
 		}
+		
+		model.addAttribute("pageType", pageType);
 	}
 }

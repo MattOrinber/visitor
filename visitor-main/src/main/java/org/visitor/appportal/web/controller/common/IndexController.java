@@ -176,7 +176,7 @@ public class IndexController extends BasicController {
 	public String admin(HttpServletRequest request, 
 			@RequestParam(value="type", required=true) Integer pageType,
 			Model model) {
-		super.setPageModel(pageType, model);
+		super.setPageModel(request, pageType, model);
 		return "day/admin";
 	}
 	

@@ -42,55 +42,67 @@
     		]]>
     		<c:choose>
     			<c:when test="${pageType eq 0}">
-    				<li class="choosed"><a href="${pageContext.request.contextPath}/day/admin?type=0"  onClick="selectAdminTag('detail0',this)">用户管理</a></li>
+    				<li class="choosed"><a href="javascript:void(0);"  onClick="selectAdminTag('detail0',this)">用户管理</a></li>
     			</c:when>
     			<c:otherwise>
-    				<li><a href="${pageContext.request.contextPath}/day/admin?type=0" onClick="selectAdminTag('detail0',this)">用户管理</a></li>
+    			<![CDATA[
+    				<li><a href="${pageContext.request.contextPath}/day/admin?type=0&p=1" onClick="selectAdminTag('detail0',this)">用户管理</a></li>
+    			]]>
     			</c:otherwise>
     		</c:choose>
     		
     		<c:choose>
     			<c:when test="${pageType eq 1}">
-    				<li class="choosed"><a href="${pageContext.request.contextPath}/day/admin?type=1"  onClick="selectAdminTag('detail1',this)">页面常量管理</a></li>
+    				<li class="choosed"><a href="javascript:void(0);"  onClick="selectAdminTag('detail1',this)">页面常量管理</a></li>
     			</c:when>
     			<c:otherwise>
-    				<li><a href="${pageContext.request.contextPath}/day/admin?type=1"  onClick="selectAdminTag('detail1',this)">页面常量管理</a></li>
+    			<![CDATA[
+    				<li><a href="${pageContext.request.contextPath}/day/admin?type=1&p=1"  onClick="selectAdminTag('detail1',this)">页面常量管理</a></li>
+    			]]>
     			</c:otherwise>
     		</c:choose>
     		
     		<c:choose>
     			<c:when test="${pageType eq 2}">
-    				<li class="choosed"><a href="${pageContext.request.contextPath}/day/admin?type=2"  onClick="selectAdminTag('detail2',this)">城市管理</a></li>
+    				<li class="choosed"><a href="javascript:void(0);"  onClick="selectAdminTag('detail2',this)">城市管理</a></li>
     			</c:when>
     			<c:otherwise>
-    				<li><a href="${pageContext.request.contextPath}/day/admin?type=2"  onClick="selectAdminTag('detail2',this)">城市管理</a></li>
+    			<![CDATA[
+    				<li><a href="${pageContext.request.contextPath}/day/admin?type=2&p=1"  onClick="selectAdminTag('detail2',this)">城市管理</a></li>
+    			]]>
     			</c:otherwise>
     		</c:choose>
     		
     		<c:choose>
     			<c:when test="${pageType eq 3}">
-    				<li class="choosed"><a href="${pageContext.request.contextPath}/day/admin?type=3"  onClick="selectAdminTag('detail3',this)">主页城市推荐位管理</a></li>
+    				<li class="choosed"><a href="javascript:void(0);"  onClick="selectAdminTag('detail3',this)">主页城市推荐位管理</a></li>
     			</c:when>
     			<c:otherwise>
-    				<li><a href="${pageContext.request.contextPath}/day/admin?type=3"  onClick="selectAdminTag('detail3',this)">主页城市推荐位管理</a></li>
+    			<![CDATA[
+    				<li><a href="${pageContext.request.contextPath}/day/admin?type=3&p=1"  onClick="selectAdminTag('detail3',this)">主页城市推荐位管理</a></li>
+    			]]>
     			</c:otherwise>
     		</c:choose>
     		
     		<c:choose>
     			<c:when test="${pageType eq 4}">
-    				<li class="choosed"><a href="${pageContext.request.contextPath}/day/admin?type=4"  onClick="selectAdminTag('detail4',this)">Activities(产品)管理</a></li>
+    				<li class="choosed"><a href="javascript:void(0);"  onClick="selectAdminTag('detail4',this)">Activities(产品)管理</a></li>
     			</c:when>
     			<c:otherwise>
-    				<li><a href="${pageContext.request.contextPath}/day/admin?type=4"  onClick="selectAdminTag('detail4',this)">Activities(产品)管理</a></li>
+    			<![CDATA[
+    				<li><a href="${pageContext.request.contextPath}/day/admin?type=4&p=1"  onClick="selectAdminTag('detail4',this)">Activities(产品)管理</a></li>
+    			]]>
     			</c:otherwise>
     		</c:choose>
     		
     		<c:choose>
     			<c:when test="${pageType eq 5}">
-    				<li class="choosed"><a href="${pageContext.request.contextPath}/day/admin?type=4"  onClick="selectAdminTag('detail5',this)">订单管理</a></li>
+    				<li class="choosed"><a href="javascript:void(0);"  onClick="selectAdminTag('detail5',this)">订单管理</a></li>
     			</c:when>
     			<c:otherwise>
-    				<li><a href="${pageContext.request.contextPath}/day/admin?type=4"  onClick="selectAdminTag('detail5',this)">订单管理</a></li>
+    			<![CDATA[
+    				<li><a href="${pageContext.request.contextPath}/day/admin?type=5&p=1"  onClick="selectAdminTag('detail5',this)">订单管理</a></li>
+    			]]>
     			</c:otherwise>
     		</c:choose>
             
@@ -131,6 +143,23 @@
 		              </tr>
 	              </c:forEach>
               </c:if>
+              
+              <c:if test="${not empty pageNumber and pageNumber gt 1}">
+				<tr>
+					<td align="center" colspan="4">
+						<c:choose>
+				 		<c:when test="${ifEnd eq 0}"><a href="javascript:void(0);">前一页</a></c:when>
+				 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=0&p=${pageIndex-1}">前一页</a>]]></c:otherwise>
+				 	</c:choose>
+				 	<input id="pageIdxStr" type="text" value="${pageIndex}" style="width:50px" />
+				 	<c:choose>
+				 		<c:when test="${ifEnd eq 2}"><a href="javascript:void(0);">后一页</a><span>共${pageNumber}页</span></c:when>
+				 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=0&p=${pageIndex+1}">后一页</a><span>共${pageNumber}页</span>]]></c:otherwise>
+				 	</c:choose>
+					</td>
+				</tr>
+			   </c:if>
+              
               <![CDATA[
             </table>
         </div>

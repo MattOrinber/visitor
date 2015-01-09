@@ -19,8 +19,12 @@ public class PageUserService {
 	@Autowired
 	private UserRedisService userRedisService;
 	
-	public List<User> getUserList() {
-		List<User> userList= visitorUserService.getAllUsers();
+	public List<User> getUserList(Long pageIdx) {
+		List<User> userList= visitorUserService.getPageUsers(pageIdx);
 		return userList;
+	}
+	
+	public Long getUserCount() {
+		return visitorUserService.getUserCount();
 	}
 }
