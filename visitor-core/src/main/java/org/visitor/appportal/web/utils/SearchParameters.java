@@ -5,15 +5,11 @@ import java.io.Serializable;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.servlet.mvc.Controller;
 
 import org.visitor.appportal.repository.base.OrderByDirection;
 import org.visitor.appportal.repository.base.SearchMode;
 import org.visitor.appportal.repository.base.SearchTemplate;
 
-/**
- * Holds extra informations to be displayed and filled by the spring mvc {@link Controller}.
- */
 public class SearchParameters implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final Logger logger = LoggerFactory.getLogger(SearchParameters.class);

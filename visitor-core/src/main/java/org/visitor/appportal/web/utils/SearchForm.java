@@ -14,16 +14,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.web.servlet.mvc.Controller;
 
 import org.visitor.appportal.repository.base.DateRange;
 import org.visitor.appportal.repository.base.SearchTemplate;
 
-/**
- * Holds informations to be displayed and filled by the spring mvc {@link Controller}.
- * <p>
- * This class return its information as a {@link SearchTemplate} that will be consummed by the {@link GenericEntityService}
- */
+
 public abstract class SearchForm<T> implements Serializable {
     private static final long serialVersionUID = 1L;
     private SearchParameters searchParameters = new SearchParameters();
