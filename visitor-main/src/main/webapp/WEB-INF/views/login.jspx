@@ -32,7 +32,7 @@
 		
 		<div class="boxDiv">
 			<p>用户名</p><input type="text" id="usernameInput" placeholder="username" /><br />
-			<p>密码</p><input type="text" id="passwordInput" placeholder="password" /><br />
+			<p>密码</p><input type="password" id="passwordInput" placeholder="password" /><br />
 			<input type="button" id="loginButton" onclick="loginUser();" value="登陆" />
 		</div>
 	</div>
