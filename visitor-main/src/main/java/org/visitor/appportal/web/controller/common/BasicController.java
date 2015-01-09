@@ -224,6 +224,9 @@ public class BasicController {
 	protected void setPageModel(Integer pageType, Model model) {
 		if (pageType.intValue() == ManagementPageTypeEnum.UserMan.ordinal()) {
 			List<User> userList = pageUserService.getUserList();
+			if (userList != null && userList.size() > 0) {
+				model.addAttribute("userCount", userList.size());
+			}
 			model.addAttribute("userList", userList);
 			model.addAttribute("pageType", pageType);
 		}

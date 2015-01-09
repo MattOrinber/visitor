@@ -49,3 +49,8 @@ function selectAdminTag(showContent,selfObj){
 	}
 	document.getElementById(showContent).style.display = "block";
 }
+
+
+function toUserSearchResult() {
+	;
+}
