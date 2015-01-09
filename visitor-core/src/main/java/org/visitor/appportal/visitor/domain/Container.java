@@ -74,7 +74,7 @@ public class Container {
 		this.containerMoto = containerMoto;
 	}
 	
-	@Length(max = 511)
+	@Length(max = 255)
 	@Column(name = "container_picpaths")
 	public String getContainerPicpaths() {
 		return containerPicpaths;
@@ -83,7 +83,7 @@ public class Container {
 		this.containerPicpaths = containerPicpaths;
 	}
 	
-	@Length(max = 31)
+	@Length(max = 511)
 	@Column(name = "container_productkey")
 	public String getContainerProductkey() {
 		return containerProductkey;

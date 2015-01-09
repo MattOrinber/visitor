@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.visitor.appportal.service.newsite.S3Service;
+import org.visitor.appportal.service.newsite.VisitorCityService;
 import org.visitor.appportal.service.newsite.VisitorProductAddressService;
 import org.visitor.appportal.service.newsite.VisitorProductDetailInfoService;
 import org.visitor.appportal.service.newsite.VisitorProductMultiPriceService;
@@ -35,6 +36,7 @@ import org.visitor.appportal.visitor.beans.ProductPriceMultiTemp;
 import org.visitor.appportal.visitor.beans.ProductTemp;
 import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.beans.UserInternalMailTemp;
+import org.visitor.appportal.visitor.domain.City;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductAddress;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
@@ -77,6 +79,8 @@ public class ProductController extends BasicController {
 	private UserRedisService userRedisService;
 	@Autowired
 	private S3Service s3Service;
+	@Autowired
+	private VisitorCityService visitorCityService;
 	
 	@RequestMapping("/create")
 	public void createProduct(HttpServletRequest request, 
@@ -447,6 +451,18 @@ public class ProductController extends BasicController {
 			productRedisService.saveUserProductToRedis(userTemp, product); //save to redis edit status
 			
 			//save city and product
+			String cityStr = product.getProductCity();
+			City city = visitorCityService.getCityByName(cityStr);
+			if (city == null) {
+				city = new City();
+				city.setCityName(cityStr);
+				city.setCityStatus(StatusTypeEnum.Active.ordinal());
+				visitorCityService.saveCity(city);
+			} 
+			if (city.getCityStatus().intValue() == StatusTypeEnum.Active.ordinal()) {
+				productRedisService.saveCityToRedis(city);
+			}
+			
 			productRedisService.saveProductToRedis(product);
 			productRedisService.saveProductCityOrderToRedis(product);
 		}

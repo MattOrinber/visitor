@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.visitor.appportal.redis.ObjectMapperWrapperForVisitor;
 import org.visitor.appportal.redis.RedisKeysForVisitor;
 import org.visitor.appportal.visitor.beans.view.PageProduct;
+import org.visitor.appportal.visitor.domain.City;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductAddress;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
@@ -29,17 +30,18 @@ public class ProductRedisService {
 	@Autowired
 	private ObjectMapperWrapperForVisitor objectMapperWrapperForVisitor;
 	
+	//city operation
+	public void saveCityToRedis(City entity) {
+		String cityStr = entity.getCityName();
+		String cityKey = RedisKeysForVisitor.getVisitorProductCityKey();
+		if (!compressStringRedisVisitorTemplate.opsForHash().hasKey(cityKey, cityStr)) {
+			compressStringRedisVisitorTemplate.opsForHash().put(cityKey, cityStr, "-");
+		}
+	}
+	
 	
 	//indexed by cities
 	public void saveProductToRedis(Product product) {
-		
-		String cityStr = product.getProductCity();
-		
-		String cityKey = RedisKeysForVisitor.getVisitorProductCityKey();
-		if (!compressStringRedisVisitorTemplate.opsForHash().hasKey(cityKey, cityStr)) {
-			compressStringRedisVisitorTemplate.opsForHash().put(cityKey, cityStr, cityStr);
-		}
-		
 		String keyP = RedisKeysForVisitor.getVisitorProductInfoKey();
 		String scoreP = String.valueOf(product.getProductId().longValue());
 		String valueT = objectMapperWrapperForVisitor.convert2String(product);
