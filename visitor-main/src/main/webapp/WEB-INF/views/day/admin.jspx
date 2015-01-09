@@ -171,19 +171,257 @@
 	        ]]>
         </c:when>
         <c:when test="${pageType eq 1}">
-        	<div id="detail1" style="display:none;">222</div>
+        	<![CDATA[
+	    	<div id="detail1" style="display:block;">
+	        	<span><label>键</label><input id="searchEmailStr" type="text" placeholder="paypal" /></span>
+	            <span><a href="javascript:toUserSearchResult();">查询</a></span>
+	            <table width="100%" border="0" cellpadding="0" cellspacing="1">
+	              <tr>
+	                <th width="20%">ID</th>
+	                <th width="30%">键</th>
+	                <th width="30%">描述</th>
+	                <th width="20%">操作</th>
+	              </tr>
+	              
+	        ]]>
+	              <c:if test="${not empty itemCount and itemCount gt 0}">
+		              <c:forEach items="${itemList}" var="floopyTemp" varStatus="_st">
+		                  <tr>
+			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">${floopyTemp.floopyId}</a></td>
+			                <td>${floopyTemp.floopyKey}</td>
+			                <td>${floopyTemp.floopyDesc}</td>
+			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">发布</a></td>
+			              </tr>
+		              </c:forEach>
+	              </c:if>
+	              
+	              <c:if test="${not empty pageNumber and pageNumber gt 1}">
+					<tr>
+						<td align="center" colspan="4">
+							<c:choose>
+					 		<c:when test="${ifEnd eq 0}"><a href="javascript:void(0);">前一页</a></c:when>
+					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=1&p=${pageIndex-1}">前一页</a>]]></c:otherwise>
+					 	</c:choose>
+					 	<input id="pageIdxStr" type="text" value="${pageIndex}" style="width:50px" />
+					 	<c:choose>
+					 		<c:when test="${ifEnd eq 2}"><a href="javascript:void(0);">后一页</a><span>共${pageNumber}页</span></c:when>
+					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=1&p=${pageIndex+1}">后一页</a><span>共${pageNumber}页</span>]]></c:otherwise>
+					 	</c:choose>
+						</td>
+					</tr>
+				   </c:if>
+	              
+	        <![CDATA[
+	            </table>
+	        </div>
+	        ]]>
         </c:when>
         <c:when test="${pageType eq 2}">
-        	<div id="detail2" style="display:none;">33</div>
+        	<![CDATA[
+	    	<div id="detail2" style="display:block;">
+	        	<span><label>city</label><input id="searchEmailStr" type="text" placeholder="New York" /></span>
+	            <span><a href="javascript:toUserSearchResult();">查询</a></span>
+	            <table width="100%" border="0" cellpadding="0" cellspacing="1">
+	              <tr>
+	                <th width="30%">ID</th>
+	                <th width="40%">城市名称</th>
+	                <th width="30%">操作</th>
+	              </tr>
+	              
+	        ]]>
+	              <c:if test="${not empty itemCount and itemCount gt 0}">
+		              <c:forEach items="${itemList}" var="cityTemp" varStatus="_st">
+		                  <tr>
+			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">${cityTemp.cityId}</a></td>
+			                <td>${cityTemp.cityName}</td>
+			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">发布</a></td>
+			              </tr>
+		              </c:forEach>
+	              </c:if>
+	              
+	              <c:if test="${not empty pageNumber and pageNumber gt 1}">
+					<tr>
+						<td align="center" colspan="4">
+							<c:choose>
+					 		<c:when test="${ifEnd eq 0}"><a href="javascript:void(0);">前一页</a></c:when>
+					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=2&p=${pageIndex-1}">前一页</a>]]></c:otherwise>
+					 	</c:choose>
+					 	<input id="pageIdxStr" type="text" value="${pageIndex}" style="width:50px" />
+					 	<c:choose>
+					 		<c:when test="${ifEnd eq 2}"><a href="javascript:void(0);">后一页</a><span>共${pageNumber}页</span></c:when>
+					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=2&p=${pageIndex+1}">后一页</a><span>共${pageNumber}页</span>]]></c:otherwise>
+					 	</c:choose>
+						</td>
+					</tr>
+				   </c:if>
+	              
+	        <![CDATA[
+	            </table>
+	        </div>
+	        ]]>
         </c:when>
         <c:when test="${pageType eq 3}">
-        	<div id="detail3" style="display:none;">444</div>
+        	<![CDATA[
+	    	<div id="detail3" style="display:block;">
+	        	<span><label>Name</label><input id="searchEmailStr" type="text" placeholder="One" /></span>
+	            <span><a href="javascript:toUserSearchResult();">查询</a></span>
+	            <table width="100%" border="0" cellpadding="0" cellspacing="1">
+	              <tr>
+	                <th width="20%">ID</th>
+	                <th width="30%">容器名称</th>
+	                <th width="30%">容器类型</th>
+	                <th width="20%">操作</th>
+	              </tr>
+	              
+	        ]]>
+	              <c:if test="${not empty itemCount and itemCount gt 0}">
+		              <c:forEach items="${itemList}" var="containerTemp" varStatus="_st">
+		                  <tr>
+			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">${containerTemp.containerId}</a></td>
+			                <td>${containerTemp.containerName}</td>
+			                <td>
+			                	<c:choose>
+			                		<c:when test="${containerTemp.containerType eq 0}"><p>城市</p>
+			                		</c:when>
+			                		<c:when test="${containerTemp.containerType eq 1}"><p>活动</p>
+			                		</c:when>
+			                		<c:otherwise>
+			                		</c:otherwise>
+			                	</c:choose>
+			                </td>
+			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">发布</a></td>
+			              </tr>
+		              </c:forEach>
+	              </c:if>
+	              
+	              <c:if test="${not empty pageNumber and pageNumber gt 1}">
+					<tr>
+						<td align="center" colspan="4">
+							<c:choose>
+					 		<c:when test="${ifEnd eq 0}"><a href="javascript:void(0);">前一页</a></c:when>
+					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=3&p=${pageIndex-1}">前一页</a>]]></c:otherwise>
+					 	</c:choose>
+					 	<input id="pageIdxStr" type="text" value="${pageIndex}" style="width:50px" />
+					 	<c:choose>
+					 		<c:when test="${ifEnd eq 2}"><a href="javascript:void(0);">后一页</a><span>共${pageNumber}页</span></c:when>
+					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=3&p=${pageIndex+1}">后一页</a><span>共${pageNumber}页</span>]]></c:otherwise>
+					 	</c:choose>
+						</td>
+					</tr>
+				   </c:if>
+	              
+	        <![CDATA[
+	            </table>
+	        </div>
+	        ]]>
         </c:when>
         <c:when test="${pageType eq 4}">
-        	<div id="detail4" style="display:none;">555</div>
+        	<![CDATA[
+	    	<div id="detail4" style="display:block;">
+	        	<span><label>City</label><input id="searchEmailStr" type="text" placeholder="New York" /></span>
+	            <span><a href="javascript:toUserSearchResult();">查询</a></span>
+	            <table width="100%" border="0" cellpadding="0" cellspacing="1">
+	              <tr>
+	                <th width="20%">ID</th>
+	                <th width="20%">标题</th>
+	                <th width="30%">城市</th>
+	                <th width="10%">价格</th>
+	                <th width="20%">操作</th>
+	              </tr>
+	              
+	        ]]>
+	              <c:if test="${not empty itemCount and itemCount gt 0}">
+		              <c:forEach items="${itemList}" var="productTemp" varStatus="_st">
+		                  <tr>
+			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">${productTemp.productId}</a></td>
+			                <td>
+			                	<c:choose>
+			                		<c:when test="${not empty productTemp.productOverviewtitle}">${productTemp.productOverviewtitle}</c:when>
+			                		<c:otherwise>--</c:otherwise>
+			                	</c:choose>
+			                </td>
+			                <td>${productTemp.productCity}</td>
+			                <td>${productTemp.productCurrency} ${productTemp.productBaseprice}</td>
+			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">发布</a></td>
+			              </tr>
+		              </c:forEach>
+	              </c:if>
+	              
+	              <c:if test="${not empty pageNumber and pageNumber gt 1}">
+					<tr>
+						<td align="center" colspan="4">
+							<c:choose>
+					 		<c:when test="${ifEnd eq 0}"><a href="javascript:void(0);">前一页</a></c:when>
+					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=4&p=${pageIndex-1}">前一页</a>]]></c:otherwise>
+					 	</c:choose>
+					 	<input id="pageIdxStr" type="text" value="${pageIndex}" style="width:50px" />
+					 	<c:choose>
+					 		<c:when test="${ifEnd eq 2}"><a href="javascript:void(0);">后一页</a><span>共${pageNumber}页</span></c:when>
+					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=4&p=${pageIndex+1}">后一页</a><span>共${pageNumber}页</span>]]></c:otherwise>
+					 	</c:choose>
+						</td>
+					</tr>
+				   </c:if>
+	              
+	        <![CDATA[
+	            </table>
+	        </div>
+	        ]]>
         </c:when>
         <c:when test="${pageType eq 5}">
-        	<div id="detail5" style="display:none;">666</div>
+        	<![CDATA[
+	    	<div id="detail5" style="display:block;">
+	        	<span><label>Product Id</label><input id="searchEmailStr" type="text" placeholder="10002" /></span>
+	            <span><a href="javascript:toUserSearchResult();">查询</a></span>
+	            <table width="100%" border="0" cellpadding="0" cellspacing="1">
+	              <tr>
+	                <th width="15%">ID</th>
+	                <th width="15%">product Id</th>
+	                <th width="20%">用户邮箱</th>
+	                <th width="20%">总价格</th>
+	                <th width="10%">状态</th>
+	                <th width="20%">操作</th>
+	              </tr>
+	              
+	        ]]>
+	              <c:if test="${not empty itemCount and itemCount gt 0}">
+		              <c:forEach items="${itemList}" var="orderTemp" varStatus="_st">
+		                  <tr>
+			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">${orderTemp.orderId}</a></td>
+			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">${orderTemp.orderProductId}</a></td>
+			                <td>${orderTemp.orderUserEmail}</td>
+			                <td>${orderTemp.orderCurrency} ${orderTemp.orderTotalAmount}</td>
+			                <td>
+			                	<c:choose>
+			                		<c:when test="${not empty orderTemp.orderStatus and orderTemp.orderStatus eq 4}">已支付</c:when>
+			                		<c:otherwise>未支付</c:otherwise>
+			                	</c:choose>
+			                </td>
+			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">发布</a></td>
+			              </tr>
+		              </c:forEach>
+	              </c:if>
+	              
+	              <c:if test="${not empty pageNumber and pageNumber gt 1}">
+					<tr>
+						<td align="center" colspan="4">
+							<c:choose>
+					 		<c:when test="${ifEnd eq 0}"><a href="javascript:void(0);">前一页</a></c:when>
+					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=5&p=${pageIndex-1}">前一页</a>]]></c:otherwise>
+					 	</c:choose>
+					 	<input id="pageIdxStr" type="text" value="${pageIndex}" style="width:50px" />
+					 	<c:choose>
+					 		<c:when test="${ifEnd eq 2}"><a href="javascript:void(0);">后一页</a><span>共${pageNumber}页</span></c:when>
+					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=5&p=${pageIndex+1}">后一页</a><span>共${pageNumber}页</span>]]></c:otherwise>
+					 	</c:choose>
+						</td>
+					</tr>
+				   </c:if>
+	              
+	        <![CDATA[
+	            </table>
+	        </div>
+	        ]]>
         </c:when>
         
         </c:choose>
