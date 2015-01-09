@@ -27,6 +27,7 @@ public class Container {
 	private String containerMoto;
 	private String containerPicpaths;
 	private String containerProductkey;
+	private Integer containerType;
 	
 	@Column(name = "container_id", nullable = false, unique = true, precision = 20)
 	@GeneratedValue
@@ -38,7 +39,7 @@ public class Container {
 		this.containerId = containerId;
 	}
 	
-	@Length(max = 63)
+	@Length(max = 127)
 	@Column(name = "container_name")
 	public String getContainerName() {
 		return containerName;
@@ -65,7 +66,7 @@ public class Container {
 		this.containerLastdays = containerLastdays;
 	}
 	
-	@Length(max = 63)
+	@Length(max = 127)
 	@Column(name = "container_moto")
 	public String getContainerMoto() {
 		return containerMoto;
@@ -90,5 +91,13 @@ public class Container {
 	}
 	public void setContainerProductkey(String containerProductkey) {
 		this.containerProductkey = containerProductkey;
+	}
+	
+	@Column(name = "container_type", nullable = false, precision = 2)
+	public Integer getContainerType() {
+		return containerType;
+	}
+	public void setContainerType(Integer containerType) {
+		this.containerType = containerType;
 	}
 }

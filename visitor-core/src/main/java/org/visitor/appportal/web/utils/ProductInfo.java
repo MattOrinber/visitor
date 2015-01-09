@@ -168,4 +168,48 @@ public class ProductInfo {
 			return null;
 		}
 	}
+	
+	public enum ContainerTypeEnum {
+		Product(0), City(1);
+		private Integer value;
+		private String displayName;
+		
+		private ContainerTypeEnum(Integer value) {
+			this.value = value;
+			switch (value) {
+			case 0:
+				displayName = "Product";
+				break;
+			case 1:
+				displayName = "City";
+				break;
+			}
+		}
+		
+		/**
+		 * @return the value
+		 */
+		public Integer getValue() {
+			return value;
+		}
+
+		/**
+		 * @return the displayName
+		 */
+		public String getDisplayName() {
+			return displayName;
+		}
+		
+		public static ContainerTypeEnum getInstance(Integer value) {
+			if (null != value) {
+				ContainerTypeEnum[] enums = ContainerTypeEnum.values();
+				for (ContainerTypeEnum status : enums) {
+					if (status.getValue().intValue() == value.intValue()) {
+						return status;
+					}
+				}
+			}
+			return null;
+		}
+	}
 }

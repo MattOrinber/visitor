@@ -39,14 +39,12 @@
 <div class="main">
 	<div class="leftmenu">
     	<ul id="adminTags">
-            <li class="choosed"><a href="javascript:void(0)"  onClick="selectAdminTag('detail0',this)">oneoneone</a></li>
-            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail1',this)">oneoneone</a></li>
-            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail2',this)">oneoneone</a></li>
-            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail3',this)">oneoneone</a></li>
-            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail4',this)">oneoneone</a></li>
-            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail5',this)">oneoneone</a></li>
-            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail6',this)">oneoneone</a></li>
-            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail7',this)">oneoneone</a></li>
+            <li class="choosed"><a href="javascript:void(0)"  onClick="selectAdminTag('detail0',this)">用户管理</a></li>
+            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail1',this)">页面常量管理</a></li>
+            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail2',this)">城市管理</a></li>
+            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail3',this)">主页城市推荐位管理</a></li>
+            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail4',this)">Activities(产品)管理</a></li>
+            <li><a href="javascript:void(0)"  onClick="selectAdminTag('detail5',this)">订单管理</a></li>
         </ul>
     </div>
     <div class="rightbox">
@@ -84,16 +82,13 @@
                 <td>&nbsp;</td>
               </tr>
             </table>
-
         </div>
         
         <div id="detail1" style="display:none;">222</div>
         <div id="detail2" style="display:none;">33</div>
         <div id="detail3" style="display:none;">444</div>
         <div id="detail4" style="display:none;">555</div>
-        <div id="detail5" style="display:none;">66</div>
-        <div id="detail6" style="display:none;">77</div>
-        <div id="detail7" style="display:none;">88</div>
+        <div id="detail5" style="display:none;">666</div>
     </div>
 </div>
 ]]>

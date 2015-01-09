@@ -35,4 +35,70 @@ public class WebInfo {
 			out.print(resultJsonStr);
 			out.flush();
 	}
+	
+	public enum ManagementPageTypeEnum {
+		UserMan(0), PageConstsMan(1), CityMan(2), CityRecommendMan(3), ActivitiesMan(4), OrderMan(5),
+		UserDetail(6), ActivityDetail(7), OrderDetail(8);
+		private Integer value;
+		private String displayName;
+		
+		private ManagementPageTypeEnum(Integer value) {
+			this.value = value;
+			switch (value) {
+			case 0:
+				displayName = "User management page";
+				break;
+			case 1:
+				displayName = "page constants management page";
+				break;
+			case 2:
+				displayName = "city management page";
+				break;
+			case 3:
+				displayName = "city recommend management page";
+				break;
+			case 4:
+				displayName = "acticities management page";
+				break;
+			case 5:
+				displayName = "orders management page";
+				break;
+			case 6:
+				displayName = "user detail page";
+				break;
+			case 7:
+				displayName = "acticity detail page";
+				break;
+			case 8:
+				displayName = "order detail page";
+				break;
+			}
+		}
+		
+		/**
+		 * @return the value
+		 */
+		public Integer getValue() {
+			return value;
+		}
+
+		/**
+		 * @return the displayName
+		 */
+		public String getDisplayName() {
+			return displayName;
+		}
+		
+		public static ManagementPageTypeEnum getInstance(Integer value) {
+			if (null != value) {
+				ManagementPageTypeEnum[] enums = ManagementPageTypeEnum.values();
+				for (ManagementPageTypeEnum status : enums) {
+					if (status.getValue().intValue() == value.intValue()) {
+						return status;
+					}
+				}
+			}
+			return null;
+		}
+	}
 }

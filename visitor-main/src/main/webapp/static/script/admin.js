@@ -21,7 +21,7 @@ function loginUser() {
 	        data : jsonStr,  
 	        success : function(data) {  
 	        	if (data.result == 0) {
-	        		var hrefURL = pathGlobe +'/day/admin';
+	        		var hrefURL = pathGlobe +'/day/admin?type=0';
 	        		window.location.href = hrefURL;
 	        	} else {
 	        		alert("login failed");

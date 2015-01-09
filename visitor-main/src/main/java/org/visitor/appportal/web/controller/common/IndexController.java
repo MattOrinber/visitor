@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.visitor.appportal.redis.FloopyUtils;
 import org.visitor.appportal.service.newsite.redis.FloopyThingRedisService;
 import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
@@ -172,7 +173,9 @@ public class IndexController extends BasicController {
 	}
 	
 	@RequestMapping({"day/admin"})
-	public String admin(HttpServletRequest request, Model model) {
+	public String admin(HttpServletRequest request, 
+			@RequestParam(value="type", required=true) Integer pageType,
+			Model model) {
 		return "day/admin";
 	}
 	
