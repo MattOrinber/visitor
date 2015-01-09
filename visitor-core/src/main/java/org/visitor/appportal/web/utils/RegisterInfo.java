@@ -30,7 +30,7 @@ public class RegisterInfo {
 	
 	//用户的类型，枚举
 	public enum UserTypeEnum {
-		NormalUser(0),FacebookUser(1);
+		NormalUser(0),FacebookUser(1), Admin(3);
 		private Integer value;
 		private String displayName;
 
@@ -42,6 +42,9 @@ public class RegisterInfo {
 				break;
 			case 1:
 				displayName = "facebook user";
+				break;
+			case 2:
+				displayName = "admin user";
 				break;
 			}
 		}

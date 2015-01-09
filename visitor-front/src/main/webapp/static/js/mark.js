@@ -349,6 +349,7 @@ function seeIfLoginBarDisplayed(data, path) {
     
     if (userNameStr == "--") {
     	console.log("not registered!");
+    	doExtraStuff();
     } else {
     	var userPicUrlStr = data.userPicUrl;
     	var userEmailStr = data.userEmail;

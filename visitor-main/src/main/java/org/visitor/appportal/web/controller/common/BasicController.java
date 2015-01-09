@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,20 +18,43 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.DeserializationConfig.Feature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.visitor.appportal.visitor.beans.PayTemp;
 import org.visitor.appportal.visitor.beans.ProductAddressTemp;
 import org.visitor.appportal.visitor.beans.ProductDetailTemp;
 import org.visitor.appportal.visitor.beans.ProductPriceMultiTemp;
 import org.visitor.appportal.visitor.beans.ProductTemp;
 import org.visitor.appportal.visitor.beans.UserTemp;
+import org.visitor.appportal.visitor.domain.User;
+import org.visitor.appportal.web.controller.service.PageActivitiesService;
+import org.visitor.appportal.web.controller.service.PageCityService;
+import org.visitor.appportal.web.controller.service.PageConstantService;
+import org.visitor.appportal.web.controller.service.PageOrdersService;
+import org.visitor.appportal.web.controller.service.PageRecommendService;
+import org.visitor.appportal.web.controller.service.PageUserService;
 import org.visitor.appportal.web.mailutils.SendMailUtils;
 import org.visitor.appportal.web.mailutils.UserMailException;
+import org.visitor.appportal.web.utils.WebInfo.ManagementPageTypeEnum;
 
 import com.alibaba.fastjson.JSON;
 
 public class BasicController {
 	protected static final Logger log = LoggerFactory.getLogger(BasicController.class);
 	private ObjectMapper objectMapper;
+	
+	@Autowired
+	private PageRecommendService pageRecommendService;
+	@Autowired
+	private PageOrdersService pageOrdersService;
+	@Autowired
+	private PageActivitiesService pageActivitiesService;
+	@Autowired
+	private PageCityService pageCityService;
+	@Autowired
+	private PageConstantService pageConstantService;
+	@Autowired
+	private PageUserService pageUserService;
 	
 	public BasicController() {	
 	}
@@ -194,6 +218,14 @@ public class BasicController {
 			if (log.isInfoEnabled()) {
 				log.info("sendmail exception: >"+e.getMessage()+"<");
 			}
+		}
+	}
+	
+	protected void setPageModel(Integer pageType, Model model) {
+		if (pageType.intValue() == ManagementPageTypeEnum.UserMan.ordinal()) {
+			List<User> userList = pageUserService.getUserList();
+			model.addAttribute("userList", userList);
+			model.addAttribute("pageType", pageType);
 		}
 	}
 }

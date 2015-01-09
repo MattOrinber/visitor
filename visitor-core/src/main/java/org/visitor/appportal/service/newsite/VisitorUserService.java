@@ -1,5 +1,7 @@
 package org.visitor.appportal.service.newsite;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +46,12 @@ public class VisitorUserService {
 	public User getUserFromEmailAndPassword(String emailStr, String passwordStr) {
 		User user = visitorUserRepository.findUserByEmailAndPassword(emailStr, passwordStr);
 		return user;
+	}
+	
+	@Transactional
+	public List<User> getAllUsers() {
+		List<User> allUsers= (List<User>) visitorUserRepository.findAll();
+		
+		return allUsers;
 	}
 }
