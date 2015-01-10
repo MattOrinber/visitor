@@ -117,7 +117,7 @@
 	    	<![CDATA[
 	    	<div id="detail0" style="display:block;">
 	        	<span><label>Email</label><input id="searchEmailStr" type="text" placeholder="bob@gmail.com" /></span>
-	            <span><a href="javascript:toUserSearchResult();">查询</a></span>
+	            <span><a href="javascript:toUserSearchResult();">查询(待实现)</a></span>
 	            <table width="100%" border="0" cellpadding="0" cellspacing="1">
 	              <tr>
 	                <th width="20%">ID</th>
@@ -144,7 +144,7 @@
 			                		</c:otherwise>
 			                	</c:choose>
 			                </td>
-			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">发布</a></td>
+			                <td align="center"><a href="javascript:void(0);">发布</a></td>
 			              </tr>
 		              </c:forEach>
 	              </c:if>
@@ -174,7 +174,9 @@
         	<![CDATA[
 	    	<div id="detail1" style="display:block;">
 	        	<span><label>键</label><input id="searchEmailStr" type="text" placeholder="paypal" /></span>
-	            <span><a href="javascript:toUserSearchResult();">查询</a></span>
+	            <span><a href="javascript:toUserSearchResult();">查询(待实现)</a></span>
+	            <span><a href="javascript:addFloopy();">增加</a></span>
+	            <span><a href="javascript:publishAllFloopy();">发布全部</a></span>
 	            <table width="100%" border="0" cellpadding="0" cellspacing="1">
 	              <tr>
 	                <th width="20%">ID</th>
@@ -187,10 +189,10 @@
 	              <c:if test="${not empty itemCount and itemCount gt 0}">
 		              <c:forEach items="${itemList}" var="floopyTemp" varStatus="_st">
 		                  <tr>
-			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">${floopyTemp.floopyId}</a></td>
+			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:toUpdateFloopy('${floopyTemp.floopyId}','${floopyTemp.floopyKey}','${floopyTemp.floopyValue}','${floopyTemp.floopyDesc}');">${floopyTemp.floopyId}</a></td>
 			                <td>${floopyTemp.floopyKey}</td>
 			                <td>${floopyTemp.floopyDesc}</td>
-			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">发布</a></td>
+			                <td align="center"><a href="javascript:void(0);">发布</a></td>
 			              </tr>
 		              </c:forEach>
 	              </c:if>
@@ -214,34 +216,41 @@
 	        <![CDATA[
 	            </table>
 	        </div>
+	        
+	        <div id="floopyDetail" style="display:none;">
+	        	<input id="floopyIdStr" type="hidden" value="" />
+	        	<span><label>常量键</label><input id="floopyKeyStr" type="text" /></span>
+	        	<span><label>常量值</label><input id="floopyValueStr" type="text" /></span>
+	        	<span><label>常量描述</label><input id="floopyDescStr" type="text" /></span>
+	            <span><a id="updateBtn" href="javascript:updateFloopyValue();"></a></span>
+	        </div>
 	        ]]>
         </c:when>
         <c:when test="${pageType eq 2}">
         	<![CDATA[
 	    	<div id="detail2" style="display:block;">
 	        	<span><label>city</label><input id="searchEmailStr" type="text" placeholder="New York" /></span>
-	            <span><a href="javascript:toUserSearchResult();">查询</a></span>
+	            <span><a href="javascript:toUserSearchResult();">查询(待实现)</a></span>
 	            <table width="100%" border="0" cellpadding="0" cellspacing="1">
 	              <tr>
 	                <th width="30%">ID</th>
 	                <th width="40%">城市名称</th>
 	                <th width="30%">操作</th>
 	              </tr>
-	              
 	        ]]>
 	              <c:if test="${not empty itemCount and itemCount gt 0}">
 		              <c:forEach items="${itemList}" var="cityTemp" varStatus="_st">
 		                  <tr>
 			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">${cityTemp.cityId}</a></td>
 			                <td>${cityTemp.cityName}</td>
-			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">发布</a></td>
+			                <td align="center"><a href="javascript:void(0);">发布</a></td>
 			              </tr>
 		              </c:forEach>
 	              </c:if>
 	              
 	              <c:if test="${not empty pageNumber and pageNumber gt 1}">
 					<tr>
-						<td align="center" colspan="4">
+						<td align="center" colspan="3">
 							<c:choose>
 					 		<c:when test="${ifEnd eq 0}"><a href="javascript:void(0);">前一页</a></c:when>
 					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=2&p=${pageIndex-1}">前一页</a>]]></c:otherwise>
@@ -264,7 +273,8 @@
         	<![CDATA[
 	    	<div id="detail3" style="display:block;">
 	        	<span><label>Name</label><input id="searchEmailStr" type="text" placeholder="One" /></span>
-	            <span><a href="javascript:toUserSearchResult();">查询</a></span>
+	            <span><a href="javascript:toUserSearchResult();">查询(待实现)</a></span>
+	            <span><a href="javascript:toAddContainer();">添加</a></span>
 	            <table width="100%" border="0" cellpadding="0" cellspacing="1">
 	              <tr>
 	                <th width="20%">ID</th>
@@ -277,7 +287,7 @@
 	              <c:if test="${not empty itemCount and itemCount gt 0}">
 		              <c:forEach items="${itemList}" var="containerTemp" varStatus="_st">
 		                  <tr>
-			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">${containerTemp.containerId}</a></td>
+			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:toDisplayContainerVal('${containerTemp.containerId}','${containerTemp.containerName}','${containerTemp.containerType}','${containerTemp.containerProductkey}');">${containerTemp.containerId}</a></td>
 			                <td>${containerTemp.containerName}</td>
 			                <td>
 			                	<c:choose>
@@ -289,7 +299,7 @@
 			                		</c:otherwise>
 			                	</c:choose>
 			                </td>
-			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">发布</a></td>
+			                <td align="center"><a href="javascript:void(0);">发布</a></td>
 			              </tr>
 		              </c:forEach>
 	              </c:if>
@@ -313,13 +323,27 @@
 	        <![CDATA[
 	            </table>
 	        </div>
+	        
+	        <div id="containerDetail" style="display:none;">
+	        	<input id="containerIdStr" type="hidden" value=""/>
+	        	<span><label>容器名称</label><input id="containerNameStr" type="text" /></span>
+	        	<span><label>容器类型</label>
+	        		<select id="containerTypeStr">
+	        			<option value=""></option>
+	        			<option value="0">活动</option>
+	        			<option value="1">城市</option>
+	        		</select>
+	        	</span>
+	        	<span><label>容器值(city ID或者Activity ID)</label><input id="containerValueStr" type="text" /></span>
+	            <span><a id="updateBtn" href="javascript:updateContainerValue();">保存</a></span>
+	        </div>
 	        ]]>
         </c:when>
         <c:when test="${pageType eq 4}">
         	<![CDATA[
 	    	<div id="detail4" style="display:block;">
 	        	<span><label>City</label><input id="searchEmailStr" type="text" placeholder="New York" /></span>
-	            <span><a href="javascript:toUserSearchResult();">查询</a></span>
+	            <span><a href="javascript:toUserSearchResult();">查询(待实现)</a></span>
 	            <table width="100%" border="0" cellpadding="0" cellspacing="1">
 	              <tr>
 	                <th width="20%">ID</th>
@@ -342,14 +366,14 @@
 			                </td>
 			                <td>${productTemp.productCity}</td>
 			                <td>${productTemp.productCurrency} ${productTemp.productBaseprice}</td>
-			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">发布</a></td>
+			                <td align="center"><a href="javascript:void(0);">发布</a></td>
 			              </tr>
 		              </c:forEach>
 	              </c:if>
 	              
 	              <c:if test="${not empty pageNumber and pageNumber gt 1}">
 					<tr>
-						<td align="center" colspan="4">
+						<td align="center" colspan="5">
 							<c:choose>
 					 		<c:when test="${ifEnd eq 0}"><a href="javascript:void(0);">前一页</a></c:when>
 					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=4&p=${pageIndex-1}">前一页</a>]]></c:otherwise>
@@ -397,14 +421,14 @@
 			                		<c:otherwise>未支付</c:otherwise>
 			                	</c:choose>
 			                </td>
-			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">发布</a></td>
+			                <td align="center"><a href="javascript:void(0);">发布</a></td>
 			              </tr>
 		              </c:forEach>
 	              </c:if>
 	              
 	              <c:if test="${not empty pageNumber and pageNumber gt 1}">
 					<tr>
-						<td align="center" colspan="4">
+						<td align="center" colspan="6">
 							<c:choose>
 					 		<c:when test="${ifEnd eq 0}"><a href="javascript:void(0);">前一页</a></c:when>
 					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=5&p=${pageIndex-1}">前一页</a>]]></c:otherwise>

@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.visitor.appportal.visitor.beans.FloopyTemp;
 import org.visitor.appportal.visitor.beans.PayTemp;
 import org.visitor.appportal.visitor.beans.ProductAddressTemp;
 import org.visitor.appportal.visitor.beans.ProductDetailTemp;
@@ -103,6 +104,17 @@ public class BasicController {
 			return userT;
 		}
 
+		return null;
+	}
+	
+	public FloopyTemp getFloopyJson(HttpServletRequest request) {
+		String originStr = getJsonStr(request);
+		
+		if (StringUtils.isNotEmpty(originStr)) {
+			FloopyTemp floopyT = JSON.parseObject(originStr, FloopyTemp.class);
+			return floopyT;
+		}
+		
 		return null;
 	}
 	
