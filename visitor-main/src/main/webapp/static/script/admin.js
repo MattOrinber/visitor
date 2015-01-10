@@ -129,7 +129,7 @@ function updateContainerValue() {
 		        }  
 		    }); 
 		} else {
-			var urlStrStr = pathGlobe + '/container/updateOne';
+			var urlStrStr = pathGlobe + '/container/updateSingular';
 		    
 		    $.ajax({ 
 		        type : 'POST',  
@@ -253,7 +253,7 @@ function updateFloopyValue() {
 		        }  
 		    }); 
 		} else {
-			var urlStrStr = pathGlobe + '/floopy/updateOne';
+			var urlStrStr = pathGlobe + '/floopy/updateFloopy';
 		    
 		    $.ajax({ 
 		        type : 'POST',  

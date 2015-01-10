@@ -1,5 +1,7 @@
 package org.visitor.appportal.web.controller.common;
 
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +21,7 @@ import org.visitor.appportal.web.utils.FloopyInfo;
 import org.visitor.appportal.web.utils.ProductInfo.StatusTypeEnum;
 
 @Controller
-@RequestMapping("floopy")
+@RequestMapping("/floopy/")
 public class FloopyThingController extends BasicController {
 	protected static final Logger log = LoggerFactory.getLogger(FloopyThingController.class);
 	
@@ -28,7 +30,7 @@ public class FloopyThingController extends BasicController {
 	@Autowired
 	private FloopyThingRedisService floopyThingRedisService;
 	
-	@RequestMapping("publishAll")
+	@RequestMapping(value = "publishAll", method = POST)
 	public void publishAllFloopyThings(HttpServletRequest request,
 			HttpServletResponse response) {
 		List<FloopyThing> lftTempList = visitorFloopyThingService.getTotalList();
@@ -51,7 +53,7 @@ public class FloopyThingController extends BasicController {
 		super.sendJSONResponse(rj, response);
 	}
 	
-	@RequestMapping("addOne")
+	@RequestMapping(value = "addOne", method = POST)
 	public void addOne(HttpServletRequest request,
 			HttpServletResponse response) {
 		FloopyTemp ftemp = super.getFloopyJson(request);
@@ -73,8 +75,8 @@ public class FloopyThingController extends BasicController {
 		super.sendJSONResponse(rj, response);
 	}
 	
-	@RequestMapping("updateOne")
-	public void updateOne(HttpServletRequest request,
+	@RequestMapping(value = "updateFloopy", method = POST)
+	public void updateFloopy(HttpServletRequest request,
 			HttpServletResponse response) {
 		FloopyTemp ftemp = super.getFloopyJson(request);
 		

@@ -1,5 +1,7 @@
 package org.visitor.appportal.web.controller.common;
 
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,7 +16,7 @@ import org.visitor.appportal.visitor.beans.ContainerTemp;
 import org.visitor.appportal.visitor.domain.Container;
 
 @Controller
-@RequestMapping("container")
+@RequestMapping("/container/")
 public class ContainerController extends BasicController {
 	protected static final Logger log = LoggerFactory.getLogger(ContainerController.class);
 	
@@ -23,7 +25,7 @@ public class ContainerController extends BasicController {
 	@Autowired
 	private ContainerRedisService containerRedisService;
 	
-	@RequestMapping("addOne")
+	@RequestMapping(value = "addOne", method = POST)
 	public void addOne(HttpServletRequest request,
 			HttpServletResponse response) {
 		ContainerTemp ct = super.getContainerJson(request);
@@ -37,8 +39,8 @@ public class ContainerController extends BasicController {
 		containerRedisService.saveContainerToRedis(newCon);
 	}
 	
-	@RequestMapping("updateOne")
-	public void updateOne(HttpServletRequest request,
+	@RequestMapping(value = "updateSingular", method = POST)
+	public void updateSingular(HttpServletRequest request,
 			HttpServletResponse response) {
 		ContainerTemp ct = super.getContainerJson(request);
 		
