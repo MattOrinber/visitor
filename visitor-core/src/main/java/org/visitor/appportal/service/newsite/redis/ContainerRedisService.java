@@ -19,15 +19,15 @@ public class ContainerRedisService {
 	
 	public void saveContainerToRedis(Container container) {
 		String key = RedisKeysForVisitor.getContainerKey();
-		String keyT = String.valueOf(container.getContainerId().longValue());
+		String keyT = container.getContainerName();
 		String valueT = objectMapperWrapperForVisitor.convert2String(container);
 		
 		compressStringRedisVisitorTemplate.opsForHash().put(key, keyT, valueT);
 	}
 	
-	public Container getContainerFromRedisById(Long cId) {
+	public Container getContainerFromRedisByName(String name) {
 		String key = RedisKeysForVisitor.getContainerKey();
-		String keyT = String.valueOf(cId.longValue());
+		String keyT = name;
 		String valueT = (String) compressStringRedisVisitorTemplate.opsForHash().get(key, keyT);
 		
 		if (StringUtils.isNotEmpty(valueT)) {

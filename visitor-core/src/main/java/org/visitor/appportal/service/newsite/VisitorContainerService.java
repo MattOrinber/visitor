@@ -34,6 +34,11 @@ public class VisitorContainerService {
 	}
 	
 	@Transactional
+	public Container getContainerByName(String name) {
+		return visitorContainerRepository.findOneByName(name);
+	}
+	
+	@Transactional
 	public Long getContainerCount() {
 		return visitorContainerRepository.count();
 	}

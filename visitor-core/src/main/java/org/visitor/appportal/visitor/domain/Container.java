@@ -40,7 +40,7 @@ public class Container {
 	}
 	
 	@Length(max = 127)
-	@Column(name = "container_name")
+	@Column(name = "container_name", nullable = false, unique = true)
 	public String getContainerName() {
 		return containerName;
 	}

@@ -50,7 +50,7 @@ function selectAdminTag(showContent,selfObj){
 	document.getElementById(showContent).style.display = "block";
 }
 
-
+// to be implemented
 function toUserSearchResult() {
 	;
 }
@@ -58,15 +58,87 @@ function toUserSearchResult() {
 
 //container part
 function toAddContainer() {
-	;
+	$("#detail3").hide();
+	$("#containerDetail").show();
 }
 
 function toDisplayContainerVal(id, name, type, value) {
-	;
+	$("#containerIdStr").val(id);
+	$("#containerNameStr").val(name);
+	$("#containerTypeStr").val(type);
+	$("#containerValueStr").val(value);
+	
+	$("#containerNameStr").attr("disabled", "disabled");
+	
+	$("#detail3").hide();
+	$("#containerDetail").show();
 }
 
 function updateContainerValue() {
-	;
+	var mark = $.trim($("#containerIdStr").val());
+	
+	var nameStr = $.trim($("#containerNameStr").val());
+	var typeStr = $.trim($("#containerTypeStr").val());
+	var valueStr = $.trim($("#containerValueStr").val());
+	
+	if (nameStr != "" && typeStr != "" && valueStr != "") {
+		
+		var containerTemp = {};
+		containerTemp.nameStr = nameStr;
+		containerTemp.typeStr = typeStr;
+		containerTemp.valueStr = valueStr;
+		
+		var jsonStr = $.toJSON(containerTemp);
+		console.log(containerTemp);
+		
+		if (mark == "") {
+			var urlStrStr = pathGlobe + '/container/addOne';
+		    
+		    $.ajax({ 
+		        type : 'POST',  
+		        contentType : 'application/json',  
+		        url : urlStrStr,  
+		        processData : false,  
+		        dataType : 'json',  
+		        data : jsonStr,  
+		        success : function(data) {  
+		        	if (data.result == 0) {
+		        		alert("增加容器成功");
+		        	} else {
+		        		var dataRes = "add container result: " + data.result + "; resultDesc: " + data.resultDesc;
+		        		alert(dataRes);
+		        	}
+		        },  
+		        error : function() {  
+		            alert('network error during adding one container');  
+		        }  
+		    }); 
+		} else {
+			var urlStrStr = pathGlobe + '/container/updateOne';
+		    
+		    $.ajax({ 
+		        type : 'POST',  
+		        contentType : 'application/json',  
+		        url : urlStrStr,  
+		        processData : false,  
+		        dataType : 'json',  
+		        data : jsonStr,  
+		        success : function(data) {  
+		        	if (data.result == 0) {
+		        		alert("更新容器成功");
+		        	} else {
+		        		var dataRes = "update container result: " + data.result + "; resultDesc: " + data.resultDesc;
+		        		alert(dataRes);
+		        	}
+		        },  
+		        error : function() {  
+		            alert('network error during updating one container');  
+		        }  
+		    }); 
+		}
+	} else {
+		alert("请输入正确的值");
+	}
 }
 
 
@@ -88,7 +160,7 @@ function toUpdateFloopy(id, key, value, desc) {
 }
 
 function publishAllFloopy() {
-    var urlStrStr = pathOri + '/floopy/publishAll';
+    var urlStrStr = pathGlobe + '/floopy/publishAll';
     var jsonStr = '{"aa":"bb"}';
     
     $.ajax({ 
@@ -130,7 +202,7 @@ function updateFloopyValue() {
 		console.log(jsonStr);
 		
 		if (mark == "") {
-			var urlStrStr = pathOri + '/floopy/addOne';
+			var urlStrStr = pathGlobe + '/floopy/addOne';
 		    
 		    $.ajax({ 
 		        type : 'POST',  
@@ -152,7 +224,7 @@ function updateFloopyValue() {
 		        }  
 		    }); 
 		} else {
-			var urlStrStr = pathOri + '/floopy/updateOne';
+			var urlStrStr = pathGlobe + '/floopy/updateOne';
 		    
 		    $.ajax({ 
 		        type : 'POST',  
