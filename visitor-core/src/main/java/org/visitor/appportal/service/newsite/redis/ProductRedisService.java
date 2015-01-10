@@ -70,7 +70,7 @@ public class ProductRedisService {
 		if (null != entries) {
 			result = new ArrayList<String>();
 			for(Object entry : entries.keySet()) {
-				String valueStr = (String)entries.get(entry);
+				String valueStr = (String) entry;
 				result.add(valueStr);
 			}
 		}

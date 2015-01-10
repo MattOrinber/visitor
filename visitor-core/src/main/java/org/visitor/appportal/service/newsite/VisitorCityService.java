@@ -22,10 +22,10 @@ public class VisitorCityService {
 	
 	@Transactional
 	public void saveCity(City entity) {
+		visitorCityRepository.save(entity);
 		if (logger.isInfoEnabled()) {
 			logger.info("city instance :"+entity.getCityName()+": saved");
 		}
-		visitorCityRepository.save(entity);
 	}
 	
 	@Transactional
