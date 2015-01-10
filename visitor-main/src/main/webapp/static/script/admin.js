@@ -59,6 +59,7 @@ function toUserSearchResult() {
 //container part
 function toAddContainer() {
 	$("#detail3").hide();
+	$("#updateBtn").html("增加");
 	$("#containerDetail").show();
 }
 
@@ -67,11 +68,25 @@ function toDisplayContainerVal(id, name, type, value) {
 	$("#containerNameStr").val(name);
 	$("#containerTypeStr").val(type);
 	$("#containerValueStr").val(value);
+	$("#updateBtn").html("更新");
 	
 	$("#containerNameStr").attr("disabled", "disabled");
 	
 	$("#detail3").hide();
 	$("#containerDetail").show();
+}
+
+function backToContainerList() {
+	$("#containerIdStr").val("");
+	$("#containerNameStr").val("");
+	$("#containerTypeStr").val("");
+	$("#containerValueStr").val("");
+	$("#updateBtn").html("");
+	
+	$("#containerNameStr").removeAttr("disabled");
+	
+	$("#containerDetail").hide();
+	$("#detail3").show();
 }
 
 function updateContainerValue() {
@@ -145,6 +160,7 @@ function updateContainerValue() {
 //floopy part
 function addFloopy() {
 	$("#detail1").hide();
+	$("#updateBtn").html("增加");
 	$("#floopyDetail").show();
 }
 
@@ -153,10 +169,23 @@ function toUpdateFloopy(id, key, value, desc) {
 	$("#floopyKeyStr").val(key);
 	$("#floopyValueStr").val(value);
 	$("#floopyDescStr").val(desc);
+	$("#updateBtn").html("更新");
 	
 	$("#floopyKeyStr").attr("disabled", "disabled");
 	$("#detail1").hide();
 	$("#floopyDetail").show();
+}
+
+function backToFloopyValueList() {
+	$("#floopyIdStr").val("");
+	$("#floopyKeyStr").val("");
+	$("#floopyValueStr").val("");
+	$("#floopyDescStr").val("");
+	$("#updateBtn").html("");
+	
+	$("#floopyKeyStr").removeAttr("disabled");
+	$("#floopyDetail").hide();
+	$("#detail1").show();
 }
 
 function publishAllFloopy() {

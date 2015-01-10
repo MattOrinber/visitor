@@ -219,6 +219,7 @@
 	        
 	        <div id="floopyDetail" style="display:none;">
 	        	<input id="floopyIdStr" type="hidden" value="" />
+	        	<span><a id="backBtn" href="javascript:backToFloopyValueList();">返回</a></span>
 	        	<span><label>常量键</label><input id="floopyKeyStr" type="text" /></span>
 	        	<span><label>常量值</label><input id="floopyValueStr" type="text" /></span>
 	        	<span><label>常量描述</label><input id="floopyDescStr" type="text" /></span>
@@ -326,6 +327,7 @@
 	        
 	        <div id="containerDetail" style="display:none;">
 	        	<input id="containerIdStr" type="hidden" value=""/>
+	        	<span><a id="backBtn" href="javascript:backToContainerList();">返回</a></span>
 	        	<span><label>容器名称</label><input id="containerNameStr" type="text" /></span>
 	        	<span><label>容器类型</label>
 	        		<select id="containerTypeStr">

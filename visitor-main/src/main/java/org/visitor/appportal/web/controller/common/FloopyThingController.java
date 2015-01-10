@@ -19,7 +19,7 @@ import org.visitor.appportal.web.utils.FloopyInfo;
 import org.visitor.appportal.web.utils.ProductInfo.StatusTypeEnum;
 
 @Controller
-@RequestMapping("/floopy/")
+@RequestMapping("floopy")
 public class FloopyThingController extends BasicController {
 	protected static final Logger log = LoggerFactory.getLogger(FloopyThingController.class);
 	

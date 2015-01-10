@@ -22,6 +22,7 @@
 	        <mvc:mapping path="/product/*"/>
 	        <mvc:mapping path="/day/*"/>
 	        <mvc:mapping path="/floopy/*"/>
+	        <mvc:mapping path="/container/*"/>
 	        <bean class="org.visitor.appportal.web.interceptors.PublishInterceptor" />
 	    </mvc:interceptor>
 	</mvc:interceptors>

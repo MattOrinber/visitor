@@ -14,7 +14,7 @@ import org.visitor.appportal.visitor.beans.ContainerTemp;
 import org.visitor.appportal.visitor.domain.Container;
 
 @Controller
-@RequestMapping("/container/")
+@RequestMapping("container")
 public class ContainerController extends BasicController {
 	protected static final Logger log = LoggerFactory.getLogger(ContainerController.class);
 	
