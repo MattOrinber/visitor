@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.visitor.appportal.service.newsite.VisitorContainerService;
 import org.visitor.appportal.service.newsite.redis.ContainerRedisService;
 import org.visitor.appportal.visitor.beans.ContainerTemp;
+import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.domain.Container;
+import org.visitor.appportal.web.utils.FloopyInfo;
 
 @Controller
 @RequestMapping("/container/")
@@ -37,6 +39,13 @@ public class ContainerController extends BasicController {
 		
 		visitorContainerService.saveContainer(newCon);
 		containerRedisService.saveContainerToRedis(newCon);
+		
+		ResultJson rj = new ResultJson();
+		
+		rj.setResult(0);
+		rj.setResultDesc(FloopyInfo.PUBLISH_SUCCESS);
+		
+		super.sendJSONResponse(rj, response);
 	}
 	
 	@RequestMapping(value = "updateSingular", method = POST)
@@ -50,5 +59,12 @@ public class ContainerController extends BasicController {
 		
 		visitorContainerService.saveContainer(newCon);
 		containerRedisService.saveContainerToRedis(newCon);
+		
+		ResultJson rj = new ResultJson();
+		
+		rj.setResult(0);
+		rj.setResultDesc(FloopyInfo.PUBLISH_SUCCESS);
+		
+		super.sendJSONResponse(rj, response);
 	}
 }

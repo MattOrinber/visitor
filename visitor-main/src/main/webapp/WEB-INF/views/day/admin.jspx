@@ -292,9 +292,9 @@
 			                <td>${containerTemp.containerName}</td>
 			                <td>
 			                	<c:choose>
-			                		<c:when test="${containerTemp.containerType eq 0}"><p>城市</p>
+			                		<c:when test="${containerTemp.containerType eq 0}"><p>活动</p>
 			                		</c:when>
-			                		<c:when test="${containerTemp.containerType eq 1}"><p>活动</p>
+			                		<c:when test="${containerTemp.containerType eq 1}"><p>城市</p>
 			                		</c:when>
 			                		<c:otherwise>
 			                		</c:otherwise>
