@@ -401,7 +401,7 @@ public class OrderController extends BasicController {
 					// do redirect call
 					if (StringUtils.isNotEmpty(tokenStr)) {
 						orderRedisService.setPayPalTokenUser(userTemp, tokenStr);
-						redirectURLFinal = "redirect:" + redirectECURL + "?cmd=_express-checkout&token=XXXX&" + r_ECTOKEN + "=" + tokenStr;
+						redirectURLFinal = "redirect:" + redirectECURL + "?cmd=express-checkout&token=" + tokenStr;
 						ppo.setCustom(tokenStr);
 						
 						visitorProductOrderService.saveProductPayOrder(ppo);
@@ -419,6 +419,9 @@ public class OrderController extends BasicController {
 			redirectURLFinal = "redirect:/day/result?info=" + URLEncoder.encode(info, "UTF-8");
 		}
 		//DoExpressCheckoutPayment like the set above
+		if (log.isInfoEnabled()) {
+			log.info(redirectURLFinal);
+		}
 		
 		return redirectURLFinal;
 	}
