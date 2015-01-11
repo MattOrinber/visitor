@@ -34,9 +34,25 @@ public class ProductRedisService {
 	public void saveCityToRedis(City entity) {
 		String cityStr = entity.getCityName();
 		String cityKey = RedisKeysForVisitor.getVisitorProductCityKey();
+		String valueT = objectMapperWrapperForVisitor.convert2String(entity);
 		if (!compressStringRedisVisitorTemplate.opsForHash().hasKey(cityKey, cityStr)) {
-			compressStringRedisVisitorTemplate.opsForHash().put(cityKey, cityStr, "-");
+			compressStringRedisVisitorTemplate.opsForHash().put(cityKey, cityStr, valueT);
 		}
+	}
+	
+	public void saveCityIdToKeyToRedis(City entity) {
+		String cityStr = entity.getCityName();
+		String cityKey = RedisKeysForVisitor.getVisitorProductCityIDKey();
+		String keyT = String.valueOf(entity.getCityId().longValue());
+		
+		stringRedisVisitorTemplate.opsForHash().put(cityKey, keyT, cityStr);
+	}
+	
+	public String getCityStrById(Long pid) {
+		String cityKey = RedisKeysForVisitor.getVisitorProductCityIDKey();
+		String keyT = String.valueOf(pid.longValue());
+		
+		return (String)stringRedisVisitorTemplate.opsForHash().get(cityKey, keyT);
 	}
 	
 	

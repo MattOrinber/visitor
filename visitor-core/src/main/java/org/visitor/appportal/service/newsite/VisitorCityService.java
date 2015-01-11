@@ -42,6 +42,11 @@ public class VisitorCityService {
 	}
 	
 	@Transactional
+	public List<City> getAllCities() {
+		return (List<City>) visitorCityRepository.findAll();
+	}
+	
+	@Transactional
 	public List<City> getAvailCityList() {
 		return visitorCityRepository.findAvailCityList();
 	}

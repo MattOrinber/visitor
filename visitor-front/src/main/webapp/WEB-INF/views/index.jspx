@@ -240,48 +240,122 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
         <div class="wrap">
         	<div class="twoimg">
             	<div class="leftone hover">
-                	<a href=""></a>
+            	]]>
+            		<c:choose>
+            			<c:when test="${onePos.containerType eq 0}">
+            				<a href="${pageContext.request.contextPath}/day/product?pid=${onePos.containerProductkey}"></a>
+            			</c:when>
+            			<c:otherwise>
+            			<![CDATA[
+            				<a href="${pageContext.request.contextPath}/day/city?c=${onePos.containerMoto}&o=0&p=1"></a>
+            			]]>
+            			</c:otherwise>
+            		</c:choose>
+                <![CDATA[
                 	<div class="shade"></div>
-                	<h2>Pairs</h2>
+                	<h2>${onePos.containerMoto}</h2>
                 </div>
                 <div class="rightone hover">
-                	<a href=""></a>
+                	]]>
+            		<c:choose>
+            			<c:when test="${twoPos.containerType eq 0}">
+            				<a href="${pageContext.request.contextPath}/day/product?pid=${twoPos.containerProductkey}"></a>
+            			</c:when>
+            			<c:otherwise>
+            			<![CDATA[
+            				<a href="${pageContext.request.contextPath}/day/city?c=${twoPos.containerMoto}&o=0&p=1"></a>
+            			]]>
+            			</c:otherwise>
+            		</c:choose>
+                <![CDATA[
                 	<div class="shade"></div>
-                    <div class="host"></div>
-                	<h2>Linda's home</h2>
-                    <p>Pairs</p>
-                    <div class="price"><span>$</span>300</div>
+                	<h2>${twoPos.containerMoto}</h2>
                 </div>
             </div>
             
             <div class="threeimg">
             	<div class="leftbox hover">
-                	<a href=""></a>
+                	]]>
+            		<c:choose>
+            			<c:when test="${threePos.containerType eq 0}">
+            				<a href="${pageContext.request.contextPath}/day/product?pid=${threePos.containerProductkey}"></a>
+            			</c:when>
+            			<c:otherwise>
+            			<![CDATA[
+            				<a href="${pageContext.request.contextPath}/day/city?c=${threePos.containerMoto}&o=0&p=1"></a>
+            			]]>
+            			</c:otherwise>
+            		</c:choose>
+                <![CDATA[
                 	<div class="shade"></div>
-                	<h2>New York</h2>
+                	<h2>${threePos.containerMoto}</h2>
                 </div>
                 <div class="middlebox hover">
-                	<a href=""></a>
+                	]]>
+            		<c:choose>
+            			<c:when test="${fourPos.containerType eq 0}">
+            				<a href="${pageContext.request.contextPath}/day/product?pid=${fourPos.containerProductkey}"></a>
+            			</c:when>
+            			<c:otherwise>
+            			<![CDATA[
+            				<a href="${pageContext.request.contextPath}/day/city?c=${fourPos.containerMoto}&o=0&p=1"></a>
+            			]]>
+            			</c:otherwise>
+            		</c:choose>
+                <![CDATA[
                 	<div class="shade"></div>
-                	<h2>New York</h2>
+                	<h2>${fourPos.containerMoto}</h2>
                 </div>
                 <div class="rightbox hover">
-                	<a href=""></a>
+                	]]>
+            		<c:choose>
+            			<c:when test="${fivePos.containerType eq 0}">
+            				<a href="${pageContext.request.contextPath}/day/product?pid=${fivePos.containerProductkey}"></a>
+            			</c:when>
+            			<c:otherwise>
+            			<![CDATA[
+            				<a href="${pageContext.request.contextPath}/day/city?c=${fivePos.containerMoto}&o=0&p=1"></a>
+            			]]>
+            			</c:otherwise>
+            		</c:choose>
+                <![CDATA[
                 	<div class="shade"></div>
-                	<h2>New York</h2>
+                	<h2>${fivePos.containerMoto}</h2>
                 </div>
             </div>
             
             <div class="twoimg leftright">
             	<div class="rightone hover">
-                	<a href=""></a>
+                	]]>
+            		<c:choose>
+            			<c:when test="${sixPos.containerType eq 0}">
+            				<a href="${pageContext.request.contextPath}/day/product?pid=${sixPos.containerProductkey}"></a>
+            			</c:when>
+            			<c:otherwise>
+            			<![CDATA[
+            				<a href="${pageContext.request.contextPath}/day/city?c=${sixPos.containerMoto}&o=0&p=1"></a>
+            			]]>
+            			</c:otherwise>
+            		</c:choose>
+                <![CDATA[
                 	<div class="shade"></div>
-                	<h2>Seoul</h2>
+                	<h2>${sixPos.containerMoto}</h2>
                 </div>
             	<div class="leftone hover">
-                	<a href=""></a>
+                	]]>
+            		<c:choose>
+            			<c:when test="${sevenPos.containerType eq 0}">
+            				<a href="${pageContext.request.contextPath}/day/product?pid=${sevenPos.containerProductkey}"></a>
+            			</c:when>
+            			<c:otherwise>
+            			<![CDATA[
+            				<a href="${pageContext.request.contextPath}/day/city?c=${sevenPos.containerMoto}&o=0&p=1"></a>
+            			]]>
+            			</c:otherwise>
+            		</c:choose>
+                <![CDATA[
                 	<div class="shade"></div>
-                	<h2>Los Angeles</h2>
+                	<h2>${sevenPos.containerMoto}</h2>
                 </div>
             </div>
             

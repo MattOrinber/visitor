@@ -76,6 +76,7 @@ public class IndexController extends BasicController {
 			HttpServletResponse response,
 			Model model) {
 		super.setModel(request, response, model, true);
+		super.setContainerModel(request, response, model);
 		
 		return "index";
 	}

@@ -90,10 +90,37 @@ public class PublishController extends BasicController {
 				
 				visitorCityService.saveCity(cityTemp);
 				productRedisService.saveCityToRedis(cityTemp);
+				productRedisService.saveCityIdToKeyToRedis(cityTemp);
 				
 				if (log.isInfoEnabled()) {
 					log.info("saved city :" + cityStr + ":");
 				}
+			} else {
+				productRedisService.saveCityToRedis(cityTemp);
+				productRedisService.saveCityIdToKeyToRedis(cityTemp);
+			}
+		}
+		
+		sendJSONResponse(resultJson, response);
+	}
+	
+	@RequestMapping("cityFromDBToRedis")
+	public void cityFromDBToRedis(HttpServletRequest request,
+			HttpServletResponse response) {
+		Integer result = 0;
+		String resultDesc = "success";
+		ResultJson resultJson = new ResultJson();
+		resultJson.setResult(result);
+		resultJson.setResultDesc(resultDesc);
+		
+		List<City> listCities = visitorCityService.getAllCities();
+		
+		for (City cityTemp : listCities) {
+			productRedisService.saveCityToRedis(cityTemp);
+			productRedisService.saveCityIdToKeyToRedis(cityTemp);
+			
+			if (log.isInfoEnabled()) {
+				log.info("saved city to redis :" + cityTemp.getCityName() + ":");
 			}
 		}
 		

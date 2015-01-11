@@ -65,6 +65,9 @@ public class RedisKeysForVisitor {
     public static String getVisitorProductCityKey() {
     	return "visitor-site-citykey";
     }
+    public static String getVisitorProductCityIDKey() {
+    	return "visitor-site-cityId";
+    }
     
     public static String getVisitorProductCityNewOldKey() {
     	return "visitor-site-city-newold";

@@ -66,7 +66,7 @@ public class Container {
 		this.containerLastdays = containerLastdays;
 	}
 	
-	@Length(max = 127)
+	@Length(max = 255)
 	@Column(name = "container_moto")
 	public String getContainerMoto() {
 		return containerMoto;

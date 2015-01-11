@@ -30,8 +30,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.visitor.appportal.redis.FloopyUtils;
+import org.visitor.appportal.service.newsite.VisitorContainerService;
 import org.visitor.appportal.service.newsite.VisitorUserService;
 import org.visitor.appportal.service.newsite.VisitorUserTokenInfoService;
+import org.visitor.appportal.service.newsite.redis.ContainerRedisService;
 import org.visitor.appportal.service.newsite.redis.FloopyThingRedisService;
 import org.visitor.appportal.service.newsite.redis.OrderRedisService;
 import org.visitor.appportal.service.newsite.redis.ProductRedisService;
@@ -54,6 +56,7 @@ import org.visitor.appportal.visitor.beans.view.CityProduct;
 import org.visitor.appportal.visitor.beans.view.OrderProduct;
 import org.visitor.appportal.visitor.beans.view.PageProduct;
 import org.visitor.appportal.visitor.beans.view.ProductPictureView;
+import org.visitor.appportal.visitor.domain.Container;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductAddress;
 import org.visitor.appportal.visitor.domain.ProductDetailInfo;
@@ -68,6 +71,7 @@ import org.visitor.appportal.web.mailutils.SendMailUtils;
 import org.visitor.appportal.web.mailutils.UserMailException;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
 import org.visitor.appportal.web.utils.ProductInfo;
+import org.visitor.appportal.web.utils.ProductInfo.ContainerTypeEnum;
 import org.visitor.appportal.web.utils.WebInfo;
 import org.visitor.appportal.web.utils.ProductInfo.ProductOperationTypeEnum;
 
@@ -92,6 +96,10 @@ public class BasicController {
 	private VisitorUserService visitorUserService;
 	@Autowired
 	private ProductRedisService productRedisService;
+	@Autowired
+	private VisitorContainerService visitorContainerService;
+	@Autowired
+	private ContainerRedisService containerRedisService;
 	
 	private ObjectMapper objectMapper;
 	
@@ -914,5 +922,53 @@ public class BasicController {
 		} 
 		
 		return listIO;
+	}
+
+	public void setContainerModel(HttpServletRequest request,
+			HttpServletResponse response, Model model) {
+		// TODO Auto-generated method stub
+		Container onePos = containerRedisService.getContainerFromRedisByName("OnePos");
+		if (onePos.getContainerType().intValue() == ContainerTypeEnum.City.ordinal()) {
+			String cityStr = productRedisService.getCityStrById(Long.valueOf(onePos.getContainerProductkey()));
+			onePos.setContainerMoto(cityStr);
+		}
+		Container twoPos = containerRedisService.getContainerFromRedisByName("TwoPos");
+		if (twoPos.getContainerType().intValue() == ContainerTypeEnum.City.ordinal()) {
+			String cityStr = productRedisService.getCityStrById(Long.valueOf(twoPos.getContainerProductkey()));
+			twoPos.setContainerMoto(cityStr);
+		}
+		Container threePos = containerRedisService.getContainerFromRedisByName("ThreePos");
+		if (threePos.getContainerType().intValue() == ContainerTypeEnum.City.ordinal()) {
+			String cityStr = productRedisService.getCityStrById(Long.valueOf(threePos.getContainerProductkey()));
+			threePos.setContainerMoto(cityStr);
+		}
+		Container fourPos = containerRedisService.getContainerFromRedisByName("FourPos");
+		if (fourPos.getContainerType().intValue() == ContainerTypeEnum.City.ordinal()) {
+			String cityStr = productRedisService.getCityStrById(Long.valueOf(fourPos.getContainerProductkey()));
+			fourPos.setContainerMoto(cityStr);
+		}
+		Container fivePos = containerRedisService.getContainerFromRedisByName("FivePos");
+		if (fivePos.getContainerType().intValue() == ContainerTypeEnum.City.ordinal()) {
+			String cityStr = productRedisService.getCityStrById(Long.valueOf(fivePos.getContainerProductkey()));
+			fivePos.setContainerMoto(cityStr);
+		}
+		Container sixPos = containerRedisService.getContainerFromRedisByName("SixPos");
+		if (sixPos.getContainerType().intValue() == ContainerTypeEnum.City.ordinal()) {
+			String cityStr = productRedisService.getCityStrById(Long.valueOf(sixPos.getContainerProductkey()));
+			sixPos.setContainerMoto(cityStr);
+		}
+		Container sevenPos = containerRedisService.getContainerFromRedisByName("SevenPos");
+		if (sevenPos.getContainerType().intValue() == ContainerTypeEnum.City.ordinal()) {
+			String cityStr = productRedisService.getCityStrById(Long.valueOf(sevenPos.getContainerProductkey()));
+			sevenPos.setContainerMoto(cityStr);
+		}
+		
+		model.addAttribute("onePos", onePos);
+		model.addAttribute("twoPos", twoPos);
+		model.addAttribute("threePos", threePos);
+		model.addAttribute("fourPos", fourPos);
+		model.addAttribute("fivePos", fivePos);
+		model.addAttribute("sixPos", sixPos);
+		model.addAttribute("sevenPos", sevenPos);
 	}
 }
