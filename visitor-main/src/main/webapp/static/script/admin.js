@@ -63,7 +63,7 @@ function toAddContainer() {
 	$("#containerDetail").show();
 }
 
-function toDisplayContainerVal(id, name, type, value) {
+function toDisplayContainerVal(id, name, type, value, picpath) {
 	$("#containerIdStr").val(id);
 	$("#containerNameStr").val(name);
 	$("#containerTypeStr").val(type);
@@ -72,7 +72,12 @@ function toDisplayContainerVal(id, name, type, value) {
 	
 	$("#containerNameStr").attr("disabled", "disabled");
 	
+	if (picpath != "" && picpath != "null") {
+		$("#picturePreview").html('<img src="'+picpath+'" width="150"/>');
+	}
+	
 	$("#detail3").hide();
+	$("#containerPictureFileForm").show();
 	$("#containerDetail").show();
 }
 
@@ -85,8 +90,32 @@ function backToContainerList() {
 	
 	$("#containerNameStr").removeAttr("disabled");
 	
+	$("#containerPictureFileForm").hide();
+	$("#picturePreview").html("");
 	$("#containerDetail").hide();
 	$("#detail3").show();
+}
+
+function updateContainerPicture() {
+	var pid = $("#containerNameStr").val();
+	var picUploadUrl = pathGlobe + "/container/picture?cid="+pid;
+	
+    $("#containerPictureFileForm").ajaxSubmit({
+    	type: "post",
+    	url: picUploadUrl,
+    	success: function (dataT) {
+    		var data = $.secureEvalJSON(dataT);
+    		if (data.result == 0) {
+        		var imageUrl =  data.imageUrl;
+        		$("#picturePreview").html('<img src="'+imageUrl+'" width="150"/>');
+    		} else {
+    			alert(data.resultDesc);
+    		}
+        },
+        error: function (msg) {
+        	alert("image upload failed due to network error");
+        }
+    });
 }
 
 function updateContainerValue() {

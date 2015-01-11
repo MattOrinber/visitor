@@ -288,7 +288,7 @@
 	              <c:if test="${not empty itemCount and itemCount gt 0}">
 		              <c:forEach items="${itemList}" var="containerTemp" varStatus="_st">
 		                  <tr>
-			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:toDisplayContainerVal('${containerTemp.containerId}','${containerTemp.containerName}','${containerTemp.containerType}','${containerTemp.containerProductkey}');">${containerTemp.containerId}</a></td>
+			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:toDisplayContainerVal('${containerTemp.containerId}','${containerTemp.containerName}','${containerTemp.containerType}','${containerTemp.containerProductkey}', '${containerTemp.containerPicpaths}');">${containerTemp.containerId}</a></td>
 			                <td>${containerTemp.containerName}</td>
 			                <td>
 			                	<c:choose>
@@ -338,6 +338,12 @@
 	        	</span>
 	        	<span><label>容器值(city ID或者Activity ID)</label><input id="containerValueStr" type="text" /></span>
 	            <span><a id="updateBtn" href="javascript:updateContainerValue();">保存</a></span>
+	            
+	            <form id="containerPictureFileForm" style="display:none">
+	            	<span><label>容器图片</label><input id="containerPicture" name="containerPicture" type="file" /></span>
+	            	<span><a id="updatePicBtn" href="javascript:updateContainerPicture();">上传</a></span>
+	            	<div id="picturePreview" style="width:200px;height:150px"></div>
+	            </form>
 	        </div>
 	        ]]>
         </c:when>

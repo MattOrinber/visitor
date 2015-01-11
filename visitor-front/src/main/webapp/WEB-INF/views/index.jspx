@@ -239,8 +239,15 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
     	<h1>Explore Dayfetch Places</h1>
         <div class="wrap">
         	<div class="twoimg">
-            	<div class="leftone hover">
-            	]]>
+        	]]>
+        		<c:choose>
+        			<c:when test="${not empty onePos.containerPicpaths}">
+        				<![CDATA[<div class="leftone hover" style="background:url(${onePos.containerPicpaths})">]]>
+        			</c:when>
+        			<c:otherwise>
+        				<![CDATA[<div class="leftone hover">]]>
+        			</c:otherwise>
+        		</c:choose>
             		<c:choose>
             			<c:when test="${onePos.containerType eq 0}">
             				<a href="${pageContext.request.contextPath}/day/product?pid=${onePos.containerProductkey}"></a>
@@ -251,12 +258,19 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
             			]]>
             			</c:otherwise>
             		</c:choose>
-                <![CDATA[
+            	<![CDATA[
                 	<div class="shade"></div>
                 	<h2>${onePos.containerMoto}</h2>
-                </div>
-                <div class="rightone hover">
-                	]]>
+            	</div>
+            	]]>
+            	<c:choose>
+        			<c:when test="${not empty twoPos.containerPicpaths}">
+        				<![CDATA[<div class="rightone hover" style="background:url(${twoPos.containerPicpaths})">]]>
+        			</c:when>
+        			<c:otherwise>
+        				<![CDATA[<div class="rightone hover">]]>
+        			</c:otherwise>
+        		</c:choose>
             		<c:choose>
             			<c:when test="${twoPos.containerType eq 0}">
             				<a href="${pageContext.request.contextPath}/day/product?pid=${twoPos.containerProductkey}"></a>
@@ -274,8 +288,15 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
             </div>
             
             <div class="threeimg">
-            	<div class="leftbox hover">
-                	]]>
+            ]]>
+            	<c:choose>
+        			<c:when test="${not empty threePos.containerPicpaths}">
+        				<![CDATA[<div class="leftbox hover" style="background:url(${threePos.containerPicpaths})">]]>
+        			</c:when>
+        			<c:otherwise>
+        				<![CDATA[<div class="leftbox hover">]]>
+        			</c:otherwise>
+        		</c:choose>
             		<c:choose>
             			<c:when test="${threePos.containerType eq 0}">
             				<a href="${pageContext.request.contextPath}/day/product?pid=${threePos.containerProductkey}"></a>
@@ -290,8 +311,15 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
                 	<div class="shade"></div>
                 	<h2>${threePos.containerMoto}</h2>
                 </div>
-                <div class="middlebox hover">
-                	]]>
+                ]]>
+                <c:choose>
+        			<c:when test="${not empty fourPos.containerPicpaths}">
+        				<![CDATA[<div class="middlebox hover" style="background:url(${fourPos.containerPicpaths})">]]>
+        			</c:when>
+        			<c:otherwise>
+        				<![CDATA[<div class="middlebox hover">]]>
+        			</c:otherwise>
+        		</c:choose>
             		<c:choose>
             			<c:when test="${fourPos.containerType eq 0}">
             				<a href="${pageContext.request.contextPath}/day/product?pid=${fourPos.containerProductkey}"></a>
@@ -306,8 +334,15 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
                 	<div class="shade"></div>
                 	<h2>${fourPos.containerMoto}</h2>
                 </div>
-                <div class="rightbox hover">
-                	]]>
+                ]]>
+                <c:choose>
+        			<c:when test="${not empty fivePos.containerPicpaths}">
+        				<![CDATA[<div class="rightbox hover" style="background:url(${fivePos.containerPicpaths})">]]>
+        			</c:when>
+        			<c:otherwise>
+        				<![CDATA[<div class="rightbox hover">]]>
+        			</c:otherwise>
+        		</c:choose>
             		<c:choose>
             			<c:when test="${fivePos.containerType eq 0}">
             				<a href="${pageContext.request.contextPath}/day/product?pid=${fivePos.containerProductkey}"></a>
@@ -325,8 +360,15 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
             </div>
             
             <div class="twoimg leftright">
-            	<div class="rightone hover">
-                	]]>
+            ]]>
+            	<c:choose>
+        			<c:when test="${not empty sixPos.containerPicpaths}">
+        				<![CDATA[<div class="rightone hover" style="background:url(${sixPos.containerPicpaths})">]]>
+        			</c:when>
+        			<c:otherwise>
+        				<![CDATA[<div class="rightone hover">]]>
+        			</c:otherwise>
+        		</c:choose>
             		<c:choose>
             			<c:when test="${sixPos.containerType eq 0}">
             				<a href="${pageContext.request.contextPath}/day/product?pid=${sixPos.containerProductkey}"></a>
@@ -341,8 +383,15 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
                 	<div class="shade"></div>
                 	<h2>${sixPos.containerMoto}</h2>
                 </div>
-            	<div class="leftone hover">
-                	]]>
+                ]]>
+                <c:choose>
+        			<c:when test="${not empty sevenPos.containerPicpaths}">
+        				<![CDATA[<div class="leftone hover" style="background:url(${sevenPos.containerPicpaths})">]]>
+        			</c:when>
+        			<c:otherwise>
+        				<![CDATA[<div class="leftone hover">]]>
+        			</c:otherwise>
+        		</c:choose>
             		<c:choose>
             			<c:when test="${sevenPos.containerType eq 0}">
             				<a href="${pageContext.request.contextPath}/day/product?pid=${sevenPos.containerProductkey}"></a>
