@@ -55,7 +55,7 @@ import org.visitor.appportal.web.utils.WebInfo;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 
 @Controller
-@RequestMapping("product")
+@RequestMapping("/product")
 public class ProductController extends BasicController {
 	protected static final Logger log = LoggerFactory.getLogger(ProductController.class);
 	

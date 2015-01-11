@@ -5,6 +5,11 @@ function setifCanUpdate() {
 	ifCanUpdate = true;
 }
 
+function setIfPriceCanUpdate(node) {
+	ifCanUpdate = true;
+	$("#pricePageCurrencyStr").html($(node).val());
+}
+
 function createProduct()
 {	
 	var product = {};
@@ -35,9 +40,11 @@ function createProduct()
         	window.location.href = redirectStr;
         },  
         error : function() {  
+        	alert("network error---");
         }  
     }); 
 }
+
 
 function publishProduct() {
 	var productDetail = {};
@@ -63,6 +70,7 @@ function publishProduct() {
         	$("#placeToPublishDiv").html(htmlToGo);
         },  
         error : function() { 
+        	alert("network error---");
         }  
     }); 
 }
@@ -113,6 +121,7 @@ function saveProductAvailableType(availType) {
 	        	$("#remainStepsSpan").html(data.stepsCount);
 	        },  
 	        error : function() { 
+	        	alert("network error---");
 	        }  
 	    }); 
 	}
@@ -153,6 +162,7 @@ function saveProductPriceSetting() {
 			        	$("#remainStepsSpan").html(data.stepsCount);
 			        },  
 			        error : function() {  
+			        	alert("network error---");
 			        }  
 			    }); 
 			} else {
@@ -198,6 +208,7 @@ function onProductDescAndTitle() {
 			        	$("#remainStepsSpan").html(data.stepsCount);
 			        },  
 			        error : function() {  
+			        	alert("network error---");
 			        }  
 			    }); 
 			}
@@ -232,7 +243,8 @@ function productAddressUpdate() {
 		        	checkCanPublish(data.productCan);
 		        	playSaved();
 		        },  
-		        error : function() {  
+		        error : function() { 
+		        	alert("network error---");
 		        }  
 		    }); 
 		}
@@ -267,6 +279,7 @@ function setProductCancellationPolicy() {
 	        	$("#remainStepsSpan").html(data.stepsCount);
 	        },  
 	        error : function() {  
+	        	alert("network error---");
 	        }  
 	    });
 	}

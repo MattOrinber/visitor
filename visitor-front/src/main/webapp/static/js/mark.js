@@ -550,7 +550,7 @@ function checkIfCanProceed() { // see if we can create product
 			accomodatesValue != "0" && 
 			productCityInputStr != "" && 
 			productCityInputStr != "Rome,Pairs...") {
-		$("#proceedToGenerate").attr("href", "javascript:proposeToSignUp();");
+		$("#proceedToGenerate").attr("href", "javascript:createProduct();");
 	} else {
 		$("#proceedToGenerate").attr("href", "javascript:void(0);");
 	}

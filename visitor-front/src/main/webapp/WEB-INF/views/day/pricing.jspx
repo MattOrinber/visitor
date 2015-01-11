@@ -127,14 +127,16 @@
                 	<span class="h">Currency</span>
 ]]>
 
-                	<select id="productCurrencyChoose" onchange="setifCanUpdate();">
+                	<select id="productCurrencyChoose" onchange="setIfPriceCanUpdate(this);">
 						<c:forEach items="${currencyList}" var="currencyT" varStatus="status">
-							<c:if test="${currencyT == productCurrencySetted}">
-							    <option value="${currencyT}" selected="selected">${currencyT}</option>
-							</c:if>
-							<c:if test="${status.index != 0}">
-							    <option value="${currencyT}">${currencyT}</option>
-							</c:if>
+							<c:choose>
+								<c:when test="${currencyT == productCurrencySetted}">
+									<option value="${currencyT}" selected="selected">${currencyT}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${currencyT}">${currencyT}</option>
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>
 					</select>
 <![CDATA[
@@ -142,10 +144,10 @@
 ]]>
                     <c:choose>
 						<c:when test="${not empty productInfo.productBaseprice}">
-						  <div><span>$</span><input id="productBaseCurrencyValue" type="text" value="${productInfo.productBaseprice}" onfocus="setifCanUpdate();" onblur="saveProductPriceSetting();"/></div>
+						  <div><span id="pricePageCurrencyStr">${productCurrencySetted}</span><input id="productBaseCurrencyValue" type="text" value="${productInfo.productBaseprice}" onfocus="setifCanUpdate();" onblur="saveProductPriceSetting();"/></div>
 						</c:when>
 						<c:when test="${empty productInfo.productBaseprice}">
-						  <div><span>$</span><input id="productBaseCurrencyValue" type="text" onfocus="setifCanUpdate();" onblur="saveProductPriceSetting();"/></div>
+						  <div><span id="pricePageCurrencyStr">${globalCurrencySetted}</span><input id="productBaseCurrencyValue" type="text" onfocus="setifCanUpdate();" onblur="saveProductPriceSetting();"/></div>
 						</c:when>
 					</c:choose>
 <![CDATA[            

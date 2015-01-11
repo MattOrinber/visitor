@@ -63,7 +63,8 @@ function callOrderGeneration(dateText, dpInstance) {
 	        	var productPayOrderId = data.payOrderId;
 	        	var priceTemp = data.totalPrice;
 	        	
-	        	$("#totalPriceDisplayStr").html('Total: $ '+ priceTemp);
+	        	var currencyToUseT = $("#productGlobalCurrencyStr").val();
+	        	$("#totalPriceDisplayStr").html('Total: '+ currencyToUseT + ' '+ priceTemp);
 	        	
 	        	var hiddenServiceStr = $("#hiddenServicePricePart");
 	        	if (hiddenServiceStr != null) {
@@ -123,7 +124,8 @@ function addBasicPrice(node) {
 			        	var result = data.result;
 			        	if (result == 0) {
 				        	var priceTemp = data.poPrice;
-				        	$("#totalPriceDisplayStr").html("Total: $ "+priceTemp);
+				        	var currencyToUseT = $("#productGlobalCurrencyStr").val();
+				        	$("#totalPriceDisplayStr").html("Total: " + currencyToUseT + " "+priceTemp);
 				        	formerBasicPriceCount = basicAmount;
 				        	// paypal button change
 			        	}
@@ -171,7 +173,8 @@ function addServicePrice(node) {
 			        	var result = data.result;
 			        	if (result == 0) {
 				        	var priceTemp = data.poPrice;
-				        	$("#totalPriceDisplayStr").html("Total: $ "+priceTemp);
+				        	var currencyToUseT = $("#productGlobalCurrencyStr").val();
+				        	$("#totalPriceDisplayStr").html("Total: " + currencyToUseT + " "+priceTemp);
 				        	$(node).attr("data-amount", currentAmount);
 				        	// paypal button change
 			        	}

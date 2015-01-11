@@ -42,12 +42,12 @@
                     <td>1</td>
                   </tr>
                   <tr>
-                    <td>$ ${productInfo.productBaseprice}*1 nights</td>
-                    <td>$ ${productInfo.productBaseprice}</td>
+                    <td>${order.orderCurrency} ${productInfo.productBaseprice}*1 nights</td>
+                    <td>${order.orderCurrency} ${productInfo.productBaseprice}</td>
                   </tr>
                   <tr>
                     <td style="font-size:20px;font-weight:bold;">Total(services included)</td>
-                    <td id="finalPriceSetToChange" style="font-size:20px;font-weight:bold;">$ ${order.orderTotalAmount}</td>
+                    <td id="finalPriceSetToChange" style="font-size:20px;font-weight:bold;">${order.orderCurrency} ${order.orderTotalAmount}</td>
                   </tr>
                 </table>
                 
