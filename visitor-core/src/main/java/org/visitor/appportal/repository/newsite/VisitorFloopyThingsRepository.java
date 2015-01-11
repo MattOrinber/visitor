@@ -7,7 +7,7 @@ import org.visitor.appportal.repository.base.BaseRepository;
 import org.visitor.appportal.visitor.domain.FloopyThing;
 
 public interface VisitorFloopyThingsRepository extends BaseRepository<FloopyThing, Long> {
-	@Query("select f from FloopyThing f where floopyId = ?1 and floopyStatus = 0")
+	@Query("select f from FloopyThing f where floopyKey = ?1")
 	FloopyThing getFloopyThingStringByKey(String key);
 	
 	@Query("from FloopyThing where floopyStatus = 0")

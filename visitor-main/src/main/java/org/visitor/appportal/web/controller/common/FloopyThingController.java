@@ -2,6 +2,8 @@ package org.visitor.appportal.web.controller.common;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,15 +55,17 @@ public class FloopyThingController extends BasicController {
 		super.sendJSONResponse(rj, response);
 	}
 	
-	@RequestMapping(value = "addOne", method = POST)
-	public void addOne(HttpServletRequest request,
-			HttpServletResponse response) {
+	@RequestMapping(value = "updateSingleValue", method = POST)
+	public void updateSingleValue(HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException {
 		FloopyTemp ftemp = super.getFloopyJson(request);
 		
-		FloopyThing ft = new FloopyThing();
-		ft.setFloopyKey(ftemp.getKeyStr());
+		String keyToUse = ftemp.getKeyStr();
+		
+		FloopyThing ft = visitorFloopyThingService.getFloopyThingUsingKey(keyToUse);
+		
 		ft.setFloopyValue(ftemp.getValueStr());
-		ft.setFloopyDesc(ftemp.getDescStr());
+		ft.setFloopyDesc(URLDecoder.decode(ftemp.getDescStr(), "UTF-8"));
 		ft.setFloopyStatus(StatusTypeEnum.Active.ordinal());
 		
 		visitorFloopyThingService.saveFloopyThing(ft);
@@ -75,17 +79,15 @@ public class FloopyThingController extends BasicController {
 		super.sendJSONResponse(rj, response);
 	}
 	
-	@RequestMapping(value = "updateFloopy", method = POST)
-	public void updateFloopy(HttpServletRequest request,
-			HttpServletResponse response) {
+	@RequestMapping(value = "addOne", method = POST)
+	public void addOne(HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException {
 		FloopyTemp ftemp = super.getFloopyJson(request);
 		
-		String keyToUse = ftemp.getKeyStr();
-		
-		FloopyThing ft = visitorFloopyThingService.getFloopyThingUsingKey(keyToUse);
-		
+		FloopyThing ft = new FloopyThing();
+		ft.setFloopyKey(ftemp.getKeyStr());
 		ft.setFloopyValue(ftemp.getValueStr());
-		ft.setFloopyDesc(ftemp.getDescStr());
+		ft.setFloopyDesc(URLDecoder.decode(ftemp.getDescStr(), "UTF-8"));
 		ft.setFloopyStatus(StatusTypeEnum.Active.ordinal());
 		
 		visitorFloopyThingService.saveFloopyThing(ft);

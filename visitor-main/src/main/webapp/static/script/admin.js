@@ -225,7 +225,7 @@ function updateFloopyValue() {
 		var floopyTemp = {};
 		floopyTemp.keyStr = keyStr;
 		floopyTemp.valueStr = valueStr;
-		floopyTemp.descStr = descStr;
+		floopyTemp.descStr = encodeURIComponent(descStr);
 		
 		var jsonStr = $.toJSON(floopyTemp);
 		console.log(jsonStr);
@@ -253,7 +253,7 @@ function updateFloopyValue() {
 		        }  
 		    }); 
 		} else {
-			var urlStrStr = pathGlobe + '/floopy/updateFloopy';
+			var urlStrStr = pathGlobe + '/floopy/updateSingleValue';
 		    
 		    $.ajax({ 
 		        type : 'POST',  
