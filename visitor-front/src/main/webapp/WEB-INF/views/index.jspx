@@ -239,13 +239,14 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
     	<h1>Explore Dayfetch Places</h1>
         <div class="wrap">
         	<div class="twoimg">
+        		<div class="leftone hover">
         	]]>
         		<c:choose>
         			<c:when test="${not empty onePos.containerPicpaths}">
-        				<![CDATA[<div class="leftone hover" style="background:url(${onePos.containerPicpaths})">]]>
+        				<![CDATA[<div class="addImg"><img width="655" src="${onePos.containerPicpaths}"></div>]]>
         			</c:when>
         			<c:otherwise>
-        				<![CDATA[<div class="leftone hover">]]>
+        				<![CDATA[<div class="addImg"><img src="${imgPathOrigin}/static/397.jpg"></div>]]>
         			</c:otherwise>
         		</c:choose>
             		<c:choose>
@@ -262,13 +263,14 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
                 	<div class="shade"></div>
                 	<h2>${onePos.containerMoto}</h2>
             	</div>
+            	<div class="rightone hover">
             	]]>
             	<c:choose>
         			<c:when test="${not empty twoPos.containerPicpaths}">
-        				<![CDATA[<div class="rightone hover" style="background:url(${twoPos.containerPicpaths})">]]>
+        				<![CDATA[<div class="addImg2"><img width="315" src="${twoPos.containerPicpaths}"></div>]]>
         			</c:when>
         			<c:otherwise>
-        				<![CDATA[<div class="rightone hover">]]>
+        				<![CDATA[<div class="addImg2"><img src="${imgPathOrigin}/static/c00b3047_original.jpg"></div>]]>
         			</c:otherwise>
         		</c:choose>
             		<c:choose>
@@ -288,13 +290,14 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
             </div>
             
             <div class="threeimg">
+            	<div class="leftbox hover">
             ]]>
             	<c:choose>
         			<c:when test="${not empty threePos.containerPicpaths}">
-        				<![CDATA[<div class="leftbox hover" style="background:url(${threePos.containerPicpaths})">]]>
+        				<![CDATA[<div class="addImg2"><img width="315" src="${threePos.containerPicpaths}"></div>]]>
         			</c:when>
         			<c:otherwise>
-        				<![CDATA[<div class="leftbox hover">]]>
+        				<![CDATA[<div class="addImg2"><img src="${imgPathOrigin}/static/35.jpg"></div>]]>
         			</c:otherwise>
         		</c:choose>
             		<c:choose>
@@ -311,13 +314,14 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
                 	<div class="shade"></div>
                 	<h2>${threePos.containerMoto}</h2>
                 </div>
+                <div class="middlebox hover">
                 ]]>
                 <c:choose>
         			<c:when test="${not empty fourPos.containerPicpaths}">
-        				<![CDATA[<div class="middlebox hover" style="background:url(${fourPos.containerPicpaths})">]]>
+        				<![CDATA[<div class="addImg2"><img width="315" src="${fourPos.containerPicpaths}"></div>]]>
         			</c:when>
         			<c:otherwise>
-        				<![CDATA[<div class="middlebox hover">]]>
+        				<![CDATA[<div class="addImg2"><img src="${imgPathOrigin}/static/41.jpg"></div>]]>
         			</c:otherwise>
         		</c:choose>
             		<c:choose>
@@ -334,13 +338,14 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
                 	<div class="shade"></div>
                 	<h2>${fourPos.containerMoto}</h2>
                 </div>
+                <div class="rightbox hover">
                 ]]>
                 <c:choose>
         			<c:when test="${not empty fivePos.containerPicpaths}">
-        				<![CDATA[<div class="rightbox hover" style="background:url(${fivePos.containerPicpaths})">]]>
+        				<![CDATA[<div class="addImg2"><img width="315" src="${fivePos.containerPicpaths}"></div>]]>
         			</c:when>
         			<c:otherwise>
-        				<![CDATA[<div class="rightbox hover">]]>
+        				<![CDATA[<div class="addImg2"><img src="${imgPathOrigin}/static/290.jpg"></div>]]>
         			</c:otherwise>
         		</c:choose>
             		<c:choose>
@@ -360,13 +365,14 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
             </div>
             
             <div class="twoimg leftright">
+            	<div class="rightone hover">
             ]]>
             	<c:choose>
         			<c:when test="${not empty sixPos.containerPicpaths}">
-        				<![CDATA[<div class="rightone hover" style="background:url(${sixPos.containerPicpaths})">]]>
+        				<![CDATA[<div class="addImg2"><img width="315" src="${sixPos.containerPicpaths}"></div>]]>
         			</c:when>
         			<c:otherwise>
-        				<![CDATA[<div class="rightone hover">]]>
+        				<![CDATA[<div class="addImg2"><img src="${imgPathOrigin}/static/292.jpg"></div>]]>
         			</c:otherwise>
         		</c:choose>
             		<c:choose>
@@ -383,13 +389,14 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
                 	<div class="shade"></div>
                 	<h2>${sixPos.containerMoto}</h2>
                 </div>
+                <div class="leftone hover">
                 ]]>
                 <c:choose>
         			<c:when test="${not empty sevenPos.containerPicpaths}">
-        				<![CDATA[<div class="leftone hover" style="background:url(${sevenPos.containerPicpaths})">]]>
+        				<![CDATA[<div class="addImg"><img width="655" src="${sevenPos.containerPicpaths}"></div>]]>
         			</c:when>
         			<c:otherwise>
-        				<![CDATA[<div class="leftone hover">]]>
+        				<![CDATA[<div class="addImg"><img src="${imgPathOrigin}/static/11.jpg"></div>]]>
         			</c:otherwise>
         		</c:choose>
             		<c:choose>

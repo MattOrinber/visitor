@@ -107,7 +107,7 @@
 		                        </c:choose>
 	                        </div>
 	                        <div class="content">
-	                            <p class="col-7">Interested in <a href="${pageContext.request.contextPath}/day/product?pid=${internalIO.productId}">your activity</a></p>
+	                            <p class="col-7">Interested in <a style="font-weight:bold;color:#FF0000;" href="${pageContext.request.contextPath}/day/product?pid=${internalIO.productId}">your activity</a></p>
 	                            <p class="text-muted">${internalIO.dateAndAccomodates}</p>
 	                        </div>
 	                        <div class="price">
@@ -167,7 +167,7 @@
 		                        </c:choose>
 	                        </div>
 	                        <div class="content">
-	                            <p class="col-7">Interested in <a href="${pageContext.request.contextPath}/day/product?pid=${internalIO.productId}">this activity</a></p>
+	                            <p class="col-7">Interested in <a style="font-weight:bold;color:#FF0000;" href="${pageContext.request.contextPath}/day/product?pid=${internalIO.productId}">this activity</a></p>
 	                            <p class="text-muted">${internalIO.dateAndAccomodates}</p>
 	                        </div>
 	                        <div class="price">
@@ -214,7 +214,7 @@
 		                        </c:choose>
 	                        </div>
 	                        <div class="content">
-	                            <p class="col-7">Interested in <a href="${pageContext.request.contextPath}/day/product?pid=${internalIO.productId}">your activity</a></p>
+	                            <p class="col-7">Interested in <a style="font-weight:bold;color:#FF0000;" href="${pageContext.request.contextPath}/day/product?pid=${internalIO.productId}">your activity</a></p>
 	                            <p class="text-muted">${internalIO.dateAndAccomodates}</p>
 	                        </div>
 	                        <div class="price">
