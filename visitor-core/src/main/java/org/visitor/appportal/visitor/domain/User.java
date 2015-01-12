@@ -290,7 +290,7 @@ public class User implements Serializable, Copyable<User> {
 	}
 	
 	@Lob
-	@Column(name = "user_detail",columnDefinition="MEDIUMTEXT")
+	@Column(name = "user_detail",columnDefinition="TEXT")
 	public String getUserDetail() {
 		return userDetail;
 	}

@@ -31,6 +31,7 @@
 		<class>org.visitor.appportal.visitor.domain.UserTokenInfo</class>
 		<class>org.visitor.appportal.visitor.domain.UserInternalMail</class>
 		<class>org.visitor.appportal.visitor.domain.City</class>
+		<class>org.visitor.appportal.visitor.domain.Article</class>
 		<exclude-unlisted-classes />        
     </persistence-unit>
 </persistence>
