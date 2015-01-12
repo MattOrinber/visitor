@@ -2,6 +2,7 @@ package org.visitor.appportal.redis;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
+import org.visitor.appportal.visitor.domain.Article;
 import org.visitor.appportal.visitor.domain.Container;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductAddress;
@@ -43,6 +44,13 @@ public class ObjectMapperWrapperForVisitor {
 			return null;
 		}
 		return JSON.parseObject(key, Container.class);
+	}
+	
+	public Article convertToArticle(String key) {
+		if (StringUtils.isBlank(key)) {
+			return null;
+		}
+		return JSON.parseObject(key, Article.class);
 	}
 	
 	public UserInternalMail convertToUserInternalMail(String key) {

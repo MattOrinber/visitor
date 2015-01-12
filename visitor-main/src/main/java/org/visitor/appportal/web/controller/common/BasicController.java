@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.visitor.appportal.visitor.beans.ArticleTemp;
 import org.visitor.appportal.visitor.beans.ContainerTemp;
 import org.visitor.appportal.visitor.beans.FloopyTemp;
 import org.visitor.appportal.visitor.beans.PayTemp;
@@ -125,6 +126,17 @@ public class BasicController {
 		if (StringUtils.isNotEmpty(originStr)) {
 			ContainerTemp containerT = JSON.parseObject(originStr, ContainerTemp.class);
 			return containerT;
+		}
+		
+		return null;
+	}
+	
+	public ArticleTemp getArticleJSON(HttpServletRequest request) {
+		String originStr = getJsonStr(request);
+		
+		if (StringUtils.isNotEmpty(originStr)) {
+			ArticleTemp articleT = JSON.parseObject(originStr, ArticleTemp.class);
+			return articleT;
 		}
 		
 		return null;

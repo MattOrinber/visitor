@@ -20,11 +20,9 @@ import org.visitor.appportal.service.newsite.redis.ContainerRedisService;
 import org.visitor.appportal.visitor.beans.ContainerTemp;
 import org.visitor.appportal.visitor.beans.ResultJson;
 import org.visitor.appportal.visitor.domain.Container;
-import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.web.utils.FloopyInfo;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
 import org.visitor.appportal.web.utils.RegisterInfo;
-import org.visitor.appportal.web.utils.WebInfo;
 
 import com.amazonaws.services.s3.model.ObjectMetadata;
 

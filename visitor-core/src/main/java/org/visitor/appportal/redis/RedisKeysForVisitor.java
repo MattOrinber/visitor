@@ -160,4 +160,8 @@ public class RedisKeysForVisitor {
     public static String getContainerKey() {
     	return "visitor-site-containers";
     }
+    
+    public static String getArticleKey() {
+    	return "visitor-site-articles";
+    }
 }
