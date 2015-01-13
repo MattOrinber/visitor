@@ -308,3 +308,105 @@ function updateFloopyValue() {
 		alert("请输入正确的值");
 	}
 }
+
+
+
+//article part
+function setContentValue() {
+	var articleContentTemp = $.trim($("#contentStrTemp").html());
+	if (articleContentTemp != '') {
+		var editor = CKEDITOR.instances.articleContentStr;
+		editor.insertHtml(articleContentTemp);
+	}
+}
+$(document).ready(function(){
+	var node = $("#articleContentStr");
+	if (node != null) {
+		CKEDITOR.replace( 'articleContentStr', {
+			on: {
+				instanceReady:setContentValue
+			},
+			coreStyles_bold: { 
+				element: 'b' 
+			},
+			coreStyles_italic: { 
+				element: 'i' 
+			},
+	
+			fontSize_style: {
+				element: 'font',
+				attributes: { 'size': '#(size)' }
+			},
+			width:800,
+			height:250
+		});
+	}
+});
+
+function updateArticleValue() {
+	var mark = $.trim($("#articleIdStr").val());
+	
+	var nameStr = $.trim($("#articleNameStr").val());
+	var descStr = $.trim($("#articleDescStr").val());
+	var editor = CKEDITOR.instances.articleContentStr;
+	var contentStr = editor.getData();
+	
+	if (nameStr != "" && descStr != "" && contentStr != "") {
+		
+		var articleTemp = {};
+		articleTemp.nameStr = nameStr;
+		articleTemp.descStr = encodeURIComponent(descStr);
+		articleTemp.contentStr = encodeURIComponent(contentStr);
+		
+		var jsonStr = $.toJSON(articleTemp);
+		console.log(jsonStr);
+		
+		if (mark == "") {
+			var urlStrStr = pathGlobe + '/article/addOne';
+		    
+		    $.ajax({ 
+		        type : 'POST',  
+		        contentType : 'application/json',  
+		        url : urlStrStr,  
+		        processData : false,  
+		        dataType : 'json',  
+		        data : jsonStr,  
+		        success : function(data) {  
+		        	if (data.result == 0) {
+		        		alert("增加文章成功");
+		        	} else {
+		        		var dataRes = "add article result: " + data.result + "; resultDesc: " + data.resultDesc;
+		        		alert(dataRes);
+		        	}
+		        },  
+		        error : function() {  
+		            alert('network error during adding one article');  
+		        }  
+		    }); 
+		} else {
+			var urlStrStr = pathGlobe + '/article/updateOne';
+		    
+		    $.ajax({ 
+		        type : 'POST',  
+		        contentType : 'application/json',  
+		        url : urlStrStr,  
+		        processData : false,  
+		        dataType : 'json',  
+		        data : jsonStr,  
+		        success : function(data) {  
+		        	if (data.result == 0) {
+		        		alert("更新文章成功");
+		        	} else {
+		        		var dataRes = "update article result: " + data.result + "; resultDesc: " + data.resultDesc;
+		        		alert(dataRes);
+		        	}
+		        },  
+		        error : function() {  
+		            alert('network error during updating one article');  
+		        }  
+		    }); 
+		}
+	} else {
+		alert("请输入正确的值");
+	}
+}

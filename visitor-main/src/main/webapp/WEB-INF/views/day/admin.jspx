@@ -6,7 +6,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Day Fetch</title>
-	<link href="${pageContext.request.contextPath}/static/css/admin.css" rel="stylesheet" type="text/css" />
+	<c:choose>
+		<c:when test="${pageType eq 10}">
+			<link href="${pageContext.request.contextPath}/static/css/adminTen.css" rel="stylesheet" type="text/css" />
+		</c:when>
+		<c:otherwise>
+			<link href="${pageContext.request.contextPath}/static/css/admin.css" rel="stylesheet" type="text/css" />
+		</c:otherwise>
+	</c:choose>
 
 	<!-- custom js library -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery-1.5.2/jquery.min.js"><c:out value=" " /></script>
@@ -16,6 +23,7 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery.json-2.4.js"><c:out value="" /></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/testPublish.js"><c:out value=" " /></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/admin.js"><c:out value=" " /></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/ckedit/ckeditor.js"><c:out value="" /></script>
 	
 	<script type="text/javascript">
 		var pathGlobe = '${pageContext.request.contextPath}';
@@ -517,127 +525,29 @@
         </c:when>
         
         <c:when test="${pageType eq 10}">
-        	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/ckedit/ckeditor.js"><c:out value="" /></script>
-        	<script type="text/javascript">
-        		function setContentValue() {
-        			if (articleContentTemp != '') {
-        				var editor = CKEDITOR.instances.articleContentStr;
-        				editor.insertHtml(articleContentTemp);
-	    			}
-        		}
-	        	$(document).ready(function(){
-	        		var node = $("#articleContentStr");
-	        		if (node != null) {
-	        			CKEDITOR.replace( 'articleContentStr', {
-	        				on: {
-	        					instanceReady:setContentValue
-	        				},
-	        				coreStyles_bold: { 
-	        					element: 'b' 
-	        				},
-	        				coreStyles_italic: { 
-	        					element: 'i' 
-	        				},
-	        		
-	        				fontSize_style: {
-	        					element: 'font',
-	        					attributes: { 'size': '#(size)' }
-	        				},
-	        				width:800,
-	        				height:250
-	        			});
-	        		}
-	    		});
-	        	
-	        	function updateArticleValue() {
-	        		var mark = $.trim($("#articleIdStr").val());
-	        		
-	        		var nameStr = $.trim($("#articleNameStr").val());
-	        		var descStr = $.trim($("#articleDescStr").val());
-	        		var editor = CKEDITOR.instances.articleContentStr;
-	        		var contentStr = editor.getData();
-	        		
-	        		if (nameStr != "" && descStr != "" && contentStr != "") {
-	        			
-	        			var articleTemp = {};
-	        			articleTemp.nameStr = nameStr;
-	        			articleTemp.descStr = encodeURIComponent(descStr);
-	        			articleTemp.contentStr = encodeURIComponent(contentStr);
-	        			
-	        			var jsonStr = $.toJSON(articleTemp);
-	        			console.log(jsonStr);
-	        			
-	        			if (mark == "") {
-	        				var urlStrStr = pathGlobe + '/article/addOne';
-	        			    
-	        			    $.ajax({ 
-	        			        type : 'POST',  
-	        			        contentType : 'application/json',  
-	        			        url : urlStrStr,  
-	        			        processData : false,  
-	        			        dataType : 'json',  
-	        			        data : jsonStr,  
-	        			        success : function(data) {  
-	        			        	if (data.result == 0) {
-	        			        		alert("增加文章成功");
-	        			        	} else {
-	        			        		var dataRes = "add article result: " + data.result + "; resultDesc: " + data.resultDesc;
-	        			        		alert(dataRes);
-	        			        	}
-	        			        },  
-	        			        error : function() {  
-	        			            alert('network error during adding one article');  
-	        			        }  
-	        			    }); 
-	        			} else {
-	        				var urlStrStr = pathGlobe + '/article/updateOne';
-	        			    
-	        			    $.ajax({ 
-	        			        type : 'POST',  
-	        			        contentType : 'application/json',  
-	        			        url : urlStrStr,  
-	        			        processData : false,  
-	        			        dataType : 'json',  
-	        			        data : jsonStr,  
-	        			        success : function(data) {  
-	        			        	if (data.result == 0) {
-	        			        		alert("更新文章成功");
-	        			        	} else {
-	        			        		var dataRes = "update article result: " + data.result + "; resultDesc: " + data.resultDesc;
-	        			        		alert(dataRes);
-	        			        	}
-	        			        },  
-	        			        error : function() {  
-	        			            alert('network error during updating one article');  
-	        			        }  
-	        			    }); 
-	        			}
-	        		} else {
-	        			alert("请输入正确的值");
-	        		}
-	        	}
-			</script>
         	<![CDATA[
-        		<div id="containerDetail" style="display:none;">
+        		<div id="containerDetail" style="display:block;">
         		]]>
         		<c:choose>
         			<c:when test="${not empty article}">
-        				<script type="text/javascript">var articleContentTemp = '${article.articleContent}';</script>
+        				<div id="contentStrTemp" style="display:none">${article.articleContent}</div>
         				<input id="articleIdStr" type="hidden" value="${article.articleId}"/>
-			        	<![CDATA[<span><a id="backBtn" href="${pageContext.request.contextPath}/day/admin?type=6&p=1">返回</a></span>]]>
-			        	<span><label>文章名称</label><input id="articleNameStr" disabled="disabled" type="text" value="${article.articleName}"/></span>
-			        	<span><label>文章描述</label><input id="articleDescStr" type="text" value="${article.articleDesc}"/></span>
-			        	<span><label>文章内容</label><textarea id="articleContentStr"></textarea></span>
-			            <span><a id="updateBtn" href="javascript:updateArticleValue();">保存</a></span>
+			        	<![CDATA[<span class="oldOne"><a class="redBigButton" id="backBtn" href="${pageContext.request.contextPath}/day/admin?type=6&p=1">返回</a></span>]]>
+			        	<span class="oldOne"><label>文章名称</label><input id="articleNameStr" disabled="disabled" type="text" value="${article.articleName}"/></span>
+			        	<span class="oldOne"><label>文章描述</label><input id="articleDescStr" type="text" value="${article.articleDesc}"/></span>
+			        	<span class="oldOne"><label>文章内容</label><br /></span>
+			        	<![CDATA[<textarea id="articleContentStr"></textarea>]]>
+			            <span class="oldOne"><a class="redBigButton" id="updateBtn" href="javascript:updateArticleValue();">保存</a></span>
         			</c:when>
         			<c:otherwise>
-        				<script type="text/javascript">var articleContentTemp = '';</script>
+        				<div id="contentStrTemp" style="display:none"></div>
         				<input id="articleIdStr" type="hidden" value=""/>
-			        	<![CDATA[<span><a id="backBtn" href="${pageContext.request.contextPath}/day/admin?type=6&p=1">返回</a></span>]]>
-			        	<span><label>文章名称</label><input id="articleNameStr" type="text" /></span>
-			        	<span><label>文章描述</label><input id="articleDescStr" type="text" /></span>
-			        	<span><label>文章内容</label><textarea id="articleContentStr"></textarea></span>
-			            <span><a id="updateBtn" href="javascript:updateArticleValue();">保存</a></span>
+			        	<![CDATA[<span class="oldOne"><a class="redBigButton" id="backBtn" href="${pageContext.request.contextPath}/day/admin?type=6&p=1">返回</a></span>]]>
+			        	<span class="oldOne"><label>文章名称</label><input id="articleNameStr" type="text" /></span>
+			        	<span class="oldOne"><label>文章描述</label><input id="articleDescStr" type="text" /></span>
+			        	<span class="oldOne"><label>文章内容</label><br /></span>
+			        	<![CDATA[<textarea id="articleContentStr"></textarea>]]>
+			            <span class="oldOne"><a class="redBigButton" id="updateBtn" href="javascript:updateArticleValue();">保存</a></span>
         			</c:otherwise>
         		</c:choose>
 		        <![CDATA[
