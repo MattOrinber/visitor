@@ -68,7 +68,7 @@ Airbnb provides an online platform that connects hosts who have accommodations t
 </p>]]>
 		</c:otherwise>
 	</c:choose>
-
+<![CDATA[
 
     </div>
 </div>
