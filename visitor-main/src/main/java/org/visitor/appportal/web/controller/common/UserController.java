@@ -1,5 +1,7 @@
 package org.visitor.appportal.web.controller.common;
 
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,6 +29,7 @@ import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.web.utils.EncryptionUtil;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
 import org.visitor.appportal.web.utils.RegisterInfo;
+import org.visitor.appportal.web.utils.RegisterInfo.UserTypeEnum;
 import org.visitor.appportal.web.utils.WebInfo;
 
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -116,11 +119,18 @@ public class UserController extends BasicController{
 		ResultJson rj = checkIfTheUserLegal(mailStrParam, passwordStrParam);
 		
 		if (rj.getResult() >= 0) {
-			String tokenStr = EncryptionUtil.getToken(mailStrParam, passwordStrParam, rj.getUserLoginTime());
-			userRedisService.saveUserToken(mailStrParam, tokenStr);
-			MixAndMatchUtils.setUserCookie(response, mailStrParam, tokenStr, MixAndMatchUtils.param_user_token_expire);
-			rj.setToken(tokenStr);
-			rj.setUserEmail(mailStrParam);
+			User userT = userRedisService.getUserPassword(mailStrParam);
+			
+			if (userT.getUserType().intValue() == UserTypeEnum.Admin.ordinal()) {
+				String tokenStr = EncryptionUtil.getToken(mailStrParam, passwordStrParam, rj.getUserLoginTime());
+				userRedisService.saveUserToken(mailStrParam, tokenStr);
+				MixAndMatchUtils.setUserCookie(response, mailStrParam, tokenStr, MixAndMatchUtils.param_user_token_expire);
+				rj.setToken(tokenStr);
+				rj.setUserEmail(mailStrParam);
+			} else {
+				rj.setResult(-1);
+				rj.setResultDesc("not admin!");
+			}
 		}
 		
 		setResultToClient(response, rj);
@@ -292,6 +302,56 @@ public class UserController extends BasicController{
 		resultJson.setResult(result);
 		resultJson.setResultDesc(resultDesc);
 		return resultJson;
+	}
+	
+	@RequestMapping(value = "addOne", method = POST)
+	public void addOne(HttpServletRequest request,
+			HttpServletResponse response) {
+		ResultJson rj = new ResultJson();
+		UserTemp ut = super.getUserJson(request);
+		String userEmailStr = ut.getEmailStr();
+		User userCheck = visitorUserService.findUserByEmail(userEmailStr);
+		if (userCheck == null) {
+			User user = new User();
+			user.setUserEmail(userEmailStr);
+			user.setUserPassword(ut.getPasswordStr());
+			user.setUserType(Integer.valueOf(ut.getUserTypeStr()));
+			user.setUserPaypalnum(ut.getUserPalpalNumStr());
+			user.setUserPhonenum(ut.getPhoneNumberStr());
+			
+			visitorUserService.saveUser(user);
+			userRedisService.saveUserPassword(user);
+			
+			rj.setResult(0);
+			rj.setResultDesc("Success");
+		} else {
+			rj.setResult(-1);
+			rj.setResultDesc("User exists!");
+		}
+		
+		super.sendJSONResponse(rj, response);
+	}
+	
+	@RequestMapping(value = "updateOne", method = POST)
+	public void updateOne(HttpServletRequest request,
+			HttpServletResponse response) {
+		ResultJson rj = new ResultJson();
+		UserTemp ut = super.getUserJson(request);
+		String userEmailStr = ut.getEmailStr();
+		User userCheck = visitorUserService.findUserByEmail(userEmailStr);
+		if (userCheck == null) {
+			rj.setResult(-1);
+			rj.setResultDesc("User does not exist!");
+		} else {
+			userCheck.setUserType(Integer.valueOf(ut.getUserTypeStr()));
+			
+			visitorUserService.saveUser(userCheck);
+			userRedisService.saveUserPassword(userCheck);
+			rj.setResult(0);
+			rj.setResultDesc("update success!");
+		}
+		
+		super.sendJSONResponse(rj, response);
 	}
 	
 	private void setResultToClient(HttpServletResponse response, ResultJson resultJson) {

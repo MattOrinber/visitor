@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.visitor.appportal.service.newsite.VisitorArticleService;
-import org.visitor.appportal.service.newsite.redis.ArticleRedisService;
 import org.visitor.appportal.visitor.beans.ArticleTemp;
 import org.visitor.appportal.visitor.beans.ContainerTemp;
 import org.visitor.appportal.visitor.beans.FloopyTemp;
@@ -292,6 +291,7 @@ public class BasicController {
 			itemCount = visitorArticleService.countArticle();
 			break;
 		case 7:
+			setUserModel(request, model);
 			break;
 		case 8:
 			break;
@@ -362,6 +362,15 @@ public class BasicController {
 		}
 		
 		model.addAttribute("pageType", pageType);
+	}
+
+	private void setUserModel(HttpServletRequest request, Model model) {
+		// TODO Auto-generated method stub
+		String emailStr = request.getParameter("mailStr");
+		if (StringUtils.isNotEmpty(emailStr)) {
+			User user = pageUserService.getUserByEmail(emailStr);
+			model.addAttribute("userInfo", user);
+		}
 	}
 
 	private void setArticleModel(HttpServletRequest request, Model model) {

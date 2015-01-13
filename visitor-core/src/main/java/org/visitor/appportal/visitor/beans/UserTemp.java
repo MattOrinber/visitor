@@ -24,6 +24,8 @@ public class UserTemp {
 	
 	private String userTokenStr;
 	private String newPassStr;
+	
+	private String userTypeStr;
 	public String getEmailStr() {
 		return emailStr;
 	}
@@ -155,5 +157,11 @@ public class UserTemp {
 	}
 	public void setNewPassStr(String newPassStr) {
 		this.newPassStr = newPassStr;
+	}
+	public String getUserTypeStr() {
+		return userTypeStr;
+	}
+	public void setUserTypeStr(String userTypeStr) {
+		this.userTypeStr = userTypeStr;
 	}
 }

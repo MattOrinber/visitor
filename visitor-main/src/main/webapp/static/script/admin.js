@@ -24,7 +24,7 @@ function loginUser() {
 	        		var hrefURL = pathGlobe +'/day/admin?type=0&p=1';
 	        		window.location.href = hrefURL;
 	        	} else {
-	        		alert("login failed");
+	        		alert("user not in admin group");
 	        	}
 	        },  
 	        error : function() {  
@@ -408,5 +408,99 @@ function updateArticleValue() {
 		}
 	} else {
 		alert("请输入正确的值");
+	}
+}
+
+
+//user add and update part
+function updateUserTypeValue() {
+	var mark = $.trim($("#userIdStr").val());
+	if (mark == "") {
+		var emailStr = $.trim($("#userEmailStr").val());
+		var onePassStr = $.trim($("#userpassword").val());
+		var twoPassStr = $.trim($("#userPasswordRe").val());
+		var userTypeStr = $.trim($("#userTypeStr").val());
+		
+		if (emailStr != "" && 
+				onePassStr != "" && 
+				twoPassStr != "" && 
+				userTypeStr != "" &&
+				onePassStr == twoPassStr) {
+			
+			var payPalNumStr = $.trim($("#userPasswordRe").val());
+			var phoneNumStr = $.trim($("#userPasswordRe").val());
+			var passwordMd5 = $.md5(onePassStr);
+			
+			var userTemp = {};
+			userTemp.emailStr = emailStr;
+			userTemp.passwordStr = passwordMd5;
+			userTemp.userTypeStr = userTypeStr;
+			userTemp.phoneNumberStr = phoneNumStr;
+			userTemp.userPalpalNumStr = payPalNumStr;
+			
+			var jsonStr = $.toJSON(userTemp);
+			console.log(jsonStr);
+		
+			var urlStrStr = pathGlobe + '/registerUser/addOne';
+		    
+		    $.ajax({ 
+		        type : 'POST',  
+		        contentType : 'application/json',  
+		        url : urlStrStr,  
+		        processData : false,  
+		        dataType : 'json',  
+		        data : jsonStr,  
+		        success : function(data) {  
+		        	if (data.result == 0) {
+		        		alert("增加用户成功");
+		        	} else {
+		        		var dataRes = "add user result: " + data.result + "; resultDesc: " + data.resultDesc;
+		        		alert(dataRes);
+		        	}
+		        },  
+		        error : function() {  
+		            alert('network error during adding one user');  
+		        }  
+		    }); 
+		} else {
+			alert("请输入正确的值");
+		}
+	} else {
+		var emailStr = $.trim($("#userEmailStr").val());
+		var userTypeStr = $.trim($("#userTypeStr").val());
+		
+		if (emailStr != "" && userTypeStr != "") {
+			
+			var userTemp = {};
+			userTemp.emailStr = emailStr;
+			userTemp.userTypeStr = userTypeStr;
+			
+			var jsonStr = $.toJSON(userTemp);
+			console.log(jsonStr);
+		
+			var urlStrStr = pathGlobe + '/registerUser/updateOne';
+		    
+		    $.ajax({ 
+		        type : 'POST',  
+		        contentType : 'application/json',  
+		        url : urlStrStr,  
+		        processData : false,  
+		        dataType : 'json',  
+		        data : jsonStr,  
+		        success : function(data) {  
+		        	if (data.result == 0) {
+		        		alert("更新用户成功");
+		        	} else {
+		        		var dataRes = "update user result: " + data.result + "; resultDesc: " + data.resultDesc;
+		        		alert(dataRes);
+		        	}
+		        },  
+		        error : function() {  
+		            alert('network error during updating one user');  
+		        }  
+		    }); 
+		} else {
+			alert("请输入正确的值");
+		}
 	}
 }

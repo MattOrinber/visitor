@@ -27,4 +27,8 @@ public class PageUserService {
 	public Long getUserCount() {
 		return visitorUserService.getUserCount();
 	}
+	
+	public User getUserByEmail(String emailStr) {
+		return visitorUserService.findUserByEmail(emailStr);
+	}
 }

@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Day Fetch</title>
 	<c:choose>
-		<c:when test="${pageType eq 10}">
+		<c:when test="${pageType gt 6}">
 			<link href="${pageContext.request.contextPath}/static/css/adminTen.css" rel="stylesheet" type="text/css" />
 		</c:when>
 		<c:otherwise>
@@ -138,6 +138,7 @@
 	    	<div id="detail0" style="display:block;">
 	        	<span><label>Email</label><input id="searchEmailStr" type="text" placeholder="bob@gmail.com" /></span>
 	            <span><a href="javascript:toUserSearchResult();">查询(待实现)</a></span>
+	            <span><a href="${pageContext.request.contextPath}/day/admin?type=7">添加用户</a></span>
 	            <table width="100%" border="0" cellpadding="0" cellspacing="1">
 	              <tr>
 	                <th width="20%">ID</th>
@@ -150,7 +151,7 @@
 	              <c:if test="${not empty itemCount and itemCount gt 0}">
 		              <c:forEach items="${itemList}" var="userTemp" varStatus="_st">
 		                  <tr>
-			                <td align="center"><a style="text-decoration:underline;color:blue;" href="javascript:void(0);">${userTemp.userId}</a></td>
+			                <td align="center"><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=7&mailStr=${userTemp.userEmail}">${userTemp.userId}</a>]]></td>
 			                <td>${userTemp.userEmail}</td>
 			                <td>
 			                	<c:choose>
@@ -522,6 +523,51 @@
 	            </table>
 	        </div>
 	        ]]>
+        </c:when>
+        
+        <c:when test="${pageType eq 7}">
+        	<![CDATA[
+        		<div id="userDetail" style="display:block;">
+        		]]>
+        		<c:choose>
+        			<c:when test="${not empty userInfo}">
+        				<input id="userIdStr" type="hidden" value="${userInfo.userId}"/>
+			        	<![CDATA[<span class="oldOne"><a class="redBigButton" id="backBtn" href="${pageContext.request.contextPath}/day/admin?type=0&p=1">返回</a></span>]]>
+			        	<span class="oldOne"><label>用户email</label><input id="userEmailStr" disabled="disabled" type="text" value="${userInfo.userEmail}"/></span>
+			        	<span class="oldOne"><label>用户电话</label><input id="userPhoneStr" disabled="disabled" type="text" value="${userInfo.userPhonenum}"/></span>
+			        	<span class="oldOne"><label>用户paypal number</label><input id="userPaypalStr" disabled="disabled" type="text" value="${userInfo.userPaypalnum}"/></span>
+			        	<span><label>用户类型</label>
+			        		<select id="userTypeStr">
+			        			<option value=""></option>
+			        			<option value="0">普通用户</option>
+			        			<option value="1">facebook用户</option>
+			        			<option value="2">管理员</option>
+			        		</select>
+			        	</span>
+			            <span class="oldOne"><a class="redBigButton" id="updateBtn" href="javascript:updateUserTypeValue();">保存</a></span>
+        			</c:when>
+        			<c:otherwise>
+        				<input id="userIdStr" type="hidden" value=""/>
+			        	<![CDATA[<span class="oldOne"><a class="redBigButton" id="backBtn" href="${pageContext.request.contextPath}/day/admin?type=0&p=1">返回</a></span>]]>
+			        	<span class="oldOne"><label>用户email</label><input id="userEmailStr" type="text" value="${userInfo.userEmail}"/></span>
+			        	<span class="oldOne"><label>用户密码</label><input id="userpassword" type="password" value="${userInfo.userPhonenum}"/></span>
+			        	<span class="oldOne"><label>重复密码</label><input id="userPasswordRe" type="password" value="${userInfo.userPaypalnum}"/></span>
+			        	<span><label>用户类型</label>
+			        		<select id="userTypeStr">
+			        			<option value="" selected="selected"></option>
+			        			<option value="0">普通用户</option>
+			        			<option value="1">facebook用户</option>
+			        			<option value="2">管理员</option>
+			        		</select>
+			        	</span>
+			        	<span class="oldOne"><label>用户手机</label><input id="userPhoneNumStr" type="text" /></span>
+			        	<span class="oldOne"><label>用户paypal number</label><input id="userPaypalStr" type="text" /></span>
+			            <span class="oldOne"><a class="redBigButton" id="updateBtn" href="javascript:updateUserTypeValue();">保存</a></span>
+        			</c:otherwise>
+        		</c:choose>
+		        <![CDATA[
+		        </div>
+        	]]>
         </c:when>
         
         <c:when test="${pageType eq 10}">
