@@ -15,7 +15,7 @@
 	<entry key="siteValue_value">Value</entry>
 	<entry key="siteValue_type">Type</entry>
 	
-	<entry key="siteValue_opera">Opera版本</entry>
+	<entry key="siteValue_opera">版本</entry>
 	<entry key="siteValue_model">机型</entry>
 	<entry key="siteValue_platform">平台</entry>
 	<entry key="siteValue_platform_os">操作系统</entry>

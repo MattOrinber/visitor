@@ -21,7 +21,7 @@
 	<!-- x-to-one -->
 	<entry key="category_parentCategory">父分类</entry>
 	<entry key="category_dic_category">产品分类</entry>
-	<entry key="category_dic_oversion">OPERA版本</entry>
+	<entry key="category_dic_oversion">版本</entry>
 	<entry key="category_dic_platform">手机平台</entry>
 	<entry key="category_dic_brand">手机品牌</entry>
 	<entry key="category_dic_resolution">分辨率</entry>

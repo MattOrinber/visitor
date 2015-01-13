@@ -37,12 +37,6 @@ public class SystemPreference {
 	
 	private String appApkInfo;
 	
-	//Soupeng api
-	private String soupengApiAdd;
-	private String soupengApiUpdate;
-	private String soupengAppkey;
-	private String soupengSid;
-	
 	//按照合作方式进行排序
 	private Map<Long, Integer> gameCoorperationMap;
 	private Map<Long, Integer> androidCoorperationMap;
@@ -264,66 +258,6 @@ public class SystemPreference {
 	@Value("#{systemProperties['app.apk.info']}")
 	public void setAppApkInfo(String appApkInfo) {
 		this.appApkInfo = appApkInfo;
-	}
-
-	/**
-	 * @return the soupengApiAdd
-	 */
-	public String getSoupengApiAdd() {
-		return soupengApiAdd;
-	}
-
-	/**
-	 * @param soupengApiAdd the soupengApiAdd to set
-	 */
-	@Value("#{systemProperties['soupeng.api.add']}")
-	public void setSoupengApiAdd(String soupengApiAdd) {
-		this.soupengApiAdd = soupengApiAdd;
-	}
-
-	/**
-	 * @return the soupengApiUpdate
-	 */
-	public String getSoupengApiUpdate() {
-		return soupengApiUpdate;
-	}
-
-	/**
-	 * @param soupengApiUpdate the soupengApiUpdate to set
-	 */
-	@Value("#{systemProperties['soupeng.api.update']}")
-	public void setSoupengApiUpdate(String soupengApiUpdate) {
-		this.soupengApiUpdate = soupengApiUpdate;
-	}
-
-	/**
-	 * @return the soupengAppkey
-	 */
-	public String getSoupengAppkey() {
-		return soupengAppkey;
-	}
-
-	/**
-	 * @param soupengAppkey the soupengAppkey to set
-	 */
-	@Value("#{systemProperties['soupeng.appkey']}")
-	public void setSoupengAppkey(String soupengAppkey) {
-		this.soupengAppkey = soupengAppkey;
-	}
-
-	/**
-	 * @return the soupengSid
-	 */
-	public String getSoupengSid() {
-		return soupengSid;
-	}
-
-	/**
-	 * @param soupengSid the soupengSid to set
-	 */
-	@Value("#{systemProperties['soupeng.sid']}")
-	public void setSoupengSid(String soupengSid) {
-		this.soupengSid = soupengSid;
 	}
 	
 	@Value("#{systemProperties['game.cooperationid.sortorder']}")

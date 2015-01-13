@@ -188,10 +188,10 @@
 	<entry key="homepage.what.next"><![CDATA[
 		<ul>
 			<li>
-				App Portal意在搭建一个基于Opera浏览器的"应用门户"，通过好的前端展现以及高质量的应用下载为浏览器用户提供全面，便捷的应用发现，下载体验。
+				App Portal
 			</li>
 			<li>
-				想了解更多，可以登录 <a href="http://apps.oupeng.com/" target="apps">apps.oupeng.com</a> ，体验我们的服务。
+				想了解更多
 			</li>
 		</ul>
 	]]></entry>
@@ -199,8 +199,7 @@
 	<entry key="homepage.support"><![CDATA[
 		<ul>
 			<li>
-				如果出现问题，或有改进建议, 请发送邮件至 <a href="mailto:jianbinq@oupeng.com"><br/>
-				jianbinq@oupeng.com</a> <a href="mailto:jianc@oupeng.com">jianc@oupeng.com</a>通知我们。
+				如果出现问题，或有改进建议, 通知我们。
 			</li>
 			<li>
 				我们会不断进行改进，以提供更优质的服务。

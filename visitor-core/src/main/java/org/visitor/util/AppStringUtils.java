@@ -321,19 +321,7 @@ public class AppStringUtils {
 		//"/" + upf.getUid() + "/" + upf.getBranding() + "/file" + productFile.getFilePath()
 		return "/" + uid + "/" + branding + "/" + new DateTime().toString(TIMESTAMP_FORMAT) + "/file" + path;
 	}
-	
-	/**
-	 * 获取oupeng版本
-	 * @param branding
-	 * @return
-	 */
-	public static int getOupengVersion(String branding) {
-		if(StringUtils.contains(branding, "_8_")) {
-			return 8;
-		} else {
-			return 7;
-		}
-	}
+
 	public static String getStringValue(Object value) {
 		return null == value ? null : String.valueOf(value);
 	}

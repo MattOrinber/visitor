@@ -9,8 +9,6 @@ import org.msgpack.annotation.Message;
 import org.visitor.appportal.domain.Site;
 
 /**
- * 用户的一些固定参数。默认为Android/Symbian站点的数据。即apps.oupeng.com域名下的信息
- * 对于games.oupeng.com域名下的信息需要通过另外的方式获取。
  * @author mengw
  *
  */

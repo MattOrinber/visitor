@@ -61,7 +61,7 @@ public class UserPreferenceResolver {
 
 	/**
 	 * 获取手机平台版本，对应的模型为Category
-	 * 1）通过X-OperaMini-Phone-UA参数获取平台版本，如果取到，则从redis中取出对应的版本信息
+	 * 1）通过参数获取平台版本，如果取到，则从redis中取出对应的版本信息
 	 * 2）没有，则从User-Agent中获取平台信息
 	 * @param request
 	 * @return

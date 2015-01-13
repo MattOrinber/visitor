@@ -17,7 +17,7 @@
 	<entry key="site_platformId">手机平台版本</entry>
 	<entry key="site_status">状态</entry>
 	<entry key="site_template">模板</entry>
-	<entry key="site_operaVersion">Opera 版本</entry>
+	<entry key="site_operaVersion">版本</entry>
 	<entry key="site_versionId">Version Id</entry>
 	<entry key="site_companyId">公司渠道</entry>
 	<entry key="site_resolutionId">分辨率</entry>
