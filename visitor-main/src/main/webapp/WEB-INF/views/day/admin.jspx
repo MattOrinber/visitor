@@ -26,7 +26,7 @@
 <![CDATA[
 <div class="header">
     <div class="head">
-    	<div class="logo"><a href="index.html"><img src="${pageContext.request.contextPath}/static/img/logo-red.png" /></a></div>
+    	<div class="logo"><a href="javascript:void(0);"><img src="${pageContext.request.contextPath}/static/img/logo-red.png" /></a></div>
     </div>
 </div>
 
@@ -103,6 +103,17 @@
     			<c:otherwise>
     			<![CDATA[
     				<li><a href="${pageContext.request.contextPath}/day/admin?type=5&p=1">订单管理</a></li>
+    			]]>
+    			</c:otherwise>
+    		</c:choose>
+    		
+    		<c:choose>
+    			<c:when test="${pageType eq 6}">
+    				<li class="choosed"><a href="javascript:void(0);">页面文章管理</a></li>
+    			</c:when>
+    			<c:otherwise>
+    			<![CDATA[
+    				<li><a href="${pageContext.request.contextPath}/day/admin?type=6&p=1">页面文章管理</a></li>
     			]]>
     			</c:otherwise>
     		</c:choose>
@@ -455,6 +466,183 @@
 	            </table>
 	        </div>
 	        ]]>
+        </c:when>
+        
+        <c:when test="${pageType eq 6}">
+        	<![CDATA[
+	    	<div id="detail6" style="display:block;">
+	        	<span><label>Name</label><input id="searchEmailStr" type="text" placeholder="One" /></span>
+	            <span><a href="javascript:toUserSearchResult();">查询(待实现)</a></span>
+	            <span><a href="${pageContext.request.contextPath}/day/admin?type=10">添加文章</a></span>
+	            <table width="100%" border="0" cellpadding="0" cellspacing="1">
+	              <tr>
+	                <th width="20%">ID</th>
+	                <th width="30%">文章名称</th>
+	                <th width="30%">文章描述</th>
+	                <th width="20%">操作</th>
+	              </tr>
+	              
+	        ]]>
+	              <c:if test="${not empty itemCount and itemCount gt 0}">
+		              <c:forEach items="${itemList}" var="articleTemp" varStatus="_st">
+		                  <tr>
+			                <td align="center"><a href="javascript:void(0);">${articleTemp.articleId}</a></td>
+			                <td>${articleTemp.articleName}</td>
+			                <td>${articleTemp.articleDesc}</td>
+			                <![CDATA[<td align="center"><a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=10&name=${articleTemp.articleName}">查看</a></td>]]>
+			              </tr>
+		              </c:forEach>
+	              </c:if>
+	              
+	              <c:if test="${not empty pageNumber and pageNumber gt 1}">
+					<tr>
+						<td align="center" colspan="4">
+							<c:choose>
+					 		<c:when test="${ifEnd eq 0}"><a href="javascript:void(0);">前一页</a></c:when>
+					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=6&p=${pageIndex-1}">前一页</a>]]></c:otherwise>
+					 	</c:choose>
+					 	<input id="pageIdxStr" type="text" value="${pageIndex}" style="width:50px" />
+					 	<c:choose>
+					 		<c:when test="${ifEnd eq 2}"><a href="javascript:void(0);">后一页</a><span>共${pageNumber}页</span></c:when>
+					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=6&p=${pageIndex+1}">后一页</a><span>共${pageNumber}页</span>]]></c:otherwise>
+					 	</c:choose>
+						</td>
+					</tr>
+				   </c:if>
+	              
+	        <![CDATA[
+	            </table>
+	        </div>
+	        ]]>
+        </c:when>
+        
+        <c:when test="${pageType eq 10}">
+        	<script type="text/javascript" src="${pageContext.request.contextPath}/static/script/ckedit/ckeditor.js"><c:out value="" /></script>
+        	<script type="text/javascript">
+        		function setContentValue() {
+        			if (articleContentTemp != '') {
+        				var editor = CKEDITOR.instances.articleContentStr;
+        				editor.insertHtml(articleContentTemp);
+	    			}
+        		}
+	        	$(document).ready(function(){
+	        		var node = $("#articleContentStr");
+	        		if (node != null) {
+	        			CKEDITOR.replace( 'articleContentStr', {
+	        				on: {
+	        					instanceReady:setContentValue
+	        				},
+	        				coreStyles_bold: { 
+	        					element: 'b' 
+	        				},
+	        				coreStyles_italic: { 
+	        					element: 'i' 
+	        				},
+	        		
+	        				fontSize_style: {
+	        					element: 'font',
+	        					attributes: { 'size': '#(size)' }
+	        				},
+	        				width:800,
+	        				height:250
+	        			});
+	        		}
+	    		});
+	        	
+	        	function updateArticleValue() {
+	        		var mark = $.trim($("#articleIdStr").val());
+	        		
+	        		var nameStr = $.trim($("#articleNameStr").val());
+	        		var descStr = $.trim($("#articleDescStr").val());
+	        		var editor = CKEDITOR.instances.articleContentStr;
+	        		var contentStr = editor.getData();
+	        		
+	        		if (nameStr != "" && descStr != "" && contentStr != "") {
+	        			
+	        			var articleTemp = {};
+	        			articleTemp.nameStr = nameStr;
+	        			articleTemp.descStr = encodeURIComponent(descStr);
+	        			articleTemp.contentStr = encodeURIComponent(contentStr);
+	        			
+	        			var jsonStr = $.toJSON(articleTemp);
+	        			console.log(jsonStr);
+	        			
+	        			if (mark == "") {
+	        				var urlStrStr = pathGlobe + '/article/addOne';
+	        			    
+	        			    $.ajax({ 
+	        			        type : 'POST',  
+	        			        contentType : 'application/json',  
+	        			        url : urlStrStr,  
+	        			        processData : false,  
+	        			        dataType : 'json',  
+	        			        data : jsonStr,  
+	        			        success : function(data) {  
+	        			        	if (data.result == 0) {
+	        			        		alert("增加文章成功");
+	        			        	} else {
+	        			        		var dataRes = "add article result: " + data.result + "; resultDesc: " + data.resultDesc;
+	        			        		alert(dataRes);
+	        			        	}
+	        			        },  
+	        			        error : function() {  
+	        			            alert('network error during adding one article');  
+	        			        }  
+	        			    }); 
+	        			} else {
+	        				var urlStrStr = pathGlobe + '/article/updateOne';
+	        			    
+	        			    $.ajax({ 
+	        			        type : 'POST',  
+	        			        contentType : 'application/json',  
+	        			        url : urlStrStr,  
+	        			        processData : false,  
+	        			        dataType : 'json',  
+	        			        data : jsonStr,  
+	        			        success : function(data) {  
+	        			        	if (data.result == 0) {
+	        			        		alert("更新文章成功");
+	        			        	} else {
+	        			        		var dataRes = "update article result: " + data.result + "; resultDesc: " + data.resultDesc;
+	        			        		alert(dataRes);
+	        			        	}
+	        			        },  
+	        			        error : function() {  
+	        			            alert('network error during updating one article');  
+	        			        }  
+	        			    }); 
+	        			}
+	        		} else {
+	        			alert("请输入正确的值");
+	        		}
+	        	}
+			</script>
+        	<![CDATA[
+        		<div id="containerDetail" style="display:none;">
+        		]]>
+        		<c:choose>
+        			<c:when test="${not empty article}">
+        				<script type="text/javascript">var articleContentTemp = '${article.articleContent}';</script>
+        				<input id="articleIdStr" type="hidden" value="${article.articleId}"/>
+			        	<![CDATA[<span><a id="backBtn" href="${pageContext.request.contextPath}/day/admin?type=6&p=1">返回</a></span>]]>
+			        	<span><label>文章名称</label><input id="articleNameStr" disabled="disabled" type="text" value="${article.articleName}"/></span>
+			        	<span><label>文章描述</label><input id="articleDescStr" type="text" value="${article.articleDesc}"/></span>
+			        	<span><label>文章内容</label><textarea id="articleContentStr"></textarea></span>
+			            <span><a id="updateBtn" href="javascript:updateArticleValue();">保存</a></span>
+        			</c:when>
+        			<c:otherwise>
+        				<script type="text/javascript">var articleContentTemp = '';</script>
+        				<input id="articleIdStr" type="hidden" value=""/>
+			        	<![CDATA[<span><a id="backBtn" href="${pageContext.request.contextPath}/day/admin?type=6&p=1">返回</a></span>]]>
+			        	<span><label>文章名称</label><input id="articleNameStr" type="text" /></span>
+			        	<span><label>文章描述</label><input id="articleDescStr" type="text" /></span>
+			        	<span><label>文章内容</label><textarea id="articleContentStr"></textarea></span>
+			            <span><a id="updateBtn" href="javascript:updateArticleValue();">保存</a></span>
+        			</c:otherwise>
+        		</c:choose>
+		        <![CDATA[
+		        </div>
+        	]]>
         </c:when>
         
         </c:choose>

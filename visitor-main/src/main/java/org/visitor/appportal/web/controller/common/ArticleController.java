@@ -2,6 +2,9 @@ package org.visitor.appportal.web.controller.common;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,7 +32,7 @@ public class ArticleController extends BasicController {
 	
 	@RequestMapping(value = "addOne", method = POST)
 	public void addOne(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws UnsupportedEncodingException {
 		ArticleTemp at = super.getArticleJSON(request);
 		ResultJson rj = new ResultJson();
 		
@@ -40,8 +43,12 @@ public class ArticleController extends BasicController {
 		if (!articleRedisService.hasKey(nameStr)) {
 			Article atNew = new Article();
 			atNew.setArticleName(nameStr);
-			atNew.setArticleDesc(at.getDescStr());
-			atNew.setArticleContent(at.getContentStr());
+			
+			String descStrT = URLDecoder.decode(at.getDescStr(), "UTF-8");
+			String contentStrT = URLDecoder.decode(at.getContentStr(), "UTF-8");
+			
+			atNew.setArticleDesc(descStrT);
+			atNew.setArticleContent(contentStrT);
 			
 			visitorArticleService.save(atNew);
 			articleRedisService.saveArticleToRedis(atNew);
@@ -55,7 +62,7 @@ public class ArticleController extends BasicController {
 	
 	@RequestMapping(value = "updateOne", method = POST)
 	public void updateOne(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws UnsupportedEncodingException {
 		ArticleTemp at = super.getArticleJSON(request);
 		ResultJson rj = new ResultJson();
 		
@@ -64,8 +71,12 @@ public class ArticleController extends BasicController {
 		
 		String nameStr = at.getNameStr();
 		Article atRev = articleRedisService.getArticleByName(nameStr);
-		atRev.setArticleDesc(at.getDescStr());
-		atRev.setArticleContent(at.getContentStr());
+		
+		String descStrT = URLDecoder.decode(at.getDescStr(), "UTF-8");
+		String contentStrT = URLDecoder.decode(at.getContentStr(), "UTF-8");
+		
+		atRev.setArticleDesc(descStrT);
+		atRev.setArticleContent(contentStrT);
 		
 		visitorArticleService.save(atRev);
 		articleRedisService.saveArticleToRedis(atRev);

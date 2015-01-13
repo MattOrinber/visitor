@@ -20,6 +20,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.visitor.appportal.service.newsite.VisitorArticleService;
+import org.visitor.appportal.service.newsite.redis.ArticleRedisService;
 import org.visitor.appportal.visitor.beans.ArticleTemp;
 import org.visitor.appportal.visitor.beans.ContainerTemp;
 import org.visitor.appportal.visitor.beans.FloopyTemp;
@@ -29,6 +31,7 @@ import org.visitor.appportal.visitor.beans.ProductDetailTemp;
 import org.visitor.appportal.visitor.beans.ProductPriceMultiTemp;
 import org.visitor.appportal.visitor.beans.ProductTemp;
 import org.visitor.appportal.visitor.beans.UserTemp;
+import org.visitor.appportal.visitor.domain.Article;
 import org.visitor.appportal.visitor.domain.City;
 import org.visitor.appportal.visitor.domain.Container;
 import org.visitor.appportal.visitor.domain.FloopyThing;
@@ -63,6 +66,8 @@ public class BasicController {
 	private PageConstantService pageConstantService;
 	@Autowired
 	private PageUserService pageUserService;
+	@Autowired
+	private VisitorArticleService visitorArticleService;
 	
 	public BasicController() {	
 	}
@@ -283,6 +288,18 @@ public class BasicController {
 		case 5:
 			itemCount = pageOrdersService.countOrders();
 			break;
+		case 6:
+			itemCount = visitorArticleService.countArticle();
+			break;
+		case 7:
+			break;
+		case 8:
+			break;
+		case 9:
+			break;
+		case 10:
+			setArticleModel(request, model);
+			break;
 		}
 		
 		if (itemCount != null && itemCount.longValue() > 0) {
@@ -337,9 +354,22 @@ public class BasicController {
 				List<ProductOrder> orderList = pageOrdersService.getPagedOrders(pageIdx);
 				model.addAttribute("itemList", orderList);
 				break;
+			case 6:
+				List<Article> articleList = visitorArticleService.getArticleByPage(pageIdx);
+				model.addAttribute("itemList", articleList);
+				break;
 			}
 		}
 		
 		model.addAttribute("pageType", pageType);
+	}
+
+	private void setArticleModel(HttpServletRequest request, Model model) {
+		// TODO Auto-generated method stub
+		String nameStr = request.getParameter("name");
+		if (StringUtils.isNotEmpty(nameStr)) {
+			Article art = visitorArticleService.getArticleByName(nameStr);
+			model.addAttribute("article", art);
+		}
 	}
 }

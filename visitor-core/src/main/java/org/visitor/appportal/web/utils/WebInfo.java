@@ -43,8 +43,8 @@ public class WebInfo {
 	}
 	
 	public enum ManagementPageTypeEnum {
-		UserMan(0), PageConstsMan(1), CityMan(2), CityRecommendMan(3), ActivitiesMan(4), OrderMan(5),
-		UserDetail(6), ActivityDetail(7), OrderDetail(8);
+		UserMan(0), PageConstsMan(1), CityMan(2), CityRecommendMan(3), ActivitiesMan(4), OrderMan(5), ArticleMan(6), 
+		UserDetail(7), ActivityDetail(8), OrderDetail(9), ArticleDetail(10);
 		private Integer value;
 		private String displayName;
 		
@@ -70,13 +70,19 @@ public class WebInfo {
 				displayName = "orders management page";
 				break;
 			case 6:
-				displayName = "user detail page";
+				displayName = "article management page";
 				break;
 			case 7:
-				displayName = "acticity detail page";
+				displayName = "user detail page";
 				break;
 			case 8:
+				displayName = "acticity detail page";
+				break;
+			case 9:
 				displayName = "order detail page";
+				break;
+			case 10:
+				displayName = "article detail page";
 				break;
 			}
 		}

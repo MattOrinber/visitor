@@ -203,9 +203,9 @@ var imgPathOriginStr = '${imgPathOrigin}';
 		</select>
             
 <![CDATA[
-    	<a href="">About </a>|
-        <a href="">Terms of Use </a>|
-        <a href="">Privacy Policy </a>
+    	<a href="${pageContext.request.contextPath}/day/about" class="select">About</a>
+        <a href="${pageContext.request.contextPath}/day/footer-terms">Terms of Use</a>
+        <a href="${pageContext.request.contextPath}/day/footer-policy">Privacy Policy</a>
         <span>Copyright 2014 © DayFetch All rights reserve</span>
     </div>
 </div>

@@ -18,7 +18,7 @@
 
 <div class="nav">
 	<div class="nav-detail">
-    	<a href="${pageContext.request.contextPath}/day/about" class="select">About</a>
+    	<a href="javascript:void(0);" class="select">About</a>
         <a href="${pageContext.request.contextPath}/day/footer-terms">Terms of Use</a>
         <a href="${pageContext.request.contextPath}/day/footer-policy">Privacy Policy</a>
     </div>

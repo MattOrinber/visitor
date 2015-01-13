@@ -34,6 +34,11 @@ public class VisitorArticleService {
 	}
 	
 	@Transactional
+	public Long countArticle() {
+		return visitorArticleRepository.count();
+	}
+	
+	@Transactional
 	public List<Article> getArticleByPage(Long pageIdx) {
 		ArticleSearchForm asf = new ArticleSearchForm();
 		asf.getSp().setPageNumber(pageIdx.intValue());
