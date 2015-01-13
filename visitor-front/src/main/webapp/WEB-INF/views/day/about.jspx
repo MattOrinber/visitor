@@ -1,0 +1,56 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:security="http://www.springframework.org/security/tags" xmlns:form="http://www.springframework.org/tags/form" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+
+<body>
+	<c:if test="${not empty loginUserEmail}">
+		<script type="text/javascript">ifLogginIn = 1;</script>
+	</c:if>
+<![CDATA[
+	<script>
+		$(document).ready(function(){
+			initLoginBar();
+			setGlobalCurrency();
+			startChecking();
+		});
+	</script>
+
+<div class="nav">
+	<div class="nav-detail">
+    	<a href="${pageContext.request.contextPath}/day/about" class="select">About</a>
+        <a href="${pageContext.request.contextPath}/day/footer-terms">Terms of Use</a>
+        <a href="${pageContext.request.contextPath}/day/footer-policy">Privacy Policy</a>
+    </div>
+</div>
+
+<div class="main">
+    <div class="maincontent">
+    ]]>
+    <c:choose>
+    	<c:when test="${not empty aboutContent}">
+    		${aboutContent}
+    	</c:when>
+    	<c:otherwise>
+    	<![CDATA[
+    		<h1 style="margin-bottom:20px;">About Us</h1>
+ <p>Founded in March of 2015 and based in San Francisco, California, Dayfetch is a trusted community marketplace for people to list, discover, and book unique accommodations around the world â online or from a mobile phone.
+
+Whether an apartment for a night, a castle for a week, or a villa for a month, Dayfetch connects people to unique travel experiences, at any price point, in more than 34,000 cities and 190 countries. And with world-class customer service and a growing community of users, Dayfetch is the easiest way for people to monetize their extra space and showcase it to an audience of millions.
+       </p>
+
+ <p>Founded in August of 2008 and based in San Francisco, California, Dayfetch is a trusted community marketplace for people to list, discover, and book unique accommodations around the world â online or from a mobile phone.
+
+Whether an apartment for a night, a castle for a week, or a villa for a month, Dayfetch connects people to unique travel experiences, at any price point, in more than 34,000 cities and 190 countries. And with world-class customer service and a growing community of users, Dayfetch is the easiest way for people to monetize their extra space and showcase it to an audience of millions.
+       </p>
+       ]]>
+    	</c:otherwise>
+    </c:choose>
+
+<![CDATA[
+    </div>
+</div>
+
+]]>
+</body>
+</html>

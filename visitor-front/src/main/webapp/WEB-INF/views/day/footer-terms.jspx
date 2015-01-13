@@ -1,0 +1,78 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:security="http://www.springframework.org/security/tags" xmlns:form="http://www.springframework.org/tags/form" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+
+<body>
+	<c:if test="${not empty loginUserEmail}">
+		<script type="text/javascript">ifLogginIn = 1;</script>
+	</c:if>
+<![CDATA[
+	<script>
+		$(document).ready(function(){
+			initLoginBar();
+			setGlobalCurrency();
+			startChecking();
+		});
+	</script>
+
+<div class="nav">
+	<div class="nav-detail">
+    	<a href="about.html">About</a>
+        <a href="footer-terms.html" class="select">Terms of Use</a>
+        <a href="footer-policy.html">Privacy Policy</a>
+    </div>
+</div>
+
+<div class="main">
+    <div class="maincontent">
+    
+    ]]>
+    
+    <c:choose>
+    	<c:when test="${not empty footerTermsContent}">
+    		${footerTermsContent}
+    	</c:when>
+    	<c:otherwise>
+    	<![CDATA[
+    
+        <h1 style="margin-bottom:20px;">Terms of Use</h1>
+
+		<p>
+        	PLEASE READ THESE TERMS OF SERVICE CAREFULLY AS THEY CONTAIN IMPORTANT INFORMATION REGARDING YOUR LEGAL RIGHTS, REMEDIES AND OBLIGATIONS. THESE INCLUDE VARIOUS LIMITATIONS AND EXCLUSIONS, A CLAUSE THAT GOVERNS THE JURISDICTION AND VENUE OF DISPUTES, AND OBLIGATIONS TO COMPLY WITH APPLICABLE LAWS AND REGULATIONS.
+
+IN PARTICULAR, HOSTS SHOULD UNDERSTAND HOW THE LAWS WORK IN THEIR RESPECTIVE CITIES. SOME CITIES HAVE LAWS THAT RESTRICT THEIR ABILITY TO HOST PAYING GUESTS FOR SHORT PERIODS. THESE LAWS ARE OFTEN PART OF A CITY'S ZONING OR ADMINISTRATIVE CODES. IN MANY CITIES, HOSTS MUST REGISTER, GET A PERMIT, OR OBTAIN A LICENSE BEFORE LISTING A PROPERTY OR ACCEPTING GUESTS. CERTAIN TYPES OF SHORT-TERM BOOKINGS MAY BE PROHIBITED ALTOGETHER. LOCAL GOVERNMENTS VARY GREATLY IN HOW THEY ENFORCE THESE LAWS. PENALTIES MAY INCLUDE FINES OR OTHER ENFORCEMENT. HOSTS SHOULD REVIEW LOCAL LAWS BEFORE LISTING A SPACE ON AIRBNB.
+
+Last Updated: June 30, 2014<p>
+
+<h3>TERMS OF SERVICE</h3>
+
+<p>If you are using the Site, Application or Services and you reside in the USA, you are contracting with Airbnb, Inc. with respect to use of the Airbnb Site, Application or Services, and with Airbnb Payments, Inc. with respect to any payments or payouts from or to you conducted through the Site, Application or Services. If you reside outside of the USA, you are contracting with Airbnb Ireland. If you initially reside in the USA and contract with Airbnb, Inc. and/or Airbnb Payments, Inc., but subsequently change your residence to outside of the USA, you will contract with Airbnb Ireland from the date on which your place of residence changes, and vice versa. (Airbnb, Inc., Airbnb Ireland, and Airbnb Payments, Inc. (the last solely with respect to payments and payouts related activity) are each hereinafter referred to as "Airbnb", "we", "us", or "our"). Airbnb Payments, Inc. and Airbnb Ireland shall individually and collectively, as appropriate, be referred to herein as "Airbnb Payments".
+
+Airbnb provides an online platform that connects hosts who have accommodations to rent with guests seeking to rent such accommodations (collectively, the "Services"), which Services are accessible at www.airbnb.com and any other websites through which Airbnb makes the Services available (collectively, the "Site") and as an application for mobile devices (the "Application"). By using the Site or Application, you agree to comply with and be legally bound by the terms and conditions of these Terms of Service ("Terms"), whether or not you become a registered user of the Services. These Terms govern your access to and use of the Site, Application and Services and all Collective Content (defined below), and your participation in the Referral Program (defined below), and constitute a binding legal agreement between you and Airbnb. Please also read carefully our Privacy Policy at http://www.airbnb.com/terms/privacy_policy. If you do not agree to these Terms, you have no right to obtain information from or otherwise continue using the Site, Application or Services. Failure to use the Site and Application in accordance with these Terms may subject you to civil and criminal penalties.</p>
+
+<p>THE SITE, APPLICATION AND SERVICES COMPRISE AN ONLINE PLATFORM THROUGH WHICH HOSTS (DEFINED BELOW) MAY CREATE LISTINGS (DEFINED BELOW) FOR ACCOMMODATIONS (DEFINED BELOW) AND GUESTS (DEFINED BELOW) MAY LEARN ABOUT AND BOOK ACCOMMODATIONS DIRECTLY WITH THE HOSTS. YOU UNDERSTAND AND AGREE THAT AIRBNB IS NOT A PARTY TO ANY AGREEMENTS ENTERED INTO BETWEEN HOSTS AND GUESTS, NOR IS AIRBNB A REAL ESTATE BROKER, AGENT OR INSURER. AIRBNB HAS NO CONTROL OVER THE CONDUCT OF HOSTS, GUESTS AND OTHER USERS OF THE SITE, APPLICATION AND SERVICES OR ANY ACCOMMODATIONS, AND DISCLAIMS ALL LIABILITY IN THIS REGARD TO THE MAXIMUM EXTENT PERMITTED BY LAW.</p>
+
+<h3>Key Terms</h3>
+
+<p>"Airbnb Content" means all Content that Airbnb makes available through the Site, Application, or Services, including any Content licensed from a third party, but excluding Member Content. 
+"Booking Request Period" means the time period starting from the time when a booking is requested by a Guest (as determined by Airbnb in its sole discretion), within which a Host may decide whether to confirm or reject that booking request, as stated on the Site, Application or Services. Different Booking Request Periods may apply in different places. 
+"Collective Content" means Member Content and Airbnb Content. 
+"Content" means text, graphics, images, music, software (excluding the Application), audio, video, information or other materials. 
+"Guest" means a Member who requests from a Host a booking of an Accommodation via the Site, Application or Services, or a Member who stays at an Accommodation and is not the Host for such Accommodation. 
+"Host" means a Member who creates a Listing via the Site, Application and Services. 
+"Listing" means an Accommodation that is listed by a Host as available for rental via the Site, Application, and Services. 
+"Member" means a person who completes Airbnb's account registration process, including but not limited to Hosts and Guests, as described under "Account Registration" below. 
+"Member Content" means all Content that a Member posts, uploads, publishes, submits or transmits to be made available through the Site, Application or Services. 
+"Tax" or "Taxes" mean any sales taxes, value added taxes (VAT), goods and services taxes (GST), transient occupancy taxes, tourist or other visitor taxes, accommodation or lodging taxes, fees (such as convention center fees) that accommodation providers may be required by law to collect and remit to governmental agencies, and other similar municipal, state, federal and national indirect or other withholding and personal or corporate income taxes.
+</p>]]>
+		</c:otherwise>
+	</c:choose>
+
+
+    </div>
+</div>
+]]>
+
+</body>
+</html>

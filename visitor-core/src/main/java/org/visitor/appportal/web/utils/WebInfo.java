@@ -17,6 +17,10 @@ public class WebInfo {
 	
 	public static final String UserID = "userLoginId";
 	
+	public static final String ABOUT_INFO = "page_about";
+	public static final String FOOTER_POLICY = "page_footer_policy";
+	public static final String FOOTER_TERMS = "page_footer_terms";
+	
 	public static final Long pageSize = 10L;
 	
 	private static ObjectMapper objectMapper;

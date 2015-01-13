@@ -21,12 +21,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.visitor.appportal.service.newsite.VisitorUserService;
 import org.visitor.appportal.service.newsite.VisitorUserTokenInfoService;
+import org.visitor.appportal.service.newsite.redis.ArticleRedisService;
 import org.visitor.appportal.service.newsite.redis.FloopyThingRedisService;
 import org.visitor.appportal.service.newsite.redis.OrderRedisService;
 import org.visitor.appportal.service.newsite.redis.ProductRedisService;
 import org.visitor.appportal.service.newsite.redis.TimezoneRedisService;
 import org.visitor.appportal.service.newsite.redis.UserRedisService;
 import org.visitor.appportal.service.newsite.redis.VisitorLanguageRedisService;
+import org.visitor.appportal.visitor.domain.Article;
 import org.visitor.appportal.visitor.domain.ProductOrder;
 import org.visitor.appportal.visitor.domain.ProductPayOrder;
 import org.visitor.appportal.visitor.domain.User;
@@ -63,6 +65,8 @@ public class IndexController extends BasicController {
 	
 	@Autowired
 	private OrderRedisService orderRedisService;
+	@Autowired
+	private ArticleRedisService articleRedisService;
 
 	/**
 	 * 
@@ -424,6 +428,46 @@ public class IndexController extends BasicController {
 		
 		model.addAttribute("pageName", "inbox");
 		return "day/resetpass";
+	}
+	
+	@RequestMapping({"day/about"})
+	public String dayAbout(HttpServletRequest request,
+			HttpServletResponse response, 
+			Model model) {
+		super.setModel(request, response, model, false);
+		
+		Article art = articleRedisService.getArticleByName(WebInfo.ABOUT_INFO);
+		if (art != null) {
+			model.addAttribute("aboutContent", art.getArticleContent());
+		}
+		model.addAttribute("pageName", "inbox");
+		return "day/about";
+	}
+	
+	@RequestMapping({"day/footer-policy"})
+	public String dayFooterPolicy(HttpServletRequest request,
+			HttpServletResponse response, 
+			Model model) {
+		super.setModel(request, response, model, false);
+		Article art = articleRedisService.getArticleByName(WebInfo.FOOTER_POLICY);
+		if (art != null) {
+			model.addAttribute("footerPolicyContent", art.getArticleContent());
+		}
+		model.addAttribute("pageName", "inbox");
+		return "day/footer-policy";
+	}
+	
+	@RequestMapping({"day/footer-terms"})
+	public String dayFooterTerms(HttpServletRequest request,
+			HttpServletResponse response, 
+			Model model) {
+		super.setModel(request, response, model, false);
+		Article art = articleRedisService.getArticleByName(WebInfo.FOOTER_TERMS);
+		if (art != null) {
+			model.addAttribute("footerTermsContent", art.getArticleContent());
+		}
+		model.addAttribute("pageName", "inbox");
+		return "day/footer-terms";
 	}
 	
 	public static void main(String[] args) {
