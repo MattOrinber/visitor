@@ -537,8 +537,10 @@ function disableUser(userIdStr) {
 	        data : jsonStr,  
 	        success : function(data) {  
 	        	if (data.result == 0) {
-	        		alert("用户账户成功冻结");
 	        		$("#user_status_" + data.userId).html("不可用");
+	        		$("#user_operation_" + data.userId).html("上线");
+	        		$("#user_operation_" + data.userId).attr('href', 'javascript:onlineUser("'+data.userId+'");');
+	        		alert("用户账户成功冻结");
 	        	} else {
 	        		var dataRes = "disable user result: " + data.result + "; resultDesc: " + data.resultDesc;
 	        		alert(dataRes);
@@ -546,6 +548,44 @@ function disableUser(userIdStr) {
 	        },  
 	        error : function() {  
 	            alert('network error during disabling one user');  
+	        }  
+	    }); 
+	} else {
+		alert("请输入正确的值");
+	}
+}
+
+function onlineUser(userIdStr) {
+	if (userIdStr != "") {
+		
+		var userTemp = {};
+		userTemp.userIdStr = userIdStr;
+		
+		var jsonStr = $.toJSON(userTemp);
+		console.log(jsonStr);
+	
+		var urlStrStr = pathGlobe + '/registerUser/enableOne';
+	    
+	    $.ajax({ 
+	        type : 'POST',  
+	        contentType : 'application/json',  
+	        url : urlStrStr,  
+	        processData : false,  
+	        dataType : 'json',  
+	        data : jsonStr,  
+	        success : function(data) {  
+	        	if (data.result == 0) {
+	        		$("#user_status_" + data.userId).html("可用");
+	        		$("#user_operation_" + data.userId).html("下线");
+	        		$("#user_operation_" + data.userId).attr('href', 'javascript:disableUser("'+data.userId+'");');
+	        		alert("用户账户成功上线");
+	        	} else {
+	        		var dataRes = "enable user result: " + data.result + "; resultDesc: " + data.resultDesc;
+	        		alert(dataRes);
+	        	}
+	        },  
+	        error : function() {  
+	            alert('network error during enabling one user');  
 	        }  
 	    }); 
 	} else {

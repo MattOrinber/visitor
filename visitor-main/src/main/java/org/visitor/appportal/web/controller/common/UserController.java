@@ -386,6 +386,30 @@ public class UserController extends BasicController{
 		super.sendJSONResponse(rj, response);
 	}
 	
+	@RequestMapping(value = "enableOne", method = POST)
+	public void enableOne(HttpServletRequest request,
+			HttpServletResponse response) {
+		ResultJson rj = new ResultJson();
+		UserTemp ut = super.getUserJson(request);
+		Long userId = Long.valueOf(ut.getUserIdStr());
+		User userCheck = visitorUserService.getUserById(userId);
+		
+		if (userCheck == null) {
+			rj.setResult(-1);
+			rj.setResultDesc("User does not exist!");
+		} else {
+			userCheck.setUserStatus(StatusTypeEnum.Active.getValue());
+			
+			visitorUserService.saveUser(userCheck);
+			userRedisService.saveUserPassword(userCheck);
+			rj.setResult(0);
+			rj.setResultDesc("disable success!");
+			rj.setUserId(userCheck.getUserId());
+		}
+		
+		super.sendJSONResponse(rj, response);
+	}
+	
 	private void setResultToClient(HttpServletResponse response, ResultJson resultJson) {
 		sendJSONResponse(resultJson, response);
 	}

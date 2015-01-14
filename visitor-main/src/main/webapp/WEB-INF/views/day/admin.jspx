@@ -176,7 +176,7 @@
 			                		</c:otherwise>
 			                	</c:choose>
 			                </td>
-			                <td align="center"><a href="javascript:disableUser('${userTemp.userId}');">下线</a></td>
+			                <td align="center"><a style="text-decoration:underline;color:blue;" id="user_operation_${userTemp.userId}" href="javascript:disableUser('${userTemp.userId}');">下线</a></td>
 			              </tr>
 		              </c:forEach>
 	              </c:if>
