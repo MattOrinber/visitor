@@ -321,7 +321,7 @@ function setContentValue() {
 }
 $(document).ready(function(){
 	var node = $("#articleContentStr");
-	if (node != null) {
+	if (node != null && node.length > 0) {
 		CKEDITOR.replace( 'articleContentStr', {
 			on: {
 				instanceReady:setContentValue
