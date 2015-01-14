@@ -13,6 +13,7 @@ public class ResultJson {
 	private String userPicUrl;
 	private String userName;
 	private String imageUrl;
+	private Long userId;
 	
 	private Long productId;
 	private Long productPicId;
@@ -135,5 +136,11 @@ public class ResultJson {
 	}
 	public void setStepsCount(Integer stepsCount) {
 		this.stepsCount = stepsCount;
+	}
+	public Long getUserId() {
+		return userId;
+	}
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 }

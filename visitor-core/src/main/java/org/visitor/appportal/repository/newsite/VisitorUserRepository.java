@@ -6,18 +6,18 @@ import org.visitor.appportal.visitor.domain.User;
 
 public interface VisitorUserRepository extends BaseRepository<User, Long> {
 	
-	@Query("select u from User u where userEmail = ?1 and userStatus = 0 ")
+	@Query("select u from User u where userEmail = ?1")
 	User findUserByEmail(String userEmail);
 	
-	@Query("select u from User u where userEmail = ?1 and userPassword = ?2 and userStatus = 0 ")
+	@Query("select u from User u where userEmail = ?1 and userPassword = ?2")
 	User findUserByEmailAndPassword(String userEmail, String userPassword);
 	
-	@Query("select count(u.userId) from User u where userEmail = ?1 and userStatus = 0")
+	@Query("select count(u.userId) from User u where userEmail = ?1")
 	long findUserCountByEmail(String userEmail);
 	
-	@Query("select u from User u where userFacebookId = ?1 and userStatus = 0 ")
+	@Query("select u from User u where userFacebookId = ?1")
 	User findUserByFacebookId(String userFacebookId);
 	
-	@Query("select count(u.userId) from User u where userFacebookId = ?1 and userStatus = 0")
+	@Query("select count(u.userId) from User u where userFacebookId = ?1")
 	long findUserCountByFacebookId(String userFacebookId);
 }

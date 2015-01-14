@@ -36,6 +36,8 @@ import org.visitor.appportal.web.utils.MixAndMatchUtils;
 import org.visitor.appportal.web.utils.PaypalInfo;
 import org.visitor.appportal.web.utils.RegisterInfo;
 import org.visitor.appportal.web.utils.WebInfo;
+import org.visitor.appportal.web.utils.ProductInfo.StatusTypeEnum;
+import org.visitor.appportal.web.utils.RegisterInfo.UserTypeEnum;
 
 @Controller
 @RequestMapping("/registerUser/")
@@ -137,11 +139,19 @@ public class UserController extends BasicController{
 		ResultJson rj = checkIfTheUserLegal(mailStrParam, passwordStrParam);
 		
 		if (rj.getResult() >= 0) {
-			String tokenStr = this.getAndSaveUserToken(response, mailStrParam, passwordStrParam, false);
-			userRedisService.saveUserToken(mailStrParam, tokenStr);
 			
-			rj.setToken(tokenStr);
-			rj.setUserEmail(mailStrParam);
+			User userT = userRedisService.getUserPassword(mailStrParam);
+			
+			if (userT.getUserStatus().intValue() == StatusTypeEnum.Active.ordinal()) {
+				String tokenStr = this.getAndSaveUserToken(response, mailStrParam, passwordStrParam, false);
+				userRedisService.saveUserToken(mailStrParam, tokenStr);
+				
+				rj.setToken(tokenStr);
+				rj.setUserEmail(mailStrParam);
+			} else {
+				rj.setResult(-1);
+				rj.setResultDesc("user disabled!");
+			}
 		}
 		
 		setResultToClient(response, rj);

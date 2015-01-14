@@ -341,6 +341,16 @@ $(document).ready(function(){
 			height:250
 		});
 	}
+	
+	//user part
+	var userTypeHiddenNode = $("#userTypeHiddenStr");
+	var userStatusHiddenNode = $("#userStatusHiddenStr");
+	if (userTypeHiddenNode != null) {
+		$("#userTypeStr").val(userTypeHiddenNode.val());
+	} 
+	if (userStatusHiddenNode != null) {
+		$("#userStatusStr").val(userStatusHiddenNode.val());
+	} 
 });
 
 function updateArticleValue() {
@@ -468,12 +478,14 @@ function updateUserTypeValue() {
 	} else {
 		var emailStr = $.trim($("#userEmailStr").val());
 		var userTypeStr = $.trim($("#userTypeStr").val());
+		var userStatusStr = $.trim($("#userStatusStr").val());
 		
-		if (emailStr != "" && userTypeStr != "") {
+		if (emailStr != "" && userTypeStr != "" && userStatusStr != "") {
 			
 			var userTemp = {};
 			userTemp.emailStr = emailStr;
 			userTemp.userTypeStr = userTypeStr;
+			userTemp.userStatusStr = userStatusStr;
 			
 			var jsonStr = $.toJSON(userTemp);
 			console.log(jsonStr);
@@ -502,5 +514,41 @@ function updateUserTypeValue() {
 		} else {
 			alert("请输入正确的值");
 		}
+	}
+}
+
+function disableUser(userIdStr) {
+	if (userIdStr != "") {
+		
+		var userTemp = {};
+		userTemp.userIdStr = userIdStr;
+		
+		var jsonStr = $.toJSON(userTemp);
+		console.log(jsonStr);
+	
+		var urlStrStr = pathGlobe + '/registerUser/disableOne';
+	    
+	    $.ajax({ 
+	        type : 'POST',  
+	        contentType : 'application/json',  
+	        url : urlStrStr,  
+	        processData : false,  
+	        dataType : 'json',  
+	        data : jsonStr,  
+	        success : function(data) {  
+	        	if (data.result == 0) {
+	        		alert("用户账户成功冻结");
+	        		$("#user_status_" + data.userId).html("不可用");
+	        	} else {
+	        		var dataRes = "disable user result: " + data.result + "; resultDesc: " + data.resultDesc;
+	        		alert(dataRes);
+	        	}
+	        },  
+	        error : function() {  
+	            alert('network error during disabling one user');  
+	        }  
+	    }); 
+	} else {
+		alert("请输入正确的值");
 	}
 }

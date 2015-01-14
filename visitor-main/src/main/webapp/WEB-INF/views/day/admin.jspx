@@ -143,7 +143,8 @@
 	              <tr>
 	                <th width="20%">ID</th>
 	                <th width="30%">EMAIL</th>
-	                <th width="30%">用户类型</th>
+	                <th width="20%">用户类型</th>
+	                <th width="10%">用户状态</th>
 	                <th width="20%">操作</th>
 	              </tr>
 	              
@@ -165,7 +166,17 @@
 			                		</c:otherwise>
 			                	</c:choose>
 			                </td>
-			                <td align="center"><a href="javascript:void(0);">发布</a></td>
+			                <td id="user_status_${userTemp.userId}">
+			                	<c:choose>
+			                		<c:when test="${userTemp.userStatus eq 0}"><p>可用</p>
+			                		</c:when>
+			                		<c:when test="${userTemp.userStatus eq 1}"><p>不可用</p>
+			                		</c:when>
+			                		<c:otherwise>
+			                		</c:otherwise>
+			                	</c:choose>
+			                </td>
+			                <td align="center"><a href="javascript:disableUser('${userTemp.userId}');">下线</a></td>
 			              </tr>
 		              </c:forEach>
 	              </c:if>
@@ -532,18 +543,29 @@
         		<c:choose>
         			<c:when test="${not empty userInfo}">
         				<input id="userIdStr" type="hidden" value="${userInfo.userId}"/>
+        				<input id="userTypeHiddenStr" type="hidden" value="${userInfo.userType}"/>
+        				<input id="userStatusHiddenStr" type="hidden" value="${userInfo.userStatus}"/>
 			        	<![CDATA[<span class="oldOne"><a class="redBigButton" id="backBtn" href="${pageContext.request.contextPath}/day/admin?type=0&p=1">返回</a></span>]]>
 			        	<span class="oldOne"><label>用户email</label><input id="userEmailStr" disabled="disabled" type="text" value="${userInfo.userEmail}"/></span>
 			        	<span class="oldOne"><label>用户电话</label><input id="userPhoneStr" disabled="disabled" type="text" value="${userInfo.userPhonenum}"/></span>
 			        	<span class="oldOne"><label>用户paypal number</label><input id="userPaypalStr" disabled="disabled" type="text" value="${userInfo.userPaypalnum}"/></span>
 			        	<span><label>用户类型</label>
 			        		<select id="userTypeStr">
-			        			<option value=""></option>
+			        			<option value="" selected="selected"></option>
 			        			<option value="0">普通用户</option>
 			        			<option value="1">facebook用户</option>
 			        			<option value="2">管理员</option>
 			        		</select>
 			        	</span>
+			        	
+			        	<span><label>用户状态</label>
+			        		<select id="userStatusStr">
+			        			<option value="" selected="selected"></option>
+			        			<option value="0">解冻</option>
+			        			<option value="1">冻结</option>
+			        		</select>
+			        	</span>
+			        	
 			            <span class="oldOne"><a class="redBigButton" id="updateBtn" href="javascript:updateUserTypeValue();">保存</a></span>
         			</c:when>
         			<c:otherwise>
@@ -560,6 +582,7 @@
 			        			<option value="2">管理员</option>
 			        		</select>
 			        	</span>
+			        	
 			        	<span class="oldOne"><label>用户手机</label><input id="userPhoneNumStr" type="text" /></span>
 			        	<span class="oldOne"><label>用户paypal number</label><input id="userPaypalStr" type="text" /></span>
 			            <span class="oldOne"><a class="redBigButton" id="updateBtn" href="javascript:updateUserTypeValue();">保存</a></span>

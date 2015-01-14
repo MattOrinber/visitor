@@ -67,4 +67,9 @@ public class VisitorUserService {
 		
 		return count;
 	}
+	
+	@Transactional
+	public User getUserById(Long userId) {
+		return visitorUserRepository.findOne(userId);
+	}
 }

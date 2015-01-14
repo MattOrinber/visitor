@@ -21,6 +21,8 @@ public class UserTemp {
 	private String emerRelationshipStr;
 	private String editorUserDetail;
 	private String userPalpalNumStr;
+	private String userIdStr;
+	private String userStatusStr;
 	
 	private String userTokenStr;
 	private String newPassStr;
@@ -163,5 +165,17 @@ public class UserTemp {
 	}
 	public void setUserTypeStr(String userTypeStr) {
 		this.userTypeStr = userTypeStr;
+	}
+	public String getUserIdStr() {
+		return userIdStr;
+	}
+	public void setUserIdStr(String userIdStr) {
+		this.userIdStr = userIdStr;
+	}
+	public String getUserStatusStr() {
+		return userStatusStr;
+	}
+	public void setUserStatusStr(String userStatusStr) {
+		this.userStatusStr = userStatusStr;
 	}
 }

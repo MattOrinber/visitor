@@ -72,6 +72,7 @@ import org.visitor.appportal.web.mailutils.UserMailException;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
 import org.visitor.appportal.web.utils.ProductInfo;
 import org.visitor.appportal.web.utils.ProductInfo.ContainerTypeEnum;
+import org.visitor.appportal.web.utils.ProductInfo.StatusTypeEnum;
 import org.visitor.appportal.web.utils.WebInfo;
 import org.visitor.appportal.web.utils.ProductInfo.ProductOperationTypeEnum;
 
@@ -402,18 +403,44 @@ public class BasicController {
 				model.addAttribute("globalCurrencySetted", globalCurrency);
 			}
 			
-			if (StringUtils.isNotEmpty(userMailStrOri) && StringUtils.isNotEmpty(userTokenInfoStr)) {
-				String userMailStr = URLDecoder.decode(userMailStrOri, "UTF-8");
-				UserTokenInfo userTi = userRedisService.getUserTokenInfo(userMailStr);
-				
-				if (userTi == null) {
+			User userT = userRedisService.getUserPassword(userMailStrOri);
+			
+			if (userT.getUserStatus().intValue() == StatusTypeEnum.Active.ordinal()) {
+			
+				if (StringUtils.isNotEmpty(userMailStrOri) && StringUtils.isNotEmpty(userTokenInfoStr)) {
+					String userMailStr = URLDecoder.decode(userMailStrOri, "UTF-8");
+					UserTokenInfo userTi = userRedisService.getUserTokenInfo(userMailStr);
 					
-					//get from database
-					UserTokenInfo userTiNew = visitorUserTokenInfoService.getUserTokenInfoByUserEmail(userMailStr);
-					
-					if (userTiNew != null) {
-						String storedAccessToken = userTiNew.getUfiAccessToken();
-						Date expireDate = userTiNew.getUfiExpireDate();
+					if (userTi == null) {
+						
+						//get from database
+						UserTokenInfo userTiNew = visitorUserTokenInfoService.getUserTokenInfoByUserEmail(userMailStr);
+						
+						if (userTiNew != null) {
+							String storedAccessToken = userTiNew.getUfiAccessToken();
+							Date expireDate = userTiNew.getUfiExpireDate();
+							Date nowDate = new Date();
+							
+							if (StringUtils.isNotEmpty(storedAccessToken) && nowDate.before(expireDate)) {
+								if (StringUtils.equals(userTokenInfoStr, storedAccessToken)) {
+									User user = userRedisService.getUserPassword(userMailStr);
+									if (ifIndex) {
+										user.setUserLastLoginTime(nowDate);
+	
+										visitorUserService.saveUser(user);
+										userRedisService.saveUserPassword(user);
+										logTheLogintime(userMailStr);
+									}
+									
+									MixAndMatchUtils.setUserModel(model, user);
+									return true;
+								}
+							}
+						}
+						
+					} else {
+						String storedAccessToken = userTi.getUfiAccessToken();
+						Date expireDate = userTi.getUfiExpireDate();
 						Date nowDate = new Date();
 						
 						if (StringUtils.isNotEmpty(storedAccessToken) && nowDate.before(expireDate)) {
@@ -421,7 +448,7 @@ public class BasicController {
 								User user = userRedisService.getUserPassword(userMailStr);
 								if (ifIndex) {
 									user.setUserLastLoginTime(nowDate);
-
+	
 									visitorUserService.saveUser(user);
 									userRedisService.saveUserPassword(user);
 									logTheLogintime(userMailStr);
@@ -432,28 +459,7 @@ public class BasicController {
 							}
 						}
 					}
-					
-				} else {
-					String storedAccessToken = userTi.getUfiAccessToken();
-					Date expireDate = userTi.getUfiExpireDate();
-					Date nowDate = new Date();
-					
-					if (StringUtils.isNotEmpty(storedAccessToken) && nowDate.before(expireDate)) {
-						if (StringUtils.equals(userTokenInfoStr, storedAccessToken)) {
-							User user = userRedisService.getUserPassword(userMailStr);
-							if (ifIndex) {
-								user.setUserLastLoginTime(nowDate);
-
-								visitorUserService.saveUser(user);
-								userRedisService.saveUserPassword(user);
-								logTheLogintime(userMailStr);
-							}
-							
-							MixAndMatchUtils.setUserModel(model, user);
-							return true;
-						}
-					}
-				}
+				} 
 			} 
 		}
 		User user = new User();

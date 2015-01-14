@@ -28,6 +28,7 @@ import org.visitor.appportal.visitor.beans.UserTemp;
 import org.visitor.appportal.visitor.domain.User;
 import org.visitor.appportal.web.utils.EncryptionUtil;
 import org.visitor.appportal.web.utils.MixAndMatchUtils;
+import org.visitor.appportal.web.utils.ProductInfo.StatusTypeEnum;
 import org.visitor.appportal.web.utils.RegisterInfo;
 import org.visitor.appportal.web.utils.RegisterInfo.UserTypeEnum;
 import org.visitor.appportal.web.utils.WebInfo;
@@ -122,11 +123,16 @@ public class UserController extends BasicController{
 			User userT = userRedisService.getUserPassword(mailStrParam);
 			
 			if (userT.getUserType().intValue() == UserTypeEnum.Admin.ordinal()) {
-				String tokenStr = EncryptionUtil.getToken(mailStrParam, passwordStrParam, rj.getUserLoginTime());
-				userRedisService.saveUserToken(mailStrParam, tokenStr);
-				MixAndMatchUtils.setUserCookie(response, mailStrParam, tokenStr, MixAndMatchUtils.param_user_token_expire);
-				rj.setToken(tokenStr);
-				rj.setUserEmail(mailStrParam);
+				if (userT.getUserStatus().intValue() == StatusTypeEnum.Active.ordinal()) {
+					String tokenStr = EncryptionUtil.getToken(mailStrParam, passwordStrParam, rj.getUserLoginTime());
+					userRedisService.saveUserToken(mailStrParam, tokenStr);
+					MixAndMatchUtils.setUserCookie(response, mailStrParam, tokenStr, MixAndMatchUtils.param_user_token_expire);
+					rj.setToken(tokenStr);
+					rj.setUserEmail(mailStrParam);
+				} else {
+					rj.setResult(-1);
+					rj.setResultDesc("user disabled!");
+				}
 			} else {
 				rj.setResult(-1);
 				rj.setResultDesc("not admin!");
@@ -318,6 +324,7 @@ public class UserController extends BasicController{
 			user.setUserType(Integer.valueOf(ut.getUserTypeStr()));
 			user.setUserPaypalnum(ut.getUserPalpalNumStr());
 			user.setUserPhonenum(ut.getPhoneNumberStr());
+			user.setUserStatus(StatusTypeEnum.Active.ordinal());
 			
 			visitorUserService.saveUser(user);
 			userRedisService.saveUserPassword(user);
@@ -344,11 +351,36 @@ public class UserController extends BasicController{
 			rj.setResultDesc("User does not exist!");
 		} else {
 			userCheck.setUserType(Integer.valueOf(ut.getUserTypeStr()));
+			userCheck.setUserStatus(Integer.valueOf(ut.getUserStatusStr()));
 			
 			visitorUserService.saveUser(userCheck);
 			userRedisService.saveUserPassword(userCheck);
 			rj.setResult(0);
 			rj.setResultDesc("update success!");
+		}
+		
+		super.sendJSONResponse(rj, response);
+	}
+	
+	@RequestMapping(value = "disableOne", method = POST)
+	public void disableOne(HttpServletRequest request,
+			HttpServletResponse response) {
+		ResultJson rj = new ResultJson();
+		UserTemp ut = super.getUserJson(request);
+		Long userId = Long.valueOf(ut.getUserIdStr());
+		User userCheck = visitorUserService.getUserById(userId);
+		
+		if (userCheck == null) {
+			rj.setResult(-1);
+			rj.setResultDesc("User does not exist!");
+		} else {
+			userCheck.setUserStatus(StatusTypeEnum.Inactive.getValue());
+			
+			visitorUserService.saveUser(userCheck);
+			userRedisService.saveUserPassword(userCheck);
+			rj.setResult(0);
+			rj.setResultDesc("disable success!");
+			rj.setUserId(userCheck.getUserId());
 		}
 		
 		super.sendJSONResponse(rj, response);
