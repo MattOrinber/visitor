@@ -458,10 +458,13 @@ function loginVisitor(pathOri) {
 	        success : function(data) {  
 	        	//var dataRes = "login result: " + data.result + "; resultDesc: " + data.resultDesc;
 	            //alert(dataRes);
-	            
-	            seeIfLoginBarDisplayed(data, pathOri);
-	            startChecking();
-	            ifLogginIn = 1;
+	        	if (data.result == 0) {
+	        		seeIfLoginBarDisplayed(data, pathOri);
+	        		startChecking();
+	        		ifLogginIn = 1;
+	        	} else {
+	        		doExtraStuff();
+	        	}
 	        },  
 	        error : function() {  
 	            alert('login err...');  

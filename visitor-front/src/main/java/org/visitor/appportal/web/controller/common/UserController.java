@@ -151,6 +151,7 @@ public class UserController extends BasicController{
 			} else {
 				rj.setResult(-1);
 				rj.setResultDesc("user disabled!");
+				rj.setUserName("--");
 			}
 		}
 		
