@@ -403,9 +403,10 @@ public class BasicController {
 				model.addAttribute("globalCurrencySetted", globalCurrency);
 			}
 			if (StringUtils.isNotEmpty(userMailStrOri)) {
-				User userT = userRedisService.getUserPassword(userMailStrOri);
+				String userEmailDecoded = URLDecoder.decode(userMailStrOri, "UTF-8");
+				User userT = userRedisService.getUserPassword(userEmailDecoded);
 				
-				if (userT.getUserStatus().intValue() == StatusTypeEnum.Active.ordinal()) {
+				if (userT != null && userT.getUserStatus().intValue() == StatusTypeEnum.Active.ordinal()) {
 				
 					if (StringUtils.isNotEmpty(userMailStrOri) && StringUtils.isNotEmpty(userTokenInfoStr)) {
 						String userMailStr = URLDecoder.decode(userMailStrOri, "UTF-8");
