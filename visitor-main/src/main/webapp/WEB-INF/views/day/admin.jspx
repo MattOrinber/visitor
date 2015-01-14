@@ -176,14 +176,26 @@
 			                		</c:otherwise>
 			                	</c:choose>
 			                </td>
-			                <td align="center"><a style="text-decoration:underline;color:blue;" id="user_operation_${userTemp.userId}" href="javascript:disableUser('${userTemp.userId}');">下线</a></td>
+			                <td align="center">
+			                	<c:choose>
+			                		<c:when test="${userTemp.userStatus eq 0}">
+			                			<a style="text-decoration:underline;color:blue;" id="user_operation_${userTemp.userId}" href="javascript:disableUser('${userTemp.userId}');">下线</a>
+			                		</c:when>
+			                		<c:when test="${userTemp.userStatus eq 1}">
+			                			<a style="text-decoration:underline;color:blue;" id="user_operation_${userTemp.userId}" href="javascript:onlineUser('${userTemp.userId}');">上线</a>
+			                		</c:when>
+			                		<c:otherwise>
+			                		</c:otherwise>
+			                	</c:choose>
+			                	
+			                </td>
 			              </tr>
 		              </c:forEach>
 	              </c:if>
 	              
 	              <c:if test="${not empty pageNumber and pageNumber gt 1}">
 					<tr>
-						<td align="center" colspan="4">
+						<td align="center" colspan="5">
 							<c:choose>
 					 		<c:when test="${ifEnd eq 0}"><a href="javascript:void(0);">前一页</a></c:when>
 					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/admin?type=0&p=${pageIndex-1}">前一页</a>]]></c:otherwise>
