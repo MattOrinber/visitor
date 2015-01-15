@@ -262,7 +262,7 @@ public class Product {
 		this.productCreateDate = productCreateDate;
 	}
 	
-	@Length(max = 31)
+	@Length(max = 255)
 	@NotNull
 	@Column(name = "product_city")
 	public String getProductCity() {
