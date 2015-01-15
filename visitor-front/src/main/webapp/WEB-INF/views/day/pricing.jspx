@@ -155,8 +155,22 @@
             </div>
             
             <div class="down">
-            	<span><input type="checkbox" id="productExtraPriceCheckbox" onclick="checkBox();"/>This listing has multiple options</span>
-                <div class="option" id="productExtraPriceOption">
+]]>
+			<c:choose>
+				<c:when test="${not empty multiPriceSet}">
+				<![CDATA[
+					<span><input type="checkbox" id="productExtraPriceCheckbox" onclick="checkBox();" checked="checked"/>This listing has multiple options</span>
+                	<div class="option" style="display:block;" id="productExtraPriceOption">
+                ]]>
+				</c:when>
+				<c:otherwise>
+				<![CDATA[
+					<span><input type="checkbox" id="productExtraPriceCheckbox" onclick="checkBox();"/>This listing has multiple options</span>
+                	<div class="option" id="productExtraPriceOption">
+                ]]>
+				</c:otherwise>
+			</c:choose>
+<![CDATA[
                 	<p>Option Values</p>
                     <div class="values">
                     	<input id="extraVariants" type="text" placeholder="Variants"/>
@@ -173,6 +187,7 @@
                       
 ]]>
 
+				<c:if test="${not empty multiPriceSet}">
 					<c:forEach items="${multiPriceSet}" var="priceSet" varStatus="status">
 						<tr>
 							<td class="red">${priceSet.pmpProductPriceKey}</td>
@@ -182,7 +197,7 @@
 							</td>
 						</tr>
 					</c:forEach>
-
+				</c:if>
 <![CDATA[
                     </table>
                 </div>

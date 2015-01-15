@@ -628,7 +628,9 @@ public class BasicController {
 			}
 			
 			List<ProductMultiPrice> listpmp = productRedisService.getAllMultiPricesSetsForProduct(product.getProductId());
-			model.addAttribute("multiPriceSet", listpmp);
+			if (listpmp.size() > 0) {
+				model.addAttribute("multiPriceSet", listpmp);
+			}
 			
 			ProductDetailInfo productDetailInfo = productRedisService.getProductDetailInfoUsingProductId(product.getProductId());
 			if (productDetailInfo != null) {
@@ -695,7 +697,9 @@ public class BasicController {
 			}
 			
 			List<ProductMultiPrice> listpmp = productRedisService.getAllMultiPricesSetsForProduct(product.getProductId());
-			model.addAttribute("multiPriceSet", listpmp);
+			if (listpmp.size() > 0) {
+				model.addAttribute("multiPriceSet", listpmp);
+			}
 			
 			ProductAddress pa = productRedisService.getProductAddressFromRedis(product.getProductId());
 			if (pa != null) {
@@ -782,7 +786,9 @@ public class BasicController {
 			}
 			
 			List<ProductMultiPrice> listpmp = productRedisService.getAllMultiPricesSetsForProduct(product.getProductId());
-			model.addAttribute("multiPriceSet", listpmp);
+			if (listpmp.size() > 0) {
+				model.addAttribute("multiPriceSet", listpmp);
+			}
 			
 			ProductAddress pa = productRedisService.getProductAddressFromRedis(product.getProductId());
 			if (pa != null) {
