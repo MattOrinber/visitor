@@ -37,7 +37,6 @@ import org.visitor.appportal.web.utils.PaypalInfo;
 import org.visitor.appportal.web.utils.RegisterInfo;
 import org.visitor.appportal.web.utils.WebInfo;
 import org.visitor.appportal.web.utils.ProductInfo.StatusTypeEnum;
-import org.visitor.appportal.web.utils.RegisterInfo.UserTypeEnum;
 
 @Controller
 @RequestMapping("/registerUser/")
@@ -193,6 +192,7 @@ public class UserController extends BasicController{
 		logTheJsonResult(ut);
 		
 		String userEmailStr = ut.getEmailStr();
+		ResultJson rj = new ResultJson();
 		if (StringUtils.isNotEmpty(userEmailStr)) {
 			User user = userRedisService.getUserPassword(userEmailStr);
 			
@@ -203,6 +203,7 @@ public class UserController extends BasicController{
 				userRedisService.setUserResetPasswordToken(user.getUserEmail(), resetTokenStr);
 				
 				//send email
+				rj.setUserEmail(userEmailStr);
 				
 				String usernameStr = user.getUserFirstName();
 				if (StringUtils.isEmpty(usernameStr)) {
@@ -239,7 +240,7 @@ public class UserController extends BasicController{
 			result = -1;
 			resultDesc = "user email passed is null";
 		}
-		ResultJson rj = new ResultJson();
+		
 		rj.setResult(result);
 		rj.setResultDesc(resultDesc);
 		

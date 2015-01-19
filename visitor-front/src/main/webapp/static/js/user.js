@@ -374,7 +374,17 @@ function initMyTripCityStr() {
 }
 
 function requestUserRetrievePassword() {
-	var emailStr = $.trim($("#loginEmailStr").val());
+	$('.wrapwrapbox').hide();
+	$("#login").hide();
+	$('.reset_box').show();
+}
+
+function closeResendPasswordPrompt() {
+	$('.prompt_message').hide();
+}
+
+function sendResetPasswordLink() {
+	var emailStr = $.trim($("#resetEmailLinkInputStr").val());
 	
 	if (emailStr != "") {
 		var emailRegEx = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
@@ -394,7 +404,10 @@ function requestUserRetrievePassword() {
 		        data : jsonStr,  
 		        success : function(data) {  
 		        	if (data.result = 0) {
-		        		alert("please check your email inbox and click password reset");
+		        		$('.reset_box').hide();
+		        		$("#resetEmailHasSentSpan").html(data.userEmail+'.');
+		        		$('.prompt_message').fadeIn(300);
+		        		setTimeout("$('.prompt_message').fadeOut(300)",30000);
 		        	} else {
 		        		alert(data.resultDesc);
 		        	}

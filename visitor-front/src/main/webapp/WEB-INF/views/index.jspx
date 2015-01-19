@@ -99,6 +99,21 @@
     </div>
 </div>
 
+<div class="reset_box">
+	<h3>Reset Password</h3>
+    <p>
+    	Enter the email address associated with your account,and we'll email you a link to reset your password.
+    </p>
+    <input id="resetEmailLinkInputStr" type="text" />
+    <span></span>
+    <a href="javascript:sendResetPasswordLink();" class="resetbtn">Send Reset Link</a>
+</div>
+
+<div class="prompt_message">
+	A link to reset your password has been sent to <span id="resetEmailHasSentSpan">xxxxxxxxxxxxx.</span>
+    <a href="javascript:closeResendPasswordPrompt();" class="prompt_message_closed"><img src="${imgPathOrigin}/static/close2.png" width="12" /></a>
+</div>
+
 	<div class="howtowork">
     	<span id="hideit" style="position:absolute;right:20px;top:20px;cursor:pointer;"><img src="${imgPathOrigin}/static/close1.png" /></span>
     	<div class="works">
