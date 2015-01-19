@@ -119,7 +119,7 @@ var imgPathOriginStr = '${imgPathOrigin}';
         		</div>
         		
         		<div id="loginStatusBarPart" class="loginbar1" style="display:none;">
-        			<a href="${pageContext.request.contextPath}/host_profile" class="name" id="name">
+        			<a href="javascript:void(0);" class="name" id="name">
         			    <c:choose>
         					<c:when test="${userIconUrl == '--'}">
         						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;float:left;overflow:hidden;"><img src="${imgPathOrigin}/static/user_pic-50x50.png" width="28"/></span>]]>
@@ -152,7 +152,7 @@ var imgPathOriginStr = '${imgPathOrigin}';
         		</div>
         		
         		<div id="loginStatusBarPart" class="loginbar1" style="display:block;">
-        			<a href="${pageContext.request.contextPath}/day/host_profile" class="name" id="name">
+        			<a href="javascript:void(0);" class="name" id="name">
         			    <c:choose>
         					<c:when test="${userIconUrl == '--'}">
         						<![CDATA[<span id="userIconUrlSpan" style="width:28px;height:28px;border-radius:50%;display:inline-block;float:left;overflow:hidden;"><img src="${imgPathOrigin}/static/user_pic-50x50.png" width="28"/></span>]]>
