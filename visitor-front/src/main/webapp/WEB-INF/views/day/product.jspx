@@ -262,48 +262,14 @@
 ]]>
 		<c:if test="${not empty productInfo and not empty productInfo.productCancellationpolicy}">
 			<tr>
-				<td class="title">Prices</td>
-				<td>Cancellation policy: <strong><a href="javascript:void(0);">${productInfo.productCancellationpolicy}</a></strong></td>
+				<td class="title">Cancellation policy: </td>
+				<td><strong><a href="javascript:void(0);">${productInfo.productCancellationpolicy}</a></strong></td>
 			</tr>
 		</c:if>
 <![CDATA[
         </table>
     </div>
 	
-</div>
-
-<div class="content">
-	<div class="title">
-        <p>Similar Listings</span></p>
-    </div>
-	<div class="apartment">
-    	<div class="img"><img src="${imgPathOrigin}/static/aadec950_original.jpg" width="320"/></div>
-        <div class="photo"></div>
-        <div class="price"><span>$</span>300</div>
-        <div class="word">
-        	<p class="product-title">Fabulous Seoul Apartment!</p>
-            <p class="duration">6 Hours</p>
-        </div>
-    </div>
-    <div class="apartment">
-    	<div class="img"><img src="${imgPathOrigin}/static/aadec950_original.jpg" width="320"/></div>
-        <div class="photo"></div>
-        <div class="price"><span>$</span>300</div>
-        <div class="word">
-        	<p class="product-title">Fabulous Seoul Apartment!</p> 
-            <p class="duration">6 Hours</p>
-        </div>
-    </div>
-    <div class="apartment">
-    	<div class="img"><img src="${imgPathOrigin}/static/aadec950_original.jpg" width="320"/></div>
-        <div class="photo"></div>
-        <div class="price"><span>$</span>300</div>
-        <div class="word">
-        	<p class="product-title">Fabulous Seoul Apartment!</p>
-            <p class="duration">6 Hours</p>
-        </div>
-    </div>
-    
 </div>
 
 <script type="text/javascript">
