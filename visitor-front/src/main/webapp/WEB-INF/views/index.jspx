@@ -116,20 +116,20 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
     <div class="banner">
     	<div class="bannerimg" id="focus">
         	<ul>
-            	<li style="opacity:1;filter:alpha(opacity=1);"><a href=""><img src="${imgPathOrigin}/static/hero1.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${imgPathOrigin}/static/hero2.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${imgPathOrigin}/static/hero3.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${imgPathOrigin}/static/hero4.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${imgPathOrigin}/static/hero5.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${imgPathOrigin}/static/hero6.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${imgPathOrigin}/static/hero7.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${imgPathOrigin}/static/hero8.jpg" width="100%"/></a></li>
-                <li><a href=""><img src="${imgPathOrigin}/static/hero9.jpg" width="100%"/></a></li>
+            	<li style="opacity:1;filter:alpha(opacity=1);"><a href="javascript:void(0);"><img src="${imgPathOrigin}/static/hero1.jpg" width="100%"/></a></li>
+                <li><a href="javascript:void(0);"><img src="${imgPathOrigin}/static/hero2.jpg" width="100%"/></a></li>
+                <li><a href="javascript:void(0);"><img src="${imgPathOrigin}/static/hero3.jpg" width="100%"/></a></li>
+                <li><a href="javascript:void(0);"><img src="${imgPathOrigin}/static/hero4.jpg" width="100%"/></a></li>
+                <li><a href="javascript:void(0);"><img src="${imgPathOrigin}/static/hero5.jpg" width="100%"/></a></li>
+                <li><a href="javascript:void(0);"><img src="${imgPathOrigin}/static/hero6.jpg" width="100%"/></a></li>
+                <li><a href="javascript:void(0);"><img src="${imgPathOrigin}/static/hero7.jpg" width="100%"/></a></li>
+                <li><a href="javascript:void(0);"><img src="${imgPathOrigin}/static/hero8.jpg" width="100%"/></a></li>
+                <li><a href="javascript:void(0);"><img src="${imgPathOrigin}/static/hero9.jpg" width="100%"/></a></li>
             </ul>
         	
         </div>
         <div class="logo">
-        	<a href="index.html"><img src="${imgPathOrigin}/static/logo-white.png" width="35"/></a>
+        	<a href="javascript:void(0);"><img src="${imgPathOrigin}/static/logo-white.png" width="35"/></a>
         </div>
         
 ]]>
@@ -242,6 +242,14 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
         		<div class="leftone hover">
         	]]>
         		<c:choose>
+           			<c:when test="${onePos.containerType eq 0}">
+           				<![CDATA[<a href="${pageContext.request.contextPath}/day/product?pid=${onePos.containerProductkey}">]]>
+           			</c:when>
+           			<c:otherwise>
+           				<![CDATA[<a href="${pageContext.request.contextPath}/day/city?c=${onePos.containerMoto}&o=0&p=1">]]>
+           			</c:otherwise>
+           		</c:choose>
+        		<c:choose>
         			<c:when test="${not empty onePos.containerPicpaths}">
         				<![CDATA[<div class="addImg"><img width="655" src="${onePos.containerPicpaths}"></div>]]>
         			</c:when>
@@ -249,22 +257,21 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
         				<![CDATA[<div class="addImg"><img src="${imgPathOrigin}/static/397.jpg"></div>]]>
         			</c:otherwise>
         		</c:choose>
-            		<c:choose>
-            			<c:when test="${onePos.containerType eq 0}">
-            				<a href="${pageContext.request.contextPath}/day/product?pid=${onePos.containerProductkey}"></a>
-            			</c:when>
-            			<c:otherwise>
-            			<![CDATA[
-            				<a href="${pageContext.request.contextPath}/day/city?c=${onePos.containerMoto}&o=0&p=1"></a>
-            			]]>
-            			</c:otherwise>
-            		</c:choose>
             	<![CDATA[
-                	<div class="shade"></div>
-                	<h2>${onePos.containerMoto}</h2>
+	                	<div class="shade"></div>
+	                	<h2>${onePos.containerMoto}</h2>
+                	</a>
             	</div>
             	<div class="rightone hover">
             	]]>
+            	<c:choose>
+           			<c:when test="${twoPos.containerType eq 0}">
+           				<![CDATA[<a href="${pageContext.request.contextPath}/day/product?pid=${twoPos.containerProductkey}">]]>
+           			</c:when>
+           			<c:otherwise>
+           				<![CDATA[<a href="${pageContext.request.contextPath}/day/city?c=${twoPos.containerMoto}&o=0&p=1">]]>
+           			</c:otherwise>
+           		</c:choose>
             	<c:choose>
         			<c:when test="${not empty twoPos.containerPicpaths}">
         				<![CDATA[<div class="addImg2"><img width="315" src="${twoPos.containerPicpaths}"></div>]]>
@@ -273,25 +280,25 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
         				<![CDATA[<div class="addImg2"><img src="${imgPathOrigin}/static/c00b3047_original.jpg"></div>]]>
         			</c:otherwise>
         		</c:choose>
-            		<c:choose>
-            			<c:when test="${twoPos.containerType eq 0}">
-            				<a href="${pageContext.request.contextPath}/day/product?pid=${twoPos.containerProductkey}"></a>
-            			</c:when>
-            			<c:otherwise>
-            			<![CDATA[
-            				<a href="${pageContext.request.contextPath}/day/city?c=${twoPos.containerMoto}&o=0&p=1"></a>
-            			]]>
-            			</c:otherwise>
-            		</c:choose>
+            		
                 <![CDATA[
-                	<div class="shade"></div>
-                	<h2>${twoPos.containerMoto}</h2>
+	                	<div class="shade"></div>
+	                	<h2>${twoPos.containerMoto}</h2>
+                	</a>
                 </div>
             </div>
             
             <div class="threeimg">
             	<div class="leftbox hover">
             ]]>
+            	<c:choose>
+           			<c:when test="${threePos.containerType eq 0}">
+           				<![CDATA[<a href="${pageContext.request.contextPath}/day/product?pid=${threePos.containerProductkey}">]]>
+           			</c:when>
+           			<c:otherwise>
+           				<![CDATA[<a href="${pageContext.request.contextPath}/day/city?c=${threePos.containerMoto}&o=0&p=1">]]>
+           			</c:otherwise>
+           		</c:choose>
             	<c:choose>
         			<c:when test="${not empty threePos.containerPicpaths}">
         				<![CDATA[<div class="addImg2"><img width="315" src="${threePos.containerPicpaths}"></div>]]>
@@ -300,22 +307,21 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
         				<![CDATA[<div class="addImg2"><img src="${imgPathOrigin}/static/35.jpg"></div>]]>
         			</c:otherwise>
         		</c:choose>
-            		<c:choose>
-            			<c:when test="${threePos.containerType eq 0}">
-            				<a href="${pageContext.request.contextPath}/day/product?pid=${threePos.containerProductkey}"></a>
-            			</c:when>
-            			<c:otherwise>
-            			<![CDATA[
-            				<a href="${pageContext.request.contextPath}/day/city?c=${threePos.containerMoto}&o=0&p=1"></a>
-            			]]>
-            			</c:otherwise>
-            		</c:choose>
                 <![CDATA[
-                	<div class="shade"></div>
-                	<h2>${threePos.containerMoto}</h2>
+	                	<div class="shade"></div>
+	                	<h2>${threePos.containerMoto}</h2>
+                	</a>
                 </div>
                 <div class="middlebox hover">
                 ]]>
+                <c:choose>
+           			<c:when test="${fourPos.containerType eq 0}">
+           				<![CDATA[<a href="${pageContext.request.contextPath}/day/product?pid=${fourPos.containerProductkey}">]]>
+           			</c:when>
+           			<c:otherwise>
+           				<![CDATA[<a href="${pageContext.request.contextPath}/day/city?c=${fourPos.containerMoto}&o=0&p=1">]]>
+           			</c:otherwise>
+           		</c:choose>
                 <c:choose>
         			<c:when test="${not empty fourPos.containerPicpaths}">
         				<![CDATA[<div class="addImg2"><img width="315" src="${fourPos.containerPicpaths}"></div>]]>
@@ -324,22 +330,21 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
         				<![CDATA[<div class="addImg2"><img src="${imgPathOrigin}/static/41.jpg"></div>]]>
         			</c:otherwise>
         		</c:choose>
-            		<c:choose>
-            			<c:when test="${fourPos.containerType eq 0}">
-            				<a href="${pageContext.request.contextPath}/day/product?pid=${fourPos.containerProductkey}"></a>
-            			</c:when>
-            			<c:otherwise>
-            			<![CDATA[
-            				<a href="${pageContext.request.contextPath}/day/city?c=${fourPos.containerMoto}&o=0&p=1"></a>
-            			]]>
-            			</c:otherwise>
-            		</c:choose>
                 <![CDATA[
-                	<div class="shade"></div>
-                	<h2>${fourPos.containerMoto}</h2>
+	                	<div class="shade"></div>
+	                	<h2>${fourPos.containerMoto}</h2>
+                	</a>
                 </div>
                 <div class="rightbox hover">
                 ]]>
+                <c:choose>
+           			<c:when test="${fivePos.containerType eq 0}">
+           				<![CDATA[<a href="${pageContext.request.contextPath}/day/product?pid=${fivePos.containerProductkey}">]]>
+           			</c:when>
+           			<c:otherwise>
+           				<![CDATA[<a href="${pageContext.request.contextPath}/day/city?c=${fivePos.containerMoto}&o=0&p=1">]]>
+           			</c:otherwise>
+           		</c:choose>
                 <c:choose>
         			<c:when test="${not empty fivePos.containerPicpaths}">
         				<![CDATA[<div class="addImg2"><img width="315" src="${fivePos.containerPicpaths}"></div>]]>
@@ -348,25 +353,24 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
         				<![CDATA[<div class="addImg2"><img src="${imgPathOrigin}/static/290.jpg"></div>]]>
         			</c:otherwise>
         		</c:choose>
-            		<c:choose>
-            			<c:when test="${fivePos.containerType eq 0}">
-            				<a href="${pageContext.request.contextPath}/day/product?pid=${fivePos.containerProductkey}"></a>
-            			</c:when>
-            			<c:otherwise>
-            			<![CDATA[
-            				<a href="${pageContext.request.contextPath}/day/city?c=${fivePos.containerMoto}&o=0&p=1"></a>
-            			]]>
-            			</c:otherwise>
-            		</c:choose>
                 <![CDATA[
-                	<div class="shade"></div>
-                	<h2>${fivePos.containerMoto}</h2>
+	                	<div class="shade"></div>
+	                	<h2>${fivePos.containerMoto}</h2>
+                	</a>
                 </div>
             </div>
             
             <div class="twoimg leftright">
             	<div class="rightone hover">
             ]]>
+            	<c:choose>
+           			<c:when test="${sixPos.containerType eq 0}">
+           				<![CDATA[<a href="${pageContext.request.contextPath}/day/product?pid=${sixPos.containerProductkey}">]]>
+           			</c:when>
+           			<c:otherwise>
+           				<![CDATA[<a href="${pageContext.request.contextPath}/day/city?c=${sixPos.containerMoto}&o=0&p=1">]]>
+           			</c:otherwise>
+           		</c:choose>
             	<c:choose>
         			<c:when test="${not empty sixPos.containerPicpaths}">
         				<![CDATA[<div class="addImg2"><img width="315" src="${sixPos.containerPicpaths}"></div>]]>
@@ -375,22 +379,21 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
         				<![CDATA[<div class="addImg2"><img src="${imgPathOrigin}/static/292.jpg"></div>]]>
         			</c:otherwise>
         		</c:choose>
-            		<c:choose>
-            			<c:when test="${sixPos.containerType eq 0}">
-            				<a href="${pageContext.request.contextPath}/day/product?pid=${sixPos.containerProductkey}"></a>
-            			</c:when>
-            			<c:otherwise>
-            			<![CDATA[
-            				<a href="${pageContext.request.contextPath}/day/city?c=${sixPos.containerMoto}&o=0&p=1"></a>
-            			]]>
-            			</c:otherwise>
-            		</c:choose>
                 <![CDATA[
-                	<div class="shade"></div>
-                	<h2>${sixPos.containerMoto}</h2>
+	                	<div class="shade"></div>
+	                	<h2>${sixPos.containerMoto}</h2>
+                	</a>
                 </div>
                 <div class="leftone hover">
                 ]]>
+                <c:choose>
+           			<c:when test="${sevenPos.containerType eq 0}">
+           				<![CDATA[<a href="${pageContext.request.contextPath}/day/product?pid=${sevenPos.containerProductkey}">]]>
+           			</c:when>
+           			<c:otherwise>
+           				<![CDATA[<a href="${pageContext.request.contextPath}/day/city?c=${sevenPos.containerMoto}&o=0&p=1">]]>
+           			</c:otherwise>
+           		</c:choose>
                 <c:choose>
         			<c:when test="${not empty sevenPos.containerPicpaths}">
         				<![CDATA[<div class="addImg"><img width="655" src="${sevenPos.containerPicpaths}"></div>]]>
@@ -399,19 +402,10 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
         				<![CDATA[<div class="addImg"><img src="${imgPathOrigin}/static/11.jpg"></div>]]>
         			</c:otherwise>
         		</c:choose>
-            		<c:choose>
-            			<c:when test="${sevenPos.containerType eq 0}">
-            				<a href="${pageContext.request.contextPath}/day/product?pid=${sevenPos.containerProductkey}"></a>
-            			</c:when>
-            			<c:otherwise>
-            			<![CDATA[
-            				<a href="${pageContext.request.contextPath}/day/city?c=${sevenPos.containerMoto}&o=0&p=1"></a>
-            			]]>
-            			</c:otherwise>
-            		</c:choose>
                 <![CDATA[
-                	<div class="shade"></div>
-                	<h2>${sevenPos.containerMoto}</h2>
+	                	<div class="shade"></div>
+	                	<h2>${sevenPos.containerMoto}</h2>
+                	</a>
                 </div>
             </div>
             
