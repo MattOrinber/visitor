@@ -62,7 +62,6 @@
 				
 				<c:if test="${not empty internalIOList}">
 					<c:forEach items="${internalIOList}" var="internalIO" varStatus="status">
-					<a href="${pageContext.request.contextPath}/day/inbox">
 						<div class="message">
 	                        <div class="photo">
 		                        <c:choose>
@@ -94,14 +93,13 @@
 		                        </c:choose>
 	                        </div>
 	                        <div class="content">
-	                            <p class="col-7">Interested in <a style="font-weight:bold;color:#FF0000;" href="${pageContext.request.contextPath}/day/product?pid=${internalIO.productId}">this activity</a></p>
+	                            <p class="col-7">Interested in your activity</p>
 	                            <p class="text-muted">${internalIO.dateAndAccomodates}</p>
 	                        </div>
 	                        <div class="price">
 	                            <p style="color:#ffb400;font-weight:bold;">Inquiry </p><p>$ ${internalIO.totalBasicPrice}</p>
 	                        </div>
 	                	</div>
-	                </a>
 					</c:forEach>
 				</c:if>
 
