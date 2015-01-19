@@ -31,8 +31,7 @@
         <div class="left">
         	<div class="hostimg"><a href="${pageContext.request.contextPath}/day/edit-photos">Upload Profile Photo</a></div>
             <div class="nameinfo">
-            	<span>Name</span>
-                <a href="host_profile.html" class="view">View Profile</a>
+            	<span>${loginName}</span>
                 <a href="${pageContext.request.contextPath}/day/edit" class="build">Build Your Profile</a>
             </div>
             <div class="aboutme">
@@ -40,7 +39,6 @@
                 <div>
                 	<a href="javascript:toListing();">View/Manage Listings</a>
                     <a href="javascript:void(0);">Reservations</a>
-                    <a href="javascript:void(0);">Reviews & References</a>
                 </div>
             </div>
         </div>
@@ -52,20 +50,64 @@
                 </div>
             </div>
             <div class="info info2">
-               <span>Messages (<b>0</b> new)</span>
-               <div class="message">
-               		<div class="photo"><img src="${imgPathOrigin}/static/original.jpg" width="45" /></div>
-                    <div class="time"><p>Matthew</p> <p>4 days ago</p></div>
-                    <div class="content">
-                    	<p class="col-7">2222</p>
-                        <p class="text-muted">Beijing, Beijing(Dec 2 - 3, 2014)</p>
-                    </div>
-                    <div class="price">
-                    	<p style="color:#ffb400;font-weight:bold;">Inquiry </p><p>Â¥282</p>
-                    </div>
-               </div>
+]]>
+				<c:choose>
+					<c:when test="${not empty inboxUnreadCount}">
+						<span>Messages (<b>${inboxUnreadCount}</b> new)</span>
+					</c:when>
+					<c:otherwise>
+						<span>Messages (<b>0</b> new)</span>
+					</c:otherwise>
+				</c:choose>
+				
+				<c:if test="${not empty internalIOList}">
+					<c:forEach items="${internalIOList}" var="internalIO" varStatus="status">
+					<a href="${pageContext.request.contextPath}/day/inbox">
+						<div class="message">
+	                        <div class="photo">
+		                        <c:choose>
+		                        	<c:when test="${not empty internalIO.userFrom and not empty internalIO.userFrom.userPhotourl}">
+		                        		<img src="${internalIO.userFrom.userPhotourl}" width="45" />
+		                        	</c:when>
+		                        	<c:otherwise>
+		                        		<img src="${imgPathOrigin}/static/user_pic-50x50.png" width="45" />
+		                        	</c:otherwise>
+		                        </c:choose>
+	                        </div>
+	                        <div class="time">
+	                        	 <c:choose>
+		                        	<c:when test="${not empty internalIO.userFrom and not empty internalIO.userFrom.userFirstName}">
+		                        		<p>${internalIO.userFrom.userFirstName}</p>
+		                        	</c:when>
+		                        	<c:otherwise>
+		                        		<p>Some Guy</p>
+		                        	</c:otherwise>
+		                        </c:choose>
+		                        
+		                        <c:choose>
+		                        	<c:when test="${not empty internalIO.daysFromNow and internalIO.daysFromNow gt 0}">
+		                        		<p>${internalIO.daysFromNow} days ago</p>
+		                        	</c:when>
+		                        	<c:otherwise>
+		                        		<p>within 1 day</p>
+		                        	</c:otherwise>
+		                        </c:choose>
+	                        </div>
+	                        <div class="content">
+	                            <p class="col-7">Interested in <a style="font-weight:bold;color:#FF0000;" href="${pageContext.request.contextPath}/day/product?pid=${internalIO.productId}">this activity</a></p>
+	                            <p class="text-muted">${internalIO.dateAndAccomodates}</p>
+	                        </div>
+	                        <div class="price">
+	                            <p style="color:#ffb400;font-weight:bold;">Inquiry </p><p>$ ${internalIO.totalBasicPrice}</p>
+	                        </div>
+	                	</div>
+	                </a>
+					</c:forEach>
+				</c:if>
+
+<![CDATA[
                 <div>
-                	<a href="">All messages </a>
+                	<a href="${pageContext.request.contextPath}/day/inbox">All messages </a>
                 </div>
             </div>
 

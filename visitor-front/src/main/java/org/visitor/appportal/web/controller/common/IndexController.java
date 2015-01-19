@@ -233,6 +233,7 @@ public class IndexController extends BasicController {
 			HttpServletResponse response, 
 			Model model) {
 		super.setModel(request, response, model, false);
+		super.setInboxModel(request, model);
 		model.addAttribute("pageName", "dashboard");
 		return "day/dashboard";
 	}
