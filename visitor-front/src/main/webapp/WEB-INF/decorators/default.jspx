@@ -79,7 +79,7 @@ var imgPathOriginStr = '${imgPathOrigin}';
     </div>
 </div>
 
-<div class="reset_box">
+<div class="reset_box" id="resetBoxIdStr">
 	<h3>Reset Password</h3>
     <p>
     	Enter the email address associated with your account,and we'll email you a link to reset your password.
@@ -89,7 +89,7 @@ var imgPathOriginStr = '${imgPathOrigin}';
     <a href="javascript:sendResetPasswordLink();" class="resetbtn">Send Reset Link</a>
 </div>
 
-<div class="prompt_message">
+<div class="prompt_message" id="promptMessageIdStr">
 	A link to reset your password has been sent to <span id="resetEmailHasSentSpan">xxxxxxxxxxxxx.</span>
     <a href="javascript:closeResendPasswordPrompt();" class="prompt_message_closed"><img src="${imgPathOrigin}/static/close2.png" width="12" /></a>
 </div>

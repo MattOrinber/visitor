@@ -376,11 +376,11 @@ function initMyTripCityStr() {
 function requestUserRetrievePassword() {
 	$('.wrapwrapbox').hide();
 	$("#login").hide();
-	$('.reset_box').show();
+	$("#resetBoxIdStr").show();
 }
 
 function closeResendPasswordPrompt() {
-	$('.prompt_message').hide();
+	$('#promptMessageIdStr').hide();
 }
 
 function sendResetPasswordLink() {
@@ -403,11 +403,11 @@ function sendResetPasswordLink() {
 		        dataType : 'json',  
 		        data : jsonStr,  
 		        success : function(data) {  
-		        	if (data.result = 0) {
-		        		$('.reset_box').hide();
+		        	if (data.result == 0) {
+		        		$("#resetBoxIdStr").hide();
 		        		$("#resetEmailHasSentSpan").html(data.userEmail+'.');
-		        		$('.prompt_message').fadeIn(300);
-		        		setTimeout("$('.prompt_message').fadeOut(300)",30000);
+		        		$("#promptMessageIdStr").fadeIn(300);
+		        		setTimeout("$('#promptMessageIdStr').fadeOut(300)",30000);
 		        	} else {
 		        		alert(data.resultDesc);
 		        	}
