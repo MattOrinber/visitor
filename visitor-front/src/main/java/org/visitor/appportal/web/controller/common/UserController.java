@@ -297,6 +297,14 @@ public class UserController extends BasicController{
 			resultDesc = "parammeter not right";
 		}
 		
+		if (result.intValue() == 0) {
+			String tokenStoreStr = this.getAndSaveUserToken(response, emailStr, newPassStr, false);
+			userRedisService.saveUserToken(emailStr, tokenStoreStr);
+			
+			rj.setToken(tokenStoreStr);
+			rj.setUserEmail(emailStr);
+		}
+		
 		rj.setResult(result);
 		rj.setResultDesc(resultDesc);
 		

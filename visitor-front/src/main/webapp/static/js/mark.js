@@ -356,9 +356,9 @@ function seeIfLoginBarDisplayed(data, path) {
     	var userTokenStr = data.token;
     	
     	if (userPicUrlStr == "--") {
-    		$("#userIconUrlSpan").css("background", "url("+path+"/static/img/user_pic-50x50.png)");
+    		$("#userIconUrlSpan").attr("src", path+"/static/img/user_pic-50x50.png");
     	} else {
-    		$("#userIconUrlSpan").css("background", "url(" + userPicUrlStr + ")");
+    		$("#userIconUrlSpan").attr("src", '"' + userPicUrlStr + '"');
     	}
     	
     	$("#notLoginStatusBarPart").css("display", "none");
@@ -372,7 +372,7 @@ function seeIfLoginBarDisplayed(data, path) {
 }
 
 function logoutBarDisplayed(data, path) {
-	$("#userIconUrlSpan").css("background", "url("+path+"/static/img/user_pic-50x50.png)");
+	$("#userIconUrlSpan").attr("src", path+"/static/img/user_pic-50x50.png");
 	$("#notLoginStatusBarPart").css("display", "block");
 	$("#loginStatusBarPart").css("display", "none");
 	$("#userNameSpan").html("");

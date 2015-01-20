@@ -1,0 +1,41 @@
+*{margin:0;padding:0;font-family:Arial,sans-serif;color:#565a5c;}
+a{text-decoration:none;}
+img{border:none;}
+li{list-style:none;}
+body{background:#f7f7f7;}
+
+.header{width:100%;height:55px;background:#fff;border-bottom:1px solid #c4c4c4;}
+.header .head{min-width:1080px;height:55px;margin:0 auto;}
+.header .head .logo{width:80px;height:45px;float:left;margin-left:20px;margin-top:10px;}
+.header .head .select{width:200px;height:20px;float:left;margin-top:22px;}
+.header .head .select select{border:1px solid #c4c4c4;width:120px;outline:none;}
+.header .head .loginbar{width:300px;height:40px;float:right;margin-top:15px;margin-right:20px;}
+.header .head .loginbar a{font-size:13px;color:#666;margin-left:25px;}
+.header .head .loginbar a.list{border:1px solid #007a87;border-bottom-color: #004f58;background-color: #007a87;display:inline-block;width:130px;height:28px;border-radius:3px;line-height:28px;text-align:center;font-weight:bold;color:#fff;}
+.header .head .loginbar a.list:hover{background-color:#12acbc;border:1px solid #12acbc;border-bottom-color: #004f58;}
+
+.nav{width:100%;height:40px;background:#565a5c;}
+.nav .nav-detail{width:100%;height:40px;line-height:40px;}
+.nav .nav-detail span{font-size:14px;color:#fff;margin-left:20px;display:block;height:25px;text-align:left;}
+.nav .nav-detail span a{float:left;color:#ccc;margin-right:40px;}
+.nav .nav-detail span a:hover{color:#fff;}
+
+
+.main_reset{width:100%;min-height:700px;}
+.main_reset div.reset_box_new{width:300px;height:280px;border:1px solid #ccc;position:absolute;left:50%;top:200px;margin-left:-150px;background:#fff;}
+.main_reset div.reset_box_new h3{display:block;width:285px;height:40px;border-bottom:1px solid #ccc;background:#f5f5f5;line-height:40px;padding-left:15px;margin-bottom:10px;}
+.main_reset div.reset_box_new p{font-size:13px;color:#666;line-height:20px;padding-left:15px;padding-right:15px;margin-top:20px;}
+.main_reset div.reset_box_new input{margin-left:15px;width:260px;height:30px;margin-top:10px;border:1px solid #d5d5d5;text-indent:10px;}
+.main_reset div.reset_box_new span{width:260px;margin-top:20px;margin-bottom:20px;margin-left:15px;height:1px;background:#e5e5e5;display:block;}
+.main_reset div.reset_box_new a.resetbtn{margin-left:15px;width: 260px;text-decoration:none;margin-top:20px;
+text-align: center;
+height: 35px;
+display: inline-block;
+background: #ff5a5f;
+border: 1px solid #ff5a5f;
+border-bottom-color: #e00007;
+color: #fff;
+line-height: 35px;
+border-radius: 3px;}
+.main_reset div.reset_box_new a.link{color:#F00;}
+

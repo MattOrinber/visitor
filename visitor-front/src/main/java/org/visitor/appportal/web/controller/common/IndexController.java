@@ -427,7 +427,7 @@ public class IndexController extends BasicController {
 			model.addAttribute("mailUsed", emailStr);
 		}
 		
-		model.addAttribute("pageName", "inbox");
+		model.addAttribute("pageName", "resetpass");
 		return "day/resetpass";
 	}
 	

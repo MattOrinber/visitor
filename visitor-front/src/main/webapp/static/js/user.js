@@ -452,7 +452,15 @@ function checkAndResetPassword() {
 		        data : jsonStr,  
 		        success : function(data) {  
 		        	if (data.result = 0) {
-		        		alert("update success");
+		        		console.log("update success");
+		        		var userEmailReturnedStr = data.userEmail;
+		            	var userTokenReturnedStr = data.token;
+		            	
+		            	$.cookie('userEmail', userEmailReturnedStr, { expires: 7, path: '/' });
+		            	$.cookie('userAccessToken', userTokenReturnedStr, { expires: 7, path: '/' });
+		            	
+		        		var toGoUrl = pathGlobe + "/index";
+		        		window.location.href = toGoUrl;
 		        	} else {
 		        		alert(data.resultDesc);
 		        	}
