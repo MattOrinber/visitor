@@ -90,6 +90,7 @@ public class ProductController extends BasicController {
 		String homeType = pt.getProductHomeTypeStr();
 		String roomType = pt.getProductRoomTypeStr();
 		String accomodates = pt.getProductAccomodatesStr();
+		String availTypeStr = pt.getProductAvailableTypeStr();
 		String city = pt.getProductCityStr();
 		
 		Product product = new Product();
@@ -98,6 +99,7 @@ public class ProductController extends BasicController {
 		product.setProductRoomType(roomType);
 		product.setProductAccomodates(accomodates);
 		product.setProductCity(city);
+		product.setProductAvailabletype(Integer.valueOf(availTypeStr));
 		
 		Date newDate = new Date();
 		

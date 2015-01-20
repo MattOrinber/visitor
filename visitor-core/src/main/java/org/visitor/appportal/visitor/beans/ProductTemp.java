@@ -5,6 +5,7 @@ public class ProductTemp {
 	private String productRoomTypeStr;
 	private String productAccomodatesStr;
 	private String productCityStr;
+	private String productAvailableTypeStr;
 	public String getProductHomeTypeStr() {
 		return productHomeTypeStr;
 	}
@@ -28,5 +29,11 @@ public class ProductTemp {
 	}
 	public void setProductCityStr(String productCityStr) {
 		this.productCityStr = productCityStr;
+	}
+	public String getProductAvailableTypeStr() {
+		return productAvailableTypeStr;
+	}
+	public void setProductAvailableTypeStr(String productAvailableTypeStr) {
+		this.productAvailableTypeStr = productAvailableTypeStr;
 	}
 }

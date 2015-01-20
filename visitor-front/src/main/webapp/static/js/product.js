@@ -17,12 +17,14 @@ function createProduct()
 	var productHomeTypeStr = 'Apartment';
 	var productRoomTypeStr = 'Entire home/apt';
 	var productAccomodatesStr = '5';
+	var productAvailableTypeStr = '0';
 	var productCityStr = $("#productCityInput").val();
 	
 	product.productHomeTypeStr = productHomeTypeStr;
 	product.productRoomTypeStr = productRoomTypeStr;
 	product.productAccomodatesStr = productAccomodatesStr;
 	product.productCityStr = productCityStr;
+	product.productAvailableTypeStr = productAvailableTypeStr;
     
     var urlStrStr = pathGlobe + '/product/create';
     var jsonStr = $.toJSON(product);
@@ -36,7 +38,7 @@ function createProduct()
         data : jsonStr,  
         success : function(data) {
         	$.cookie('currentProductID', data.productId, { expires: 7 });
-        	var redirectStr = pathGlobe + '/day/calendar?pid=' + data.productId;
+        	var redirectStr = pathGlobe + '/day/pricing?pid=' + data.productId;
         	window.location.href = redirectStr;
         },  
         error : function() {  

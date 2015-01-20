@@ -36,14 +36,16 @@
     	<ul>
         	<li class="title">Basics</li>
 ]]>
-			<c:choose>
+
+
+<!--  			<c:choose>
 				<c:when test="${not empty productInfo.productAvailabletype}">
 					<li id="productCalendarLi" class="publish"><a href="${pageContext.request.contextPath}/day/calendar?pid=${productInfo.productId}">Calendar</a></li>
 				</c:when>
 				<c:otherwise>
 					<li id="productCalendarLi"><a href="${pageContext.request.contextPath}/day/calendar?pid=${productInfo.productId}">Calendar</a></li>
 				</c:otherwise>
-			</c:choose>
+			</c:choose>-->
 			
 			<c:choose>
 				<c:when test="${not empty productInfo.productBaseprice}">
