@@ -9,14 +9,11 @@
 	</c:if>
 
 <![CDATA[
-
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyA6PgMSP1y1T1ykJpI1MhpiMHWlb6eObNc&sensor=false"></script>
 	<script>
 		$(document).ready(function(){
 			initLoginBar();
 			setGlobalCurrency();
 			setProductDescEditor();
-			mapInitialize();
 			
 			startChecking();
 		});
@@ -146,22 +143,6 @@
                     
                 </div>
             </div>
-            
-            <div class="down">
-				<span>City *</span>
-]]>
-                <c:choose>
-					<c:when test="${not empty productInfo.productCity}">
-					    <span class="search"><input id="searchCityInput" onfocus="setifCanUpdate();" onblur="hideCities(this);" onkeyup="displayPosResult(this);" type="text" value="${productInfo.productCity}"/></span>
-					</c:when>
-					<c:when test="${empty productInfo.productCity}">
-					    <span class="search"><input id="searchCityInput" onfocus="setifCanUpdate();" onblur="hideCities(this);" onkeyup="displayPosResult(this);" type="text" /></span>
-					</c:when>
-				</c:choose>
-<![CDATA[
-            </div>
-            
-            <div id="map_canvas" style="width:500px; height:400px;margin-left:240px;margin-top:30px;"></div>
         </div>
     </div>
 </div>
