@@ -4,10 +4,11 @@
 <jsp:directive.page contentType="text/html; charset=UTF-8" />
 
 <body>
-	<div class="main">
-		<div class="reset_box">
+	<div class="main_reset">
+		<div class="reset_box_new">
 		<c:choose>
 			<c:when test="${not empty canReset and canReset eq 1}">
+				<![CDATA[
 				<h3>Reset Your Password</h3>
 		        <input type="password" id="newPassOne" placeholder="New Password"/>
 		        <input type="password" id="newPassTwo" placeholder="Confirm Password"/>
@@ -17,6 +18,7 @@
 		        </p>
 		        <input type="hidden" value="${tokenUsed}" id="tokenInput" />
 				<input type="hidden" value="${mailUsed}" id="mailInput" />
+				]]>
 			</c:when>
 			<c:otherwise>Token expired</c:otherwise>
 		</c:choose>

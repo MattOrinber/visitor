@@ -451,7 +451,7 @@ function checkAndResetPassword() {
 		        dataType : 'json',  
 		        data : jsonStr,  
 		        success : function(data) {  
-		        	if (data.result = 0) {
+		        	if (data.result == 0) {
 		        		console.log("update success");
 		        		var userEmailReturnedStr = data.userEmail;
 		            	var userTokenReturnedStr = data.token;

@@ -358,7 +358,7 @@ function seeIfLoginBarDisplayed(data, path) {
     	if (userPicUrlStr == "--") {
     		$("#userIconUrlSpan").attr("src", path+"/static/img/user_pic-50x50.png");
     	} else {
-    		$("#userIconUrlSpan").attr("src", '"' + userPicUrlStr + '"');
+    		$("#userIconUrlSpan").attr("src", userPicUrlStr);
     	}
     	
     	$("#notLoginStatusBarPart").css("display", "none");
