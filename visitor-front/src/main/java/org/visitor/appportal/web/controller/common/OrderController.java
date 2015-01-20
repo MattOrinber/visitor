@@ -119,7 +119,8 @@ public class OrderController extends BasicController {
 						po.setOrderUserEmail(userTemp.getUserEmail());
 						po.setOrderTotalAmount(resultPrice);
 						po.setOrderRemainAmount(resultPrice);
-						po.setOrderCurrency(product.getProductCurrency());
+						//po.setOrderCurrency(product.getProductCurrency());
+						po.setOrderCurrency("USD");
 						po.setOrderStatus(ProductOrderStatusEnum.Init.ordinal());
 						visitorProductOrderService.saveProductOrder(po);
 						

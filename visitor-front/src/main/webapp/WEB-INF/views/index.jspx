@@ -434,7 +434,8 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
 ]]>
 
 		<select id="globalCurrencySet" onchange="setGlobalCurrency();">
-			<c:forEach items="${currencyList}" var="currencyT" varStatus="status">
+			<option value="USD" selected="selected">USD</option>
+			<!-- <c:forEach items="${currencyList}" var="currencyT" varStatus="status">
 				<c:choose>
 					<c:when test="${currencyT == 'USD'}">
 						<option value="${currencyT}" selected="selected">${currencyT}</option>
@@ -443,7 +444,7 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
 						<option value="${currencyT}">${currencyT}</option>
 					</c:otherwise>
 				</c:choose>
-			</c:forEach>
+			</c:forEach> -->
 		</select>
             
 <![CDATA[

@@ -87,7 +87,7 @@
 				
 		<![CDATA[
 		        </div></a>
-		        <div class="price"><span>${productT.product.productCurrency}</span>${productT.product.productBaseprice}</div>
+		        <div class="price"><span> $ </span>${productT.product.productBaseprice}</div>
 		        <div class="word">
 		        	<p class="product-title">${productT.product.productOverviewtitle}</p>
 		            <p class="duration">6 Hours</p>

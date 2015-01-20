@@ -7,7 +7,7 @@ function setifCanUpdate() {
 
 function setIfPriceCanUpdate(node) {
 	ifCanUpdate = true;
-	$("#pricePageCurrencyStr").html($(node).val());
+	//$("#pricePageCurrencyStr").html($(node).val());
 }
 
 function createProduct()

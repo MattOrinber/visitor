@@ -50,7 +50,7 @@
 	</script>
 
 <input type="hidden" id="productIDForUse" value="${productInfo.productId}" />
-<input type="hidden" id="productGlobalCurrencyStr" value="${productInfo.productCurrency}" />
+<input type="hidden" id="productGlobalCurrencyStr" value="$" />
 
 <div class="boxshade">
 	<a href="javascript:void(0);" id="closeit" style="display:block;width:20px;height:20px;position:absolute;right:20px;top:20px;"><img src="${imgPathOrigin}/static/close2.png" /></a>
@@ -203,7 +203,7 @@
         <div class="rightbox">
             <div class="book">
                 <div class="price">
-                    ${productInfo.productCurrency} ${productInfo.productBaseprice}<span> Each</span>
+                    $ ${productInfo.productBaseprice}<span> Each</span>
                 </div>
 ]]>
 				<c:choose>
@@ -221,14 +221,14 @@
 		                    <table width="260" border="0" cellpadding="0" cellspacing="1">
 		                      <tr>
 		                        <td width="146">Participant:</td>
-		                        <td width="111">${productInfo.productCurrency} ${productInfo.productBaseprice}<input id="orderBasicPriceCount" type="text" onblur="addBasicPrice(this);" /></td>
+		                        <td width="111">$ ${productInfo.productBaseprice}<input id="orderBasicPriceCount" type="text" onblur="addBasicPrice(this);" /></td>
 		                      </tr>
 		            ]]>
 		                <c:if test="${not empty multiPriceSet}">
 							<c:forEach items="${multiPriceSet}" var="priceSpecial" varStatus="status">
 				            	<tr>
 			                        <td width="146">${priceSpecial.pmpProductPriceKey}</td>
-			                        <td width="111">${productInfo.productCurrency} ${priceSpecial.pmpProductPriceValue}<input data-key="${priceSpecial.pmpProductPriceKey}" data-amount="0" type="text" onblur="addServicePrice(this);" placeholder="0"/></td>
+			                        <td width="111">$ ${priceSpecial.pmpProductPriceValue}<input data-key="${priceSpecial.pmpProductPriceKey}" data-amount="0" type="text" onblur="addServicePrice(this);" placeholder="0"/></td>
 			                    </tr>
 							</c:forEach>
 						</c:if>
