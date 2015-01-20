@@ -23,67 +23,11 @@
 <div class="main">
    <div class="maincontent">
    		<h1>List Your Activities</h1>
-        <p>Dayfetch lets you make money renting out your place.</p>
    </div>
 </div>
 <![CDATA[
 <div class="main2">
 	<div class="main2content">
-    	<div class="hometype">
-        	<div class="title">Home Type</div>
-            <div class="choice">
-            	
-           		<a href="javascript:homeTypeValueSet('Apartment');" >Apartment</a>
-                <a href="javascript:homeTypeValueSet('House');" style="width:130px;">House</a>
-                <a style="width:190px;" href="javascript:homeTypeValueSet('Bed & Breakfast');">Bed & Breakfast</a>
-]]>
-
-            	<select id="productHomeTypeStr" name="productHomeTypeStr" onchange="homeTypeValueSet(this.value);">
-					<c:forEach items="${homeTypeList}" var="homeType" varStatus="status">
-						<c:if test="${status.index == 3}">
-						    <option value="${homeType}" disabled="" selected="">${homeType}</option>
-						</c:if>
-						<c:if test="${status.index gt 3}">
-						    <option value="${homeType}">${homeType}</option>
-						</c:if>
-					</c:forEach>
-				</select>
-<![CDATA[
-				<div id="homeTypeChosen" class="hiddendiv" style="display:none;" onclick="setHomeTypeBack();">
-					<div class="typechoosed" id="inputvalHomeType"></div><div class="text">Dayfetch guests love the variety of home types available. </div>
-				</div>
-            </div>
-        </div>
-        <div class="hometype">
-        	<div class="title">Room Type</div>
-            <div class="choice choice2">
-            	<a href="javascript:roomTypeValueSet('Entire home/apt');">Entire home/apt</a>
-            	<a href="javascript:roomTypeValueSet('Private room');" style="width:180px;">Private room</a>
-            	<a style="width:180px;" href="javascript:roomTypeValueSet('Shared room');">Shared room</a>
-            	
-            	<div id="roomTypeChosen" class="hiddendiv" style="display:none;"  onclick="setRoomTypeBack();">
-					<div class="typechoosed" id="inputvalRoomType"></div><div class="text">Dayfetch guests love the variety of room types available. </div>
-				</div>
-            </div>
-        </div>
-        <div class="hometype">
-        	<div class="title">Accommodates</div>
-            <div class="choice choice3">
-            	<select id="accomodatesValueD" onchange="checkIfCanProceed();">
-            		<option value="0" selected="selected">0</option>
-]]>
-                	<c:forEach items="${accomodatesList}" var="accomodate" varStatus="status">
-						<c:if test="${status.index == 0}">
-						    <option value="${accomodate}">${accomodate}</option>
-						</c:if>
-						<c:if test="${status.index != 0}">
-						    <option value="${accomodate}">${accomodate}</option>
-						</c:if>
-					</c:forEach>
-<![CDATA[
-                </select>
-            </div>
-        </div>
         <div class="hometype">
         	<div class="title">City</div>
             <div class="choice choice4"><input id="productCityInput" type="text" placeholder="Rome,Pairs..." onblur="checkIfCanProceed();"/></div>
@@ -92,7 +36,6 @@
         	<div class="title"></div>
             <div class="choice choice5">
 ]]>
-			<c:if test=""></c:if>
 			<c:choose>
 				<c:when test="${not empty loginUserEmail}">
 					<a id="proceedToGenerate" href="javascript:createProduct();">Continue</a>
@@ -103,23 +46,6 @@
 			</c:choose>
 <![CDATA[
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="main3">
-	<div class="main3content">
-    	<div class="left">
-        	<div class="title">Trust & Safety</div>
-            <span>Trust & safety tools help you accept a booking only if you're 100% comfortable.</span>
-        </div>
-        <div class="left">
-        	<div class="title">$1,000,000 Host Guarantee</div>
-            <span>Your peace of mind is priceless. So we don't charge for it. Every eligible booking on Dayfetch is covered by our Host Guarantee - at no additional cost to you.</span>
-        </div>
-        <div class="left">
-        	<div class="title">Secure Payments</div>
-            <span>Our fast, flexible payment system puts money in your bank account 24 hours after guests check in.</span>
         </div>
     </div>
 </div>

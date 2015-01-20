@@ -542,16 +542,10 @@ function roomTypeValueSet(valueT) { //choose room type
 
 
 function checkIfCanProceed() { // see if we can create product
-	var htmlHomeType = $("#inputvalHomeType").html();
-	var htmlRoomType = $("#inputvalRoomType").html();
-	var accomodatesValue = $("#accomodatesValueD").val();
 	var productCityInput = $("#productCityInput").val();
 	var productCityInputStr = $.trim(productCityInput);
 	
-	if (htmlHomeType != "0" && 
-			htmlRoomType != "0" && 
-			accomodatesValue != "0" && 
-			productCityInputStr != "" && 
+	if (productCityInputStr != "" && 
 			productCityInputStr != "Rome,Pairs...") {
 		$("#proceedToGenerate").attr("href", "javascript:createProduct();");
 	} else {

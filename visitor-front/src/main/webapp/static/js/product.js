@@ -14,9 +14,9 @@ function createProduct()
 {	
 	var product = {};
 	
-	var productHomeTypeStr = $("#inputvalHomeType").html();
-	var productRoomTypeStr = $("#inputvalRoomType").html();
-	var productAccomodatesStr = $("#accomodatesValueD").val();
+	var productHomeTypeStr = 'Apartment';
+	var productRoomTypeStr = 'Entire home/apt';
+	var productAccomodatesStr = '5';
 	var productCityStr = $("#productCityInput").val();
 	
 	product.productHomeTypeStr = productHomeTypeStr;
