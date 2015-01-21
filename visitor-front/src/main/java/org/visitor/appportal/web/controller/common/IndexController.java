@@ -311,8 +311,23 @@ public class IndexController extends BasicController {
 		
 		User user = (User) request.getAttribute(WebInfo.UserID);
 		super.setMyProductModel(user, request, model);
-		model.addAttribute("pageName", "inbox");
+		model.addAttribute("pageName", "your-listing");
 		return "day/your-listing";
+	}
+	
+	@RequestMapping({"day/your-reservations"})
+	public String dayYourReservation(HttpServletRequest request,
+			HttpServletResponse response, 
+			Model model) {
+		boolean ifLoggedIn = super.setModel(request, response, model, false);
+		if (!ifLoggedIn) {
+			return "redirect:/index";
+		}
+		
+		User user = (User) request.getAttribute(WebInfo.UserID);
+		super.setMyToOrdersModel(user, request, model);
+		model.addAttribute("pageName", "your-listing");
+		return "day/your-reservations";
 	}
 	
 	@RequestMapping({"day/your-trip"})

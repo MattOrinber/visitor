@@ -1,0 +1,104 @@
+<html xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:security="http://www.springframework.org/security/tags" xmlns:form="http://www.springframework.org/tags/form" xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output omit-xml-declaration="yes" />
+<jsp:directive.page contentType="text/html; charset=UTF-8" />
+
+<body>
+	<c:if test="${not empty loginUserEmail}">
+		<script type="text/javascript">ifLogginIn = 1;</script>
+	</c:if>
+	
+<![CDATA[
+	<script>
+		$(document).ready(function(){
+			initLoginBar();
+			setGlobalCurrency();
+			startChecking();
+		});
+	</script>
+	
+<div class="nav">
+	<div class="nav-detail">
+    	<a href="${pageContext.request.contextPath}/day/dashboard">Dashboard</a>
+        <a href="${pageContext.request.contextPath}/day/inbox">Inbox</a>
+        <a href="javascript:void(0);" class="select">Your Listings</a>
+        <a href="${pageContext.request.contextPath}/day/your-trip">Your trips</a>
+        <a href="${pageContext.request.contextPath}/day/edit">Edit Profile</a>
+    </div>
+</div>
+
+<div class="main">
+    <div class="maincontent">
+    	<div class="leftmenu">
+        	<ul>
+            	<li><a href="${pageContext.request.contextPath}/day/your-listing">Manage Listing</a></li>
+                <li><a class="select" href="javascript:void(0);">Your Reservations</a></li>
+            </ul>
+        </div>
+        <div class="rightcontent">
+        	<div class="rightcontent1">
+]]>
+			<c:choose>
+				<c:when test="${not empty pageInfo}">
+					<![CDATA[
+					<table width="763" border="0" cellpadding="0" cellspacing="0">
+	                  <tr>
+	                    <th width="20%">Activity Title</th>
+	                    <th width="5%">Num</th>
+	                    <th width="12.5%">book date</th>
+						<th width="12.5%">order date</th>
+						<th width="15%">Buyer</th>
+	                    <th width="20%">email</th>
+	                    <th width="5%">status</th>
+	                    <th width="10%" style="text-align:right;padding-right:5px;">Amount</td>
+	                  </tr>
+	                ]]>
+	                <c:if test="${not empty listOP}">
+	                	<c:forEach items="${listOP}" var="opT" varStatus="status">
+	                		<tr>
+	                			<td><a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/product?pid=${opT.product.productId}">${opT.product.productOverviewtitle}</a></td>
+	                			<td>${opT.order.orderTotalCount}</td>
+	                			<td>${opT.orderBookDateStr}</td>
+	                			<td>${opT.orderCreatedateStr}</td>
+	                			<td><a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/host_profile?emailStr=${opT.order.orderUserEmail}">${opT.orderUserNameStr}</a></td>
+	                			<td>${opT.order.orderUserEmail}</td>
+	                			<c:choose>
+	                				<c:when test="${opT.order.orderStatus eq 4}">
+	                					<td><span class="paid">paid</span></td>
+	                				</c:when>
+	                				<c:otherwise>
+	                					<td><span class="pending">pending</span></td>
+	                				</c:otherwise>
+	                			</c:choose>
+	                			<td style="text-align:right;padding-right:5px;">$ ${opT.order.orderTotalAmount}</td>
+	                		</tr>
+	                	</c:forEach>
+	                </c:if>
+	                <![CDATA[
+	                </table>
+	                ]]>
+	                <c:if test="${pageInfo.ifPager eq 1}">
+	                	<c:choose>
+					 		<c:when test="${pageInfo.currentPageNum eq 1}"><a href="javascript:void(0);">Prev</a></c:when>
+					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/your-reservations?p=${pageInfo.currentPageNum-1}">Prev</a>]]></c:otherwise>
+					 	</c:choose>
+					 	<input id="pageIdxStr" type="text" value="${pageInfo.currentPageNum}" style="width:50px" />
+					 	<c:choose>
+					 		<c:when test="${pageInfo.currentPageNum eq pageInfo.pageNum}"><a href="javascript:void(0);">Next</a><span> total ${pageInfo.pageNum} pages</span></c:when>
+					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/your-reservations?p=${pageInfo.currentPageNum+1}">Next</a><span> total ${pageInfo.pageNum} pages</span>]]></c:otherwise>
+					 	</c:choose>
+	                </c:if>
+				</c:when>
+				<c:otherwise>
+					<p>You have no reservation.</p>
+				</c:otherwise>
+			</c:choose>
+<![CDATA[
+         	</div>
+         </div>
+    </div>
+</div>
+
+]]>
+</body>
+</html>

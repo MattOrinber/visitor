@@ -21,6 +21,7 @@ public class ProductInfo {
 	public static final Integer AMENITIES_TYPE_HOMESAFETY = 3;
 	
 	public static final String PRODUCT_PAGE_SIZE = "product_page_size";
+	public static final String ORDER_PAGE_SIZE = "order_page_size";
 	
 	public static final String PRODUCT_CREATE_SUCCESS = "product ceated successfully";
 	

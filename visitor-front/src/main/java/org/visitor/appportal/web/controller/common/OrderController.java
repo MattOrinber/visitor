@@ -135,6 +135,8 @@ public class OrderController extends BasicController {
 						visitorProductOrderService.saveProductOrder(po);
 						orderRedisService.saveUserOrders(userTemp, po);
 						orderRedisService.saveProductOrders(po);
+						String toUserEmail = product.getProductPublishUserEmail();
+						orderRedisService.saveOrderToUserIdList(toUserEmail, po.getOrderId());
 						orderRedisService.saveProductPayOrderById(ppo);
 						
 						rj.setTotalPrice(resultPrice);

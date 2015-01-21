@@ -1,0 +1,102 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{margin:0;padding:0;font-family:Arial,sans-serif;color:#565a5c;}
+a{text-decoration:none;}
+img{border:none;}
+li{list-style:none;}
+body{background:#f7f7f7;}
+
+.header{width:100%;height:55px;background:#fff;border-bottom:1px solid #c4c4c4;}
+.header .head{min-width:1080px;height:55px;margin:0 auto;}
+.header .head .logo{width:80px;height:40px;float:left;margin-left:20px;margin-top:10px;}
+.header .head .select{width:200px;height:20px;float:left;margin-top:22px;}
+.header .head .select select{border:1px solid #c4c4c4;width:120px;outline:none;}
+.header .head .loginbar{width:300px;height:50px;float:right;margin-top:15px;margin-right:20px;}
+.header .head .loginbar a{font-size:13px;color:#666;margin-left:25px;}
+.header .head .loginbar a.list{border:1px solid #007a87;border-bottom-color: #004f58;background-color: #007a87;display:inline-block;width:130px;height:28px;border-radius:3px;line-height:28px;text-align:center;font-weight:bold;color:#fff;}
+.header .head .loginbar a.list:hover{background-color:#12acbc;border:1px solid #12acbc;border-bottom-color: #004f58;}
+
+.nav{width:100%;height:40px;background:#565a5c;}
+.nav .nav-detail{width:1000px;margin:0 auto;height:40px;line-height:40px;}
+.nav .nav-detail a{font-size:14px;color:#cacccd;margin-right:25px;display:block;height:36px;float:left;}
+.nav .nav-detail a:hover{color:#fff;}
+.nav .nav-detail a.select{color:#fff;border-bottom:4px solid #cacccd;}
+
+
+.main{width:100%;margin-bottom:30px;}
+.main .maincontent{width:1000px;margin:0 auto;margin-top:25px;overflow:hidden;min-height:500px;}
+.main .maincontent .leftmenu{width:230px;float:left;}
+.main .maincontent .leftmenu ul li{width:100%;height:35px;line-height:35px;}
+.main .maincontent .leftmenu ul li a{font-size:16px;color: #82888a;}
+.main .maincontent .leftmenu ul li a.select{font-weight:bold;color:#565a5c;}
+
+.main .maincontent .rightcontent{width:765px;margin-top:8px;float:right;} 
+.main .maincontent .rightcontent1{width:763px;background:#fff;border:1px solid #dce0e0;}
+
+
+
+
+.main .maincontent .rightcontent1 .inbox{width:763px;background:#fff;}
+.main .maincontent .rightcontent1 .inbox span{display:block;width:100%;height:60px;font-size:16px;line-height:50px;text-indent:10px;background:#edefed;border-bottom:1px solid #dce0e0;}
+.main .maincontent .rightcontent1 .inbox span select{height:30px;margin-top:15px;margin-left:10px;}
+.main .maincontent .rightcontent1 .inbox div{padding-left:10px;padding-right:10px;width:800px;padding-top:10px;padding-bottom:10px;}
+.main .maincontent .rightcontent1 .inbox div.message{height:40px;background:#fff;border-bottom:1px solid #dce0e0;width:743px;}
+.main .maincontent .rightcontent1 .inbox div.message .photo{padding:0;margin:0;margin-left:10px;margin-top:10px;width:45px;height:45px;float:left;border-radius: 50%;border:1px solid #ccc;overflow:hidden;}
+.main .maincontent .rightcontent1 .inbox div.message .time{width:400px;height:40px;float:left;margin-left:10px;font-size:14px;}
+.main .maincontent .rightcontent1 .inbox div.message .content{float:left;width:600px;font-size:14px;}
+.main .maincontent .rightcontent1 .inbox div.message .price{float:right;width:130px;font-size:14px;margin-top:10px;}
+.main .maincontent .rightcontent1 .inbox div.message .photo1 {width: 95px;height: 63px;border-radius: 0;margin-top: 0px;background: #ccc;}
+.main .maincontent .inbox div.message .price a.dot1 {background: #009900;}
+.main .maincontent .inbox div.message .price a.dot {display: inline-block;width: 12px;height: 12px;background: #FF0000;border-radius: 50%;}
+.main .maincontent p{font-size:16px;font-weight:bold;line-height:22px;}
+.main .maincontent a.calendar{color:#F00;}
+.main .maincontent .rightcontent1 table{border:1px solid #ccc;border-bottom:none;}
+.main .maincontent .rightcontent1 table tr th{background:#fff;border-bottom:1px solid #ccc;height:34px;text-align:left;font-size:14px;}
+.main .maincontent .rightcontent1 table tr td{background:#fff;border-bottom:1px solid #ccc;height:34px;text-align:left;font-size:13px;}
+.main .maincontent .rightcontent1 table tr:hover td{background:#f2fde4;}
+.main .maincontent .rightcontent1 table input{margin-right:5px;margin-left:2px;}
+.main .maincontent .rightcontent1 table a{text-decoration:underline;}
+.main .maincontent .rightcontent1 table span.paid{padding:3px 8px 3px;background:#f3f2ef;border-radius:3px;}
+.main .maincontent .rightcontent1 table span.pending{padding:3px 8px 3px;background:#eec17b;border-radius:3px;}
+
+
+
+
+
+
+
+
+
+.footer{width:100%;height:55px;background:#eee8df;}
+.footer .policy{width:1000px;margin:0 auto;line-height:55px;}
+.footer .policy a{font-size:13px;color:#4d3636;margin:auto 10px;}
+.footer .policy span{font-size:13px;color:#4d3636;float:right;}
+.footer .policy select{width:80px;height:18px;background:#eee8df;margin-right:10px;border:1px solid #999;}
+.footer .policy select option{font-size:13px;}
+
+.backtotop a{display:block;width:100%;height:50px;background:url(../img/totop.png) no-repeat center 7px #d9ccb9;cursor:pointer;}
+.backtotop a:hover{background:url(../img/totop.png) no-repeat center bottom #674702;}
+
+
+
+.wrapwrapbox{width:100%;height:100%;position:fixed;left:0;top:0;background:rgba(0,0,0,0.75);z-index:9998;display:none;}
+.wrapbox .signupbox{position:fixed;left:50%;top:0;z-index:9999;width:315px;height:260px;background:#fff;border-radius:3px;margin-left:-150px;margin-top:220px;padding-top:20px;display:none;}
+.wrapbox .signupbox a.facebook,.wrapbox .signupbox a.email{border:1px solid #d52b2a;border-bottom:1px solid #8a1c1b;background:#d52b2a;border-radius:3px;color: #fff;display:block;width:260px;height:40px;text-align:center;line-height:40px;margin:0 auto;margin-bottom:20px;}
+.wrapbox .signupbox a.facebook:hover,.wrapbox .signupbox a.email:hover{background:#df4c4b;}
+.wrapbox .signupbox span.terms{display:block;width:260px;margin:0 auto;font-size:12px;color:#666;margin-top:10px;line-height:20px;height:80px;border-bottom:1px solid #d2d2d2;}
+.wrapbox .signupbox span.terms a{color:#df4c4b;}
+.wrapbox .signupbox span.terms a:hover{text-decoration:underline;}
+.wrapbox .signupbox span.loginbutton{display:block;width:260px;margin:0 auto;margin-top:20px;font-size:14px;}
+.wrapbox .signupbox span.loginbutton a{color:#df4c4b;}
+.wrapbox .signupbox span.loginbutton a:hover{text-decoration:underline;}
+.wrapbox .signupbox span.or{margin-left:150px;margin-bottom:5px;}
+.wrapbox .signupbox span.username{display:block;width:260px;height:35px;margin:0 auto;margin-bottom:15px;border:1px solid #d4d4d4; border-radius:2px;background:url(../img/email.png) no-repeat 230px center;}
+.wrapbox .signupbox span.password{background:url(../img/lock.png) no-repeat 230px center;}
+.wrapbox .signupbox span.username input{width:220px;height:32px;border:none;outline:none;padding-left:5px;}
+.wrapbox .signupbox span.checkbox{width:150px;height:25px;margin-left:28px;font-size:13px;}
+.wrapbox .signupbox span.checkbox input{width:14px;height:14px;background:#fff;margin-right:3px}
+.wrapbox .signupbox span.forget{float:right;margin-right:28px;}
+.wrapbox .signupbox span.forget a{font-size:14px;color:#df4c4b;}
+.wrapbox .signupbox span.forget a:hover{text-decoration:underline;}
+.wrapbox .signupbox a.login{margin-top:20px;background:#e76261;}

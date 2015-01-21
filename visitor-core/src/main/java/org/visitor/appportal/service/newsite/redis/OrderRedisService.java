@@ -3,6 +3,7 @@ package org.visitor.appportal.service.newsite.redis;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.StringUtils;
@@ -11,6 +12,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.visitor.appportal.redis.ObjectMapperWrapperForVisitor;
 import org.visitor.appportal.redis.RedisKeysForVisitor;
+import org.visitor.appportal.visitor.beans.view.PageProduct;
 import org.visitor.appportal.visitor.domain.Product;
 import org.visitor.appportal.visitor.domain.ProductOrder;
 import org.visitor.appportal.visitor.domain.ProductPayOrder;
@@ -56,6 +58,51 @@ public class OrderRedisService {
 		String valueT = objectMapperWrapperForVisitor.convert2String(pOrder);
 		
 		compressStringRedisVisitorTemplate.opsForHash().put(key, keyT, valueT);
+	}
+	
+	public void saveOrderToUserIdList(String emailStr, Long pOrderId) {
+		String key = RedisKeysForVisitor.getOrderToUserKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + emailStr;
+		Double scoreValue = new Double(pOrderId.doubleValue());
+		String pOrderIdStr = String.valueOf(pOrderId.longValue());
+		stringRedisVisitorTemplate.opsForZSet().add(key, pOrderIdStr, scoreValue.doubleValue());
+	}
+	
+	public PageProduct getOrderToUserListSize(String emailStr, Long pageSize) {
+		String keyT = RedisKeysForVisitor.getOrderToUserKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + emailStr;
+		PageProduct pageInfo = new PageProduct(); 
+		
+		Long allSize = stringRedisVisitorTemplate.opsForZSet().size(keyT);
+		Long pageNum = allSize/pageSize; 
+		Long pageResidual = allSize%pageSize; 
+		if (pageResidual > 0) {
+			pageNum ++;
+		}
+		if (pageNum > 1) {
+			pageInfo.setIfPager(new Integer(1));
+		} else {
+			pageInfo.setIfPager(new Integer(0));
+		}
+		pageInfo.setTotalSize(allSize);
+		pageInfo.setPageNum(pageNum);
+		
+		return pageInfo;
+	}
+	
+	public List<Long> getOrderToUserListFromRedis(String emailStr, Long pageIdx, Long pageSize) {
+		String keyT = RedisKeysForVisitor.getOrderToUserKey() + RedisKeysForVisitor.getVisitorRedisWeakSplit() + emailStr;
+		List<Long> result = new ArrayList<Long>();
+		
+		long start = (pageIdx-1) * pageSize;
+		long end = pageIdx * pageSize - 1;
+		
+		Set<String> listIds = null;
+		listIds = stringRedisVisitorTemplate.opsForZSet().reverseRange(keyT, start, end);
+	
+		for (String poid : listIds) {
+			Long poidLong = Long.valueOf(poid);
+			result.add(poidLong);
+		}
+		return result;
 	}
 	
 	public List<ProductOrder> getUserOrders(User user) {

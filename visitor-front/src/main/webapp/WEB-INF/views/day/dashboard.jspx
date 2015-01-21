@@ -38,7 +38,7 @@
             	<span>Quick Links</span>
                 <div>
                 	<a href="javascript:toListing();">View/Manage Listings</a>
-                    <a href="javascript:void(0);">Reservations</a>
+                    <a href="${pageContext.request.contextPath}/day/your-reservations?p=1">Reservations</a>
                 </div>
             </div>
         </div>

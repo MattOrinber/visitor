@@ -8,6 +8,10 @@ public class OrderProduct {
 	private ProductOrder order;
 	private String productPicUrlFirst;
 	private Integer remainSteps;
+	
+	private String orderBookDateStr;
+	private String orderCreatedateStr;
+	private String orderUserNameStr;
 	public Product getProduct() {
 		return product;
 	}
@@ -31,5 +35,23 @@ public class OrderProduct {
 	}
 	public void setRemainSteps(Integer remainSteps) {
 		this.remainSteps = remainSteps;
+	}
+	public String getOrderBookDateStr() {
+		return orderBookDateStr;
+	}
+	public void setOrderBookDateStr(String orderBookDateStr) {
+		this.orderBookDateStr = orderBookDateStr;
+	}
+	public String getOrderCreatedateStr() {
+		return orderCreatedateStr;
+	}
+	public void setOrderCreatedateStr(String orderCreatedateStr) {
+		this.orderCreatedateStr = orderCreatedateStr;
+	}
+	public String getOrderUserNameStr() {
+		return orderUserNameStr;
+	}
+	public void setOrderUserNameStr(String orderUserNameStr) {
+		this.orderUserNameStr = orderUserNameStr;
 	}
 }

@@ -31,6 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.visitor.appportal.redis.FloopyUtils;
 import org.visitor.appportal.service.newsite.VisitorContainerService;
+import org.visitor.appportal.service.newsite.VisitorProductOrderService;
 import org.visitor.appportal.service.newsite.VisitorUserService;
 import org.visitor.appportal.service.newsite.VisitorUserTokenInfoService;
 import org.visitor.appportal.service.newsite.redis.ContainerRedisService;
@@ -83,6 +84,8 @@ public class BasicController {
 	
 	@Autowired
 	private OrderRedisService orderRedisService;
+	@Autowired
+	private VisitorProductOrderService visitorProductOrderService;
 	@Autowired
 	private TimezoneRedisService timezoneRedisService;
 	@Autowired
@@ -984,5 +987,59 @@ public class BasicController {
 		model.addAttribute("fivePos", fivePos);
 		model.addAttribute("sixPos", sixPos);
 		model.addAttribute("sevenPos", sevenPos);
+	}
+
+	public void setMyToOrdersModel(User user, HttpServletRequest request,
+			Model model) {
+		// TODO Auto-generated method stub
+		String toUserEmail = user.getUserEmail();
+		
+		String orderPageSizeStr = floopyThingRedisService.getFloopyValueSingle(ProductInfo.ORDER_PAGE_SIZE);
+		Long orderPageSize = new Long(10);
+		if (StringUtils.isNotEmpty(orderPageSizeStr)) {
+			orderPageSize = Long.valueOf(orderPageSizeStr);
+		}
+		
+		PageProduct pageInfo = orderRedisService.getOrderToUserListSize(toUserEmail, orderPageSize);
+		if (pageInfo.getTotalSize() > 0) {
+			String pageIdxStr = request.getParameter("p");
+			Long pageIdx = Long.valueOf(pageIdxStr);
+			pageInfo.setCurrentPageNum(pageIdx);
+			
+			List<Long> poidList = orderRedisService.getOrderToUserListFromRedis(toUserEmail, pageIdx, orderPageSize);
+			
+			List<OrderProduct> listOP = new ArrayList<OrderProduct>();
+			for (Long poid : poidList) {
+				ProductOrder order = visitorProductOrderService.getProductOrderById(poid);
+				Product product = productRedisService.getProductFromRedis(order.getOrderProductId());
+				
+				OrderProduct op = new OrderProduct();
+				op.setProduct(product);
+				op.setOrder(order);
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				String orderBookDateStr = sdf.format(order.getOrderStartDate());
+				String orderCreateDateStr = sdf.format(order.getOrderCreateDate());
+				op.setOrderBookDateStr(orderBookDateStr);
+				op.setOrderCreatedateStr(orderCreateDateStr);
+				
+				String bookUserEmail = order.getOrderUserEmail();
+				User tempUser = userRedisService.getUserPassword(bookUserEmail);
+				String firstNameStr = tempUser.getUserFirstName();
+				String lastUserName = tempUser.getUserLastName();
+				
+				if (StringUtils.isNotEmpty(firstNameStr) && StringUtils.isNotEmpty(lastUserName)) {
+					op.setOrderUserNameStr(firstNameStr + " " + lastUserName);
+				} else {
+					String mailName = StringUtils.substring(bookUserEmail, 0, StringUtils.indexOf(bookUserEmail, "@"));
+					op.setOrderUserNameStr(mailName);
+				}
+				
+				listOP.add(op);
+			}
+			
+			model.addAttribute("listOP", listOP);
+			model.addAttribute("pageInfo", pageInfo);
+		}
 	}
 }

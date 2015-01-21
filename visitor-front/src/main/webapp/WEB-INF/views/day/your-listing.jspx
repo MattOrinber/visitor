@@ -29,102 +29,112 @@
 
 <div class="main">
     <div class="maincontent">
-         <div class="inbox">
-            	<span>
-                	<select>
-                    	<option>Show all listings</option>
-                        <option>Show active</option>
-                        <option>Show hidden</option>
-                    </select>
-                </span>
-]]>
-				<c:if test="${not empty productList}">
-					<c:forEach items="${productList}" var="productOrderBundle" varStatus="status">
-<![CDATA[
-						<div class="message" style="height:65px">
-]]>
-							<c:choose>
-								<c:when test="${not empty productOrderBundle.productPicUrlFirst}">
-<![CDATA[
-									<div class="photo photo1"><img src="${productOrderBundle.productPicUrlFirst}" width="95"/></div>
-]]>
-								</c:when>
-								<c:otherwise>
-<![CDATA[
-									<div class="photo photo1"></div>
-]]>
-								</c:otherwise>
-							</c:choose>
-<![CDATA[
-	                        <div class="time" style="width:300px;">
-]]>
-							<c:if test="${productOrderBundle.product.productStatus == 0}">
-	                        	<a href="${pageContext.request.contextPath}/day/pricing?pid=${productOrderBundle.product.productId}" class="title">
-	                           <c:choose>
-		                           <c:when test="${not empty productOrderBundle.product.productOverviewtitle}">
-		                               <p>${productOrderBundle.product.productOverviewtitle}</p>
-		                           </c:when>
-		                           <c:otherwise>
-		                               <p>${productOrderBundle.product.productRoomType} in ${productOrderBundle.product.productCity}</p>
-		                           </c:otherwise>
-	                           </c:choose>
-	                        	</a>
-	                        </c:if>
-	                        
-	                        <c:if test="${productOrderBundle.product.productStatus != 0}">
-	                        	<a href="${pageContext.request.contextPath}/day/product?pid=${productOrderBundle.product.productId}" class="title">
-	                        	<c:choose>
-		                           <c:when test="${not empty productOrderBundle.product.productOverviewtitle}">
-		                               <p>${productOrderBundle.product.productOverviewtitle}</p>
-		                           </c:when>
-		                           <c:otherwise>
-		                               <p>${productOrderBundle.product.productRoomType} in ${productOrderBundle.product.productCity}</p>
-		                           </c:otherwise>
-	                           </c:choose>
-	                        	</a>
-	                        </c:if>
-<![CDATA[
-	                            <a href="${pageContext.request.contextPath}/day/pricing?pid=${productOrderBundle.product.productId}" class="calendar">Manage Listing and Calendar</a>
-	                        </div>
-	                        <div class="price" style="width:200px;">
-]]>
-								<c:if test="${productOrderBundle.product.productStatus == 1}">
-<![CDATA[
-									<a href="javascript:void(0);" class="dot dot1"></a>
-									<select>
-										<option>Unlisted</option>
-										<option selected="selected">listed</option>
-									</select>
-]]>
-								</c:if>
-								
-								<c:if test="${productOrderBundle.product.productStatus == 2}">
-<![CDATA[
-									<a href="javascript:void(0);" class="dot"></a>
-									<select>
-										<option selected="selected">Unlisted</option>
-										<option>listed</option>
-									</select>
-]]>
-								</c:if>
-								
-								<c:if test="${productOrderBundle.product.productStatus == 0}">
+    	<div class="leftmenu">
+        	<ul>
+            	<li><a class="select" href="javascript:void(0);">Manage Listing</a></li>
+                <li><a href="${pageContext.request.contextPath}/day/your-reservations?p=1">Your Reservations</a></li>
+            </ul>
+        </div>
+        <div class="rightcontent">
+        	<div class="rightcontent1">
+		         <div class="inbox">
+		            	<span>
+		                	<select>
+		                    	<option>Show all listings</option>
+		                        <option>Show active</option>
+		                        <option>Show hidden</option>
+		                    </select>
+		                </span>
+		]]>
+						<c:if test="${not empty productList}">
+							<c:forEach items="${productList}" var="productOrderBundle" varStatus="status">
+		<![CDATA[
+								<div class="message" style="height:65px">
+		]]>
 									<c:choose>
-										<c:when test="${productOrderBundle.remainSteps gt 0}">
-											<a href="${pageContext.request.contextPath}/day/pricing?pid=${productOrderBundle.product.productId}" class="btn">${productOrderBundle.remainSteps} steps to list</a>
+										<c:when test="${not empty productOrderBundle.productPicUrlFirst}">
+		<![CDATA[
+											<div class="photo photo1"><img src="${productOrderBundle.productPicUrlFirst}" width="95"/></div>
+		]]>
 										</c:when>
 										<c:otherwise>
-											<a href="javascript:publishProduct();" style="width: 150px;text-align: center;height: 35px;display: inline-block;background:#ff5a5f;border:1px solid #ff5a5f;border-bottom-color: #e00007;color: #fff;line-height: 35px;border-radius: 3px;">List Space</a>
+		<![CDATA[
+											<div class="photo photo1"></div>
+		]]>
 										</c:otherwise>
 									</c:choose>
-								</c:if>
-<![CDATA[     
-	                        </div>
-	                   </div>
-]]>
-					</c:forEach>
-				</c:if>
-<![CDATA[
+		<![CDATA[
+			                        <div class="time" style="width:300px;">
+		]]>
+									<c:if test="${productOrderBundle.product.productStatus == 0}">
+			                        	<a href="${pageContext.request.contextPath}/day/pricing?pid=${productOrderBundle.product.productId}" class="title">
+			                           <c:choose>
+				                           <c:when test="${not empty productOrderBundle.product.productOverviewtitle}">
+				                               <p>${productOrderBundle.product.productOverviewtitle}</p>
+				                           </c:when>
+				                           <c:otherwise>
+				                               <p>${productOrderBundle.product.productRoomType} in ${productOrderBundle.product.productCity}</p>
+				                           </c:otherwise>
+			                           </c:choose>
+			                        	</a>
+			                        </c:if>
+			                        
+			                        <c:if test="${productOrderBundle.product.productStatus != 0}">
+			                        	<a href="${pageContext.request.contextPath}/day/product?pid=${productOrderBundle.product.productId}" class="title">
+			                        	<c:choose>
+				                           <c:when test="${not empty productOrderBundle.product.productOverviewtitle}">
+				                               <p>${productOrderBundle.product.productOverviewtitle}</p>
+				                           </c:when>
+				                           <c:otherwise>
+				                               <p>${productOrderBundle.product.productRoomType} in ${productOrderBundle.product.productCity}</p>
+				                           </c:otherwise>
+			                           </c:choose>
+			                        	</a>
+			                        </c:if>
+		<![CDATA[
+			                            <a href="${pageContext.request.contextPath}/day/pricing?pid=${productOrderBundle.product.productId}" class="calendar">Manage Listing and Calendar</a>
+			                        </div>
+			                        <div class="price" style="width:200px;">
+		]]>
+										<c:if test="${productOrderBundle.product.productStatus == 1}">
+		<![CDATA[
+											<a href="javascript:void(0);" class="dot dot1"></a>
+											<select>
+												<option>Unlisted</option>
+												<option selected="selected">listed</option>
+											</select>
+		]]>
+										</c:if>
+										
+										<c:if test="${productOrderBundle.product.productStatus == 2}">
+		<![CDATA[
+											<a href="javascript:void(0);" class="dot"></a>
+											<select>
+												<option selected="selected">Unlisted</option>
+												<option>listed</option>
+											</select>
+		]]>
+										</c:if>
+										
+										<c:if test="${productOrderBundle.product.productStatus == 0}">
+											<c:choose>
+												<c:when test="${productOrderBundle.remainSteps gt 0}">
+													<a href="${pageContext.request.contextPath}/day/pricing?pid=${productOrderBundle.product.productId}" class="btn">${productOrderBundle.remainSteps} steps to list</a>
+												</c:when>
+												<c:otherwise>
+													<a href="javascript:publishProduct();" style="width: 150px;text-align: center;height: 35px;display: inline-block;background:#ff5a5f;border:1px solid #ff5a5f;border-bottom-color: #e00007;color: #fff;line-height: 35px;border-radius: 3px;">List Space</a>
+												</c:otherwise>
+											</c:choose>
+										</c:if>
+		<![CDATA[     
+			                        </div>
+			                   </div>
+		]]>
+							</c:forEach>
+						</c:if>
+		<![CDATA[
+		         </div>
+         	</div>
          </div>
     </div>
 </div>

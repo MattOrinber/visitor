@@ -145,6 +145,10 @@ public class RedisKeysForVisitor {
     	return "ppok-";
     }
     
+    public static String getOrderToUserKey() {
+    	return "otu";
+    }
+    
     public static String getPaypalTxnIdKey() {
     	return "paypal-txn-id-group";
     }
