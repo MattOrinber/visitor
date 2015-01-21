@@ -405,6 +405,21 @@ public class IndexController extends BasicController {
 		return "day/edit-photos";
 	}
 	
+	@RequestMapping({"day/edit-changepassword"})
+	public String dayUserEditChangePassword(HttpServletRequest request,
+			HttpServletResponse response,
+			Model model) {
+		boolean ifLoggedIn = super.setModel(request, response, model, false);
+		if (!ifLoggedIn) {
+			return "redirect:/index";
+		}
+		
+		User user = (User) request.getAttribute(WebInfo.UserID);
+		model.addAttribute("currentUser", user);
+		model.addAttribute("pageName", "edit");
+		return "day/edit-changepassword";
+	}
+	
 	@RequestMapping({"day/resetpass"})
 	public String dayResetPassword(HttpServletRequest request,
 			HttpServletResponse response,

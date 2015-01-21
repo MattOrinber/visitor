@@ -476,3 +476,49 @@ function checkAndResetPassword() {
 		alert("please input your new password");
 	}
 }
+
+function editChangePassword() {
+	var oldPassStr = $.trim($("#editChangePasswordOldStr").val());
+	var newPassOneStr = $.trim($("#editChangePasswordOneStr").val());
+	var newPassTwoStr = $.trim($("#editChangePasswordTwoStr").val());
+	
+	if (oldPassStr != "" && newPassOneStr != "" && newPassTwoStr != "") {
+		if (newPassTwoStr == newPassOneStr) {
+			var passwordMd5 = $.md5(newPassOneStr);
+			var oldPasswordMd5 = $.md5(oldPassStr);
+			
+			var user = {};
+			user.oldPassStr = oldPasswordMd5;
+			user.newPassStr = passwordMd5;
+			
+			var urlStrStr = pathGlobe + '/updateUser/changeUserPassword';
+			var jsonStr = $.toJSON(user);
+			
+			playSaving();
+			
+			$.ajax({ 
+		        type : 'POST',  
+		        contentType : 'application/json',  
+		        url : urlStrStr,  
+		        processData : false,  
+		        dataType : 'json',  
+		        data : jsonStr,  
+		        success : function(data) {  
+		        	if (data.result == 0) {
+		        		console.log("change password success");
+		        		playSaved();
+		        	} else {
+		        		alert(data.resultDesc);
+		        	}
+		        },  
+		        error : function() {  
+		            alert('network error when doing password change');  
+		        }  
+		    }); 
+		} else {
+			alert("new repeated password does not match the new first one");
+		}
+	} else {
+		alert("please input your old password and new password");
+	}
+}

@@ -188,6 +188,45 @@ public class UserUpdateController extends BasicController {
 		setResultToClient(response, resultJ);
 	}
 	
+	@RequestMapping("changeUserPassword")
+	public void changeUserPassword(HttpServletRequest request,
+			HttpServletResponse response) {
+		UserTemp ut = super.getUserJson(request);
+		logTheJsonResult(ut);
+		
+		ResultJson rj = new ResultJson();
+		
+		Integer result = 0;
+		String resultDesc = "change password success";
+		
+		String oldPassStr = ut.getOldPassStr();
+		String newPassStr = ut.getNewPassStr();
+		
+		User user = (User) request.getAttribute(WebInfo.UserID);
+		
+		if (StringUtils.isNotEmpty(oldPassStr) && StringUtils.isNotEmpty(newPassStr) && user != null) {
+			String storedPassStr = user.getUserPassword();
+			
+			if (StringUtils.equals(oldPassStr, storedPassStr)) {
+				user.setUserPassword(newPassStr);
+				visitorUserService.saveUser(user);
+				userRedisService.saveUserPassword(user);
+			} else {
+				result = -1;
+				resultDesc = "old password not right";
+			}
+			
+		} else {
+			result = -1;
+			resultDesc = "parammeter not right";
+		}
+		
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		setResultToClient(response, rj);
+	}
+	
 	private void setResultToClient(HttpServletResponse response, ResultJson resultJson) {
 		sendJSONResponse(resultJson, response);
 	}

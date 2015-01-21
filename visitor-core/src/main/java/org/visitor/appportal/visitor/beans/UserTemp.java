@@ -25,6 +25,7 @@ public class UserTemp {
 	private String userStatusStr;
 	
 	private String userTokenStr;
+	private String oldPassStr;
 	private String newPassStr;
 	
 	private String userTypeStr;
@@ -177,5 +178,11 @@ public class UserTemp {
 	}
 	public void setUserStatusStr(String userStatusStr) {
 		this.userStatusStr = userStatusStr;
+	}
+	public String getOldPassStr() {
+		return oldPassStr;
+	}
+	public void setOldPassStr(String oldPassStr) {
+		this.oldPassStr = oldPassStr;
 	}
 }
