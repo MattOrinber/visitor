@@ -1,6 +1,14 @@
+
+var productPicUploadIndex = 0;
+
 function doProductImageUpload(pathOri) {
 	var pid = $("#productIdPageTemp").html();
 	var picUploadUrl = pathOri + "/product/picture?pid="+pid;
+	
+	productPicUploadIndex = productPicUploadIndex + 1;
+	
+	var appendDiv = '<div id="altpic_'+productPicUploadIndex+'" class="imgbox"><img src="'+ imgPathOriginStr + '/static/alt.jpg" width="180"/></div>';
+	$("#resultProductPicUpload").append(appendDiv);
 	
     $("#uploadProductPicForm").ajaxSubmit({
     	type: "post",
@@ -10,8 +18,10 @@ function doProductImageUpload(pathOri) {
     		if (data.result == 0) {
     			checkCanPublish(data.productCan);
         		var imageUrl =  data.imageUrl;
-        		var appendDiv = '<div id="pic_'+data.productPicId+'" class="imgbox"><img src="'+ imageUrl + '" width="180"/><img src="'+imgPathOriginStr+'/static/closediv.png" width="15" class="closediv" onclick="deleteProductPicture(\'this\',\''+data.productId+'\',\''+data.productPicId+'\');"/></div>';
-        		$("#resultProductPicUpload").append(appendDiv);
+        		var insertNode = $("#altpic_" + productPicUploadIndex);
+        		insertNode.attr("id", "pic_"+data.productPicId);
+        		var appendDiv = '<img src="'+ imageUrl + '" width="180"/><img src="'+imgPathOriginStr+'/static/closediv.png" width="15" class="closediv" onclick="deleteProductPicture(\'this\',\''+data.productId+'\',\''+data.productPicId+'\');"/>';
+        		insertNode.html(appendDiv);
         		$("#productPhotosLi").attr('class', 'publishchoosed');
         		$("#fileProductIcon").val("");
         		$("#remainStepsSpan").html(data.stepsCount);

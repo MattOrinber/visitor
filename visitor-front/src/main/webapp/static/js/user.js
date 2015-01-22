@@ -126,6 +126,8 @@ function saveUserDetailToBack() {
 function doUserImageUpload() {
 	var picUploadUrl = pathGlobe + "/updateUser/usericon";
 	
+	$("#userPictureDisplay").attr("src", imgPathOriginStr + "/static/alt.jpg");
+	
     $("#uploadUserPicForm").ajaxSubmit({
     	type: "post",
     	url: picUploadUrl,

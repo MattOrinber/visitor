@@ -47,10 +47,10 @@
 ]]>
 						<c:choose>
 							<c:when test="${not empty currentUser.userPhotourl}">
-								<img id="userPictureDisplay" src="${currentUser.userPhotourl}" />
+								<img id="userPictureDisplay" src="${currentUser.userPhotourl}" width="225" height="225" />
 							</c:when>
 							<c:otherwise>
-								<img id="userPictureDisplay" src="${imgPathOrigin}/static/user_pic-225x225.png" />
+								<img id="userPictureDisplay" src="${imgPathOrigin}/static/user_pic-225x225.png" width="225" height="225" />
 							</c:otherwise>
 						</c:choose>
 <![CDATA[
