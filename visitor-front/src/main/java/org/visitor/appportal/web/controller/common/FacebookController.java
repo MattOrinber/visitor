@@ -63,6 +63,9 @@ public class FacebookController extends BasicController {
 						+ "&" + MixAndMatchUtils.param_facebook_auth_code + "=" + codeStr;
 				
 				String tokenResult = HttpClientUtil.httpGet(callURL);
+				
+				log.info("after get token from facebook :"+ tokenResult +":");
+				
 				if (StringUtils.isNotEmpty(tokenResult)) {
 					TokenBean tbTemp = this.getAccessToken(tokenResult);
 					
@@ -161,6 +164,8 @@ public class FacebookController extends BasicController {
 							}
 						}
 					}
+				} else {
+					;
 				}
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
