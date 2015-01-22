@@ -114,27 +114,8 @@
 
 <![CDATA[
 <div id="contactHostDialog" class="contact_host" style="display:none;">
-	<span>Send Message to Host<img src="${imgPathOrigin}/static/close1.png" onclick="closeDialog();" width="15"/></span>
+	<span>Send Message to Activity host<img src="${imgPathOrigin}/static/close1.png" onclick="closeDialog();" width="15"/></span>
 	<div>
-    	<table width="380" border="0">
-          <tr>
-            <td width="150">Check in</td>
-            <td width="150">Check out</td>
-            <td width="80">Guests</td>
-          </tr>
-          <tr>
-            <td><input id="checkinDate" type="text" placeholder="2015-01-01" /></td>
-            <td><input id="checkoutDate" type="text" placeholder="2015-01-05" /></td>
-            <td><select id="guestNumber"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
-          </tr>
-        </table>
-		<p>
-	    	Some tips:<br />
-	        * Tell Host a little about yourself<br />
-	        * What brings you to here? Who's coming? <br />
-	        * What do you love about this listing?
-	    	
-	    </p>
 	    <textarea id="mailContent"></textarea>
 	    <a href="javascript:checkAndSend();" class="button">Send Message</a>
     </div>

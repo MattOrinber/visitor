@@ -163,9 +163,12 @@ function checkAndSend() {
 	var productIDForUse = $.trim($("#productIDForUse").val());
 	
 	if (productIDForUse != "") {
-		var checkinDateStr = $("#checkinDate").val();
-		var checkoutDateStr = $("#checkoutDate").val();
-		var guestNumber = $("#guestNumber").val();
+		//var checkinDateStr = $("#checkinDate").val();
+		//var checkoutDateStr = $("#checkoutDate").val();
+		//var guestNumber = $("#guestNumber").val();
+		var checkinDateStr = "1970-01-01";
+		var checkoutDateStr = "1970-01-01";
+		var guestNumber = "1";
 		var contentStr = $.trim($("#mailContent").val());
 		
 		if (contentStr == "") {
@@ -256,59 +259,50 @@ function replyEmailActual(uimIdStr, pidStr) {
 	var productIDForUse = $.trim($("#productIdInputHidden").val());
 	
 	if (uimIdStrToUse != "" && productIDForUse != "") {
-		var checkinDateStr = $.trim($("#checkinDate").val());
-		var checkoutDateStr = $.trim($("#checkoutDate").val());
-		var guestNumber = $.trim($("#guestNumber").val());
+		//var checkinDateStr = $.trim($("#checkinDate").val());
+		//var checkoutDateStr = $.trim($("#checkoutDate").val());
+		//var guestNumber = $.trim($("#guestNumber").val());
+		var checkinDateStr = "1970-01-01";
+		var checkoutDateStr = "1970-01-01";
+		var guestNumber = "1";
 		var contentStr = $.trim($("#mailContent").val());
 		
-		if (checkinDateStr == "") {
-			checkinDateStr = "1970-01-01";
+		if (contentStr != "") {
+			var __SPLIT__ = "---";
+			
+			var contentFinal = checkinDateStr + __SPLIT__ +
+							checkoutDateStr	+ __SPLIT__ +
+							guestNumber + __SPLIT__ +
+							contentStr;
+			
+			var uim = {};
+			uim.productIdStr = productIDForUse;
+			uim.contentStr = contentFinal;
+			uim.uimIdStr = uimIdStrToUse;
+			
+			var urlStrStr = pathGlobe + '/product/replyInternalMail';
+			var jsonStr = $.toJSON(uim);
+			//alert(jsonStr);
+			
+			$.ajax({ 
+		        type : 'POST',  
+		        contentType : 'application/json',  
+		        url : urlStrStr,  
+		        processData : false,  
+		        dataType : 'json',  
+		        data : jsonStr,  
+		        success : function(data) {  
+		        	if (data.result == 0) {
+		        		closeReplyEmail();
+		        	} else {
+		        		alert(data.resultDesc);
+		        	}
+		        },  
+		        error : function() {  
+		            alert('Err...');  
+		        }  
+		    }); 
 		}
-		if (checkoutDateStr == "") {
-			checkoutDateStr = "1970-01-01";
-		}
-		if (guestNumber == "") {
-			guestNumber = "0";
-		}
-		
-		if (contentStr == "") {
-			contentStr = "+";
-		}
-		
-		var __SPLIT__ = "---";
-		
-		var contentFinal = checkinDateStr + __SPLIT__ +
-						checkoutDateStr	+ __SPLIT__ +
-						guestNumber + __SPLIT__ +
-						contentStr;
-		
-		var uim = {};
-		uim.productIdStr = productIDForUse;
-		uim.contentStr = contentFinal;
-		uim.uimIdStr = uimIdStrToUse;
-		
-		var urlStrStr = pathGlobe + '/product/replyInternalMail';
-		var jsonStr = $.toJSON(uim);
-		//alert(jsonStr);
-		
-		$.ajax({ 
-	        type : 'POST',  
-	        contentType : 'application/json',  
-	        url : urlStrStr,  
-	        processData : false,  
-	        dataType : 'json',  
-	        data : jsonStr,  
-	        success : function(data) {  
-	        	if (data.result == 0) {
-	        		closeReplyEmail();
-	        	} else {
-	        		alert(data.resultDesc);
-	        	}
-	        },  
-	        error : function() {  
-	            alert('Err...');  
-	        }  
-	    }); 
 	}
 }
 

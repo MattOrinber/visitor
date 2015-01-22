@@ -31,24 +31,6 @@
 		<textarea id="msgContent"></textarea>
 	</div>
 	<div id="replyDivPart" style="display:block;">
-    	<table width="380" border="0">
-          <tr>
-            <td width="150">Check in Avail</td>
-            <td width="150">Check out Avail</td>
-            <td width="80">Guests Avail</td>
-          </tr>
-          <tr>
-            <td><input id="checkinDate" type="text" placeholder="2015-01-01" /></td>
-            <td><input id="checkoutDate" type="text" placeholder="2015-01-05" /></td>
-            <td><select id="guestNumber"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
-          </tr>
-        </table>
-		<p>
-	    	Some tips:<br />
-	        * Tell Visitor a little about yourself<br />
-	        * Stuff you want to know about the visitor
-	    	
-	    </p>
 	    <textarea id="mailContent"></textarea>
 	    <a href="javascript:replyEmailActual();" class="button">Reply Message</a>
 	    <input id="uimIdInputHidden" type="hidden" value="" />
