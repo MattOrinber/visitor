@@ -28,7 +28,7 @@
       			<img src="${userDisplay.userPhotourl}" width="230"/>
       		</c:when>
       		<c:otherwise>
-      			<img src="${imgPathOrigin}/static/user_pic-225x225.jpg" width="230"/>
+      			<img src="${imgPathOrigin}/static/user_pic-225x225.png" width="230"/>
       		</c:otherwise>
       	</c:choose>
 <![CDATA[
