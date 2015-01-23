@@ -34,9 +34,6 @@
 		
 		$(window).scroll(function(){
 			var targetTop = $(this).scrollTop();
-			if (targetTop >= 520){
-				$(".howtowork").hide();
-			}
 			
 			if (targetTop >= 520){
 				$(".menu").addClass("fixedSubNav");
@@ -51,6 +48,24 @@
 	<c:if test="${not empty loginUserEmail}">
 		<script type="text/javascript">ifLogginIn = 1;</script>
 	</c:if>
+	
+	<c:choose>
+		<c:when test="${not empty productCities}">
+<![CDATA[
+			<script>
+			var productCitiesArray = ${productCities};
+			</script>
+]]>
+		</c:when>
+		<c:otherwise>
+<![CDATA[
+			<script>
+			var productCitiesArray = "";
+			</script>
+]]>
+		</c:otherwise>
+	</c:choose>
+	
 </head>
 <body>
 
@@ -113,20 +128,6 @@
 	A link to reset your password has been sent to <span id="resetEmailHasSentSpan">xxxxxxxxxxxxx.</span>
     <a href="javascript:closeResendPasswordPrompt();" class="prompt_message_closed"><img src="${imgPathOrigin}/static/close2.png" width="12" /></a>
 </div>
-
-	<div class="howtowork">
-    	<span id="hideit" style="position:absolute;right:20px;top:20px;cursor:pointer;"><img src="${imgPathOrigin}/static/close1.png" /></span>
-    	<div class="works">
-        	<span><p>Discover Amazing Places</p>
-Find hosts with extra rooms, entire homes, and unique accommodations like castles <br />and igloos.</span>
-			<span style="margin-left:60px;"><p>Book a Stay</p>
-Connect with hosts, confirm travel dates, and pay — all through DayFetch's trusted <br />services.</span>
-			<span style="margin-left:80px;"><p>Travel</p>
-Feel at home, anywhere you go in the world. Learn more about how to travel on <br />DayFetch.</span>
-        </div>
-        <p class="learnmore"><a href="#">Learn more</a> about hosting on DayFetch and show your guests they're right where they belong</p>
-    </div>
-
     
     <div class="banner">
     	<div class="bannerimg" id="focus">
@@ -225,18 +226,17 @@ Feel at home, anywhere you go in the world. Learn more about how to travel on <b
 
         <div class="tagline">
         	<p class="title">Book Amazing Activities, Tours, and more</p>
-            <a href="javascript:void(0)" class="button" id="howtowork">How It Works</a>
         </div>
         <div class="searchbar">
         	<div class="search">
-            	<input id="searchinput" type="text" value="Choose a Place" onfocus="if (value =='Choose a Place'){value =''}"  onblur="if (value ==''){value='Choose a Place'}"/>
+            	<input id="chooseCityInputOnHeadStr" type="text" placeholder="Choose a Place" />
                 <span></span>
-                <div class="choose_city">
-                	<span id="close" class="close"></span>
+                <div id="closeCityRecommend" class="choose_city">
+                	<span id="closeCityInputOnHeadStr" class="close"></span>
                     <ul class="destination">
 ]]>
-					<c:if test="${not empty productCities}">
-						<c:forEach items="${productCities}" var="cityT" varStatus="status">
+					<c:if test="${not empty topTenCities}">
+						<c:forEach items="${topTenCities}" var="cityT" varStatus="status">
 <![CDATA[
 							<li><a href="${pageContext.request.contextPath}/day/city?c=${cityT.originName}&o=0&p=1">${cityT.displayName}</a></li>
 ]]>

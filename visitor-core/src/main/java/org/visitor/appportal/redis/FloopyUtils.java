@@ -19,4 +19,6 @@ public class FloopyUtils {
 	public static final String TERM_CHECKIN_AFTER = "product_checkin_after";
 	public static final String TERM_CHECKOUT_BEFORE = "product_checkout_before";
 	public static final String TERM_CANCELLATION_POLICY = "product_cancellation_policy";
+	
+	public static final String TOP_TEN_CITY_ID_KEY = "top_ten_city";
 }

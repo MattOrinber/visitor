@@ -2,30 +2,45 @@
 var productDetailStrGlobal = "";
 var ifLogginIn = 0;
 
+function initCityPropose() {
+	if (productCitiesArray != "") {
+		$("#chooseCityInputOnHeadStr").autocomplete({
+			source: function( request, response ) {
+				var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+				response( $.grep( tags, function( item ){
+					return matcher.test( item );
+				}));
+			},
+			focus: function( event, ui ) {
+				$("#closeCityRecommend").hide();
+				$("#closeCityRecommend").show();
+				event.stopPropagation();
+			},
+			change: function( event, ui ) {
+				$("#closeCityRecommend").hide();
+			}
+		});
+	}
+}
+
 //init index page
 function initIndex() {
 	// index city search input
-	$("#searchinput").click(function(){
-		$(".choose_city").show();
-	});
-	
-	$("#close").click(function(){
-		$(".choose_city").hide();
-	});
-	
-	$(".destination li").click(function(){
+	$(".destination li").click(function(e){
 		var htmlText = $(this).children(":first").html();
-		$("#searchinput").val(htmlText);
-		$(this).parent().parent().hide();
+		$("#chooseCityInputOnHeadStr").val(htmlText);
+		$("#closeCityRecommend").show();
+		e.stopPropagation();
 	});
-	// index how to work
-	$("#howtowork").click(function(){
-		$(".howtowork").slideDown(800);
+	$("#closeCityInputOnHeadStr").click(function(e){
+		$("#closeCityRecommend").hide();
+		e.stopPropagation();
 	});
+	$(document).click(function(){
+		$("#closeCityRecommend").hide();
+	});
+	// index city search input end
 	
-	$("#hideit").click(function(){
-		$(".howtowork").hide();
-	});
 	//index shade change
 	$(".hover").mouseenter(function(){
 		$(this).find(".shade").fadeIn();
@@ -228,6 +243,8 @@ function setProductDescEditor() {
 
 //login bar and page bottom control
 function initLoginBar() {
+	initCityPropose();
+	
 	$("#signbtn").click(function(){
 		$('.wrapwrapbox').show();
 		$("#signup").show();

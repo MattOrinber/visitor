@@ -349,26 +349,45 @@ public class BasicController {
 			
 			model.addAttribute("imgPathOrigin", imgPathOrigin);
 			
+			//all cities
 			List<String> listCity = productRedisService.getCities();
-			List<CityName> listCityDisplay = new ArrayList<CityName>();
+			if (listCity != null && listCity.size() > 0) {
+				String jsonAllCityArray = "[";
+				int idx = 0;
+				for (String cityOri : listCity) {
+					if (idx == 0) {
+						jsonAllCityArray = jsonAllCityArray + "\"" + cityOri;
+						idx ++;
+					} else {
+						jsonAllCityArray = jsonAllCityArray + "\",\"" + cityOri;
+					}
+				}
+				jsonAllCityArray = jsonAllCityArray + "\"]";
+				model.addAttribute("productCities", jsonAllCityArray);
+			}
 			
+			//get top ten cities
+			List<String> toTenCityIdStrList = floopyThingRedisService.getFloopyValueList(FloopyUtils.TOP_TEN_CITY_ID_KEY);
+			List<CityName> topTenCityName = new ArrayList<CityName>();
 			char[] checkOnes = {','};
-			for (String cityOri : listCity) {
+			for (String cityIdStr : toTenCityIdStrList) {
+				Long cityId = Long.valueOf(cityIdStr);
+				String cityNameTemp = productRedisService.getCityStrById(cityId);
+				
 				String cityTo = "";
-				if (StringUtils.containsAny(cityOri, checkOnes)) {
-					cityTo = StringUtils.substring(cityOri, 0, StringUtils.indexOfAny(cityOri, checkOnes));
+				if (StringUtils.containsAny(cityNameTemp, checkOnes)) {
+					cityTo = StringUtils.substring(cityNameTemp, 0, StringUtils.indexOfAny(cityNameTemp, checkOnes));
 				} else {
-					cityTo = cityOri;
+					cityTo = cityNameTemp;
 				}
 				CityName cn = new CityName();
 				
-				String cityURLname = URLEncoder.encode(cityOri, "UTF-8");
+				String cityURLname = URLEncoder.encode(cityNameTemp, "UTF-8");
 				cn.setOriginName(cityURLname);
 				cn.setDisplayName(cityTo);
-				listCityDisplay.add(cn);
+				topTenCityName.add(cn);
 			}
-			
-			model.addAttribute("productCities", listCityDisplay);
+			model.addAttribute("topTenCities", topTenCityName);
 			
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();

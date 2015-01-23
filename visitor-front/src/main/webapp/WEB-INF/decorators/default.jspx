@@ -28,8 +28,50 @@
 <script>
 var pathGlobe = '${pageContext.request.contextPath}';
 var imgPathOriginStr = '${imgPathOrigin}';
+
+$('[name="nice-select"]').click(function(e){
+	$("#closeCityRecommend").hide();
+	$("#closeCityRecommend").show();
+	e.stopPropagation();
+});
+$('[name="nice-select"] li').hover(function(e){
+	$(this).toggleClass('on');
+	e.stopPropagation();
+});
+$('[name="nice-select"] li').click(function(e){
+	var val = $(this).text();
+	var dataVal = $(this).attr("data-value");
+	$("#chooseCityInputOnHeadStr").val(val);
+	$("#closeCityRecommend").hide();
+	e.stopPropagation();
+	
+	var toGoUrl = pathGlobe + "/day/city?c=" + dataVal + "&o=0&p=1";
+	window.location.href = toGoUrl;
+});
+$(document).click(function(){
+	$("#closeCityRecommend").hide();
+});
+
 </script>
 ]]>
+
+	<c:choose>
+		<c:when test="${not empty productCities}">
+<![CDATA[
+			<script>
+			var productCitiesArray = ${productCities};
+			</script>
+]]>
+		</c:when>
+		<c:otherwise>
+<![CDATA[
+			<script>
+			var productCitiesArray = "";
+			</script>
+]]>
+		</c:otherwise>
+	</c:choose>
+
 </head>
 
 <body>
@@ -98,32 +140,30 @@ var imgPathOriginStr = '${imgPathOrigin}';
 <div class="header">
     <div class="head">
     	<div class="logo"><a href="${pageContext.request.contextPath}/index"><img src="${pageContext.request.contextPath}/static/img/logo-red.png" /></a></div>
-    	
     	]]>
-		<c:if test="${not empty productCities}">
-			<div class="select">
-				<select onchange="doCitySelect(this);">
-					<c:choose>
-						<c:when test="${empty currentCityOri}">
-							<option value="--" selected="selected"></option>
-						</c:when>
-						<c:otherwise>
-							<option value="--"></option>
-						</c:otherwise>
-					</c:choose>
-				<c:forEach items="${productCities}" var="cityT" varStatus="status">
-					<c:choose>
-						<c:when test="${not empty currentCityOri and currentCityOri == cityT.originName}">
-							<option value="${cityT.originName}" selected="selected">${cityT.displayName}</option>
-						</c:when>
-						<c:otherwise>
-							<option value="${cityT.originName}">${cityT.displayName}</option>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				</select>
-			</div>
-		</c:if>
+    	<div class="select">
+        	<div class="nice-select" name="nice-select">
+        		<c:choose>
+					<c:when test="${empty currentCityOri}">
+						<input id="chooseCityInputOnHeadStr" type="text" placeholder="Choose a Place" />
+					</c:when>
+					<c:otherwise>
+						<input id="chooseCityInputOnHeadStr" type="text" placeholder="${currentCityOri}" />
+					</c:otherwise>
+				</c:choose>
+				
+				<c:if test="${not empty topTenCities}">
+	                <div id="closeCityRecommend" class="ul-wrap">
+		                <ul>
+		                	<c:forEach items="${topTenCities}" var="cityT" varStatus="status">
+		                		<li data-value="${cityT.originName}">${cityT.displayName}</li>
+		                	</c:forEach>
+		                </ul>
+	                </div>
+                </c:if>
+            </div>
+        </div>
+		
         <!-- before login -->
        	<c:choose>
        		<c:when test="${loginName == '--'}">

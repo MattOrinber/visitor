@@ -182,49 +182,49 @@
     </div>
     <div class="scrollbox">
         <div class="rightbox">
-            <div class="book">
-                <div class="price">
+]]>
+			<div class="book" style="display:block;">
+				<div class="price">
                     $ ${productInfo.productBaseprice}<span> Each</span>
                 </div>
-]]>
 				<c:choose>
-		      		<c:when test="${loginUserEmail == hostInfo.userEmail}">
-		      			<a class="save" href="javascript:void(0);">Contact Host</a>
-		      		</c:when>
-		      		<c:otherwise>
-		      		<![CDATA[
-		      			<a class="save" href="javascript:contactHost('${loginUserEmail}','${hostInfo.userId}');">Contact Host</a>
-		      			<div id="priceBasicSetPart" class="date">
-		                    Date: <input id="toOrderStartDate" type="text" placeholder="2014-10-30"  style="width:258px;height:32px;border:1px solid #ccc;text-align:center;"/>
-		                </div>
-		                
+					<c:when test="${loginUserEmail == hostInfo.userEmail}">
 		                <div class="date">
-		                    <table width="260" border="0" cellpadding="0" cellspacing="1">
-		                      <tr>
-		                        <td width="146">Participant:</td>
-		                        <td width="111">$ ${productInfo.productBaseprice}<input id="orderBasicPriceCount" type="text" onblur="addBasicPrice(this);" /></td>
-		                      </tr>
-		            ]]>
-		                <c:if test="${not empty multiPriceSet}">
-							<c:forEach items="${multiPriceSet}" var="priceSpecial" varStatus="status">
-				            	<tr>
-			                        <td width="146">${priceSpecial.pmpProductPriceKey}</td>
-			                        <td width="111">$ ${priceSpecial.pmpProductPriceValue}<input data-key="${priceSpecial.pmpProductPriceKey}" data-amount="0" type="text" onblur="addServicePrice(this);" placeholder="0"/></td>
-			                    </tr>
-							</c:forEach>
-						</c:if>
-					<![CDATA[
-		                    </table>
+		                    <a href="javascript:void(0);">Contact Host</a>
 		                </div>
-		                <p id="hiddenServicePricePart" style="display:none;text-align:center;margin-top:10px;"><b id="totalPriceDisplayStr"></b></p>
-		                <div class="booking">
-		                	<a id="toPayOrderButton" href="javascript:void(0);">instant book</a> 
+					</c:when>
+					<c:otherwise>
+		                <div class="date">
+		                    <a href="javascript:contactHost('${loginUserEmail}','${hostInfo.userId}');">Contact Host</a>
 		                </div>
-		            ]]>
-		      		</c:otherwise>
-		      	</c:choose>
+		                <div class="date">
+		                    <b>Date</b><br /><input id="toOrderStartDate" type="text" placeholder="2016-01-01" style="width:258px;height:32px;border:1px solid #ccc;text-align:center;"/>
+		                </div>
+			                <div class="date">
+			                	<c:choose>
+			                		<c:when test="${not empty multiPriceSet}">
+			                			<c:forEach items="${multiPriceSet}" var="priceSpecial" varStatus="status">
+					                        <b style="line-height:28px;">Full day Admission(${priceSpecial.pmpProductPriceKey})</b><br />
+						                    <input type="text" class="special_price_set_input" data-key="${priceSpecial.pmpProductPriceKey}" data-amount="0" onblur="addServicePrice(this);" placeholder="0" style="width:25px;height:25px;border:1px solid #ccc;text-align:center;float:left;font-size:14px;"/> <p style="float:left;margin-left:10px;margin-top:7px;font-size:14px;">$ ${priceSpecial.pmpProductPriceValue} /each</p>
+											<br style="clear:both;"/>
+										</c:forEach>
+			                		</c:when>
+			                		<c:otherwise>
+			                			<b>Quantity</b><br />
+					                    <input type="text" id="orderBasicPriceCount" class="special_price_set_input" onblur="addBasicPrice(this);" style="width:32px;height:32px;border:1px solid #ccc;text-align:center;float:left;font-size:15px;"/> <p style="float:left;margin-left:10px;margin-top:7px;font-size:15px;">$ ${productInfo.productBaseprice} /each</p>
+										<br style="clear:both;"/>
+			                		</c:otherwise>
+			                	</c:choose>
+			                </div>
+			                <hr style="width:85%;margin:0 auto;margin-top:20px;border:none;background:#ccc;height:1px;"/>
+			                <p id="hiddenServicePricePart" style="display:none;text-align:center;margin-top:10px;font-size:16px;"><b id="totalPriceDisplayStr"></b></p>
+			                <div class="booking">
+			                    <a id="toPayOrderButton" href="javascript:void(0);">instant book</a> 
+			                </div>
+					</c:otherwise>
+				</c:choose>
+        	</div>
 <![CDATA[
-             </div>
          </div>
      </div>
 </div>

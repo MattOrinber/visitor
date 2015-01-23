@@ -463,6 +463,7 @@ public class ProductController extends BasicController {
 			} 
 			if (city.getCityStatus().intValue() == StatusTypeEnum.Active.ordinal()) {
 				productRedisService.saveCityToRedis(city);
+				productRedisService.saveCityIdToKeyToRedis(city);
 			}
 			
 			productRedisService.saveProductToRedis(product);

@@ -1,6 +1,7 @@
 var unavailDateStrArray = null;
 var orderIdReturnedFromExtraPriceSet = 0;
 var formerBasicPriceCount = "0";
+var amountAutocompleteArray = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
 function addLeadingZeroInOrder(num) {
 	if (num < 10) {
