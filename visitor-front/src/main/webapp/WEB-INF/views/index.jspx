@@ -229,7 +229,7 @@
         </div>
         <div class="searchbar">
         	<div class="search">
-            	<input id="chooseCityInputOnHeadStr" type="text" placeholder="Choose a Place" />
+            	<input id="chooseCityInputOnHeadStr" type="text" placeholder="Choose a Place" onfocus="showCityRecommend();" onblur="closeCityRecommend();"/>
                 <span></span>
                 <div id="closeCityRecommend" class="choose_city">
                 	<span id="closeCityInputOnHeadStr" class="close"></span>

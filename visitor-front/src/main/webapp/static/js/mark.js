@@ -2,22 +2,22 @@
 var productDetailStrGlobal = "";
 var ifLogginIn = 0;
 
+function showCityRecommend() {
+	$("#closeCityRecommend").show();
+}
+
+function closeCityRecommend() {
+	$("#closeCityRecommend").hide();
+}
+
 function initCityPropose() {
 	if (productCitiesArray != "") {
 		$("#chooseCityInputOnHeadStr").autocomplete({
 			source: function( request, response ) {
 				var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
-				response( $.grep( tags, function( item ){
+				response( $.grep( productCitiesArray, function( item ){
 					return matcher.test( item );
 				}));
-			},
-			focus: function( event, ui ) {
-				$("#closeCityRecommend").hide();
-				$("#closeCityRecommend").show();
-				event.stopPropagation();
-			},
-			change: function( event, ui ) {
-				$("#closeCityRecommend").hide();
 			}
 		});
 	}
@@ -243,7 +243,7 @@ function setProductDescEditor() {
 
 //login bar and page bottom control
 function initLoginBar() {
-	initCityPropose();
+	//initCityPropose();
 	
 	$("#signbtn").click(function(){
 		$('.wrapwrapbox').show();
