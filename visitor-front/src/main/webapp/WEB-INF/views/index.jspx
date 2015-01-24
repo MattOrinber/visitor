@@ -317,10 +317,10 @@
            		</c:choose>
             	<c:choose>
         			<c:when test="${not empty threePos.containerPicpaths}">
-        				<![CDATA[<div class="addImg2"><img width="315" src="${threePos.containerPicpaths}"></div>]]>
+        				<![CDATA[<div class="addImg"><img width="315" src="${threePos.containerPicpaths}"></div>]]>
         			</c:when>
         			<c:otherwise>
-        				<![CDATA[<div class="addImg2"><img src="${imgPathOrigin}/static/35.jpg"></div>]]>
+        				<![CDATA[<div class="addImg"><img src="${imgPathOrigin}/static/35.jpg"></div>]]>
         			</c:otherwise>
         		</c:choose>
                 <![CDATA[
@@ -340,10 +340,10 @@
            		</c:choose>
                 <c:choose>
         			<c:when test="${not empty fourPos.containerPicpaths}">
-        				<![CDATA[<div class="addImg2"><img width="315" src="${fourPos.containerPicpaths}"></div>]]>
+        				<![CDATA[<div class="addImg"><img width="315" src="${fourPos.containerPicpaths}"></div>]]>
         			</c:when>
         			<c:otherwise>
-        				<![CDATA[<div class="addImg2"><img src="${imgPathOrigin}/static/41.jpg"></div>]]>
+        				<![CDATA[<div class="addImg"><img src="${imgPathOrigin}/static/41.jpg"></div>]]>
         			</c:otherwise>
         		</c:choose>
                 <![CDATA[
@@ -363,10 +363,10 @@
            		</c:choose>
                 <c:choose>
         			<c:when test="${not empty fivePos.containerPicpaths}">
-        				<![CDATA[<div class="addImg2"><img width="315" src="${fivePos.containerPicpaths}"></div>]]>
+        				<![CDATA[<div class="addImg"><img width="315" src="${fivePos.containerPicpaths}"></div>]]>
         			</c:when>
         			<c:otherwise>
-        				<![CDATA[<div class="addImg2"><img src="${imgPathOrigin}/static/290.jpg"></div>]]>
+        				<![CDATA[<div class="addImg"><img src="${imgPathOrigin}/static/290.jpg"></div>]]>
         			</c:otherwise>
         		</c:choose>
                 <![CDATA[

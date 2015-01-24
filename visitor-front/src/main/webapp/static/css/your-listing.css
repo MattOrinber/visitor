@@ -32,7 +32,9 @@ body{background:#f7f7f7;}
 .main .maincontent .leftmenu ul li a.select{font-weight:bold;color:#565a5c;}
 
 .main .maincontent .rightcontent{width:765px;margin-top:8px;float:right;} 
-.main .maincontent .rightcontent1{width:763px;background:#fff;border:1px solid #dce0e0;}
+.main .maincontent .rightcontent1{width:763px;}
+
+
 
 
 
@@ -51,7 +53,7 @@ body{background:#f7f7f7;}
 .main .maincontent .inbox div.message .price a.dot {display: inline-block;width: 12px;height: 12px;background: #FF0000;border-radius: 50%;}
 .main .maincontent p{font-size:16px;font-weight:bold;line-height:22px;}
 .main .maincontent a.calendar{color:#F00;}
-.main .maincontent .rightcontent1 table{border:1px solid #ccc;border-bottom:none;}
+.main .maincontent .rightcontent1 table{border:1px solid #ccc;border-bottom:none;margin-bottom:10px;}
 .main .maincontent .rightcontent1 table tr th{background:#fff;border-bottom:1px solid #ccc;height:34px;text-align:left;font-size:14px;}
 .main .maincontent .rightcontent1 table tr td{background:#fff;border-bottom:1px solid #ccc;height:34px;text-align:left;font-size:13px;}
 .main .maincontent .rightcontent1 table tr:hover td{background:#f2fde4;}

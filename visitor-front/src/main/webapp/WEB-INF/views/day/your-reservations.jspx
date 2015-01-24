@@ -79,13 +79,13 @@
 	                ]]>
 	                <c:if test="${pageInfo.ifPager eq 1}">
 	                	<c:choose>
-					 		<c:when test="${pageInfo.currentPageNum eq 1}"><a href="javascript:void(0);">Prev</a></c:when>
-					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/your-reservations?p=${pageInfo.currentPageNum-1}">Prev</a>]]></c:otherwise>
+					 		<c:when test="${pageInfo.currentPageNum eq 1}"><a href="javascript:void(0);" style="font-size:14px;padding-right:10px;">Prev</a></c:when>
+					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;font-size:14px;padding-right:10px;" href="${pageContext.request.contextPath}/day/your-reservations?p=${pageInfo.currentPageNum-1}">Prev</a>]]></c:otherwise>
 					 	</c:choose>
 					 	<input id="pageIdxStr" type="text" value="${pageInfo.currentPageNum}" style="width:50px" />
 					 	<c:choose>
-					 		<c:when test="${pageInfo.currentPageNum eq pageInfo.pageNum}"><a href="javascript:void(0);">Next</a><span> total ${pageInfo.pageNum} pages</span></c:when>
-					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;" href="${pageContext.request.contextPath}/day/your-reservations?p=${pageInfo.currentPageNum+1}">Next</a><span> total ${pageInfo.pageNum} pages</span>]]></c:otherwise>
+					 		<c:when test="${pageInfo.currentPageNum eq pageInfo.pageNum}"><a href="javascript:void(0);" style="font-size:14px;padding-right:10px;padding-left:10px;">Next</a><span> total ${pageInfo.pageNum} pages</span></c:when>
+					 		<c:otherwise><![CDATA[<a style="text-decoration:underline;color:blue;font-size:14px;padding-right:10px;padding-left:10px;" href="${pageContext.request.contextPath}/day/your-reservations?p=${pageInfo.currentPageNum+1}">Next</a><span style="font-size:14px;"> total ${pageInfo.pageNum} pages</span>]]></c:otherwise>
 					 	</c:choose>
 	                </c:if>
 				</c:when>

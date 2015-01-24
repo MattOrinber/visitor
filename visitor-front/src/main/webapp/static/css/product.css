@@ -45,7 +45,7 @@ body{background:#f7f7f7;}
 .hostinfo .scrollbox{width:100%;height:310px;position:relative;margin-top:-164px;}
 .hostinfo .scrollbox.fixedbook{position:fixed;top:0;left:0;z-index:1000;margin-top:40px;z-index:2000;}
 .hostinfo .scrollbox .rightbox{width:1020px;height:310px;margin:0 auto;position:relative;}
-.hostinfo .scrollbox .rightbox .book{width:300px;padding-bottom:10px;position:absolute;right:0;top:-40px;border:1px solid #d4d4d4;border-top:none;}
+.hostinfo .scrollbox .rightbox .book{width:300px;position:absolute;right:0;top:-40px;border:1px solid #d4d4d4;border-top:none;}
 .hostinfo .scrollbox.fixedbook .rightbox .book{background:#fff;border:1px solid #d4d4d4;border-top:none;}
 .hostinfo .scrollbox .rightbox .book .price{width:260px;height:40px;background:rgba(0,0,0,0.6);color:#fff;font-size:25px;line-height:40px;padding-left:20px;padding-right:20px;pointer-events: none}
 .hostinfo .scrollbox .rightbox .book .price span{font-size:14px;color:#fff;float:right;}
@@ -134,7 +134,12 @@ border-bottom:1px solid #fa0008;color: #fff;margin-top:10px;margin-bottom:20px;b
 .contact_host div textarea{width:380px;height:100px;margin-top:10px;margin-bottom:10px;}
 .contact_host div a.button{width:80px;text-align:center;height:30px;display:inline-block;border:1px solid #fc989b;border-bottom-color: #ef8387;background: #fc989b;color: #fff;line-height:30px;float:right;margin-bottom:20px;}
 
-
+.wrap-position{position:relative;}
+.wrap-position .number-input{width:25px;height:25px;border:1px solid #ccc;text-align:center;float:left;font-size:14px;}
+.wrap-position p{float:left;margin-left:10px;margin-top:7px;font-size:14px;}
+.wrap-position ul{position:absolute;left:0;top:27px;width:25px;overflow:hidden;background:#fff;border:1px solid #ccc;border-top:none;display:none;z-index:700;}
+.wrap-position ul li{line-height:25px;width:25px;text-align:center;cursor:pointer;font-size:13px;}
+.wrap-position ul li:hover{background:#f5f5f5;}
 
 #toOrderStartDate{width:260px;height:30px}
 

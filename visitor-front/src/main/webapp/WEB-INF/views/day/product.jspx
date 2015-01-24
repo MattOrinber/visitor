@@ -29,6 +29,20 @@
 
 	<script>
 		$(document).ready(function(){
+			$(".number-input").click(function(e){
+				$(this).parent().find(".number-select").show();
+				e.stopPropagation();
+			});
+			$(".number-select li").click(function(e){
+				var htmlText = $(this).html();
+				$(this).parent().parent().find(".number-input").val(htmlText);
+				$(this).parent().hide();
+				e.stopPropagation();
+			});
+			$(document).click(function(){
+				$(".number-select").hide();
+			});
+			
 			productBigImage();
 			doProductDateInit();
 			
@@ -187,15 +201,16 @@
 				<div class="price">
                     $ ${productInfo.productBaseprice}<span> Each</span>
                 </div>
+                <div style="background:#fff;padding-bottom:10px;">
 				<c:choose>
 					<c:when test="${loginUserEmail == hostInfo.userEmail}">
 		                <div class="date">
-		                    <a href="javascript:void(0);">Contact Host</a>
+		                    <span><a href="javascript:void(0);">Contact Host</a></span>
 		                </div>
 					</c:when>
 					<c:otherwise>
 		                <div class="date">
-		                    <a href="javascript:contactHost('${loginUserEmail}','${hostInfo.userId}');">Contact Host</a>
+		                    <span><a href="javascript:contactHost('${loginUserEmail}','${hostInfo.userId}');">Contact Host</a></span>
 		                </div>
 		                <div class="date">
 		                    <b>Date</b><br /><input id="toOrderStartDate" type="text" placeholder="2016-01-01" style="width:258px;height:32px;border:1px solid #ccc;text-align:center;"/>
@@ -205,15 +220,43 @@
 			                		<c:when test="${not empty multiPriceSet}">
 			                			<c:forEach items="${multiPriceSet}" var="priceSpecial" varStatus="status">
 					                        <b style="line-height:28px;">Full day Admission(${priceSpecial.pmpProductPriceKey})</b><br />
-						                    <input type="text" class="special_price_set_input" data-key="${priceSpecial.pmpProductPriceKey}" data-amount="0" onblur="callExtraOrderGeneration(this);" placeholder="0" style="width:25px;height:25px;border:1px solid #ccc;text-align:center;float:left;font-size:14px;"/>
-						                    <p style="float:left;margin-left:10px;margin-top:7px;font-size:14px;">$ ${priceSpecial.pmpProductPriceValue} /each</p>
+						                    <div class="wrap-position">
+					                            <input type="text" class="number-input" data-key="${priceSpecial.pmpProductPriceKey}" data-amount="0" onblur="callExtraOrderGeneration(this);" placeholder="0" />
+					                            <p>$ ${priceSpecial.pmpProductPriceValue} /each</p>
+					                            <ul class="number-select">
+					                                <li>1</li>
+					                                <li>2</li>
+					                                <li>3</li>
+					                                <li>4</li>
+					                                <li>5</li>
+					                                <li>6</li>
+					                                <li>7</li>
+					                                <li>8</li>
+					                                <li>9</li>
+					                                <li>10</li>
+					                            </ul>
+					                        </div>
 											<br style="clear:both;"/>
 										</c:forEach>
 			                		</c:when>
 			                		<c:otherwise>
 			                			<b>Quantity</b><br />
-					                    <input type="text" id="orderBasicPriceCount" class="special_price_set_input" onblur="callBasicOrderGeneration(this);" style="width:32px;height:32px;border:1px solid #ccc;text-align:center;float:left;font-size:15px;"/> 
-					                    <p style="float:left;margin-left:10px;margin-top:7px;font-size:15px;">$ ${productInfo.productBaseprice} /each</p>
+					                    <div class="wrap-position">
+				                            <input type="text" id="orderBasicPriceCount" class="number-input" onblur="callBasicOrderGeneration(this);" />
+				                            <p>$ ${productInfo.productBaseprice} /each</p>
+				                            <ul class="number-select">
+				                                <li>1</li>
+				                                <li>2</li>
+				                                <li>3</li>
+				                                <li>4</li>
+				                                <li>5</li>
+				                                <li>6</li>
+				                                <li>7</li>
+				                                <li>8</li>
+				                                <li>9</li>
+				                                <li>10</li>
+				                            </ul>
+				                        </div>
 										<br style="clear:both;"/>
 			                		</c:otherwise>
 			                	</c:choose>
@@ -225,6 +268,7 @@
 			                </div>
 					</c:otherwise>
 				</c:choose>
+				</div>
         	</div>
 <![CDATA[
          </div>
