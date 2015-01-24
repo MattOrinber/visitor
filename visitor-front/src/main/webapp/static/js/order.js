@@ -36,53 +36,127 @@ function disableUnavailableDays(date) {
 }
 
 //order generation call
-function callOrderGeneration(dateText, dpInstance) {
+function callBasicOrderGeneration(node) {
 	if (ifLogginIn == 0) {
 		showLoginBarProposeDialog();
 	} else {
-		var pidStr = $("#productIDForUse").val();
-		var startDateStr = dateText;
-		var endDateStr = dateText;
-		
-		var buyTemp = {};
-		buyTemp.productIdStr = pidStr;
-		buyTemp.startDate = startDateStr;
-		buyTemp.endDate = endDateStr;
-		
-		var urlStrStr = pathGlobe + '/order/calcTotalPrice';
-	    var jsonStr = $.toJSON(buyTemp);
-	    
-	    $.ajax({ 
-	        type : 'POST',  
-	        contentType : 'application/json',  
-	        url : urlStrStr,  
-	        processData : false,  
-	        dataType : 'json',  
-	        data : jsonStr,  
-	        success : function(data) {  
-	        	var productOrderId = data.orderId;
-	        	var productPayOrderId = data.payOrderId;
-	        	var priceTemp = data.totalPrice;
-	        	
-	        	var currencyToUseT = $("#productGlobalCurrencyStr").val();
-	        	$("#totalPriceDisplayStr").html('Total: '+ currencyToUseT + ' '+ priceTemp);
-	        	
-	        	var hiddenServiceStr = $("#hiddenServicePricePart");
-	        	if (hiddenServiceStr != null) {
-	        		hiddenServiceStr.show();
-	        	}
-	        	orderIdReturnedFromExtraPriceSet = productOrderId;
-	        	
-	        	var payorderGenerationUrl = pathGlobe + "/order/expressCheckout/"+productOrderId+"/"+productPayOrderId;
-	        	
-	        	$("#orderBasicPriceCount").val("1");
-	        	formerBasicPriceCount = "1";
-	        	$("#toPayOrderButton").attr("href", payorderGenerationUrl);
-	        },  
-	        error : function() {  
-	            alert('order generation error...');  
-	        }  
-	    });
+		if (orderIdReturnedFromExtraPriceSet > 0) {
+			addBasicPrice(node);
+		} else {
+			var dateText = $.trim($("#toOrderStartDate").val());
+			var basicAmount = $(node).val();
+			
+			var regExInt = /^[0-9]*[1-9][0-9]*$/;
+			if (dateText != "" && regExInt.test(basicAmount)) {
+				var pidStr = $("#productIDForUse").val();
+				var startDateStr = dateText;
+				var endDateStr = dateText;
+				
+				var buyTemp = {};
+				buyTemp.productIdStr = pidStr;
+				buyTemp.startDate = startDateStr;
+				buyTemp.endDate = endDateStr;
+				buyTemp.totalCountStr = basicAmount;
+				
+				var urlStrStr = pathGlobe + '/order/calcTotalPrice';
+			    var jsonStr = $.toJSON(buyTemp);
+			    
+			    $.ajax({ 
+			        type : 'POST',  
+			        contentType : 'application/json',  
+			        url : urlStrStr,  
+			        processData : false,  
+			        dataType : 'json',  
+			        data : jsonStr,  
+			        success : function(data) {  
+			        	var productOrderId = data.orderId;
+			        	var productPayOrderId = data.payOrderId;
+			        	var priceTemp = data.totalPrice;
+			        	var orderBasicAmount = data.basciAmount;
+			        	
+			        	var currencyToUseT = $("#productGlobalCurrencyStr").val();
+			        	$("#totalPriceDisplayStr").html('Total: '+ currencyToUseT + ' '+ priceTemp);
+			        	
+			        	var hiddenServiceStr = $("#hiddenServicePricePart");
+			        	if (hiddenServiceStr != null) {
+			        		hiddenServiceStr.show();
+			        	}
+			        	orderIdReturnedFromExtraPriceSet = productOrderId;
+			        	
+			        	var payorderGenerationUrl = pathGlobe + "/order/expressCheckout/"+productOrderId+"/"+productPayOrderId;
+			        	
+			        	$("#orderBasicPriceCount").val(""+orderBasicAmount);
+			        	formerBasicPriceCount = orderBasicAmount;
+			        	$("#toPayOrderButton").attr("href", payorderGenerationUrl);
+			        },  
+			        error : function() {  
+			            alert('order generation error...');  
+			        }  
+			    });
+			}
+		}
+	}
+}
+
+function callExtraOrderGeneration(node) {
+	if (ifLogginIn == 0) {
+		showLoginBarProposeDialog();
+	} else {
+		if (orderIdReturnedFromExtraPriceSet > 0) {
+			addServicePrice(node);
+		} else {
+			var dateText = $.trim($("#toOrderStartDate").val());
+			var currentAmount = $(node).val();
+			var regExInt = /^[0-9]*[1-9][0-9]*$/;
+			if (dateText != "" && regExInt.test(currentAmount)) {
+				var pidStr = $("#productIDForUse").val();
+				var startDateStr = dateText;
+				var endDateStr = dateText;
+				
+				var priceSetId = $(node).attr("data-key");
+				
+				var buyTemp = {};
+				buyTemp.productIdStr = pidStr;
+				buyTemp.startDate = startDateStr;
+				buyTemp.endDate = endDateStr;
+				buyTemp.priceIdStr = priceSetId;
+				buyTemp.priceAmount = currentAmount;
+				
+				var urlStrStr = pathGlobe + '/order/calcExtraPrice';
+			    var jsonStr = $.toJSON(buyTemp);
+			    
+			    $.ajax({ 
+			        type : 'POST',  
+			        contentType : 'application/json',  
+			        url : urlStrStr,  
+			        processData : false,  
+			        dataType : 'json',  
+			        data : jsonStr,  
+			        success : function(data) {  
+			        	var productOrderId = data.orderId;
+			        	var productPayOrderId = data.payOrderId;
+			        	var priceTemp = data.totalPrice;
+			        	
+			        	var currencyToUseT = $("#productGlobalCurrencyStr").val();
+			        	$("#totalPriceDisplayStr").html('Total: '+ currencyToUseT + ' '+ priceTemp);
+			        	
+			        	var hiddenServiceStr = $("#hiddenServicePricePart");
+			        	if (hiddenServiceStr != null) {
+			        		hiddenServiceStr.show();
+			        	}
+			        	orderIdReturnedFromExtraPriceSet = productOrderId;
+			        	
+			        	var payorderGenerationUrl = pathGlobe + "/order/expressCheckout/"+productOrderId+"/"+productPayOrderId;
+			        	
+			        	$(node).attr("data-amount", currentAmount);
+			        	$("#toPayOrderButton").attr("href", payorderGenerationUrl);
+			        },  
+			        error : function() {  
+			            alert('order generation error...');  
+			        }  
+			    });
+			}
+		}
 	}
 }
 
@@ -93,7 +167,6 @@ function doProductDateInit() {
 	$("#toOrderStartDate").datepicker({
 		dateFormat: "yy-mm-dd",
 		beforeShowDay: disableUnavailableDays,
-		onSelect: callOrderGeneration
 	});
 }
 
@@ -136,8 +209,7 @@ function addBasicPrice(node) {
 			        }  
 			    });
 			} else {
-				$(node).val("");
-				$(node).attr("placeholder", "1");
+				$(node).val("" + formerAmount);
 			}
 		}
 	}

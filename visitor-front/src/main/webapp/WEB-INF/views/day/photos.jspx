@@ -117,7 +117,7 @@
 		<div class="pricebox">
 			<img src="${imgPathOrigin}/static/photo.jpg" /><br />
             <h2>Add a photo or two!</h2>
-            <p>Or three, or more! Guests love photos that highlight the features of your space.</p>
+            <p>Your Last photo appears in search result</p>
             
             <form id="uploadProductPicForm" enctype="multipart/form-data">
             	<span>Image:</span><input name="fileProductIcon" id="fileProductIcon" size="40" type="file" />

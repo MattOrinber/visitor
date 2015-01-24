@@ -82,10 +82,12 @@ public class OrderController extends BasicController {
 				String pidStr = btTemp.getProductIdStr();
 				String startDateStr = btTemp.getStartDate();
 				String endDateStr = btTemp.getEndDate();
+				String totalBasicCountStr = btTemp.getTotalCountStr();
 				
 				if (StringUtils.isNotEmpty(pidStr) &&
 						StringUtils.isNotEmpty(startDateStr) &&
-						StringUtils.isNotEmpty(endDateStr)) {
+						StringUtils.isNotEmpty(endDateStr) &&
+						StringUtils.isNotEmpty(totalBasicCountStr)) {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
 					Date startDateT = sdf.parse(startDateStr);
 					Date endDateT = sdf.parse(endDateStr);
@@ -99,19 +101,21 @@ public class OrderController extends BasicController {
 						daysCount = 1;
 					}
 					
+					Integer headCount = Integer.valueOf(totalBasicCountStr);
+					
 					//use product operation to select the special price set and calculate
 					List<ProductOperation> list = new ArrayList<ProductOperation>();
 					list = productRedisService.getProductOperationList(Long.valueOf(pidStr));
 					Product product = productRedisService.getProductFromRedis(Long.valueOf(pidStr));
 					
-					Double resultPrice = MixAndMatchUtils.calculatePrice(daysCount, dtStart, dtEnd, list, product);
+					Double resultPrice = MixAndMatchUtils.calculatePrice(daysCount, dtStart, dtEnd, list, product, headCount);
 					
 					if (resultPrice.compareTo(new Double(0)) > 0) {
 						//generate a product order and ready for paypal order generation
 						ProductOrder po = new ProductOrder();
 						Date currentDate = new Date();
 						po.setOrderCreateDate(new Date());
-						po.setOrderTotalCount(1);
+						po.setOrderTotalCount(headCount);
 						po.setOrderStartDate(startDateT);
 						po.setOrderEndDate(endDateT);
 						po.setOrderProductId(product.getProductId());
@@ -143,7 +147,98 @@ public class OrderController extends BasicController {
 						rj.setProductId(product.getProductId());
 						rj.setOrderId(po.getOrderId());
 						rj.setPayOrderId(ppo.getPayOrderId());
+						rj.setBasciAmount(headCount);
 					}
+				} else {
+					result = -1;
+					resultDesc = OrderInfo.PRODUCT_BUY_TEMP_NOT_RIGHT;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			result = -1;
+			resultDesc = OrderInfo.PRODUCT_BUY_TEMP_NOT_RIGHT;
+		}
+		
+		rj.setResult(result);
+		rj.setResultDesc(resultDesc);
+		
+		super.sendJSONResponse(rj, response);
+	}
+	
+	@RequestMapping("calcExtraPrice")
+	public void calculateExtraPrice(HttpServletRequest request,
+			HttpServletResponse response) {
+		Integer result = 0;
+		String resultDesc = OrderInfo.PRODUCT_AMOUNT_CALC_DONE;
+		ResultJson rj = new ResultJson();
+		
+		BuyTemp btTemp = super.getBuyTempJSON(request);
+		User userTemp = (User) request.getAttribute(WebInfo.UserID);
+		
+		if (btTemp != null) {
+			try {
+				String pidStr = btTemp.getProductIdStr();
+				String startDateStr = btTemp.getStartDate();
+				String endDateStr = btTemp.getEndDate();
+				String extraPriceKeyStr = btTemp.getPriceIdStr();
+				String extraPriceAmount = btTemp.getPriceAmount();
+				
+				if (StringUtils.isNotEmpty(pidStr) &&
+						StringUtils.isNotEmpty(startDateStr) &&
+						StringUtils.isNotEmpty(endDateStr) &&
+						StringUtils.isNotEmpty(extraPriceKeyStr) &&
+						StringUtils.isNotEmpty(extraPriceAmount)) {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
+					Date startDateT = sdf.parse(startDateStr);
+					Date endDateT = sdf.parse(endDateStr);
+					
+					Product product = productRedisService.getProductFromRedis(Long.valueOf(pidStr));
+					
+					Double resultPrice = new Double(0);
+
+					//generate a product order and ready for paypal order generation
+					ProductOrder po = new ProductOrder();
+					Date currentDate = new Date();
+					po.setOrderCreateDate(currentDate);
+					po.setOrderTotalCount(0);
+					po.setOrderStartDate(startDateT);
+					po.setOrderEndDate(endDateT);
+					po.setOrderProductId(product.getProductId());
+					po.setOrderUpdateDate(currentDate);
+					po.setOrderUserEmail(userTemp.getUserEmail());
+					po.setOrderTotalAmount(resultPrice);
+					po.setOrderRemainAmount(resultPrice);
+					//po.setOrderCurrency(product.getProductCurrency());
+					po.setOrderCurrency("USD");
+					po.setOrderStatus(ProductOrderStatusEnum.Init.ordinal());
+					
+					ProductMultiPrice pmp = productRedisService.getProductMultiPriceSetByProductIdAndKey(product.getProductId(), extraPriceKeyStr);
+					dealWithPriceIds(product, po, pmp, Integer.valueOf(extraPriceAmount));
+					
+					visitorProductOrderService.saveProductOrder(po);
+					
+					ProductPayOrder ppo = new ProductPayOrder();
+					ppo.setPayOrderOids(String.valueOf(po.getOrderId().longValue()));
+					ppo.setPayStatus(ProductPayOrderStatusEnum.Init.ordinal());
+					ppo.setPayOrderOwnerEmail(userTemp.getUserEmail());
+					
+					visitorProductOrderService.saveProductPayOrder(ppo);
+					
+					po.setOrderPayOrderId(ppo.getPayOrderId());
+					po.setOrderStatus(ProductOrderStatusEnum.WaitPay.ordinal());
+					visitorProductOrderService.saveProductOrder(po);
+					orderRedisService.saveUserOrders(userTemp, po);
+					orderRedisService.saveProductOrders(po);
+					String toUserEmail = product.getProductPublishUserEmail();
+					orderRedisService.saveOrderToUserIdList(toUserEmail, po.getOrderId());
+					orderRedisService.saveProductPayOrderById(ppo);
+					
+					rj.setTotalPrice(po.getOrderTotalAmount());
+					rj.setProductId(product.getProductId());
+					rj.setOrderId(po.getOrderId());
+					rj.setPayOrderId(ppo.getPayOrderId());
 				} else {
 					result = -1;
 					resultDesc = OrderInfo.PRODUCT_BUY_TEMP_NOT_RIGHT;

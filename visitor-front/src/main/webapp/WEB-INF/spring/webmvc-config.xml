@@ -38,6 +38,7 @@
 	        <mvc:mapping path="/updateUser/*" />
 	        <mvc:mapping path="/order/calcTotalPrice" />
 	        <mvc:mapping path="/order/addBasicPrice" />
+	        <mvc:mapping path="/order/calcExtraPrice"/>
 	        <mvc:mapping path="/order/expressCheckout/*/*" />
 	        <mvc:mapping path="/order/addToPrice" />
 	        <mvc:mapping path="/order/toPayOrder/*/*" />

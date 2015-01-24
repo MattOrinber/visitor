@@ -145,7 +145,8 @@ public class MixAndMatchUtils {
 			DateTime startDate,
 			DateTime endDate,
 			List<ProductOperation> poList,
-			Product product) {
+			Product product, 
+			Integer headCount) {
 		List<Double> resList = new ArrayList<Double>();
 		List<DateTime> listDate = new ArrayList<DateTime>();
 		
@@ -182,7 +183,10 @@ public class MixAndMatchUtils {
 			result += item;
 		}
 		
-		return result;
+		Double multi = new Double(headCount.doubleValue());
+		Double finalResultPrice = multi*result;
+		
+		return finalResultPrice;
 	}
 	
 	public static String getLocaleSpecificString(MessageSource messageSource, String type, Locale tLocale)

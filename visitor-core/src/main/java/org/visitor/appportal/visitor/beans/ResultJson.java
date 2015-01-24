@@ -27,6 +27,7 @@ public class ResultJson {
 	private Long orderId;
 	private Long payOrderId;
 	private Integer stepsCount;
+	private Integer basciAmount;
 	
 	public Integer getResult() {
 		return result;
@@ -142,5 +143,11 @@ public class ResultJson {
 	}
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+	public Integer getBasciAmount() {
+		return basciAmount;
+	}
+	public void setBasciAmount(Integer basciAmount) {
+		this.basciAmount = basciAmount;
 	}
 }
