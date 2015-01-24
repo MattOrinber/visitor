@@ -229,22 +229,23 @@
         </div>
         <div class="searchbar">
         	<div class="search">
-            	<input id="chooseCityInputOnHeadStr" type="text" placeholder="Choose a Place" onfocus="showCityRecommend();" onblur="closeCityRecommend();"/>
-                <span></span>
-                <div id="closeCityRecommend" class="choose_city">
-                	<span id="closeCityInputOnHeadStr" class="close"></span>
-                    <ul class="destination">
+        	
+        		<div class="nice-select" name="nice-select">
+					<input id="chooseCityInputOnHeadStr" type="text" placeholder="Choose a Place" onkeyup="changeCityToGoList(this);" />
+					<div id="closeCityRecommend" class="ul-wrap">
+						<ul id="cityToGoList">
 ]]>
 					<c:if test="${not empty topTenCities}">
 						<c:forEach items="${topTenCities}" var="cityT" varStatus="status">
 <![CDATA[
-							<li><a href="${pageContext.request.contextPath}/day/city?c=${cityT.originName}&o=0&p=1">${cityT.displayName}</a></li>
+							<li data-value="${cityT.originName}">${cityT.displayName}</li>
 ]]>
 						</c:forEach>
 					</c:if>
 <![CDATA[
-                    </ul>
-                </div>
+						</ul>
+					</div>
+				</div>
             </div>
         </div>
     </div>

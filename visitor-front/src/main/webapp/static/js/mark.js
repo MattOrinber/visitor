@@ -2,6 +2,9 @@
 var productDetailStrGlobal = "";
 var ifLogginIn = 0;
 
+var firstTime = 0;
+var cityToGoOriginForChange = "";
+
 function showCityRecommend() {
 	$("#closeCityRecommend").show();
 }
@@ -10,8 +13,89 @@ function closeCityRecommend() {
 	$("#closeCityRecommend").hide();
 }
 
-function initCityPropose() {
+function changeCityToGoList(node) {
 	if (productCitiesArray != "") {
+		var itemInput = $.trim($(node).val());
+		
+		if (itemInput != "") {
+			if (firstTime == 0) {
+				firstTime = 1;
+				cityToGoOriginForChange = $("#cityToGoList").html();
+			} 
+			
+			var matchHeadArray = new Array();
+			var matchTailArray = new Array();
+			var headIdx = 0;
+			var tailIdx = 0;
+			
+			var cityOriLen = productCitiesArray.length;
+			for (var idx = 0; idx < cityOriLen; idx ++) {
+				var indexOfItem = productCitiesArray[idx].indexOf(itemInput);
+				if (indexOfItem == 0) {
+					matchHeadArray[headIdx++] = productCitiesArray[idx];
+				} else if (indexOfItem > 0) {
+					matchTailArray[tailIdx++] = productCitiesArray[idx];
+				}
+			}
+			
+			if (matchHeadArray.length > 0 || matchTailArray.length > 0) {
+				var insertHtmlPart = '';
+				$("#cityToGoList").html("");
+				for (var i = 0; i < matchHeadArray.length; i ++) {
+					insertHtmlPart = '<li data-value="'+matchHeadArray[i]+'">'+matchHeadArray[i]+'</li>';
+					$("#cityToGoList").append(insertHtmlPart);
+				}
+				for (var j = 0; j < matchTailArray.length; j ++) {
+					insertHtmlPart = '<li data-value="'+matchTailArray[j]+'">'+matchTailArray[j]+'</li>';
+					$("#cityToGoList").append(insertHtmlPart);
+				}
+				
+				$('#cityToGoList li').hover(function(e){
+					$(this).toggleClass('on');
+					e.stopPropagation();
+				});
+				$('#cityToGoList li').click(function(e){
+					var val = $(this).text();
+					var dataVal = $(this).attr("data-value");
+					$("#chooseCityInputOnHeadStr").val(val);
+					$("#closeCityRecommend").hide();
+					e.stopPropagation();
+					
+					var toGoUrl = pathGlobe + "/day/city?c=" + dataVal + "&o=0&p=1";
+					window.location.href = toGoUrl;
+				});
+			} else {
+				$("#cityToGoList").html(cityToGoOriginForChange);
+			}
+		}
+	}
+}
+
+function initCityPropose() {
+	$('[name="nice-select"]').click(function(e){
+		$("#closeCityRecommend").hide();
+		$("#closeCityRecommend").show();
+		e.stopPropagation();
+	});
+	$('[name="nice-select"] li').hover(function(e){
+		$(this).toggleClass('on');
+		e.stopPropagation();
+	});
+	$('[name="nice-select"] li').click(function(e){
+		var val = $(this).text();
+		var dataVal = $(this).attr("data-value");
+		$("#chooseCityInputOnHeadStr").val(val);
+		$("#closeCityRecommend").hide();
+		e.stopPropagation();
+		
+		var toGoUrl = pathGlobe + "/day/city?c=" + dataVal + "&o=0&p=1";
+		window.location.href = toGoUrl;
+	});
+	$(document).click(function(){
+		$("#closeCityRecommend").hide();
+	});
+	
+	/*if (productCitiesArray != "") {
 		$("#chooseCityInputOnHeadStr").autocomplete({
 			source: function( request, response ) {
 				var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
@@ -20,25 +104,25 @@ function initCityPropose() {
 				}));
 			}
 		});
-	}
+	}*/
 }
 
 //init index page
 function initIndex() {
 	// index city search input
-	$(".destination li").click(function(e){
+	/*$(".destination li").click(function(e){
 		var htmlText = $(this).children(":first").html();
 		$("#chooseCityInputOnHeadStr").val(htmlText);
-		$("#closeCityRecommend").show();
+		$("#closeCityRecommend").hide();
 		e.stopPropagation();
 	});
 	$("#closeCityInputOnHeadStr").click(function(e){
-		$("#closeCityRecommend").hide();
+		$("#closeCityRecommend").show();
 		e.stopPropagation();
 	});
 	$(document).click(function(){
 		$("#closeCityRecommend").hide();
-	});
+	});*/
 	// index city search input end
 	
 	//index shade change
@@ -243,7 +327,7 @@ function setProductDescEditor() {
 
 //login bar and page bottom control
 function initLoginBar() {
-	//initCityPropose();
+	initCityPropose();
 	
 	$("#signbtn").click(function(){
 		$('.wrapwrapbox').show();

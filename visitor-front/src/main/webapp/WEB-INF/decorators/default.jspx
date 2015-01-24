@@ -29,29 +29,6 @@
 var pathGlobe = '${pageContext.request.contextPath}';
 var imgPathOriginStr = '${imgPathOrigin}';
 
-$('[name="nice-select"]').click(function(e){
-	$("#closeCityRecommend").hide();
-	$("#closeCityRecommend").show();
-	e.stopPropagation();
-});
-$('[name="nice-select"] li').hover(function(e){
-	$(this).toggleClass('on');
-	e.stopPropagation();
-});
-$('[name="nice-select"] li').click(function(e){
-	var val = $(this).text();
-	var dataVal = $(this).attr("data-value");
-	$("#chooseCityInputOnHeadStr").val(val);
-	$("#closeCityRecommend").hide();
-	e.stopPropagation();
-	
-	var toGoUrl = pathGlobe + "/day/city?c=" + dataVal + "&o=0&p=1";
-	window.location.href = toGoUrl;
-});
-$(document).click(function(){
-	$("#closeCityRecommend").hide();
-});
-
 </script>
 ]]>
 
@@ -145,16 +122,16 @@ $(document).click(function(){
         	<div class="nice-select" name="nice-select">
         		<c:choose>
 					<c:when test="${empty currentCityOri}">
-						<input id="chooseCityInputOnHeadStr" type="text" placeholder="Choose a Place" />
+						<input id="chooseCityInputOnHeadStr" type="text" placeholder="Choose a Place" onkeyup="changeCityToGoList();" />
 					</c:when>
 					<c:otherwise>
-						<input id="chooseCityInputOnHeadStr" type="text" placeholder="${currentCityOri}" />
+						<input id="chooseCityInputOnHeadStr" type="text" placeholder="${currentCity}" onkeyup="changeCityToGoList();" />
 					</c:otherwise>
 				</c:choose>
 				
 				<c:if test="${not empty topTenCities}">
 	                <div id="closeCityRecommend" class="ul-wrap">
-		                <ul>
+		                <ul id="cityToGoList">
 		                	<c:forEach items="${topTenCities}" var="cityT" varStatus="status">
 		                		<li data-value="${cityT.originName}">${cityT.displayName}</li>
 		                	</c:forEach>
