@@ -122,10 +122,10 @@ var imgPathOriginStr = '${imgPathOrigin}';
         	<div class="nice-select" name="nice-select">
         		<c:choose>
 					<c:when test="${empty currentCityOri}">
-						<input id="chooseCityInputOnHeadStr" type="text" placeholder="Choose a Place" onkeyup="changeCityToGoList();" />
+						<input id="chooseCityInputOnHeadStr" type="text" placeholder="Choose a Place" onkeyup="changeCityToGoList(event, this);" />
 					</c:when>
 					<c:otherwise>
-						<input id="chooseCityInputOnHeadStr" type="text" placeholder="${currentCity}" onkeyup="changeCityToGoList();" />
+						<input id="chooseCityInputOnHeadStr" type="text" placeholder="${currentCity}" onkeyup="changeCityToGoList(event, this);" />
 					</c:otherwise>
 				</c:choose>
 				
@@ -133,7 +133,14 @@ var imgPathOriginStr = '${imgPathOrigin}';
 	                <div id="closeCityRecommend" class="ul-wrap">
 		                <ul id="cityToGoList">
 		                	<c:forEach items="${topTenCities}" var="cityT" varStatus="status">
-		                		<li data-value="${cityT.originName}">${cityT.displayName}</li>
+		                		<c:choose>
+		                			<c:when test="${status.index != 0}">
+		                				<li data-value="${cityT.originName}">${cityT.displayName}</li>
+		                			</c:when>
+		                			<c:otherwise>
+		                				<li class="on" data-value="${cityT.originName}">${cityT.displayName}</li>
+		                			</c:otherwise>
+		                		</c:choose>
 		                	</c:forEach>
 		                </ul>
 	                </div>

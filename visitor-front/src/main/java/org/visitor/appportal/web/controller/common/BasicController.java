@@ -367,13 +367,9 @@ public class BasicController {
 			}
 			
 			//get top ten cities
-			List<String> toTenCityIdStrList = floopyThingRedisService.getFloopyValueList(FloopyUtils.TOP_TEN_CITY_ID_KEY);
 			List<CityName> topTenCityName = new ArrayList<CityName>();
 			char[] checkOnes = {','};
-			for (String cityIdStr : toTenCityIdStrList) {
-				Long cityId = Long.valueOf(cityIdStr);
-				String cityNameTemp = productRedisService.getCityStrById(cityId);
-				
+			for (String cityNameTemp : listCity) {
 				String cityTo = "";
 				if (StringUtils.containsAny(cityNameTemp, checkOnes)) {
 					cityTo = StringUtils.substring(cityNameTemp, 0, StringUtils.indexOfAny(cityNameTemp, checkOnes));

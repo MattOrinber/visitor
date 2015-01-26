@@ -231,15 +231,20 @@
         	<div class="search">
         	
         		<div class="nice-select" name="nice-select">
-					<input id="chooseCityInputOnHeadStr" type="text" placeholder="Choose a Place" onkeyup="changeCityToGoList(this);" />
+					<input id="chooseCityInputOnHeadStr" type="text" placeholder="Choose a Place" onkeyup="changeCityToGoList(event, this);" />
 					<div id="closeCityRecommend" class="ul-wrap">
 						<ul id="cityToGoList">
 ]]>
 					<c:if test="${not empty topTenCities}">
 						<c:forEach items="${topTenCities}" var="cityT" varStatus="status">
-<![CDATA[
-							<li data-value="${cityT.originName}">${cityT.displayName}</li>
-]]>
+							<c:choose>
+	                			<c:when test="${status.index != 0}">
+	                				<![CDATA[<li data-value="${cityT.originName}">${cityT.displayName}</li>]]>
+	                			</c:when>
+	                			<c:otherwise>
+	                				<![CDATA[<li class="on" data-value="${cityT.originName}">${cityT.displayName}</li>]]>
+	                			</c:otherwise>
+	                		</c:choose>
 						</c:forEach>
 					</c:if>
 <![CDATA[

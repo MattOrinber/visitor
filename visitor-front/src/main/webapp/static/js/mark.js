@@ -4,6 +4,9 @@ var ifLogginIn = 0;
 
 var firstTime = 0;
 var cityToGoOriginForChange = "";
+var cityToGoOriginForChangeSize = 0;
+var cityToGoSize = 0;
+var cityToGoKeyIndex = 0;
 
 function showCityRecommend() {
 	$("#closeCityRecommend").show();
@@ -13,7 +16,7 @@ function closeCityRecommend() {
 	$("#closeCityRecommend").hide();
 }
 
-function changeCityToGoList(node) {
+function changeCityLiActual(node) {
 	if (productCitiesArray != "") {
 		var itemInput = $.trim($(node).val());
 		
@@ -21,6 +24,7 @@ function changeCityToGoList(node) {
 			if (firstTime == 0) {
 				firstTime = 1;
 				cityToGoOriginForChange = $("#cityToGoList").html();
+				cityToGoOriginForChangeSize = $("#cityToGoList").find('li').length;
 			} 
 			
 			var matchHeadArray = new Array();
@@ -41,16 +45,34 @@ function changeCityToGoList(node) {
 			if (matchHeadArray.length > 0 || matchTailArray.length > 0) {
 				var insertHtmlPart = '';
 				$("#cityToGoList").html("");
+				var idxChosenTemp = 0;
 				for (var i = 0; i < matchHeadArray.length; i ++) {
-					insertHtmlPart = '<li data-value="'+matchHeadArray[i]+'">'+matchHeadArray[i]+'</li>';
+					if (idxChosenTemp == 0) {
+						insertHtmlPart = '<li class="on" data-value="'+matchHeadArray[i]+'">'+matchHeadArray[i]+'</li>';
+						$("#chooseCityInputOnHeadStr").val("");
+						$("#chooseCityInputOnHeadStr").attr("placeholder", matchHeadArray[i]);
+					} else {
+						insertHtmlPart = '<li data-value="'+matchHeadArray[i]+'">'+matchHeadArray[i]+'</li>';
+						idxChosenTemp = 1;
+					}
+					
 					$("#cityToGoList").append(insertHtmlPart);
 				}
 				for (var j = 0; j < matchTailArray.length; j ++) {
-					insertHtmlPart = '<li data-value="'+matchTailArray[j]+'">'+matchTailArray[j]+'</li>';
+					if (idxChosenTemp == 0) {
+						insertHtmlPart = '<li class="on" data-value="'+matchTailArray[j]+'">'+matchTailArray[j]+'</li>';
+						$("#chooseCityInputOnHeadStr").val("");
+						$("#chooseCityInputOnHeadStr").attr("placeholder", matchTailArray[j]);
+					} else {
+						insertHtmlPart = '<li data-value="'+matchTailArray[j]+'">'+matchTailArray[j]+'</li>';
+					}
+					
 					$("#cityToGoList").append(insertHtmlPart);
 				}
+				cityToGoSize = matchHeadArray.length + matchTailArray.length;
 			} else {
 				$("#cityToGoList").html(cityToGoOriginForChange);
+				cityToGoSize = cityToGoOriginForChangeSize;
 			}
 			
 			$('#cityToGoList li').hover(function(e){
@@ -71,10 +93,81 @@ function changeCityToGoList(node) {
 	}
 }
 
+function changeCityToGoList(oEvent, node) {
+	e=window.event||oEvent;
+	switch(e.keyCode){
+	case 37: //左键
+		var liNodes = $("#cityToGoList").find('li');
+		if (cityToGoKeyIndex == 0) {
+			cityToGoKeyIndex = cityToGoSize - 1;
+		} else {
+			cityToGoKeyIndex = cityToGoKeyIndex - 1;
+		}
+		$(liNodes[cityToGoKeyIndex]).toggleClass('on');
+		var cityStrPrompt = $(liNodes[cityToGoKeyIndex]).attr("data-value");
+		$("#chooseCityInputOnHeadStr").val("");
+		$("#chooseCityInputOnHeadStr").attr("placeholder", cityStrPrompt);
+		break;
+	case 38: //向上键
+		var liNodes = $("#cityToGoList").find('li');
+		if (cityToGoKeyIndex == 0) {
+			cityToGoKeyIndex = cityToGoSize - 1;
+		} else {
+			cityToGoKeyIndex = cityToGoKeyIndex - 1;
+		}
+		$(liNodes[cityToGoKeyIndex]).toggleClass('on');
+		var cityStrPrompt = $(liNodes[cityToGoKeyIndex]).attr("data-value");
+		$("#chooseCityInputOnHeadStr").val("");
+		$("#chooseCityInputOnHeadStr").attr("placeholder", cityStrPrompt);
+		break;
+	case 39: //右键
+		var liNodes = $("#cityToGoList").find('li');
+		if (cityToGoKeyIndex < (cityToGoKeyIndex - 1)) {
+			cityToGoKeyIndex = cityToGoSize + 1;
+		} else {
+			cityToGoKeyIndex = 0;
+		}
+		$(liNodes[cityToGoKeyIndex]).toggleClass('on');
+		var cityStrPrompt = $(liNodes[cityToGoKeyIndex]).attr("data-value");
+		$("#chooseCityInputOnHeadStr").val("");
+		$("#chooseCityInputOnHeadStr").attr("placeholder", cityStrPrompt);
+		break;
+	case 40: //向下键
+		var liNodes = $("#cityToGoList").find('li');
+		if (cityToGoKeyIndex < (cityToGoKeyIndex - 1)) {
+			cityToGoKeyIndex = cityToGoSize + 1;
+		} else {
+			cityToGoKeyIndex = 0;
+		}
+		$(liNodes[cityToGoKeyIndex]).toggleClass('on');
+		var cityStrPrompt = $(liNodes[cityToGoKeyIndex]).attr("data-value");
+		$("#chooseCityInputOnHeadStr").val("");
+		$("#chooseCityInputOnHeadStr").attr("placeholder", cityStrPrompt);
+		break;
+	case 13: //回车键
+		var liNodes = $("#cityToGoList").find('li');
+		var cityStrPrompt = $(liNodes[cityToGoKeyIndex]).attr("data-value");
+		$("#chooseCityInputOnHeadStr").val(cityStrPrompt);
+		$("#closeCityRecommend").hide();
+		
+		var toGoUrl = pathGlobe + "/day/city?c=" + dataVal + "&o=0&p=1";
+		window.location.href = toGoUrl;
+		break;
+	default:
+		changeCityLiActual(node);
+		break;
+	}
+}
+
 function initCityPropose() {
 	$('[name="nice-select"]').click(function(e){
 		$("#closeCityRecommend").hide();
 		$("#closeCityRecommend").show();
+		var liNodes = $("#cityToGoList").find('li');
+		cityToGoKeyIndex = 0;
+		var cityStrPrompt = $(liNodes[0]).attr("data-value");
+		$("#chooseCityInputOnHeadStr").val("");
+		$("#chooseCityInputOnHeadStr").attr("placeholder", cityStrPrompt);
 		e.stopPropagation();
 	});
 	$('[name="nice-select"] li').hover(function(e){
@@ -94,37 +187,10 @@ function initCityPropose() {
 	$(document).click(function(){
 		$("#closeCityRecommend").hide();
 	});
-	
-	/*if (productCitiesArray != "") {
-		$("#chooseCityInputOnHeadStr").autocomplete({
-			source: function( request, response ) {
-				var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
-				response( $.grep( productCitiesArray, function( item ){
-					return matcher.test( item );
-				}));
-			}
-		});
-	}*/
 }
 
 //init index page
 function initIndex() {
-	// index city search input
-	/*$(".destination li").click(function(e){
-		var htmlText = $(this).children(":first").html();
-		$("#chooseCityInputOnHeadStr").val(htmlText);
-		$("#closeCityRecommend").hide();
-		e.stopPropagation();
-	});
-	$("#closeCityInputOnHeadStr").click(function(e){
-		$("#closeCityRecommend").show();
-		e.stopPropagation();
-	});
-	$(document).click(function(){
-		$("#closeCityRecommend").hide();
-	});*/
-	// index city search input end
-	
 	//index shade change
 	$(".hover").mouseenter(function(){
 		$(this).find(".shade").fadeIn();
