@@ -34,11 +34,16 @@ function changeCityLiActual(node) {
 			
 			var cityOriLen = productCitiesArray.length;
 			for (var idx = 0; idx < cityOriLen; idx ++) {
-				var indexOfItem = productCitiesArray[idx].indexOf(itemInput);
+				var checkTarget = (productCitiesArray[idx]).toLowerCase();
+				var checkItemInput = itemInput.toLowerCase();
+				var indexOfItem = checkTarget.indexOf(checkItemInput);
+				
 				if (indexOfItem == 0) {
-					matchHeadArray[headIdx++] = productCitiesArray[idx];
+					matchHeadArray[headIdx] = productCitiesArray[idx];
+					headIdx ++;
 				} else if (indexOfItem > 0) {
-					matchTailArray[tailIdx++] = productCitiesArray[idx];
+					matchTailArray[tailIdx] = productCitiesArray[idx];
+					tailIdx ++;
 				}
 			}
 			
@@ -49,11 +54,11 @@ function changeCityLiActual(node) {
 				for (var i = 0; i < matchHeadArray.length; i ++) {
 					if (idxChosenTemp == 0) {
 						insertHtmlPart = '<li class="on" data-value="'+matchHeadArray[i]+'">'+matchHeadArray[i]+'</li>';
-						$("#chooseCityInputOnHeadStr").val("");
-						$("#chooseCityInputOnHeadStr").attr("placeholder", matchHeadArray[i]);
+						//$("#chooseCityInputOnHeadStr").val("");
+						//$("#chooseCityInputOnHeadStr").attr("placeholder", matchHeadArray[i]);
+						idxChosenTemp = 1;
 					} else {
 						insertHtmlPart = '<li data-value="'+matchHeadArray[i]+'">'+matchHeadArray[i]+'</li>';
-						idxChosenTemp = 1;
 					}
 					
 					$("#cityToGoList").append(insertHtmlPart);
@@ -61,8 +66,9 @@ function changeCityLiActual(node) {
 				for (var j = 0; j < matchTailArray.length; j ++) {
 					if (idxChosenTemp == 0) {
 						insertHtmlPart = '<li class="on" data-value="'+matchTailArray[j]+'">'+matchTailArray[j]+'</li>';
-						$("#chooseCityInputOnHeadStr").val("");
-						$("#chooseCityInputOnHeadStr").attr("placeholder", matchTailArray[j]);
+						//$("#chooseCityInputOnHeadStr").val("");
+						//$("#chooseCityInputOnHeadStr").attr("placeholder", matchTailArray[j]);
+						idxChosenTemp = 1;
 					} else {
 						insertHtmlPart = '<li data-value="'+matchTailArray[j]+'">'+matchTailArray[j]+'</li>';
 					}
@@ -70,9 +76,11 @@ function changeCityLiActual(node) {
 					$("#cityToGoList").append(insertHtmlPart);
 				}
 				cityToGoSize = matchHeadArray.length + matchTailArray.length;
+				cityToGoKeyIndex = 0;
 			} else {
 				$("#cityToGoList").html(cityToGoOriginForChange);
 				cityToGoSize = cityToGoOriginForChangeSize;
+				cityToGoKeyIndex = 0;
 			}
 			
 			$('#cityToGoList li').hover(function(e){
@@ -98,59 +106,64 @@ function changeCityToGoList(oEvent, node) {
 	switch(e.keyCode){
 	case 37: //左键
 		var liNodes = $("#cityToGoList").find('li');
+		$(liNodes[cityToGoKeyIndex]).toggleClass('on');
 		if (cityToGoKeyIndex == 0) {
 			cityToGoKeyIndex = cityToGoSize - 1;
 		} else {
 			cityToGoKeyIndex = cityToGoKeyIndex - 1;
 		}
 		$(liNodes[cityToGoKeyIndex]).toggleClass('on');
-		var cityStrPrompt = $(liNodes[cityToGoKeyIndex]).attr("data-value");
+		var cityStrPrompt = $(liNodes[cityToGoKeyIndex]).html();
 		$("#chooseCityInputOnHeadStr").val("");
 		$("#chooseCityInputOnHeadStr").attr("placeholder", cityStrPrompt);
 		break;
 	case 38: //向上键
 		var liNodes = $("#cityToGoList").find('li');
+		$(liNodes[cityToGoKeyIndex]).toggleClass('on');
 		if (cityToGoKeyIndex == 0) {
 			cityToGoKeyIndex = cityToGoSize - 1;
 		} else {
 			cityToGoKeyIndex = cityToGoKeyIndex - 1;
 		}
 		$(liNodes[cityToGoKeyIndex]).toggleClass('on');
-		var cityStrPrompt = $(liNodes[cityToGoKeyIndex]).attr("data-value");
+		var cityStrPrompt = $(liNodes[cityToGoKeyIndex]).html();
 		$("#chooseCityInputOnHeadStr").val("");
 		$("#chooseCityInputOnHeadStr").attr("placeholder", cityStrPrompt);
 		break;
 	case 39: //右键
 		var liNodes = $("#cityToGoList").find('li');
-		if (cityToGoKeyIndex < (cityToGoKeyIndex - 1)) {
-			cityToGoKeyIndex = cityToGoSize + 1;
+		$(liNodes[cityToGoKeyIndex]).toggleClass('on');
+		if (cityToGoKeyIndex < (cityToGoSize - 1)) {
+			cityToGoKeyIndex = cityToGoKeyIndex + 1;
 		} else {
 			cityToGoKeyIndex = 0;
 		}
 		$(liNodes[cityToGoKeyIndex]).toggleClass('on');
-		var cityStrPrompt = $(liNodes[cityToGoKeyIndex]).attr("data-value");
+		var cityStrPrompt = $(liNodes[cityToGoKeyIndex]).html();
 		$("#chooseCityInputOnHeadStr").val("");
 		$("#chooseCityInputOnHeadStr").attr("placeholder", cityStrPrompt);
 		break;
 	case 40: //向下键
 		var liNodes = $("#cityToGoList").find('li');
-		if (cityToGoKeyIndex < (cityToGoKeyIndex - 1)) {
-			cityToGoKeyIndex = cityToGoSize + 1;
+		$(liNodes[cityToGoKeyIndex]).toggleClass('on');
+		if (cityToGoKeyIndex < (cityToGoSize - 1)) {
+			cityToGoKeyIndex = cityToGoKeyIndex + 1;
 		} else {
 			cityToGoKeyIndex = 0;
 		}
 		$(liNodes[cityToGoKeyIndex]).toggleClass('on');
-		var cityStrPrompt = $(liNodes[cityToGoKeyIndex]).attr("data-value");
+		var cityStrPrompt = $(liNodes[cityToGoKeyIndex]).html();
 		$("#chooseCityInputOnHeadStr").val("");
 		$("#chooseCityInputOnHeadStr").attr("placeholder", cityStrPrompt);
 		break;
 	case 13: //回车键
 		var liNodes = $("#cityToGoList").find('li');
+		var cityPromptDisplay = $(liNodes[cityToGoKeyIndex]).html();
 		var cityStrPrompt = $(liNodes[cityToGoKeyIndex]).attr("data-value");
-		$("#chooseCityInputOnHeadStr").val(cityStrPrompt);
+		$("#chooseCityInputOnHeadStr").val(cityPromptDisplay);
 		$("#closeCityRecommend").hide();
 		
-		var toGoUrl = pathGlobe + "/day/city?c=" + dataVal + "&o=0&p=1";
+		var toGoUrl = pathGlobe + "/day/city?c=" + cityStrPrompt + "&o=0&p=1";
 		window.location.href = toGoUrl;
 		break;
 	default:
@@ -165,9 +178,10 @@ function initCityPropose() {
 		$("#closeCityRecommend").show();
 		var liNodes = $("#cityToGoList").find('li');
 		cityToGoKeyIndex = 0;
-		var cityStrPrompt = $(liNodes[0]).attr("data-value");
-		$("#chooseCityInputOnHeadStr").val("");
-		$("#chooseCityInputOnHeadStr").attr("placeholder", cityStrPrompt);
+		cityToGoSize = liNodes.length;
+		//var cityStrPrompt = $(liNodes[0]).html();
+		//$("#chooseCityInputOnHeadStr").val("");
+		//$("#chooseCityInputOnHeadStr").attr("placeholder", cityStrPrompt);
 		e.stopPropagation();
 	});
 	$('[name="nice-select"] li').hover(function(e){

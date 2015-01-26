@@ -350,37 +350,49 @@ public class BasicController {
 			model.addAttribute("imgPathOrigin", imgPathOrigin);
 			
 			//all cities
+			char[] checkOnes = {','};
 			List<String> listCity = productRedisService.getCities();
 			if (listCity != null && listCity.size() > 0) {
 				String jsonAllCityArray = "[";
+				String jsonCityDisplay = "[";
 				int idx = 0;
 				for (String cityOri : listCity) {
+					String cityTo = "";
+					if (StringUtils.containsAny(cityOri, checkOnes)) {
+						cityTo = StringUtils.substring(cityOri, 0, StringUtils.indexOfAny(cityOri, checkOnes));
+					} else {
+						cityTo = cityOri;
+					}
+					
 					if (idx == 0) {
 						jsonAllCityArray = jsonAllCityArray + "\"" + cityOri;
+						jsonCityDisplay = jsonCityDisplay + "\"" + cityTo;
 						idx ++;
 					} else {
 						jsonAllCityArray = jsonAllCityArray + "\",\"" + cityOri;
+						jsonCityDisplay = jsonCityDisplay + "\",\"" + cityTo;
 					}
 				}
 				jsonAllCityArray = jsonAllCityArray + "\"]";
+				jsonCityDisplay = jsonCityDisplay + "\"]";
 				model.addAttribute("productCities", jsonAllCityArray);
+				model.addAttribute("productCitiesDisplay", jsonCityDisplay);
 			}
 			
 			//get top ten cities
 			List<CityName> topTenCityName = new ArrayList<CityName>();
-			char[] checkOnes = {','};
 			for (String cityNameTemp : listCity) {
-				String cityTo = "";
+				/*String cityTo = "";
 				if (StringUtils.containsAny(cityNameTemp, checkOnes)) {
 					cityTo = StringUtils.substring(cityNameTemp, 0, StringUtils.indexOfAny(cityNameTemp, checkOnes));
 				} else {
 					cityTo = cityNameTemp;
-				}
+				}*/
 				CityName cn = new CityName();
 				
 				String cityURLname = URLEncoder.encode(cityNameTemp, "UTF-8");
 				cn.setOriginName(cityURLname);
-				cn.setDisplayName(cityTo);
+				cn.setDisplayName(cityNameTemp);
 				topTenCityName.add(cn);
 			}
 			model.addAttribute("topTenCities", topTenCityName);

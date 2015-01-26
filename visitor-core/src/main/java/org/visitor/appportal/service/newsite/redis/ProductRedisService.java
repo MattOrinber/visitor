@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,13 +82,18 @@ public class ProductRedisService {
 	public List<String> getCities() {
 		String cityKey = RedisKeysForVisitor.getVisitorProductCityKey();
 		Map<Object, Object> entries = compressStringRedisVisitorTemplate.opsForHash().entries(cityKey);
+		Map<String, String> resultPreMap = new TreeMap<String, String>();
 		List<String> result = null;
 		
 		if (null != entries) {
 			result = new ArrayList<String>();
 			for(Object entry : entries.keySet()) {
 				String valueStr = (String) entry;
-				result.add(valueStr);
+				resultPreMap.put(valueStr, valueStr);
+			}
+			
+			for (String keyStrTemp : resultPreMap.keySet()) {
+				result.add(keyStrTemp);
 			}
 		}
 		return result;

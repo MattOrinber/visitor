@@ -37,6 +37,7 @@ var imgPathOriginStr = '${imgPathOrigin}';
 <![CDATA[
 			<script>
 			var productCitiesArray = ${productCities};
+			var productCitiesArrayDisplay = ${productCitiesDisplay};
 			</script>
 ]]>
 		</c:when>
@@ -44,6 +45,7 @@ var imgPathOriginStr = '${imgPathOrigin}';
 <![CDATA[
 			<script>
 			var productCitiesArray = "";
+			var productCitiesArrayDisplay = "";
 			</script>
 ]]>
 		</c:otherwise>
