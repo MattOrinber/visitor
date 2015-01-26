@@ -156,7 +156,7 @@ var imgPathOriginStr = '${imgPathOrigin}';
         		<div id="notLoginStatusBarPart" class="loginbar" style="display:block;">
         			<a href="javascript:void(0);" id="signbtn">Sign Up</a>
         			<a href="javascript:void(0);" id="logbtn">Log In</a>
-        			<a href="${pageContext.request.contextPath}/list_space" class="list">List Your Activities</a>
+        			<a href="javascript:proposeToLoginDialog();" class="list">List Your Activities</a>
         		</div>
         		
         		<div id="loginStatusBarPart" class="loginbar1" style="display:none;">
@@ -189,7 +189,7 @@ var imgPathOriginStr = '${imgPathOrigin}';
        			<div id="notLoginStatusBarPart" class="loginbar" style="display:none;">
         			<a href="javascript:void(0);" id="signbtn">Sign Up</a>
         			<a href="javascript:void(0);" id="logbtn">Log In</a>
-        			<a href="${pageContext.request.contextPath}/list_space" class="list">List Your Activities</a>
+        			<a href="javascript:proposeToLoginDialog();" class="list">List Your Activities</a>
         		</div>
         		
         		<div id="loginStatusBarPart" class="loginbar1" style="display:block;">

@@ -18,6 +18,7 @@
 	
 	<mvc:interceptors>
 	    <mvc:interceptor>
+	    	<mvc:mapping path="/list_space"/>
 	        <mvc:mapping path="/publishinfo/*"/>
 	        <mvc:mapping path="/product/*"/>
 	        <mvc:mapping path="/day/calendar"/>

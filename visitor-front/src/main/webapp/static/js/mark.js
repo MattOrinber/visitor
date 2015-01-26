@@ -405,6 +405,11 @@ function setProductDescEditor() {
 	}
 }
 
+function proposeToLoginDialog() {
+	$('.wrapwrapbox').show();
+	$("#login").show();
+}
+
 //login bar and page bottom control
 function initLoginBar() {
 	initCityPropose();
