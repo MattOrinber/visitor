@@ -10,7 +10,7 @@ body{background:#f7f7f7;}
 .header{width:100%;height:55px;background:#fff;border-bottom:1px solid #c4c4c4;}
 .header .head{min-width:1080px;height:55px;margin:0 auto;}
 .header .head .logo{width:80px;height:40px;float:left;margin-left:20px;margin-top:10px;}
-.header .head .select{width:200px;height:20px;float:left;margin-top:22px;}
+.header .head .select{width:200px;height:20px;float:left;margin-top:16px;}
 .header .head .select select{border:1px solid #c4c4c4;width:120px;outline:none;}
 .header .head .loginbar{width:300px;height:50px;float:right;margin-top:15px;margin-right:20px;}
 .header .head .loginbar a{font-size:13px;color:#666;margin-left:25px;}

@@ -49,24 +49,24 @@ function changeCityToGoList(node) {
 					insertHtmlPart = '<li data-value="'+matchTailArray[j]+'">'+matchTailArray[j]+'</li>';
 					$("#cityToGoList").append(insertHtmlPart);
 				}
-				
-				$('#cityToGoList li').hover(function(e){
-					$(this).toggleClass('on');
-					e.stopPropagation();
-				});
-				$('#cityToGoList li').click(function(e){
-					var val = $(this).text();
-					var dataVal = $(this).attr("data-value");
-					$("#chooseCityInputOnHeadStr").val(val);
-					$("#closeCityRecommend").hide();
-					e.stopPropagation();
-					
-					var toGoUrl = pathGlobe + "/day/city?c=" + dataVal + "&o=0&p=1";
-					window.location.href = toGoUrl;
-				});
 			} else {
 				$("#cityToGoList").html(cityToGoOriginForChange);
 			}
+			
+			$('#cityToGoList li').hover(function(e){
+				$(this).toggleClass('on');
+				e.stopPropagation();
+			});
+			$('#cityToGoList li').click(function(e){
+				var val = $(this).text();
+				var dataVal = $(this).attr("data-value");
+				$("#chooseCityInputOnHeadStr").val(val);
+				$("#closeCityRecommend").hide();
+				e.stopPropagation();
+				
+				var toGoUrl = pathGlobe + "/day/city?c=" + dataVal + "&o=0&p=1";
+				window.location.href = toGoUrl;
+			});
 		}
 	}
 }

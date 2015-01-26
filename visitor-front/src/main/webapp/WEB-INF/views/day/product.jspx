@@ -207,6 +207,28 @@
 		                <div class="date">
 		                    <span><a href="javascript:void(0);">Contact Host</a></span>
 		                </div>
+		                <div class="date">
+		                	<c:choose>
+		                		<c:when test="${not empty multiPriceSet}">
+		                			<c:forEach items="${multiPriceSet}" var="priceSpecial" varStatus="status">
+				                        <b style="line-height:28px;">Full day Admission(${priceSpecial.pmpProductPriceKey})</b><br />
+					                    <div class="wrap-position">
+				                            <input type="text" class="number-input" data-key="${priceSpecial.pmpProductPriceKey}" data-amount="0" placeholder="0" />
+				                            <p>$ ${priceSpecial.pmpProductPriceValue} /each</p>
+				                        </div>
+										<br style="clear:both;"/>
+									</c:forEach>
+		                		</c:when>
+		                		<c:otherwise>
+		                			<b>Quantity</b><br />
+				                    <div class="wrap-position">
+			                            <input type="text" id="orderBasicPriceCount" class="number-input" />
+			                            <p>$ ${productInfo.productBaseprice} /each</p>
+			                        </div>
+									<br style="clear:both;"/>
+		                		</c:otherwise>
+		                	</c:choose>
+		                </div>
 					</c:when>
 					<c:otherwise>
 		                <div class="date">
@@ -261,11 +283,13 @@
 			                		</c:otherwise>
 			                	</c:choose>
 			                </div>
+			                <![CDATA[
 			                <hr style="width:85%;margin:0 auto;margin-top:20px;border:none;background:#ccc;height:1px;"/>
 			                <p id="hiddenServicePricePart" style="display:none;text-align:center;margin-top:10px;font-size:16px;"><b id="totalPriceDisplayStr"></b></p>
 			                <div class="booking">
 			                    <a id="toPayOrderButton" href="javascript:void(0);">instant book</a> 
 			                </div>
+			                ]]>
 					</c:otherwise>
 				</c:choose>
 				</div>
