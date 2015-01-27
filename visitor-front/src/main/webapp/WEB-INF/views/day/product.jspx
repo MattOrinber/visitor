@@ -35,7 +35,14 @@
 			});
 			$(".number-select li").click(function(e){
 				var htmlText = $(this).html();
-				$(this).parent().parent().find(".number-input").val(htmlText);
+				var inputNumberNode = $(this).parent().parent().find(".number-input");
+				inputNumberNode.val(htmlText);
+				var callTypeStr = $(this).parent().attr("call-type");
+				if (callTypeStr == "0") {
+					callBasicOrderGeneration(inputNumberNode);
+				} else {
+					callExtraOrderGeneration(inputNumberNode);
+				}
 				$(this).parent().hide();
 				e.stopPropagation();
 			});
@@ -235,7 +242,9 @@
 		                    <span><a href="javascript:contactHost('${loginUserEmail}','${hostInfo.userId}');">Contact Host</a></span>
 		                </div>
 		                <div class="date">
-		                    <b>Date</b><br /><input id="toOrderStartDate" type="text" placeholder="2016-01-01" style="width:258px;height:32px;border:1px solid #ccc;text-align:center;"/>
+		                    <b>Date</b><br />
+		                    <input id="toOrderStartDate" type="text" placeholder="2016-01-01" style="width:258px;height:32px;border:1px solid #ccc;text-align:center;"/>
+		                    <div id="proposeToChooseDateBeforeOrder" class="choose_date_msg">Please Choose a Date</div>
 		                </div>
 			                <div class="date">
 			                	<c:choose>
@@ -245,7 +254,7 @@
 						                    <div class="wrap-position">
 					                            <input type="text" class="number-input" data-key="${priceSpecial.pmpProductPriceKey}" data-amount="0" onblur="callExtraOrderGeneration(this);" placeholder="0" />
 					                            <p>$ ${priceSpecial.pmpProductPriceValue} /each</p>
-					                            <ul class="number-select">
+					                            <ul class="number-select" call-type="1">
 					                                <li>1</li>
 					                                <li>2</li>
 					                                <li>3</li>
@@ -266,7 +275,7 @@
 					                    <div class="wrap-position">
 				                            <input type="text" id="orderBasicPriceCount" class="number-input" onblur="callBasicOrderGeneration(this);" />
 				                            <p>$ ${productInfo.productBaseprice} /each</p>
-				                            <ul class="number-select">
+				                            <ul class="number-select" call-type="0">
 				                                <li>1</li>
 				                                <li>2</li>
 				                                <li>3</li>

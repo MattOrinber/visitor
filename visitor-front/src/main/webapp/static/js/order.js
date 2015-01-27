@@ -12,6 +12,8 @@ function addLeadingZeroInOrder(num) {
 }
 
 function disableUnavailableDays(date) {
+	$("#proposeToChooseDateBeforeOrder").hide();
+	
 	var result = true;
 	var myDate = new Date();
 	
@@ -44,55 +46,60 @@ function callBasicOrderGeneration(node) {
 			addBasicPrice(node);
 		} else {
 			var dateText = $.trim($("#toOrderStartDate").val());
-			var basicAmount = $(node).val();
-			
-			var regExInt = /^[0-9]*[1-9][0-9]*$/;
-			if (dateText != "" && regExInt.test(basicAmount)) {
-				var pidStr = $("#productIDForUse").val();
-				var startDateStr = dateText;
-				var endDateStr = dateText;
+			if (dateText == "") {
+				$("#proposeToChooseDateBeforeOrder").show();
+				$(node).val("");
+			} else {
+				var basicAmount = $(node).val();
 				
-				var buyTemp = {};
-				buyTemp.productIdStr = pidStr;
-				buyTemp.startDate = startDateStr;
-				buyTemp.endDate = endDateStr;
-				buyTemp.totalCountStr = basicAmount;
-				
-				var urlStrStr = pathGlobe + '/order/calcTotalPrice';
-			    var jsonStr = $.toJSON(buyTemp);
-			    
-			    $.ajax({ 
-			        type : 'POST',  
-			        contentType : 'application/json',  
-			        url : urlStrStr,  
-			        processData : false,  
-			        dataType : 'json',  
-			        data : jsonStr,  
-			        success : function(data) {  
-			        	var productOrderId = data.orderId;
-			        	var productPayOrderId = data.payOrderId;
-			        	var priceTemp = data.totalPrice;
-			        	var orderBasicAmount = data.basciAmount;
-			        	
-			        	var currencyToUseT = $("#productGlobalCurrencyStr").val();
-			        	$("#totalPriceDisplayStr").html('Total: '+ currencyToUseT + ' '+ priceTemp);
-			        	
-			        	var hiddenServiceStr = $("#hiddenServicePricePart");
-			        	if (hiddenServiceStr != null) {
-			        		hiddenServiceStr.show();
-			        	}
-			        	orderIdReturnedFromExtraPriceSet = productOrderId;
-			        	
-			        	var payorderGenerationUrl = pathGlobe + "/order/expressCheckout/"+productOrderId+"/"+productPayOrderId;
-			        	
-			        	$("#orderBasicPriceCount").val(""+orderBasicAmount);
-			        	formerBasicPriceCount = orderBasicAmount;
-			        	$("#toPayOrderButton").attr("href", payorderGenerationUrl);
-			        },  
-			        error : function() {  
-			            alert('order generation error...');  
-			        }  
-			    });
+				var regExInt = /^[0-9]*[1-9][0-9]*$/;
+				if (regExInt.test(basicAmount)) {
+					var pidStr = $("#productIDForUse").val();
+					var startDateStr = dateText;
+					var endDateStr = dateText;
+					
+					var buyTemp = {};
+					buyTemp.productIdStr = pidStr;
+					buyTemp.startDate = startDateStr;
+					buyTemp.endDate = endDateStr;
+					buyTemp.totalCountStr = basicAmount;
+					
+					var urlStrStr = pathGlobe + '/order/calcTotalPrice';
+				    var jsonStr = $.toJSON(buyTemp);
+				    
+				    $.ajax({ 
+				        type : 'POST',  
+				        contentType : 'application/json',  
+				        url : urlStrStr,  
+				        processData : false,  
+				        dataType : 'json',  
+				        data : jsonStr,  
+				        success : function(data) {  
+				        	var productOrderId = data.orderId;
+				        	var productPayOrderId = data.payOrderId;
+				        	var priceTemp = data.totalPrice;
+				        	var orderBasicAmount = data.basciAmount;
+				        	
+				        	var currencyToUseT = $("#productGlobalCurrencyStr").val();
+				        	$("#totalPriceDisplayStr").html('Total: '+ currencyToUseT + ' '+ priceTemp);
+				        	
+				        	var hiddenServiceStr = $("#hiddenServicePricePart");
+				        	if (hiddenServiceStr != null) {
+				        		hiddenServiceStr.show();
+				        	}
+				        	orderIdReturnedFromExtraPriceSet = productOrderId;
+				        	
+				        	var payorderGenerationUrl = pathGlobe + "/order/expressCheckout/"+productOrderId+"/"+productPayOrderId;
+				        	
+				        	$("#orderBasicPriceCount").val(""+orderBasicAmount);
+				        	formerBasicPriceCount = orderBasicAmount;
+				        	$("#toPayOrderButton").attr("href", payorderGenerationUrl);
+				        },  
+				        error : function() {  
+				            alert('order generation error...');  
+				        }  
+				    });
+				}
 			}
 		}
 	}
@@ -106,55 +113,60 @@ function callExtraOrderGeneration(node) {
 			addServicePrice(node);
 		} else {
 			var dateText = $.trim($("#toOrderStartDate").val());
-			var currentAmount = $(node).val();
-			var regExInt = /^[0-9]*[1-9][0-9]*$/;
-			if (dateText != "" && regExInt.test(currentAmount)) {
-				var pidStr = $("#productIDForUse").val();
-				var startDateStr = dateText;
-				var endDateStr = dateText;
-				
-				var priceSetId = $(node).attr("data-key");
-				
-				var buyTemp = {};
-				buyTemp.productIdStr = pidStr;
-				buyTemp.startDate = startDateStr;
-				buyTemp.endDate = endDateStr;
-				buyTemp.priceIdStr = priceSetId;
-				buyTemp.priceAmount = currentAmount;
-				
-				var urlStrStr = pathGlobe + '/order/calcExtraPrice';
-			    var jsonStr = $.toJSON(buyTemp);
-			    
-			    $.ajax({ 
-			        type : 'POST',  
-			        contentType : 'application/json',  
-			        url : urlStrStr,  
-			        processData : false,  
-			        dataType : 'json',  
-			        data : jsonStr,  
-			        success : function(data) {  
-			        	var productOrderId = data.orderId;
-			        	var productPayOrderId = data.payOrderId;
-			        	var priceTemp = data.totalPrice;
-			        	
-			        	var currencyToUseT = $("#productGlobalCurrencyStr").val();
-			        	$("#totalPriceDisplayStr").html('Total: '+ currencyToUseT + ' '+ priceTemp);
-			        	
-			        	var hiddenServiceStr = $("#hiddenServicePricePart");
-			        	if (hiddenServiceStr != null) {
-			        		hiddenServiceStr.show();
-			        	}
-			        	orderIdReturnedFromExtraPriceSet = productOrderId;
-			        	
-			        	var payorderGenerationUrl = pathGlobe + "/order/expressCheckout/"+productOrderId+"/"+productPayOrderId;
-			        	
-			        	$(node).attr("data-amount", currentAmount);
-			        	$("#toPayOrderButton").attr("href", payorderGenerationUrl);
-			        },  
-			        error : function() {  
-			            alert('order generation error...');  
-			        }  
-			    });
+			if (dateText == "") {
+				$("#proposeToChooseDateBeforeOrder").show();
+				$(node).val("");
+			} else {
+				var currentAmount = $(node).val();
+				var regExInt = /^[0-9]*[1-9][0-9]*$/;
+				if (dateText != "" && regExInt.test(currentAmount)) {
+					var pidStr = $("#productIDForUse").val();
+					var startDateStr = dateText;
+					var endDateStr = dateText;
+					
+					var priceSetId = $(node).attr("data-key");
+					
+					var buyTemp = {};
+					buyTemp.productIdStr = pidStr;
+					buyTemp.startDate = startDateStr;
+					buyTemp.endDate = endDateStr;
+					buyTemp.priceIdStr = priceSetId;
+					buyTemp.priceAmount = currentAmount;
+					
+					var urlStrStr = pathGlobe + '/order/calcExtraPrice';
+				    var jsonStr = $.toJSON(buyTemp);
+				    
+				    $.ajax({ 
+				        type : 'POST',  
+				        contentType : 'application/json',  
+				        url : urlStrStr,  
+				        processData : false,  
+				        dataType : 'json',  
+				        data : jsonStr,  
+				        success : function(data) {  
+				        	var productOrderId = data.orderId;
+				        	var productPayOrderId = data.payOrderId;
+				        	var priceTemp = data.totalPrice;
+				        	
+				        	var currencyToUseT = $("#productGlobalCurrencyStr").val();
+				        	$("#totalPriceDisplayStr").html('Total: '+ currencyToUseT + ' '+ priceTemp);
+				        	
+				        	var hiddenServiceStr = $("#hiddenServicePricePart");
+				        	if (hiddenServiceStr != null) {
+				        		hiddenServiceStr.show();
+				        	}
+				        	orderIdReturnedFromExtraPriceSet = productOrderId;
+				        	
+				        	var payorderGenerationUrl = pathGlobe + "/order/expressCheckout/"+productOrderId+"/"+productPayOrderId;
+				        	
+				        	$(node).attr("data-amount", currentAmount);
+				        	$("#toPayOrderButton").attr("href", payorderGenerationUrl);
+				        },  
+				        error : function() {  
+				            alert('order generation error...');  
+				        }  
+				    });
+				}
 			}
 		}
 	}
