@@ -241,7 +241,7 @@
 		                <div class="date">
 		                    <span><a href="javascript:contactHost('${loginUserEmail}','${hostInfo.userId}');">Contact Host</a></span>
 		                </div>
-		                <div class="date">
+		                <div class="date" style="position:relative;">
 		                    <b>Date</b><br />
 		                    <input id="toOrderStartDate" type="text" placeholder="2016-01-01" style="width:258px;height:32px;border:1px solid #ccc;text-align:center;"/>
 		                    <div id="proposeToChooseDateBeforeOrder" class="choose_date_msg">Please Choose a Date</div>
