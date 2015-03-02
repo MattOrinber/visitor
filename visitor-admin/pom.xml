@@ -50,13 +50,6 @@
 	</properties>
 	
 	<repositories>
-		<!-- 指向校内的Maven仓库地址 -->
-		<repository>
-			<id>renren</id>
-			<name>Team Nexus Repository</name>
-			<url>http://repos.d.xiaonei.com/nexus/content/groups/public</url> 
-		</repository>
-		
 		<repository>
 			<id>central</id>
 			<name>Central Repository</name>
@@ -87,6 +80,8 @@
 					<artifactId>commons-logging</artifactId>
 				</exclusion>
 		  	</exclusions>
+		  	<scope>system</scope>
+			<systemPath>${project.basedir}/lib/visitor-core-1.0.0-SNAPSHOT.jar</systemPath>
 		</dependency>
 	
 		<!-- SPRINGSIDE -->
