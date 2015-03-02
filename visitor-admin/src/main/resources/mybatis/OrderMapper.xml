@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.visitor.apportal.web.repository.order.OrderMybatisDao">
+
+	<select id="findAll" resultType="org.visitor.appportal.visitor.domain.ProductOrder">
+		select order_id as orderId,
+		order_product_id as orderProductId,
+		order_user_email as orderUserEmail,
+		order_status as orderStatus,
+		order_start_date as
+		orderStartDate,
+		order_end_date as orderEndDate,
+		order_create_date as
+		orderCreateDate,
+		order_update_date as orderUpdateDate,
+		order_total_amount as orderTotalAmount,
+		order_pay_order_id as
+		orderPayOrderId,
+		order_remain_amount as orderRemainAmount,
+		order_currency as orderCurrency,
+		order_multiprice_ids as
+		orderMultipriceIds,
+		order_total_count as orderTotalCount,
+		order_multiprice_ids_count as orderMultipriceIdsCount
+		from product_order
+	</select>
+
+	<select id="findAllOrder" resultType="OrderVO">
+		select order_id as orderId, 
+		u1.user_id as sellerId,
+		u2.user_id as customerId,
+		concat(u1.user_firstname, ' ', u1.user_lastname) as sellerName,
+		concat(u2.user_firstname, ' ', u2.user_lastname) as customerName,
+		order_total_amount as orderTotalAmount,
+		order_currency as orderCurrency,
+		order_status as orderStatus
+		from product_order po, product p, user u1, user u2
+		where po.order_product_id = p.product_id and p.product_publish_user_id = u1.user_id and po.order_user_email = u2.user_email
+		order by orderId desc
+	</select>
+
+	<select id="find" parameterType="map" resultType="OrderVO">
+		select order_id as orderId, 
+		u1.user_id as sellerId,
+		u2.user_id as customerId,
+		concat(u1.user_firstname, ' ', u1.user_lastname) as sellerName,
+		concat(u2.user_firstname, ' ', u2.user_lastname) as customerName,
+		order_total_amount as orderTotalAmount,
+		order_currency as orderCurrency,
+		order_status as orderStatus,
+		order_create_date as orderCreateDate
+		from product_order po, product p, user u1, user u2
+		where po.order_product_id = p.product_id and p.product_publish_user_id = u1.user_id and po.order_user_email = u2.user_email
+		<if test="sellerName != null and sellerName != ''">
+			and u.user_firstname like concat('%',#{sellerName},'%')
+		</if>
+		<if test="customerName != null and customerName != ''">
+			and customerName like concat('%',#{customerName},'%')
+		</if>
+		<if test="orderStatus > 0">
+			and orderStatus = #{orderStatus}
+		</if>
+		order by orderId desc
+	</select>
+ 
+	<select id="findTotalNum" parameterType="OrderVO" resultType="int">
+		select count(1)
+		from product_order po, product p, user u
+		where po.order_product_id =
+		p.product_id and p.product_publish_user_id = u.user_id
+		<if test="sellerName != null and sellerName != ''">
+			and u.user_firstname like sellerNamePattern
+		</if>
+		<if test="customerName != null and customerName != ''">
+			and customerName like customerNamePattern
+		</if>
+		<if test="orderStatus > 0">
+			and orderStatus = #{orderStatus}
+		</if>
+	</select>
+	<!-- <if test="sellerName != null and sellerName != ''">
+			<bind name="sellerNamePattern" value="'%' + sellerName + '%'" />
+			<bind name="customerNamePattern" value="'%' + customerName + '%'" />
+		</if> -->
+	<!--<insert id="insert" parameterType="Test" useGeneratedKeys="true" keyProperty="id"> 
+		insert into web_test(msg, detail) values (#{msg}, #{detail}) </insert> <insert 
+		id="insertBatch"> insert into web_test(msg, detail) values <foreach collection="list" 
+		item="test" separator=","> (#{test.msg}, #{test.detail}) </foreach> </insert> 
+		<update id="update" parameterType="Test"> update web_test set msg = #{msg}, 
+		detail = #{detail} where id = #{id} </update> <delete id="delete" parameterType="int"> 
+		delete from web_test where id = #{id} </delete> <delete id="deleteAll"> delete 
+		from web_test </delete> -->
+</mapper>

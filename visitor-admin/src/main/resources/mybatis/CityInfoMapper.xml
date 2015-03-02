@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.visitor.apportal.web.repository.config.CityInfoMybatisDao">
+
+	<select id="findById" resultType="org.visitor.appportal.visitor.domain.City">
+		select
+		   city_id as cityId,
+		   city_name as cityName,
+		   city_status as cityStatus 
+		from
+		   city_info    
+		where
+		   city_id = #{city_id}
+    </select>
+
+	<select id="findAll" resultType="org.visitor.appportal.visitor.domain.City">
+		select
+		   city_id as cityId,
+		   city_name as cityName,
+		   city_status as cityStatus 
+		from
+		   city_info    
+		order by
+		   city_id desc ,
+		   city_name desc     
+    </select>
+
+	<select id="find" parameterType="map" resultType="org.visitor.appportal.visitor.domain.City">
+		select
+		   city_id as cityId,
+		   city_name as cityName,
+		   city_status as cityStatus 
+		from
+		   city_info  
+		<where>
+			1 = 1 
+			<if test="cityId != null and cityId != ''">
+				and city_id = #{cityId}
+            </if>
+			<if test="cityName != null and cityName != ''">
+				and city_name = #{cityName}
+            </if>
+			<if test="cityStatus != null and cityStatus != ''">
+				and city_status = #{cityStatus}
+            </if>
+		</where>
+	</select>
+
+	<select id="findTotalNum" parameterType="org.visitor.appportal.visitor.domain.City" resultType="int">
+		select count(1) from city_info
+		<where>
+			1 = 1 
+			<if test="cityId != null and cityId != ''">
+				and city_id = #{cityId}
+            </if>
+			<if test="cityName != null and cityName != ''">
+				and city_name = #{cityName}
+            </if>
+			<if test="cityStatus != null and cityStatus != ''">
+				and city_status = #{cityStatus}
+            </if>
+		</where>
+    </select>
+
+	<insert id="insert" parameterType="org.visitor.appportal.visitor.domain.City">
+		insert 
+		into
+		   city_info
+		   (    city_id , city_name , city_status )    
+		values
+		   (    #{cityId} , #{cityName} , #{cityStatus} )
+    </insert>
+
+	<update id="update" parameterType="org.visitor.appportal.visitor.domain.City">
+		update
+		   city_info 
+		set
+		   city_id = #{cityId} ,
+		   city_name = #{cityName} ,
+		   city_status = #{cityStatus} 
+		where
+		   city_id = #{cityId}      
+    </update>
+
+	<delete id="delete" parameterType="org.visitor.appportal.visitor.domain.City">
+		delete from city_info 
+		where city_id = #{cityId}     
+    </delete>
+</mapper> 

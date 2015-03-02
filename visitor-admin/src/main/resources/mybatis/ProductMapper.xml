@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.visitor.apportal.web.repository.order.ProductMybatisDao">
+
+	<select id="findByProductId" resultType="org.visitor.appportal.visitor.domain.Product">
+		select
+		   product_id productId,
+		   product_hometype productHometype,
+		   product_roomtype productRoomType,
+		   product_accomodates productAccomodates,
+		   product_availabletype productAvailabletype,
+		   product_baseprice productBaseprice,
+		   product_currency productCurrency,
+		   product_overview_title productOverviewtitle,
+		   product_photo_paths productPhotopaths,
+		   product_amenities productAmenities,
+		   product_roomnum productRoomnum,
+		   product_bedsnum productBedsnum,
+		   product_bathroomnum productBathroomnum,
+		   product_addressid productAddressid,
+		   product_priceperweek productPriceperweek,
+		   product_pricepermonth productPricepermonth,
+		   product_termminstay productTermminstay,
+		   product_termmaxstay productTermmaxstay,
+		   product_checkinafter productCheckinafter,
+		   product_checkoutbefore productCheckoutbefore,
+		   product_cancelationpolicy productCancellationpolicy,
+		   product_availkey productAvailkey,
+		   product_status productStatus,
+		   product_city productCity,
+		   product_create_date productCreateDate,
+		   product_update_date productUpdateDate,
+		   product_publish_user_id productPublishUserId,
+		   product_publish_user_email productPublishUserEmail 
+		from
+		   product    
+		where
+		   product_id = #{productId}      
+    </select>
+
+	<select id="findAll" resultType="org.visitor.appportal.visitor.domain.Product">
+		select
+		   product_id productId,
+		   product_hometype productHometype,
+		   product_roomtype productRoomType,
+		   product_accomodates productAccomodates,
+		   product_availabletype productAvailabletype,
+		   product_baseprice productBaseprice,
+		   product_currency productCurrency,
+		   product_overview_title productOverviewtitle,
+		   product_photo_paths productPhotopaths,
+		   product_amenities productAmenities,
+		   product_roomnum productRoomnum,
+		   product_bedsnum productBedsnum,
+		   product_bathroomnum productBathroomnum,
+		   product_addressid productAddressid,
+		   product_priceperweek productPriceperweek,
+		   product_pricepermonth productPricepermonth,
+		   product_termminstay productTermminstay,
+		   product_termmaxstay productTermmaxstay,
+		   product_checkinafter productCheckinafter,
+		   product_checkoutbefore productCheckoutbefore,
+		   product_cancelationpolicy productCancellationpolicy,
+		   product_availkey productAvailkey,
+		   product_status productStatus,
+		   product_city productCity,
+		   product_create_date productCreateDate,
+		   product_update_date productUpdateDate,
+		   product_publish_user_id productPublishUserId,
+		   product_publish_user_email productPublishUserEmail 
+		from
+		   product    
+		order by product_id desc        
+    </select>
+
+	<select id="find" parameterType="map" resultType="org.visitor.appportal.visitor.domain.Product">
+		select
+		   product_id productId,
+		   product_hometype productHometype,
+		   product_roomtype productRoomType,
+		   product_accomodates productAccomodates,
+		   product_availabletype productAvailabletype,
+		   product_baseprice productBaseprice,
+		   product_currency productCurrency,
+		   product_overview_title productOverviewtitle,
+		   product_photo_paths productPhotopaths,
+		   product_amenities productAmenities,
+		   product_roomnum productRoomnum,
+		   product_bedsnum productBedsnum,
+		   product_bathroomnum productBathroomnum,
+		   product_addressid productAddressid,
+		   product_priceperweek productPriceperweek,
+		   product_pricepermonth productPricepermonth,
+		   product_termminstay productTermminstay,
+		   product_termmaxstay productTermmaxstay,
+		   product_checkinafter productCheckinafter,
+		   product_checkoutbefore productCheckoutbefore,
+		   product_cancelationpolicy productCancellationpolicy,
+		   product_availkey productAvailkey,
+		   product_status productStatus,
+		   product_city productCity,
+		   product_create_date productCreateDate,
+		   product_update_date productUpdateDate,
+		   product_publish_user_id productPublishUserId,
+		   product_publish_user_email productPublishUserEmail 
+		from
+		   product    
+		<where>
+			1=1
+			<if test="productId != null and productId != ''">
+				and product_id = #{productId}
+            </if>
+			<if test="productHometype != null and productHometype != ''">
+				and product_hometype like concat('%',#{productHometype},'%')
+            </if>
+			<if test="productRoomType != null and productRoomType != ''">
+				and product_roomtype like concat('%',#{productRoomType},'%')
+            </if>
+			<if test="productAccomodates != null and productAccomodates != ''">
+				and product_accomodates = #{productAccomodates}
+            </if>
+			<if test="productAvailabletype != null and productAvailabletype != ''">
+				and product_availabletype = #{productAvailabletype}
+            </if>
+			<if test="productBaseprice != null and productBaseprice != ''">
+				and product_baseprice = #{productBaseprice}
+            </if>
+			<if test="productCurrency != null and productCurrency != ''">
+				and product_currency = #{productCurrency}
+            </if>
+			<if test="productOverviewtitle != null and productOverviewtitle != ''">
+				and product_overview_title like concat('%',#{productOverviewtitle},'%')
+            </if>
+			<if test="productPhotopaths != null and productPhotopaths != ''">
+				and product_photo_paths = #{productPhotopaths}
+            </if>
+			<if test="productAmenities != null and productAmenities != ''">
+				and product_amenities = #{productAmenities}
+            </if>
+			<if test="productRoomnum != null and productRoomnum != ''">
+				and product_roomnum = #{productRoomnum}
+            </if>
+			<if test="productBedsnum != null and productBedsnum != ''">
+				and product_bedsnum = #{productBedsnum}
+            </if>
+			<if test="productBathroomnum != null and productBathroomnum != ''">
+				and product_bathroomnum = #{productBathroomnum}
+            </if>
+			<if test="productAddressid != null and productAddressid != ''">
+				and product_addressid = #{productAddressid}
+            </if>
+			<if test="productPriceperweek != null and productPriceperweek != ''">
+				and product_priceperweek = #{productPriceperweek}
+            </if>
+			<if test="productPricepermonth != null and productPricepermonth != ''">
+				and product_pricepermonth = #{productPricepermonth}
+            </if>
+			<if test="productTermminstay != null and productTermminstay != ''">
+				and product_termminstay = #{productTermminstay}
+            </if>
+			<if test="productTermmaxstay != null and productTermmaxstay != ''">
+				and product_termmaxstay = #{productTermmaxstay}
+            </if>
+			<if test="productCheckinafter != null and productCheckinafter != ''">
+				and product_checkinafter = #{productCheckinafter}
+            </if>
+			<if test="productCheckoutbefore != null and productCheckoutbefore != ''">
+				and product_checkoutbefore = #{productCheckoutbefore}
+            </if>
+			<if
+				test="productCancellationpolicy != null and productCancellationpolicy != ''">
+				and product_cancelationpolicy = #{productCancellationpolicy}
+            </if>
+			<if test="productAvailkey != null and productAvailkey != ''">
+				and product_availkey = #{productAvailkey}
+            </if>
+			<if test="productStatus != null and productStatus != ''">
+				and product_status = #{productStatus}
+            </if>
+			<if test="productCity != null and productCity != ''">
+				and product_city = #{productCity}
+            </if>
+			<if test="productCreateDate != null and productCreateDate != ''">
+				and product_create_date = #{productCreateDate}
+            </if>
+			<if test="productUpdateDate != null and productUpdateDate != ''">
+				and product_update_date = #{productUpdateDate}
+            </if>
+			<if
+				test="productPublishUserId != null and productPublishUserId != ''">
+				and product_publish_user_id = #{productPublishUserId}
+            </if>
+			<if
+				test="productPublishUserEmail != null and productPublishUserEmail != ''">
+				and product_publish_user_email = #{productPublishUserEmail}
+            </if>
+		</where>
+		order by product_id desc
+	</select>
+
+	<select id="findTotalNum" parameterType="org.visitor.appportal.visitor.domain.Product" resultType="int">
+		select count(1) from product
+		<where>
+			1=1
+			<if test="productId != null and productId != ''">
+				and product_id = #{productId}
+            </if>
+			<if test="productHometype != null and productHometype != ''">
+				and product_hometype like concat('%',#{productHometype},'%')
+            </if>
+			<if test="productRoomType != null and productRoomType != ''">
+				and product_roomtype like concat('%',#{productRoomType},'%')
+            </if>
+			<if test="productAccomodates != null and productAccomodates != ''">
+				and product_accomodates = #{productAccomodates}
+            </if>
+			<if test="productAvailabletype != null and productAvailabletype != ''">
+				and product_availabletype = #{productAvailabletype}
+            </if>
+			<if test="productBaseprice != null and productBaseprice != ''">
+				and product_baseprice = #{productBaseprice}
+            </if>
+			<if test="productCurrency != null and productCurrency != ''">
+				and product_currency = #{productCurrency}
+            </if>
+			<if test="productOverviewtitle != null and productOverviewtitle != ''">
+				and product_overview_title like concat('%',#{productOverviewtitle},'%')
+            </if>
+			<if test="productPhotopaths != null and productPhotopaths != ''">
+				and product_photo_paths = #{productPhotopaths}
+            </if>
+			<if test="productAmenities != null and productAmenities != ''">
+				and product_amenities = #{productAmenities}
+            </if>
+			<if test="productRoomnum != null and productRoomnum != ''">
+				and product_roomnum = #{productRoomnum}
+            </if>
+			<if test="productBedsnum != null and productBedsnum != ''">
+				and product_bedsnum = #{productBedsnum}
+            </if>
+			<if test="productBathroomnum != null and productBathroomnum != ''">
+				and product_bathroomnum = #{productBathroomnum}
+            </if>
+			<if test="productAddressid != null and productAddressid != ''">
+				and product_addressid = #{productAddressid}
+            </if>
+			<if test="productPriceperweek != null and productPriceperweek != ''">
+				and product_priceperweek = #{productPriceperweek}
+            </if>
+			<if test="productPricepermonth != null and productPricepermonth != ''">
+				and product_pricepermonth = #{productPricepermonth}
+            </if>
+			<if test="productTermminstay != null and productTermminstay != ''">
+				and product_termminstay = #{productTermminstay}
+            </if>
+			<if test="productTermmaxstay != null and productTermmaxstay != ''">
+				and product_termmaxstay = #{productTermmaxstay}
+            </if>
+			<if test="productCheckinafter != null and productCheckinafter != ''">
+				and product_checkinafter = #{productCheckinafter}
+            </if>
+			<if test="productCheckoutbefore != null and productCheckoutbefore != ''">
+				and product_checkoutbefore = #{productCheckoutbefore}
+            </if>
+			<if
+				test="productCancellationpolicy != null and productCancellationpolicy != ''">
+				and product_cancelationpolicy = #{productCancellationpolicy}
+            </if>
+			<if test="productAvailkey != null and productAvailkey != ''">
+				and product_availkey = #{productAvailkey}
+            </if>
+			<if test="productStatus != null and productStatus != ''">
+				and product_status = #{productStatus}
+            </if>
+			<if test="productCity != null and productCity != ''">
+				and product_city = #{productCity}
+            </if>
+			<if test="productCreateDate != null and productCreateDate != ''">
+				and product_create_date = #{productCreateDate}
+            </if>
+			<if test="productUpdateDate != null and productUpdateDate != ''">
+				and product_update_date = #{productUpdateDate}
+            </if>
+			<if
+				test="productPublishUserId != null and productPublishUserId != ''">
+				and product_publish_user_id = #{productPublishUserId}
+            </if>
+			<if
+				test="productPublishUserEmail != null and productPublishUserEmail != ''">
+				and product_publish_user_email = #{productPublishUserEmail}
+            </if>
+		</where>
+    </select>
+
+	<insert id="insert" parameterType="org.visitor.appportal.visitor.domain.Product">
+		insert into product
+		(
+		product_id , product_hometype , product_roomtype , product_accomodates ,
+		product_availabletype , product_baseprice , product_currency ,
+		product_overview_title , product_photo_paths , product_amenities ,
+		product_roomnum , product_bedsnum , product_bathroomnum ,
+		product_addressid , product_priceperweek , product_pricepermonth ,
+		product_termminstay , product_termmaxstay , product_checkinafter ,
+		product_checkoutbefore , product_cancelationpolicy , product_availkey
+		, product_status , product_city , product_create_date ,
+		product_update_date , product_publish_user_id ,
+		product_publish_user_email )
+		values (
+		#{productId} , #{productHometype} , #{productRoomType} , #{productAccomodates}
+		, #{productAvailabletype} , #{productBaseprice} ,
+		#{productCurrency} , #{productOverviewtitle} ,
+		#{productPhotopaths} , #{productAmenities} , #{productRoomnum} ,
+		#{productBedsnum} , #{productBathroomnum} , #{productAddressid} ,
+		#{productPriceperweek} , #{productPricepermonth} ,
+		#{productTermminstay} , #{productTermmaxstay} ,
+		#{productCheckinafter} , #{productCheckoutbefore} ,
+		#{productCancellationpolicy} , #{productAvailkey} , #{productStatus}
+		, #{productCity} , #{productCreateDate} , #{productUpdateDate} ,
+		#{productPublishUserId} , #{productPublishUserEmail} )
+    </insert>
+
+	<update id="update" parameterType="org.visitor.appportal.visitor.domain.Product">
+		update
+		   product 
+		set
+		   product_hometype =    #{productHometype} ,
+		   product_roomtype = #{productRoomType} ,
+		   product_accomodates = #{productAccomodates} ,
+		   product_availabletype =    #{productAvailabletype} ,
+		   product_baseprice = #{productBaseprice} ,
+		   product_currency = #{productCurrency} ,
+		   product_overview_title =    #{productOverviewtitle} ,
+		   product_photo_paths =    #{productPhotopaths} ,
+		   product_amenities = #{productAmenities} ,
+		   product_roomnum = #{productRoomnum} ,
+		   product_bedsnum =    #{productBedsnum} ,
+		   product_bathroomnum = #{productBathroomnum} ,
+		   product_addressid = #{productAddressid} ,
+		   product_priceperweek =    #{productPriceperweek} ,
+		   product_pricepermonth =    #{productPricepermonth} ,
+		   product_termminstay =    #{productTermminstay} ,
+		   product_termmaxstay = #{productTermmaxstay}    ,
+		   product_checkinafter = #{productCheckinafter} ,
+		   product_checkoutbefore = #{productCheckoutbefore} ,
+		   product_cancelationpolicy = #{productCancellationpolicy} ,
+		   product_availkey = #{productAvailkey} ,
+		   product_status =    #{productStatus} ,
+		   product_city = #{productCity} ,
+		   product_create_date = #{productCreateDate} ,
+		   product_update_date =    #{productUpdateDate} ,
+		   product_publish_user_id =    #{productPublishUserId} ,
+		   product_publish_user_email =    #{productPublishUserEmail} 
+		where
+		   product_id = #{productId}
+	</update>
+
+	<delete id="delete" parameterType="org.visitor.appportal.visitor.domain.Product">
+		delete from product where product_id = #{productId}        
+    </delete>
+</mapper> 

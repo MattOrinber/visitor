@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.visitor.apportal.web.repository.order.OrderDetailMybatisDao">
+
+	<resultMap type="OrderDetailVO" id="orderDetail">
+		<id column="orderId" property="orderId" />
+		<result property="orderStatus" column="orderStatus" />
+		<association property="order" javaType="org.visitor.appportal.visitor.domain.ProductOrder">
+			<id property="orderId" column="po_order_id"/>
+			<result property="orderStatus" column="orderStatus" />
+			<result property="orderStartDate" column="po_order_start_date"/>
+			<result property="orderEndDate" column="po_order_end_data"/>
+			<result property="orderCreateDate" column="po_order_create_date"/>
+			<result property="orderUpdateDate" column="po_order_update_date"/>
+			<result property="orderTotalCount" column="po_order_total_count"/>
+			<result property="orderTotalAmount" column="po_order_total_amount"/>
+			<result property="orderRemainAmount" column="po_order_remain_amount"/>
+			<result property="orderCurrency" column="po_order_currency"/>
+		</association>
+		<association property="product" javaType="org.visitor.appportal.visitor.domain.Product">
+			<id property="productId" column="p_product_id" />
+			<result property="productBaseprice" column="p_product_baseprice"/>
+			<result property="productCurrency" column="p_product_currency"/>
+			<result property="productOverviewtitle" column="p_product_overview_title"/>
+			<result property="productCity" column="p_product_city"/>
+		</association>
+		<association property="customer" javaType="org.visitor.appportal.visitor.domain.User">
+			<id property="userId" column="customer_user_id" />
+			<result property="userFirstName" column="customer_user_firstname"/>
+			<result property="userLastName" column="customer_user_lastname"/>
+			<result property="userPhonenum" column="customer_user_phonenum"/>
+			<result property="userAddress" column="customer_user_address"/>
+			<result property="userEmail" column="customer_user_email"/>
+		</association>
+		<association property="seller" javaType="org.visitor.appportal.visitor.domain.User">
+			<id property="userId" column="seller_user_id" />
+			<result property="userFirstName" column="seller_user_firstname"/>
+			<result property="userLastName" column="seller_user_lastname"/>
+			<result property="userPhonenum" column="seller_user_phonenum"/>
+			<result property="userAddress" column="seller_user_address"/>
+			<result property="userEmail" column="seller_user_email"/>
+		</association>
+	</resultMap>
+
+	<select id="findByOrderId" parameterType="int" resultMap="orderDetail">
+		select order_id as orderId, 
+		po.order_status as orderStatus,
+		po.order_id as po_order_id,
+		po.order_start_date as po_order_start_date,
+		po.order_end_date as po_order_end_data,
+		po.order_create_date as po_order_create_date,
+		po.order_update_date as po_order_update_date,
+		po.order_total_count as po_order_total_count,
+		po.order_total_amount as po_order_total_amount,
+		po.order_remain_amount as po_order_remain_amount,
+		po.order_currency as po_order_currency,
+		
+		p.product_id as p_product_id,
+		p.product_baseprice as p_product_baseprice,
+		p.product_currency as p_product_currency,
+		p.product_overview_title as p_product_overview_title,
+		p.product_city as p_product_city,
+		
+		u1.user_id as seller_user_id,
+		u1.user_firstname as seller_user_firstname,
+		u1.user_lastname as seller_user_lastname,
+		u1.user_phonenum as seller_user_phonenum,
+		u1.user_address as seller_user_address,
+		u1.user_email as seller_user_email,
+		u1.user_paypalnum as seller_user_paypalnum,
+		
+		u2.user_id as customer_user_id,
+		u2.user_firstname as customer_user_firstname,
+		u2.user_lastname as customer_user_lastname,
+		u2.user_phonenum as customer_user_phonenum,
+		u2.user_address as customer_user_address,
+		u2.user_email as customer_user_email,
+		u2.user_paypalnum as customer_user_paypalnum
+		from product_order po, product p, user u1, user u2
+		where po.order_product_id = p.product_id and p.product_publish_user_id = u1.user_id and po.order_user_email = u2.user_email
+		and po.order_id = #{orderId}
+	</select>
+	
+	<update id="updateStatus" parameterType="OrderDetailVo">
+		update product_order
+		set order_status = #{orderStatus}
+		where order_id = #{orderId} 
+	</update>
+
+	<!-- <if test="sellerName != null and sellerName != ''">
+			<bind name="sellerNamePattern" value="'%' + sellerName + '%'" />
+			<bind name="customerNamePattern" value="'%' + customerName + '%'" />
+		</if> -->
+	<!--<insert id="insert" parameterType="Test" useGeneratedKeys="true" keyProperty="id"> 
+		insert into web_test(msg, detail) values (#{msg}, #{detail}) </insert> <insert 
+		id="insertBatch"> insert into web_test(msg, detail) values <foreach collection="list" 
+		item="test" separator=","> (#{test.msg}, #{test.detail}) </foreach> </insert> 
+		<update id="update" parameterType="Test"> update web_test set msg = #{msg}, 
+		detail = #{detail} where id = #{id} </update> <delete id="delete" parameterType="int"> 
+		delete from web_test where id = #{id} </delete> <delete id="deleteAll"> delete 
+		from web_test </delete> -->
+</mapper>

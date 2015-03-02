@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.visitor.apportal.web.repository.order.TimezoneMybatisDao">
+
+	<select id="findById" resultType="org.visitor.appportal.visitor.domain.TimeZone">
+		select
+			timezone_id timeZoneId, 
+			timezone_city timeZoneCity, 
+			timezone_name timeZoneName 
+		from timezone
+		where
+			timezone_id = #{timeZoneId}        
+    </select>
+
+	<select id="findAll" resultType="org.visitor.appportal.visitor.domain.TimeZone">
+		select
+			timezone_id timeZoneId, 
+			timezone_city timeZoneCity, 
+			timezone_name timeZoneName
+		from timezone
+		order by timezone_name 
+    </select>
+
+	<select id="find" parameterType="map" resultType="org.visitor.appportal.visitor.domain.TimeZone">
+		select
+			timezone_id timeZoneId, 
+			timezone_city timeZoneCity, 
+			timezone_name timeZoneName
+		from timezone
+		<where>
+			1=1
+			<if test="timeZoneId != null and timeZoneId != ''">
+				and timezone_id = #{timeZoneId}
+            </if>
+			<if test="timeZoneCity != null and timeZoneCity != ''">
+				and timezone_city = #{timeZoneCity}
+            </if>
+			<if test="timeZoneName != null and timeZoneName != ''">
+				and timezone_name = #{timeZoneName}
+            </if>
+		</where>
+	</select>
+
+	<select id="findTotalNum" parameterType="org.visitor.appportal.visitor.domain.TimeZone" resultType="int">
+		select count(1) from timezone
+		<where>
+			1=1
+			<if test="timeZoneId != null and timeZoneId != ''">
+				and timezone_id = #{timeZoneId}
+            </if>
+			<if test="timeZoneCity != null and timeZoneCity != ''">
+				and timezone_city = #{timeZoneCity}
+            </if>
+			<if test="timeZoneName != null and timeZoneName != ''">
+				and timezone_name = #{timeZoneName}
+            </if>
+		</where>
+	</select>
+
+</mapper> 

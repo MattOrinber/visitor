@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.visitor.apportal.web.repository.order.CustomerMybatisDao">
+	<select id="findById" resultType="org.visitor.appportal.visitor.domain.User">
+		select
+		   user_id userId,
+		   user_email userEmail,
+		   user_facebookid userFacebookId,
+		   user_type userType,
+		   user_password userPassword,
+		   user_firstname userFirstName,
+		   user_lastname userLastName,
+		   user_gender userGender,
+		   user_birthdate userBirthdate,
+		   user_phonenum userPhonenum,
+		   user_address userAddress,
+		   user_school userSchool,
+		   user_work userWork,
+		   user_timezone userTimeZone,
+		   user_language userLanguage,
+		   user_emergency userEmergency,
+		   user_photourl userPhotourl,
+		   user_registerdate userRegisterDate,
+		   user_lastlogintime userLastLoginTime,
+		   user_status userStatus,
+		   user_paypalnum userPaypalnum,
+		   user_detail userDetail
+		from
+		   user    
+		where
+		   user_id = #{userId} and user_type in (0, 1)   
+    </select>
+
+	<select id="findAll" resultType="org.visitor.appportal.visitor.domain.User">
+		select
+		   user_id userId,
+		   user_email userEmail,
+		   user_facebookid userFacebookId,
+		   user_type userType,
+		   user_password userPassword,
+		   user_firstname userFirstName,
+		   user_lastname userLastName,
+		   user_gender userGender,
+		   user_birthdate userBirthdate,
+		   user_phonenum userPhonenum,
+		   user_address userAddress,
+		   user_school userSchool,
+		   user_work userWork,
+		   user_timezone userTimeZone,
+		   user_language userLanguage,
+		   user_emergency userEmergency,
+		   user_photourl userPhotourl,
+		   user_registerdate userRegisterDate,
+		   user_lastlogintime userLastLoginTime,
+		   user_status userStatus,
+		   user_paypalnum userPaypalnum,
+		   user_detail userDetail
+		from
+		   user    
+		where user_type in (0, 1)   
+		order by user_id desc        
+    </select>
+
+	<select id="find" parameterType="map" resultType="org.visitor.appportal.visitor.domain.User">
+		select
+		   user_id userId,
+		   user_email userEmail,
+		   user_facebookid userFacebookId,
+		   user_type userType,
+		   user_password userPassword,
+		   user_firstname userFirstName,
+		   user_lastname userLastName,
+		   user_gender userGender,
+		   user_birthdate userBirthdate,
+		   user_phonenum userPhonenum,
+		   user_address userAddress,
+		   user_school userSchool,
+		   user_work userWork,
+		   user_timezone userTimeZone,
+		   user_language userLanguage,
+		   user_emergency userEmergency,
+		   user_photourl userPhotourl,
+		   user_registerdate userRegisterDate,
+		   user_lastlogintime userLastLoginTime,
+		   user_status userStatus,
+		   user_paypalnum userPaypalnum,
+		   user_detail userDetail
+		from
+		   user    
+		<where>
+			user_type in (0, 1)
+			<if test="userId != null and userId != ''">
+				and user_id = #{userId}
+            </if>
+			<if test="userEmail != null and userEmail != ''">
+				and user_email like concat('%',#{userEmail},'%')
+            </if>
+			<if test="userFacebookId != null and userFacebookId != ''">
+				and user_facebookid like concat('%',#{userFacebookId},'%')
+            </if>
+ 			<if test="userType != null and userType != -1 and userType != '-1' ">
+				and user_type = #{userType}
+            </if> 
+			<if test="userFirstName != null and userFirstName != ''">
+				and user_firstname = #{userFirstName}
+            </if>
+			<if test="userLastName != null and userLastName != ''">
+				and user_lastname = #{userLastName}
+            </if>
+			<if test="userGender != null and userGender != ''">
+				and user_gender = #{userGender}
+            </if>
+			<if test="userBirthdate != null and userBirthdate != ''">
+				and user_birthdate = #{userBirthdate}
+            </if>
+			<if test="userPhonenum != null and userPhonenum != ''">
+				and user_phonenum = #{userPhonenum}
+            </if>
+			<if test="userAddress != null and userAddress != ''">
+				and user_address = #{userAddress}
+            </if>
+			<if test="userSchool != null and userSchool != ''">
+				and user_school = #{userSchool}
+            </if>
+			<if test="userWork != null and userWork != ''">
+				and user_work = #{userWork}
+            </if>
+			<if test="userTimeZone != null and userTimeZone != ''">
+				and user_timezone = #{userTimeZone}
+            </if>
+			<if test="userLanguage != null and userLanguage != ''">
+				and user_language = #{userLanguage}
+            </if>
+			<if test="userEmergency != null and userEmergency != ''">
+				and user_emergency = #{userEmergency}
+            </if>
+			<if test="userPhotourl != null and userPhotourl != ''">
+				and user_photourl = #{userPhotourl}
+            </if>
+			<if test="userRegisterDate != null and userRegisterDate != ''">
+				and user_registerdate = #{userRegisterDate}
+            </if>
+			<if test="userLastLoginTime != null and userLastLoginTime != ''">
+				and user_lastlogintime = #{userLastLoginTime}
+            </if>
+			<if test="userStatus != null and userStatus != -1">
+				and user_status = #{userStatus}
+            </if>
+			<if test="userPaypalnum != null and userPaypalnum != ''">
+				and user_paypalnum = #{userPaypalnum}
+            </if>
+			<if test="userDetail != null and userDetail != ''">
+				and user_detail = #{userDetail}
+            </if>
+		</where>
+		order by user_id desc 
+	</select>
+
+	<select id="findTotalNum" parameterType="org.visitor.appportal.visitor.domain.User" resultType="int">
+		select count(1) from user
+		<where>
+			user_type in (0, 1) 
+			<if test="userId != null and userId != ''">
+				and user_id = #{userId}
+            </if>
+			<if test="userEmail != null and userEmail != ''">
+				and user_email like concat('%',#{userEmail},'%')
+            </if>
+			<if test="userFacebookId != null and userFacebookId != ''">
+				and user_facebookid like concat('%',#{userFacebookId},'%')
+            </if>
+ 			<if test="userType != null and userType != -1 and userType != '-1' ">
+				and user_type = #{userType}
+            </if>
+			<if test="userFirstName != null and userFirstName != ''">
+				and user_firstname = #{userFirstName}
+            </if>
+			<if test="userLastName != null and userLastName != ''">
+				and user_lastname = #{userLastName}
+            </if>
+			<if test="userGender != null and userGender != ''">
+				and user_gender = #{userGender}
+            </if>
+			<if test="userBirthdate != null and userBirthdate != ''">
+				and user_birthdate = #{userBirthdate}
+            </if>
+			<if test="userPhonenum != null and userPhonenum != ''">
+				and user_phonenum = #{userPhonenum}
+            </if>
+			<if test="userAddress != null and userAddress != ''">
+				and user_address = #{userAddress}
+            </if>
+			<if test="userSchool != null and userSchool != ''">
+				and user_school = #{userSchool}
+            </if>
+			<if test="userWork != null and userWork != ''">
+				and user_work = #{userWork}
+            </if>
+			<if test="userTimeZone != null and userTimeZone != ''">
+				and user_timezone = #{userTimeZone}
+            </if>
+			<if test="userLanguage != null and userLanguage != ''">
+				and user_language = #{userLanguage}
+            </if>
+			<if test="userEmergency != null and userEmergency != ''">
+				and user_emergency = #{userEmergency}
+            </if>
+			<if test="userPhotourl != null and userPhotourl != ''">
+				and user_photourl = #{userPhotourl}
+            </if>
+			<if test="userRegisterDate != null and userRegisterDate != ''">
+				and user_registerdate = #{userRegisterDate}
+            </if>
+			<if test="userLastLoginTime != null and userLastLoginTime != ''">
+				and user_lastlogintime = #{userLastLoginTime}
+            </if>
+			<if test="userStatus != null and userStatus != -1">
+				and user_status = #{userStatus}
+            </if>
+			<if test="userPaypalnum != null and userPaypalnum != ''">
+				and user_paypalnum = #{userPaypalnum}
+            </if>
+			<if test="userDetail != null and userDetail != ''">
+				and user_detail = #{userDetail}
+            </if>
+		</where>
+    </select>
+
+	<insert id="insert" parameterType="org.visitor.appportal.visitor.domain.User">
+		insert into user
+		(
+		user_id ,
+		user_email , user_facebookid , user_type , user_password ,
+		user_firstname , user_lastname , user_gender , user_birthdate ,
+		user_phonenum , user_address , user_school , user_work , user_timezone
+		, user_language , user_emergency , user_photourl , user_registerdate ,
+		user_lastlogintime , user_status , user_paypalnum , user_detail )
+		values (
+		#{userId} , #{userEmail} , #{userFacebookId} , #{userType}
+		,
+		#{userPassword} , #{userFirstName} , #{userLastName} ,
+		#{userGender} , #{userBirthdate} , #{userPhonenum} ,
+		#{userAddress} , #{userSchool} , #{userWork} , #{userTimeZone} ,
+		#{userLanguage} , #{userEmergency} , #{userPhotourl} ,
+		#{userRegisterDate} , #{userLastLoginTime} , #{userStatus} ,
+		#{userPaypalnum} , #{userDetail} )
+    </insert>
+
+	<update id="update" parameterType="org.visitor.appportal.visitor.domain.User">
+		update
+		   user 
+		set
+		   user_type = #{userType} ,
+		   user_firstname = #{userFirstName}    ,
+		   user_lastname =    #{userLastName} ,
+		   user_gender = #{userGender} ,
+		   user_birthdate =    #{userBirthdate} ,
+		   user_phonenum = #{userPhonenum}    ,
+		   user_address =    #{userAddress} ,
+		   user_school = #{userSchool} ,
+		   user_work =    #{userWork} ,
+		   user_timezone = #{userTimeZone} ,
+		   user_language =    #{userLanguage} ,
+		   user_emergency = #{userEmergency}    ,
+		   user_photourl =    #{userPhotourl} ,
+		   user_status =    #{userStatus} ,
+		   user_paypalnum = #{userPaypalnum} ,
+		   user_detail =    #{userDetail} 
+		where
+		   user_id = #{userId}       
+    </update>
+
+	<delete id="delete" parameterType="org.visitor.appportal.visitor.domain.User">
+		delete from user where user_id = #{userId}        
+    </delete>
+</mapper> 

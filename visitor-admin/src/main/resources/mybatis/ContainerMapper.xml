@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.visitor.apportal.web.repository.config.ContainerMybatisDao">
+
+	<select id="findById" resultType="org.visitor.appportal.visitor.domain.Container">
+		select
+		   container_id as containerId,
+		   container_name as containerName,
+		   container_startdate as containerStartdate,
+		   container_lastdays as containerLastdays,
+		   container_moto as containerMoto,
+		   container_picpaths as containerPicpaths,
+		   container_productkey as containerProductkey,
+		   container_type as containerType
+		from
+		   container    
+		where
+		   container_id = #{container_id}     
+    </select>
+
+	<select id="findAll" resultType="org.visitor.appportal.visitor.domain.Container">
+		select
+		   container_id as containerId,
+		   container_name as containerName,
+		   container_startdate as containerStartdate,
+		   container_lastdays as containerLastdays,
+		   container_moto as containerMoto,
+		   container_picpaths as containerPicpaths,
+		   container_productkey as containerProductkey,
+		   container_type as containerType
+		from
+		   container    
+		order by
+		   container_id desc ,
+		   container_name desc       
+    </select>
+
+	<select id="find" parameterType="map" resultType="org.visitor.appportal.visitor.domain.Container">
+		select
+		   container_id as containerId,
+		   container_name as containerName,
+		   container_startdate as containerStartdate,
+		   container_lastdays as containerLastdays,
+		   container_moto as containerMoto,
+		   container_picpaths as containerPicpaths,
+		   container_productkey as containerProductkey,
+		   container_type as containerType
+		from
+		   container    
+		<where>
+			1=1
+			<if test="containerId != null and containerId != ''">
+				and container_id = #{containerId}
+            </if>
+			<if test="containerName != null and containerName != ''">
+				and container_name = #{containerName}
+            </if>
+			<if test="containerStartdate != null and containerStartdate != ''">
+				and container_startdate = #{containerStartdate}
+            </if>
+			<if test="containerLastdays != null and containerLastdays != ''">
+				and container_lastdays = #{containerLastdays}
+            </if>
+			<if test="containerMoto != null and containerMoto != ''">
+				and container_moto = #{containerMoto}
+            </if>
+			<if test="containerPicpaths != null and containerPicpaths != ''">
+				and container_picpaths = #{containerPicpaths}
+            </if>
+			<if test="containerProductkey != null and containerProductkey != ''">
+				and container_productkey = #{containerProductkey}
+            </if>
+			<if test="containerType != null and containerType != ''">
+				and container_type = #{containerType}
+            </if>
+		</where>
+	</select>
+
+	<select id="findTotalNum" parameterType="org.visitor.appportal.visitor.domain.Container" resultType="int">
+		select count(1) from container
+		<where>
+			1=1
+			<if test="containerId != null and containerId != ''">
+				and container_id = #{containerId}
+            </if>
+			<if test="containerName != null and containerName != ''">
+				and container_name = #{containerName}
+            </if>
+			<if test="containerStartdate != null and containerStartdate != ''">
+				and container_startdate = #{containerStartdate}
+            </if>
+			<if test="containerLastdays != null and containerLastdays != ''">
+				and container_lastdays = #{containerLastdays}
+            </if>
+			<if test="containerMoto != null and containerMoto != ''">
+				and container_moto = #{containerMoto}
+            </if>
+			<if test="containerPicpaths != null and containerPicpaths != ''">
+				and container_picpaths = #{containerPicpaths}
+            </if>
+			<if test="containerProductkey != null and containerProductkey != ''">
+				and container_productkey = #{containerProductkey}
+            </if>
+			<if test="containerType != null and containerType != ''">
+				and container_type = #{containerType}
+            </if>
+		</where>
+    </select>
+
+	<insert id="insert" parameterType="org.visitor.appportal.visitor.domain.Container">
+		insert 
+		into
+		   container
+		   (    container_id , container_name , container_startdate , container_lastdays ,    container_moto , container_picpaths , container_productkey ,    container_type )    
+		values
+		   (    #{containerId} , #{containerName} , #{containerStartdate} , #{containerLastdays}    , #{containerMoto} , #{containerPicpaths} , #{containerProductkey}    , #{containerType} )
+    </insert>
+
+	<update id="update" parameterType="org.visitor.appportal.visitor.domain.Container">
+		update
+		   container 
+		set
+		   container_moto =    #{containerMoto} ,
+		   container_picpaths = #{containerPicpaths} ,
+		   container_productkey = #{containerProductkey} 
+		where
+		   container_id = #{containerId} 
+    </update>
+
+	<delete id="delete" parameterType="org.visitor.appportal.visitor.domain.Container">
+		delete from container 
+		where container_id = #{containerId} and container_name = #{containerName}        
+    </delete>
+</mapper> 

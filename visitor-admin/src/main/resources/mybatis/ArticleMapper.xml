@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.visitor.apportal.web.repository.config.ArticleMybatisDao">
+
+	<select id="findById" resultType="org.visitor.appportal.visitor.domain.Article">
+		select
+		   article_id as articleId ,
+		   article_name as articleName ,
+		   article_desc as articleDesc ,
+		   article_content as articleContent     
+		from
+		   article    
+		where
+		   article_id =    #{articleId} 
+		   and article_name = #{articleName}    
+    </select>
+    
+    <select id="findArticleById" resultType="org.visitor.appportal.visitor.domain.Article">
+    	select
+		   article_id as articleId ,
+		   article_name as articleName ,
+		   article_desc as articleDesc ,
+		   article_content as articleContent     
+		from
+		   article    
+		where
+		   article_id = #{articleId} 
+    </select>
+
+	<select id="findAll" resultType="org.visitor.appportal.visitor.domain.Article">
+		select
+		   article_id articleId,
+		   article_name articleName    ,
+		   article_desc articleDesc,
+		   article_content    articleContent 
+		from
+		   article    
+		order by
+		   article_id desc ,
+		   article_name desc
+	</select>
+
+	<select id="find" parameterType="map"
+		resultType="org.visitor.appportal.visitor.domain.Article">
+		select
+		   article_id articleId,
+		   article_name articleName,
+		   article_desc    articleDesc,
+		   article_content articleContent 
+		from
+		   article
+		<where>
+		    1 = 1
+			<if test="articleId != null and articleId != ''">
+				and article_id = #{articleId}
+            </if>
+			<if test="articleName != null and articleName != ''">
+				and article_name = #{articleName}
+            </if>
+			<if test="articleDesc != null and articleDesc != ''">
+				and article_desc = #{articleDesc}
+            </if>
+			<if test="articleContent != null and articleContent != ''">
+				and article_content = #{articleContent}
+            </if>
+		</where>
+	</select>
+
+	<select id="findTotalNum" parameterType="org.visitor.appportal.visitor.domain.Article"
+		resultType="int">
+		select count(1) from article
+		<where>
+		    1 = 1
+			<if test="articleId != null and articleId != ''">
+				and article_id = #{articleId}
+            </if>
+			<if test="articleName != null and articleName != ''">
+				and article_name = #{articleName}
+            </if>
+			<if test="articleDesc != null and articleDesc != ''">
+				and article_desc = #{articleDesc}
+            </if>
+			<if test="articleContent != null and articleContent != ''">
+				and article_content = #{articleContent}
+            </if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="org.visitor.appportal.visitor.domain.Article">
+		insert 
+		into
+		   article
+		   (    article_id , article_name , article_desc , article_content )    
+		values
+		   (    #{articleId} , #{articleName} , #{articleDesc} , #{articleContent}    )
+    </insert>
+
+	<update id="update" parameterType="org.visitor.appportal.visitor.domain.Article">
+	update
+	   article 
+	set
+	   article_desc =    #{articleDesc} ,
+	   article_content =    #{articleContent} 
+	where
+	   article_id    = #{articleId} 
+	   and article_name =    #{articleName}
+    </update>
+
+	<delete id="delete" parameterType="org.visitor.appportal.visitor.domain.Article">
+	delete 
+	from
+	   article 
+	where
+	   article_id = #{articleId} 
+	   and article_name =    #{articleName} 
+    </delete>
+</mapper> 
