@@ -1,8 +1,8 @@
 package org.visitor.apportal.web.util;
 
-
 /**
  * web系统中常量
+ * 
  * @author yong.cao
  * @create-time 2013-9-22
  * @revision 1.0.0
@@ -10,8 +10,7 @@ package org.visitor.apportal.web.util;
  */
 public class Const {
 
-    //分页记录条数
-    public static final int PAGE_SIZE = 10;
+	// 分页记录条数
+	public static final int PAGE_SIZE = 50;
 
-    
 }

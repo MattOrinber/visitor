@@ -18,9 +18,9 @@
 					<c:if test="${menu.parentId eq 1 }">
 						<li class="">
 						<a href="javascript:;">
-						<i class="fa fa-home"></i> 
-						<span class="title">${menu.name}</span>
-						<span class="arrow "></span>
+							<i class="fa"></i> 
+							<span class="title">${menu.name}</span>
+							<span class="arrow "></span>
 						</a>
 						<ul class="sub-menu">
 							<c:forEach items="${menuList}" var="menuChild">

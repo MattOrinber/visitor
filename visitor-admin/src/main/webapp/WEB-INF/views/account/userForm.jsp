@@ -50,10 +50,17 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="name" class="col-sm-2 control-label">用户名<span class="required">*</span>:</label>
+				<label for="first_name" class="col-sm-2 control-label">first name<span class="required">*</span>:</label>
 				<div class="col-sm-10">
-					<form:input path="name" id="name" cssClass="form-control required"/>
-					<form:errors path="name" cssClass="error" />
+					<form:input path="first_name" id="first_name" cssClass="form-control required"/>
+					<form:errors path="first_name" cssClass="error" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="last_name" class="col-sm-2 control-label">last name<span class="required">*</span>:</label>
+				<div class="col-sm-10">
+					<form:input path="last_name" id="last_name" cssClass="form-control required"/>
+					<form:errors path="last_name" cssClass="error" />
 				</div>
 			</div>
 			<div class="form-group">

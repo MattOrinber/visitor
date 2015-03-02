@@ -53,8 +53,11 @@
 			<if test="loginName != null and loginName != ''">
 				login_name like '%${loginName}%'
 			</if>
-			<if test="name != null and name != ''">
-				and name like '%${name}%'
+			<if test="first_name != null and first_name != ''">
+				and first_name like '%${first_name}%'
+			</if>
+			<if test="last_name != null and last_name != ''">
+				and last_name like '%${last_name}%'
 			</if>
 		</where>
 	</select>
@@ -66,8 +69,11 @@
 			<if test="loginName != null and loginName != ''">
 				login_name like '%${loginName}%'
 			</if>
-			<if test="name != null and name != ''">
-				and name like '%${name}%'
+			<if test="first_name != null and first_name != ''">
+				and first_name like '%${first_name}%'
+			</if>
+			<if test="last_name != null and last_name != ''">
+				and last_name like '%${last_name}%'
 			</if>
 		</where>
 	</select>
@@ -93,6 +99,7 @@
 		update web_user 
 		set first_name = #{first_name},
 		last_name = #{last_name}, 
+		login_name = #{loginName},
 		email = #{email}, status =
 		#{status}, staff_No= #{staffNo}, phone = #{phone}, mobile = #{mobile}
 		<if test="plainPassword != null">

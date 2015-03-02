@@ -48,7 +48,7 @@
 	<div class="content">
 		<!-- BEGIN LOGIN FORM -->
 		<form id="loginForm" action="${ctx}/login" method="post" class="form-horizontal login-form">
-			<h2 class="form-title">XWEB展示系统</h2>
+			<h2 class="form-title">后台展示系统</h2>
 			<%
 			    String error = (String) request
 			            .getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
@@ -89,17 +89,12 @@
 				登录 <i class="m-icon-swapright m-icon-white"></i>
 				</button>            
 			</div>
-			<div >
-				<br/>
-				<p>(管理员: <b>admin/admin</b>, 普通用户: <b>user/user</b>)</p>
-			</div>
 		</form>
 		<!-- END LOGIN FORM -->        
 	</div>
 	<!-- END LOGIN -->
 	<!-- BEGIN COPYRIGHT -->
 	<div class="copyright">
-		人人网&copy; Company 2013 <a target="_blank"	href="http://www.miibeian.gov.cn/">京ICP证090254号</a>
 	</div>
 	<!-- END COPYRIGHT -->
 	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->

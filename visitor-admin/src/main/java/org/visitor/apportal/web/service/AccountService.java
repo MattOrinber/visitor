@@ -105,7 +105,7 @@ public class AccountService {
      */
     private String getCurrentUserName() {
         ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-        return user.loginName;
+        return user.getLoginName();
     }
 
     /**

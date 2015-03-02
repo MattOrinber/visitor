@@ -18,6 +18,7 @@ var Menu = (function () {
             handleMenuInit();
         },
         click: function (id, url) {
+        	handleMenuInit();
             handleMenuClick(id, url);
         }
     }

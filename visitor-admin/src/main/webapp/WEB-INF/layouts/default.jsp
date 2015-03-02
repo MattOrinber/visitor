@@ -13,7 +13,7 @@
 <!-- BEGIN HEAD -->
 <head>
 	<meta charset="utf-8" />
-	<title>XWEB展示系统-<sitemesh:title/></title>
+	<title>day.me后台系统-<sitemesh:title/></title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 	<meta content="" name="description" />
@@ -49,7 +49,7 @@
 	<script src="${ctx}/static/bootstrap-metronic/template_content/assets/plugins/excanvas.min.js"></script> 
 	<![endif]-->   
 	<script src="${ctx}/static/bootstrap-metronic/template_content/assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
-	<script src="${ctx}/static/bootstrap-metronic/template_content/assets/plugins/jquery-migrate-1.0-SNAPSHOT.1.min.js" type="text/javascript"></script>   
+	<script src="${ctx}/static/bootstrap-metronic/template_content/assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>   
 	<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
 	<script src="${ctx}/static/bootstrap-metronic/template_content/assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
 	<script src="${ctx}/static/bootstrap-metronic/template_content/assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>

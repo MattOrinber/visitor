@@ -176,7 +176,7 @@ public class UserController {
 
         accountService.saveProfile(user);
 
-        updateUserName(user.getName());
+        updateUserName(user.getFirst_name(), user.getLast_name());
         redirectAttributes.addFlashAttribute("message", "修改用户信息成功");
 
         return "redirect:/account/user/profile";
@@ -185,9 +185,10 @@ public class UserController {
     /**
      * 更新Shiro中当前用户的用户名.
      */
-    private void updateUserName(String userName) {
+    private void updateUserName(String first_name, String last_name) {
         ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-        user.name = userName;
+        user.setFirst_name(first_name);
+        user.setLast_name(last_name);
     }
 
     /**

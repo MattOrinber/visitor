@@ -18,8 +18,11 @@
 		 		<label for="search_loginName">登录名：</label> <input type="text" id="search_loginName" name="search_loginName" class="form-control" style="width: 150px;" value="${param.search_loginName}" placeholder="登录名" />
 		 	</div> 
 		 	<div class="form-group">
-		    	<label for="search_name">姓名：</label> <input type="text" id="search_name" name="search_name" class="form-control" style="width: 150px;" value="${param.search_name}" placeholder="姓名" />
+		    	<label for="search_first_name">first_name：</label> <input type="text" id="search_first_name" name="search_first_name" class="form-control" style="width: 150px;" value="${param.search_first_name}" placeholder="first_name" />
 		    </div>
+		   	<div class="form-group">
+		    	<label for="search_last_name">last_name：</label> <input type="text" id="search_last_name" name="search_last_name" class="form-control" style="width: 150px;" value="${param.search_last_name}" placeholder="last_name" />
+		  	</div>
 		    <button type="submit" class="btn btn-default pull-right" id="search_btn">查询</button>
 	    </form>
 	</div>	
@@ -45,7 +48,7 @@
 			<c:forEach items="${users.content}" var="user">
 				<tr>
 					<td><shiro:hasRole name="admin"><a href="${ctx}/account/user/update/${user.id}">${user.loginName}</a>&nbsp;</shiro:hasRole></td>
-					<td>${user.name}&nbsp;</td>
+					<td>${user.first_name}&nbsp;${user.last_name}</td>
 					<td>${user.email}&nbsp;</td>
 					<td>${user.roleNames}&nbsp;</td>
 					<td>${allStatus[user.status]}&nbsp;</td>

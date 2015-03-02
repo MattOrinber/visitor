@@ -25,9 +25,15 @@
 		<fieldset>
 			<legend><small>资料修改</small></legend>
 			<div class="form-group">
-				<label for="name" class="col-sm-2 control-label">用户名:</label>
+				<label for="first_name" class="col-sm-2 control-label">first name<span class="required">*</span>:</label>
 				<div class="col-sm-10">
-					<input type="text" id="name" name="name" value="${user.name}" class="form-control required" minlength="3"/>
+					<input type="text" id="first_name" name="first_name" value="${user.first_name}" class="form-control required" minlength="3"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="last_name" class="col-sm-2 control-label">last name<span class="required">*</span>:</label>
+				<div class="col-sm-10">
+					<input type="text" id="last_name" name="last_name" value="${user.last_name}" class="form-control required" minlength="3"/>
 				</div>
 			</div>
 			<div class="form-group">

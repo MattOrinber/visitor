@@ -76,7 +76,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
             session.setAttribute("menuList", menus);
 
             byte[] salt = Encodes.decodeHex(user.getSalt());
-            return new SimpleAuthenticationInfo(new ShiroUser(user.getId(), user.getLoginName(), user.getName()),
+            return new SimpleAuthenticationInfo(new ShiroUser(user.getId(), user.getLoginName(), user.getFirst_name(), user.getLast_name()),
                     user.getPassword(), ByteSource.Util.bytes(salt), getName());
         } else {
             return null;
@@ -89,7 +89,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
-        User user = accountService.findUserByLoginName(shiroUser.loginName);
+        User user = accountService.findUserByLoginName(shiroUser.getLoginName());
         List<Role> userRoles = accountService.getRoleByUserID(user.getId());//用户ID对应的角色列表信息
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
