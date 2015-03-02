@@ -6,7 +6,6 @@
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>visitor-admin</name>
-	<url>https://github.com/cywhfe</url>
 
 	<properties>
 		<!-- 主要依赖库的版本定义 -->
@@ -77,6 +76,19 @@
 
 	<!-- 依赖项定义 -->
 	<dependencies>
+		<!-- VISITOR CORE -->
+		<dependency>
+		  	<groupId>org.visitor.site</groupId>
+		  	<artifactId>visitor-core</artifactId>
+		  	<version>1.0.0-SNAPSHOT</version>
+		  	<exclusions>
+		  		<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+		  	</exclusions>
+		</dependency>
+	
 		<!-- SPRINGSIDE -->
 		<dependency>
 			<groupId>org.springside</groupId>
