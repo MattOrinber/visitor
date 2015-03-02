@@ -289,7 +289,7 @@
 			<groupId>org.springside</groupId>
 			<artifactId>springside-test</artifactId>
 			<version>${springside.version}</version>
-			<scope>test</scope>
+			<scope>system</scope>
             <systemPath>${project.basedir}/lib/springside-test-4.0.0.GA.jar</systemPath>
 		</dependency>
 
