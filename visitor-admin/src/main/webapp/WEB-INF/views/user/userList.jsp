@@ -61,18 +61,35 @@
                 <tr>
                     <tr>
                     <td><a href="${ctx}/customer/update/${user.userId}">${user.userEmail}</a></td>
-                    <td>${user.userType}</td>
+                    <td>
+                    	<c:choose>
+	                    	<c:when test="${user.userType == 0}">Normal User</c:when>
+	                    	<c:when test="${user.userType == 1}">Facebook User</c:when>
+	                    	<c:otherwise>Unknown User</c:otherwise>
+	                    </c:choose>
+                    </td>
                     <td>${user.userFirstName}</td>
                     <td>${user.userLastName}</td>
-                    <td>${user.userGender}</td>
+                    <td>
+                    	 <c:choose>
+	                    	<c:when test="${user.userGender == 0}">male</c:when>
+	                    	<c:when test="${user.userGender == 1}">female</c:when>
+	                    	<c:otherwise>未填写</c:otherwise>
+	                    </c:choose>
+                    </td>
                     <td><fmt:formatDate value="${user.userBirthdate}" pattern="yyyy-MM-dd" /></td>
                     <td>${user.userPhonenum}</td>
                     <td><fmt:formatDate value="${user.userRegisterDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                     <td><fmt:formatDate value="${user.userLastLoginTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                    <td>${user.userStatus}</td>
                     <td>
-                    	<c:if test="${user.userStatus == '0' }"><a href="${ctx}/user/enable/${user.userId}">启用</a></c:if>
-                    	<c:if test="${user.userStatus != '0' }"><a href="${ctx}/user/disable/${user.userId}">禁用</a></c:if>
+	                    <c:choose>
+	                    	<c:when test="${user.userStatus == 0}">有效</c:when>
+	                    	<c:when test="${user.userStatus == 1}">无效</c:when>
+	                    </c:choose>
+                    </td>
+                    <td>
+                    	<c:if test="${user.userStatus == '0' }"><a href="${ctx}/customer/enable/${user.userId}">禁用</a></c:if>
+                    	<c:if test="${user.userStatus != '0' }"><a href="${ctx}/customer/disable/${user.userId}">启用</a></c:if>
                     </td>
                 </tr>
             </c:forEach>

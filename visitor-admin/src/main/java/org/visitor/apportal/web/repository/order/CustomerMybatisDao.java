@@ -15,7 +15,7 @@ public interface CustomerMybatisDao {
 	List<User> findAll();
 
 	List<User> find(Map<String, Object> parameters, RowBounds bounds);
-	
+
 	int findTotalNum(Map<String, Object> parameters);
 
 	void insert(User user);
@@ -23,4 +23,8 @@ public interface CustomerMybatisDao {
 	void update(User user);
 
 	void delete(Long user_id);
+
+	void enable(Long user_id);
+
+	void disable(Long user_id);
 }

@@ -53,30 +53,45 @@
 		from product_order po, product p, user u1, user u2
 		where po.order_product_id = p.product_id and p.product_publish_user_id = u1.user_id and po.order_user_email = u2.user_email
 		<if test="sellerName != null and sellerName != ''">
-			and u.user_firstname like concat('%',#{sellerName},'%')
+			and concat(u1.user_firstname, ' ', u1.user_lastname) like concat('%',#{sellerName},'%')
 		</if>
 		<if test="customerName != null and customerName != ''">
-			and customerName like concat('%',#{customerName},'%')
+			and concat(u2.user_firstname, ' ', u2.user_lastname) like concat('%',#{customerName},'%')
 		</if>
 		<if test="orderStatus > 0">
 			and orderStatus = #{orderStatus}
+		</if>
+		<if test="beginDate != null and beginDate != ''">
+			and order_create_date >= #{beginDate}
+		</if>
+		<if test="endDate != null and endDate != ''">
+			<![CDATA[
+			and order_create_date <= #{endDate}
+			]]>
 		</if>
 		order by orderId desc
 	</select>
  
-	<select id="findTotalNum" parameterType="OrderVO" resultType="int">
+	<select id="findTotalNum" parameterType="map" resultType="int">
 		select count(1)
-		from product_order po, product p, user u
-		where po.order_product_id =
-		p.product_id and p.product_publish_user_id = u.user_id
+		from product_order po, product p, user u1, user u2
+		where po.order_product_id = p.product_id and p.product_publish_user_id = u1.user_id and po.order_user_email = u2.user_email	
 		<if test="sellerName != null and sellerName != ''">
-			and u.user_firstname like sellerNamePattern
+			and concat(u1.user_firstname, ' ', u1.user_lastname) like concat('%',#{sellerName},'%')
 		</if>
 		<if test="customerName != null and customerName != ''">
-			and customerName like customerNamePattern
+			and concat(u2.user_firstname, ' ', u2.user_lastname) like concat('%',#{customerName},'%')
 		</if>
 		<if test="orderStatus > 0">
 			and orderStatus = #{orderStatus}
+		</if>
+		<if test="beginDate != null and beginDate != ''">
+			and order_create_date >= #{beginDate}
+		</if>
+		<if test="endDate != null and endDate != ''">
+			<![CDATA[
+			and order_create_date <= #{endDate}
+			]]>
 		</if>
 	</select>
 	<!-- <if test="sellerName != null and sellerName != ''">

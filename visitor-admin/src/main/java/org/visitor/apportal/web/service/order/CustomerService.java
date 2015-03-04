@@ -106,4 +106,20 @@ public class CustomerService {
 		customerDao.delete(user_id);
 	}
 
+	/**
+	 * 启用用户
+	 * @param user_id
+	 */
+	public void enable(Long user_id) {
+		customerDao.enable(user_id);
+	}
+
+	/**
+	 * 禁用用户
+	 * @param user_id
+	 */
+	public void disable(Long user_id) {
+		customerDao.disable(user_id);
+	}
+
 }

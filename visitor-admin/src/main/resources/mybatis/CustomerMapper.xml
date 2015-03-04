@@ -251,23 +251,56 @@
 	<update id="update" parameterType="org.visitor.appportal.visitor.domain.User">
 		update
 		   user 
-		set
-		   user_type = #{userType} ,
-		   user_firstname = #{userFirstName}    ,
-		   user_lastname =    #{userLastName} ,
-		   user_gender = #{userGender} ,
-		   user_birthdate =    #{userBirthdate} ,
-		   user_phonenum = #{userPhonenum}    ,
-		   user_address =    #{userAddress} ,
-		   user_school = #{userSchool} ,
-		   user_work =    #{userWork} ,
-		   user_timezone = #{userTimeZone} ,
-		   user_language =    #{userLanguage} ,
-		   user_emergency = #{userEmergency}    ,
-		   user_photourl =    #{userPhotourl} ,
-		   user_status =    #{userStatus} ,
-		   user_paypalnum = #{userPaypalnum} ,
-		   user_detail =    #{userDetail} 
+		<set>
+			<if test="userType != null and userType != ''">
+		   	user_type = #{userType} ,
+		   	</if>
+		   	<if test="userFirstName != null and userFirstName != ''">
+		   	user_firstname = #{userFirstName}    ,
+		   	</if>
+		   	<if test="userLastName != null and userLastName != ''">
+		   	user_lastname =    #{userLastName} ,
+		   	</if>
+		   	<if test="userGender != null and userGender != ''">
+		   	user_gender = #{userGender} ,
+		   	</if>
+		   	<if test="userBirthdate != null and userBirthdate != ''">
+		   	user_birthdate =    #{userBirthdate} ,
+		   	</if>
+		   	<if test="userPhonenum != null and userPhonenum != ''">
+		   	user_phonenum = #{userPhonenum}    ,
+		   	</if>
+		   	<if test="userAddress != null and userAddress != ''">
+		   	user_address =    #{userAddress} ,
+		   	</if>
+		   	<if test="userSchool != null and userSchool != ''">
+		   	user_school = #{userSchool} ,
+		   	</if>
+		   	<if test="userWork != null and userWork != ''">
+		   	user_work =    #{userWork} ,
+		   	</if>
+		   	<if test="userTimeZone != null and userTimeZone != ''">
+		   	user_timezone = #{userTimeZone} ,
+		   	</if>
+		   	<if test="userLanguage != null and userLanguage != ''">
+		   	user_language =    #{userLanguage} ,
+		   	</if>
+		   	<if test="userEmergency != null and userEmergency != ''">
+		   	user_emergency = #{userEmergency}    ,
+		   	</if>
+		   	<if test="userPhotourl != nul and userPhotourl != ''">
+		   	user_photourl =    #{userPhotourl} ,
+		   	</if>
+		   	<if test="userStatus != null and userStatus != ''">
+		   	user_status =    #{userStatus} ,
+		   	</if>
+		   	<if test="userPaypalnum != null and userPaypalnum != ''">
+		   	user_paypalnum = #{userPaypalnum} ,
+		   	</if>
+		   	<if test="userDetail != null and userDetail != ''">
+		   	user_detail =    #{userDetail} 
+		   	</if>
+		</set>   
 		where
 		   user_id = #{userId}       
     </update>
@@ -275,4 +308,17 @@
 	<delete id="delete" parameterType="org.visitor.appportal.visitor.domain.User">
 		delete from user where user_id = #{userId}        
     </delete>
+    
+    <update id="enable">
+    	update user
+    	set user_status = 0
+    	where user_id = #{userId}
+    </update>
+    
+    <update id="disable">
+    	update user
+    	set user_status = 1
+    	where user_id = #{userId}
+    </update>
+    
 </mapper> 

@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.ServletRequest;
 import javax.validation.Valid;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -71,6 +72,7 @@ public class CustomerController {
 		return "user/userForm";
 	}
 
+	@RequiresRoles("admin")
 	@RequestMapping(value = "create", method = RequestMethod.POST)
 	public String create(@Valid User newUser,
 			RedirectAttributes redirectAttributes) {
@@ -91,6 +93,8 @@ public class CustomerController {
 		model.addAttribute("action", "update");
 		return "user/userForm";
 	}
+	
+	@RequiresRoles("admin")
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String update(@Valid @ModelAttribute("preloadUser") User user,
 			RedirectAttributes redirectAttributes) {
@@ -99,14 +103,31 @@ public class CustomerController {
 		return "redirect:/customer/";
 	}
 
+	@RequiresRoles("admin")
 	@RequestMapping(value = "delete/{user_id}")
 	public String delete(@PathVariable("user_id") Long user_id,
 			RedirectAttributes redirectAttributes) {
 		service.deleteUser(user_id);
 		redirectAttributes.addFlashAttribute("message", "删除成功");
-		return "redirect:/user";
+		return "redirect:/customer";
 	}
-
+	
+	@RequiresRoles("admin")
+	@RequestMapping(value = "enable/{user_id}")
+	public String enable(@PathVariable("user_id") Long user_id, RedirectAttributes redirectAttributes){
+		service.enable(user_id);
+		redirectAttributes.addFlashAttribute("message", "启用用户成功");
+		return "redirect:/customer";
+	}
+	
+	@RequiresRoles("admin")
+	@RequestMapping(value = "disable/{user_id}")
+	public String disable(@PathVariable("user_id") Long user_id, RedirectAttributes redirectAttributes){
+		service.disable(user_id);
+		redirectAttributes.addFlashAttribute("message", "禁用用户成功");
+		return "redirect:/customer";
+	}
+	
 	@ModelAttribute("preloadUser")
 	public User getUser(
 			@RequestParam(value = "userId", required = false) Long userId) {

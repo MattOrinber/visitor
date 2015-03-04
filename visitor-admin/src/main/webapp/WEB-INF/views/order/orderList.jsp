@@ -31,9 +31,10 @@
 			</div>
 			<div class="form-group">
 				<label for="beginDate">日期范围：&nbsp;</label>
-				<input id="beginDate" name="beginDate" type="text" readonly="readonly" maxlength="20" class="form-control input Wdate" style="width: 200px; cursor: auto;" value="${beginDate}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});" placeholder="日期"/>
+				<input id="beginDate" name="search_beginDate" type="text" readonly="readonly" maxlength="20" class="form-control input Wdate" style="width: 150px; cursor: auto;" value="${param.search_beginDate}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});" placeholder="开始日期"/>-
+				<input id="endDate" name="search_endDate" type="text" readonly="readonly" maxlength="20" class="form-control input Wdate" style="width: 150px; cursor: auto;" value="${param.search_endDate}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});" placeholder="结束日期"/>
 			</div>
-			<button type="button" class="btn btn-default pull-right" onclick="submitSearch();">查询</button>
+			<button type="submit" class="btn btn-default pull-right">查询</button>
 		</form>
 	</div>
     <p/>
@@ -60,8 +61,8 @@
 				<tr>
 					<td width="10%"><a href="${ctx}/order/update/${order.orderId}">${order.orderId}</a></td>
 					<td width="20%">${order.orderStartDate}<fmt:formatDate value="${order.orderCreateDate}" pattern="yyyy-MM-dd hh:mm:ss" /></td>
-					<td width="20%"><a href="${ctx}/user/${order.sellerId}">${order.sellerName}</a></td>
-					<td width="20%"><a href="${ctx}/user/${order.customerId}">${order.customerName}</a></td>
+					<td width="20%"><a href="${ctx}/customer/update/${order.sellerId}">${order.sellerName}</a></td>
+					<td width="20%"><a href="${ctx}/customer/update/${order.customerId}">${order.customerName}</a></td>
 					<td width="10%"><a href="${ctx}/order/update/${order.status}">${order.status}</a></td>
 					<td width="20%"><fmt:formatNumber value="${order.orderTotalAmount}" pattern="#,###.00#"/> ${order.orderCurrency}</td>
 				</tr>
