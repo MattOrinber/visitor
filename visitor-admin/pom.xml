@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>visitor-site</artifactId>
+		<groupId>org.visitor.site</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
 	<groupId>org.visitor.apportal</groupId>
 	<artifactId>web</artifactId>
 	<version>1.0-SNAPSHOT</version>
@@ -71,26 +76,24 @@
 	<dependencies>
 		<!-- VISITOR CORE -->
 		<dependency>
-		  	<groupId>org.visitor.site</groupId>
-		  	<artifactId>visitor-core</artifactId>
-		  	<version>1.0.0-SNAPSHOT</version>
-		  	<exclusions>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>visitor-core</artifactId>
+            <version>${project.parent.version}</version>
+            <exclusions>
 		  		<exclusion>
 					<groupId>commons-logging</groupId>
 					<artifactId>commons-logging</artifactId>
 				</exclusion>
 		  	</exclusions>
-		  	<scope>system</scope>
-			<systemPath>${project.basedir}/lib/visitor-core-1.0.0-SNAPSHOT.jar</systemPath>
-		</dependency>
+        </dependency> 
 	
 		<!-- SPRINGSIDE -->
 		<dependency>
 			<groupId>org.springside</groupId>
 			<artifactId>springside-core</artifactId>
 			<version>${springside.version}</version>
-			<scope>system</scope>
-            <systemPath>${project.basedir}/lib/springside-core-4.0.0.GA.jar</systemPath>
+			<!-- <scope>system</scope>
+            <systemPath>${project.basedir}/lib/springside-core-4.0.0.GA.jar</systemPath> -->
 		</dependency>
 
 		<!-- AOP begin -->
@@ -289,8 +292,8 @@
 			<groupId>org.springside</groupId>
 			<artifactId>springside-test</artifactId>
 			<version>${springside.version}</version>
-			<scope>system</scope>
-            <systemPath>${project.basedir}/lib/springside-test-4.0.0.GA.jar</systemPath>
+			<!-- <scope>system</scope>
+            <systemPath>${project.basedir}/lib/springside-test-4.0.0.GA.jar</systemPath> -->
 		</dependency>
 
 		<dependency>
