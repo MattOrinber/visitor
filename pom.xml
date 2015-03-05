@@ -22,10 +22,11 @@
     </properties>
 
     <modules>
-        <module>visitor-core</module>
+        <module>visitor-admin</module>
+	    <module>visitor-core</module>
         <module>visitor-main</module>
         <module>visitor-search</module>
-		<module>visitor-front</module>
+	    <module>visitor-front</module>
     </modules>
 
     <build>
